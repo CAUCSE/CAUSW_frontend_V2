@@ -290,4 +290,31 @@ declare namespace User {
       totalPages: number;
     };
   }
+
+  //Store
+  export interface UseUserStore {
+    id: string;
+    email: string;
+    name: string;
+    admissionYear: number;
+    role: User.UserDto["role"];
+    profileImage: string | null;
+    studentId?: string;
+    circleIds?: string[];
+    circleNames?: string[];
+    state: User.UserDto["state"];
+
+    setUserStore: (props: User.UserDto) => void;
+
+    roleTxt: () => string;
+    nameWithAdmission: () => string;
+    profileImageSrc: () => string;
+    isStudent: () => boolean;
+    isProfessor: () => boolean;
+    isVicePresidents: () => boolean;
+    isCircleLeader: () => boolean;
+    isCouncil: () => boolean;
+    isStudentLeader: () => boolean;
+    isAlumniLeader: () => boolean;
+  }
 }
