@@ -1,2 +1,2 @@
-export { VideoBackground } from "./VideoBackground";
-export { ImageBackground } from "./ImageBackgound";
+export { VideoBackground } from "./background/VideoBackground";
+export { ImageBackground } from "./background/ImageBackground";
