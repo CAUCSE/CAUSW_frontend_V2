@@ -1,7 +1,5 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-import { API } from "@/shared";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const response = (await API.post(
+      const response = (await axios.post(
         `/api/v1/users/sign-in`,
         req.body
       )) as AxiosResponse<{
