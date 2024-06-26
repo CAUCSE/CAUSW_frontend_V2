@@ -2,13 +2,7 @@
 
 import { AxiosResponse } from "axios";
 
-import {
-  useUserStore,
-  API,
-  setAccess,
-  storeRefresh,
-  useFetchData,
-} from "@/shared";
+import { useUserStore, API, setAccess, storeRefresh } from "@/shared";
 
 export const AuthService = () => {
   const URI = "/api/v1/users";

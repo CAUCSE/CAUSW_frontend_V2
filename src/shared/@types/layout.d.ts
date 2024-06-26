@@ -1,10 +1,10 @@
 declare namespace Layout {
+  //Basic
+  type WindowWidthState = "MOBILE" | "HALF" | "FULL";
+
   //Store
   export interface UseLayoutStore {
-    windowWidth: number;
-    setWindowWidth: (width: number) => void;
-    isMobileScreen: () => boolean;
-    isHalfScreen: () => boolean;
-    isFullScreen: () => boolean;
+    windowWidthState: WindowWidthState;
+    setWindowWidthState: (windowWidthState: WindowWidthState) => void;
   }
 }
