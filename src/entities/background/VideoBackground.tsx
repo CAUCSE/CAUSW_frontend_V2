@@ -38,5 +38,5 @@ const Video = styled.video`
   height: 100%;
 
   object-fit: cover;
-  filter: brightness(0.4);
+  filter: brightness(0.2);
 `;

@@ -4,7 +4,7 @@ import { VideoBackground, ImageBackground } from "@/entities";
 import { useFetchData } from "@/shared";
 
 const SignInPage = () => {
-  const { data, error, loading } = useFetchData("/api/users/signIn");
+  //const { data, error, loading } = useFetchData("/api/users/signIn");
 
   return (
     <>
