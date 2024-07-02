@@ -5,4 +5,4 @@ export const media = Object.fromEntries(
     key,
     `@media (max-width: ${value}px)`,
   ])
-);
+) as { sm: string; md: string; lg: string; xl: string };
