@@ -1,36 +1,35 @@
 "use client";
 
 import { useEffect } from "react";
-import { useLayoutStore } from "@/shared";
-
-const HALFSCREEN = 1200;
-const MOBILESCREEN = 600;
+import { useLayoutStore, breakpoint } from "@/shared";
 
 export const WindowSizeListener = () => {
-  const setWindowWidthState = useLayoutStore(
-    (state) => state.setWindowWidthState
-  );
+  const setBreakpoint = useLayoutStore((state) => state.setBreakpoint);
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidthState(
-        window.innerWidth < MOBILESCREEN
-          ? "MOBILE"
-          : window.innerWidth < HALFSCREEN
-          ? "HALF"
-          : "FULL"
+      setBreakpoint(
+        window.innerWidth < breakpoint.sm
+          ? "sm"
+          : window.innerWidth < breakpoint.md
+          ? "md"
+          : window.innerWidth < breakpoint.lg
+          ? "lg"
+          : "xl"
       );
     };
 
     window.addEventListener("resize", handleResize);
 
     //Initial settings
-    setWindowWidthState(
-      window.innerWidth < MOBILESCREEN
-        ? "MOBILE"
-        : window.innerWidth < HALFSCREEN
-        ? "HALF"
-        : "FULL"
+    setBreakpoint(
+      window.innerWidth < breakpoint.sm
+        ? "sm"
+        : window.innerWidth < breakpoint.md
+        ? "md"
+        : window.innerWidth < breakpoint.lg
+        ? "lg"
+        : "xl"
     );
 
     return () => {

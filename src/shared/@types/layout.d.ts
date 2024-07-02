@@ -1,10 +1,13 @@
 declare namespace Layout {
   //Basic
-  type WindowWidthState = "MOBILE" | "HALF" | "FULL";
+  type BreackPoint = "sm" | "md" | "lg" | "xl";
 
   //Store
   export interface UseLayoutStore {
-    windowWidthState: WindowWidthState;
-    setWindowWidthState: (windowWidthState: WindowWidthState) => void;
+    sm: boolean;
+    md: boolean;
+    lg: boolean;
+    xl: boolean;
+    setBreakpoint: (breakpoint: BreackPoint) => void;
   }
 }
