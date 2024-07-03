@@ -1,42 +1,16 @@
-"use client";
-
-import styled from "@emotion/styled";
-
 export const VideoBackground = ({ src }: { src: string }) => (
-  <Wrapper>
-    <IntroVideo>
-      <Video muted autoPlay loop>
+  <div className="w-full h-screen fixed top-0 left-0 overflow-y-hidden z-[-1]">
+    <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <video
+        className="w-full h-full object-cover"
+        style={{ filter: "brightness(0.3)" }}
+        autoPlay
+        loop
+        muted
+      >
         <source src={src} type="video/mp4" />
-      </Video>
-    </IntroVideo>
-  </Wrapper>
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
 );
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-
-  position: fixed;
-  top: 0px;
-  left: 0px;
-
-  overflow-y: hidden;
-  z-index: -1;
-`;
-
-const IntroVideo = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const Video = styled.video`
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  filter: brightness(0.2);
-`;

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import "./globals.css";
+
 import { WindowSizeListener, Loading } from "@/entities";
 
 export const metadata: Metadata = {

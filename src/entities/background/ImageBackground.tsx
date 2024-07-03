@@ -1,40 +1,14 @@
-"use client";
-
-import styled from "@emotion/styled";
+import Image from "next/image";
 
 export const ImageBackground = ({ src, alt }: { src: string; alt: string }) => (
-  <Wrapper>
-    <IntroImg>
-      <Img src={src} alt={alt} />
-    </IntroImg>
-  </Wrapper>
+  <div className="w-full h-screen fixed top-0 left-0 overflow-y-hidden z-[-1]">
+    <Image
+      src={src}
+      alt={alt}
+      width={1200}
+      height={1200}
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      style={{ filter: "brightness(0.6)" }}
+    />
+  </div>
 );
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-
-  position: fixed;
-  top: 0px;
-  left: 0px;
-
-  overflow-y: hidden;
-  z-index: -1;
-`;
-
-const IntroImg = styled.div`
-  width: 82%;
-  height: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-  filter: brightness(0.6);
-`;
