@@ -9,13 +9,13 @@ export const WindowSizeListener = () => {
   useEffect(() => {
     const handleResize = () => {
       setBreakpoint(
-        window.innerWidth < breakpoint.sm
-          ? "sm"
-          : window.innerWidth < breakpoint.md
-          ? "md"
-          : window.innerWidth < breakpoint.lg
+        window.innerWidth > breakpoint.xl
+          ? "xl"
+          : window.innerWidth > breakpoint.lg
           ? "lg"
-          : "xl"
+          : window.innerWidth > breakpoint.md
+          ? "md"
+          : "sm"
       );
     };
 
@@ -23,13 +23,13 @@ export const WindowSizeListener = () => {
 
     //Initial settings
     setBreakpoint(
-      window.innerWidth < breakpoint.sm
-        ? "sm"
-        : window.innerWidth < breakpoint.md
-        ? "md"
-        : window.innerWidth < breakpoint.lg
+      window.innerWidth > breakpoint.xl
+        ? "xl"
+        : window.innerWidth > breakpoint.lg
         ? "lg"
-        : "xl"
+        : window.innerWidth > breakpoint.md
+        ? "md"
+        : "sm"
     );
 
     return () => {
