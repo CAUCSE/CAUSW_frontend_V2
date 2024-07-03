@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { WindowSizeListener } from "@/entities";
+import { WindowSizeListener, Loading } from "@/entities";
 
 export const metadata: Metadata = {
   title: "CAUSW V2",
@@ -16,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <WindowSizeListener />
-        {children}
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
   );
