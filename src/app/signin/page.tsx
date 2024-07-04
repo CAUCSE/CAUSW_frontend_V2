@@ -7,6 +7,7 @@ const SignInPage = () => {
       <ImageBackground
         src="/images/main_logo.png"
         alt="sign in page background img"
+        darkBackground
       />
     </>
   );
