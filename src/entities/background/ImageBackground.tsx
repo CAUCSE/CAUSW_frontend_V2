@@ -21,7 +21,7 @@ export const ImageBackground = ({
     <>
       {isVideoLoaded ? null : <Loading />}
       {darkBackground ? (
-        <div className="w-full h-screen fixed top-0 left-0  bg-black opacity-80 overflow-y-hidden z-[-1]"></div>
+        <div className="w-full h-screen fixed top-0 left-0  bg-black opacity-95 overflow-y-hidden z-[-1]"></div>
       ) : null}
       <div className="w-full h-screen fixed top-0 left-0 overflow-y-hidden z-[-1]">
         <Image

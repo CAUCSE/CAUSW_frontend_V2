@@ -1,6 +1,12 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+}
 
 img {
   object-fit: cover;
