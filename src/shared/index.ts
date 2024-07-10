@@ -7,7 +7,8 @@ export {
   removeRefresh,
   getRefresh,
 } from "./configs/axios";
-export { breakpoint, media } from "./configs/layout";
+export { breakpoint } from "./configs/layout";
+export { emailRegex } from "./configs/regex";
 
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";

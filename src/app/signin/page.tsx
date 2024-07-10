@@ -1,6 +1,25 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { VideoBackground, ImageBackground } from "@/entities";
 
 const SignInPage = () => {
+  const [enterEmail, setEnterEmail] = useState<boolean>(false);
+
+  const { register, handleSubmit } = useForm<User.SignInRequestDto>({
+    defaultValues: {
+      email: "",
+      password: "",
+      auto: true,
+    },
+  });
+
+  const emailEventHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") setEnterEmail(false);
+  };
+
   return (
     <>
       <VideoBackground src="/videos/signin_background.mp4" />

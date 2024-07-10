@@ -1,4 +1,5 @@
 declare namespace User {
+  //DTO
   export interface UserDto {
     admissionYear: number;
     circleIdIfLeader: string[] | null;
