@@ -22,9 +22,9 @@ const SignInPage = () => {
 
   return (
     <>
-      <VideoBackground src="/videos/signin_background.mp4" />
+      <VideoBackground src="/videos/signin-background.mp4" />
       <ImageBackground
-        src="/images/main_logo.png"
+        src="/images/signin-logo.png"
         alt="sign in page background img"
         darkBackground
       />

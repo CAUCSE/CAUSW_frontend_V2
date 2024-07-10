@@ -4,10 +4,6 @@ module.exports = {
     autoprefixer: {},
   },
   theme: {
-    extend: {
-      colors: {
-        white: "#ffffff",
-      },
-    },
+    extend: {},
   },
 };

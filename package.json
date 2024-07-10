@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mui/icons-material": "^5.15.14",
     "@tanstack/react-query": "^5.36.0",
     "axios": "^1.6.8",
     "next": "14.2.3",
@@ -20,6 +19,8 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@iconify/json": "^2.2.226",
+    "@iconify/tailwind": "^1.1.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
