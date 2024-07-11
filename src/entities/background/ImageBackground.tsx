@@ -15,11 +15,11 @@ export const ImageBackground = ({
   alt: string;
   darkBackground?: boolean;
 }) => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
     <>
-      {isVideoLoaded ? null : <Loading />}
+      {isImageLoaded ? null : <Loading />}
       {darkBackground ? (
         <div className="w-full h-screen fixed top-0 left-0  bg-black opacity-95 overflow-y-hidden z-[-1]"></div>
       ) : null}
@@ -32,7 +32,7 @@ export const ImageBackground = ({
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           style={{ filter: "brightness(0.5)" }}
           onLoadingComplete={() => {
-            setIsVideoLoaded(true);
+            setIsImageLoaded(true);
           }}
         />
       </div>
