@@ -1,4 +1,3 @@
-export { WindowSizeListener } from "./layout/WindowSizeListener";
 export { Loading } from "./layout/Loading";
 export { NavigationBar } from "./layout/NavigationBar";
 

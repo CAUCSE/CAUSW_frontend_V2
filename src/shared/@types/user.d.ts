@@ -293,18 +293,7 @@ declare namespace User {
   }
 
   //Store
-  export interface UseUserStore {
-    id: string;
-    email: string;
-    name: string;
-    admissionYear: number;
-    role: User.UserDto["role"];
-    profileImage: string | null;
-    studentId?: string;
-    circleIds?: string[];
-    circleNames?: string[];
-    state: User.UserDto["state"];
-
+  export interface UseUserStore extends UserDto {
     setUserStore: (props: User.UserDto) => void;
 
     roleTxt: () => string;

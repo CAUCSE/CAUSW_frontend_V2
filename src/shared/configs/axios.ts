@@ -6,6 +6,7 @@ export const API = axios.create({
       ? process.env.VITE_PROD_SERVER_URL
       : process.env.VITE_PROD_SERVER_URL,
 });
+
 //Auth
 export const setAccess = (token: string): unknown =>
   (API.defaults.headers["Authorization"] = token);

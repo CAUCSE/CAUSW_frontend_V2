@@ -3,7 +3,8 @@ import { Suspense } from "react";
 
 import "./globals.css";
 
-import { WindowSizeListener, Loading, NavigationBar } from "@/entities";
+import { Loading, NavigationBar } from "@/entities";
+import { WindowSizeListener } from "@/shared";
 
 export default function RootLayout({
   children,
@@ -15,8 +16,10 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <WindowSizeListener />
-          <NavigationBar />
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Suspense fallback={<Loading />}>
+            <NavigationBar />
+            {children}
+          </Suspense>
         </body>
       </html>
     </>

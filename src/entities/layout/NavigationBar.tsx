@@ -8,7 +8,6 @@ import { Loading } from "./Loading";
 export const NavigationBar = () => {
   const firstRouter = `/${usePathname().split("/")[1]}`;
 
-  if (!firstRouter) return <Loading />;
   if (firstRouter === "/signin") return null;
 
   return (
