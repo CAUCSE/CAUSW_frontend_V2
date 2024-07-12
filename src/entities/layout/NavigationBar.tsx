@@ -4,8 +4,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import { Loading } from "./Loading";
-
 export const NavigationBar = () => {
   const firstRouter = `/${usePathname().split("/")[1]}`;
 

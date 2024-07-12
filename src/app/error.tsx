@@ -10,13 +10,13 @@ import {
   noPermissionCode,
 } from "@/shared";
 
-export default function Error({
+const Error = ({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
-}) {
+}) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -38,4 +38,6 @@ export default function Error({
       </button>
     </div>
   );
-}
+};
+
+export default Error;

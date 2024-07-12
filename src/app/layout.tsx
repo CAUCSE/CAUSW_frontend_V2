@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 
 import "./globals.css";
 
-import { Loading, NavigationBar } from "@/entities";
+import { NavigationBar } from "@/entities";
 import { WindowSizeListener } from "@/shared";
 
 export default function RootLayout({
@@ -16,10 +15,8 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <WindowSizeListener />
-          <Suspense fallback={<Loading />}>
-            <NavigationBar />
-            {children}
-          </Suspense>
+          <NavigationBar />
+          {children}
         </body>
       </html>
     </>

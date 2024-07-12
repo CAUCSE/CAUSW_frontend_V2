@@ -1,4 +1,4 @@
-import { HomeService, ErrorListener } from "@/shared";
+import { HomeService } from "@/shared";
 
 const HomePage = async () => {
   const { getHomePage } = HomeService();

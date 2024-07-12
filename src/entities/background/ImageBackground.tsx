@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { Loading } from "@/entities";
+import { LoadingComponent } from "@/entities";
 
 export const ImageBackground = ({
   src,
@@ -18,7 +18,7 @@ export const ImageBackground = ({
 
   return (
     <>
-      {isImageLoaded ? null : <Loading />}
+      {isImageLoaded ? null : <LoadingComponent />}
       {darkBackground ? (
         <div className="w-full h-screen fixed top-0 left-0  bg-black opacity-95 overflow-y-hidden z-[-1]"></div>
       ) : null}
