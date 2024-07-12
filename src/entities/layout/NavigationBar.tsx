@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -12,6 +13,13 @@ export const NavigationBar = () => {
 
   return (
     <div className="w-40 h-screen fixed top-0 left-0 bg-default flex flex-col justify-center items-end space-y-10 rounded-r-3xl">
+      <Image
+        src="/images/cau-logo.png"
+        alt="cau logo"
+        width={95}
+        height={54}
+        className="absolute top-14 left-1/2 transform -translate-x-1/2"
+      />
       {icons.map((iconClass) => (
         <Link
           key={iconClass.href}

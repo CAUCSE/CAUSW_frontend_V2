@@ -21,4 +21,3 @@ export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 
 export { WindowSizeListener } from "./listener/WindowSizeListener";
-export { ErrorListener } from "./listener/ErrorListener";
