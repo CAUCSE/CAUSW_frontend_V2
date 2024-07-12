@@ -3,8 +3,11 @@ import axios, { AxiosResponse } from "axios";
 export const API = axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
-      ? process.env.VITE_PROD_SERVER_URL
-      : process.env.VITE_PROD_SERVER_URL,
+      ? process.env.PROD_SERVER_URL
+      : process.env.PROD_SERVER_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 //Auth
@@ -34,3 +37,19 @@ export const getRefresh = (): string | null => {
     sessionStorage.getItem(storageRefreshKey)
   );
 };
+
+API.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response) {
+      const {
+        response: {
+          data: { errorCode },
+        },
+      } = error;
+
+      throw new Error(`${errorCode}`);
+    }
+    throw new Error(`${error}`);
+  }
+);
