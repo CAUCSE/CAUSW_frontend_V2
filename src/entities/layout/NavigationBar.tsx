@@ -40,5 +40,5 @@ export const NavigationBar = () => {
 const icons = [
   { href: "/home", icon: "icon-[iconamoon--home]" },
   { href: "/board", icon: "icon-[mingcute--menu-line]" },
-  { href: "/circle", icon: "icon-[ep--setting]" },
+  { href: "/setting", icon: "icon-[ep--setting]" },
 ];
