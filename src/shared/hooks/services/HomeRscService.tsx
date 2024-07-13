@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 
 import { API } from "@/shared/configs/axios";
 
-export const HomeService = () => {
+export const HomeRscService = () => {
   const URI = "/api/v1/home";
 
   const getHomePage = async () => {

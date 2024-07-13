@@ -1,7 +1,7 @@
-import { HomeService } from "@/shared";
+import { HomeRscService } from "@/shared";
 
 const HomePage = async () => {
-  const { getHomePage } = HomeService();
+  const { getHomePage } = HomeRscService();
   const data = await getHomePage();
   console.log(data);
 
