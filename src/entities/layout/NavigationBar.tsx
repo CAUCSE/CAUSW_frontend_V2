@@ -7,7 +7,7 @@ import Link from "next/link";
 export const NavigationBar = () => {
   const firstRouter = `/${usePathname().split("/")[1]}`;
 
-  if (firstRouter === "/signin") return null;
+  if (firstRouter === "/signin" || firstRouter === "/signup") return null;
 
   return (
     <div className="w-40 h-screen fixed top-0 left-0 bg-default flex flex-col justify-center items-end space-y-10 rounded-r-3xl">
@@ -16,7 +16,7 @@ export const NavigationBar = () => {
         alt="cau logo"
         width={95}
         height={54}
-        className="absolute top-14 left-1/2 transform -translate-x-1/2"
+        className="absolute top-6 left-1/2 transform -translate-x-1/2"
       />
       {icons.map((iconClass) => (
         <Link
@@ -39,6 +39,7 @@ export const NavigationBar = () => {
 
 const icons = [
   { href: "/home", icon: "icon-[iconamoon--home]" },
-  { href: "/board", icon: "icon-[mingcute--menu-line]" },
+  { href: "/board", icon: "icon-[material-symbols--post-add-rounded]" },
+  { href: "/circle", icon: "icon-[bi--people]" },
   { href: "/setting", icon: "icon-[ep--setting]" },
 ];
