@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       colors: {
         default: "#D5EDF1",
+        focus: "#6BBEEC",
       },
     },
   },

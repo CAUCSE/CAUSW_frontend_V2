@@ -11,7 +11,7 @@ export const AuthService = () => {
     (state: User.UseUserStore) => state.setUserStore
   );
 
-  const signIn = async (body: User.SignInRequestDto) => {
+  const signin = async (body: User.SignInRequestDto) => {
     const {
       data: { accessToken, refreshToken },
     } = (await API.post(`${URI}/sign-in`, body)) as AxiosResponse<{
@@ -22,4 +22,6 @@ export const AuthService = () => {
     setAccess(accessToken);
     storeRefresh(body.auto ?? false, refreshToken);
   };
+
+  return { signin };
 };

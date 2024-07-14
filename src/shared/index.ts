@@ -15,6 +15,7 @@ export {
   noPermissionCode,
 } from "./configs/errorCode";
 
+export { AuthService } from "./hooks/services/AuthService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
 
 export { useUserStore } from "./hooks/stores/useUserStore";

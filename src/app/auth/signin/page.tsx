@@ -1,11 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { VideoBackground, ImageBackground } from "@/entities";
+import { AuthService } from "@/shared";
+import { VideoBackground, ImageBackground, FormInput } from "@/entities";
 
 const SignInPage = () => {
+  const { signin } = AuthService();
+
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
   const { register, handleSubmit } = useForm<User.SignInRequestDto>({
@@ -18,6 +21,10 @@ const SignInPage = () => {
 
   const emailEventHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") setEnterEmail(false);
+  };
+
+  const onSubmit = (data: User.SignInRequestDto) => {
+    signin(data);
   };
 
   return (
@@ -33,6 +40,26 @@ const SignInPage = () => {
         <div className="text-white text-5xl font-bold tracking-widest">
           우리들의 동문 네트워크
         </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col justify-center items-center"
+        >
+          <FormInput
+            register={register}
+            name="email"
+            placeholder="이메일을 입력해주세요"
+          ></FormInput>
+          <FormInput
+            register={register}
+            name="password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          ></FormInput>
+          <div>
+            <input type="checkbox" id="auto" {...register("auto")} />
+            <label htmlFor="auto">자동 로그인</label>
+          </div>
+        </form>
       </div>
     </>
   );
