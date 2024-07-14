@@ -32,7 +32,11 @@ const SignInPage = () => {
       return;
     }
 
-    console.log(data);
+    if (!data.password) {
+      setErrorMessage("비밀번호를 입력해주세요!");
+      return;
+    }
+
     signin(data);
   };
 

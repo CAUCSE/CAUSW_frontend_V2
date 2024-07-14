@@ -10,6 +10,7 @@ export {
 export { breakpoint } from "./configs/layout";
 export { numberMatch, emailRegex } from "./configs/regex";
 export {
+  noUserInfoCode,
   noRefreshTokenCode,
   noAccessTokenCode,
   noPermissionCode,

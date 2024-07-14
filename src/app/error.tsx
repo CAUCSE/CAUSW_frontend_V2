@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import {
-  numberMatch,
+  useLayoutStore,
+  noUserInfoCode,
   noRefreshTokenCode,
   noAccessTokenCode,
   noPermissionCode,
@@ -18,12 +19,12 @@ const Error = ({
   reset: () => void;
 }) => {
   const router = useRouter();
+  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
 
   useEffect(() => {
     console.error(error);
-
-    if (noAccessTokenCode.includes(error.message)) router.push("/signin");
-  }, [error]);
+    if (noAccessTokenCode.includes(error.message)) router.push("/auth/signin");
+  }, [error, router, setErrorMessage]);
 
   return (
     <div>

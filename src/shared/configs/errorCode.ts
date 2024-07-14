@@ -1,17 +1,18 @@
+//로그인 정보 불일치
+export const noUserInfoCode = ["4101"];
+
+//Refresh Token 거부
 export const noRefreshTokenCode = [
-  "4101",
-  4101,
   "4102",
-  4102,
   "4102",
-  4103,
   "4103",
-  4104,
   "4104",
-  4012,
   "4012",
-  4109,
   "4109",
 ];
-export const noAccessTokenCode = [4105, "4105"];
-export const noPermissionCode = [4107, "4107", 4000, "4000"];
+
+//Access Token 거부
+export const noAccessTokenCode = ["4105"];
+
+//접근 불가 페이지 접근
+export const noPermissionCode = ["4107", "4000"];
