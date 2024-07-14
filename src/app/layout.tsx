@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 
-import { NavigationBar } from "@/entities";
+import { NavigationBar, ErrorMessage } from "@/entities";
 import { WindowSizeListener } from "@/shared";
 
 export default function RootLayout({
@@ -16,6 +16,7 @@ export default function RootLayout({
         <body>
           <WindowSizeListener />
           <NavigationBar />
+          <ErrorMessage />
           {children}
         </body>
       </html>

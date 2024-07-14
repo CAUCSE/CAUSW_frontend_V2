@@ -9,5 +9,8 @@ declare namespace Layout {
     lg: boolean;
     xl: boolean;
     setBreakpoint: (breakpoint: BreackPoint) => void;
+
+    errorMessage: boolean | string;
+    setErrorMessage: (message: boolean | string) => void;
   }
 }

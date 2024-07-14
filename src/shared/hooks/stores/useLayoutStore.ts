@@ -15,4 +15,9 @@ export const useLayoutStore = create<Layout.UseLayoutStore>((set, get) => ({
     init[breakpoint] = true;
     set(() => init);
   },
+
+  errorMessage: false,
+  setErrorMessage: (message) => {
+    set(() => ({ errorMessage: message }));
+  },
 }));

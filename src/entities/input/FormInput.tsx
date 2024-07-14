@@ -23,6 +23,16 @@ export const FormInput = <T extends FieldValues>({
   <input
     {...register(name, rules)}
     {...rest}
-    className="w-80 h-12 border-2 border-focus rounded-2xl bg-black opacity-70 text-white text-center placeholder:text-center placeholder:text-sm "
+    className="w-80 h-10 border-2 border-focus rounded-xl bg-black opacity-60 text-sm text-white text-center placeholder:text-center placeholder:text-sm"
   />
+);
+
+export const FormSubmitButton = () => (
+  <button
+    type="submit"
+    className="w-80 h-10 flex flex-row justify-center items-center border-2 border-focus rounded-xl bg-zinc-800 text-sm text-focus text-center"
+  >
+    Enter
+    <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>
+  </button>
 );
