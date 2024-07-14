@@ -7,7 +7,7 @@ import Link from "next/link";
 export const NavigationBar = () => {
   const firstRouter = `/${usePathname().split("/")[1]}`;
 
-  if (firstRouter === "/signin" || firstRouter === "/signup") return null;
+  if (firstRouter === "/auth") return null;
 
   return (
     <div className="w-40 h-screen fixed top-0 left-0 bg-default flex flex-col justify-center items-end space-y-10 rounded-r-3xl">

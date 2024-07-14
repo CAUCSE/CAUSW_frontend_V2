@@ -20,7 +20,7 @@ export const ImageBackground = ({
     <>
       {isImageLoaded ? null : <LoadingComponent />}
       {darkBackground ? (
-        <div className="w-full h-screen fixed top-0 left-0  bg-black opacity-95 overflow-y-hidden z-[-1]"></div>
+        <div className="w-full h-screen fixed top-0 left-0  bg-black opacity-70 overflow-y-hidden z-[-1]"></div>
       ) : null}
       <div className="w-full h-screen fixed top-0 left-0 overflow-y-hidden z-[-1]">
         <Image
