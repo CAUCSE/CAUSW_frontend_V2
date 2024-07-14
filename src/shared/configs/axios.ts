@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 export const API = axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
-      ? process.env.PROD_SERVER_URL
-      : process.env.PROD_SERVER_URL,
+      ? process.env.NEXT_PUBLIC_PROD_SERVER_URL
+      : process.env.NEXT_PUBLIC_PROD_SERVER_URL,
   headers: {
     "Content-Type": "application/json",
   },
