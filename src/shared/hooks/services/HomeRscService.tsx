@@ -9,7 +9,7 @@ export const HomeRscService = () => {
     try {
       const headers = await setRscHeader();
       const response = (await fetch(
-        process.env.NEXT_PUBLIC_PROD_SERVER_URL + URI,
+        process.env.NEXT_PUBLIC_DEV_SERVER_URL + URI,
         {
           headers: headers,
         }
