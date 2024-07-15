@@ -13,7 +13,7 @@ export const API = axios.create({
 //Auth
 export const setAccess = (token: string): unknown =>
   (API.defaults.headers["Authorization"] = token);
-export const resetAccess = (): unknown =>
+export const removeAccess = (): unknown =>
   delete API.defaults.headers["Authorization"];
 export const getAccess = (): string =>
   `${API.defaults.headers["Authorization"]}`;
@@ -24,6 +24,7 @@ let isStored: boolean = true;
 
 export const storeRefresh = (auto: boolean, token: string): void => {
   isStored = auto;
+
   if (isStored) localStorage.setItem(storageRefreshKey, token);
   else sessionStorage.setItem(storageRefreshKey, token);
 };

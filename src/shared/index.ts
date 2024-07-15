@@ -1,7 +1,7 @@
 export {
   API,
   setAccess,
-  resetAccess,
+  removeAccess,
   getAccess,
   storeRefresh,
   removeRefresh,
@@ -9,9 +9,12 @@ export {
 } from "./configs/axios";
 export {
   setRscAccess,
-  resetRscAccess,
+  removeRscAccess,
   getRscAccess,
   setRscHeader,
+  storeRscRefresh,
+  removeRscRefresh,
+  getRscRefresh,
 } from "./configs/fetch";
 export { breakpoint } from "./configs/layout";
 export { numberMatch, emailRegex } from "./configs/regex";

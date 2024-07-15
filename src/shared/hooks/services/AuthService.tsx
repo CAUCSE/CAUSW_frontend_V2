@@ -9,9 +9,12 @@ import {
   API,
   setAccess,
   storeRefresh,
-  getAccess,
-  getRefresh,
   setRscAccess,
+  removeRscAccess,
+  storeRscRefresh,
+  removeRscRefresh,
+  removeAccess,
+  removeRefresh,
 } from "@/shared";
 
 export const AuthService = () => {
@@ -32,12 +35,22 @@ export const AuthService = () => {
 
       setAccess(accessToken);
       storeRefresh(body.auto ?? false, refreshToken);
+
       setRscAccess(accessToken);
+      if (body.auto) storeRscRefresh(refreshToken);
 
       router.push("/home");
     } catch {
       setErrorMessage("로그인 정보가 일치하지 않습니다!");
     }
+  };
+
+  const signout = async (body: User.SignInRequestDto) => {
+    removeAccess();
+    removeRefresh();
+    removeRscAccess();
+    removeRscRefresh();
+    router.push("/auth/signin");
   };
 
   return { signin };
