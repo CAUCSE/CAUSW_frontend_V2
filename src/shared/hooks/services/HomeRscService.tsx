@@ -8,12 +8,12 @@ export const HomeRscService = () => {
   const getHomePage = async () => {
     try {
       const headers = await setRscHeader();
-      const response = await fetch(
+      const response = (await fetch(
         process.env.NEXT_PUBLIC_PROD_SERVER_URL + URI,
         {
           headers: headers,
         }
-      ).then((res) => res.json());
+      ).then((res) => res.json())) as Home.GetHomePageResponseDto;
 
       return response;
     } catch (error) {

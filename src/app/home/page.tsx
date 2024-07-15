@@ -6,7 +6,7 @@ const HomePage = async () => {
 
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2">
-      Home {data[0].board.id}
+      Home {data[0].posts.number}
     </div>
   );
 };
