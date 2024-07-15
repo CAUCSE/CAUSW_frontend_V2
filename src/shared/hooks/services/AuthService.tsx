@@ -1,6 +1,7 @@
 "use client";
 
 import { AxiosResponse } from "axios";
+import { useRouter } from "next/navigation";
 
 import {
   useUserStore,
@@ -8,11 +9,15 @@ import {
   API,
   setAccess,
   storeRefresh,
+  getAccess,
+  getRefresh,
+  setRscAccess,
 } from "@/shared";
 
 export const AuthService = () => {
   const URI = "/api/v1/users";
 
+  const router = useRouter();
   const setUserStore = useUserStore((state) => state.setUserStore);
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
 
@@ -27,6 +32,9 @@ export const AuthService = () => {
 
       setAccess(accessToken);
       storeRefresh(body.auto ?? false, refreshToken);
+      setRscAccess(accessToken);
+
+      router.push("/home");
     } catch {
       setErrorMessage("로그인 정보가 일치하지 않습니다!");
     }

@@ -7,6 +7,12 @@ export {
   removeRefresh,
   getRefresh,
 } from "./configs/axios";
+export {
+  setRscAccess,
+  resetRscAccess,
+  getRscAccess,
+  setRscHeader,
+} from "./configs/fetch";
 export { breakpoint } from "./configs/layout";
 export { numberMatch, emailRegex } from "./configs/regex";
 export {
