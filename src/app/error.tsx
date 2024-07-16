@@ -1,5 +1,8 @@
 "use client";
 
+//TODO//
+//에러 페이지 JSX 업데이트 필요
+
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
