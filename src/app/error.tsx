@@ -7,13 +7,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import {
-  useLayoutStore,
-  noUserInfoCode,
-  noRefreshTokenCode,
-  noAccessTokenCode,
-  noPermissionCode,
-} from "@/shared";
+import { noAccessTokenCode, AuthRscService } from "@/shared";
 
 const Error = ({
   error,
@@ -23,10 +17,17 @@ const Error = ({
   reset: () => void;
 }) => {
   const router = useRouter();
-  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
+  const { updateAccess } = AuthRscService();
+
+  const handleNoAccesss = async () => {
+    await updateAccess();
+    reset();
+  };
 
   useEffect(() => {
-    if (noAccessTokenCode.includes(error.message)) router.push("/auth/signin");
+    if (noAccessTokenCode.includes(error.message)) handleNoAccesss();
+
+    //router.push("/auth/signin");
   }, [error]);
 
   return (

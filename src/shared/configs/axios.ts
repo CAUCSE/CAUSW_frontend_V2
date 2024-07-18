@@ -50,8 +50,11 @@ API.interceptors.response.use(
         config,
       } = error;
 
+      //Access token 재발급 과정
       if (noAccessTokenCode.includes(errorCode)) {
         const accessToken = await updateAccess();
+        config.headers["Authorization"] = accessToken;
+        return API.request(config);
       }
       //location.href = "auth/signin";
     }
