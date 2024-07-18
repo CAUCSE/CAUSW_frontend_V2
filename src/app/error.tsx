@@ -7,7 +7,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { noAccessTokenCode, AuthRscService } from "@/shared";
+import {
+  noAccessTokenCode,
+  noPermissionCode,
+  noRefreshTokenCode,
+  AuthRscService,
+} from "@/shared";
 
 const Error = ({
   error,
@@ -17,7 +22,7 @@ const Error = ({
   reset: () => void;
 }) => {
   const router = useRouter();
-  const { updateAccess } = AuthRscService();
+  const { updateAccess, signout } = AuthRscService();
 
   const handleNoAccesss = async () => {
     await updateAccess();
@@ -26,8 +31,12 @@ const Error = ({
 
   useEffect(() => {
     if (noAccessTokenCode.includes(error.message)) handleNoAccesss();
-
-    //router.push("/auth/signin");
+    else if (noPermissionCode.includes(error.message))
+      router.push("/no-permission");
+    else if (noRefreshTokenCode.includes(error.message)) {
+      signout();
+      router.push("/auth/signin");
+    }
   }, [error]);
 
   return (

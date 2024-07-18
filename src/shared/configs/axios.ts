@@ -1,6 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
-import { BASEURL, noAccessTokenCode, AuthRscService } from "@/shared";
+import {
+  BASEURL,
+  noAccessTokenCode,
+  noPermissionCode,
+  noRefreshTokenCode,
+  AuthRscService,
+} from "@/shared";
 
 export const API = axios.create({
   baseURL: BASEURL,
@@ -41,7 +47,7 @@ export const getRefresh = (): string | null => {
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { updateAccess } = AuthRscService();
+    const { updateAccess, signout } = AuthRscService();
     if (error.response) {
       const {
         response: {
@@ -55,8 +61,12 @@ API.interceptors.response.use(
         const accessToken = await updateAccess();
         config.headers["Authorization"] = accessToken;
         return API.request(config);
+      } else if (noPermissionCode.includes(error.message))
+        location.href = "/no-permission";
+      else if (noRefreshTokenCode.includes(error.message)) {
+        signout();
+        location.href = "auth/signin";
       }
-      //location.href = "auth/signin";
     }
     throw new Error(`${error}`);
   }

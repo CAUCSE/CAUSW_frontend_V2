@@ -45,5 +45,12 @@ export const AuthRscService = () => {
     }
   };
 
-  return { updateAccess };
+  const signout = async () => {
+    removeAccess();
+    removeRefresh();
+    removeRscAccess();
+    removeRscRefresh();
+  };
+
+  return { updateAccess, signout };
 };

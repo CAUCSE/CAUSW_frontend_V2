@@ -45,13 +45,5 @@ export const AuthService = () => {
     }
   };
 
-  const signout = async (body: User.SignInRequestDto) => {
-    removeAccess();
-    removeRefresh();
-    removeRscAccess();
-    removeRscRefresh();
-    router.push("/auth/signin");
-  };
-
   return { signin };
 };
