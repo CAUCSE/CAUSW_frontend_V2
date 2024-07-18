@@ -1,1 +1,0 @@
-export { BASEURL } from "./url";

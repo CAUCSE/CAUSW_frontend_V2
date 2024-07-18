@@ -1,16 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 
-import { setRscHeader } from "@/shared";
-import { BASEURL } from "@/utils";
+import { BASEURL, setRscHeader } from "@/shared";
 
 export const HomeRscService = () => {
-  const URI = "/api/v1/home";
+  const URI = BASEURL + "/api/v1/home";
 
   const getHomePage = async () => {
     try {
       const headers = await setRscHeader();
-      const response = (await fetch(BASEURL + URI, { headers: headers }).then(
-        (res) => res.json()
+      const response = (await fetch(URI, { headers: headers }).then((res) =>
+        res.json()
       )) as Home.GetHomePageResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);

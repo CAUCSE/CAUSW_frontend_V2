@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-import { noAccessTokenCode } from "@/shared";
-import { BASEURL } from "@/utils";
+import { BASEURL, noAccessTokenCode, AuthRscService } from "@/shared";
 
 export const API = axios.create({
   baseURL: BASEURL,
@@ -42,14 +41,20 @@ export const getRefresh = (): string | null => {
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const { updateAccess } = AuthRscService();
     if (error.response) {
       const {
         response: {
           data: { errorCode },
         },
+        config,
       } = error;
 
-      if (noAccessTokenCode.includes(errorCode)) location.href = "auth/signin";
+      if (noAccessTokenCode.includes(errorCode)) {
+        const accessToken = await updateAccess();
+        console.log(accessToken);
+      }
+      //location.href = "auth/signin";
     }
     throw new Error(`${error}`);
   }

@@ -185,9 +185,12 @@ declare namespace User {
     updatedPassword: string;
   }
 
-  export interface UpdateAccessTokenRequestDto {
-    refreshToken: string;
-  }
+  export type UpdateAccessTokenRequestDto =
+    | {
+        accessToken: "string";
+        refreshToken: "string";
+      }
+    | ApiErrorResponse;
 
   export interface FindPasswordReqestDto {
     name: string;

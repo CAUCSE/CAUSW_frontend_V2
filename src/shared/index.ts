@@ -1,3 +1,4 @@
+export { BASEURL } from "./configs/url";
 export {
   API,
   setAccess,
@@ -28,6 +29,7 @@ export {
 export { AuthService } from "./hooks/services/AuthService";
 export { UserService } from "./hooks/services/UserService";
 
+export { AuthRscService } from "./hooks/services/AuthRscService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
 
 export { useUserStore } from "./hooks/stores/useUserStore";
