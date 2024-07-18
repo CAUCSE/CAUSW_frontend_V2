@@ -11,7 +11,7 @@ export const SideBar = () => {
   const { getUserInfo } = UserService();
 
   useEffect(() => {
-    if (firstRouter !== "/auth") getUserInfo();
+    getUserInfo();
   }, []);
 
   if (firstRouter === "/auth") return null;

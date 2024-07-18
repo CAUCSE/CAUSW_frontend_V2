@@ -32,10 +32,7 @@ export const AuthRscService = () => {
         method: "PUT",
       }).then((res) => res.json())) as User.UpdateAccessTokenRequestDto;
 
-      if (response.errorCode) {
-        console.error(new Error(response.errorCode));
-        throw new Error(response.errorCode);
-      }
+      if (response.errorCode) throw new Error(response.errorCode);
 
       setAccess(response.accessToken);
       setRscAccess(response.accessToken);

@@ -52,7 +52,6 @@ API.interceptors.response.use(
 
       if (noAccessTokenCode.includes(errorCode)) {
         const accessToken = await updateAccess();
-        console.log(accessToken);
       }
       //location.href = "auth/signin";
     }

@@ -5,8 +5,6 @@ import { useUserStore } from "@/shared";
 export const ProfileImage = () => {
   const profileImage = useUserStore((state) => state.profileImage);
 
-  console.log(profileImage);
-
   return (
     <div className="shadow-2xl rounded-full overflow-hidden">
       <div
