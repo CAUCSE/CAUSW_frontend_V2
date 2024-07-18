@@ -3,6 +3,7 @@ export const noUserInfoCode = ["4101"];
 
 //Refresh Token 거부
 export const noRefreshTokenCode = [
+  "4000",
   "4102",
   "4102",
   "4103",

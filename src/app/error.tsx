@@ -11,6 +11,7 @@ import {
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
+  getRscRefresh,
   AuthRscService,
 } from "@/shared";
 
@@ -25,17 +26,22 @@ const Error = ({
   const { updateAccess, signout } = AuthRscService();
 
   const handleNoAccesss = async () => {
-    await updateAccess();
-    reset();
+    if (!(await getRscRefresh())) {
+      router.push("/auth/signin");
+    } else {
+      await updateAccess();
+      reset();
+    }
   };
 
   useEffect(() => {
-    if (noAccessTokenCode.includes(error.message)) handleNoAccesss();
-    else if (noPermissionCode.includes(error.message))
+    console.log(error.message);
+    if (noAccessTokenCode.includes(error.message)) {
+      handleNoAccesss();
+    } else if (noPermissionCode.includes(error.message))
       router.push("/no-permission");
     else if (noRefreshTokenCode.includes(error.message)) {
       signout();
-      router.push("/auth/signin");
     }
   }, [error]);
 
