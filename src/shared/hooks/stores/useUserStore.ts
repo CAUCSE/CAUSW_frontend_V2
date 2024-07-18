@@ -13,6 +13,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   state: "ACTIVE",
 
   setUserStore: (props: User.UserDto) => {
+    console.log(props.profileImage);
     set(() => ({
       id: props.id,
       email: props.email,

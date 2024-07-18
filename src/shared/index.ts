@@ -26,6 +26,8 @@ export {
 } from "./configs/errorCode";
 
 export { AuthService } from "./hooks/services/AuthService";
+export { UserService } from "./hooks/services/UserService";
+
 export { HomeRscService } from "./hooks/services/HomeRscService";
 
 export { useUserStore } from "./hooks/stores/useUserStore";
