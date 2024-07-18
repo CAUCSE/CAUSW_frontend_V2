@@ -4,14 +4,15 @@ import { useUserStore } from "@/shared";
 
 export const ProfileImage = () => {
   const profileImage = useUserStore((state) => state.profileImage);
-  const id = useUserStore((state) => state.id);
 
-  console.log(id);
+  console.log(profileImage);
 
   return (
-    <div
-      className="bg-center bg-no-repeat bg-contain"
-      style={{ backgroundImage: `url(${profileImage})` }}
-    />
+    <div className="shadow-2xl rounded-full overflow-hidden">
+      <div
+        className="w-24 h-24 bg-center bg-no-repeat bg-contain"
+        style={{ backgroundImage: `url(/images/default_profile.png)` }}
+      />
+    </div>
   );
 };

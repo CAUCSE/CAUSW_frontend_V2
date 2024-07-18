@@ -17,7 +17,7 @@ export const SideBar = () => {
   if (firstRouter === "/auth") return null;
 
   return (
-    <div className="w-72 h-screen fixed top-0 right-0 bg-default flex flex-col justify-center items-end space-y-10">
+    <div className="w-72 h-screen fixed top-0 right-0 bg-white flex flex-col justify-center items-center space-y-10">
       <ProfileImage />
     </div>
   );

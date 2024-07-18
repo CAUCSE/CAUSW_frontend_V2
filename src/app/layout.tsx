@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { NavigationBar, ErrorMessage } from "@/entities";
-import { SideBar } from "@/utils";
 import { WindowSizeListener } from "@/shared";
+import { SideBar } from "@/widget";
 
 export default function RootLayout({
   children,

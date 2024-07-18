@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 
+import { noAccessTokenCode } from "@/shared";
+import { BASEURL } from "@/utils";
+
 export const API = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "production"
-      ? process.env.NEXT_PUBLIC_PROD_SERVER_URL
-      : process.env.NEXT_PUBLIC_PROD_SERVER_URL,
+  baseURL: BASEURL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -49,7 +49,7 @@ API.interceptors.response.use(
         },
       } = error;
 
-      throw new Error(`${errorCode}`);
+      if (noAccessTokenCode.includes(errorCode)) location.href = "auth/signin";
     }
     throw new Error(`${error}`);
   }
