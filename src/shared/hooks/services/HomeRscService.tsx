@@ -9,11 +9,11 @@ export const HomeRscService = () => {
     try {
       const headers = await setRscHeader();
       const response = (await fetch(
-        process.env.NEXT_PUBLIC_DEV_SERVER_URL + URI,
-        {
-          headers: headers,
-        }
+        process.env.NEXT_PUBLIC_PROD_SERVER_URL + URI,
+        { headers: headers }
       ).then((res) => res.json())) as Home.GetHomePageResponseDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
 
       return response;
     } catch (error) {
