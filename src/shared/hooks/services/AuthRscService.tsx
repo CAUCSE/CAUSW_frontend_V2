@@ -20,10 +20,8 @@ import {
 export const AuthRscService = () => {
   const URI = BASEURL + "/api/v1/users";
 
-  const updateAccess = async () => {
+  const updateAccess = async (refresh: string) => {
     try {
-      const refresh = await getRscRefresh();
-
       const response = (await fetch(`${URI}/token/update`, {
         body: JSON.stringify({ refreshToken: refresh ?? "" }),
         headers: {

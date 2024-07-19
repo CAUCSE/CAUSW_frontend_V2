@@ -24,6 +24,7 @@ export {
   noRefreshTokenCode,
   noAccessTokenCode,
   noPermissionCode,
+  allErrorCode,
 } from "./configs/errorCode";
 
 export { AuthService } from "./hooks/services/AuthService";

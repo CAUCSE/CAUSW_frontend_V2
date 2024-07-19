@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 import {
   BASEURL,
@@ -58,14 +58,18 @@ API.interceptors.response.use(
 
       //Access token 재발급 과정
       if (noAccessTokenCode.includes(errorCode)) {
-        const accessToken = await updateAccess();
-        config.headers["Authorization"] = accessToken;
-        return API.request(config);
+        const refresh = getRefresh();
+        if (!refresh) {
+          location.href = "auth/signin";
+        } else {
+          const accessToken = await updateAccess(refresh);
+          config.headers["Authorization"] = accessToken;
+          return API.request(config);
+        }
       } else if (noPermissionCode.includes(error.message))
         location.href = "/no-permission";
       else if (noRefreshTokenCode.includes(error.message)) {
         signout();
-        location.href = "auth/signin";
       }
     }
     throw new Error(`${error}`);

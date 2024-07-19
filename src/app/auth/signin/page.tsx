@@ -109,8 +109,8 @@ const SignInPage = () => {
 
 const routes = [
   { name: "회원가입하기", route: "/auth/signup" },
-  { name: "아이디 찾기", route: "/auth/findaccount" },
-  { name: "비밀번호 찾기", route: "/auth/findaccount" },
+  { name: "아이디 찾기", route: "/auth/findemail" },
+  { name: "비밀번호 찾기", route: "/auth/findpassword" },
 ];
 
 export default SignInPage;
