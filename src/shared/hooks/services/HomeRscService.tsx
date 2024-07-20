@@ -1,9 +1,7 @@
-import axios, { AxiosResponse } from "axios";
-
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const HomeRscService = () => {
-  const URI = BASEURL + "/api/v1/home";
+  const URI = BASEURL + "/api/v2/home";
 
   const getHomePage = async () => {
     try {
