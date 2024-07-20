@@ -16,7 +16,7 @@ export const noRefreshTokenCode = [
 export const noAccessTokenCode = ["4105"];
 
 //접근 불가 페이지 접근
-export const noPermissionCode = ["4107", "4000"];
+export const noPermissionCode = ["4107"];
 
 //처리 가능 에러 코드: 아래 에러 코드 모음
 export const allErrorCode = [

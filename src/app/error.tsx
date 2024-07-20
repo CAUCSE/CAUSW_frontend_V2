@@ -12,7 +12,7 @@ import {
   noPermissionCode,
   noRefreshTokenCode,
   allErrorCode,
-  getRefresh,
+  getRscRefresh,
   AuthRscService,
 } from "@/shared";
 
@@ -29,7 +29,7 @@ const Error = ({
   const { updateAccess, signout } = AuthRscService();
 
   const handleNoAccesss = async () => {
-    const refresh = getRefresh();
+    const refresh = await getRscRefresh();
     if (!refresh) {
       router.push("/auth/signin");
     } else {
