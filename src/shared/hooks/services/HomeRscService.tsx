@@ -1,14 +1,14 @@
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const HomeRscService = () => {
-  const URI = BASEURL + "/api/v2/home";
+  const URI = BASEURL + "/api/v1/home";
 
-  const getHomePage = async () => {
+  const getHomePosts = async () => {
     try {
       const headers = await setRscHeader();
       const response = (await fetch(URI, { headers: headers }).then((res) =>
         res.json()
-      )) as Home.GetHomePageResponseDto;
+      )) as Home.GetHomePostsResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -20,5 +20,5 @@ export const HomeRscService = () => {
     }
   };
 
-  return { getHomePage };
+  return { getHomePosts };
 };
