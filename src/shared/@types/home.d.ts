@@ -1,5 +1,5 @@
 declare namespace Home {
-  export type GetHomePageResponseDto =
+  export type GetHomePostsResponseDto =
     | {
         //board: Board.ResponseDto;
         posts: {
