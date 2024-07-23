@@ -1,14 +1,10 @@
-import {
-  UseFormRegister,
-  FieldValues,
-  RegisterOptions,
-  Path,
-} from "react-hook-form";
+import React from 'react';
+import { Path, UseFormRegister, RegisterOptions, FieldValues } from 'react-hook-form';
 
 interface InputProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   name: Path<T>;
-  rules?: RegisterOptions;
+  rules?: RegisterOptions<T>;
   type?: string;
   id?: string;
   placeholder?: string;
@@ -18,21 +14,22 @@ export const FormInput = <T extends FieldValues>({
   register,
   name,
   rules,
-  ...rest
+  type,
+  placeholder
 }: InputProps<T>) => (
   <input
     {...register(name, rules)}
-    {...rest}
-    className="w-80 h-10 border-2 border-focus rounded-xl bg-black opacity-60 text-sm text-white text-center placeholder:text-center placeholder:text-sm"
+    type={type}
+    placeholder={placeholder}
+    className="w-full h-10 mb-4 p-2 border border-gray-300 rounded-lg text-base"
   />
 );
 
 export const FormSubmitButton = () => (
   <button
     type="submit"
-    className="w-80 h-10 flex flex-row justify-center items-center border-2 border-focus rounded-xl bg-zinc-800 text-sm text-focus text-center"
+    className="w-full h-10 flex justify-center items-center bg-blue-500 text-white rounded-lg hover:bg-blue-700 text-sm font-semibold"
   >
-    Enter
-    <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>
+    확인
   </button>
 );
