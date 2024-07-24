@@ -23,6 +23,13 @@ module.exports = {
       backgroundColor: {
         'post': 'rgba(248, 248, 248, 1)',
       },
+      borderRadius: {
+        'post': '20px',
+        'comment': '30px',
+      },
+      borderWidth: {
+        'comment': '1px',
+      },
     },
   },
   plugins: [addDynamicIconSelectors()],

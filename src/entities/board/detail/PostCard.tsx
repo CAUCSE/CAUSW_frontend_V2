@@ -9,17 +9,17 @@ interface PostCardProps {
   hashtags: string[];
   content: string;
   postImage?: string;
-  likeCnt: number;
-  starCnt: number;
-  commentCnt: number;
+  likes: number;
+  stars: number;
+  comments: number;
 }
 
 
-export const PostCard: React.FC<PostCardProps> = ({ userImage, username, timeAgo, hashtags, content, postImage, likeCnt, starCnt, commentCnt }) => {
+export const PostCard = ({ userImage, username, timeAgo, hashtags, content, postImage, likes, stars, comments }: PostCardProps) => {
   userImage = useUserStore((state) => state.profileImage);
   postImage = useUserStore((state) => state.profileImage);
   return (
-    <div className="bg-post mx-auto border border-gray-300 rounded-lg p-4 shadow-post mb-4">
+    <div className="bg-post mx-auto border rounded-post p-4 shadow-post mb-4">
       <div className="flex items-center mb-4">
         <div
           className="m-4 w-12 h-12 bg-center bg-no-repeat bg-contain"
@@ -45,9 +45,9 @@ export const PostCard: React.FC<PostCardProps> = ({ userImage, username, timeAgo
       />
       {/* 디자인 따라 위치 조정해야함 */}
       <div className="flex space-x-4">
-        <button className="flex items-center text-red-500">👍 {likeCnt}</button>
-        <button className="flex items-center text-yellow-500">⭐ {starCnt}</button>
-        <button className="flex items-center text-blue-500">💬 {commentCnt}</button>
+        <button className="flex items-center text-red-500">👍 {likes}</button>
+        <button className="flex items-center text-yellow-500">⭐ {stars}</button>
+        <button className="flex items-center text-blue-500">💬 {comments}</button>
       </div>
     </div>
   );
