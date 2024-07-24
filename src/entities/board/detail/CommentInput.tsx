@@ -1,6 +1,6 @@
 export const CommentInput = () => {
   return (
-    <div className="flex items-center bg-comment-input p-2 rounded-comment-input-br mx-auto">
+    <div className="fixed bottom-0 flex items-center max-w-lg w-full bg-comment-input p-2 rounded-comment-input-br">
       <div className="flex items-center space-x-2">
         <input type="checkbox" className="form-checkbox h-5 w-5" />
         <div className="text-gray-400 text-sm">
