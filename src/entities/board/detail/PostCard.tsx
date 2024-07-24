@@ -19,7 +19,7 @@ export const PostCard = ({ userImage, username, timeAgo, hashtags, content, post
   userImage = useUserStore((state) => state.profileImage);
   postImage = useUserStore((state) => state.profileImage);
   return (
-    <div className="bg-post mx-auto border rounded-post p-4 shadow-post mb-4">
+    <div className="bg-post border rounded-post-br p-4 shadow-post-sh mb-4">
       <div className="flex items-center mb-4">
         <div
           className="m-4 w-12 h-12 bg-center bg-no-repeat bg-contain"
@@ -40,7 +40,7 @@ export const PostCard = ({ userImage, username, timeAgo, hashtags, content, post
         {content}
       </div>
       <div 
-        className="w-500 h-300 rounded-lg mb-4 w-full"
+        className="w-500 h-300 rounded-lg mb-4"
         style={{ backgroundImage: `url(${postImage})` }}
       />
       {/* 디자인 따라 위치 조정해야함 */}

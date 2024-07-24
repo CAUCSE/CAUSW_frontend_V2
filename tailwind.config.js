@@ -18,17 +18,19 @@ module.exports = {
         'post-hashtag':"rgba(152, 66, 8, 1)",
       },
       boxShadow: {
-        'post': '0px 3px 6.1px 0px rgba(0, 0, 0, 0.25)',
+        'post-sh': "0px 3px 6.1px 0px rgba(0, 0, 0, 0.25)",
       },
       backgroundColor: {
-        'post': 'rgba(248, 248, 248, 1)',
+        'post': "rgba(248, 248, 248, 1)",
+        'comment-input':"rgba(217, 217, 217, 1)",
       },
       borderRadius: {
-        'post': '20px',
-        'comment': '30px',
+        'post-br': "20px",
+        'comment-br': "30px",
+        'comment-input-br':"10px"
       },
       borderWidth: {
-        'comment': '1px',
+        'comment-bw': "1px",
       },
     },
   },
