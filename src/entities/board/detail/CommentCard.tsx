@@ -8,7 +8,7 @@ interface CommentProps {
   badCnt: number,
 }
 
-export const CommentComponent = ({
+export const CommentCard = ({
   usrImg, 
   usrId,
   commentDetail,

@@ -1,19 +1,20 @@
-import { CommentComponent, CommentInput, PostComponent } from "@/entities";
+import { PostCard, CommentCard, CommentInput } from "@/entities";
 
 
 const BoardPage = async () => {
   return (
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2">
       <div>
-        <PostComponent 
-          usrId={"eunhwa813"} 
-          postTitle={"Post title"} 
-          postDetail={"post detail"}
-          goodCnt={10} 
-          starCnt={15} 
-          commentCnt={5}
+        <PostCard 
+          username={"홍석천"} 
+          timeAgo={"30분 전"} 
+          hashtags={["시험","노잼","방학"]} 
+          content={"나랑 술 먹을 사람 구함 ~ 또는 코딩 같이 할 사람~~~"} 
+          likeCnt={10} 
+          starCnt={20} 
+          commentCnt={30}        
         />
-        <CommentComponent 
+        <CommentCard 
           usrId={"eunhwa813"} 
           commentDetail={"comment detail"} 
           goodCnt={10} 
