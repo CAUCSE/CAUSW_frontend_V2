@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormInput, FormSubmitButton } from '../../../entities/input/FormInput';
-import FormErrorMessage from '../../../entities/layout/FormErrorMessage';
+import { FormInput, FormSubmitButton } from '../../../../src/entities/input/FormInput';
+import FormErrorMessage from '../../../../src/entities/layout/FormErrorMessage';
 
 interface FormData {
   currentPassword: string;
@@ -22,7 +22,7 @@ const ResetPasswordPage: React.FC = () => {
   const newPassword = watch("newPassword");
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4 sm:px-0"> {/* 반응형 디자인 추가 */}
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">현재 비밀번호</h2>
         <FormInput

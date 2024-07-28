@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormInput } from '../../../../src/entities/input/FormInput';
+import { FormInput, FormSubmitButton } from '../../../../src/entities/input/FormInput';
 import FormErrorMessage from '../../../../src/entities/layout/FormErrorMessage';
 
 interface FormData {
@@ -17,11 +17,11 @@ const FindPasswordPage: React.FC = () => {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-    // 이 부분에 비밀번호 찾기 로직 구현 필요.
+    // 비밀번호 찾기 로직 구현
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4 sm:px-0"> {/* 반응형 디자인 추가 */}
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">이름</h2>
         <FormInput
@@ -63,9 +63,7 @@ const FindPasswordPage: React.FC = () => {
         />
         <FormErrorMessage message={errors.email?.message} />
 
-        <button type="submit" className="w-full mt-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">
-          확인
-        </button>
+        <FormSubmitButton />
       </form>
     </div>
   );
