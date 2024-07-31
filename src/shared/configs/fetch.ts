@@ -2,12 +2,14 @@
 
 import { cookies } from "next/headers";
 
-//Access
 const storageAccessKey = "CAUCSE_JWT_ACCESS";
+const storageRefreshKey = "CAUCSE_JWT_REFRESH";
 
-export const setRscAccess = (token: string) => {
-  cookies().set(storageAccessKey, token);
+export const setRscToken = (access: string, refresh: string | false) => {
+  cookies().set(storageAccessKey, access);
+  if (refresh) cookies().set(storageRefreshKey, refresh);
 };
+
 export const removeRscAccess = () => {
   cookies().delete(storageAccessKey);
 };
@@ -29,13 +31,6 @@ export const setRscHeader = async (): Promise<{
   }
 
   return { Authorization: "" };
-};
-
-//Refresh
-const storageRefreshKey = "CAUCSE_JWT_REFRESH";
-
-export const storeRscRefresh = (token: string) => {
-  cookies().set(storageRefreshKey, token);
 };
 
 export const removeRscRefresh = () => {

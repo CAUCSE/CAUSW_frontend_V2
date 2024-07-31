@@ -9,11 +9,10 @@ export {
   getRefresh,
 } from "./configs/axios";
 export {
-  setRscAccess,
+  setRscToken,
   removeRscAccess,
   getRscAccess,
   setRscHeader,
-  storeRscRefresh,
   removeRscRefresh,
   getRscRefresh,
 } from "./configs/fetch";

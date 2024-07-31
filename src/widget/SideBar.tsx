@@ -24,7 +24,7 @@ export const SideBar = () => {
 
   return (
     <>
-      <div className="w-full md:w-72 h-28 md:h-screen fixed top-0 right-0 flex md:flex-col justify-end md:justify-center items-center space-y-4">
+      <div className="w-full md:w-72 h-28 md:h-screen fixed top-0 right-0 flex md:flex-col justify-end md:justify-center items-center space-y-4 mr-10">
         <div className="absolute flex flex-col items-center top-2 md:top-11 left-2 md:right-11 text-black">
           <span
             className="icon-[codicon--sign-out] text-2xl md:text-4xl"

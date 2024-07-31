@@ -9,9 +9,8 @@ import {
   API,
   setAccess,
   storeRefresh,
-  setRscAccess,
+  setRscToken,
   removeRscAccess,
-  storeRscRefresh,
   removeRscRefresh,
   removeAccess,
   removeRefresh,
@@ -33,11 +32,12 @@ export const AuthService = () => {
         refreshToken: string;
       }>;
 
+      setRscToken(accessToken, body.auto ? refreshToken : false);
+
       setAccess(accessToken);
       storeRefresh(body.auto ?? false, refreshToken);
 
-      setRscAccess(accessToken);
-      if (body.auto) storeRscRefresh(refreshToken);
+      //storeRscRefresh(refreshToken);
 
       router.push("/home");
     } catch {
