@@ -40,13 +40,5 @@ export const AuthRscService = () => {
     }
   };
 
-  const signout = async () => {
-    //TODO: API 추가 필요
-    removeRccAccess();
-    removeRccRefresh();
-    removeRscAccess();
-    removeRscRefresh();
-  };
-
-  return { updateAccess, signout };
+  return { updateAccess };
 };

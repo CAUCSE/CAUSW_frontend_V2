@@ -16,6 +16,7 @@ import {
   setRscToken,
   getRscAccess,
   getRscRefresh,
+  AuthService,
   AuthRscService,
   setRscHeader,
 } from "@/shared";
@@ -30,17 +31,13 @@ const Error = ({
   reset: () => void;
 }) => {
   const router = useRouter();
-  const { updateAccess, signout } = AuthRscService();
-
-  const handleNoRefresh = async () => {
-    await signout();
-    router.push("/auth/signin");
-  };
+  const { signout } = AuthService();
+  const { updateAccess } = AuthRscService();
 
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {
-      await handleNoRefresh();
+      signout();
     } else {
       try {
         await updateAccess(refresh);
@@ -49,7 +46,7 @@ const Error = ({
         }, 1000);
         return () => clearTimeout(timer);
       } catch {
-        handleNoRefresh();
+        signout();
       }
     }
   };
@@ -61,7 +58,7 @@ const Error = ({
     } else if (noPermissionCode.includes(error.message))
       router.push("/no-permission");
     else if (noRefreshTokenCode.includes(error.message)) {
-      handleNoRefresh();
+      signout();
     }
   }, [error]);
 

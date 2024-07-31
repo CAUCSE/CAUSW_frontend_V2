@@ -6,13 +6,14 @@ import { ProfileImage, Header, SubHeader } from "@/entities";
 import {
   UserService,
   useUserStore,
-  AuthRscService,
+  AuthService,
   useLayoutStore,
 } from "@/shared";
 
 export const SideBar = () => {
   const { getUserInfo } = UserService();
-  const { signout } = AuthRscService();
+  const { signout } = AuthService();
+
   const sm = useLayoutStore((state) => state.sm);
 
   const name = useUserStore((state) => state.name);

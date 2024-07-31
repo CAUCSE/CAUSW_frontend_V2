@@ -22,7 +22,10 @@ export const ImageBackground = ({
       {darkBackground ? (
         <div className="w-full h-screen fixed top-0 left-0 bg-black opacity-70 z-[-1] "></div>
       ) : null}
-      <div className="fixed z-[-1] object-cover w-full lg:w-3/4 h-3/4 lg:h-screen top-1/2 lg:left-1/2 transform lg:-translate-x-1/2 -translate-y-1/2">
+      <div
+        className="fixed z-[-1] object-cover w-full top-1/2 transform -translate-y-1/2 
+        lg:w-3/4 h-3/4 lg:h-screen lg:left-1/2 lg:-translate-x-1/2"
+      >
         <Image
           src={src}
           alt={alt}

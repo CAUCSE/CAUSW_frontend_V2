@@ -5,6 +5,7 @@ import {
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
+  AuthService,
   AuthRscService,
 } from "@/shared";
 
@@ -39,7 +40,9 @@ export const getRccRefresh = (): string | null => {
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { updateAccess, signout } = AuthRscService();
+    const { signout } = AuthService();
+    const { updateAccess } = AuthRscService();
+
     if (error.response) {
       const {
         response: {

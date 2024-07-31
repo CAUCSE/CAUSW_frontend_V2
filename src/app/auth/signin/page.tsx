@@ -53,7 +53,7 @@ const SignInPage = () => {
       />
       <div className="absolute top-1/3 left-1/2 w-full transform -translate-x-1/2 flex flex-col justify-center items-center">
         <div className="text-white text-xl mb-4">함께라면 더 밝은 미래로</div>
-        <div className="text-center text-white text-3xl sm:text-5xl font-bold tracking-widest mb-10">
+        <div className="text-center text-white text-3xl font-bold tracking-widest mb-10 sm:text-5xl ">
           우리들의 동문 네트워크
         </div>
         <form
@@ -97,7 +97,7 @@ const SignInPage = () => {
               onClick={() => {
                 router.push(route.route);
               }}
-              className="text-white text-sm mt-1 underline font-thin"
+              className="text-white text-sm mt-2 underline font-thin md:mt-1"
             >
               {route.name}
             </div>
