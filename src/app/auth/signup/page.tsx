@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 
@@ -26,7 +26,7 @@ const SignUpPage = () => {
     major: string;
     conductedSemesters: string;
     phoneNumber: string;
-    file: File;
+    files: FileList;
   }
   
   const { register, handleSubmit, watch, formState: { errors }, getValues} = useForm<IAuthForm>({mode: 'onBlur'});
@@ -34,19 +34,48 @@ const SignUpPage = () => {
 
   const conductedSemesters = [];
 
+
   for (let j = 1; j <= 4; j++) {
     for (let k = 1; k <= 2; k++) {
       conductedSemesters.push(`${j}-${k}`);
     }
   } // 수행한 학기 배열로 저장 1-1, 1-2, 2-1 ... 4-2 순서대로
 
+
+  
+
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const files = watch("files") as FileList;
+  useEffect(() => {
+    if (files && files.length > 0) {
+      const newImagePreviews = Array.from(files).map(file =>
+        URL.createObjectURL(file)
+      );
+      setImagePreviews(prevPreviews => [...newImagePreviews.reverse(), ...prevPreviews]);
+    }
+  }, [files]);
+
+
+  const handleImageClick = (src: string) => {
+    setSelectedImage(src);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+
+  const handleImageDelete = (index: number) => {
+    setImagePreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
+  };
+
+
+
   const onSubmit = (data: any) => {
     console.log(data);
   };
-  
-
-
-
   
   console.log(watch());
   
@@ -301,40 +330,76 @@ const SignUpPage = () => {
             증빙 자료 포함 필수 요소: 이름, 학번, 학부(학과), 현재 학적 상태(재학/휴학/졸업), 재학/휴학의 경우 수료 학기 차수, 졸업의 경우 졸업 시기
           </p>
           
-          <div className="flex items-center justify-center border-2 border-gray-300 rounded-lg p-4">
-            <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center">
-              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              <span className="text-gray-600 mt-2">파일을 선택하세요</span>
-              <input id="file-upload" type="file" className="hidden" {...register('file', { 
-                required: '학부 재적/졸업 증빙 자료를 첨부해주세요' })} />
-            </label>
+          <div className="flex items-center justify-left border-2 border-gray-300 rounded-lg p-4 overflow-auto">
+            <div className="w-32 h-32 border-2 border-gray-300 rounded-lg p-4 mr-4 flex-shrink-0 basis-1/3">
+              <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center h-full">
+                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span className="text-gray-600 mt-2 text-center sm:hidden">파일을 선택하세요</span>
+                <input id="file-upload" type="file" multiple className="hidden" {...register('files', { required: true })} />
+              </label>            
+            </div>
+            {imagePreviews.length > 0 && (
+              <div className="flex flex-nowrap basis-1/3">
+                {imagePreviews.map((preview, index) => (
+                  <div key={index} className="relative w-full h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 mr-4">
+                    <img
+                      src={preview}
+                      alt={`Preview ${index + 1}`}
+                      className="object-cover w-full h-full cursor-pointer"
+                      onClick={() => handleImageClick(preview)}
+                    />
+                    <button
+                      type="button"
+                      className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
+                      onClick={() => handleImageDelete(index)}
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
         </div>
 
-        <div className="flex items-center ml-4">
-          <input 
-            type="checkbox" 
-            className="mr-2" 
-            {...register('agreeToTerms', { 
-              required: '약관에 동의해주세요' })} 
-          />
+        {/* 약관 동의 및 생성하기 버튼 */}
+        <div className="flex items-center mb-6">
+          <input type="checkbox" className="mr-2" {...register('agreeToTerms', { required: true })} />
           <label className="block text-gray-700">약관 읽고 동의 하기!!!</label>
         </div>
-        <p className = "flex items-center mb-6 ml-4 mr-4">{errors?.agreeToTerms?.message}</p>
 
         <div className="flex justify-center">
-
-        <button 
-            type="submit" 
-            className="w-full max-w-xs place-self-center bg-focus text-black p-2 rounded-lg hover:bg-blue-400 transition-colors duration-300"
+          <button
+            type="submit"
+            className="w-full max-w-xs bg-blue-500 text-black p-2 rounded-lg hover:bg-blue-400 transition-colors duration-300"
           >
             생성하기
           </button>
         </div>
       </form>
+
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeModal}>
+          <div className="bg-white p-4 rounded-lg max-w-3xl max-h-full overflow-auto">
+            <img src={selectedImage} alt="Selected" className="object-contain w-full h-full" />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
