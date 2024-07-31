@@ -7,13 +7,12 @@ import {
   useUserStore,
   useLayoutStore,
   API,
-  setAccess,
-  storeRefresh,
+  setRccToken,
   setRscToken,
   removeRscAccess,
   removeRscRefresh,
-  removeAccess,
-  removeRefresh,
+  removeRccAccess,
+  removeRccRefresh,
 } from "@/shared";
 
 export const AuthService = () => {
@@ -34,8 +33,7 @@ export const AuthService = () => {
 
       await setRscToken(accessToken, body.auto ? refreshToken : false);
 
-      setAccess(accessToken);
-      storeRefresh(body.auto ?? false, refreshToken);
+      setRccToken(accessToken, body.auto ? refreshToken : false);
 
       router.push("/home");
     } catch {

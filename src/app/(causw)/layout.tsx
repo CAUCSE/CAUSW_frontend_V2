@@ -8,8 +8,8 @@ export default function HomeLayout({
 }) {
   return (
     <>
-      {/* <NavigationBar />
-      <SideBar /> */}
+      <NavigationBar />
+      <SideBar />
       {children}
     </>
   );

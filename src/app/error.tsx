@@ -12,7 +12,7 @@ import {
   noPermissionCode,
   noRefreshTokenCode,
   allErrorCode,
-  getRefresh,
+  getRccRefresh,
   setRscToken,
   getRscAccess,
   getRscRefresh,
