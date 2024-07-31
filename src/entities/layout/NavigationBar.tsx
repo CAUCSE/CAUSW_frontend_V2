@@ -11,7 +11,10 @@ export const NavigationBar = () => {
   const sm = useLayoutStore((state) => state.sm);
 
   return (
-    <div className="w-full h-20 md:w-40 md:h-screen fixed bottom-0 md:top-0 left-0 bg-default flex md:flex-col justify-center items-center md:items-end space-x-3 md:space-y-10 rounded-t-3xl md:rounded-r-3xl">
+    <div
+      className="w-full h-24 fixed bottom-0 left-0 bg-default flex justify-center items-center space-x-3 rounded-t-3xl 
+      md:w-40 md:h-screen md:top-0 md:flex-col md:items-end md:space-y-10 md:rounded-tl-none md:rounded-r-3xl"
+    >
       {sm ? null : (
         <Image
           src="/images/cau-logo.png"
@@ -25,9 +28,10 @@ export const NavigationBar = () => {
         <Link
           key={iconClass.href}
           href={iconClass.href}
-          className={`w-20 md:w-11/12 h-16 md:h-24 ${
+          className={`w-20 h-16 ${
             firstRouter === iconClass.href ? "bg-white" : "bg-default"
-          } rounded-2xl md:rounded-l-3xl md:rounded-r-none flex flex-col justify-center items-center`}
+          } rounded-2xl flex flex-col justify-center items-center 
+          mb-2 md:w-11/12 md:h-24 md:rounded-l-3xl md:rounded-r-none md:mb-0`}
         >
           <span
             className={`${iconClass.icon} ${

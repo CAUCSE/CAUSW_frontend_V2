@@ -24,18 +24,28 @@ export const SideBar = () => {
 
   return (
     <>
-      <div className="w-full md:w-72 h-28 md:h-screen fixed top-0 right-0 flex md:flex-col justify-end md:justify-center items-center space-y-4 mr-10">
-        <div className="absolute flex flex-col items-center top-2 md:top-11 left-2 md:right-11 text-black">
+      <div
+        className="w-full h-28 fixed top-0 right-0 flex justify-end items-center space-y-4 pr-4 
+        md:w-72 md:h-screen md:flex-col md:justify-center"
+      >
+        <div
+          className="absolute flex flex-col items-center top-3 left-2 text-black 
+          md:top-11 md:left-52"
+        >
           <span
             className="icon-[codicon--sign-out] text-2xl md:text-4xl"
             onClick={() => {
               signout();
             }}
           ></span>
-          <span className="text-xs md:text-sm text-black underline">
+          <span
+            className="text-xs text-black underline 
+            md:text-sm"
+          >
             로그아웃
           </span>
         </div>
+
         {sm ? null : <ProfileImage />}
         <div className="flex flex-col items-center">
           <Header wide>{name}</Header>
