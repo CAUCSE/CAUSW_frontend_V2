@@ -32,12 +32,10 @@ export const AuthService = () => {
         refreshToken: string;
       }>;
 
-      setRscToken(accessToken, body.auto ? refreshToken : false);
+      await setRscToken(accessToken, body.auto ? refreshToken : false);
 
       setAccess(accessToken);
       storeRefresh(body.auto ?? false, refreshToken);
-
-      //storeRscRefresh(refreshToken);
 
       router.push("/home");
     } catch {

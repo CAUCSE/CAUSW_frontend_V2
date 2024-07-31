@@ -7,11 +7,10 @@ import {
   API,
   setAccess,
   storeRefresh,
+  setRscToken,
   setRscHeader,
   getRscRefresh,
-  setRscAccess,
   removeRscAccess,
-  storeRscRefresh,
   removeRscRefresh,
   removeAccess,
   removeRefresh,
@@ -32,8 +31,8 @@ export const AuthRscService = () => {
 
       if (response.errorCode) throw new Error(response.errorCode);
 
+      await setRscToken(response.accessToken, refresh);
       setAccess(response.accessToken);
-      setRscAccess(response.accessToken);
 
       return response.accessToken;
     } catch (error) {
