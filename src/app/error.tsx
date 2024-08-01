@@ -52,7 +52,6 @@ const Error = ({
   };
 
   useEffect(() => {
-    console.log("!!!");
     if (noAccessTokenCode.includes(error.message)) {
       handleNoAccesss();
     } else if (noPermissionCode.includes(error.message))

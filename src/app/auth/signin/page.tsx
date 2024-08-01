@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -102,6 +103,25 @@ const SignInPage = () => {
               {route.name}
             </div>
           ))}
+      </div>
+      <div className="w-full absolute bottom-10 flex flex-col items-center md:flex-row md:justify-end md:bottom-5">
+        <span className="text-white text-lg font-bold mt-2 md:mr-7">
+          문의하기
+        </span>
+        <div className="w-32 flex flex-row justify-between mt-2 md:mr-4">
+          <Image
+            src="/images/kakao.png"
+            alt="kakao"
+            width={50}
+            height={50}
+          ></Image>
+          <Image
+            src="/images/instagram.png"
+            alt="instagram"
+            width={50}
+            height={50}
+          ></Image>
+        </div>
       </div>
     </>
   );
