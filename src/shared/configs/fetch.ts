@@ -26,7 +26,7 @@ export const setRscHeader = async (): Promise<{
 
   if (token) {
     return {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     };
   }
 

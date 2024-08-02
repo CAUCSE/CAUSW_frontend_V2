@@ -19,7 +19,7 @@ export const API = axios.create({
 const storageRefreshKey = "CAUCSE_JWT_REFRESH";
 
 export const setRccToken = (access: string, refresh: string | false) => {
-  API.defaults.headers["Authorization"] = access;
+  API.defaults.headers["Authorization"] = `Bearer ${access}`;
   if (refresh) localStorage.setItem(storageRefreshKey, refresh);
 };
 
@@ -58,7 +58,7 @@ API.interceptors.response.use(
           location.href = "auth/signin";
         } else {
           const accessToken = await updateAccess(refresh);
-          config.headers["Authorization"] = accessToken;
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
           return API.request(config);
         }
       } else if (noPermissionCode.includes(error.message))
