@@ -41,15 +41,5 @@ export const AuthService = () => {
     }
   };
 
-  const signout = async () => {
-    //TODO: API 추가 필요
-    removeRccAccess();
-    removeRccRefresh();
-    await removeRscAccess();
-    await removeRscRefresh();
-
-    router.push("/auth/signin");
-  };
-
-  return { signin, signout };
+  return { signin };
 };

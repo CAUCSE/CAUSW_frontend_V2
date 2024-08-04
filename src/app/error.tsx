@@ -31,13 +31,18 @@ const Error = ({
   reset: () => void;
 }) => {
   const router = useRouter();
-  const { signout } = AuthService();
+  const { signout } = AuthRscService();
   const { updateAccess } = AuthRscService();
+
+  const handleNoRefresh = async () => {
+    await signout();
+    location.href = "auth/signin";
+  };
 
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {
-      signout();
+      handleNoRefresh();
     } else {
       try {
         await updateAccess(refresh);
@@ -46,7 +51,7 @@ const Error = ({
         }, 1000);
         return () => clearTimeout(timer);
       } catch {
-        signout();
+        handleNoRefresh();
       }
     }
   };
@@ -57,7 +62,7 @@ const Error = ({
     } else if (noPermissionCode.includes(error.message))
       router.push("/no-permission");
     else if (noRefreshTokenCode.includes(error.message)) {
-      signout();
+      handleNoRefresh();
     }
   }, [error]);
 

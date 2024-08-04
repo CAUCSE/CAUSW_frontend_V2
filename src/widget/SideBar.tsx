@@ -6,18 +6,23 @@ import { ProfileImage, Header, SubHeader } from "@/entities";
 import {
   UserService,
   useUserStore,
-  AuthService,
+  AuthRscService,
   useLayoutStore,
 } from "@/shared";
 
 export const SideBar = () => {
   const { getUserInfo } = UserService();
-  const { signout } = AuthService();
+  const { signout } = AuthRscService();
 
   const sm = useLayoutStore((state) => state.sm);
 
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
+
+  const handleNoRefresh = async () => {
+    await signout();
+    location.href = "auth/signin";
+  };
 
   useEffect(() => {
     getUserInfo();
@@ -36,7 +41,7 @@ export const SideBar = () => {
           <span
             className="icon-[codicon--sign-out] text-2xl md:text-4xl"
             onClick={() => {
-              signout();
+              handleNoRefresh();
             }}
           ></span>
           <span

@@ -40,8 +40,13 @@ export const getRccRefresh = (): string | null => {
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { signout } = AuthService();
+    const { signout } = AuthRscService();
     const { updateAccess } = AuthRscService();
+
+    const handleNoRefresh = async () => {
+      await signout();
+      location.href = "auth/signin";
+    };
 
     if (error.response) {
       const {
@@ -64,7 +69,7 @@ API.interceptors.response.use(
       } else if (noPermissionCode.includes(error.message))
         location.href = "/no-permission";
       else if (noRefreshTokenCode.includes(error.message)) {
-        signout();
+        handleNoRefresh();
       }
     }
     throw new Error(`${error}`);
