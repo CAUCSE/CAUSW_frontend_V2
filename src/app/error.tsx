@@ -3,7 +3,7 @@
 //TODO//
 //에러 페이지 JSX 업데이트 필요
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -12,8 +12,13 @@ import {
   noPermissionCode,
   noRefreshTokenCode,
   allErrorCode,
+  getRccRefresh,
+  setRscToken,
+  getRscAccess,
   getRscRefresh,
+  AuthService,
   AuthRscService,
+  setRscHeader,
 } from "@/shared";
 
 import { LoadingComponent } from "@/entities";
@@ -26,15 +31,23 @@ const Error = ({
   reset: () => void;
 }) => {
   const router = useRouter();
-  const { updateAccess, signout } = AuthRscService();
+  const { signout } = AuthService();
+  const { updateAccess } = AuthRscService();
 
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {
-      router.push("/auth/signin");
+      signout();
     } else {
-      await updateAccess(refresh);
-      reset();
+      try {
+        await updateAccess(refresh);
+        const timer = setTimeout(() => {
+          reset();
+        }, 1000);
+        return () => clearTimeout(timer);
+      } catch {
+        signout();
+      }
     }
   };
 

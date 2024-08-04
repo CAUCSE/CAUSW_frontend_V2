@@ -7,14 +7,12 @@ import {
   useUserStore,
   useLayoutStore,
   API,
-  setAccess,
-  storeRefresh,
-  setRscAccess,
+  setRccToken,
+  setRscToken,
   removeRscAccess,
-  storeRscRefresh,
   removeRscRefresh,
-  removeAccess,
-  removeRefresh,
+  removeRccAccess,
+  removeRccRefresh,
 } from "@/shared";
 
 export const AuthService = () => {
@@ -33,11 +31,9 @@ export const AuthService = () => {
         refreshToken: string;
       }>;
 
-      setAccess(accessToken);
-      storeRefresh(body.auto ?? false, refreshToken);
+      await setRscToken(accessToken, body.auto ? refreshToken : false);
 
-      setRscAccess(accessToken);
-      if (body.auto) storeRscRefresh(refreshToken);
+      setRccToken(accessToken, body.auto ? refreshToken : false);
 
       router.push("/home");
     } catch {
@@ -45,5 +41,15 @@ export const AuthService = () => {
     }
   };
 
-  return { signin };
+  const signout = async () => {
+    //TODO: API 추가 필요
+    removeRccAccess();
+    removeRccRefresh();
+    await removeRscAccess();
+    await removeRscRefresh();
+
+    router.push("/auth/signin");
+  };
+
+  return { signin, signout };
 };

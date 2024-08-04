@@ -5,16 +5,14 @@ import {
   useUserStore,
   useLayoutStore,
   API,
-  setAccess,
-  storeRefresh,
+  setRccToken,
+  setRscToken,
   setRscHeader,
   getRscRefresh,
-  setRscAccess,
   removeRscAccess,
-  storeRscRefresh,
   removeRscRefresh,
-  removeAccess,
-  removeRefresh,
+  removeRccAccess,
+  removeRccRefresh,
 } from "@/shared";
 
 export const AuthRscService = () => {
@@ -32,8 +30,8 @@ export const AuthRscService = () => {
 
       if (response.errorCode) throw new Error(response.errorCode);
 
-      setAccess(response.accessToken);
-      setRscAccess(response.accessToken);
+      await setRscToken(response.accessToken, refresh);
+      setRccToken(response.accessToken, refresh);
 
       return response.accessToken;
     } catch (error) {
@@ -42,13 +40,5 @@ export const AuthRscService = () => {
     }
   };
 
-  const signout = async () => {
-    //TODO: API 추가 필요
-    removeAccess();
-    removeRefresh();
-    removeRscAccess();
-    removeRscRefresh();
-  };
-
-  return { updateAccess, signout };
+  return { updateAccess };
 };
