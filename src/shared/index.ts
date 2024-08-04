@@ -1,19 +1,17 @@
 export { BASEURL } from "./configs/url";
 export {
   API,
-  setAccess,
-  removeAccess,
-  getAccess,
-  storeRefresh,
-  removeRefresh,
-  getRefresh,
+  setRccToken,
+  removeRccAccess,
+  getRccAccess,
+  removeRccRefresh,
+  getRccRefresh,
 } from "./configs/axios";
 export {
-  setRscAccess,
+  setRscToken,
   removeRscAccess,
   getRscAccess,
   setRscHeader,
-  storeRscRefresh,
   removeRscRefresh,
   getRscRefresh,
 } from "./configs/fetch";
