@@ -12,7 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        default: "#b9e9f1",
+        default: "#99dfec",
         focus: "#6BBEEC",
         error: "#b4391a",
       },
