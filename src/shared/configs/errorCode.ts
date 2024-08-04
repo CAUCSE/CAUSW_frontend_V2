@@ -13,7 +13,7 @@ export const noRefreshTokenCode = [
 ];
 
 //Access Token 거부
-export const noAccessTokenCode = ["4105"];
+export const noAccessTokenCode = ["4105", "4110"];
 
 //접근 불가 페이지 접근
 export const noPermissionCode = ["4107"];
