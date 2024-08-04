@@ -30,3 +30,11 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
   -webkit-text-fill-color: rgb(255, 255, 255) !important;
 }
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
