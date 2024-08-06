@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormInput, FormSubmitButton } from '../../../../src/entities/input/FormInput';
 import FormErrorMessage from '../../../../src/entities/layout/FormErrorMessage';
@@ -21,7 +21,7 @@ const FindPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4 sm:px-0"> {/* 반응형 디자인 추가 */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white px-4 sm:px-0">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">이름</h2>
         <FormInput
@@ -37,7 +37,7 @@ const FindPasswordPage: React.FC = () => {
         <FormInput
           name="studentId"
           type="text"
-          placeholder="학번을 입력해주세요"
+          placeholder="학번 8자리를 입력해주세요."
           register={register}
           rules={{ required: '학번을 입력해주세요.' }}
         />
