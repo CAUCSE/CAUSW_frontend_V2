@@ -18,5 +18,5 @@ module.exports = {
       },
     },
   },
-  plugins: [addDynamicIconSelectors()],
+  plugins: [addDynamicIconSelectors(), "prettier-plugin-tailwindcss"],
 };
