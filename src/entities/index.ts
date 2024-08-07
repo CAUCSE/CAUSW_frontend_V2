@@ -10,3 +10,5 @@ export { FormInput, FormSubmitButton } from "./input/FormInput";
 
 export { Header } from "./header/Header";
 export { SubHeader } from "./header/SubHeader";
+
+export { CircleElement } from "./element/CircleElement";
