@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect } from "react";
+import { useLayoutStore } from "@/shared";
 import React from 'react';
 
 interface FormErrorMessageProps {
@@ -6,7 +10,7 @@ interface FormErrorMessageProps {
 
 const FormErrorMessage: React.FC<FormErrorMessageProps> = ({ message }) => {
   if (!message) return null;
-  return <p className="text-red-500 text-sm mt-1 mb-4">{message}</p>;
+  return <p className="text-red-500 text-sm mt-1">{message}</p>;
 };
 
 export default FormErrorMessage;
