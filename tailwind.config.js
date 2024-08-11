@@ -15,7 +15,7 @@ module.exports = {
         default: "#99dfec",
         focus: "#6BBEEC",
         error: "#b4391a",
-        boardBackground: "#F8F8F8",
+        boardBackground: "#E8E8E8",
       },
     },
   },
