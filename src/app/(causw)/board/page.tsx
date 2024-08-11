@@ -3,152 +3,63 @@
  * @description 중복되는 코드 개선 필요
  */
 
-"use client";
-
-import { ReactNode } from "react";
-import { useLayoutStore } from "@/shared";
-
-const boards = [
-  { title: "게시글 1", content: "게시글 1 내용입니다." },
-  { title: "게시글 2", content: "게시글 2 내용입니다." },
-  { title: "게시글 3", content: "게시글 3 내용입니다." },
-  { title: "게시글 4", content: "게시글 4 내용입니다." },
-  { title: "게시글 5", content: "게시글 5 내용입니다." },
-  { title: "게시글 6", content: "게시글 6 내용입니다." },
-];
-
-const BoardList = (lessMd: boolean) => {
+const BoardPage = () => {
   return (
-    <div className="border border-black rounded-lg  mt-3 p-5 bg-white shadow">
-      <div className="flex h-full">
-        <div
-          className={`${!lessMd && "w-1/2"} h-full w-full flex flex-col justify-between`}
-        >
-          <ul className="h-full w-full flex flex-col justify-between">
-            {boards.map((boardInfo, idx) => {
-              if (idx < 3) {
-                return (
-                  <li
-                    className="flex items-center justify-center w-full h-1/3 my-2"
-                    key={idx}
-                  >
-                    <h5 className="basis-2/5 text-lg truncate">
-                      {boardInfo.title}
-                    </h5>
-                    <span className="basis-3/5 ml-5 mr-5 truncate">
-                      <p className="truncate">{boardInfo.content}</p>
-                    </span>
-                  </li>
-                );
-              }
-            })}
-          </ul>
-        </div>
-        {lessMd ? null : (
-          <div className="w-1/2 border-l border-gray-400 pl-5 h-full w-full flex flex-col justify-between">
-            <ul className="h-full w-full flex flex-col justify-between">
-              {boards.map((boardInfo, idx) => {
-                if (idx >= 3) {
-                  return (
-                    <li
-                      className="flex items-center justify-center w-full h-1/3 my-2"
-                      key={idx}
-                    >
-                      <h5 className="basis-2/5 text-lg truncate">
-                        {boardInfo.title}
-                      </h5>
-                      <span className="basis-3/5 ml-5 mr-5 truncate">
-                        <p className="truncate">{boardInfo.content}</p>
-                      </span>
-                    </li>
-                  );
-                }
-              })}
+    <div className="absolute w-full  md:w-auto md:left-40 md:right-72 top-24  md:top-0 bottom-28 md:bottom-0 p-6 overflow-y-scroll">
+      <div className="h-full lg:h-auto  grid grid-cols-1 lg:grid-cols-2 gap-x-5 lg:gap-y-10 gap-y-5 border border-red-500 rounded-2xl p-10 bg-boardBackground overflow-y-scroll">
+        <div>
+          <h1 className="text-xl font-semibold">
+            ❗ <span className="underline">서비스 공지</span>
+          </h1>
+          <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
+            <ul className="space-y-2 divide-y-2">
+              <li className="truncate">서버 점검 18:00 ~ 21:00</li>
+              <li className="truncate">서버 점검 18:00 ~ 21:00</li>
+              <li className="truncate">서버 점검 18:00 ~ 21:00</li>
             </ul>
           </div>
-        )}
-      </div>
-    </div>
-  );
-};
+        </div>
+        <div>
+          <h1 className="text-xl font-semibold">
+            🏆 <span className="underline">학생회 공지 게시판</span>
+          </h1>
+          <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
+            <ul className="space-y-2 divide-y-2">
+              <li className="truncate">기말고사 간식 행사 안내</li>
+              <li className="truncate">신복편전 안내</li>
+              <li className="truncate">체육 대회 안내</li>
+            </ul>
+          </div>
+        </div>
 
-const BoardPage = () => {
-  const lessMd = useLayoutStore((state) => state.md || state.sm);
-
-  return (
-    <div className="absolute flex-grow top-0 left-40 right-72 h-full border border-green200 bg-boardBackground rounded-3xl">
-      <div className="relative h-1/3 mx-10">
-        <div className="flex justify-between">
-          <h2 className="text-2xl font-bold pt-10">최근 게시판</h2>
-          <h5 className="pt-12">더보기 →</h5>
+        <div>
+          <h1 className="text-xl font-bold">
+            📖
+            <span className="underline">소프트웨어학부 공지</span>
+          </h1>
+          <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
+            <ul className="space-y-2 divide-y-2">
+              <li className="truncate">탑싯 서류 제출 안내</li>
+              <li className="truncate">기말고사 시험표</li>
+              <li className="truncate">성적 조회 안내</li>
+            </ul>
+          </div>
         </div>
-        {/* 게시판 제목 + 내용 */}
-        {BoardList(lessMd)}
-      </div>
-      <div className="relative h-1/3 mx-10">
-        <div className="flex justify-between">
-          <h2 className="text-2xl font-bold pt-10">내가 작성한 게시글</h2>
-          <h5 className="pt-12">더보기 →</h5>
-        </div>
-        {/* 게시판 제목 + 내용 */}
-        {BoardList(lessMd)}
-      </div>
-      <div className="relative h-1/3 mx-10">
-        <div className="flex justify-between">
-          <h2 className="text-2xl font-bold pt-10">찜한 게시글</h2>
-          <h5 className="pt-12">더보기 →</h5>
-        </div>
-        <div className="border border-black rounded-lg mt-3 p-5 bg-white shadow">
-          {/* 게시판 제목 + 내용 */}
-          <div className="flex h-full">
-            <div className="w-1/2 border-r border-gray-400 p-5 h-full flex flex-col justify-between">
-              <ul className="h-full w-full flex flex-col justify-between">
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="flex text-lg underline">게시글 1</h5>
-                </li>
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="text-lg">게시글 2</h5>
-                </li>
-                <li className="flex items-center justify-center w-full h-1/3">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="text-lg">게시글 3</h5>
-                </li>
-              </ul>
-            </div>
-            <div className="w-1/2 border-r border-gray-400 p-5 h-full flex flex-col justify-between">
-              <ul className="h-full w-full flex flex-col justify-between">
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="flex text-lg">게시글 4</h5>
-                </li>
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="text-lg">게시글 5</h5>
-                </li>
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="text-lg">게시글 6</h5>
-                </li>
-              </ul>
-            </div>
-            <div className="w-1/2 p-5 h-full flex flex-col justify-between">
-              <ul className="h-full w-full flex flex-col justify-between">
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="flex text-lg">게시글 7</h5>
-                </li>
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="text-lg">게시글 8</h5>
-                </li>
-                <li className="flex items-center justify-center w-full h-1/3 mb-4">
-                  <h5 className="flex text-lg mr-3">⭐</h5>
-                  <h5 className="text-lg">게시글 9</h5>
-                </li>
-              </ul>
-            </div>
+        <div>
+          <h1 className="text-xl font-bold">
+            🌏
+            <span className="underline">동문회 공지 게시판</span>
+          </h1>
+          <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
+            <ul className="space-y-2 divide-y-2 ">
+              <li className="truncate">????????????????????</li>
+              <li className="truncate">
+                ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㄹㄹㄹㄹㄹㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇasdasd
+              </li>
+              <li className="truncate">
+                ㅁㄴㅇㄴㅁㅇㅁㅇㅁㅈㅇㅁㅇㅁㄴㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ
+              </li>
+            </ul>
           </div>
         </div>
       </div>
