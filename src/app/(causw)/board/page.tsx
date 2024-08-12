@@ -3,143 +3,214 @@
  * @description 중복되는 코드 개선 필요
  */
 
+interface BoardInfoType {
+  emoji: string | null;
+  title: string;
+  contents: Array<{ title: string }>;
+}
+
+const defaultBoardInfos: Array<BoardInfoType> = [
+  {
+    emoji: "❗",
+    title: "서비스 공지",
+    contents: [
+      {
+        title: `서버 점검 18:00 ~ 21:00`,
+      },
+      {
+        title: `서버 점검 18:00 ~ 21:00`,
+      },
+      {
+        title: `서버 점검 18:00 ~ 21:00`,
+      },
+    ],
+  },
+  {
+    emoji: "🏆",
+    title: "학생회 공지 게시판",
+    contents: [
+      {
+        title: `기말고사 간식 행사 안내`,
+      },
+      {
+        title: `신복편전 안내`,
+      },
+      {
+        title: `체육 대회 안내`,
+      },
+    ],
+  },
+  {
+    emoji: "📖",
+    title: "소프트웨어학부 공지",
+    contents: [
+      {
+        title: `탑싯 서류 제출 안내`,
+      },
+      {
+        title: `기말고사 시험표`,
+      },
+      {
+        title: `성적 조회 안내`,
+      },
+    ],
+  },
+  {
+    emoji: "🌏",
+    title: "동문회 공지 게시판",
+    contents: [
+      {
+        title: `???????????????????`,
+      },
+      {
+        title: `ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㄹㄹㄹㄹㄹㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇasdasd`,
+      },
+      {
+        title: `ㅁㄴㅇㄴㅁㅇㅁㅇㅁㅈㅇㅁㅇㅁㄴㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ`,
+      },
+    ],
+  },
+];
+
+const customBoardInfos: Array<BoardInfoType> = [
+  {
+    emoji: null,
+    title: "스포츠 게시판",
+    contents: [
+      {
+        title: `3대 500 달성법`,
+      },
+      {
+        title: `벤치프레스 그립의 종류`,
+      },
+      {
+        title: `메시 vs 호날두`,
+      },
+    ],
+  },
+  {
+    emoji: null,
+    title: "과제 게시판",
+    contents: [
+      {
+        title: `프로그래밍 과제 너무 어려워요 ㅠㅠ`,
+      },
+      {
+        title: `수치해석 퀴즈 뭐지...`,
+      },
+      {
+        title: `운영체제 데드락 과제 ㅁㄴㅇㅁㅇㅇㅁㅇㅇㄴㅇㅁ`,
+      },
+    ],
+  },
+  {
+    emoji: null,
+    title: "스포츠 게시판",
+    contents: [
+      {
+        title: `3대 500 달성법`,
+      },
+      {
+        title: `벤치프레스 그립의 종류`,
+      },
+      {
+        title: `메시 vs 호날두`,
+      },
+    ],
+  },
+  {
+    emoji: null,
+    title: "과제 게시판",
+    contents: [
+      {
+        title: `프로그래밍 과제 너무 어려워요 ㅠㅠ`,
+      },
+      {
+        title: `수치해석 퀴즈 뭐지...`,
+      },
+      {
+        title: `운영체제 데드락 과제 ㅁㄴㅇㅁㅇㅇㅁㅇㅇㄴㅇㅁ`,
+      },
+    ],
+  },
+  {
+    emoji: null,
+    title: "스포츠 게시판",
+    contents: [
+      {
+        title: `3대 500 달성법`,
+      },
+      {
+        title: `벤치프레스 그립의 종류`,
+      },
+      {
+        title: `메시 vs 호날두`,
+      },
+    ],
+  },
+  {
+    emoji: null,
+    title: "과제 게시판",
+    contents: [
+      {
+        title: `프로그래밍 과제 너무 어려워요 ㅠㅠ`,
+      },
+      {
+        title: `수치해석 퀴즈 뭐지...`,
+      },
+      {
+        title: `운영체제 데드락 과제 ㅁㄴㅇㅁㅇㅇㅁㅇㅇㄴㅇㅁ`,
+      },
+    ],
+  },
+];
+
+const Board = ({ emoji, title, contents }: BoardInfoType) => (
+  <div>
+    <h1 className="truncate text-xl font-semibold">
+      {emoji}
+      <span className="underline">{title}</span>
+    </h1>
+    <div className="mt-4 rounded-2xl border border-black bg-white px-4 text-center shadow-lg">
+      <ul className="divide-y-2">
+        {contents.map((content) => (
+          <li className="truncate py-2">{content.title}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
+
+const DefaultBoard = ({ boardInfos }: { boardInfos: Array<BoardInfoType> }) => (
+  <div className="grid grid-cols-1 gap-x-5 gap-y-5 rounded-2xl border border-red-500 bg-boardBackground p-10 lg:grid-cols-2 lg:gap-y-10">
+    {boardInfos.map((boardInfo) => (
+      <Board
+        emoji={boardInfo.emoji}
+        title={boardInfo.title}
+        contents={boardInfo.contents}
+      />
+    ))}
+  </div>
+);
+
+const CustomBoard = ({ boardInfos }: { boardInfos: Array<BoardInfoType> }) => (
+  <div className="grid grid-cols-1 gap-x-5 gap-y-5 bg-white p-10 lg:grid-cols-2 lg:gap-y-10">
+    {boardInfos.map((boardInfos) => (
+      <Board
+        emoji={boardInfos.emoji}
+        title={boardInfos.title}
+        contents={boardInfos.contents}
+      />
+    ))}
+  </div>
+);
+
 const BoardPage = () => {
   return (
-    <div className="absolute w-full  md:w-auto md:left-40 md:right-72 top-24  md:top-0 bottom-28 md:bottom-0 p-6 ">
+    <div className="absolute bottom-24 top-28 w-full overflow-y-auto p-6 md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
       <div className="h-full lg:h-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 lg:gap-y-10 gap-y-5 border border-red-500 rounded-2xl p-10 bg-boardBackground overflow-y-auto">
-          <div>
-            <h1 className="text-xl font-semibold truncate">
-              ❗ <span className="underline">서비스 공지</span>
-            </h1>
-            <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-              <ul className="space-y-4 divide-y-2">
-                <li className="truncate">서버 점검 18:00 ~ 21:00</li>
-                <li className="truncate">서버 점검 18:00 ~ 21:00</li>
-                <li className="truncate">서버 점검 18:00 ~ 21:00</li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <h1 className="text-xl font-semibold truncate">
-              🏆 <span className="underline">학생회 공지 게시판</span>
-            </h1>
-            <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-              <ul className="space-y-4 divide-y-2">
-                <li className="truncate">기말고사 간식 행사 안내</li>
-                <li className="truncate">신복편전 안내</li>
-                <li className="truncate">체육 대회 안내</li>
-              </ul>
-            </div>
-          </div>
-
-          <div>
-            <h1 className="text-xl font-bold truncate">
-              📖
-              <span className="underline">소프트웨어학부 공지</span>
-            </h1>
-            <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-              <ul className="space-y-4 divide-y-2">
-                <li className="truncate">탑싯 서류 제출 안내</li>
-                <li className="truncate">기말고사 시험표</li>
-                <li className="truncate">성적 조회 안내</li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <h1 className="text-xl font-bold truncate">
-              🌏
-              <span className="underline">동문회 공지 게시판</span>
-            </h1>
-            <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-              <ul className="space-y-4 divide-y-2 ">
-                <li className="truncate">????????????????????</li>
-                <li className="truncate">
-                  ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㄹㄹㄹㄹㄹㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇasdasd
-                </li>
-                <li className="truncate">
-                  ㅁㄴㅇㄴㅁㅇㅁㅇㅁㅈㅇㅁㅇㅁㄴㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 lg:gap-y-10 gap-y-5 p-10 bg-white overflow-y-auto">
-            <div>
-              <h1 className="text-xl font-bold truncate">
-                <span className="underline">스포츠 게시판</span>
-              </h1>
-              <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-                <ul className="space-y-2 divide-y-2 ">
-                  <li className="truncate">3대 500 달성법</li>
-                  <li className="truncate">벤치 프레스 그립의 종류</li>
-                  <li className="truncate">메시 vs 호날두 누가 GOAT인가</li>
-                </ul>
-              </div>
-            </div>
-            <div className="overflow-y-auto">
-              <h1 className="text-xl font-bold truncate">
-                <span className="underline">과제 게시판</span>
-              </h1>
-              <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-                <ul className="space-y-2 divide-y-2 ">
-                  <li className="truncate">프로그래밍 과제 어려워요</li>
-                  <li className="truncate">수치해석 중간고사 ㅠㅠ</li>
-                  <li className="truncate">운영체제 데드락 과제 ㅠㅠ</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold truncate">
-                <span className="underline">스포츠 게시판</span>
-              </h1>
-              <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-                <ul className="space-y-2 divide-y-2 ">
-                  <li className="truncate">3대 500 달성법</li>
-                  <li className="truncate">벤치 프레스 그립의 종류</li>
-                  <li className="truncate">메시 vs 호날두 누가 GOAT인가</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold truncate">
-                <span className="underline">스포츠 게시판</span>
-              </h1>
-              <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-                <ul className="space-y-2 divide-y-2 ">
-                  <li className="truncate">3대 500 달성법</li>
-                  <li className="truncate">벤치 프레스 그립의 종류</li>
-                  <li className="truncate">메시 vs 호날두 누가 GOAT인가</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold truncate">
-                <span className="underline">스포츠 게시판</span>
-              </h1>
-              <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-                <ul className="space-y-2 divide-y-2 ">
-                  <li className="truncate">3대 500 달성법</li>
-                  <li className="truncate">벤치 프레스 그립의 종류</li>
-                  <li className="truncate">메시 vs 호날두 누가 GOAT인가</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold truncate">
-                <span className="underline">스포츠 게시판</span>
-              </h1>
-              <div className="border border-black rounded-2xl text-center mt-4 bg-white shadow-lg p-4">
-                <ul className="space-y-2 divide-y-2 ">
-                  <li className="truncate">3대 500 달성법</li>
-                  <li className="truncate">벤치 프레스 그립의 종류</li>
-                  <li className="truncate">메시 vs 호날두 누가 GOAT인가</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DefaultBoard boardInfos={defaultBoardInfos} />
+        <CustomBoard boardInfos={customBoardInfos} />
       </div>
     </div>
   );
