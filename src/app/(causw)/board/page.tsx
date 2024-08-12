@@ -3,13 +3,17 @@
  * @description 중복되는 코드 개선 필요
  */
 
-interface BoardInfoType {
-  emoji: string | null;
+interface IBoardContent {
   title: string;
-  contents: Array<{ title: string }>;
 }
 
-const defaultBoardInfos: Array<BoardInfoType> = [
+interface IBoardInfo {
+  emoji: string | null;
+  title: string;
+  contents: Array<IBoardContent>;
+}
+
+const defaultBoardInfos: Array<IBoardInfo> = [
   {
     emoji: "❗",
     title: "서비스 공지",
@@ -72,7 +76,7 @@ const defaultBoardInfos: Array<BoardInfoType> = [
   },
 ];
 
-const customBoardInfos: Array<BoardInfoType> = [
+const customBoardInfos: Array<IBoardInfo> = [
   {
     emoji: null,
     title: "스포츠 게시판",
@@ -165,7 +169,7 @@ const customBoardInfos: Array<BoardInfoType> = [
   },
 ];
 
-const Board = ({ emoji, title, contents }: BoardInfoType) => (
+const Board = ({ emoji, title, contents }: IBoardInfo) => (
   <div>
     <h1 className="truncate text-xl font-semibold">
       {emoji}
@@ -181,8 +185,8 @@ const Board = ({ emoji, title, contents }: BoardInfoType) => (
   </div>
 );
 
-const DefaultBoard = ({ boardInfos }: { boardInfos: Array<BoardInfoType> }) => (
-  <div className="grid grid-cols-1 gap-x-5 gap-y-5 rounded-2xl border border-red-500 bg-boardBackground p-10 lg:grid-cols-2 lg:gap-y-10">
+const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
+  <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 rounded-2xl border border-red-500 bg-boardBackground p-10 lg:grid-cols-2 lg:gap-y-10">
     {boardInfos.map((boardInfo) => (
       <Board
         emoji={boardInfo.emoji}
@@ -193,8 +197,8 @@ const DefaultBoard = ({ boardInfos }: { boardInfos: Array<BoardInfoType> }) => (
   </div>
 );
 
-const CustomBoard = ({ boardInfos }: { boardInfos: Array<BoardInfoType> }) => (
-  <div className="grid grid-cols-1 gap-x-5 gap-y-5 bg-white p-10 lg:grid-cols-2 lg:gap-y-10">
+const CustomBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
+  <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 bg-white p-10 lg:grid-cols-2 lg:gap-y-10">
     {boardInfos.map((boardInfos) => (
       <Board
         emoji={boardInfos.emoji}
@@ -207,10 +211,13 @@ const CustomBoard = ({ boardInfos }: { boardInfos: Array<BoardInfoType> }) => (
 
 const BoardPage = () => {
   return (
-    <div className="absolute bottom-24 top-28 w-full overflow-y-auto p-6 md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
-      <div className="h-full lg:h-auto">
+    <div className="scrollbar-hide absolute bottom-24 top-28 w-full overflow-y-auto p-6 md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
+      <div className="flex h-full flex-col items-center lg:h-auto">
         <DefaultBoard boardInfos={defaultBoardInfos} />
         <CustomBoard boardInfos={customBoardInfos} />
+        <button className="fixed bottom-28 rounded-3xl bg-red-500 px-6 py-3 font-bold text-white md:bottom-10">
+          게시판 생성
+        </button>
       </div>
     </div>
   );
