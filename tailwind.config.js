@@ -19,5 +19,5 @@ module.exports = {
       },
     },
   },
-  plugins: [addDynamicIconSelectors()],
+  plugins: [addDynamicIconSelectors(), require("tailwind-scrollbar-hide")],
 };
