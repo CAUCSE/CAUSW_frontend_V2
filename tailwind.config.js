@@ -16,6 +16,7 @@ module.exports = {
         focus: "#6BBEEC",
         error: "#b4391a",
         boardBackground: "#E8E8E8",
+        boardPageBackground: "#F8F8F8",
       },
     },
   },

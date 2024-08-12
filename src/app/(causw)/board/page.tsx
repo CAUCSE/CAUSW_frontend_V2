@@ -211,7 +211,7 @@ const CustomBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
 
 const BoardPage = () => {
   return (
-    <div className="scrollbar-hide absolute bottom-24 top-28 w-full overflow-y-auto p-6 md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
+    <div className="scrollbar-hide bg-boardPageBackground absolute bottom-24 top-28 w-full overflow-y-auto p-6 md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
       <div className="flex h-full flex-col items-center lg:h-auto">
         <DefaultBoard boardInfos={defaultBoardInfos} />
         <CustomBoard boardInfos={customBoardInfos} />
