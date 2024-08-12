@@ -12,7 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        default: "#D5EDF1",
+        default: "#99dfec",
         focus: "#6BBEEC",
         error: "#b4391a",
         'post-hashtag':"rgba(152, 66, 8, 1)",
