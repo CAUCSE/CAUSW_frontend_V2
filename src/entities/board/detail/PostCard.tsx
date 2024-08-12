@@ -2,6 +2,8 @@
 
 import { useUserStore } from "@/shared";
 
+// 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
+// ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
 interface PostCardProps {
   userImage?: string;
   username: string;
@@ -19,7 +21,7 @@ export const PostCard = ({ userImage, username, timeAgo, hashtags, content, post
   userImage = useUserStore((state) => state.profileImage);
   postImage = useUserStore((state) => state.profileImage);
   return (
-    <div className="flex flex-col bg-post border rounded-post-br p-4 shadow-post-sh mb-4 max-w-lg">
+    <div className="flex flex-col bg-post border rounded-post-br mt-4 p-4 shadow-post-sh mb-4 max-w-xl">
       {/* 해시태그 전체 밑줄 되어야 함 */}
       <div className="flex px-16 items-start underline">
         {hashtags.map((tag, index) => (

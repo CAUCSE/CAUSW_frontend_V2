@@ -2,6 +2,7 @@
 
 import { useUserStore } from "@/shared";
 
+// 여기도 좋아요 싫어요 디자인 문의하기
 interface CommentCardProps {
   userImage?: string;
   username: string;
