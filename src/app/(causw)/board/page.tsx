@@ -198,7 +198,7 @@ const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
 );
 
 const CustomBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
-  <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 bg-white p-10 lg:grid-cols-2 lg:gap-y-10">
+  <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 p-10 lg:grid-cols-2 lg:gap-y-10">
     {boardInfos.map((boardInfos) => (
       <Board
         emoji={boardInfos.emoji}
