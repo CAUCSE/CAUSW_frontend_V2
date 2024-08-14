@@ -31,7 +31,7 @@ export const SideBar = () => {
   return (
     <>
       <div
-        className="w-full h-28 fixed top-0 right-0 flex justify-end items-center space-y-4 pr-4 
+        className="w-full h-28 z-30 fixed top-0 right-0 flex justify-end items-center space-y-4 pr-4
         md:w-72 md:h-screen md:flex-col md:justify-center"
       >
         <div

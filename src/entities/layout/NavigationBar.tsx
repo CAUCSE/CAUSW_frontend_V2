@@ -12,7 +12,7 @@ export const NavigationBar = () => {
 
   return (
     <div
-      className="w-full h-24 fixed bottom-0 left-0 bg-default flex justify-center items-center space-x-3 rounded-t-3xl 
+      className="w-full h-24 z-30 fixed bottom-0 left-0 bg-default flex justify-center items-center space-x-3 rounded-t-3xl 
       md:w-40 md:h-screen md:top-0 md:flex-col md:items-end md:space-y-10 md:rounded-tl-none md:rounded-r-3xl"
     >
       {sm ? null : (
