@@ -1,3 +1,5 @@
+import { PreviousButton } from "./ui/previousButton";
+
 export { BASEURL } from "./configs/url";
 export {
   API,
@@ -35,4 +37,6 @@ export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 
 export { WindowSizeListener } from "./listener/WindowSizeListener";
+
 export { Modal } from "./ui/modal";
+export { PreviousButton } from "./ui/previousButton";
