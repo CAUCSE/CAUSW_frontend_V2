@@ -1,7 +1,6 @@
-/**
- * @description 나중에 게시물 + 사용자 정보로 바뀔 예정
- * @description 중복되는 코드 개선 필요
- */
+"use client";
+
+import { useRouter } from "next/navigation";
 
 interface IBoardContent {
   title: string;
@@ -177,8 +176,10 @@ const Board = ({ emoji, title, contents }: IBoardInfo) => (
     </h1>
     <div className="mt-4 rounded-2xl border border-black bg-white px-4 text-center shadow-lg">
       <ul className="divide-y-2">
-        {contents.map((content) => (
-          <li className="truncate py-2">{content.title}</li>
+        {contents.map((content, idx) => (
+          <li className="truncate py-2" key={idx}>
+            {content.title}
+          </li>
         ))}
       </ul>
     </div>
@@ -187,11 +188,12 @@ const Board = ({ emoji, title, contents }: IBoardInfo) => (
 
 const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
   <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 rounded-2xl border border-red-500 bg-boardBackground p-10 lg:grid-cols-2 lg:gap-y-10">
-    {boardInfos.map((boardInfo) => (
+    {boardInfos.map((boardInfo, idx) => (
       <Board
         emoji={boardInfo.emoji}
         title={boardInfo.title}
         contents={boardInfo.contents}
+        key={idx}
       />
     ))}
   </div>
@@ -199,23 +201,33 @@ const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
 
 const CustomBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
   <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 p-10 lg:grid-cols-2 lg:gap-y-10">
-    {boardInfos.map((boardInfos) => (
+    {boardInfos.map((boardInfos, idx) => (
       <Board
         emoji={boardInfos.emoji}
         title={boardInfos.title}
         contents={boardInfos.contents}
+        key={idx}
       />
     ))}
   </div>
 );
 
 const BoardPage = () => {
+  const router = useRouter();
+
+  const createBtnClicked = () => {
+    router.push("/board/create");
+  };
+
   return (
-    <div className="scrollbar-hide bg-boardPageBackground absolute bottom-24 top-28 w-full overflow-y-auto p-6 md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
+    <div className="absolute bottom-24 top-28 w-full overflow-y-auto bg-boardPageBackground p-6 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
       <div className="flex h-full flex-col items-center lg:h-auto">
         <DefaultBoard boardInfos={defaultBoardInfos} />
         <CustomBoard boardInfos={customBoardInfos} />
-        <button className="fixed bottom-28 rounded-3xl bg-red-500 px-6 py-3 font-bold text-white md:bottom-10">
+        <button
+          className="fixed bottom-28 rounded-3xl bg-red-500 px-6 py-3 font-bold text-white md:bottom-10"
+          onClick={createBtnClicked}
+        >
           게시판 생성
         </button>
       </div>
