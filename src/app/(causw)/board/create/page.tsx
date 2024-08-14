@@ -1,23 +1,19 @@
 "use client";
 
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import {
+  FieldErrors,
+  SubmitHandler,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  useForm,
+} from "react-hook-form";
+import { Modal, PreviousButton } from "@/shared";
+
+import { useState } from "react";
 
 /**
  * TODO : Submit 버튼에 api post하기
  */
-
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-import { Modal } from "@/shared";
-
-import {
-  FieldErrors,
-  SubmitHandler,
-  useForm,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form";
 
 interface IFormInput {
   boardName: string;
@@ -30,16 +26,6 @@ interface ICreateBoardForm {
   errors: FieldErrors<IFormInput>;
 }
 
-const PreviousButton = ({ router }: { router: AppRouterInstance }) => (
-  <div className="absolute left-0 top-0 m-4">
-    <button type="button" onClick={() => router.back()}>
-      <div className="flex items-center">
-        <span className="pr-4 text-2xl">{"<"}</span>이전
-      </div>
-    </button>
-  </div>
-);
-
 const CreateBoardForm = ({
   register,
   handleSubmit,
@@ -48,7 +34,7 @@ const CreateBoardForm = ({
 }: ICreateBoardForm) => (
   <div className="flex h-full w-full flex-col items-center">
     <div className="h-2/5"></div>
-    <h1 className="md: px-0 px-10 pb-10 text-center text-lg">
+    <h1 className="px-10 pb-10 text-center text-lg md:px-0">
       생성하고자 하는 게시판의 이름을 알려주세요 !
     </h1>
     <form
@@ -108,11 +94,9 @@ const CreateBoard = () => {
 
   const closeModal = () => setShowModal(false);
 
-  const router = useRouter();
-
   return (
     <div className="absolute bottom-24 top-28 flex w-full flex-col items-center justify-items-center overflow-y-auto bg-boardPageBackground p-6 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
-      <PreviousButton router={router} />
+      <PreviousButton />
       <CreateBoardForm
         register={register}
         handleSubmit={handleSubmit}
