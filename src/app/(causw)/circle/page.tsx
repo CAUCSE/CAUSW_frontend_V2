@@ -7,8 +7,14 @@ const CirclePage = async () => {
 
   return (
     <>
-      <div className="absolute top-32 left-40 w-[70%] h-full transform overflow-y-scroll bg-[#F8F8F8] md:top-0 rounded-3xl">
-        <div className="flex flex-row flex-wrap ">
+      <div
+        className="absolute top-32 left-0 w-full h-full transform overflow-y-scroll bg-[#F8F8F8] rounded-3xl
+        md:top-0 md:left-40 md:w-[71%]"
+      >
+        <div className="text-2xl font-bold w-72 ml-16 mt-6 md:mt-16">
+          동아리 목록
+        </div>
+        <div className="flex flex-row flex-wrap justify-center">
           {data.map((circle) => (
             <CircleElement
               key={circle.id}
