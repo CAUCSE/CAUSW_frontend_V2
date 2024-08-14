@@ -7,6 +7,7 @@ interface IBoardContent {
 }
 
 interface IBoardInfo {
+  id: string;
   emoji: string | null;
   title: string;
   contents: Array<IBoardContent>;
@@ -14,6 +15,7 @@ interface IBoardInfo {
 
 const defaultBoardInfos: Array<IBoardInfo> = [
   {
+    id: "1",
     emoji: "❗",
     title: "서비스 공지",
     contents: [
@@ -29,6 +31,7 @@ const defaultBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "2",
     emoji: "🏆",
     title: "학생회 공지 게시판",
     contents: [
@@ -44,6 +47,7 @@ const defaultBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "3",
     emoji: "📖",
     title: "소프트웨어학부 공지",
     contents: [
@@ -59,6 +63,7 @@ const defaultBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "4",
     emoji: "🌏",
     title: "동문회 공지 게시판",
     contents: [
@@ -77,6 +82,7 @@ const defaultBoardInfos: Array<IBoardInfo> = [
 
 const customBoardInfos: Array<IBoardInfo> = [
   {
+    id: "5",
     emoji: null,
     title: "스포츠 게시판",
     contents: [
@@ -92,6 +98,7 @@ const customBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "6",
     emoji: null,
     title: "과제 게시판",
     contents: [
@@ -107,6 +114,7 @@ const customBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "7",
     emoji: null,
     title: "스포츠 게시판",
     contents: [
@@ -122,6 +130,7 @@ const customBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "8",
     emoji: null,
     title: "과제 게시판",
     contents: [
@@ -137,6 +146,7 @@ const customBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "9",
     emoji: null,
     title: "스포츠 게시판",
     contents: [
@@ -152,44 +162,51 @@ const customBoardInfos: Array<IBoardInfo> = [
     ],
   },
   {
+    id: "10",
     emoji: null,
     title: "과제 게시판",
-    contents: [
-      {
-        title: `프로그래밍 과제 너무 어려워요 ㅠㅠ`,
-      },
-      {
-        title: `수치해석 퀴즈 뭐지...`,
-      },
-      {
-        title: `운영체제 데드락 과제 ㅁㄴㅇㅁㅇㅇㅁㅇㅇㄴㅇㅁ`,
-      },
-    ],
+    contents: [],
   },
 ];
 
-const Board = ({ emoji, title, contents }: IBoardInfo) => (
-  <div>
-    <h1 className="truncate text-xl font-semibold">
-      {emoji}
-      <span className="underline">{title}</span>
-    </h1>
-    <div className="mt-4 rounded-2xl border border-black bg-white px-4 text-center shadow-lg">
-      <ul className="divide-y-2">
-        {contents.map((content, idx) => (
-          <li className="truncate py-2" key={idx}>
-            {content.title}
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
+const EmptyContent = () => (
+  <ul className="divide-y-2 divide-transparent">
+    <li className="py-2">　</li>
+    <li className="py-2">게시물이 없습니다.</li>
+    <li className="py-2">　</li>
+  </ul>
 );
+
+const Board = ({ id, emoji, title, contents }: IBoardInfo) => {
+  const router = useRouter();
+  return (
+    <div onClick={() => router.push(`/board/${id}`)}>
+      <h1 className="truncate text-xl font-semibold">
+        {emoji}
+        <span className="underline">{title}</span>
+      </h1>
+      <div className="mt-4 rounded-2xl border border-black bg-white px-4 text-center shadow-lg">
+        {contents.length === 0 ? (
+          <EmptyContent />
+        ) : (
+          <ul className="divide-y-2">
+            {contents.map((content, idx) => (
+              <li className="truncate py-2" key={idx}>
+                {content.title}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
 
 const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
   <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 rounded-2xl border border-red-500 bg-boardBackground p-10 lg:grid-cols-2 lg:gap-y-10">
     {boardInfos.map((boardInfo, idx) => (
       <Board
+        id={boardInfo.id}
         emoji={boardInfo.emoji}
         title={boardInfo.title}
         contents={boardInfo.contents}
@@ -201,11 +218,12 @@ const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
 
 const CustomBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
   <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 p-10 lg:grid-cols-2 lg:gap-y-10">
-    {boardInfos.map((boardInfos, idx) => (
+    {boardInfos.map((boardInfo, idx) => (
       <Board
-        emoji={boardInfos.emoji}
-        title={boardInfos.title}
-        contents={boardInfos.contents}
+        id={boardInfo.id}
+        emoji={boardInfo.emoji}
+        title={boardInfo.title}
+        contents={boardInfo.contents}
         key={idx}
       />
     ))}
