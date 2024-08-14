@@ -78,7 +78,7 @@ const CreateBoardForm = ({
 );
 
 const ModalContent = () => (
-  <div>
+  <div className="flex flex-col items-center">
     <h1 className="pb-10 text-lg font-bold md:text-xl">
       이미 존재하는 게시판 이름
     </h1>
