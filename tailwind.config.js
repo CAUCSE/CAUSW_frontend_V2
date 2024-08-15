@@ -31,6 +31,8 @@ module.exports = {
         'post-comment':"rgba(234, 246, 248, 1)",
         'post-form':"rgba(230, 38, 176, 0.3)",
         'child-comment':"rgba(209, 209, 209, 1)",
+        'comment-btn':"rgba(232, 232, 232, 1)"
+
       },
       borderRadius: {
         'post-br': "20px",

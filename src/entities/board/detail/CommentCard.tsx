@@ -24,6 +24,7 @@ export const CommentCard = ({ userImage, username, content, likes }: CommentCard
           height={4}
         ></Image>
       </div>
+
       <div className="flex flex-row items-center px-2 mb-1">
         <div
           className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"
@@ -33,6 +34,7 @@ export const CommentCard = ({ userImage, username, content, likes }: CommentCard
       </div>
 
       <div className="text-gray-700 mb-1 px-10">{content}</div>
+
       <button className="flex flex-row justify-start items-center space-x-3 px-10 text-post-like">
         <Image
           src="/images/post/like.svg"
@@ -42,6 +44,30 @@ export const CommentCard = ({ userImage, username, content, likes }: CommentCard
         ></Image>
         <span>{likes}</span>
       </button>
+
+      <div className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  bg-comment-btn rounded-comment-br">
+        <Image
+          src="/images/post/comment-like.svg"
+          alt="Like Icon"
+          width={18}
+          height={18}
+          className="items-center"
+        ></Image>
+        <Image
+          src="/images/post/comment-divide.svg"
+          alt="Like Icon"
+          width={3}
+          height={10}
+          className="items-center"
+        ></Image>
+        <Image
+          src="/images/post/comment-comment.svg"
+          alt="Like Icon"
+          width={18}
+          height={18}
+          className="items-center"
+        ></Image>
+      </div>
     </div>
   );
 };
