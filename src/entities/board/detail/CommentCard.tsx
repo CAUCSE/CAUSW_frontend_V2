@@ -15,8 +15,10 @@ interface CommentCardProps {
 export const CommentCard = ({ userImage, username, comment, likes, dislikes }: CommentCardProps) => {
   userImage = useUserStore((state) => state.profileImage);
   return (
-    <div className="flex flex-col border-black border-comment-bw rounded-comment-br p-1 bg-white mb-4 max-w-sm">
-      
+    <div className="relative flex flex-col border-black border-comment-bw rounded-comment-br p-1 bg-white mb-4 max-w-sm">
+      <div className="absolute top-0 right-0 bg-slate-300 w-20">
+        hihihihihi
+      </div>
       <div className="flex flex-row items-center px-2 mb-1">
         <div
           className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"

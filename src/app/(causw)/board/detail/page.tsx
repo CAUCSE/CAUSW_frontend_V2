@@ -1,4 +1,4 @@
-import { PostCard, CommentCard, CommentInput } from "@/entities";
+import { PostCard, CommentCard, ChildCommentCard, CommentInput } from "@/entities";
 
 
 const BoardDetailPage = async () => {
@@ -18,6 +18,12 @@ const BoardDetailPage = async () => {
           />
           {/* 이거 comment props list로 받아서 랜더링 진행함 */}
           <CommentCard 
+            username={"이은화"} 
+            comment={"나~~~~"} 
+            likes={20} 
+            dislikes={0}                       
+          />
+          <ChildCommentCard 
             username={"이은화"} 
             comment={"나~~~~"} 
             likes={20} 
