@@ -59,4 +59,5 @@ declare namespace Circle {
   export type UpdateRequestDto = Omit<CreateRequestDto, "leaderId">;
 
   export type CirclesRequestDto = FindByIdDto[] & Error.ApiErrorResponse;
+  export type CircleRequestDto = FindByIdDto & Error.ApiErrorResponse;
 }

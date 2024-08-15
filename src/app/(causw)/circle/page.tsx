@@ -1,9 +1,9 @@
 import { CircleElement } from "@/entities";
-import { CircleRscService } from "@/shared/hooks/services/CircleRscSevice";
+import { CircleRscService } from "@/shared";
 
 const CirclePage = async () => {
-  const { getCirclesPage } = CircleRscService();
-  const data = await getCirclesPage();
+  const { getCircles } = CircleRscService();
+  const data = await getCircles();
 
   return (
     <>
