@@ -15,15 +15,17 @@ const CirclePage = async () => {
           동아리 목록
         </div>
         <div className="flex flex-row flex-wrap ml-16">
-          {data.map((circle) => (
-            <CircleElement
-              key={circle.id}
-              id={circle.id}
-              name={circle.name}
-              description={circle.description}
-              mainImage={circle.mainImage ?? "/images/cau-logo.png"}
-            ></CircleElement>
-          ))}
+          {data.map((circle) =>
+            !circle.isDeleted ? (
+              <CircleElement
+                key={circle.id}
+                id={circle.id}
+                name={circle.name}
+                description={circle.description}
+                mainImage={circle.mainImage ?? "/images/signin-logo.png"}
+              />
+            ) : null
+          )}
         </div>
       </div>
     </>

@@ -21,6 +21,7 @@ declare namespace Circle {
     createdAt: Date;
     isJoined: boolean;
     joinedAt: Date | null;
+    isDeleted: boolean;
   }
 
   export interface Board {

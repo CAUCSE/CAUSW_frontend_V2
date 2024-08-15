@@ -21,6 +21,7 @@ export const CircleElement = ({
         />
       </div>
       <span className="font-bold text-lg mt-4">{name}</span>
+
       <span className="text-gray-400 text-center truncate w-3/4 mt-1">
         {description}
       </span>

@@ -15,6 +15,8 @@ module.exports = {
         default: "#99dfec",
         focus: "#6BBEEC",
         error: "#b4391a",
+        account: "#B4B0B0",
+        barkblue: "#59959D",
       },
     },
   },
