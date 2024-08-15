@@ -7,13 +7,12 @@ import Image from "next/image";
 interface ChildCommentCardProps {
   userImage?: string;
   username: string;
-  comment: string;
+  content: string;
   likes: number;
-  dislikes: number;
 }
 
 // max-w-md mx-auto space-x-4
-export const ChildCommentCard = ({ userImage, username, comment, likes, dislikes }: CommentCardProps) => {
+export const ChildCommentCard = ({ userImage, username, content, likes }: ChildCommentCardProps) => {
   userImage = useUserStore((state) => state.profileImage);
   return (
     <div className=" flex flex-row items-center justify-start space-x-4">
@@ -24,7 +23,15 @@ export const ChildCommentCard = ({ userImage, username, comment, likes, dislikes
         height={20}
       ></Image>
       <div className="flex flex-grow max-w-sm">
-        <div className="flex flex-col w-full bg-child-comment border-black border-comment-bw rounded-comment-br p-1 bg-white mb-4">  
+        <div className="relative flex flex-col w-full bg-child-comment border-black border-comment-bw rounded-comment-br p-1 pb-2 bg-white mb-4"> 
+          <div className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
+            <Image
+              src="/images/post/comment-menu.svg"
+              alt="Comment Menu"
+              width={4}
+              height={4}
+            ></Image>
+          </div> 
           <div className="flex flex-row items-center px-2 mb-1">
             <div
               className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"
@@ -33,12 +40,17 @@ export const ChildCommentCard = ({ userImage, username, comment, likes, dislikes
             <div className="font-bold">{username}</div>
           </div>
 
-          <div className="text-gray-700 mb-1 px-10">{comment}</div>
+          <div className="text-gray-700 mb-1 px-10">{content}</div>
           
-          <div className="flex items-center space-x-6 text-gray-500 px-10">
-            <button className="flex items-center text-red-500">👍 {likes}</button>
-            <button className="flex items-center text-blue-500">👎 {dislikes}</button>
-          </div>
+          <button className="flex flex-row justify-start items-center space-x-3 px-10 text-post-like">
+            <Image
+              src="/images/post/like.svg"
+              alt="Like Icon"
+              width={20}
+              height={20}
+            ></Image>
+            <span>{likes}</span>
+          </button>
         </div>
       </div>
     </div>
