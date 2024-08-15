@@ -21,6 +21,9 @@ const iconPath = {
   vote_inactive: "/vote_inactive_icon.png",
   apply_active: "/apply_active_icon.png",
   apply_inactive: "/apply_inactive_icon.png",
+  add: "/add_icon.png",
+  alarm: "/alarm_icon.png",
+  search: "/search_icon.png",
 };
 
 const getIconPath = (iconName: keyof typeof iconPath) => {
