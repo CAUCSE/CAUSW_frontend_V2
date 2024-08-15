@@ -1,6 +1,5 @@
 declare namespace User {
-  //DTO
-  export interface UserDto {
+  export interface User {
     admissionYear: number;
     circleIdIfLeader: string[] | null;
     circleNameIfLeader: string[] | null;
@@ -33,17 +32,17 @@ declare namespace User {
     | "LEADER_4_N_LEADER_CIRCLE";
 
   // findByName
-  export type FindByNameResponseDto = UserDto[];
+  export type FindByNameResponseDto = User[];
   export type FindByNameResponse = Model.User[];
 
   // updateRole
   export interface UpdateRoleRequestDto {
-    role: UserDto["role"];
+    role: User["role"];
     circleId?: string;
   }
 
   // findAllAdmissions
-  export interface AdmissionUserDto {
+  export interface AdmissionUser {
     admissionYear: number;
     attachImage: string | null;
     createdAt: string;
@@ -53,11 +52,11 @@ declare namespace User {
     userEmail: string;
     userName: string;
     //#71 추가
-    userState: UserDto["state"];
+    userState: User["state"];
   }
 
   export interface FindAllAdmissionsResponseDto {
-    content: AdmissionUserDto[];
+    content: AdmissionUser[];
     last: boolean;
 
     //#71 추가
@@ -93,7 +92,7 @@ declare namespace User {
 
   // findByState
   export interface FindByStateResponseDto {
-    content: UserDto[];
+    content: User[];
     last: boolean;
     //#71 추가
     empty: boolean;
@@ -128,12 +127,12 @@ declare namespace User {
 
   // findPrivilegedUsers
   export interface FindPrivilegedUsersResponseDto {
-    presidentUser: UserDto[];
-    vicePresidentUser: UserDto[];
-    councilUsers: UserDto[];
-    leaderGradeUsers: UserDto[];
-    leaderCircleUsers: UserDto[];
-    leaderAlumni: UserDto[];
+    presidentUser: User[];
+    vicePresidentUser: User[];
+    councilUsers: User[];
+    leaderGradeUsers: User[];
+    leaderCircleUsers: User[];
+    leaderAlumni: User[];
   }
 
   export interface FindPrivilegedUsersResponse {
@@ -296,8 +295,8 @@ declare namespace User {
   }
 
   //Store
-  export interface UseUserStore extends UserDto {
-    setUserStore: (props: User.UserDto) => void;
+  export interface UseUserStore extends User {
+    setUserStore: (props: User.User) => void;
 
     roleTxt: () => string;
     nameWithAdmission: () => string;
@@ -310,4 +309,7 @@ declare namespace User {
     isStudentLeader: () => boolean;
     isAlumniLeader: () => boolean;
   }
+
+  //DTO
+  export type UserDto = User & Error.ApiErrorResponse;
 }

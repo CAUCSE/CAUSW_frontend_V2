@@ -4,7 +4,7 @@ declare namespace Circle {
   export interface CircleUser {
     id: string;
     status: Status;
-    user: User.UserDto;
+    user: User.User;
     circle: FindByIdDto;
   }
   export type GetUserListResponseDto = CircleUser[];

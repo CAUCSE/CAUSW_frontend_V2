@@ -8,9 +8,7 @@ export const UserService = () => {
   const setUserStore = useUserStore((state) => state.setUserStore);
 
   const getUserInfo = async () => {
-    const { data } = (await API.get(
-      `${URI}/me`
-    )) as AxiosResponse<User.UserDto>;
+    const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<User.User>;
 
     setUserStore(data);
   };

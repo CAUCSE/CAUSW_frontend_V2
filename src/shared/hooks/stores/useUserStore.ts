@@ -12,7 +12,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   circleNameIfLeader: null,
   state: "ACTIVE",
 
-  setUserStore: (props: User.UserDto) => {
+  setUserStore: (props: User.User) => {
     set(() => ({
       id: props.id,
       email: props.email,
@@ -102,7 +102,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
 }));
 
 export const UserRoleCodes: {
-  [key in User.UserDto["role"]]: string;
+  [key in User.User["role"]]: string;
 } = {
   ADMIN: "관리자",
   PRESIDENT: "학생회장",
