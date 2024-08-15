@@ -1,8 +1,8 @@
 "use client";
 
-import { notFound, usePathname } from "next/navigation";
-
 import { Icon, PreviousButton } from "@/shared";
+import { notFound, usePathname, useRouter } from "next/navigation";
+
 import Image from "next/image";
 
 /**
@@ -35,8 +35,6 @@ import Image from "next/image";
 //    },
 // ]
 
-//TODO 찜 수
-
 const boardInfos = [
   {
     boardId: "1",
@@ -44,16 +42,29 @@ const boardInfos = [
     boardName: "서비스 공지",
     posts: [
       {
+        postId: "5",
+        title: "서버 점검 18:00 ~ 21:00",
+        content:
+          "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.\n점검이 더 길어질 수도 있습니다.",
+        likeCount: 20,
+        scrapCount: 30,
+        commentCount: 10,
+        isVote: true,
+        isApply: false,
+        createTime: "2024-08-15T15:34:00.000Z",
+        author: "관리자",
+      },
+      {
         postId: "4",
         title: "서버 점검 18:00 ~ 21:00",
         content:
           "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.\n점검이 더 길어질 수도 있습니다.",
         likeCount: 20,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: true,
         isApply: false,
-        createTime: "2024-08-15T08:30:00.000Z",
+        createTime: "2024-08-15T15:34:00.000Z",
         author: "관리자",
       },
       {
@@ -61,7 +72,7 @@ const boardInfos = [
         title: "서버 점검 20:00 ~ 21:00",
         content: "금일 서버 점검이 20:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 1234,
-        scrabCount: 9999,
+        scrapCount: 9999,
         commentCount: 10000,
         isVote: false,
         isApply: false,
@@ -73,7 +84,7 @@ const boardInfos = [
         title: "서버 점검 18:00 ~ 21:00",
         content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 199,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: false,
         isApply: false,
@@ -85,7 +96,7 @@ const boardInfos = [
         title: "서버 점검 18:00 ~ 21:00",
         content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 123,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: false,
         isApply: false,
@@ -96,15 +107,15 @@ const boardInfos = [
   },
   {
     boardId: "2",
-    emoji: "❗",
-    boardName: "서비스 공지123123",
+    emoji: "🏆",
+    boardName: "학생회 공지 게시판",
     posts: [
       {
         postId: "4",
         title: "서버 점검 18:00 ~ 21:00",
         content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 20,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: false,
         isApply: false,
@@ -116,7 +127,7 @@ const boardInfos = [
         title: "서버 점검 18:00 ~ 21:00",
         content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 2,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: false,
         isApply: false,
@@ -128,7 +139,7 @@ const boardInfos = [
         title: "서버 점검 18:00 ~ 21:00",
         content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 10,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: false,
         isApply: false,
@@ -140,7 +151,7 @@ const boardInfos = [
         title: "서버 점검 18:00 ~ 21:00",
         content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
         likeCount: 200,
-        scrabCount: 30,
+        scrapCount: 30,
         commentCount: 10,
         isVote: false,
         isApply: false,
@@ -161,7 +172,9 @@ const getTimeDifference = (ISOtime: string) => {
   const now = new Date();
   const diffMSec = now.getTime() - createdTime.getTime();
   const diffMin = Math.round(diffMSec / (60 * 1000));
-  if (diffMin < 60) {
+  if (diffMin === 0) {
+    return `방금 전`;
+  } else if (diffMin < 60) {
     return `${diffMin}분 전`;
   } else if (
     now.getFullYear() === createdTime.getFullYear() &&
@@ -176,6 +189,7 @@ const getTimeDifference = (ISOtime: string) => {
 
 const BoardPage = () => {
   const pathName = usePathname();
+  const router = useRouter();
 
   //TODO API 연동 필요
 
@@ -203,9 +217,13 @@ const BoardPage = () => {
                 <Icon iconName="add" />
               </button>
               <button className="flex w-8 items-center justify-center rounded-xl border border-black">
-                <Icon iconName="alarm" />
+                {/**TODO 게시판 알람 설정 여부에 따라서 아이콘 변경 */}
+                <Icon iconName="alarm_active" />
               </button>
-              <button className="flex w-8 items-center justify-center rounded-xl border border-black">
+              <button
+                className="flex w-8 items-center justify-center rounded-xl border border-black"
+                onClick={() => router.push(`/board/${boardId}/search`)}
+              >
                 <Icon iconName="search" />
               </button>
             </div>
@@ -239,9 +257,9 @@ const BoardPage = () => {
                           </p>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Icon iconName="scrab" />
+                          <Icon iconName="scrap" />
                           <p className="text-md text-yellow-500">
-                            {post.scrabCount > 999 ? "999+" : post.scrabCount}
+                            {post.scrapCount > 999 ? "999+" : post.scrapCount}
                           </p>
                         </div>
                         <div className="flex items-center gap-2">
