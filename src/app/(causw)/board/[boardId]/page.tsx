@@ -3,6 +3,7 @@
 import { notFound, usePathname } from "next/navigation";
 
 import { Icon, PreviousButton } from "@/shared";
+import Image from "next/image";
 
 /**
  *
@@ -45,7 +46,8 @@ const boardInfos = [
       {
         postId: "4",
         title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
+        content:
+          "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.\n점검이 더 길어질 수도 있습니다.",
         likeCount: 20,
         scrabCount: 30,
         commentCount: 10,
@@ -157,9 +159,6 @@ const checkBoardValidation = (boardId: string | undefined) => {
 const getTimeDifference = (ISOtime: string) => {
   const createdTime = new Date(ISOtime);
   const now = new Date();
-  console.log(now.getTime());
-  console.log(createdTime.getTime());
-  console.log(now.getTime() - createdTime.getTime());
   const diffMSec = now.getTime() - createdTime.getTime();
   const diffMin = Math.round(diffMSec / (60 * 1000));
   if (diffMin < 60) {
@@ -200,67 +199,95 @@ const BoardPage = () => {
               </h1>
             </div>
             <div className="right-5 flex gap-2">
-              <button className="w-8 rounded-xl border border-black">➕</button>
-              <button className="w-8 rounded-xl border border-black">🔔</button>
-              <button className="w-8 rounded-xl border border-black">🔍</button>
+              <button className="flex w-8 items-center justify-center rounded-xl border border-black">
+                <Icon iconName="add" />
+              </button>
+              <button className="flex w-8 items-center justify-center rounded-xl border border-black">
+                <Icon iconName="alarm" />
+              </button>
+              <button className="flex w-8 items-center justify-center rounded-xl border border-black">
+                <Icon iconName="search" />
+              </button>
             </div>
           </div>
           <div className="flex flex-col gap-10">
             {boardInfo.posts.map((post, idx) => {
               return (
                 <div
-                  className="border-black-100 rounded-2xl border bg-white p-5 shadow-lg"
+                  className="border-black-100 flex w-full rounded-3xl border bg-white p-5 shadow-lg"
                   key={idx}
                 >
-                  <h1 className="pb-5 text-2xl font-bold">{post.title}</h1>
-                  <p className="truncate pb-5">{post.content}</p>
-                  <div className="flex gap-3 divide-x-2">
-                    <div className="flex gap-2">
-                      <div className="flex items-center gap-2">
-                        <Icon iconName="like" />
-                        <p className="text-md text-red-500">
-                          {post.likeCount > 999 ? "999+" : post.likeCount}
+                  <div className="flex w-full flex-col justify-between">
+                    <h1 className="pb-2 text-2xl font-bold">{post.title}</h1>
+                    <div>
+                      {post.content
+                        .split("\n")
+                        .filter((str) => str !== "")
+                        .map((str, idx) => (
+                          <p className="truncate" key={idx}>
+                            {str}
+                          </p>
+                        ))}
+                    </div>
+
+                    <div className="flex gap-3 divide-x-2">
+                      <div className="flex gap-2">
+                        <div className="flex items-center gap-2">
+                          <Icon iconName="like" />
+                          <p className="text-md text-red-500">
+                            {post.likeCount > 999 ? "999+" : post.likeCount}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Icon iconName="scrab" />
+                          <p className="text-md text-yellow-500">
+                            {post.scrabCount > 999 ? "999+" : post.scrabCount}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Icon iconName="comment" />
+                          <p className="text-md text-blue-500">
+                            {post.commentCount > 999
+                              ? "999+"
+                              : post.commentCount}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 pl-3">
+                        <Icon
+                          iconName={
+                            post.isVote ? "vote_active" : "vote_inactive"
+                          }
+                        />
+                        <Icon
+                          iconName={
+                            post.isApply ? "apply_active" : "apply_inactive"
+                          }
+                        />
+                      </div>
+                      <div className="pl-3">
+                        <p className="opacity-40">
+                          {getTimeDifference(post.createTime)}
                         </p>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Icon iconName="scrab" />
-                        <p className="text-md text-yellow-500">
-                          {post.scrabCount > 999 ? "999+" : post.scrabCount}
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Icon iconName="comment" />
-                        <p className="text-md text-blue-500">
-                          {post.commentCount > 999 ? "999+" : post.commentCount}
-                        </p>
+                      <div className="pl-3">
+                        <p className="opacity-40">{post.author}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 pl-3">
-                      <Icon
-                        iconName={post.isVote ? "vote_active" : "vote_inactive"}
-                      />
-                      <Icon
-                        iconName={
-                          post.isApply ? "apply_active" : "apply_inactive"
-                        }
-                      />
-                    </div>
-                    <div className="pl-3">
-                      <p className="opacity-40">
-                        {getTimeDifference(post.createTime)}
-                      </p>
-                    </div>
-                    <div className="pl-3">
-                      <p className="opacity-40">{post.author}</p>
-                    </div>
+                  </div>
+                  <div className="relative lg:h-36 lg:w-36">
+                    <Image
+                      src="/images/post_default_thumbnail.png"
+                      alt="thumbnail"
+                      fill={true}
+                      style={{ objectFit: "contain" }}
+                    />
                   </div>
                 </div>
               );
             })}
           </div>
         </div>
-
-        <div className="w-full"></div>
       </div>
     </div>
   );
