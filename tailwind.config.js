@@ -18,11 +18,7 @@ module.exports = {
       },
     },
 
-    screens: {
-      sm: { max: "539px" },
-      md: { min: "540px", max: "719px" },
-      lg: { min: "720" },
-    },
+    
   },
   plugins: [addDynamicIconSelectors()],
 

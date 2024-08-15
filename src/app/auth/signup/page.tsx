@@ -2,10 +2,12 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';  // useRouter import
 
 
 const SignUpPage = () => {
   const { register, handleSubmit, watch, formState: { errors }, getValues, setValue} = useForm<IAuthForm>({mode: 'onBlur'});
+  const router = useRouter(); // useRouter 초기화
 
   interface IAuthForm 
   {        
@@ -17,7 +19,7 @@ const SignUpPage = () => {
     admissionYear: string;
     nickname: string;
     major: string;
-    academicStatus: "재학/휴학" | "졸업";
+    academicStatus: "LEAVE_OF_ABSENCE" | "ENROLLED" | "GRADUATED";
     currentCompletedSemester: string;
     agreeToTerms: boolean;
     agreeToPopup: boolean;
@@ -107,10 +109,25 @@ const SignUpPage = () => {
     setSelectedStatus(e.target.value);
   };
 
+  // 회원가입 성공, 혹은 실패 시 모달
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  
+  const [countdown, setCountdown] = useState(0);
+
+  const closeCompleteModal = () => {
+    if (isSuccessModalOpen) {
+      router.push('/auth/signin');
+    } else {
+      setIsSuccessModalOpen(false);
+      setIsErrorModalOpen(false);
+    }
+  };
 
   // 제출 
   const onSubmit = async (data: IAuthForm) => {
-    console.log(data)
+    console.log(data);
     try {
       const response = await fetch('http://localhost:8080/api/v1/users/sign-up', {
         method: 'POST',
@@ -121,16 +138,63 @@ const SignUpPage = () => {
       });
 
       if (response.ok) {
+        setIsSuccessModalOpen(true);
+        setCountdown(5);
         const result = await response.json();
         console.log('signUp successful:', result);
-        // 성공
+
+        const interval = setInterval(() => {
+          setCountdown((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              setIsSuccessModalOpen(false);
+              router.push('/auth/signin');
+            }
+            return prev - 1;
+          });
+        }, 1000);
       } else {
-        console.error('signUp failed');
-        // 실패
+        const errorResponse = await response.json();
+        handleError(errorResponse);
+        setCountdown(5);
+        setIsErrorModalOpen(true);
+
+        const interval = setInterval(() => {
+          setCountdown((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              setIsErrorModalOpen(false);
+            }
+            return prev - 1;
+          });
+        }, 1000);
       }
     } catch (error) {
       console.error('signUp:', error);
-      // 오류
+      setServerError('서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
+
+  const handleError = (errorData: { errorCode: number; field?: string }) => {
+    const { errorCode, field } = errorData;
+
+    switch (errorCode) {
+      case 4001:
+        setServerError('이미 가입된 이메일입니다.');
+        break;
+      case 4002:
+        setServerError('입력한 정보의 형식이 잘못되었습니다. 모든 필드를 올바르게 입력하세요.');
+        break;
+      case 4003:
+        if (field === 'password') {
+          setServerError('비밀번호는 영어 + 숫자 + 특수 문자가 포함된 8글자 이상이어야 합니다.');
+        } else if (field === 'admissionYear') {
+          setServerError('입학 연도는 1972년도 이상, 현재 연도 이하이어야 합니다.');
+        }
+        break;
+      default:
+        setServerError('알 수 없는 오류가 발생했습니다.');
+        break;
     }
   };
   
@@ -138,10 +202,10 @@ const SignUpPage = () => {
     <div className="flex items-center justify-center min-h-screen bg-white-100 w-full">
       <form onSubmit={handleSubmit(onSubmit)} className="">
         
-        <h1 className="text-3xl sm:text-2xl font-bold mb-6 text-center ">회원가입</h1>
+        <h1 className="sm:text-3xl text-2xl font-bold mb-6 text-center mt-8">회원가입</h1>
         
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">아이디</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">아이디</label>
           <input 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
@@ -158,7 +222,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">비밀번호</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">비밀번호</label>
           <div className="w-full flex">
             <input 
               className="p-2 mr-4 border-2 border-gray-300 rounded-lg w-full max-w-md" 
@@ -195,7 +259,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">비밀번호 확인</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">비밀번호 확인</label>
           <div className = "w-full flex">
             <input 
               className="p-2 mr-4 border-2 border-gray-300 rounded-lg w-full max-w-md" 
@@ -238,7 +302,7 @@ const SignUpPage = () => {
         </div>
         
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">이름</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">이름</label>
           <input 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
@@ -250,7 +314,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">닉네임</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">닉네임</label>
           <input 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
@@ -272,7 +336,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">입학년도</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">입학년도</label>
           <select 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
             {...register('admissionYear', { 
@@ -289,7 +353,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">학번</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학번</label>
           <input 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="number" 
@@ -310,7 +374,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">학부/학과</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학부/학과</label>
           <input 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
@@ -322,7 +386,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-6 ml-4 mr-4">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">연락처</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">연락처</label>
           <input 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
@@ -339,7 +403,7 @@ const SignUpPage = () => {
 
         <div className="mb-6 ml-4 mr-4">
           <div className = "flex sm:flex-col">
-            <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2 sm:mb-0">학적 상태</label>
+            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2 sm:mb-0">학적 상태</label>
             <p className="text-md text-red-500 mt-1 ml-4 sm:ml-0">(졸업 선택 시 추후 재학/휴학 전환이 불가합니다)</p>
           </div>
           <select
@@ -349,16 +413,17 @@ const SignUpPage = () => {
               onChange={handleStatusChange}
           >
             <option value="">-선택해주세요-</option>
-            <option key="재학/휴학" value="재학/휴학">재학/휴학</option>
-            <option key="졸업" value="졸업">졸업</option>
+            <option key="ENROLLED" value="ENROLLED">재학</option>
+            <option key="LEAVE_OF_ABSENCE" value = "LEAVE_OF_ABSENCE">휴학</option>
+            <option key="GRADUATED" value="GRADUATED">졸업</option>
           </select>
           <p>{errors?.academicStatus?.message}</p>
         </div>
         
-        {selectedStatus === '재학/휴학' &&(
+        {(selectedStatus === 'ENROLLED'|| selectedStatus === 'LEAVE_OF_ABSENCE') &&(
         <div className="mb-6 ml-4 mr-4">
           <div className = "flex sm:flex-col">
-            <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2 sm:mb-0">현재 등록 완료된 학기</label>
+            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2 sm:mb-0">현재 등록 완료된 학기</label>
             <p className="text-md text-red-500 mt-1 ml-4 sm:ml-0">(등록금을 납부한 학기)</p>
           </div>
           <select 
@@ -368,26 +433,26 @@ const SignUpPage = () => {
           >
             <option value="">-선택해주세요-</option>
             {currentCompletedSemester.map((option, index) => (
-              <option key={index + 1} value={option}>
+              <option key={index + 1} value={index + 1}>
                 {`${index + 1}차 학기 (${option})`}
               </option>
             ))}
-            <option key="9" value="9차 학기 이상">9차 학기 이상</option>
+            <option key="9" value= '9'>9차 학기 이상</option>
           </select>
           <p>{errors?.currentCompletedSemester?.message}</p>
         </div>)}
         
 
-        {selectedStatus === '졸업' &&(
+        {selectedStatus === 'GRADUATED' &&(
         <div>
           <div className="mb-6 ml-4 mr-4 max-w-md">
-            <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">졸업 시기</label>
+            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">졸업 시기</label>
 
             <div className="flex space-x-4 sm:space-x-0 sm:flex-col">
 
               <div>
                 <div className="flex space-x-4">
-                  <p className = "text-gray-700 text-xl sm:text-lg font-bold mb-2 p-2">년</p>
+                  <p className = "text-gray-700 sm:text-xl text-lg font-bold mb-2 p-2">년</p>
                   <select 
                     className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
                     {...register('graduationYear', { 
@@ -407,15 +472,15 @@ const SignUpPage = () => {
 
               <div>
                 <div className="flex space-x-4">
-                  <p className = "text-gray-700 text-xl sm:text-lg font-bold mb-2 p-2">월</p>
+                  <p className = "text-gray-700 sm:text-xl text-lg font-bold mb-2 p-2">월</p>
                   <select 
                     className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
                     {...register('graduationMonth', { 
                       required: '졸업한 월을 선택해주세요' })}
                   >
                     <option value="">-선택해주세요-</option>
-                    <option key="1" value="2월">2월</option>
-                    <option key="2" value="8월">8월</option>
+                    <option key="1" value="2">2월</option>
+                    <option key="2" value="8">8월</option>
                     <option key="3" value="기타">기타</option>
                   </select>
                 </div>
@@ -430,7 +495,7 @@ const SignUpPage = () => {
 
 
         <div className="mb-2 ml-4 mr-4 max-w-md">
-          <label className="block text-gray-700 text-xl sm:text-lg font-bold mb-2">학부 재적/졸업 증빙 자료</label>
+          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학부 재적/졸업 증빙 자료</label>
           <p className="text-md text-red-500 mt-1">
           ex) mportal &gt; 내 정보수정 &gt; 등록현황, 재학/휴학 증명서, 졸업 증명서, 졸업장 등
             증빙 자료 포함 필수 요소: 이름, 학번, 학부(학과), 현재 학적 상태(재학/휴학/졸업), 재학/휴학의 경우 수료 학기 차수, 졸업의 경우 졸업 시기
@@ -486,7 +551,7 @@ const SignUpPage = () => {
 
         <div className = "ml-4 mb-4">
         {errors.files && (
-          <p className="text-gray-700 text-xl sm:text-lg font-bold mt-2">{errors.files.message}</p>
+          <p className="text-gray-700 sm:text-xl text-lg font-bold mt-2">{errors.files.message}</p>
         )}
         </div>
 
@@ -496,18 +561,18 @@ const SignUpPage = () => {
             onChange: (e) => handleCheckboxChange(e.target.checked)
           })}/>
           <label htmlFor="terms">
-            <label className="text-gray-700 text-xl sm:text-lg underline cursor-pointer" onClick={openModal}>
+            <label className="text-gray-700 sm:text-xl text-lg underline cursor-pointer" onClick={openModal}>
               약관 읽고 동의하기!!!
             </label>
           </label>
         </div>
         <div className = "ml-4 mb-4">
         {errors.agreeToTerms && (
-          <p className="text-gray-700 text-xl sm:text-lg font-bold mt-2">{errors.agreeToTerms.message}</p>
+          <p className="text-gray-700 sm:text-xl text-lg font-bold mt-2">{errors.agreeToTerms.message}</p>
         )}
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-8">
           <button
             type="submit"
             className="w-full max-w-xs bg-focus text-black p-2 rounded-lg hover:bg-blue-400 transition-colors duration-300"
@@ -524,6 +589,44 @@ const SignUpPage = () => {
           </div>
         </div>
       )}
+
+      {isSuccessModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center h-1/3 overflow-y-auto">
+            <div className = "grid justify-items-center">
+            <h2 className="text-xl font-bold mb-4">회원가입 완료</h2>
+            <p>회원가입이 성공적으로 완료되었습니다!</p>
+            <button
+              onClick={closeCompleteModal}
+              className="w-2/3 p-4 text-sm bg-focus mt-6 hover:bg-blue-500 text-white p-2 rounded-lg"
+            >
+              로그인 창으로 바로 이동
+            </button>
+            <p className="mt-4 text-gray-500"> ({countdown}초 후에 로그인 창으로 이동합니다.)</p>
+
+            </div>
+          </div>
+        </div>
+      )}
+      
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center h-1/3 overflow-y-auto">
+            <div className = "grid justify-items-center">
+            <h2 className="text-xl font-bold mb-4">회원가입 실패</h2>
+            <p>서버와의 연결 불안정으로 인해</p>
+            <p> 회원가입이 실패하였습니다</p>
+            <button
+              onClick={closeCompleteModal}
+              className="w-2/3 p-4 text-sm bg-focus mt-6 hover:bg-blue-500 text-white p-2 rounded-lg"
+            >
+              닫기
+            </button>
+            <p className="mt-4 text-gray-500"> ({countdown}초 후에 창이 닫힙니다.)</p>
+
+            </div>
+          </div>
+        </div>
+
 
 {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
@@ -1018,7 +1121,7 @@ const SignUpPage = () => {
             onChange: (e) => handleCheckboxChange(e.target.checked)
           })}/>
           <label htmlFor="terms">
-            <label className="text-gray-700 text-xl sm:text-lg cursor-pointer" onClick={openModal}>
+            <label className="text-gray-700 sm:text-xl text-lg cursor-pointer" onClick={openModal}>
             위 약관과 정책 및 개인정보처리에 동의합니다.
             </label>
           </label>
