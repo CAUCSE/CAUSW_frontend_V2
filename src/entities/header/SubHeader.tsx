@@ -2,16 +2,16 @@ export const SubHeader = ({
   children,
   underline,
   gray,
-  bord,
+  bold,
 }: {
   children: React.ReactNode;
   underline?: boolean;
   gray?: boolean;
-  bord?: boolean;
+  bold?: boolean;
 }) => (
   <span
     className={`text-sm ${underline ? "underline" : ""} 
-    ${bord ? "font-bold" : ""} ${gray ? "text-gray-400" : ""}`}
+    ${bold ? "font-bold" : ""} ${gray ? "text-gray-400" : ""}`}
   >
     {children}
   </span>
