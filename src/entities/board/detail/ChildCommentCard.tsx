@@ -16,12 +16,14 @@ export const ChildCommentCard = ({ userImage, username, content, likes }: ChildC
   userImage = useUserStore((state) => state.profileImage);
   return (
     <div className=" flex flex-row items-center justify-start space-x-4">
-      <Image
-        src="/images/post/child-comment.svg"
-        alt="Child Comment"
-        width={20}
-        height={20}
-      ></Image>
+      <div className="p-2">
+        <Image
+          src="/images/post/child-comment.svg"
+          alt="Child Comment"
+          width={25}
+          height={25}
+        ></Image>
+      </div>
       <div className="flex flex-grow max-w-sm">
         <div className="relative flex flex-col w-full bg-child-comment border-black border-comment-bw rounded-comment-br p-1 pb-2 bg-white mb-4"> 
           <div className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">

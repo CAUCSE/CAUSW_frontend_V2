@@ -22,27 +22,27 @@ export const PostCard = ({ userImage, username, timeAgo, hashtags, content, post
   userImage = useUserStore((state) => state.profileImage);
   postImage = useUserStore((state) => state.profileImage);
   return (
-    <div className="flex flex-col bg-post border rounded-post-br mt-4 p-4 shadow-post-sh mb-4 min-w-xl">
+    <div className="flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
       {/* 해시태그 전체 밑줄 되어야 함 */}
-      <div className="flex px-16 items-start underline">
+      <div className="flex pl-16 items-start underline">
         {hashtags.map((tag, index) => (
-          <span key={index} className="text-post-hashtag mr-2">#{tag}</span>
+          <span key={index} className="text-[14px] text-post-hashtag mr-2">#{tag}</span>
         ))}  
       </div>
 
-      <div className="flex flex-row items-center mb-4">
+      <div className="flex flex-row items-center">
         <div
           className="m-2 w-12 h-12 bg-no-repeat bg-contain"
           style={{ backgroundImage: `url(${userImage})` }}
         />
         <div className="flex flex-col items-start">
-          <div className="flex items-center font-bold">{username}</div>
-          <div className="text-gray-500 text-sm">{timeAgo}</div>
+          <div className="flex items-center text-[16px] font-bold">{username}</div>
+          <div className="text-gray-500 text-[14px]">{timeAgo}</div>
         </div>
       </div>
       
-      <div className="flex flex-col items-start px-16">
-        <div className="mb-2">
+      <div className="flex flex-col items-start lg:pl-16">
+        <div className="mb-2 text-[14px]">
           {content}
         </div>
         <div 
@@ -52,40 +52,40 @@ export const PostCard = ({ userImage, username, timeAgo, hashtags, content, post
       </div>
       
       {/* 디자인 따라 위치 조정해야함 */}
-      <div className="flex flex-row space-x-4 px-16">
-        <button className="flex items-center bg-post-like space-x-2 p-1 px-3 rounded-post-br text-post-like">
+      <div className="flex flex-row space-x-2 lg:pl-16">
+        <button className="flex items-center bg-post-like space-x-2 p-1 px-3 rounded-post-br text-post-like text-[13px]">
           <Image
             src="/images/post/like.svg"
             alt="Like Icon"
-            width={20}
-            height={20}
+            width={18}
+            height={18}
           ></Image>
           <span>{likes}</span>
         </button>
-        <button className="flex items-center bg-post-star space-x-2 p-1 px-3 rounded-post-br text-post-star">
+        <button className="flex items-center bg-post-star space-x-2 p-1 px-3 rounded-post-br text-post-star text-[13px]">
           <Image
             src="/images/post/star.svg"
             alt="Star Icon"
-            width={20}
-            height={20}
+            width={18}
+            height={18}
           ></Image>
           <span>{stars}</span>
         </button>
-        <button className="flex items-center bg-post-comment space-x-2 p-1 px-3 rounded-post-br text-post-comment">
+        <button className="flex items-center bg-post-comment space-x-2 p-1 px-3 rounded-post-br text-post-comment text-[13px]">
           <Image
             src="/images/post/comment.svg"
             alt="Comment Icon"
-            width={20}
-            height={20}
+            width={18}
+            height={18}
           ></Image>
           <span>{comments}</span>
         </button>
-        <button className="flex items-center bg-post-form space-x-2 p-1 px-3 rounded-post-br text-black">
+        <button className="flex items-center bg-post-form space-x-2 p-1 px-3 rounded-post-br text-black text-[12px]">
           <Image
             src="/images/post/form.svg"
             alt="Form Icon"
-            width={20}
-            height={20}
+            width={18}
+            height={18}
           ></Image>
           <span>form 작성</span>
         </button>
