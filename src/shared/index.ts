@@ -40,3 +40,4 @@ export { WindowSizeListener } from "./listener/WindowSizeListener";
 
 export { Modal } from "./ui/modal";
 export { PreviousButton } from "./ui/previousButton";
+export { Icon } from "./ui/icon";
