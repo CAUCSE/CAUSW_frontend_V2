@@ -16,52 +16,54 @@ const BoardDetailPage = async () => {
               stars={20} 
               comments={30}        
             />
-            {/* 이거 comment props list로 받아서 랜더링 진행함 */}
-            <CommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}                  
-            />
-            <ChildCommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}              
-            />
-            <ChildCommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}              
-            />
-            <ChildCommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}              
-            />
-            <ChildCommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}              
-            />
-            <CommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}                  
-            />
-            <CommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}                  
-            />
-            <ChildCommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}              
-            />
-            <ChildCommentCard 
-              username={"이은화"} 
-              content={"나~~~~"} 
-              likes={20}              
-            />
+            <div className="sm:pt-3 pl-4">
+              {/* 이거 comment props list로 받아서 랜더링 진행함 */}
+              <CommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}                  
+              />
+              <ChildCommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}              
+              />
+              <ChildCommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}              
+              />
+              <ChildCommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}              
+              />
+              <ChildCommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}              
+              />
+              <CommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}                  
+              />
+              <CommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}                  
+              />
+              <ChildCommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}              
+              />
+              <ChildCommentCard 
+                username={"이은화"} 
+                content={"나~~~~"} 
+                likes={20}              
+              />
+            </div>
           </div>
           <div className="flex justify-center py-2">
             <CommentInput/>

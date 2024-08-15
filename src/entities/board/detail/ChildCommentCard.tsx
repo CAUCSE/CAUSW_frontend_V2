@@ -39,17 +39,17 @@ export const ChildCommentCard = ({ userImage, username, content, likes }: ChildC
               className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"
               style={{ backgroundImage: `url(${userImage})` }}
             />
-            <div className="font-bold">{username}</div>
+            <div className="font-bold text-[16px]">{username}</div>
           </div>
 
-          <div className="text-gray-700 mb-1 px-10">{content}</div>
+          <div className="text-gray-700 mb-1 px-10 text-[14px]">{content}</div>
           
-          <button className="flex flex-row justify-start items-center space-x-3 px-10 text-post-like">
+          <button className="flex flex-row justify-start items-center space-x-2 px-10 text-post-like text-[12px]">
             <Image
               src="/images/post/like.svg"
               alt="Like Icon"
-              width={20}
-              height={20}
+              width={16}
+              height={16}
             ></Image>
             <span>{likes}</span>
           </button>
@@ -58,8 +58,8 @@ export const ChildCommentCard = ({ userImage, username, content, likes }: ChildC
             <Image
               src="/images/post/comment-like.svg"
               alt="Like Icon"
-              width={18}
-              height={18}
+              width={16}
+              height={16}
               className="items-center"
             ></Image>
           </div>
