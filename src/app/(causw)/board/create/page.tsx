@@ -42,7 +42,7 @@ const CreateBoardForm = ({
       onSubmit={handleSubmit(onSubmit)}
     >
       <input
-        className="placeholder-center h-12 w-full rounded-3xl border border-black px-4 text-center"
+        className="h-12 w-full rounded-3xl border border-black px-4 text-center"
         type="text"
         {...register("boardName", { required: true })}
         id="boardName"
@@ -89,7 +89,6 @@ const CreateBoard = () => {
     if (result) {
       setShowModal(true);
     }
-    console.log(data);
   };
 
   const closeModal = () => setShowModal(false);
