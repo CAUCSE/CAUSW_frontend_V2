@@ -4,42 +4,16 @@ import { Icon, PreviousButton } from "@/shared";
 import { notFound, usePathname, useRouter } from "next/navigation";
 
 import Image from "next/image";
+import { useState } from "react";
 
-/**
- *
- * @todo boardId가 유효한지 검사 후 유효하지 않다면 error 페이지로 리다이렉션
- * @todo boardId로 게시물 목록 받아오기
- */
-
-// "boardName" : "서비스 공지",
-// "posts" : [
-//    {
-//       "title": 게시글 제목", (String)
-//       "content": "게시글 내용", (Stting)
-//       "likeCount:" : 좋아요 개수 (Integer),
-//       "commentCount": 댓글 개수 (Integer),
-//       "isVote": true of false,
-//       "isApply": true of false,
-//       "createdTime" : 25분전 / 12:34 / 03/07 (String),
-//       "author": "만든 사람" (String)
-//    },
-//    {
-//       "title": 게시글 제목", (String)
-//       "content": "게시글 내용", (Stting)
-//       "likeCount:" : 좋아요 개수 (Integer),
-//       "commentCount": 댓글 개수 (Integer),
-//       "isVote": true of false,
-//       "isApply": true of false,
-//       "createdTime" : 25분전 / 12:34 / 03/07 (String),
-//       "author": "만든 사람" (String)
-//    },
-// ]
-
+// TODO 게시판 ID로 게시물 목록 조회 API 연동 필요
+// TODO 알람 설정 API 연동 필요 -> 아
 const boardInfos = [
   {
     boardId: "1",
     emoji: "❗",
     boardName: "서비스 공지",
+    alarmActivation: false,
     posts: [
       {
         postId: "5",
@@ -109,6 +83,7 @@ const boardInfos = [
     boardId: "2",
     emoji: "🏆",
     boardName: "학생회 공지 게시판",
+    alarmActivation: true,
     posts: [
       {
         postId: "4",
@@ -182,8 +157,10 @@ const getTimeDifference = (ISOtime: string) => {
     now.getDate() === createdTime.getDate()
   ) {
     return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
-  } else {
+  } else if (now.getFullYear() === createdTime.getFullYear()) {
     return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
+  } else {
+    return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
   }
 };
 
@@ -191,15 +168,17 @@ const BoardPage = () => {
   const pathName = usePathname();
   const router = useRouter();
 
-  //TODO API 연동 필요
-
   const boardId = pathName.split("/").pop();
   if (!checkBoardValidation(boardId)) {
     notFound();
   }
 
   const boardInfo = boardInfos.filter((board) => board.boardId === boardId)[0];
-  //TODO 이모지 아이콘으로 변경해야 함
+
+  const [alarmActivation, setAlarmActivation] = useState(
+    boardInfo.alarmActivation,
+  );
+
   return (
     <div className="absolute bottom-24 top-28 w-full overflow-y-auto bg-boardPageBackground p-5 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
       <div className="h-full w-full flex-col items-center">
@@ -216,9 +195,13 @@ const BoardPage = () => {
               <button className="flex w-8 items-center justify-center rounded-xl border border-black">
                 <Icon iconName="add" />
               </button>
-              <button className="flex w-8 items-center justify-center rounded-xl border border-black">
-                {/**TODO 게시판 알람 설정 여부에 따라서 아이콘 변경 */}
-                <Icon iconName="alarm_active" />
+              <button
+                className="flex w-8 items-center justify-center rounded-xl border border-black"
+                onClick={() => setAlarmActivation(!alarmActivation)}
+              >
+                <Icon
+                  iconName={alarmActivation ? "alarm_active" : "alarm_inactive"}
+                />
               </button>
               <button
                 className="flex w-8 items-center justify-center rounded-xl border border-black"
@@ -247,7 +230,6 @@ const BoardPage = () => {
                           </p>
                         ))}
                     </div>
-
                     <div className="flex gap-3 divide-x-2">
                       <div className="flex gap-2">
                         <div className="flex items-center gap-2">
