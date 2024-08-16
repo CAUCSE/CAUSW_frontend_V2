@@ -1,7 +1,7 @@
-import { Banner } from "@/entities/home/banner/Banner";
+import { Banner, Calendar } from "@/entities/home";
 
 const imageMock = [
-  "/images/banner-dummy.png",
+  "/images/banner_dummy.png",
   "/images/cau-logo.png",
   "/images/default_profile.png",
   "/images/puang-proud.png",
@@ -19,10 +19,14 @@ const HomePage = async () => {
 
   return (
     <>
-      <div className="flex h-screen flex-col items-center justify-evenly">
-        <Banner images={imageMock} />
-        <Banner images={imageMock} />
-        <Banner images={imageMock} />
+      <div className="flex h-screen w-full justify-center bg-[rgba(248,248,248,1)] py-[6vh]">
+        <div className="flex h-full w-[68.75vw] flex-col items-center gap-[5vh]">
+          <Banner images={imageMock} />
+          <div className="grid h-full w-full grid-cols-[1fr_1.5fr]">
+            <Calendar />
+            <div className="grid grid-rows-[0.5fr_2fr]"></div>
+          </div>
+        </div>
       </div>
     </>
   );
