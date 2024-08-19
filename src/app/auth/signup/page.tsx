@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';  // useRouter import
 
 
 const SignUpPage = () => {
-  const { register, handleSubmit, watch, formState: { errors }, getValues, setValue} = useForm<IAuthForm>({mode: 'onBlur'});
+  const { register, handleSubmit, watch, trigger, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<IAuthForm>({mode: 'onBlur'});
   const router = useRouter(); // useRouter 초기화
 
   interface IAuthForm 
@@ -29,6 +29,10 @@ const SignUpPage = () => {
 
     files: FileList; 
   }
+
+
+
+
     // 비밀번호 숨김 / 보임 기능
 
     const [showPassword, setShowPassword] = useState(false);
@@ -56,7 +60,7 @@ const SignUpPage = () => {
   const currentCompletedSemester = [];
   for (let j = 1; j <= 4; j++) {
     for (let k = 1; k <= 2; k++) {
-      currentCompletedSemester.push(`${j}-${k}`);
+      currentCompletedSemester.push(`${j}학년 ${k}학기`);
     }
   } 
 
@@ -175,23 +179,32 @@ const SignUpPage = () => {
     }
   };
 
-  const handleError = (errorData: { errorCode: number; field?: string }) => {
-    const { errorCode, field } = errorData;
+  // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
+  const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
+  const closeInCompleteModal = () => {
+    setIsIncompleteModalOpen(false);
+  }
+  const onInvalid = (errors: any) => {
+    // 모든 필드를 입력하지 않았을 경우에 대한 로직
+    console.error('Form Errors:', errors);
+    setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
+  };
+
+  const handleError = (errorData: { errorCode: number; message: string, field?: string }) => {
+    const { errorCode, message, field } = errorData;
 
     switch (errorCode) {
       case 4001:
-        setServerError('이미 가입된 이메일입니다.');
+        setServerError(errorData.message);
         break;
       case 4002:
-        setServerError('입력한 정보의 형식이 잘못되었습니다. 모든 필드를 올바르게 입력하세요.');
+        setServerError(errorData.message);
         break;
       case 4003:
-        if (field === 'password') {
-          setServerError('비밀번호는 영어 + 숫자 + 특수 문자가 포함된 8글자 이상이어야 합니다.');
-        } else if (field === 'admissionYear') {
-          setServerError('입학 연도는 1972년도 이상, 현재 연도 이하이어야 합니다.');
-        }
+        setServerError(errorData.message);
         break;
+      case 4004:
+      setServerError(errorData.message);
       default:
         setServerError('알 수 없는 오류가 발생했습니다.');
         break;
@@ -200,7 +213,7 @@ const SignUpPage = () => {
   
   return (
     <div className="flex items-center justify-center min-h-screen bg-white-100 w-full">
-      <form onSubmit={handleSubmit(onSubmit)} className="">
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="">
         
         <h1 className="sm:text-3xl text-2xl font-bold mb-6 text-center mt-8">회원가입</h1>
         
@@ -582,6 +595,7 @@ const SignUpPage = () => {
         </div>
       </form>
 
+      {/* 사진을 클릭했을 때 표시되는 모달 */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeImage}>
           <div className="bg-white p-4 rounded-lg max-w-3xl max-h-full overflow-auto">
@@ -590,6 +604,17 @@ const SignUpPage = () => {
         </div>
       )}
 
+      {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
+            {isIncompleteModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={closeInCompleteModal}>
+          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full grid justify-items-center">
+            <h2 className="text-xl font-bold mb-4">입력되지 않은 항목이 있습니다</h2>
+            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
+          </div>
+        </div>
+      )}
+
+      {/* 회원가입을 성공했을 때 표시되는 모달 */}
       {isSuccessModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
           <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center h-1/3 overflow-y-auto">
@@ -608,13 +633,14 @@ const SignUpPage = () => {
           </div>
         </div>
       )}
-      
+
+      {/* 회원가입 도중 에러 발생했을 때 표시되는 모달 */}
+      {isErrorModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
           <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center h-1/3 overflow-y-auto">
             <div className = "grid justify-items-center">
             <h2 className="text-xl font-bold mb-4">회원가입 실패</h2>
-            <p>서버와의 연결 불안정으로 인해</p>
-            <p> 회원가입이 실패하였습니다</p>
+            <p>{serverError}</p>
             <button
               onClick={closeCompleteModal}
               className="w-2/3 p-4 text-sm bg-focus mt-6 hover:bg-blue-500 text-white p-2 rounded-lg"
@@ -626,8 +652,9 @@ const SignUpPage = () => {
             </div>
           </div>
         </div>
+      )}
 
-
+      {/* 이용약관 모달 */}
 {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
           <div className="bg-white p-8 rounded-lg max-w-lg w-full h-5/6 overflow-y-auto">
