@@ -26,14 +26,14 @@ export const ChildCommentCard = ({ userImage, username, content, likes }: ChildC
       </div>
       <div className="flex flex-grow max-w-sm">
         <div className="relative flex flex-col w-full border-black border-comment-bw rounded-comment-br p-1 pb-2 bg-child-comment mb-4"> 
-          <div className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
+          <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
             <Image
               src="/images/post/comment-menu.svg"
               alt="Comment Menu"
               width={4}
               height={4}
             ></Image>
-          </div> 
+          </button> 
           <div className="flex flex-row items-center px-2 mb-1">
             <div
               className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"
@@ -53,8 +53,7 @@ export const ChildCommentCard = ({ userImage, username, content, likes }: ChildC
             ></Image>
             <span>{likes}</span>
           </button>
-
-          <div className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  rounded-comment-br">
+          <button className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  rounded-comment-br">
             <Image
               src="/images/post/comment-like.svg"
               alt="Like Icon"
@@ -62,7 +61,7 @@ export const ChildCommentCard = ({ userImage, username, content, likes }: ChildC
               height={16}
               className="items-center"
             ></Image>
-          </div>
+          </button>
         </div>
       </div>
     </div>

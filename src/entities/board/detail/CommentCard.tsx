@@ -16,14 +16,14 @@ export const CommentCard = ({ userImage, username, content, likes }: CommentCard
   userImage = useUserStore((state) => state.profileImage);
   return (
     <div className="relative flex flex-col border-black border-comment-bw rounded-comment-br p-1 pb-2 bg-white mb-4 max-w-sm">
-      <div className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
+      <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
         <Image
           src="/images/post/comment-menu.svg"
           alt="Comment Menu"
           width={4}
           height={4}
         ></Image>
-      </div>
+      </button>
 
       <div className="flex flex-row items-center px-2 mb-1">
         <div
@@ -46,13 +46,15 @@ export const CommentCard = ({ userImage, username, content, likes }: CommentCard
       </button>
 
       <div className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  bg-comment-btn rounded-comment-br">
-        <Image
-          src="/images/post/comment-like.svg"
-          alt="Like Icon"
-          width={16}
-          height={16}
-          className="items-center"
-        ></Image>
+        <button>
+          <Image
+            src="/images/post/comment-like.svg"
+            alt="Like Icon"
+            width={16}
+            height={16}
+            className="items-center"
+          ></Image>
+        </button>
         <Image
           src="/images/post/comment-divide.svg"
           alt="Like Icon"
@@ -60,13 +62,15 @@ export const CommentCard = ({ userImage, username, content, likes }: CommentCard
           height={10}
           className="items-center"
         ></Image>
-        <Image
-          src="/images/post/comment-comment.svg"
-          alt="Like Icon"
-          width={16}
-          height={16}
-          className="items-center"
-        ></Image>
+        <button>
+          <Image
+            src="/images/post/comment-comment.svg"
+            alt="Like Icon"
+            width={16}
+            height={16}
+            className="items-center"
+          ></Image>
+        </button>
       </div>
     </div>
   );

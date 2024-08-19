@@ -1,10 +1,16 @@
 import { PostCard, CommentCard, ChildCommentCard, CommentInput } from "@/entities";
+import { PreviousButton } from "@/shared";
 
+{/* <div className="h-full w-full flex-col items-center">
+          <PreviousButton/> */}
 
 const BoardDetailPage = async () => {
   return (
     <div className="absolute bottom-32 top-28 w-full overflow-y-auto bg-boardPageBackground scrollbar-hide md:bottom-10 md:left-40 md:right-72 md:top-0 md:w-auto">
-        <div className="flex flex-col space-y-3t p-3">
+        <div className="w-full flex-col items-center">
+          <PreviousButton/>
+        </div>
+        <div className="flex flex-col space-y-3t p-3 pt-10">
           <div className="sm:pl-3">
             {/* 투표 처리나 이런 건 어떻게 해야할라나 */}
             <PostCard 

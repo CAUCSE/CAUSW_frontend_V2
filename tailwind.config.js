@@ -15,6 +15,8 @@ module.exports = {
         default: "#99dfec",
         focus: "#6BBEEC",
         error: "#b4391a",
+        boardBackground: "#E8E8E8",
+        boardPageBackground: "#F8F8F8",
         'post-hashtag':"rgba(152, 66, 8, 1)",
         'post-like':"rgba(253, 29, 29, 1)",
         'post-star':"rgba(255, 199, 27, 1)",
