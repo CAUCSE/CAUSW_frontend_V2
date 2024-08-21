@@ -30,6 +30,7 @@ export { UserService } from "./hooks/services/UserService";
 
 export { AuthRscService } from "./hooks/services/AuthRscService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
+export { PostRscService } from "./hooks/services/PostRscService"
 
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
