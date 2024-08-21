@@ -249,6 +249,7 @@ const BoardPage = () => {
           게시판 생성
         </button>
       </div>
+
     </div>
   );
 };
