@@ -8,14 +8,15 @@ import { useLayoutStore } from "@/shared";
 
 export const NavigationBar = () => {
   const firstRouter = `/${usePathname().split("/")[1]}`;
+  const md = useLayoutStore((state) => state.md);
   const sm = useLayoutStore((state) => state.sm);
 
   return (
     <div
-      className="w-full h-24 z-30 fixed bottom-0 left-0 bg-default flex justify-center items-center space-x-3 rounded-t-3xl 
-      md:w-40 md:h-screen md:top-0 md:flex-col md:items-end md:space-y-10 md:rounded-tl-none md:rounded-r-3xl"
+      className="w-full h-24 fixed bottom-0 left-0 bg-default flex justify-center items-center space-x-3 rounded-t-3xl 
+      lg:w-40 lg:h-screen lg:top-0 lg:flex-col lg:items-end lg:space-y-10 lg:rounded-tl-none lg:rounded-r-3xl"
     >
-      {sm ? null : (
+      {md || sm ? null : (
         <Image
           src="/images/cau-logo.png"
           alt="cau logo"
@@ -31,12 +32,12 @@ export const NavigationBar = () => {
           className={`w-20 h-16 ${
             firstRouter === iconClass.href ? "bg-white" : "bg-default"
           } rounded-2xl flex flex-col justify-center items-center 
-          mb-2 md:w-11/12 md:h-24 md:rounded-l-3xl md:rounded-r-none md:mb-0`}
+          mb-2 lg:w-11/12 lg:h-24 lg:rounded-l-3xl lg:rounded-r-none lg:mb-0`}
         >
           <span
             className={`${iconClass.icon} ${
               firstRouter === iconClass.href ? "text-default" : "text-white"
-            } text-5xl md:mr-3`}
+            } text-5xl lg:mr-3`}
           ></span>
         </Link>
       ))}

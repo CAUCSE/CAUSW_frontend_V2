@@ -12,3 +12,8 @@ export { Header } from "./header/Header";
 export { SubHeader } from "./header/SubHeader";
 
 export { CircleElement } from "./element/CircleElement";
+
+export { PostCard } from "./board/detail/PostCard"
+export { CommentCard } from "./board/detail/CommentCard"
+export { ChildCommentCard } from "./board/detail/ChildCommentCard"
+export { CommentInput } from "./board/detail/CommentInput"
