@@ -11,7 +11,20 @@ export { FormInput, FormSubmitButton } from "./input/FormInput";
 export { Header } from "./header/Header";
 export { SubHeader } from "./header/SubHeader";
 
-export { PostCard } from "./board/detail/PostCard"
-export { CommentCard } from "./board/detail/CommentCard"
-export { ChildCommentCard } from "./board/detail/ChildCommentCard"
-export { CommentInput } from "./board/detail/CommentInput"
+export { PostCard } from "./board/detail/PostCard";
+export { CommentCard } from "./board/detail/CommentCard";
+export { ChildCommentCard } from "./board/detail/ChildCommentCard";
+export { CommentInput } from "./board/detail/CommentInput";
+
+export type {
+  IBoardContent,
+  IBoardInfo,
+  IBoardResponseDto,
+} from "./board/main/MainBoard";
+
+export {
+  EmptyContent,
+  Board,
+  DefaultBoard,
+  CustomBoard,
+} from "./board/main/MainBoard";
