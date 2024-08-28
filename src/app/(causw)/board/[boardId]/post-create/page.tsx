@@ -1,13 +1,27 @@
 "use client";
+import { PreviousButton } from '@/shared/ui/previousButton';
+import { staticGenerationAsyncStorage } from 'next/dist/client/components/static-generation-async-storage-instance';
 import React, { useState } from 'react';
+import Image from "next/image";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const [isQuestion, setIsQuestion] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isVote, setIsVote] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   
+  const handleVoteButton = () => {
+    setIsVote(!isVote);
+  }
+  const handleQuestionCheckbox = () => {
+    setIsQuestion(!isQuestion);
+  }
+  const handleAnonymousCheckbox = () => {
+    setIsAnonymous(!isAnonymous);
+  }
+
   console.log(props.params.boardId);
 
   const handleSubmit = () => {
@@ -20,77 +34,104 @@ const CreatePostPage = (props: any) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-4 py-6">
-      <div className="bg-white w-full max-w-3xl p-6 rounded-lg shadow-md">
-        <div className="flex items-center justify-between mb-4">
-          <button className="text-black">
-            <svg width="24" height="24" fill="currentColor" className="text-gray-600">
-              <path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            이전
-          </button>
-          <div className="flex items-center space-x-4">
-            <label className="flex items-center space-x-2">
+    <div className="relative h-full w-full">
+      <div className="w-full flex-col items-center">
+        <PreviousButton />
+      </div>
+      <div className="h-full flex flex-col p-10 pt-10">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center space-x-4 w-full">
+            <div className="mt-4 w-full">
               <input
-                type="checkbox"
-                checked={isQuestion}
-                onChange={(e) => setIsQuestion(e.target.checked)}
-                className="form-checkbox"
+                type="text"
+                placeholder="제목"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full p-2 border-b-post-title-input border-black bg-transparent text-[24px] placeholder:text-create-post-text focus:outline-none"
               />
-              <span className="text-gray-700">질문</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={isAnonymous}
-                onChange={(e) => setIsAnonymous(e.target.checked)}
-                className="form-checkbox"
-              />
-              <span className="text-red-500">익명</span>
-            </label>
+            </div>
+            <div className="flex items-center space-x-2 w-[85px] mt-4">
+              <span onClick={handleQuestionCheckbox}>
+                {isQuestion ? 
+                  <Image
+                    src="/images/post/checked-checkbox.svg"
+                    alt="Checked Checkbox Icon"
+                    width={18}
+                    height={18}
+                  ></Image> :
+                  <Image
+                    src="/images/post/non-checked-checkbox.svg"
+                    alt="Non Checked Checkbox Icon"
+                    width={18}
+                    height={18}
+                  ></Image>
+                }
+              </span>
+              <span className={`text-[16px] ${isQuestion ? 'text-checked-text' : 'text-non-checked-text'}`}>질문</span>
+            </div>
+            <div className="flex items-center space-x-2 w-[85px] mt-4">
+              <span onClick={handleAnonymousCheckbox}>
+                {isAnonymous ? 
+                  <Image
+                    src="/images/post/checked-checkbox.svg"
+                    alt="Checked Checkbox Icon"
+                    width={18}
+                    height={18}
+                  ></Image> :
+                  <Image
+                    src="/images/post/non-checked-checkbox.svg"
+                    alt="Non Checked Checkbox Icon"
+                    width={18}
+                    height={18}
+                  ></Image>
+                }
+              </span>
+              <span className={`text-[16px] ${isAnonymous ? 'text-checked-text' : 'text-non-checked-text'}`}>익명</span>
+            </div>
           </div>
         </div>
-
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="제목"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border-b-2 border-gray-300 focus:outline-none focus:border-gray-600"
-          />
-        </div>
-
-        <div className="mb-4">
+        <div className="h-full mb-10">
           <textarea
             placeholder="내용을 입력하세요!"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full p-2 h-40 border-b-2 border-gray-300 focus:outline-none focus:border-gray-600 resize-none"
+            className="w-full h-full p-2 h-40 bg-transparent text-[24px] placeholder:text-create-post-text focus:outline-none resize-none"
           />
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="absolute bottom-2 flex space-x-20">
           <div className="flex space-x-4">
-            <button className="p-2 bg-gray-200 rounded-full">
-              <svg width="24" height="24" fill="currentColor" className="text-gray-600">
-                <path d="M12 21c4.963 0 9-4.037 9-9s-4.037-9-9-9-9 4.037-9 9 4.037 9 9 9zm0 0l8-8-4.5-4.5L12 12l-3-3-5.5 5.5"></path>
-              </svg>
+            <button className={`flex justify-center p-2 bg-comment-input rounded-full w-[80px]`}>
+              <Image
+                src="/images/post/camera.svg"
+                alt="Upload Picture Icon"
+                width={25}
+                height={25}
+              ></Image>
             </button>
-            <button className="p-2 bg-gray-200 rounded-full">
-              <svg width="24" height="24" fill="currentColor" className="text-gray-600">
-                <path d="M19 19H5V5h14v14zM3 3v18h18V3H3zm8 14l-4-4h8l-4 4zm0-4l-4-4h8l-4 4z"></path>
-              </svg>
+            <button 
+              className={`flex justify-center p-2 ${isVote ? 'bg-vote-btn' : 'bg-comment-input'} rounded-full w-[80px]`}
+              onClick={handleVoteButton}
+            >
+              <Image
+                src="/images/post/vote.svg"
+                alt="Vote Icon"
+                width={25}
+                height={25}
+              ></Image>
             </button>
-            <button className="p-2 bg-gray-200 rounded-full">
-              <svg width="24" height="24" fill="currentColor" className="text-gray-600">
-                <path d="M12 4v16m8-8H4"></path>
-              </svg>
+            <button className={`flex justify-center p-2 bg-comment-input rounded-full w-[80px]`}>
+              <Image
+                src="/images/post/application.svg"
+                alt="Application Icon"
+                width={25}
+                height={25}
+              ></Image>
             </button>
           </div>
           <button
             onClick={handleSubmit}
-            className="bg-orange-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-orange-600 focus:outline-none"
+            className="bg-confirm-btn text-white py-2 px-8 rounded-full shadow-md text-[16px] hover:bg-orange-600 focus:outline-none"
           >
             글작성
           </button>

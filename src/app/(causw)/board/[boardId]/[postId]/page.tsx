@@ -102,7 +102,7 @@ const PostDetailPage = async (props: any) => {
       );
     }catch {
       return (
-        <div className="absolute h-full w-full py-3 lg:pl-8">
+        <div className="h-full w-full py-3 lg:pl-8">
           <div className="w-full flex-col items-center">
             <PreviousButton />
           </div>

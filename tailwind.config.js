@@ -21,6 +21,11 @@ module.exports = {
         'post-like':"rgba(253, 29, 29, 1)",
         'post-star':"rgba(255, 199, 27, 1)",
         'post-comment':"rgba(107, 190, 236, 1)",
+        'create-post-text':"rgba(183, 183, 183, 1)",
+        'non-checked-text':"rgba(140, 140, 140, 1)",
+        'checked-text':"rgba(255, 0, 0, 1)",
+        'confirm-btn':"rgba(240, 76, 35, 1)",
+        'vote-btn':"rgba(255, 206, 49, 1)",
       },
       boxShadow: {
         'post-sh': "0px 3px 6.1px 0px rgba(0, 0, 0, 0.25)",
@@ -34,7 +39,6 @@ module.exports = {
         'post-form':"rgba(230, 38, 176, 0.3)",
         'child-comment':"rgba(209, 209, 209, 1)",
         'comment-btn':"rgba(232, 232, 232, 1)"
-
       },
       borderRadius: {
         'post-br': "20px",
@@ -43,6 +47,7 @@ module.exports = {
       },
       borderWidth: {
         'comment-bw': "1px",
+        'post-title-input': "1px",
       },
     },
   },
