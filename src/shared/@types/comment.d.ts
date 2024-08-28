@@ -14,7 +14,7 @@ declare namespace Comment {
     numChildComment: number;
     numLike: number;
     isAnonymous: boolean;
-    childCommentList: ChildCommentDto[];
+    childCommentList: Array<ChildCommentDto>;
   }
 
   export interface CreateCommentDto {

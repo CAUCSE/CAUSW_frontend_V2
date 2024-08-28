@@ -3,6 +3,28 @@ import axios, { AxiosResponse } from "axios";
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const PostRscService = () => {
+  const createPost = async (
+    data: Post.CreatePostDto
+  ): Promise<Post.PostDto> => {
+    const URI = `${BASEURL}/api/v1/posts`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Post.PostDto> = await axios.post(URI, data, {
+        headers: headers,
+      });
+
+      if (response.status !== 201) {
+        throw new Error(`Failed to create post. Response status: ${response.status}`);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error('Error creating post:', error);
+      throw error;
+    }
+  };
+
   const getPostById = async (postId: string): Promise<Post.PostDto> => {
     const URI = `${BASEURL}/api/v1/posts/${postId}`;
     
@@ -84,5 +106,5 @@ export const PostRscService = () => {
   };
 
 
-  return { getPostById, postLikeForPost, postFavorite, cancelFavorite };
+  return { createPost, getPostById, postLikeForPost, postFavorite, cancelFavorite };
 };

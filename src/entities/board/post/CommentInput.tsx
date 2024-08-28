@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export const CommentInput = () => {
   return (
-    <div className="fixed flex items-center justify-center bottom-[100px] w-full px-3 md:bottom-2 md:left-40 md:right-72 md:w-auto">
+    <div className="fixed flex items-center justify-center bottom-[100px] w-full px-3 lg:bottom-2 lg:left-40 lg:right-72 lg:mr-4 lg:w-auto">
       <div className="flex flex-grow items-center justify-between p-4 bg-comment-input rounded-comment-input-br">
         <div className="flex items-center space-x-2 pr-3">
           <input type="checkbox" className="form-checkbox h-6 w-6 border-gray-300 border-2" />

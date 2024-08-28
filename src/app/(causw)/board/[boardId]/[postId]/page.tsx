@@ -102,12 +102,12 @@ const PostDetailPage = async (props: any) => {
       );
     }catch {
       return (
-        <div className="absolute bottom-32 top-28 w-full overflow-y-auto bg-boardPageBackground scrollbar-hide md:bottom-10 md:left-40 md:right-72 md:top-0 md:w-auto">
+        <div className="absolute h-full w-full py-3 lg:pl-8">
           <div className="w-full flex-col items-center">
             <PreviousButton />
           </div>
           <div className="flex flex-col space-y-3 p-3 pt-10">
-            <div className="sm:pl-3">
+            <div className="md:pl-3">
               <PostCard
                 username={defaultPostInfos.writerName}
                 timeAgo={"30분 전"} // 시간 계산 로직 필요
@@ -117,7 +117,7 @@ const PostDetailPage = async (props: any) => {
                 stars={20} // 이 부분이 PostDto에 포함되지 않은 경우 계산이 필요
                 comments={defaultPostInfos.numComment}
               />
-              <div className="pl-4 sm:pt-3">
+              <div className="pl-4 md:pt-3">
                 {defaultPostInfos.commentList.map((comment, index) => (
                   <div key={index}>
                     <CommentCard
@@ -137,7 +137,7 @@ const PostDetailPage = async (props: any) => {
                 ))}
               </div>
             </div>
-            <div className="flex justify-center py-2">
+            <div className="flex justify-center">
               <CommentInput />
             </div>
           </div>

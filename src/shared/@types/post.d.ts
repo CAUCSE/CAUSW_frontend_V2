@@ -7,7 +7,7 @@ declare namespace Post {
     writerName: string;
     writerAdmissionYear: number;
     writerProfileImage: string;
-    attachmentList: AttachmentDto[];
+    attachmentList: Array<AttachmentDto>;
     numComment: number;
     updatable: boolean;
     deletable: boolean;
@@ -16,7 +16,7 @@ declare namespace Post {
     numLike: number;
     isAnonymous: boolean;
     isQuestion: boolean;
-    commentList: CommentDto[];
+    commentList: Array<CommentDto>;
     boardName: string;
   }
 
@@ -25,5 +25,13 @@ declare namespace Post {
     downloadFilePath: string;
   }
 
+  export interface CreatePostDto {
+    title: string;
+    content: string;
+    boardId: string;
+    attachmentList: Array<AttachmentDto>;
+    isAnonymous: boolean;
+    isQuestion: boolean;
+  }
   
 }
