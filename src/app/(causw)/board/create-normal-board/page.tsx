@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Image from "next/image";
 
 // eslint-disable-next-line @next/next/no-async-client-component
-const CreateNoticeBoardPage = (props: any) => {
+const CreateNormalBoardPage = (props: any) => {
   const [boardName, setBoardName] = useState('');
   const [boardDescription, setBoardDescription] = useState('');
   const [allowAnonymous, setAllowAnonymous] = useState(false);
@@ -16,22 +16,6 @@ const CreateNoticeBoardPage = (props: any) => {
     '학생회장', '부학생회장', '관리자', '동문회장', '교수', 
     '학년대표', '학생회', '일반 사용자'
   ];
-
-const handleRoleChange = (role: string) => {
-    if (selectedRoles.includes(role)) {
-      setSelectedRoles(selectedRoles.filter(r => r !== role));
-    } else {
-      setSelectedRoles([...selectedRoles.filter(r => r !== '상관없음'), role]);
-    }
-  };
-
-  const handleAnyRoleChange = () => {
-    if (selectedRoles.includes('상관없음')){
-      setSelectedRoles([]);
-    }else {
-      setSelectedRoles(['상관없음']);
-    }
-  };
 
   const handleSubmit = () => {
     if (!boardName.trim()) {
@@ -81,23 +65,15 @@ const handleRoleChange = (role: string) => {
 
         <div className="mb-2">
           <div className="text-[28px] mb-4">게시글 작성 권한 명단</div>
-          <div className="p-4 bg-notice-board-role rounded-2xl">
+          <div className="p-4 bg-normal-board-role rounded-2xl">
             <div className="flex items-center space-x-3 mb-2">
-              <span onClick={handleAnyRoleChange}>
-                {selectedRoles.includes('상관없음') ? 
-                  <Image
-                    src="/images/board/role-checked.svg"
-                    alt="Checked Checkbox Icon"
-                    width={18}
-                    height={18}
-                  ></Image> :
-                  <Image
-                    src="/images/board/role-non-checked.svg"
-                    alt="Non Checked Checkbox Icon"
-                    width={18}
-                    height={18}
-                  ></Image>
-                }
+              <span>
+                <Image
+                  src="/images/board/normal-role-checked.svg"
+                  alt="Checked Checkbox Icon"
+                  width={18}
+                  height={18}
+                ></Image>
               </span>
               <span>상관없음</span>
             </div>
@@ -105,21 +81,13 @@ const handleRoleChange = (role: string) => {
             <div className="grid grid-cols-3 gap-2">
               {roles.map((role) => (
                 <div key={role} className="flex items-center space-x-3">
-                  <span onClick={() => handleRoleChange(role)}>
-                    {selectedRoles.includes(role) ? 
-                      <Image
-                        src="/images/board/role-checked.svg"
-                        alt="Checked Checkbox Icon"
-                        width={18}
-                        height={18}
-                      ></Image> :
-                      <Image
-                        src="/images/board/role-non-checked.svg"
-                        alt="Non Checked Checkbox Icon"
-                        width={18}
-                        height={18}
-                      ></Image>
-                    }
+                  <span>
+                    <Image
+                      src="/images/board/normal-role-non-checked.svg"
+                      alt="Non Checked Checkbox Icon"
+                      width={18}
+                      height={18}
+                    ></Image>
                   </span>
                   <span>{role}</span>
                 </div>
@@ -161,4 +129,4 @@ const handleRoleChange = (role: string) => {
 
 }
 
-export default CreateNoticeBoardPage;
+export default CreateNormalBoardPage;
