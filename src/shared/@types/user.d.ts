@@ -55,41 +55,6 @@ declare namespace User {
     userState: User["state"];
   }
 
-  export interface FindAllAdmissionsResponseDto {
-    content: AdmissionUser[];
-    last: boolean;
-
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  }
-  export interface FindAllAdmissionsResponse {
-    users: Model.AdmissionUser[];
-    last: boolean;
-  }
-
   // findPrivilegedUsers
   export interface FindPrivilegedUsersResponseDto {
     presidentUser: User[];
@@ -282,6 +247,37 @@ declare namespace User {
   export type FindByStateResponseDto = {
     content: User[];
     last: boolean;
+    //#71 추가
+    empty: boolean;
+    first: boolean;
+    number: number;
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      unpaged: boolean;
+    };
+    size: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    totalElements: number;
+    totalPages: number;
+  } & Error.ApiErrorResponse;
+
+  export type FindAllAdmissionsResponseDto = {
+    content: AdmissionUser[];
+    last: boolean;
+
     //#71 추가
     empty: boolean;
     first: boolean;
