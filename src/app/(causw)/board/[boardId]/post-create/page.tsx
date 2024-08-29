@@ -13,7 +13,7 @@ const CreatePostPage = (props: any) => {
   const [content, setContent] = useState('');
 
   const [isMultipleChoice, setIsMultipleChoice] = useState(false);
-  const [isAnonymousVote, setIsAnonymousVote] = useState(false);
+  const [allowAnonymous, setAllowAnonymousVote] = useState(false);
   const [options, setOptions] = useState(['', '']);
 
   const handleVoteButton = () => {
@@ -44,8 +44,8 @@ const CreatePostPage = (props: any) => {
     setIsMultipleChoice(!isMultipleChoice)
   };
 
-  const handleSetAnonymous = () => {
-    setIsAnonymousVote(!isAnonymousVote);
+  const handleAllowAnonymous = () => {
+    setAllowAnonymousVote(!allowAnonymous);
   };
   
   const handleQuestionCheckbox = () => {
@@ -89,7 +89,7 @@ const CreatePostPage = (props: any) => {
                 <span className={`w-5 h-5 rounded-full ${isMultipleChoice ? 'bg-red-500' :'bg-gray-400'} inline-block`}></span>
                 <span className="text-gray-700">복수 선택</span>
               </label>
-              <label className="flex items-center justify-center space-x-3 w-[120px]" onClick={handleSetAnonymous}>
+              <label className="flex items-center justify-center space-x-3 w-[120px]" onClick={handleAllowAnonymous}>
                 <span className={`w-5 h-5 rounded-full ${isAnonymousVote ? 'bg-red-500' :'bg-gray-400'} inline-block`}></span>
                 <span className="text-gray-700">익명 투표</span>
               </label>
