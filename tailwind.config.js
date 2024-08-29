@@ -26,7 +26,9 @@ module.exports = {
         'checked-text':"rgba(255, 0, 0, 1)",
         'confirm-btn':"rgba(240, 76, 35, 1)",
         'vote-btn':"rgba(255, 206, 49, 1)",
-        'board-role':"rgba(255, 245, 197, 1)",
+        'notice-board-role':"rgba(255, 245, 197, 1)",
+        'normal-board-role':"rgba(232, 232, 232, 1)",
+        'normal-board-role-text':"rgba(139, 139, 139, 1)",
       },
       boxShadow: {
         'post-sh': "0px 3px 6.1px 0px rgba(0, 0, 0, 0.25)",
