@@ -7,7 +7,7 @@ export const UserRscService = () => {
     try {
       const headers = await setRscHeader();
       const response = (await fetch(`${URI}/${id}`, { headers: headers }).then(
-        (res) => res.json()
+        (res) => res.json(),
       )) as User.UserDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
@@ -15,10 +15,34 @@ export const UserRscService = () => {
       return response;
     } catch (error) {
       console.error(error);
-
       throw error;
     }
   };
 
-  return { getUser };
+  const findByState = async (
+    state: User.UserDto["state"],
+    name: string | null,
+    page: number,
+  ) => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = name
+        ? ((await fetch(`${URI}/state/${state}?name=${name}&pageNum=${page}`, {
+            headers: headers,
+          }).then((res) => res.json())) as User.FindByStateResponseDto)
+        : ((await fetch(`${URI}/state/${state}?pageNum=${page}`, {
+            headers: headers,
+          }).then((res) => res.json())) as User.FindByStateResponseDto);
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response.content;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  return { getUser, findByState };
 };

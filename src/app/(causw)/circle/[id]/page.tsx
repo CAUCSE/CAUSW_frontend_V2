@@ -10,20 +10,19 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="flex w-full items-center justify-center overflow-y-scroll md:h-screen">
-        <div className="grid h-5/6 w-5/6 grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_5fr_1fr] gap-4">
+      <div className="flex w-screen items-center justify-center overflow-y-scroll md:h-screen">
+        <div className="grid h-5/6 w-[95%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_5fr_1fr] gap-4 md:w-5/6">
           <Header bold>{data.name}</Header>
           <div className="col-span-2 flex items-center justify-end gap-3">
-            <div className="flex h-full w-48 items-center justify-center rounded-2xl border-2 border-black text-lg">
+            <div className="flex h-full w-48 items-center justify-center rounded-2xl border-2 border-black text-sm md:text-lg">
               가입 신청 받기
             </div>
-            <div className="flex h-full w-48 items-center justify-center rounded-2xl border-2 border-black text-lg">
+            <div className="flex h-full w-48 items-center justify-center rounded-2xl border-2 border-black text-sm md:text-lg">
               신청 현황 보기
             </div>
             <span className="icon-[icon-park-outline--write] text-4xl"></span>
           </div>
-
-          <div className="row-span-3 flex h-64 w-64 items-center justify-center overflow-hidden rounded-xl">
+          <div className="row-span-3 flex h-36 w-36 items-center justify-center overflow-hidden rounded-xl md:h-64 md:w-64">
             <img
               src={data.mainImage ?? "/images/signin-logo.png"}
               alt={"Circle Image"}
@@ -31,17 +30,17 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
             />
           </div>
 
-          <div className="col-span-2 flex flex-row items-end text-lg">
+          <div className="col-span-2 flex flex-row items-end text-sm md:text-lg">
             <div className="mr-6 font-bold">동아리 회비</div>
             <div>40000만원</div>
           </div>
 
-          <div className="col-span-2 flex flex-row items-center text-lg">
+          <div className="col-span-2 flex flex-row items-center text-sm md:text-lg">
             <div className="mr-[39px] font-bold">모집 인원</div>
             <div>40000만원</div>
           </div>
 
-          <div className="col-span-2 flex flex-row items-start text-lg">
+          <div className="col-span-2 flex flex-row items-start text-sm md:text-lg">
             <div className="mr-[39px] font-bold">동아리원</div>
             <div>{data.numMember}명</div>
           </div>
