@@ -202,34 +202,8 @@ declare namespace User {
     accessToken: string;
     refreshToken: string;
   }
-  
-  export enum AcademicStatus {
-    ENROLLED = "ENROLLED",
-    LEAVE_OF_ABSENCE = "LEAVE_OF_ABSENCE",
-    GRADUATED = "GRADUATED",
-  }
-  
-  // Signup
-  export interface IAuthForm 
-  {        
-    email: string;
-    name: string;
-    password: string;
-    pwConfirm: string;
-    studentId: string;
-    admissionYear: number;
-    nickname: string;
-    major: string;
-    academicStatus: AcademicStatus;
-    currentCompletedSemester: number;
-    agreeToTerms: boolean;
-    agreeToPopup: boolean;
-    graduationYear: number | null;
-    graduationMonth: number | null;
-    phoneNumber: string;
-    profileImage: nullable;
-    files: FileList; 
-  }
+
+  // ==
 
   export interface FindPostsResponse {
     posts: Model.HistoryPost[];
