@@ -3,15 +3,16 @@ export const Header = ({
   underline,
   wide,
   bold,
+  big,
 }: {
   children: React.ReactNode;
   underline?: boolean;
   wide?: boolean;
   bold?: boolean;
+  big?: boolean;
 }) => (
   <span
-    className={`text-2xl ${underline ? "underline" : ""} 
-    ${bold ? "font-bold" : ""} ${wide ? "tracking-widest" : ""}`}
+    className={`${big ? "text-3xl" : "text-2xl"} ${underline ? "underline" : ""} ${bold ? "font-bold" : ""} ${wide ? "tracking-widest" : ""}`}
   >
     {children}
   </span>
