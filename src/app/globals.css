@@ -38,3 +38,20 @@ input:-webkit-autofill:active {
     margin: 0;
   }
 }
+
+/* 웹킷 브라우저(Chrome, Safari 등)용 커스텀 스크롤바 */
+::-webkit-scrollbar {
+  width: 30px; /* 스크롤바 너비 */
+}
+
+/* 스크롤바의 트랙(스크롤바의 배경) */
+::-webkit-scrollbar-track {
+  background: none; /* 트랙 색상 */
+}
+
+/* 스크롤바의 손잡이(드래그하는 부분) */
+::-webkit-scrollbar-thumb {
+  background-color: #e8e8e8; /* 손잡이 색상 */
+  border-radius: 30px; /* 손잡이 모서리 곡률 */
+  border: 10px solid #f8f8f8; /* 손잡이와 트랙 사이의 간격 */
+}
