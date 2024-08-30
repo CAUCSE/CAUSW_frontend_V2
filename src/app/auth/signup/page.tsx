@@ -1,36 +1,65 @@
 "use client";
+
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';  // useRouter import
-
+import { useLayoutStore } from '@/shared';
+import { AuthService } from '@/shared';
+import axios, { AxiosResponse } from 'axios';
 
 const SignUpPage = () => {
-  const { register, handleSubmit, watch, trigger, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<IAuthForm>({mode: 'onBlur'});
+  const { register, handleSubmit, watch, trigger, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.IAuthForm>({mode: 'onBlur'});
   const router = useRouter(); // useRouter 초기화
 
-  interface IAuthForm 
-  {        
-    email: string;
-    name: string;
-    password: string;
-    pwConfirm: string;
-    studentId: number;
-    admissionYear: string;
-    nickname: string;
-    major: string;
-    academicStatus: "LEAVE_OF_ABSENCE" | "ENROLLED" | "GRADUATED";
-    currentCompletedSemester: string;
-    agreeToTerms: boolean;
-    agreeToPopup: boolean;
-    graduationYear: string;
-    graduationMonth: string;
-    phoneNumber: string;
+  const { signup, checkEmailDuplicate, checkNicknameDuplicate } = AuthService();
+  const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
+  const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
 
-    files: FileList; 
-  }
+  
+  const [emailError, setEmailError] = useState<string | null>(null);
 
 
+  // const [nicknameError, setNicknameError] = useState<string | null>(null);
+
+  // // 닉네임 중복 검사 함수
+  // const checkNicknameDuplicate = async (nickname: string) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8080/api/v1/users/${nickname}/is-duplicated-nickname`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       }
+  //     });
+  //     console.log(response);
+      
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       return data; // 서버에서 받은 응답 데이터 반환
+  //     } else {
+  //       console.log(response);
+  //       console.error('Nickname duplicate check failed');
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     console.error('Nickname duplicate check error:', error);
+  //     return null;
+  //   }
+  // };
+
+  // // 닉네임 중복 검사 트리거 함수
+  // const validateNickname = async (nickname: string) => {
+  //   if (!nickname) {
+  //     return; // 닉네임이 비어있을 경우 중복 검사하지 않음
+  //   }
+
+  //   const result = await checkNicknameDuplicate(nickname);
+  //   if (result && !result.isAvailable) {
+  //     setError('nickname', { type: 'manual', message: result.message || '이미 사용 중인 닉네임입니다.' });
+  //   } else {
+  //     setNicknameError(null);
+  //   }
+  // };
 
 
     // 비밀번호 숨김 / 보임 기능
@@ -77,6 +106,7 @@ const SignUpPage = () => {
         URL.createObjectURL(file)
       );
       setImagePreviews(prevPreviews => [...newImagePreviews.reverse(), ...prevPreviews]);
+      console.log(imagePreviews);
     }
   }, [files]);
 
@@ -130,54 +160,43 @@ const SignUpPage = () => {
   };
 
   // 제출 
-  const onSubmit = async (data: IAuthForm) => {
-    console.log(data);
-    try {
-      const response = await fetch('http://localhost:8080/api/v1/users/sign-up', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
 
-      if (response.ok) {
+  interface SignUpResponse {
+    message: string;  // 서버가 반환하는 성공 메시지
+  }
+  
+  interface ErrorResponse {
+    message: string;  // 서버가 반환하는 에러 메시지
+  }
+  
+  const onSubmit = async (data: User.IAuthForm) => {
+  
+    try {
+      const response = await signup(data);  // signup 호출
+  
+      if (response) {  // 성공한 경우
         setIsSuccessModalOpen(true);
         setCountdown(5);
-        const result = await response.json();
-        console.log('signUp successful:', result);
-
+  
         const interval = setInterval(() => {
           setCountdown((prev) => {
             if (prev <= 1) {
               clearInterval(interval);
               setIsSuccessModalOpen(false);
-              router.push('/auth/signin');
-            }
-            return prev - 1;
-          });
-        }, 1000);
-      } else {
-        const errorResponse = await response.json();
-        handleError(errorResponse);
-        setCountdown(5);
-        setIsErrorModalOpen(true);
-
-        const interval = setInterval(() => {
-          setCountdown((prev) => {
-            if (prev <= 1) {
-              clearInterval(interval);
-              setIsErrorModalOpen(false);
+              router.push('/auth/signin');  // 성공 시 리다이렉션
             }
             return prev - 1;
           });
         }, 1000);
       }
-    } catch (error) {
-      console.error('signUp:', error);
-      setServerError('서버와 통신 중 오류가 발생했습니다. 다시 시도해주세요.');
+    } catch (error: any) {
+      // 에러 발생 시 처리
+      console.error('SignUp error:', error);
+      setIsErrorModalOpen(true);
+      setServerError(error.message || '회원가입 중 문제가 발생했습니다.');  // 에러 메시지 처리
     }
   };
+  
 
   // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
   const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
@@ -192,23 +211,7 @@ const SignUpPage = () => {
 
   const handleError = (errorData: { errorCode: number; message: string, field?: string }) => {
     const { errorCode, message, field } = errorData;
-
-    switch (errorCode) {
-      case 4001:
-        setServerError(errorData.message);
-        break;
-      case 4002:
-        setServerError(errorData.message);
-        break;
-      case 4003:
-        setServerError(errorData.message);
-        break;
-      case 4004:
-      setServerError(errorData.message);
-      default:
-        setServerError('알 수 없는 오류가 발생했습니다.');
-        break;
-    }
+    setServerError(errorData.message);
   };
   
   return (
@@ -230,8 +233,19 @@ const SignUpPage = () => {
                 value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
                 message: '이메일 형식으로 입력해주세요'
               }})}
+
+              onBlur={async (e) => {
+                const email = e.target.value;
+                if (email) {
+                  const isDuplicate = await checkEmailDuplicate(email);
+                  console.log(isDuplicate);
+                  setIsEmailDuplicate(isDuplicate);
+                }
+              }}
+
           />
-          <p>{errors?.email?.message}</p>
+        {errors.email && <p>{errors.email.message}</p>}
+        {isEmailDuplicate && <p>이미 사용 중인 이메일입니다.</p>}
         </div>
 
         <div className="mb-6 ml-4 mr-4">
@@ -344,8 +358,18 @@ const SignUpPage = () => {
                 message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요"
               }
             })}
-          />
-          <p>{errors?.nickname?.message}</p>
+            onBlur={async (e) => {
+              const nickname = e.target.value;
+              if (nickname) {
+                const isDuplicate = await checkNicknameDuplicate(nickname);
+                console.log(isDuplicate);
+                setIsNicknameDuplicate(isDuplicate);
+              }
+            }}
+
+        />
+      {errors.nickname && <p>{errors.nickname.message}</p>}
+      {isNicknameDuplicate && <p>이미 사용 중인 닉네임입니다.</p>}
         </div>
 
         <div className="mb-6 ml-4 mr-4">
@@ -426,8 +450,8 @@ const SignUpPage = () => {
               onChange={handleStatusChange}
           >
             <option value="">-선택해주세요-</option>
-            <option key="ENROLLED" value="ENROLLED">재학</option>
-            <option key="LEAVE_OF_ABSENCE" value = "LEAVE_OF_ABSENCE">휴학</option>
+            <option key="ENROLLED" value= "ENROLLED">재학</option>
+            <option key="LEAVE_OF_ABSENCE" value = "LEAVE_OF_ABSENSE">휴학</option>
             <option key="GRADUATED" value="GRADUATED">졸업</option>
           </select>
           <p>{errors?.academicStatus?.message}</p>
@@ -494,7 +518,6 @@ const SignUpPage = () => {
                     <option value="">-선택해주세요-</option>
                     <option key="1" value="2">2월</option>
                     <option key="2" value="8">8월</option>
-                    <option key="3" value="기타">기타</option>
                   </select>
                 </div>
                 <p>{errors?.graduationMonth?.message}</p>
@@ -636,18 +659,11 @@ const SignUpPage = () => {
 
       {/* 회원가입 도중 에러 발생했을 때 표시되는 모달 */}
       {isErrorModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center h-1/3 overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick = {closeCompleteModal}>
+          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full">
             <div className = "grid justify-items-center">
             <h2 className="text-xl font-bold mb-4">회원가입 실패</h2>
             <p>{serverError}</p>
-            <button
-              onClick={closeCompleteModal}
-              className="w-2/3 p-4 text-sm bg-focus mt-6 hover:bg-blue-500 text-white p-2 rounded-lg"
-            >
-              닫기
-            </button>
-            <p className="mt-4 text-gray-500"> ({countdown}초 후에 창이 닫힙니다.)</p>
 
             </div>
           </div>
