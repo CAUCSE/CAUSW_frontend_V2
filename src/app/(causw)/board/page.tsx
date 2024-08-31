@@ -11,25 +11,27 @@ const BoardPage = async () => {
   //console.log(boards);
 
   return (
-    <div className="absolute h-full w-full py-3 pl-4 lg:pl-8">
-      <div className="flex flex-col items-center">
-        <DefaultBoard
-          boardInfos={boards.filter(
-            (board: IBoardResponseDto) => board.isDefault,
-          )}
-        />
-        <CustomBoard
-          boardInfos={boards.filter(
-            (board: IBoardResponseDto) => !board.isDefault,
-          )}
-        />
-        <Link href={`/board/create`}>
-          <button className="fixed bottom-28 rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10">
-            게시판 생성
-          </button>
-        </Link>
+    <>
+      <div className="absolute h-full w-full py-3 pl-4 lg:pl-8">
+        <div className="flex flex-col items-center">
+          <DefaultBoard
+            boardInfos={boards.filter(
+              (board: IBoardResponseDto) => board.isDefault,
+            )}
+          />
+          <CustomBoard
+            boardInfos={boards.filter(
+              (board: IBoardResponseDto) => !board.isDefault,
+            )}
+          />
+        </div>
       </div>
-    </div>
+      <Link href={`/board/create`}>
+        <button className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10">
+          게시판 생성
+        </button>
+      </Link>
+    </>
   );
 };
 
