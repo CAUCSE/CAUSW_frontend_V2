@@ -7,6 +7,7 @@ import {
 import { PreviousButton, PostRscService } from "@/shared";
 
 const PostDetailPage = async (props: any) => {
+  return <></>;
   console.log(props.params.postId);
 
   const { getPostById } = PostRscService();
