@@ -1,5 +1,5 @@
 import { UserRscService } from "@/shared";
-import { Header, Line, SubHeader } from "@/entities";
+import { Header, Line, SubHeader, ExcelExport } from "@/entities";
 
 import Link from "next/link";
 
@@ -23,6 +23,12 @@ const UsersManagement = async ({
   /* const data = isAddmission
     ? await findAllAdmissions(null, 0)
     : await findByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
+
+  const headers = [
+    { label: "이름", key: "userName" },
+    { label: "학번", key: "studentId" },
+  ];
+
   const data = [
     { userName: "강민규", studentId: "20203128" },
     { userName: "윤민규", studentId: "20203128" },
@@ -34,6 +40,7 @@ const UsersManagement = async ({
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
+      <ExcelExport headers={headers} data={data} />
       <Header bold big>
         유저 관리
       </Header>

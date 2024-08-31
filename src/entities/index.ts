@@ -18,3 +18,5 @@ export { PostCard } from "./board/detail/PostCard";
 export { CommentCard } from "./board/detail/CommentCard";
 export { ChildCommentCard } from "./board/detail/ChildCommentCard";
 export { CommentInput } from "./board/detail/CommentInput";
+
+export { ExcelExport } from "./export/ExcelExport";
