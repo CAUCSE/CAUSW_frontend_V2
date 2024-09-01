@@ -38,7 +38,7 @@ const SearchPost = () => {
   };
 
   return (
-    <div className="absolute bottom-24 top-28 w-full overflow-y-auto bg-boardPageBackground p-5 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
+    <div className="absolute bottom-0 top-0 w-full overflow-y-auto bg-boardPageBackground p-5">
       <div className="flex h-full w-full flex-col items-center">
         <PreviousButton />
         <div className="flex h-full w-full flex-col items-center justify-center gap-4">
@@ -54,7 +54,7 @@ const SearchPost = () => {
           <form
             action=""
             onSubmit={handleSubmit(onSubmit)}
-            className="flex justify-between gap-4 lg:w-3/4"
+            className="flex w-full justify-between gap-4 lg:w-3/4"
           >
             <input
               className="w-full rounded-3xl border border-black text-center"
