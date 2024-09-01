@@ -94,7 +94,7 @@ const CreateBoard = () => {
   const closeModal = () => setShowModal(false);
 
   return (
-    <div className="absolute bottom-24 top-28 flex w-full flex-col items-center justify-items-center overflow-y-auto bg-boardPageBackground p-6 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
+    <div className="absolute bottom-0 top-0 flex w-full flex-col items-center justify-items-center overflow-y-auto bg-boardPageBackground p-6 scrollbar-hide">
       <PreviousButton />
       <CreateBoardForm
         register={register}
