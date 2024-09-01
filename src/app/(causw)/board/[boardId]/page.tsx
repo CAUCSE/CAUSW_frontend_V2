@@ -133,10 +133,12 @@ const BoardPage = () => {
   }, [loading, hasMore]);
 
   return (
-    <div className="h-full w-full overflow-y-auto">
+    <div className="h-full w-full">
       <div className="fixed flex h-24 w-full items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem)]">
         <PreviousButton />
-        <div className="text-xl font-bold lg:text-3xl">{boardName}</div>
+        <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
+          {boardName}
+        </div>
         <div className="flex items-center gap-2 sm:gap-4">
           {/* TODO 게시글 생성 페이지로 이동 */}
           {IconButton("add", () => {})}
