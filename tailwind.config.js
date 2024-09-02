@@ -29,9 +29,12 @@ module.exports = {
         'notice-board-role':"rgba(255, 245, 197, 1)",
         'normal-board-role':"rgba(232, 232, 232, 1)",
         'normal-board-role-text':"rgba(139, 139, 139, 1)",
+        'vote-title':"rgba(217, 217, 217, 1)",
+        'vote-theme':"rgba(107, 190, 236, 1)",
       },
       boxShadow: {
         'post-sh': "0px 3px 6.1px 0px rgba(0, 0, 0, 0.25)",
+        'vote-option': "inset 0 0 0 2px white",
       },
       backgroundColor: {
         'post': "rgba(248, 248, 248, 1)",

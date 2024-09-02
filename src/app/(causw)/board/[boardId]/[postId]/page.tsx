@@ -111,11 +111,11 @@ const PostDetailPage = async (props: any) => {
               <PostCard
                 username={defaultPostInfos.writerName}
                 timeAgo={"30분 전"} // 시간 계산 로직 필요
-                hashtags={["시험", "노잼", "방학"]} // 필요한 경우 추가 데이터 사용
                 content={defaultPostInfos.content}
                 likes={defaultPostInfos.numLike}
                 stars={20} // 이 부분이 PostDto에 포함되지 않은 경우 계산이 필요
                 comments={defaultPostInfos.numComment}
+                hasVote={true}
               />
               <div className="pl-4 md:pt-3">
                 {defaultPostInfos.commentList.map((comment, index) => (
