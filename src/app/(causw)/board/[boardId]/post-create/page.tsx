@@ -86,11 +86,11 @@ const CreatePostPage = (props: any) => {
             </div>
             <div className="flex items-center space-x-4 mt-4">
               <label className="flex items-center justify-center space-x-3 w-[120px]" onClick={handelSelectMultiple}>
-                <span className={`w-5 h-5 rounded-full ${isMultipleChoice ? 'bg-red-500' :'bg-gray-400'} inline-block`}></span>
+                <span className={`w-5 h-5 rounded-full ${isMultipleChoice ? 'bg-red-500' :'bg-gray-400'}`}></span>
                 <span className="text-gray-700">복수 선택</span>
               </label>
               <label className="flex items-center justify-center space-x-3 w-[120px]" onClick={handleAllowAnonymous}>
-                <span className={`w-5 h-5 rounded-full ${isAnonymousVote ? 'bg-red-500' :'bg-gray-400'} inline-block`}></span>
+                <span className={`w-5 h-5 rounded-full ${allowAnonymous ? 'bg-red-500' :'bg-gray-400'}`}></span>
                 <span className="text-gray-700">익명 투표</span>
               </label>
             </div>

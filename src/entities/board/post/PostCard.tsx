@@ -2,6 +2,7 @@
 
 import { useUserStore } from "@/shared";
 import Image from "next/image";
+import VotingSection from './VotingSection';
 
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
@@ -9,27 +10,27 @@ interface PostCardProps {
   userImage?: string;
   username: string;
   timeAgo: string;
-  hashtags: string[];
   content: string;
   postImage?: string;
   likes: number;
   stars: number;
   comments: number;
+  hasVote: boolean;
 }
 
 
-export const PostCard = ({ userImage, username, timeAgo, hashtags, content, postImage, likes, stars, comments }: PostCardProps) => {
+export const PostCard = ({ userImage, username, timeAgo, content, postImage, likes, stars, comments, hasVote }: PostCardProps) => {
   userImage = useUserStore((state) => state.profileImage);
   postImage = useUserStore((state) => state.profileImage);
+
+  const handleVote = (selectedOptions: string[]) => {
+    console.log(`${selectedOptions.join(', ')} 투표함`);
+  };
+
+  const options = ['1등', '2등', '3등'];  // 투표 옵션 배열
+
   return (
     <div className="flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
-      {/* 해시태그 전체 밑줄 되어야 함 */}
-      <div className="flex pl-16 items-start underline">
-        {hashtags.map((tag, index) => (
-          <span key={index} className="text-[14px] text-post-hashtag mr-2">#{tag}</span>
-        ))}  
-      </div>
-
       <div className="flex flex-row items-center">
         <div
           className="m-2 w-12 h-12 bg-no-repeat bg-contain"
@@ -45,6 +46,13 @@ export const PostCard = ({ userImage, username, timeAgo, hashtags, content, post
         <div className="mb-2 text-[14px]">
           {content}
         </div>
+
+        {hasVote 
+        ? <div className="lg:pr-12 w-full">
+            <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={handleVote} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
+          </div>
+        : ''}
+
         <div 
           className="w-20 h-20 border rounded-lg mb-4"
           style={{ backgroundImage: `url(${postImage})` }}
