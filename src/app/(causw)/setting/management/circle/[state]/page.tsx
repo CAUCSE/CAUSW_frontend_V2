@@ -2,7 +2,7 @@ import { UserRscService } from "@/shared";
 
 import { Management } from "@/widget";
 
-const CircleMemberManagement = async ({
+const CircleManagement = async ({
   params: { state },
 }: {
   params: { state: string };
@@ -28,7 +28,8 @@ const CircleMemberManagement = async ({
       <Management
         state={state}
         title="동아리원 관리"
-        firstNavigation={{ name: "동아리원 목록", state: "" }}
+        firstNavigation={{ name: "동아리원 목록", state: "member" }}
+        navigation={[{ name: "동아리 시청 유저 목록", state: "apply" }]}
         data={data}
         headers={headers}
       />
@@ -36,4 +37,4 @@ const CircleMemberManagement = async ({
   );
 };
 
-export default CircleMemberManagement;
+export default CircleManagement;
