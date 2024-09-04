@@ -91,7 +91,7 @@ export const PostCard = (
             width={18}
             height={18}
           ></Image>
-          <span>{numLike}</span>
+          <span>{numLike > 999 ? '999+' : numLike}</span>
         </button>
         <button className="flex items-center bg-post-star space-x-2 p-1 px-3 rounded-post-br text-post-star text-[13px]">
           <Image
@@ -100,7 +100,7 @@ export const PostCard = (
             width={18}
             height={18}
           ></Image>
-          <span>{numFavorite}</span>
+          <span>{numFavorite  > 999 ? '999+' : numFavorite}</span>
         </button>
         <button className="flex items-center bg-post-comment space-x-2 p-1 px-3 rounded-post-br text-post-comment text-[13px]">
           <Image
@@ -109,7 +109,7 @@ export const PostCard = (
             width={18}
             height={18}
           ></Image>
-          <span>{numComment}</span>
+          <span>{numComment  > 999 ? '999+' : numComment}</span>
         </button>
         <button className="flex items-center bg-post-form space-x-2 p-1 px-3 rounded-post-br text-black text-[12px]">
           <Image
