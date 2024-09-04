@@ -1,4 +1,5 @@
 import { UserRscService } from "@/shared";
+
 import { Management } from "@/widget";
 
 const navigation = [
@@ -8,7 +9,7 @@ const navigation = [
   { name: "탈퇴 유저", state: "inactive" },
 ];
 
-const UserManagement = async ({
+const AttendanceManagement = async ({
   params: { state },
 }: {
   params: { state: string };
@@ -30,15 +31,20 @@ const UserManagement = async ({
   ];
 
   return (
-    <Management
-      state={state}
-      title="유저 관리"
-      firstNavigation={{ name: "가입 대기 유저", state: "admission" }}
-      navigation={navigation}
-      data={data}
-      headers={headers}
-    />
+    <>
+      <div className="absolute right-4 top-6 flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg md:right-52 md:top-16">
+        재학 인증 일괄 요청
+      </div>
+      <Management
+        state={state}
+        title="학적 상태 관리"
+        firstNavigation={{ name: "유저 목록", state: "all" }}
+        navigation={[{ name: "승인 대기 목록", state: "waiting" }]}
+        data={data}
+        headers={headers}
+      />
+    </>
   );
 };
 
-export default UserManagement;
+export default AttendanceManagement;

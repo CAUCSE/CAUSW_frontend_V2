@@ -34,7 +34,9 @@ export const Management = ({
         {title}
       </Header>
       <div className="mb-[-18px] w-full overflow-x-auto md:mb-0">
-        <div className="md: mb-1 mt-8 flex w-[560px] flex-row justify-between md:w-full md:justify-evenly">
+        <div
+          className={`mt-8 flex ${navigation && navigation.length > 2 ? "mb-1 w-[600px] justify-between" : "mb-5 w-full justify-evenly"} flex-row md:mb-1 md:w-full md:justify-evenly`}
+        >
           <Link
             href={firstNavigation.state}
             className={`${isFirstNavigation ? "border-b-4 border-b-focus" : ""} text-xl`}
