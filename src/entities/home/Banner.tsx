@@ -12,13 +12,13 @@ interface BannerProps {
 
 export function Banner({ images }: BannerProps) {
   return (
-    <div className="h-[23.1880vh] w-[68.75vw]">
+    <div className="h-[17vh] w-full">
       <Swiper
         pagination={true}
         modules={[Pagination, Autoplay]}
         autoplay={true}
         loop={true}
-        className="h-[13vw] w-[68.75vw] rounded-2xl bg-white shadow-[0px_10px_10px_0px_rgba(72,72,72,0.25)]"
+        className="h-[17vh] w-full"
       >
         {images.map((image, idx) => (
           <SwiperSlide
@@ -28,9 +28,10 @@ export function Banner({ images }: BannerProps) {
             <Image
               src={image}
               alt={image}
-              width={1320}
-              height={250.43}
-              className="h-full object-scale-down object-center"
+              width={0}
+              height={0}
+              className="h-auto w-full object-scale-down object-center"
+              unoptimized
             />
           </SwiperSlide>
         ))}
