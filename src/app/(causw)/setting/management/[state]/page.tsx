@@ -30,8 +30,8 @@ const UsersManagement = async ({
   ];
 
   const data = [
-    { userName: "강민규", studentId: "20203128" },
-    { userName: "윤민규", studentId: "20203128" },
+    { userName: "강민규", studentId: "20203128", id: "1" },
+    { userName: "윤민규", studentId: "20203128", id: "2" },
   ];
 
   return (
