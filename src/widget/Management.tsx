@@ -6,7 +6,7 @@ interface Prop {
   state: string;
   title: string;
   firstNavigation: { name: string; state: string };
-  navigation: { name: string; state: string }[] | undefined;
+  navigation?: { name: string; state: string }[];
   data: { userName: string; studentId: string; id: string }[];
   headers: { label: string; key: string }[];
 }
