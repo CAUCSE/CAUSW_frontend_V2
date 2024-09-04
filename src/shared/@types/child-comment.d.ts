@@ -14,6 +14,7 @@ declare namespace ChildComment {
     deletable: boolean;
     numLike: number;
     isAnonymous: boolean;
+    numLike: number;
   }
   export interface CreateChildCommentDto {
     content: string;

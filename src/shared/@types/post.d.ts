@@ -9,15 +9,20 @@ declare namespace Post {
     writerProfileImage: string;
     attachmentList: Array<AttachmentDto>;
     numComment: number;
+    numLike: number;
+    numFavorite: number;
+    isAnonymous: boolean;
+    isQuestion: boolean;
     updatable: boolean;
     deletable: boolean;
     createdAt: string;
     updatedAt: string;
-    numLike: number;
-    isAnonymous: boolean;
-    isQuestion: boolean;
-    commentList: Array<CommentDto>;
+    commentList: CommentListDto;
     boardName: string;
+  }
+
+  export interface CommentListDto{
+    content: Array<CommentDto>;
   }
 
   export interface AttachmentDto {

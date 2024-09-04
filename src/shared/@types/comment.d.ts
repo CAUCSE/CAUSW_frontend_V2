@@ -11,9 +11,9 @@ declare namespace Comment {
     writerProfileImage: string;
     updatable: boolean;
     deletable: boolean;
-    numChildComment: number;
-    numLike: number;
     isAnonymous: boolean;
+    numLike: number;
+    numChildComment: number;
     childCommentList: Array<ChildCommentDto>;
   }
 
