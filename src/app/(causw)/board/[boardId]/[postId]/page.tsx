@@ -118,6 +118,7 @@ const PostDetailPage = async (props: any) => {
                 likes={defaultPostInfos.numLike}
                 stars={20} // 이 부분이 PostDto에 포함되지 않은 경우 계산이 필요
                 comments={defaultPostInfos.numComment}
+                hasVote={true}
               />
               <div className="pl-4 md:pt-3">
                 {defaultPostInfos.commentList.map((comment, index) => (
