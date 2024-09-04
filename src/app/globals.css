@@ -47,3 +47,7 @@ input:-webkit-autofill:active {
   border-radius: 30px; /* 손잡이 모서리 곡률 */
   border: 10px solid #f8f8f8; /* 손잡이와 트랙 사이의 간격 */
 }
+
+main {
+  scrollbar-gutter: stable both-edges; /* 스크롤바 영역 밀림 해결(왼쪽에 같은 너비의 공간 만들어줌) */
+}
