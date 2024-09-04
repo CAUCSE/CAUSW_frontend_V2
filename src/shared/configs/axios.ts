@@ -5,6 +5,7 @@ import {
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
+  AuthService,
   AuthRscService,
 } from "@/shared";
 
@@ -15,39 +16,38 @@ export const API = axios.create({
   },
 });
 
-//Auth
-export const setAccess = (token: string): unknown =>
-  (API.defaults.headers["Authorization"] = token);
-export const removeAccess = (): unknown =>
+const storageRefreshKey = "CAUCSE_JWT_REFRESH";
+
+export const setRccToken = (access: string, refresh: string | false) => {
+  API.defaults.headers["Authorization"] = `Bearer ${access}`;
+  if (refresh) localStorage.setItem(storageRefreshKey, refresh);
+};
+
+export const removeRccAccess = (): unknown =>
   delete API.defaults.headers["Authorization"];
-export const getAccess = (): string =>
+
+export const getRccAccess = (): string =>
   `${API.defaults.headers["Authorization"]}`;
 
-//Refresh
-const storageRefreshKey = "CAUCSE_JWT_REFRESH";
-let isStored: boolean = true;
-
-export const storeRefresh = (auto: boolean, token: string): void => {
-  isStored = auto;
-
-  if (isStored) localStorage.setItem(storageRefreshKey, token);
-  else sessionStorage.setItem(storageRefreshKey, token);
-};
-export const removeRefresh = (): void => {
+export const removeRccRefresh = (): void => {
   localStorage.removeItem(storageRefreshKey);
-  sessionStorage.removeItem(storageRefreshKey);
 };
-export const getRefresh = (): string | null => {
-  return (
-    localStorage.getItem(storageRefreshKey) ??
-    sessionStorage.getItem(storageRefreshKey)
-  );
+
+export const getRccRefresh = (): string | null => {
+  return localStorage.getItem(storageRefreshKey);
 };
 
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { updateAccess, signout } = AuthRscService();
+    const { signout } = AuthRscService();
+    const { updateAccess } = AuthRscService();
+
+    const handleNoRefresh = async () => {
+      await signout();
+      location.href = "auth/signin";
+    };
+
     if (error.response) {
       const {
         response: {
@@ -58,18 +58,18 @@ API.interceptors.response.use(
 
       //Access token 재발급 과정
       if (noAccessTokenCode.includes(errorCode)) {
-        const refresh = getRefresh();
+        const refresh = getRccRefresh();
         if (!refresh) {
           location.href = "auth/signin";
         } else {
           const accessToken = await updateAccess(refresh);
-          config.headers["Authorization"] = accessToken;
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
           return API.request(config);
         }
       } else if (noPermissionCode.includes(error.message))
         location.href = "/no-permission";
       else if (noRefreshTokenCode.includes(error.message)) {
-        signout();
+        handleNoRefresh();
       }
     }
     throw new Error(`${error}`);
