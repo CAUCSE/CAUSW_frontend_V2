@@ -2,7 +2,7 @@ import { UserRscService } from "@/shared";
 
 import { Management } from "@/widget";
 
-const AttendanceManagement = async ({
+const CircleMemberManagement = async ({
   params: { state },
 }: {
   params: { state: string };
@@ -25,14 +25,10 @@ const AttendanceManagement = async ({
 
   return (
     <>
-      <div className="absolute right-4 top-6 flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg md:right-52 md:top-16">
-        재학 인증 일괄 요청
-      </div>
       <Management
         state={state}
-        title="학적 상태 관리"
-        firstNavigation={{ name: "유저 목록", state: "all" }}
-        navigation={[{ name: "승인 대기 목록", state: "waiting" }]}
+        title="동아리원 관리"
+        firstNavigation={{ name: "동아리원 목록", state: "" }}
         data={data}
         headers={headers}
       />
@@ -40,4 +36,4 @@ const AttendanceManagement = async ({
   );
 };
 
-export default AttendanceManagement;
+export default CircleMemberManagement;
