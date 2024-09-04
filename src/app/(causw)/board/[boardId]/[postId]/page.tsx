@@ -17,6 +17,7 @@ interface CommentProps {
 }
 interface PostProps {
   writerName: string;
+  title: string;
   content: string;
   numLike: number;
   numStar: number;
@@ -41,6 +42,7 @@ const defaultCommentInfos: CommentProps =
 const defaultPostInfos: PostProps = 
 {
   writerName: "이은화",
+  title: "술술술술",
   content: "안녕!!!",
   numLike: 5,
   numStar: 10,
@@ -68,7 +70,7 @@ const PostDetailPage = async (props: any) => {
               <PostCard
                 username={post.writerName}
                 timeAgo={"30분 전"} // 시간 계산 로직 필요
-                hashtags={["시험", "노잼", "방학"]} // 필요한 경우 추가 데이터 사용
+                title={post.title}
                 content={post.content}
                 likes={post.numLike}
                 stars={20} // 이 부분이 PostDto에 포함되지 않은 경우 계산이 필요
@@ -82,7 +84,7 @@ const PostDetailPage = async (props: any) => {
                       content={comment.content}
                       likes={20} // 좋아요 수는 PostDto에 따라 추가
                     />
-                    {comment.childCommentList.map((childComment, idx: number) => (
+                    {comment.childCommentList.map((childComment: { writerName: string; content: string; }, idx: number) => (
                       <ChildCommentCard
                         key={idx}
                         username={childComment.writerName}
@@ -111,11 +113,11 @@ const PostDetailPage = async (props: any) => {
               <PostCard
                 username={defaultPostInfos.writerName}
                 timeAgo={"30분 전"} // 시간 계산 로직 필요
+                title={defaultPostInfos.title}
                 content={defaultPostInfos.content}
                 likes={defaultPostInfos.numLike}
                 stars={20} // 이 부분이 PostDto에 포함되지 않은 경우 계산이 필요
                 comments={defaultPostInfos.numComment}
-                hasVote={true}
               />
               <div className="pl-4 md:pt-3">
                 {defaultPostInfos.commentList.map((comment, index) => (

@@ -10,24 +10,25 @@ interface PostCardProps {
   userImage?: string;
   username: string;
   timeAgo: string;
+  title: string;
   content: string;
   postImage?: string;
   likes: number;
   stars: number;
   comments: number;
-  hasVote: boolean;
+  // hasVote: boolean;
 }
 
 
-export const PostCard = ({ userImage, username, timeAgo, content, postImage, likes, stars, comments, hasVote }: PostCardProps) => {
+export const PostCard = ({ userImage, username, timeAgo, title, content, postImage, likes, stars, comments }: PostCardProps) => {
   userImage = useUserStore((state) => state.profileImage);
   postImage = useUserStore((state) => state.profileImage);
 
-  const handleVote = (selectedOptions: string[]) => {
-    console.log(`${selectedOptions.join(', ')} 투표함`);
-  };
+  // const handleVote = (selectedOptions: string[]) => {
+  //   console.log(`${selectedOptions.join(', ')} 투표함`);
+  // };
 
-  const options = ['1등', '2등', '3등'];  // 투표 옵션 배열
+  // const options = ['1등', '2등', '3등'];  
 
   return (
     <div className="flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
@@ -43,15 +44,19 @@ export const PostCard = ({ userImage, username, timeAgo, content, postImage, lik
       </div>
       
       <div className="flex flex-col items-start lg:pl-16">
+        <div className="mb-2 text-[20px] font-medium">
+          {title}
+        </div>
         <div className="mb-2 text-[14px]">
           {content}
         </div>
 
-        {hasVote 
+        {/* 나중에 투표 api 생기면 연결 */}
+        {/* {hasVote 
         ? <div className="lg:pr-12 w-full">
             <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={handleVote} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
           </div>
-        : ''}
+        : ''} */}
 
         <div 
           className="w-20 h-20 border rounded-lg mb-4"
