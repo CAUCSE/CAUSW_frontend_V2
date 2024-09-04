@@ -7,28 +7,46 @@ import VotingSection from './VotingSection';
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
 interface PostCardProps {
-  userImage?: string;
-  username: string;
-  timeAgo: string;
+  //userImage?: string;
   title: string;
   content: string;
-  postImage?: string;
-  likes: number;
-  stars: number;
-  comments: number;
+  isDeleted: boolean;
+  writerName: string;
+  writerAdmissionYear: number;
+  writerProfileImage: string;
+  attachmentList?: Array<string>; //이거 바꿔야함
+  numComment: number;
+  numLike: number;
+  numFavorite: number;
+  isAnonymous: boolean;
+  isQuestion: boolean;
+  //updatable: boolean;
+  //deletable: boolean;
+  createdAt: string;
+  updatedAt: string;
   // hasVote: boolean;
 }
 
 
-export const PostCard = ({ userImage, username, timeAgo, title, content, postImage, likes, stars, comments }: PostCardProps) => {
-  userImage = useUserStore((state) => state.profileImage);
-  postImage = useUserStore((state) => state.profileImage);
+export const PostCard = (
+{ title, 
+  content, 
+  isDeleted, 
+  writerName, 
+  writerAdmissionYear,
+  attachmentList, 
+  numComment,
+  numLike,
+  numFavorite,
+  isAnonymous,
+  isQuestion,
+  createdAt,
+  updatedAt,
+}
+:PostCardProps) => {
 
-  // const handleVote = (selectedOptions: string[]) => {
-  //   console.log(`${selectedOptions.join(', ')} 투표함`);
-  // };
-
-  // const options = ['1등', '2등', '3등'];  
+  const userImage = useUserStore((state) => state.profileImage);
+  const postImage = useUserStore((state) => state.profileImage);
 
   return (
     <div className="flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
@@ -38,8 +56,8 @@ export const PostCard = ({ userImage, username, timeAgo, title, content, postIma
           style={{ backgroundImage: `url(${userImage})` }}
         />
         <div className="flex flex-col items-start">
-          <div className="flex items-center text-[16px] font-bold">{username}</div>
-          <div className="text-gray-500 text-[14px]">{timeAgo}</div>
+          <div className="flex items-center text-[16px] font-bold">  {isAnonymous ? '익명' : writerName}</div>
+          <div className="text-gray-500 text-[14px]">{updatedAt}</div>
         </div>
       </div>
       
@@ -73,16 +91,16 @@ export const PostCard = ({ userImage, username, timeAgo, title, content, postIma
             width={18}
             height={18}
           ></Image>
-          <span>{likes}</span>
+          <span>{numLike}</span>
         </button>
         <button className="flex items-center bg-post-star space-x-2 p-1 px-3 rounded-post-br text-post-star text-[13px]">
           <Image
             src="/images/post/star.svg"
-            alt="Star Icon"
+            alt="Favorite Icon"
             width={18}
             height={18}
           ></Image>
-          <span>{stars}</span>
+          <span>{numFavorite}</span>
         </button>
         <button className="flex items-center bg-post-comment space-x-2 p-1 px-3 rounded-post-br text-post-comment text-[13px]">
           <Image
@@ -91,7 +109,7 @@ export const PostCard = ({ userImage, username, timeAgo, title, content, postIma
             width={18}
             height={18}
           ></Image>
-          <span>{comments}</span>
+          <span>{numComment}</span>
         </button>
         <button className="flex items-center bg-post-form space-x-2 p-1 px-3 rounded-post-br text-black text-[12px]">
           <Image
