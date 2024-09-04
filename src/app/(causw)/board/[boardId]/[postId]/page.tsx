@@ -15,7 +15,7 @@ const PostDetailPage = async (props: any) => {
       const post = await getPostById(props.params.postId);
       console.log(post);
       return (
-        <div className="absolute top-3 w-full h-full overflow-y-auto bg-boardPageBackground scrollbar-hide">
+        <div className="absolute w-full h-full overflow-y-auto bg-boardPageBackground scrollbar-hide">
           <div className="w-full flex-col items-center">
             <PreviousButton />
           </div>
@@ -39,10 +39,13 @@ const PostDetailPage = async (props: any) => {
                       numLike={comment.numLike}                      
                     />
                     {comment.childCommentList.map((childComment, idx) => (
-                      <ChildCommentCard key={idx}
-                        username={childComment.writerName} 
-                        content={childComment.content} 
-                        likes={childComment.numLike}
+                      <ChildCommentCard key={idx} 
+                      content={childComment.content} 
+                      createdAt={childComment.createdAt} updatedAt={childComment.updatedAt} 
+                      isDeleted={childComment.isDeleted} isAnonymous={childComment.isAnonymous}
+                      writerName={childComment.writerName} writerAdmissionYear={childComment.writerAdmissionYear} writerProfileImage={childComment.writerProfileImage} 
+                      updatable={childComment.updatable} deletable={childComment.deletable}  
+                      numLike={childComment.numLike}                        
                       />
                     ))}
                   </div>
