@@ -45,7 +45,7 @@ export const SideBar = () => {
         </div>
 
         {sm || md ? null : <ProfileImage />}
-        <div className="mr-2 flex flex-col items-end md:mr-0 md:items-center">
+        <div className="mr-2 flex flex-col items-end lg:mr-0 lg:items-center">
           <Header wide>{name}</Header>
           <SubHeader gray>{email}</SubHeader>
         </div>
