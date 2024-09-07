@@ -10,8 +10,8 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="flex w-screen items-center justify-center overflow-y-scroll md:h-screen">
-        <div className="grid h-5/6 w-[95%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_5fr_1fr] gap-4 md:w-5/6">
+      <div className="flex w-full items-center justify-center overflow-y-scroll md:h-screen">
+        <div className="grid h-5/6 w-[95%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_5fr_1fr] gap-4">
           <Header bold>{data.name}</Header>
           <div className="col-span-2 flex items-center justify-end gap-3">
             <div className="flex h-full w-48 items-center justify-center rounded-2xl border-2 border-black text-sm md:text-lg">
