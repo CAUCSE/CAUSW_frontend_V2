@@ -7,10 +7,10 @@ const CirclePage = async () => {
 
   return (
     <>
-      <div className="ml-9 mt-6 text-2xl font-bold md:ml-20 md:mt-16">
+      <div className="ml-7 mt-6 text-2xl font-bold md:ml-20 md:mt-16">
         동아리 목록
       </div>
-      <div className="flex w-full flex-row flex-wrap justify-center pl-6">
+      <div className="flex w-full flex-row flex-wrap justify-center">
         {data.map((circle) =>
           !circle.isDeleted ? (
             <CircleElement

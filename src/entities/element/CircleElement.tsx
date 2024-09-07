@@ -12,17 +12,17 @@ export const CircleElement = ({
   description: string;
 }) => (
   <Link href={`circle/${id}`}>
-    <div className="relative w-72 h-80 bg-white flex-col items-center border-2 rounded-lg flex justify-center m-5">
-      <div className="w-52 h-52 flex justify-center items-center overflow-hidden rounded-xl">
+    <div className="relative m-5 flex h-80 w-72 flex-col items-center justify-center rounded-lg border-2 bg-white">
+      <div className="flex h-52 w-52 items-center justify-center overflow-hidden rounded-xl">
         <img
           src={mainImage}
           alt={"Circle Image"}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
-      <span className="font-bold text-lg mt-4">{name}</span>
+      <span className="mt-4 text-lg font-bold">{name}</span>
 
-      <span className="text-gray-400 text-center truncate w-3/4 mt-1">
+      <span className="mt-1 w-3/4 truncate text-center text-gray-400">
         {description}
       </span>
     </div>
