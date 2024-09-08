@@ -1,66 +1,17 @@
 "use client";
-
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';  // useRouter import
-import { useLayoutStore } from '@/shared';
 import { AuthService } from '@/shared';
-import axios, { AxiosResponse } from 'axios';
 
 const SignUpPage = () => {
-  const { register, handleSubmit, watch, trigger, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.IAuthForm>({mode: 'onBlur'});
+  const { register, handleSubmit, watch, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.IAuthForm>({mode: 'onBlur'});
   const router = useRouter(); // useRouter 초기화
 
   const { signup, checkEmailDuplicate, checkNicknameDuplicate } = AuthService();
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
-  const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
-
-  
-  const [emailError, setEmailError] = useState<string | null>(null);
-
-
-  // const [nicknameError, setNicknameError] = useState<string | null>(null);
-
-  // // 닉네임 중복 검사 함수
-  // const checkNicknameDuplicate = async (nickname: string) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:8080/api/v1/users/${nickname}/is-duplicated-nickname`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       }
-  //     });
-  //     console.log(response);
-      
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       return data; // 서버에서 받은 응답 데이터 반환
-  //     } else {
-  //       console.log(response);
-  //       console.error('Nickname duplicate check failed');
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     console.error('Nickname duplicate check error:', error);
-  //     return null;
-  //   }
-  // };
-
-  // // 닉네임 중복 검사 트리거 함수
-  // const validateNickname = async (nickname: string) => {
-  //   if (!nickname) {
-  //     return; // 닉네임이 비어있을 경우 중복 검사하지 않음
-  //   }
-
-  //   const result = await checkNicknameDuplicate(nickname);
-  //   if (result && !result.isAvailable) {
-  //     setError('nickname', { type: 'manual', message: result.message || '이미 사용 중인 닉네임입니다.' });
-  //   } else {
-  //     setNicknameError(null);
-  //   }
-  // };
-
+  const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);  
 
     // 비밀번호 숨김 / 보임 기능
 
@@ -159,20 +110,12 @@ const SignUpPage = () => {
     }
   };
 
-  // 제출 
-
-  interface SignUpResponse {
-    message: string;  // 서버가 반환하는 성공 메시지
-  }
-  
-  interface ErrorResponse {
-    message: string;  // 서버가 반환하는 에러 메시지
-  }
-  
+  // 제출
   const onSubmit = async (data: User.IAuthForm) => {
+    
   
     try {
-      const response = await signup(data);  // signup 호출
+      const response = await signup(data);  // signup 함수 호출
   
       if (response) {  // 성공한 경우
         setIsSuccessModalOpen(true);
@@ -197,6 +140,7 @@ const SignUpPage = () => {
     }
   };
   
+
 
   // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
   const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
@@ -428,14 +372,14 @@ const SignUpPage = () => {
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
             placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234" 
-            {...register('phoneNumber', { 
+            {...register('phoneNumberHyphen', { 
               required: '연락처를 입력해주세요',
               pattern: {
                 value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
                 message: '전화번호 형식이 아닙니다.'
               } })}
           />
-          <p>{errors?.phoneNumber?.message}</p>
+          <p>{errors?.phoneNumberHyphen?.message}</p>
         </div>
 
         <div className="mb-6 ml-4 mr-4">
@@ -524,7 +468,6 @@ const SignUpPage = () => {
               </div>
             </div>
           </div>
-
 
         </div>)}
 

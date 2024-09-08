@@ -203,11 +203,6 @@ declare namespace User {
     refreshToken: string;
   }
   
-  export enum AcademicStatus {
-    ENROLLED = "ENROLLED",
-    LEAVE_OF_ABSENCE = "LEAVE_OF_ABSENCE",
-    GRADUATED = "GRADUATED",
-  }
   
   // Signup
   export interface IAuthForm 
@@ -220,15 +215,15 @@ declare namespace User {
     admissionYear: number;
     nickname: string;
     major: string;
-    academicStatus: AcademicStatus;
+    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
     currentCompletedSemester: number;
     agreeToTerms: boolean;
     agreeToPopup: boolean;
     graduationYear: number | null;
     graduationMonth: number | null;
-    phoneNumber: string;
-    profileImage: nullable;
+    phoneNumberHyphen: string;
     files: FileList; 
+    profileImage: string | null;
   }
 
   export interface FindPostsResponse {
