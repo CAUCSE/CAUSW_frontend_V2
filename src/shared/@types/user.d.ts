@@ -330,6 +330,8 @@ declare namespace User {
     profileImageSrc: () => string;
     isStudent: () => boolean;
     isProfessor: () => boolean;
+    isAdmin: () => boolean;
+    isPresidents: () => boolean;
     isVicePresidents: () => boolean;
     isCircleLeader: () => boolean;
     isCouncil: () => boolean;
