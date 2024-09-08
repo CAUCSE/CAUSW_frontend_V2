@@ -10,18 +10,18 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="lg:h- ml-[3%] mt-8 grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:mt-[6%] md:h-[90%] lg:h-5/6">
-        <div className="col-span-3 md:col-span-1 md:row-span-2">
+      <div className="lg:h- ml-[3%] mt-8 grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:mt-[6%] md:h-[90%] lg:h-5/6">
+        <div className="col-span-2 md:col-span-1 md:row-span-2">
           <Header bold>{data.name}</Header>
         </div>
-        <div className="col-span-2 hidden items-center justify-end gap-3 md:row-span-2 md:flex">
-          <div className="flex h-full w-48 items-center justify-center rounded-xl border-2 border-black text-lg">
+        <div className="col-span-1 flex items-center justify-end gap-3 md:col-span-2 md:row-span-2">
+          <div className="hidden h-full w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
             가입 신청 받기
           </div>
-          <div className="flex h-full w-48 items-center justify-center rounded-xl border-2 border-black text-lg">
+          <div className="hidden h-full w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
             신청 현황 보기
           </div>
-          <span className="icon-[icon-park-outline--write] text-4xl"></span>
+          <span className="icon-[icon-park-outline--write] text-3xl md:text-4xl"></span>
         </div>
 
         <div className="row-span-4 flex min-w-36 items-center overflow-hidden rounded-xl">
@@ -80,9 +80,6 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
         <div className="col-span-3 row-span-1 flex min-h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden">
           신청 현황 보기
-        </div>
-        <div className="col-span-3 row-span-1 flex min-h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden">
-          정보 수정 하기
         </div>
         <div className="h-5"></div>
       </div>
