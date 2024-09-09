@@ -7,11 +7,11 @@ export const UserService = () => {
 
   const setUserStore = useUserStore((state) => state.setUserStore);
 
-  const getUserInfo = async () => {
+  const getMe = async () => {
     const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<User.User>;
 
     setUserStore(data);
   };
 
-  return { getUserInfo };
+  return { getMe };
 };

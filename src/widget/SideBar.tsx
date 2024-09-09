@@ -11,7 +11,7 @@ import {
 } from "@/shared";
 
 export const SideBar = () => {
-  const { getUserInfo } = UserService();
+  const { getMe } = UserService();
   const { signout } = AuthRscService();
 
   const md = useLayoutStore((state) => state.md);
@@ -26,7 +26,7 @@ export const SideBar = () => {
   };
 
   useEffect(() => {
-    getUserInfo();
+    getMe();
   }, []);
 
   return (

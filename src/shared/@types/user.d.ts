@@ -7,7 +7,7 @@ declare namespace User {
     id: string;
     name: string;
     profileImage: string;
-    role: Role;
+    roles: Role[];
     state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
     studentId: string;
   }
@@ -24,12 +24,7 @@ declare namespace User {
     | "LEADER_CIRCLE"
     | "LEADER_ALUMNI"
     | "COMMON"
-    | "PROFESSOR"
-    | "COUNCIL_N_LEADER_CIRCLE"
-    | "LEADER_1_N_LEADER_CIRCLE"
-    | "LEADER_2_N_LEADER_CIRCLE"
-    | "LEADER_3_N_LEADER_CIRCLE"
-    | "LEADER_4_N_LEADER_CIRCLE";
+    | "PROFESSOR";
 
   // findByName
   export type FindByNameResponseDto = User[];

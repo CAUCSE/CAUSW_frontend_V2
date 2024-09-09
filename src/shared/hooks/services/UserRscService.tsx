@@ -3,6 +3,22 @@ import { BASEURL, setRscHeader } from "@/shared";
 export const UserRscService = () => {
   const URI = BASEURL + "/api/v1/users";
 
+  const getMe = async () => {
+    try {
+      const headers = await setRscHeader();
+      const response = (await fetch(`${URI}/me`, { headers: headers }).then(
+        (res) => res.json(),
+      )) as User.UserDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   const getUser = async (id: string) => {
     try {
       const headers = await setRscHeader();
@@ -65,5 +81,5 @@ export const UserRscService = () => {
     }
   };
 
-  return { getUser, findByState, findAllAdmissions };
+  return { getMe, getUser, findByState, findAllAdmissions };
 };
