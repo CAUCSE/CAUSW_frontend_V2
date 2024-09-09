@@ -45,7 +45,7 @@ API.interceptors.response.use(
 
     const handleNoRefresh = async () => {
       await signout();
-      location.href = "auth/signin";
+      location.href = "/auth/signin";
     };
 
     if (error.response) {
@@ -60,7 +60,7 @@ API.interceptors.response.use(
       if (noAccessTokenCode.includes(errorCode)) {
         const refresh = getRccRefresh();
         if (!refresh) {
-          location.href = "auth/signin";
+          location.href = "/auth/signin";
         } else {
           const accessToken = await updateAccess(refresh);
           config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -73,5 +73,5 @@ API.interceptors.response.use(
       }
     }
     throw new Error(`${error}`);
-  }
+  },
 );

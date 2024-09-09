@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const NoPermission = () => (
-  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center text-xl font-bold">
+  <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
     <Image
       src="/images/puang-proud.png"
       alt="404"

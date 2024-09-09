@@ -226,6 +226,7 @@ declare namespace User {
     roleTxt: () => string;
     nameWithAdmission: () => string;
     profileImageSrc: () => string;
+    isAdmin: () => boolean;
     isStudent: () => boolean;
     isProfessor: () => boolean;
     isVicePresidents: () => boolean;

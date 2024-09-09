@@ -22,7 +22,7 @@ export const SideBar = () => {
 
   const handleNoRefresh = async () => {
     await signout();
-    location.href = "auth/signin";
+    location.href = "/auth/signin";
   };
 
   useEffect(() => {
