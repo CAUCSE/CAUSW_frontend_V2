@@ -222,7 +222,7 @@ declare namespace User {
     graduationYear: number | null;
     graduationMonth: number | null;
     phoneNumberHyphen: string;
-    files: FileList; 
+    files: File[]; 
     profileImage: string | null;
   }
 

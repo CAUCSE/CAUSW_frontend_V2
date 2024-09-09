@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';  // useRouter import
@@ -12,6 +12,11 @@ const SignUpPage = () => {
   const { signup, checkEmailDuplicate, checkNicknameDuplicate } = AuthService();
   const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
   const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);  
+
+// 뒤로가기 버튼
+  const handleBack = () => {
+    router.push('/auth/signin'); 
+  };
 
     // 비밀번호 숨김 / 보임 기능
 
@@ -50,7 +55,8 @@ const SignUpPage = () => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const files = watch("files") as FileList;
+
+  const files = watch("files") as File[];
   useEffect(() => {
     if (files && files.length > 0) {
       const newImagePreviews = Array.from(files).map(file =>
@@ -60,6 +66,7 @@ const SignUpPage = () => {
       console.log(imagePreviews);
     }
   }, [files]);
+
 
   // 이미지 클릭 시 확대 기능
 
@@ -113,7 +120,6 @@ const SignUpPage = () => {
   // 제출
   const onSubmit = async (data: User.IAuthForm) => {
     
-  
     try {
       const response = await signup(data);  // signup 함수 호출
   
@@ -153,15 +159,23 @@ const SignUpPage = () => {
     setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
   };
 
-  const handleError = (errorData: { errorCode: number; message: string, field?: string }) => {
-    const { errorCode, message, field } = errorData;
-    setServerError(errorData.message);
-  };
   
   return (
     <div className="flex items-center justify-center min-h-screen bg-white-100 w-full">
+
       <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="">
-        
+      <div className="sticky top-0 left-4 bg-white lg:hidden z-10 w-full flex justify-left items-left py-2 mb-4 mt-8">
+        <button
+          onClick={handleBack}
+          className="text-black-500 hover:text-gray-500 flex items-left"
+        >
+            {/* SVG 화살표 아이콘 */}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>이전</span>
+        </button>
+      </div>
         <h1 className="sm:text-3xl text-2xl font-bold mb-6 text-center mt-8">회원가입</h1>
         
         <div className="mb-6 ml-4 mr-4">
@@ -395,7 +409,7 @@ const SignUpPage = () => {
           >
             <option value="">-선택해주세요-</option>
             <option key="ENROLLED" value= "ENROLLED">재학</option>
-            <option key="LEAVE_OF_ABSENCE" value = "LEAVE_OF_ABSENSE">휴학</option>
+            <option key="LEAVE_OF_ABSENCE" value = "LEAVE_OF_ABSENCE">휴학</option>
             <option key="GRADUATED" value="GRADUATED">졸업</option>
           </select>
           <p>{errors?.academicStatus?.message}</p>
@@ -487,8 +501,10 @@ const SignUpPage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
                 </svg>
                 <span className="text-gray-600 mt-2 text-center sm:hidden">파일을 선택하세요</span>
-                <input id="file-upload" type="file" multiple className="hidden" {...register('files', { 
-                  required: '파일을 첨부해 주세요' })} />
+                <input id="file-upload" type="file"  multiple className="hidden" {...register('files', { 
+                  required: '파일을 첨부해 주세요',
+                  })}
+                  />
               </label>            
             </div>
             {imagePreviews.length > 0 && (

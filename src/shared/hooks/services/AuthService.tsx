@@ -60,11 +60,13 @@ export const AuthService = () => {
         graduationMonth,
         phoneNumberHyphen,
       } = data;
-  
+      
+      const formData = new FormData();
+      
       // files 배열에서 파일 이름만 추출하여 attachImages 배열에 저장
       const attachImages: string[] = files? Array.from(files).map((file) => file.name) : [];
       const phoneNumber = phoneNumberHyphen.replace(/-/g, '');
-
+      
       const selectedData = {
         email,
         name,
