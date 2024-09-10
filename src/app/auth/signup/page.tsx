@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';  // useRouter import
 import { AuthService } from '@/shared';
 
 const SignUpPage = () => {
-  const { register, handleSubmit, watch, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.IAuthForm>({mode: 'onBlur'});
+  const { register, handleSubmit, watch, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.SignUpForm>({mode: 'onBlur'});
   const router = useRouter(); // useRouter 초기화
 
   const { signup, checkEmailDuplicate, checkNicknameDuplicate } = AuthService();
@@ -118,10 +118,71 @@ const SignUpPage = () => {
   };
 
   // 제출
-  const onSubmit = async (data: User.IAuthForm) => {
+  const onSubmit = async (data: User.SignUpForm) => {
     
     try {
-      const response = await signup(data);  // signup 함수 호출
+      const {
+        email,
+        name,
+        password,
+        studentId,
+        admissionYear,
+        files,
+        nickname,
+        major,
+        academicStatus,
+        currentCompletedSemester,
+        graduationYear,
+        graduationMonth,
+        phoneNumberHyphen,
+      } = data;
+            
+      // files 배열에서 파일 이름만 추출하여 attachImages 배열에 저장
+      const phoneNumber = phoneNumberHyphen.replace(/-/g, '');
+      const attachImages = [... imagePreviews];
+
+
+
+
+      const selectedData = {
+        email,
+        name,
+        password,
+        studentId,
+        admissionYear: Number(admissionYear),
+        attachImages,
+        profileImage: null,
+        nickname,
+        major,
+        academicStatus,
+        currentCompletedSemester: (academicStatus === "LEAVE_OF_ABSENCE") || (academicStatus === "ENROLLED") ? Number(currentCompletedSemester): null,
+        graduationYear: academicStatus === "GRADUATED" ? Number(graduationYear) : null,
+        graduationMonth: academicStatus === "GRADUATED" ? Number(graduationMonth) : null,
+        phoneNumber,
+      };
+      console.log(attachImages);
+    
+      // const dummyData = {
+        
+      //     email: "11@naver.com",
+      //     name: "이예빈",
+      //     password: "password00!!",
+      //     studentId: "20209999",
+      //     admissionYear: 2020,
+      //     profileImage: "string",
+      //     attachImages: [
+      //       "string"
+      //     ],
+      //     nickname: "test",
+      //     major: "소프트웨어학부",
+      //     academicStatus: "GRADUATED",
+      //     currentCompletedSemester: 0,
+      //     graduationYear: 1,
+      //     graduationMonth: 2,
+      //     phoneNumber: "01012345678"
+      //   }
+      
+      const response = await signup(selectedData);  // signup 함수 호출
   
       if (response) {  // 성공한 경우
         setIsSuccessModalOpen(true);
@@ -631,7 +692,7 @@ const SignUpPage = () => {
 
       {/* 이용약관 모달 */}
 {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeModal}>
           <div className="bg-white p-8 rounded-lg max-w-lg w-full h-5/6 overflow-y-auto">
             <div>
             <>

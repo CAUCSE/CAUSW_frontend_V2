@@ -205,7 +205,7 @@ declare namespace User {
   
   
   // Signup
-  export interface IAuthForm 
+  export interface SignUpForm 
   {        
     email: string;
     name: string;
@@ -216,7 +216,7 @@ declare namespace User {
     nickname: string;
     major: string;
     academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
-    currentCompletedSemester: number;
+    currentCompletedSemester: number | null;
     agreeToTerms: boolean;
     agreeToPopup: boolean;
     graduationYear: number | null;
@@ -224,6 +224,24 @@ declare namespace User {
     phoneNumberHyphen: string;
     files: File[]; 
     profileImage: string | null;
+  }
+
+  export interface SignUpFormPost
+  {        
+    email: string;
+    name: string;
+    password: string;
+    studentId: string;
+    admissionYear: number;
+    attachImages: string[];
+    profileImage: string | null;
+    nickname: string;
+    major: string;
+    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+    currentCompletedSemester: number | null;
+    graduationYear: number | null;
+    graduationMonth: number | null;
+    phoneNumber: string;
   }
 
   export interface FindPostsResponse {

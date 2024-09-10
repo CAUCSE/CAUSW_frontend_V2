@@ -43,48 +43,10 @@ export const AuthService = () => {
   };
 
 
-  const signup = async (data: User.IAuthForm) => {
+  const signup = async (selectedData: User.SignUpFormPost) => {
     try {
-      const {
-        email,
-        name,
-        password,
-        studentId,
-        admissionYear,
-        files,
-        nickname,
-        major,
-        academicStatus,
-        currentCompletedSemester,
-        graduationYear,
-        graduationMonth,
-        phoneNumberHyphen,
-      } = data;
-      
-      const formData = new FormData();
-      
-      // files 배열에서 파일 이름만 추출하여 attachImages 배열에 저장
-      const attachImages: string[] = files? Array.from(files).map((file) => file.name) : [];
-      const phoneNumber = phoneNumberHyphen.replace(/-/g, '');
-      
-      const selectedData = {
-        email,
-        name,
-        password,
-        studentId: Number(studentId),
-        admissionYear: Number(admissionYear),
-        attachImages,
-        profileImage: null,
-        nickname,
-        major,
-        academicStatus,
-        currentCompletedSemester: (academicStatus === "LEAVE_OF_ABSENCE") || (academicStatus === "ENROLLED") ? Number(currentCompletedSemester): null,
-        graduationYear: academicStatus === "GRADUATED" ? Number(graduationYear) : null,
-        graduationMonth: academicStatus === "GRADUATED" ? Number(graduationMonth) : null,
-        phoneNumber,
-      };
-      console.log(attachImages);
-      console.log(selectedData);
+
+
 
       // axios POST 요청
       const response = await axios.post(`https://13.209.181.162.nip.io:8081/api/v1/users/sign-up`, selectedData, {
