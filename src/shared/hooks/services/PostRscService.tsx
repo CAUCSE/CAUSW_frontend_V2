@@ -10,14 +10,14 @@ export const PostRscService = () => {
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<Post.PostDto> = await axios.post(URI, data, {
+      const response: AxiosResponse<Post.PostDto> = await axios.postForm(URI, data, {
         headers: headers,
       });
 
       if (response.status !== 201) {
         throw new Error(`Failed to create post. Response status: ${response.status}`);
       }
-
+      console.log('게시글 생성했다이!!!!!!!!!!!1:',response.data);
       return response.data;
     } catch (error) {
       console.error('Error creating post:', error);

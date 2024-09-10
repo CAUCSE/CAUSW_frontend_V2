@@ -25,6 +25,9 @@ interface PostCardProps {
   createdAt: string;
   updatedAt: string;
   // hasVote: boolean;
+  handlePostLike: () => void;
+  handlePostFavorite: () => void;
+  handlePostComment: () => void;
 }
 
 
@@ -42,6 +45,9 @@ export const PostCard = (
   isQuestion,
   createdAt,
   updatedAt,
+  handlePostLike,
+  handlePostFavorite,
+  handlePostComment,
 }
 :PostCardProps) => {
 
@@ -84,7 +90,7 @@ export const PostCard = (
       
       {/* 디자인 따라 위치 조정해야함 */}
       <div className="flex flex-row space-x-2 lg:pl-16">
-        <button className="flex items-center bg-post-like space-x-2 p-1 px-3 rounded-post-br text-post-like text-[13px]">
+        <button className="flex items-center bg-post-like space-x-2 p-1 px-3 rounded-post-br text-post-like text-[13px]" onClick={handlePostLike}>
           <Image
             src="/images/post/like.svg"
             alt="Like Icon"
@@ -93,7 +99,7 @@ export const PostCard = (
           ></Image>
           <span>{numLike > 999 ? '999+' : numLike}</span>
         </button>
-        <button className="flex items-center bg-post-star space-x-2 p-1 px-3 rounded-post-br text-post-star text-[13px]">
+        <button className="flex items-center bg-post-star space-x-2 p-1 px-3 rounded-post-br text-post-star text-[13px]" onClick={handlePostFavorite} >
           <Image
             src="/images/post/star.svg"
             alt="Favorite Icon"

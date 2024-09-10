@@ -34,7 +34,7 @@ declare namespace Post {
     title: string;
     content: string;
     boardId: string;
-    attachmentList: Array<AttachmentDto>;
+    attachmentList: Array<string>;
     isAnonymous: boolean;
     isQuestion: boolean;
   }

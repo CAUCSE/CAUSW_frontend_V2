@@ -36,6 +36,9 @@ export { PostRscService } from "./hooks/services/PostRscService";
 
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
+export { usePostStore } from "./hooks/stores/usePostStore";
+
+export { usePostDetail } from "./hooks/usePostDetail"
 
 export { WindowSizeListener } from "./listener/WindowSizeListener";
 

@@ -1,11 +1,22 @@
 "use client";
-import { PreviousButton } from '@/shared/ui/previousButton';
+import { PreviousButton, PostRscService } from '@/shared';
 import { staticGenerationAsyncStorage } from 'next/dist/client/components/static-generation-async-storage-instance';
 import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
+  console.log(props.params.boardId);
+  //추후에 boardId =  params로 변경
+  const defaultBoardId = "2c9faf078e17552c018e179d31bf0001";
+  const { createPost } = PostRscService();
+  const router = useRouter();
+  const defaultPostAttachment: Post.AttachmentDto = {
+    downloadFilePath: "",
+    originalFileName: "",
+  };
+
   const [isQuestion, setIsQuestion] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isVote, setIsVote] = useState(false);
@@ -55,15 +66,25 @@ const CreatePostPage = (props: any) => {
     setIsAnonymous(!isAnonymous);
   }
 
-  console.log(props.params.boardId);
-
-  const handleSubmitPost = () => {
-    console.log({
+  const handleSubmitPost = async () => {
+    const postRequest: Post.CreatePostDto = {
       title,
       content,
-      isQuestion,
+      boardId: defaultBoardId,
+      attachmentList: [
+        "http://example.com/file1.jpg",
+        "http://example.com/file2.jpg"
+      ],
       isAnonymous,
-    });
+      isQuestion,
+    };
+    try {
+      const createPostResponse = await createPost(postRequest);
+      console.log('게시물 생성 완료: ', createPostResponse);
+      router.back()
+    }catch(error) {
+      console.error('게시물 생성 에러: ', error);
+    }  
   };
 
   return (
