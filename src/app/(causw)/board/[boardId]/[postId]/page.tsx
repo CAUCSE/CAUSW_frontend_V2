@@ -27,9 +27,9 @@ const PostDetailPage = (props: any) => {
     try {
       incrementFavorite();
       const createPostResponse = await PostRscService().postFavorite(postId);
-      console.log('게시물 좋아요 완료: ', createPostResponse);
+      console.log('게시물 즐겨찾기 완료: ', createPostResponse);
     } catch (error) {
-      console.error('좋아요 처리 에러: ', error);
+      console.error('즐겨찾기 처리 에러: ', error);
       decrementFavorite();
     }  
   };
