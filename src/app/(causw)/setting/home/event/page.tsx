@@ -14,7 +14,7 @@ const BannerCard = ({
   date: string;
 }) => {
   return (
-    <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-lg p-[14px]">
+    <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
       <img
         src={imgSrc}
         alt="banner"
@@ -56,7 +56,7 @@ export default async function EventSetting() {
         </Link>
       </div>
       <div className="flex items-end">
-        <p className="text-[24px]">이벤트 배너 공지 편집</p>
+        <p className="text-[40px] font-medium">이벤트 배너 공지 편집</p>
         <span className="text-[#B4B1B1]">
           이벤트 배너는 최대 10개까지 게시 가능합니다.
         </span>
