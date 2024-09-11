@@ -1,5 +1,6 @@
 "use client";
 
+import { BoardRscService, PreviousButton } from "@/shared";
 import {
   FieldErrors,
   SubmitHandler,
@@ -9,7 +10,6 @@ import {
 } from "react-hook-form";
 
 import Image from "next/image";
-import { PreviousButton } from "@/shared";
 
 interface IFormInput {
   searchContent: string;
@@ -31,6 +31,8 @@ const SearchPost = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>();
+
+  const { searchPost } = BoardRscService();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     //TODO 검색 api 연동

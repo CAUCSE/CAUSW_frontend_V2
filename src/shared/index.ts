@@ -35,6 +35,7 @@ export { HomeRscService } from "./hooks/services/HomeRscService";
 export { PostRscService } from "./hooks/services/PostRscService";
 export { MainBoardRscService } from "./hooks/services/MainBoardRscService";
 export { BoardListRscService } from "./hooks/services/BoardListRscService";
+export { BoardRscService } from "./hooks/services/BoardRscService";
 
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
