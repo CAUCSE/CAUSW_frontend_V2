@@ -7,24 +7,10 @@ import VotingSection from './VotingSection';
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
 interface PostCardProps {
-  //userImage?: string;
-  title: string;
-  content: string;
-  isDeleted: boolean;
-  writerName: string;
-  writerAdmissionYear: number;
-  writerProfileImage: string;
-  attachmentList?: Array<string>; //이거 바꿔야함
-  numComment: number;
+  postData: Post.PostDto;
   numLike: number;
   numFavorite: number;
-  isAnonymous: boolean;
-  isQuestion: boolean;
-  //updatable: boolean;
-  //deletable: boolean;
-  createdAt: string;
-  updatedAt: string;
-  // hasVote: boolean;
+  numComment: number;
   handlePostLike: () => void;
   handlePostFavorite: () => void;
   handlePostComment: () => void;
@@ -32,19 +18,11 @@ interface PostCardProps {
 
 
 export const PostCard = (
-{ title, 
-  content, 
-  isDeleted, 
-  writerName, 
-  writerAdmissionYear,
-  attachmentList, 
-  numComment,
+{ 
+  postData,
   numLike,
+  numComment,
   numFavorite,
-  isAnonymous,
-  isQuestion,
-  createdAt,
-  updatedAt,
   handlePostLike,
   handlePostFavorite,
   handlePostComment,
@@ -55,24 +33,32 @@ export const PostCard = (
   const postImage = useUserStore((state) => state.profileImage);
 
   return (
-    <div className="flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
+    <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
+      <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
+          <Image
+            src="/images/post/comment-menu.svg"
+            alt="Comment Menu"
+            width={4}
+            height={4}
+          ></Image>
+        </button> 
       <div className="flex flex-row items-center">
         <div
           className="m-2 w-12 h-12 bg-no-repeat bg-contain"
           style={{ backgroundImage: `url(${userImage})` }}
         />
         <div className="flex flex-col items-start">
-          <div className="flex items-center text-[16px] font-bold">  {isAnonymous ? '익명' : writerName}</div>
-          <div className="text-gray-500 text-[14px]">{updatedAt}</div>
+          <div className="flex items-center text-[16px] font-bold">  {postData.isAnonymous ? '익명' : postData.writerName}</div>
+          <div className="text-gray-500 text-[14px]">{postData.updatedAt}</div>
         </div>
       </div>
       
-      <div className="flex flex-col items-start lg:pl-16">
+      <div className="flex flex-col items-start px-5 lg:pl-16">
         <div className="mb-2 text-[20px] font-medium">
-          {title}
+          {postData.title}
         </div>
         <div className="mb-2 text-[14px]">
-          {content}
+          {postData.content}
         </div>
 
         {/* 나중에 투표 api 생기면 연결 */}

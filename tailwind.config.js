@@ -33,7 +33,7 @@ module.exports = {
         'vote-theme':"rgba(107, 190, 236, 1)",
       },
       boxShadow: {
-        'post-sh': "0px 3px 6.1px 0px rgba(0, 0, 0, 0.25)",
+        'post-sh': "0px 3px 6px 0px rgba(0, 0, 0, 0.25)",
         'vote-option': "inset 0 0 0 2px white",
       },
       backgroundColor: {

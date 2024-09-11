@@ -23,6 +23,7 @@ declare namespace Post {
 
   export interface CommentListDto{
     content: Array<CommentDto>;
+    //content: CommentDto[];
   }
 
   export interface AttachmentDto {
