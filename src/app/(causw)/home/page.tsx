@@ -59,13 +59,16 @@ const HomePage = async () => {
               <div className="grid h-full w-full grid-cols-[1fr_1.2fr]">
                 <div className="flex w-full flex-col items-center justify-around border-r border-[rgba(209,209,209,1)]">
                   {/* TODO : href 연결 */}
-                  <Link href={""}>❗️ 서비스 공지</Link>
+                  <Link href={""} className="underline">
+                    ❗️ 서비스 공지
+                  </Link>
                   <Link href={""}>📖️ 소프트웨어학부 공지</Link>
                   <Link href={""}>🌍️ 동문회 공지 게시판</Link>
                   <Link href={""}>🏆️ 학생회 공지 게시판</Link>
                 </div>
                 <div className="pl-[20px]">
                   {homePosts?.slice(3).map(({ board, posts }) => {
+                    // TODO : 손봐야댐
                     return (
                       <p key={board.id}>
                         {board.name}: {posts.numberOfElements}개의 글
