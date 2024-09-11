@@ -134,7 +134,7 @@ const BoardPage = () => {
 
   return (
     <div className="h-full w-full">
-      <div className="fixed flex h-24 w-full items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem)]">
+      <div className="fixed z-10 flex h-24 w-full items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem)]">
         <PreviousButton />
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
           {boardName}
@@ -150,7 +150,7 @@ const BoardPage = () => {
           })}
         </div>
       </div>
-      <div className="absolute top-24 h-[calc(100%-6rem)] w-full overflow-y-auto px-2 sm:top-28 sm:h-[calc(100%-8rem)] sm:py-6 lg:px-10">
+      <div className="absolute top-24 flex h-[calc(100%-6rem)] w-full flex-col gap-4 overflow-y-auto pl-[25px] pr-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
         {posts.length === 0 ? (
           <div className="flex h-full w-full items-center justify-center text-2xl">
             게시글이 없습니다.
@@ -160,7 +160,7 @@ const BoardPage = () => {
             <div
               key={idx}
               ref={idx === posts.length - 1 ? lastPostElementRef : null}
-              className="my-6 flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:my-10 lg:p-6"
+              className="flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
             >
               <div className="flex w-full flex-col">
                 <div className="flex w-full items-center justify-between">
