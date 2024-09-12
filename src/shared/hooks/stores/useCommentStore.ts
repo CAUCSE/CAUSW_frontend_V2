@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
 interface CommentState {
   comments: { [id: string]: {numLike: number}};

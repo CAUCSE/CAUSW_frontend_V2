@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface ChildCommentStore {
   childComments: { [id: string]: { numLike: number } };  // 대댓글 ID별로 좋아요 수 관리

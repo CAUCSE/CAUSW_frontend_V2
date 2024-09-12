@@ -52,7 +52,7 @@ export const ChildCommentCard = ({ childComment, numLike, handleChildCommentLike
             ></Image>
             <span>{numLike > 999 ? '999+' : numLike}</span>
           </button>
-          <button className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  rounded-comment-br" onClick={handleChildCommentLike}>
+          <button className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  bg-comment-btn rounded-comment-br" onClick={handleChildCommentLike}>
             <Image
               src="/images/post/comment-like.svg"
               alt="Like Icon"
