@@ -1,11 +1,11 @@
 "use client"
 import { useEffect } from 'react';
-import { usePostStore, useCommentStore } from '@/shared';
-import { PostRscService } from "@/shared";
+import { usePostStore, useCommentStore, useChildCommentStore, PostRscService } from '@/shared';
 
 export const usePostDetail = (postId: string) => {
   const { setPost } = usePostStore();
   const {setCommentLikes} = useCommentStore();
+  const {setChildCommentLikes} = useChildCommentStore();
   const { getPostById } = PostRscService();
 
   const getTimeDifference = (ISOtime: string) => {
@@ -38,6 +38,9 @@ export const usePostDetail = (postId: string) => {
         setPost(postData);  // post와 numLikes를 상태로 설정
         postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
           setCommentLikes(comment.id, comment.numLike);
+          comment.childCommentList.forEach((childComment: any) => {
+            setChildCommentLikes(childComment.id, childComment.numLike);  // 각 대댓글의 좋아요 수 설정
+          });
         })
       } catch (error) {
         console.error('게시물 불러오기 실패: ', error);

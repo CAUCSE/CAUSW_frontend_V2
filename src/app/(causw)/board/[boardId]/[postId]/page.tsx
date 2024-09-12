@@ -5,13 +5,14 @@ import {
   ChildCommentCard,
   CommentInput,
 } from "@/entities";
-import { PreviousButton, PostRscService, CommentRscService, usePostDetail, usePostStore, useCommentStore } from "@/shared";
+import { PreviousButton, PostRscService, CommentRscService, ChildCommentRscService, usePostDetail, usePostStore, useCommentStore, useChildCommentStore } from "@/shared";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
   const { post, numLike, numFavorite, numComment, commentList, decrementComment, addComment, incrementLike, decrementLike, incrementFavorite, decrementFavorite } = usePostStore();
   const {comments, incrementCommentLike, decrementCommentLike} = useCommentStore();
+  const { childComments, incrementChildCommentLike, decrementChildCommentLike } = useChildCommentStore();
   
   usePostDetail(postId);
 
@@ -35,8 +36,19 @@ const PostDetailPage = (props: any) => {
       console.error('댓글 좋아요 처리 에러: ', error);
       decrementCommentLike(commentId);
     }  
-  }
+  };
   
+  const handleChildCommentLike = async (childCommentId: string) => {
+    try {
+      incrementChildCommentLike(childCommentId);
+      const PostChildCommentLikeResponse = await ChildCommentRscService().postLikeForChildComment(childCommentId);
+      console.log('대댓글 좋앙 완료:', PostChildCommentLikeResponse);
+    }catch (error) {
+      console.error('대댓글 좋아요 처리 에러: ', error);
+      decrementChildCommentLike(childCommentId);
+    }  
+  };
+
   const handlePostFavorite = async () => {
     try {
       incrementFavorite();
@@ -110,9 +122,10 @@ const PostDetailPage = (props: any) => {
                   handleCommentLike={() => handleCommentLike(comment.id)}                    
                 />
                 {comment.childCommentList.map((childComment, idx) => (
-                  <ChildCommentCard key={idx} 
+                  <ChildCommentCard key={childComment.id} 
                   childComment={childComment}
-                  numLike={childComment.numLike}                        
+                  numLike={childComments[childComment.id].numLike}      
+                  handleChildCommentLike={() => handleChildCommentLike(childComment.id)}                  
                   />
                 ))}
               </div>
