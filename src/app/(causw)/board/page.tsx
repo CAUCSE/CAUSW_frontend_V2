@@ -12,7 +12,7 @@ const BoardPage = async () => {
 
   return (
     <>
-      <div className="absolute h-full w-full px-3 py-3">
+      <div className="absolute h-full w-full py-3">
         <div className="flex flex-col items-center">
           <DefaultBoard
             boardInfos={boards.filter(
