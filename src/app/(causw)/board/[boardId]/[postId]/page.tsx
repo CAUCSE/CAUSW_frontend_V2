@@ -109,7 +109,6 @@ const PostDetailPage = (props: any) => {
             numComment={numComment}
             numFavorite={numFavorite}
             numLike={numLike}
-            handlePostComment={()=>{}}
             handlePostFavorite={handlePostFavorite}
             handlePostLike={handlePostLike}
           />
