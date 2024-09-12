@@ -11,12 +11,16 @@ const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
   const {name,admissionYear,profileImage} = useUserStore();
-  const { post, numLike, numFavorite, numComment, commentList, decrementComment, addComment, incrementLike, decrementLike, incrementFavorite, decrementFavorite } = usePostStore();
+  const { post, numLike, numFavorite, numComment, commentList, createCommentInfo, decrementComment, addComment, setPostComment, incrementLike, decrementLike, incrementFavorite, decrementFavorite } = usePostStore();
   const {comments, incrementCommentLike, decrementCommentLike, clearAllOverlays} = useCommentStore();
   const { childComments, incrementChildCommentLike, decrementChildCommentLike } = useChildCommentStore();
   
   usePostDetail(postId);
 
+  const changeToPostComment = () => {
+    setPostComment();
+    clearAllOverlays();
+  }
   const handlePostLike = async () => {
     try {
       incrementLike();
@@ -62,37 +66,42 @@ const PostDetailPage = (props: any) => {
   };
 
   const handleAddComment = async (newComentContent: string, isAnonymous: boolean) => {
-    const newComment: Comment.CommentDto = {
-      id: `new_${Date.now()}`,
-      content: newComentContent,
-      createdAt: Date.now().toString(),
-      updatedAt: Date.now().toString(),
-      isDeleted: false,
-      postId: postId,
-      writerName: name,
-      writerAdmissionYear: admissionYear,
-      writerProfileImage: profileImage,
-      updatable: false,
-      deletable: false,
-      isAnonymous: isAnonymous,
-      numLike: 0,
-      numChildComment: 0,
-      childCommentList: [],
-    };
-    const createComment: Comment.CreateCommentDto = {
-      content: newComentContent,
-      postId: postId,
-      isAnonymous: isAnonymous
+    if (!createCommentInfo.isChildComment) {
+      const newComment: Comment.CommentDto = {
+        id: `new_${Date.now()}`,
+        content: newComentContent,
+        createdAt: Date.now().toString(),
+        updatedAt: Date.now().toString(),
+        isDeleted: false,
+        postId: postId,
+        writerName: name,
+        writerAdmissionYear: admissionYear,
+        writerProfileImage: profileImage,
+        updatable: false,
+        deletable: false,
+        isAnonymous: isAnonymous,
+        numLike: 0,
+        numChildComment: 0,
+        childCommentList: [],
+      };
+      const createComment: Comment.CreateCommentDto = {
+        content: newComentContent,
+        postId: postId,
+        isAnonymous: isAnonymous
+      }
+      try {
+        addComment(newComment);
+        console.log(commentList);
+        const createCommentResponse = await CommentRscService().createComment(createComment);
+        console.log('게시물 댓글 완료: ', createCommentResponse);
+      }catch(error) {
+        console.error('즐겨찾기 처리 에러: ', error);
+        decrementComment();
+      }  
     }
-    try {
-      addComment(newComment);
-      console.log(commentList);
-      const createCommentResponse = await CommentRscService().createComment(createComment);
-      console.log('게시물 댓글 완료: ', createCommentResponse);
-    }catch(error) {
-      console.error('즐겨찾기 처리 에러: ', error);
-      decrementComment();
-    }  
+    else{
+      console.log('대댓글이다ㅏㅏㅏㅏㅏㅏㅏ');
+    }
   }
   
   if (!post) {
@@ -113,7 +122,7 @@ const PostDetailPage = (props: any) => {
             numLike={numLike}
             handlePostFavorite={handlePostFavorite}
             handlePostLike={handlePostLike}
-            handleCommentBtn={clearAllOverlays}
+            handleCommentBtn={changeToPostComment}
           />
           <div className="pl-4 sm:pt-3">
             {commentList.map((comment) => {

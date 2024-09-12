@@ -1,6 +1,6 @@
 "use client"
 
-import { useUserStore, useCommentStore } from "@/shared";
+import { useUserStore, useCommentStore, usePostStore } from "@/shared";
 import Image from "next/image";
 
 // 여기도 좋아요 싫어요 디자인 문의하기
@@ -14,9 +14,11 @@ interface CommentCardProps {
 // max-w-md mx-auto space-x-4
 export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike }: CommentCardProps) => {
   const { toggleCommentOverlay} = useCommentStore();
+  const { setChildComment} = usePostStore();
   const writerProfileImage = useUserStore((state) => state.profileImage);
 
   const handleOverlayToggle = () => {
+    setChildComment(comment.id);
     toggleCommentOverlay(comment.id);
   };
 
