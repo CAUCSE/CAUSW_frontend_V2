@@ -1,8 +1,8 @@
 "use client";
 
-import { BoardListRscService, Icon, PreviousButton } from "@/shared";
+import { BoardRscService, Icon, PreviousButton } from "@/shared";
 import { notFound, usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
@@ -79,25 +79,19 @@ const BoardPage = () => {
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const observer = useRef();
-
   const lastPostElementRef = useRef(null);
-
-  const [boardInfo, setBoardInfo] = useState<IBoard | null>(null);
   const [boardIdValidation, setBoardIdValidation] = useState(true);
+  const { getBoardList } = BoardRscService();
   useEffect(() => {
     if (!boardId) return;
     const fetchData = async () => {
       setLoading(true);
       try {
-        const { getBoardList } = BoardListRscService();
         const response = await getBoardList(boardId, page);
         setPosts((prev) => [...prev, ...response.post.content]);
         setBoarName(() => response.boardName);
         setHasMore(response.post.totalPages - 1 > page);
         setLoading(false);
-
-        setBoardInfo(response);
       } catch (error) {
         setBoardIdValidation(false);
         setLoading(false);
@@ -105,7 +99,7 @@ const BoardPage = () => {
     };
 
     fetchData();
-  }, [boardId, page]);
+  }, [page]);
 
   if (!boardIdValidation) {
     notFound();
@@ -131,10 +125,9 @@ const BoardPage = () => {
       }
     };
   }, [loading, hasMore]);
-
   return (
     <div className="h-full w-full">
-      <div className="fixed z-10 flex h-24 w-full items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem)]">
+      <div className="fixed z-10 flex h-24 w-[calc(100%-40px)] items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem-20px)]">
         <PreviousButton />
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
           {boardName}
