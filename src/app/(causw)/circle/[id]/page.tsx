@@ -71,7 +71,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
               <div>{formatDateString(circle.joinedAt)}</div>
             </>
           ) : (
-            <div className="font-bold text-gray-500">모집 기간이 아닙니다.</div>
+            <div className="text-gray-500">모집 기간이 아닙니다.</div>
           )}
         </div>
 

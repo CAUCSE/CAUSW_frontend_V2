@@ -81,5 +81,22 @@ export const UserRscService = () => {
     }
   };
 
-  return { getMe, getUser, findByState, findAllAdmissions };
+  const getMyCircles = async () => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = (await fetch(`${URI}/circles`, {
+        headers: headers,
+      }).then((res) => res.json())) as Circle.CirclesRequestDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  return { getMe, getUser, findByState, findAllAdmissions, getMyCircles };
 };
