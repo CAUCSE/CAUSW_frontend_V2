@@ -11,7 +11,7 @@ const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
   const { post, numLike, numFavorite, numComment, commentList, decrementComment, addComment, incrementLike, decrementLike, incrementFavorite, decrementFavorite } = usePostStore();
-  const {comments, incrementCommentLike, decrementCommentLike} = useCommentStore();
+  const {comments, incrementCommentLike, decrementCommentLike, clearAllOverlays} = useCommentStore();
   const { childComments, incrementChildCommentLike, decrementChildCommentLike } = useChildCommentStore();
   
   usePostDetail(postId);
@@ -111,6 +111,7 @@ const PostDetailPage = (props: any) => {
             numLike={numLike}
             handlePostFavorite={handlePostFavorite}
             handlePostLike={handlePostLike}
+            handleCommentBtn={clearAllOverlays}
           />
           <div className="pl-4 sm:pt-3">
             {commentList.map((comment) => (
@@ -118,6 +119,7 @@ const PostDetailPage = (props: any) => {
                 <CommentCard 
                   comment={comment}
                   numLike={comments[comment.id].numLike}  
+                  overlayActive={comments[comment.id].overlayActive}
                   handleCommentLike={() => handleCommentLike(comment.id)}                    
                 />
                 {comment.childCommentList.map((childComment, idx) => (

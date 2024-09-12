@@ -13,6 +13,7 @@ interface PostCardProps {
   numComment: number;
   handlePostLike: () => void;
   handlePostFavorite: () => void;
+  handleCommentBtn: () => void;
 }
 
 const isImageFile = (fileName: string) => {
@@ -27,9 +28,8 @@ export const PostCard = (
   numFavorite,
   handlePostLike,
   handlePostFavorite,
+  handleCommentBtn
 }
-
-
 :PostCardProps) => {
 
   const defaultAttachmentList: Array<Post.AttachmentDto> = [
@@ -136,7 +136,7 @@ export const PostCard = (
           ></Image>
           <span>{numFavorite  > 999 ? '999+' : numFavorite}</span>
         </button>
-        <button className="flex items-center bg-post-comment space-x-2 p-1 px-3 rounded-post-br text-post-comment text-[13px]">
+        <button className="flex items-center bg-post-comment space-x-2 p-1 px-3 rounded-post-br text-post-comment text-[13px]" onClick={handleCommentBtn}>
           <Image
             src="/images/post/comment.svg"
             alt="Comment Icon"

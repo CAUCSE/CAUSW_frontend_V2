@@ -1,20 +1,27 @@
 "use client"
 
-import { useUserStore } from "@/shared";
+import { useUserStore, useCommentStore } from "@/shared";
 import Image from "next/image";
 
 // 여기도 좋아요 싫어요 디자인 문의하기
 interface CommentCardProps {
   comment: Comment.CommentDto;
   numLike: number;
+  overlayActive: boolean;
   handleCommentLike: () => void;
 }
 
 // max-w-md mx-auto space-x-4
-export const CommentCard = ({ comment, numLike,handleCommentLike }: CommentCardProps) => {
+export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike }: CommentCardProps) => {
+  const { toggleCommentOverlay} = useCommentStore();
   const writerProfileImage = useUserStore((state) => state.profileImage);
+
+  const handleOverlayToggle = () => {
+    toggleCommentOverlay(comment.id);
+  };
+
   return (
-    <div className="relative flex flex-col border-black border-comment-bw rounded-comment-br pb-2 bg-white mb-4 max-w-sm">
+    <div className={`relative flex flex-col ${overlayActive ? 'border-overlay-border' : 'border-black'} border-comment-bw rounded-comment-br pb-2 ${overlayActive ? 'bg-overlay-bg': 'bg-white'} mb-4 max-w-sm`}>
       <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
         <Image
           src="/images/post/comment-menu.svg"
@@ -44,7 +51,7 @@ export const CommentCard = ({ comment, numLike,handleCommentLike }: CommentCardP
         <span>{numLike > 999 ? '999+' : numLike}</span>
       </button>
 
-      <div className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  bg-comment-btn rounded-comment-br">
+      <div className={`absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  ${overlayActive ? 'bg-overlay-btn' : 'bg-comment-btn'} rounded-comment-br`}>
         <button onClick={handleCommentLike}>
           <Image
             src="/images/post/comment-like.svg"
@@ -61,7 +68,7 @@ export const CommentCard = ({ comment, numLike,handleCommentLike }: CommentCardP
           height={10}
           className="items-center"
         ></Image>
-        <button>
+        <button onClick={handleOverlayToggle}>
           <Image
             src="/images/post/comment-comment.svg"
             alt="Like Icon"
