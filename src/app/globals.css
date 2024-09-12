@@ -47,5 +47,4 @@ input:-webkit-autofill:active {
 
 main {
   scrollbar-gutter: both-edges stable;
-  /* 스크롤바 영역 밀림 해결 */
 }
