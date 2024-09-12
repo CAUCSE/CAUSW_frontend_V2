@@ -1,10 +1,11 @@
 "use client"
 import { useEffect } from 'react';
-import { usePostStore } from '@/shared/hooks/stores/usePostStore';
+import { usePostStore, useCommentStore } from '@/shared';
 import { PostRscService } from "@/shared";
 
 export const usePostDetail = (postId: string) => {
   const { setPost } = usePostStore();
+  const {setCommentLikes} = useCommentStore();
   const { getPostById } = PostRscService();
 
   const getTimeDifference = (ISOtime: string) => {
@@ -35,6 +36,9 @@ export const usePostDetail = (postId: string) => {
         const postData = await getPostById(postId);
         postData.updatedAt = getTimeDifference(postData.updatedAt)
         setPost(postData);  // post와 numLikes를 상태로 설정
+        postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
+          setCommentLikes(comment.id, comment.numLike);
+        })
       } catch (error) {
         console.error('게시물 불러오기 실패: ', error);
       }
@@ -43,5 +47,5 @@ export const usePostDetail = (postId: string) => {
     if (postId) {
       fetchPost();
     }
-  }, [postId, setPost]);
+  }, [postId, setPost, setCommentLikes]);
 };

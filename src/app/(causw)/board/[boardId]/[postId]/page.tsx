@@ -5,12 +5,13 @@ import {
   ChildCommentCard,
   CommentInput,
 } from "@/entities";
-import { PreviousButton, PostRscService, CommentRscService, usePostDetail, usePostStore } from "@/shared";
+import { PreviousButton, PostRscService, CommentRscService, usePostDetail, usePostStore, useCommentStore } from "@/shared";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
   const { post, numLike, numFavorite, numComment, commentList, decrementComment, addComment, incrementLike, decrementLike, incrementFavorite, decrementFavorite } = usePostStore();
+  const {comments, incrementCommentLike, decrementCommentLike} = useCommentStore();
   
   usePostDetail(postId);
 
@@ -24,6 +25,17 @@ const PostDetailPage = (props: any) => {
       decrementLike();
     }  
   };
+
+  const handleCommentLike = async (commentId: string) => {
+    try {
+      incrementCommentLike(commentId);
+      const PostCommentLikeResponse = await CommentRscService().postLikeForComment(commentId);
+      console.log('댓글 좋앙 완료:', PostCommentLikeResponse);
+    }catch (error) {
+      console.error('댓글 좋아요 처리 에러: ', error);
+      decrementCommentLike(commentId);
+    }  
+  }
   
   const handlePostFavorite = async () => {
     try {
@@ -67,7 +79,6 @@ const PostDetailPage = (props: any) => {
       console.error('즐겨찾기 처리 에러: ', error);
       decrementComment();
     }  
-    
   }
   
   if (!post) {
@@ -91,11 +102,12 @@ const PostDetailPage = (props: any) => {
             handlePostLike={handlePostLike}
           />
           <div className="pl-4 sm:pt-3">
-            {commentList.map((comment, index) => (
-              <div key={index}>
+            {commentList.map((comment) => (
+              <div key={comment.id}>
                 <CommentCard 
                   comment={comment}
-                  numLike={comment.numLike}                      
+                  numLike={comments[comment.id].numLike}  
+                  handleCommentLike={() => handleCommentLike(comment.id)}                    
                 />
                 {comment.childCommentList.map((childComment, idx) => (
                   <ChildCommentCard key={idx} 

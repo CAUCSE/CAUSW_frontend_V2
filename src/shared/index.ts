@@ -38,6 +38,7 @@ export { CommentRscService } from "./hooks/services/CommentRscService";
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 export { usePostStore } from "./hooks/stores/usePostStore";
+export { useCommentStore } from "./hooks/stores/useCommentStore";
 
 export { usePostDetail } from "./hooks/usePostDetail"
 

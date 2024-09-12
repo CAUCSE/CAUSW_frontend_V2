@@ -7,10 +7,11 @@ import Image from "next/image";
 interface CommentCardProps {
   comment: Comment.CommentDto;
   numLike: number;
+  handleCommentLike: () => void;
 }
 
 // max-w-md mx-auto space-x-4
-export const CommentCard = ({ comment, numLike }: CommentCardProps) => {
+export const CommentCard = ({ comment, numLike,handleCommentLike }: CommentCardProps) => {
   const writerProfileImage = useUserStore((state) => state.profileImage);
   return (
     <div className="relative flex flex-col border-black border-comment-bw rounded-comment-br pb-2 bg-white mb-4 max-w-sm">
@@ -33,7 +34,7 @@ export const CommentCard = ({ comment, numLike }: CommentCardProps) => {
 
       <div className="text-gray-700 mb-1 px-8 text-[14px]">{comment.content}</div>
 
-      <button className="flex flex-row justify-start items-center space-x-2 px-8 text-post-like text-[12px]">
+      <button className="flex flex-row justify-start items-center space-x-2 px-8 text-post-like text-[12px]" onClick={handleCommentLike}>
         <Image
           src="/images/post/like.svg"
           alt="Like Icon"
@@ -44,7 +45,7 @@ export const CommentCard = ({ comment, numLike }: CommentCardProps) => {
       </button>
 
       <div className="absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  bg-comment-btn rounded-comment-br">
-        <button>
+        <button onClick={handleCommentLike}>
           <Image
             src="/images/post/comment-like.svg"
             alt="Like Icon"
