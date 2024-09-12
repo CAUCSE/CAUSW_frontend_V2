@@ -5,11 +5,12 @@ import {
   ChildCommentCard,
   CommentInput,
 } from "@/entities";
-import { PreviousButton, PostRscService, CommentRscService, ChildCommentRscService, usePostDetail, usePostStore, useCommentStore, useChildCommentStore } from "@/shared";
+import { PreviousButton, PostRscService, CommentRscService, ChildCommentRscService, usePostDetail, usePostStore, useCommentStore, useChildCommentStore, useUserStore } from "@/shared";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
+  const {name,admissionYear,profileImage} = useUserStore();
   const { post, numLike, numFavorite, numComment, commentList, decrementComment, addComment, incrementLike, decrementLike, incrementFavorite, decrementFavorite } = usePostStore();
   const {comments, incrementCommentLike, decrementCommentLike, clearAllOverlays} = useCommentStore();
   const { childComments, incrementChildCommentLike, decrementChildCommentLike } = useChildCommentStore();
@@ -68,9 +69,9 @@ const PostDetailPage = (props: any) => {
       updatedAt: Date.now().toString(),
       isDeleted: false,
       postId: postId,
-      writerName: '일단 임시로 사용자',
-      writerAdmissionYear: 0,
-      writerProfileImage: "",
+      writerName: name,
+      writerAdmissionYear: admissionYear,
+      writerProfileImage: profileImage,
       updatable: false,
       deletable: false,
       isAnonymous: isAnonymous,
@@ -85,6 +86,7 @@ const PostDetailPage = (props: any) => {
     }
     try {
       addComment(newComment);
+      console.log(commentList);
       const createCommentResponse = await CommentRscService().createComment(createComment);
       console.log('게시물 댓글 완료: ', createCommentResponse);
     }catch(error) {
@@ -114,12 +116,14 @@ const PostDetailPage = (props: any) => {
             handleCommentBtn={clearAllOverlays}
           />
           <div className="pl-4 sm:pt-3">
-            {commentList.map((comment) => (
+            {commentList.map((comment) => {
+              const commentData = comments[comment.id] || { numLike: 0, overlayActive: false };
+              return(
               <div key={comment.id}>
                 <CommentCard 
                   comment={comment}
-                  numLike={comments[comment.id].numLike}  
-                  overlayActive={comments[comment.id].overlayActive}
+                  numLike={commentData.numLike}  
+                  overlayActive={commentData.overlayActive}
                   handleCommentLike={() => handleCommentLike(comment.id)}                    
                 />
                 {comment.childCommentList.map((childComment, idx) => (
@@ -130,7 +134,7 @@ const PostDetailPage = (props: any) => {
                   />
                 ))}
               </div>
-            ))}
+            )})}
           </div>
         </div>
         <div className="flex justify-center py-2">
