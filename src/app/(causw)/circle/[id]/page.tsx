@@ -106,9 +106,9 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
             <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16">
               신청 현황 보기
             </div>
-            <div className="h-5"></div>
           </>
         ) : null}
+        <div className="h-5"></div>
       </div>
     </>
   );

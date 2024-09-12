@@ -69,40 +69,46 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           />
         </div>
 
-        <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
+        <div className="col-span-2 flex flex-col text-sm md:h-10 md:flex-row md:items-center md:text-lg">
           <div className="mr-4 font-bold lg:mr-6">동아리 회비</div>
-          <input
-            type="number"
-            placeholder={"" + circle.circleTax}
-            className="mr-1 w-24 rounded-md pl-4 text-center"
-            onChange={(event) => handleChange(event, "circleTax")}
-          ></input>
-          <div>원</div>
+          <div>
+            <input
+              type="number"
+              placeholder={"" + circle.circleTax}
+              className="mr-1 w-24 rounded-md text-center md:pl-4"
+              onChange={(event) => handleChange(event, "circleTax")}
+            ></input>
+            <span>원</span>
+          </div>
         </div>
 
-        <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
+        <div className="col-span-2 flex flex-col text-sm md:h-10 md:flex-row md:items-center md:text-lg">
           <div className="mr-[32px] font-bold lg:mr-[39px]">모집 인원</div>
-          <input
-            type="number"
-            placeholder={"" + circle.recruitMembers}
-            className="mr-1 w-24 rounded-md pl-4 text-center"
-            onChange={(event) => handleChange(event, "recruitMembers")}
-          ></input>
-          <div>명</div>
+          <div>
+            <input
+              type="number"
+              placeholder={"" + circle.recruitMembers}
+              className="mr-1 w-24 rounded-md text-center md:pl-4"
+              onChange={(event) => handleChange(event, "recruitMembers")}
+            ></input>
+            <span>명</span>
+          </div>
         </div>
 
-        <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
+        <div className="col-span-2 flex flex-col text-sm md:h-10 md:flex-row md:items-center md:text-lg">
           <div className="mr-[36px] font-bold lg:mr-[45px]">동아리원</div>
-          <input
-            type="number"
-            placeholder={"" + circle.numMember}
-            className="mr-1 w-24 rounded-md pl-4 text-center"
-            onChange={(event) => handleChange(event, "numMember")}
-          ></input>
-          <div>명</div>
+          <div>
+            <input
+              type="number"
+              placeholder={"" + circle.numMember}
+              className="mr-1 w-24 rounded-md text-center md:pl-4"
+              onChange={(event) => handleChange(event, "numMember")}
+            ></input>
+            <span>명</span>
+          </div>
         </div>
 
-        <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
+        <div className="col-span-2 flex flex-col text-sm md:h-10 md:flex-row md:items-center md:text-lg">
           <div className="mr-4 font-bold lg:mr-6">모집 마감일</div>
           <input
             type="date"
@@ -122,7 +128,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
         <div className="col-span-3 row-span-1 md:col-span-2 md:row-span-4">
           <div className="mb-6 mt-6 text-2xl font-bold">설명</div>
           <textarea
-            className="h-44 w-full rounded-md p-2"
+            className="h-36 w-full rounded-md p-2"
             placeholder={circle.description}
             onChange={(event) => handleChange(event, "description")}
           ></textarea>
@@ -132,10 +138,11 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           onClick={() => {
             console.log(circle);
           }}
-          className="col-span-1 row-span-3 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
+          className="col-span-3 row-span-3 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
         >
           수정 완료
         </div>
+        <div className="h-5"></div>
       </div>
     </>
   );
