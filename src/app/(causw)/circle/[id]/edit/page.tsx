@@ -40,8 +40,6 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
     300,
   );
 
-  const handleMainImg = () => {};
-
   useEffect(() => {
     if (!isAdmin() && !circleIdIfLeader?.includes(id))
       router.push("/no-permission");
@@ -68,7 +66,10 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           <Header bold>{circle.name}</Header>
         </div>
 
-        <div className="row-span-4 flex min-h-36 min-w-36 items-center overflow-hidden">
+        <label
+          className="row-span-4 flex min-h-36 min-w-36 items-center overflow-hidden"
+          htmlFor="upload"
+        >
           <img
             src={
               mainImg
@@ -78,7 +79,18 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
             alt={"Circle Image"}
             className="h-36 w-36 rounded-2xl object-cover md:h-64 md:w-64"
           />
-        </div>
+        </label>
+        <input
+          type="file"
+          id="upload"
+          className="hidden"
+          name="upload"
+          accept="image/*"
+          capture="environment"
+          onChange={(event) => {
+            if (event.target.files) setMainImg(event.target.files[0]);
+          }}
+        ></input>
 
         <div className="col-span-2 flex flex-col text-sm md:h-10 md:flex-row md:items-center md:text-lg">
           <div className="mr-4 font-bold lg:mr-6">동아리 회비</div>
