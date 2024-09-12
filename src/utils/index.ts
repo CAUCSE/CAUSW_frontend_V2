@@ -1,2 +1,2 @@
 export { debounce } from "./debounce";
-export { formatDateString } from "./format";
+export { formatDateString, formatUrlToFile } from "./format";

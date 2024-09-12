@@ -5,14 +5,15 @@
 import { CircleRscService, UserRscService, useUserStore } from "@/shared";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { debounce } from "@/utils";
 
+import { debounce } from "@/utils";
 import { LoadingComponent, Header, SubHeader, ProfileImage } from "@/entities";
 
 const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const { getCircle } = CircleRscService();
 
   const [circle, setCircle] = useState<Circle.CircleRequestDto>();
+  const [mainImg, setMainImg] = useState<File | undefined>();
 
   const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const admissionYear = useUserStore((state) => state.admissionYear);
@@ -39,10 +40,16 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
     300,
   );
 
+  const handleMainImg = () => {};
+
   useEffect(() => {
     if (!isAdmin() && !circleIdIfLeader?.includes(id))
       router.push("/no-permission");
-    getCircle(id).then((data) => setCircle(data));
+
+    (async () => {
+      const data = await getCircle(id);
+      setCircle(data);
+    })();
   }, []);
 
   if (!circle) return <LoadingComponent />;
@@ -63,7 +70,11 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
 
         <div className="row-span-4 flex min-h-36 min-w-36 items-center overflow-hidden">
           <img
-            src={circle.mainImage ?? "/images/signin-logo.png"}
+            src={
+              mainImg
+                ? URL.createObjectURL(mainImg)
+                : (circle.mainImage ?? "/images/signin-logo.png")
+            }
             alt={"Circle Image"}
             className="h-36 w-36 rounded-2xl object-cover md:h-64 md:w-64"
           />
