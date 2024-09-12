@@ -1,5 +1,6 @@
 import { ProfileImage, Header, SubHeader } from "@/entities";
 import { CircleRscService, UserRscService } from "@/shared";
+import { formatDateString } from "@/utils";
 
 import Link from "next/link";
 
@@ -49,28 +50,28 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          <div className="mr-2 font-bold lg:mr-6">동아리 회비</div>
+          <div className="mr-4 font-bold lg:mr-6">동아리 회비</div>
           <div>{circle.circleTax}원</div>
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          <div className="mr-[20px] font-bold lg:mr-[39px]">모집 인원</div>
+          <div className="mr-[32px] font-bold lg:mr-[39px]">모집 인원</div>
           <div>{circle.recruitMembers}명</div>
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          <div className="mr-[22px] font-bold lg:mr-[39px]">동아리원</div>
+          <div className="mr-[36px] font-bold lg:mr-[45px]">동아리원</div>
           <div>{circle.numMember}명</div>
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
           {circle.isJoined && circle.joinedAt ? (
             <>
-              <div className="mr-[20px] font-bold lg:mr-[39px]">모집 기간</div>
-              <div>{circle.joinedAt.toLocaleDateString()}</div>
+              <div className="mr-4 font-bold lg:mr-6">모집 마감일</div>
+              <div>{formatDateString(circle.joinedAt)}</div>
             </>
           ) : (
-            <span className="text-gray-500">모집 기간이 아닙니다.</span>
+            <div className="font-bold text-gray-500">모집 기간이 아닙니다.</div>
           )}
         </div>
 
@@ -84,7 +85,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
         <div className="col-span-3 row-span-1 md:col-span-2 md:row-span-4">
           <div className="mb-6 mt-6 text-2xl font-bold">설명</div>
-          <div dangerouslySetInnerHTML={{ __html: circle.description }} />
+          <div style={{ whiteSpace: "pre-line" }}>{circle.description}</div>
         </div>
 
         <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">

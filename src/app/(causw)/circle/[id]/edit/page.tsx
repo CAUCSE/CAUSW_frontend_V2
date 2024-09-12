@@ -5,6 +5,7 @@
 import { CircleRscService, UserRscService, useUserStore } from "@/shared";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { debounce } from "@/utils";
 
 import { LoadingComponent, Header, SubHeader, ProfileImage } from "@/entities";
 
@@ -19,6 +20,24 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const isAdmin = useUserStore((state) => state.isAdmin);
 
   const router = useRouter();
+
+  const handleChange = debounce(
+    <K extends keyof Circle.CircleRequestDto>(
+      event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+      key: K,
+    ) => {
+      const newCircle = { ...circle };
+
+      newCircle[key] =
+        key === "joinedAt"
+          ? ((event.target.value +
+              "T23:59:59.999999") as Circle.CircleRequestDto[K])
+          : (event.target.value as Circle.CircleRequestDto[K]);
+
+      setCircle(newCircle as Circle.CircleRequestDto);
+    },
+    300,
+  );
 
   useEffect(() => {
     if (!isAdmin() && !circleIdIfLeader?.includes(id))
@@ -51,29 +70,45 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          <div className="mr-2 font-bold lg:mr-6">동아리 회비</div>
-          <div>{circle.circleTax}원</div>
+          <div className="mr-4 font-bold lg:mr-6">동아리 회비</div>
+          <input
+            type="number"
+            placeholder={"" + circle.circleTax}
+            className="mr-1 w-24 rounded-md pl-4 text-center"
+            onChange={(event) => handleChange(event, "circleTax")}
+          ></input>
+          <div>원</div>
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          <div className="mr-[20px] font-bold lg:mr-[39px]">모집 인원</div>
-          <div>{circle.recruitMembers}명</div>
+          <div className="mr-[32px] font-bold lg:mr-[39px]">모집 인원</div>
+          <input
+            type="number"
+            placeholder={"" + circle.recruitMembers}
+            className="mr-1 w-24 rounded-md pl-4 text-center"
+            onChange={(event) => handleChange(event, "recruitMembers")}
+          ></input>
+          <div>명</div>
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          <div className="mr-[22px] font-bold lg:mr-[39px]">동아리원</div>
-          <div>{circle.numMember}명</div>
+          <div className="mr-[36px] font-bold lg:mr-[45px]">동아리원</div>
+          <input
+            type="number"
+            placeholder={"" + circle.numMember}
+            className="mr-1 w-24 rounded-md pl-4 text-center"
+            onChange={(event) => handleChange(event, "numMember")}
+          ></input>
+          <div>명</div>
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          {circle.isJoined && circle.joinedAt ? (
-            <>
-              <div className="mr-[20px] font-bold lg:mr-[39px]">모집 기간</div>
-              <div>{circle.joinedAt.toLocaleDateString()}</div>
-            </>
-          ) : (
-            <span className="text-gray-500">모집 기간이 아닙니다.</span>
-          )}
+          <div className="mr-4 font-bold lg:mr-6">모집 마감일</div>
+          <input
+            type="date"
+            className="rounded-md pl-4"
+            onChange={(event) => handleChange(event, "joinedAt")}
+          ></input>
         </div>
 
         <div className="col-span-3 row-span-1 flex w-32 flex-col items-center gap-2 md:col-span-1 md:row-span-4">
@@ -86,17 +121,20 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
 
         <div className="col-span-3 row-span-1 md:col-span-2 md:row-span-4">
           <div className="mb-6 mt-6 text-2xl font-bold">설명</div>
-          <div dangerouslySetInnerHTML={{ __html: circle.description }} />
+          <textarea
+            className="h-44 w-full rounded-md p-2"
+            placeholder={circle.description}
+            onChange={(event) => handleChange(event, "description")}
+          ></textarea>
         </div>
 
-        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
-          신청하기
-        </div>
-        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-barkblue text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
-          동아리 게시판
-        </div>
-        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-default text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
-          부원 명단 보기
+        <div
+          onClick={() => {
+            console.log(circle);
+          }}
+          className="col-span-1 row-span-3 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
+        >
+          수정 완료
         </div>
       </div>
     </>

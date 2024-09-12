@@ -18,9 +18,9 @@ declare namespace Circle {
     leaderId: string;
     leaderName: string;
     numMember: number;
-    createdAt: Date;
+    createdAt: string;
     isJoined: boolean;
-    joinedAt: Date | null;
+    joinedAt: string | null;
     isDeleted: boolean;
     circleTax: number;
     recruitMembers: number;
