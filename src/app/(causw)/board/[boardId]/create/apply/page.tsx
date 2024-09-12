@@ -113,8 +113,8 @@ const ApplyCreatePage = () => {
               <p className="text-sm text-red-500">신청서 제목을 입력해주세요</p>
             )}
           </div>
-          <div className="flex w-3/4 min-w-[280px] items-center justify-around rounded-2xl bg-[#FFF5C5] py-10 lg:min-w-[520px]">
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
+          <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FFF5C5] py-10 lg:min-w-[520px]">
+            <div className="grid grid-cols-2 gap-1 lg:grid-cols-5 lg:gap-2">
               <CustomCheckBox
                 colSize={1}
                 targetValue={selectedStatus}
@@ -189,8 +189,8 @@ const ApplyCreatePage = () => {
               />
             </div>
           </div>
-          <div className="flex w-3/4 min-w-[280px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[520px]">
-            <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
+          <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[520px]">
+            <div className="grid grid-cols-2 gap-1 lg:grid-cols-5 lg:gap-2">
               <CustomCheckBox
                 colSize={isViewPointLg ? 1 : 1}
                 targetValue={selectedGrade}
