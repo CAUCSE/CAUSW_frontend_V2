@@ -10,3 +10,8 @@ export { FormInput, FormSubmitButton } from "./input/FormInput";
 
 export { Header } from "./header/Header";
 export { SubHeader } from "./header/SubHeader";
+
+export { PostCard } from "./board/post/PostCard"
+export { CommentCard } from "./board/post/CommentCard"
+export { ChildCommentCard } from "./board/post/ChildCommentCard"
+export { CommentInput } from "./board/post/CommentInput"
