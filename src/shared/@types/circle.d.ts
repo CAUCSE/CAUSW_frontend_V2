@@ -7,8 +7,6 @@ declare namespace Circle {
     user: User.User;
     circle: FindByIdDto;
   }
-  export type GetUserListResponseDto = CircleUser[];
-  export type GetUserListResponse = Model.CircleUser[];
 
   export interface FindByIdDto {
     id: string;
@@ -63,4 +61,5 @@ declare namespace Circle {
 
   export type CirclesRequestDto = FindByIdDto[] & Error.ApiErrorResponse;
   export type CircleRequestDto = FindByIdDto & Error.ApiErrorResponse;
+  export type GetUserListResponseDto = CircleUser[] & Error.ApiErrorResponse;
 }

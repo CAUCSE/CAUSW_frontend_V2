@@ -123,9 +123,9 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           <div>
             <input
               type="number"
-              placeholder={"" + circle.numMember}
+              readOnly
+              value={circle.numMember}
               className="mr-1 w-24 rounded-md text-center md:pl-4"
-              onChange={(event) => handleChange(event, "numMember")}
             ></input>
             <span>명</span>
           </div>

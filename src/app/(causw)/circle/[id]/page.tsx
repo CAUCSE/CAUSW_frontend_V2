@@ -94,9 +94,12 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-barkblue text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
           동아리 게시판
         </div>
-        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-default text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
+        <Link
+          href={"/circle/" + id + "/members"}
+          className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-default text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl"
+        >
           부원 명단 보기
-        </div>
+        </Link>
 
         {isCircleLeader ? (
           <>

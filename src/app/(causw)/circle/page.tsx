@@ -9,11 +9,11 @@ const CirclePage = async () => {
 
   return (
     <>
-      <div className="ml-7 mt-6 text-2xl font-bold md:ml-20 md:mt-16">
+      <div className="ml-7 mt-6 text-2xl font-bold md:ml-14 md:mt-16">
         내 동아리 목록
       </div>
-      <div className="flex w-full flex-row flex-wrap justify-center md:ml-14 md:justify-start">
-        {myCircles.length > 1 ? (
+      <div className="flex w-full flex-row flex-wrap justify-center md:ml-9 md:w-[calc(100%-56px)] md:justify-start">
+        {myCircles.length < 1 ? (
           <div className="ml-6 mt-2 text-gray-500">
             가입된 동아리가 없습니다.
           </div>
@@ -31,10 +31,10 @@ const CirclePage = async () => {
           )
         )}
       </div>
-      <div className="ml-7 mt-6 text-2xl font-bold md:ml-20 md:mt-16">
+      <div className="ml-7 mt-6 text-2xl font-bold md:ml-14 md:mt-16">
         전체 동아리 목록
       </div>
-      <div className="flex w-full flex-row flex-wrap justify-center md:ml-14 md:justify-start">
+      <div className="flex w-full flex-row flex-wrap justify-center md:ml-9 md:w-[calc(100%-56px)] md:justify-start">
         {circles.map((circle) =>
           !circle.isDeleted ? (
             <CircleElement
