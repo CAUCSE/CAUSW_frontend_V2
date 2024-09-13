@@ -11,10 +11,10 @@ declare namespace Comment {
     writerProfileImage: string;
     updatable: boolean;
     deletable: boolean;
-    numChildComment: number;
-    numLike: number;
     isAnonymous: boolean;
-    childCommentList: ChildCommentDto[];
+    numLike: number;
+    numChildComment: number;
+    childCommentList: Array<ChildCommentDto>;
   }
 
   export interface CreateCommentDto {
