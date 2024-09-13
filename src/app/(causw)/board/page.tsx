@@ -1,256 +1,37 @@
-"use client";
+import { CustomBoard, DefaultBoard, IBoardResponseDto } from "@/entities";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { MainBoardRscService } from "@/shared";
 
-interface IBoardContent {
-  title: string;
-}
+const BoardPage = async () => {
+  const { getMainBoard } = MainBoardRscService();
+  const boards = await getMainBoard();
 
-interface IBoardInfo {
-  id: string;
-  emoji: string | null;
-  title: string;
-  contents: Array<IBoardContent>;
-}
+  //TODO 디버깅용 코드 지우기
+  //console.log(boards);
 
-const defaultBoardInfos: Array<IBoardInfo> = [
-  {
-    id: "1",
-    emoji: "❗",
-    title: "서비스 공지",
-    contents: [
-      {
-        title: `서버 점검 18:00 ~ 21:00`,
-      },
-      {
-        title: `서버 점검 18:00 ~ 21:00`,
-      },
-      {
-        title: `서버 점검 18:00 ~ 21:00`,
-      },
-    ],
-  },
-  {
-    id: "2",
-    emoji: "🏆",
-    title: "학생회 공지 게시판",
-    contents: [
-      {
-        title: `기말고사 간식 행사 안내`,
-      },
-      {
-        title: `신복편전 안내`,
-      },
-      {
-        title: `체육 대회 안내`,
-      },
-    ],
-  },
-  {
-    id: "3",
-    emoji: "📖",
-    title: "소프트웨어학부 공지",
-    contents: [
-      {
-        title: `탑싯 서류 제출 안내`,
-      },
-      {
-        title: `기말고사 시험표`,
-      },
-      {
-        title: `성적 조회 안내`,
-      },
-    ],
-  },
-  {
-    id: "4",
-    emoji: "🌏",
-    title: "동문회 공지 게시판",
-    contents: [
-      {
-        title: `???????????????????`,
-      },
-      {
-        title: `ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㄹㄹㄹㄹㄹㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇasdasd`,
-      },
-      {
-        title: `ㅁㄴㅇㄴㅁㅇㅁㅇㅁㅈㅇㅁㅇㅁㄴㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴ`,
-      },
-    ],
-  },
-];
-
-const customBoardInfos: Array<IBoardInfo> = [
-  {
-    id: "5",
-    emoji: null,
-    title: "스포츠 게시판",
-    contents: [
-      {
-        title: `3대 500 달성법`,
-      },
-      {
-        title: `벤치프레스 그립의 종류`,
-      },
-      {
-        title: `메시 vs 호날두`,
-      },
-    ],
-  },
-  {
-    id: "6",
-    emoji: null,
-    title: "과제 게시판",
-    contents: [
-      {
-        title: `프로그래밍 과제 너무 어려워요 ㅠㅠ`,
-      },
-      {
-        title: `수치해석 퀴즈 뭐지...`,
-      },
-      {
-        title: `운영체제 데드락 과제 ㅁㄴㅇㅁㅇㅇㅁㅇㅇㄴㅇㅁ`,
-      },
-    ],
-  },
-  {
-    id: "7",
-    emoji: null,
-    title: "스포츠 게시판",
-    contents: [
-      {
-        title: `3대 500 달성법`,
-      },
-      {
-        title: `벤치프레스 그립의 종류`,
-      },
-      {
-        title: `메시 vs 호날두`,
-      },
-    ],
-  },
-  {
-    id: "8",
-    emoji: null,
-    title: "과제 게시판",
-    contents: [
-      {
-        title: `프로그래밍 과제 너무 어려워요 ㅠㅠ`,
-      },
-      {
-        title: `수치해석 퀴즈 뭐지...`,
-      },
-      {
-        title: `운영체제 데드락 과제 ㅁㄴㅇㅁㅇㅇㅁㅇㅇㄴㅇㅁ`,
-      },
-    ],
-  },
-  {
-    id: "9",
-    emoji: null,
-    title: "스포츠 게시판",
-    contents: [
-      {
-        title: `3대 500 달성법`,
-      },
-      {
-        title: `벤치프레스 그립의 종류`,
-      },
-      {
-        title: `메시 vs 호날두`,
-      },
-    ],
-  },
-  {
-    id: "10",
-    emoji: null,
-    title: "과제 게시판",
-    contents: [],
-  },
-];
-
-const EmptyContent = () => (
-  <ul className="divide-y-2 divide-transparent">
-    <li className="py-2">　</li>
-    <li className="py-2">게시물이 없습니다.</li>
-    <li className="py-2">　</li>
-  </ul>
-);
-
-const Board = ({ id, emoji, title, contents }: IBoardInfo) => {
-  const router = useRouter();
   return (
-    <div onClick={() => router.push(`/board/${id}`)}>
-      <h1 className="truncate text-xl font-semibold">
-        {emoji}
-        <span className="underline">{title}</span>
-      </h1>
-      <div className="mt-4 rounded-2xl border border-black bg-white px-4 text-center shadow-lg">
-        {contents.length === 0 ? (
-          <EmptyContent />
-        ) : (
-          <ul className="divide-y-2">
-            {contents.map((content, idx) => (
-              <li className="truncate py-2" key={idx}>
-                {content.title}
-              </li>
-            ))}
-          </ul>
-        )}
+    <>
+      <div className="absolute h-full w-full py-3">
+        <div className="flex flex-col items-center">
+          <DefaultBoard
+            boardInfos={boards.filter(
+              (board: IBoardResponseDto) => board.isDefault,
+            )}
+          />
+          <CustomBoard
+            boardInfos={boards.filter(
+              (board: IBoardResponseDto) => !board.isDefault,
+            )}
+          />
+        </div>
       </div>
-    </div>
-  );
-};
-
-const DefaultBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
-  <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 rounded-2xl border border-red-500 bg-boardBackground p-10 lg:grid-cols-2 lg:gap-y-10">
-    {boardInfos.map((boardInfo, idx) => (
-      <Board
-        id={boardInfo.id}
-        emoji={boardInfo.emoji}
-        title={boardInfo.title}
-        contents={boardInfo.contents}
-        key={idx}
-      />
-    ))}
-  </div>
-);
-
-const CustomBoard = ({ boardInfos }: { boardInfos: Array<IBoardInfo> }) => (
-  <div className="grid w-full grid-cols-1 gap-x-5 gap-y-5 p-10 lg:grid-cols-2 lg:gap-y-10">
-    {boardInfos.map((boardInfo, idx) => (
-      <Board
-        id={boardInfo.id}
-        emoji={boardInfo.emoji}
-        title={boardInfo.title}
-        contents={boardInfo.contents}
-        key={idx}
-      />
-    ))}
-  </div>
-);
-
-const BoardPage = () => {
-  const router = useRouter();
-
-  const createBtnClicked = () => {
-    router.push("/board/create");
-  };
-
-  return (
-    <div className="absolute bottom-24 top-28 w-full overflow-y-auto bg-boardPageBackground p-6 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
-      <div className="flex h-full flex-col items-center lg:h-auto">
-        <DefaultBoard boardInfos={defaultBoardInfos} />
-        <CustomBoard boardInfos={customBoardInfos} />
-        <button
-          className="fixed bottom-28 rounded-3xl bg-red-500 px-6 py-3 font-bold text-white md:bottom-10"
-          onClick={createBtnClicked}
-        >
+      <Link href={`/board/create`}>
+        <button className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10">
           게시판 생성
         </button>
-      </div>
-
-    </div>
+      </Link>
+    </>
   );
 };
 

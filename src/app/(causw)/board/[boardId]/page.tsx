@@ -1,146 +1,41 @@
 "use client";
 
-import { Icon, PreviousButton } from "@/shared";
+import { BoardRscService, Icon, PreviousButton } from "@/shared";
 import { notFound, usePathname, useRouter } from "next/navigation";
+import { use, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
-import { useState } from "react";
 
 // TODO 게시판 ID로 게시물 목록 조회 API 연동 필요
 // TODO 알람 설정 API 연동 필요 -> 아
-const boardInfos = [
-  {
-    boardId: "1",
-    emoji: "❗",
-    boardName: "서비스 공지",
-    alarmActivation: false,
-    posts: [
-      {
-        postId: "5",
-        title: "서버 점검 18:00 ~ 21:00",
-        content:
-          "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.\n점검이 더 길어질 수도 있습니다.",
-        likeCount: 20,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: true,
-        isApply: false,
-        createTime: "2024-08-15T15:34:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "4",
-        title: "서버 점검 18:00 ~ 21:00",
-        content:
-          "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.\n점검이 더 길어질 수도 있습니다.",
-        likeCount: 20,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: true,
-        isApply: false,
-        createTime: "2024-08-15T15:34:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "3",
-        title: "서버 점검 20:00 ~ 21:00",
-        content: "금일 서버 점검이 20:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 1234,
-        scrapCount: 9999,
-        commentCount: 10000,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-15T04:33:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "2",
-        title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 199,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-12T08:30:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "1",
-        title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 123,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-11T08:30:00.000Z",
-        author: "관리자",
-      },
-    ],
-  },
-  {
-    boardId: "2",
-    emoji: "🏆",
-    boardName: "학생회 공지 게시판",
-    alarmActivation: true,
-    posts: [
-      {
-        postId: "4",
-        title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 20,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-14T08:30:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "3",
-        title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 2,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-13T08:30:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "2",
-        title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 10,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-12T08:30:00.000Z",
-        author: "관리자",
-      },
-      {
-        postId: "1",
-        title: "서버 점검 18:00 ~ 21:00",
-        content: "금일 서버 점검이 18:00 ~ 21:00 사이에 있을 예정입니다.",
-        likeCount: 200,
-        scrapCount: 30,
-        commentCount: 10,
-        isVote: false,
-        isApply: false,
-        createTime: "2024-08-11T08:30:00.000Z",
-        author: "관리자",
-      },
-    ],
-  },
-];
 
-const checkBoardValidation = (boardId: string | undefined) => {
-  const arr = boardInfos.filter((boardInfo) => boardInfo.boardId === boardId);
-  return arr.length > 0;
-};
+interface IContent {
+  createdAt: string;
+  id: string;
+  isAnonymous: boolean;
+  isDeleted: boolean;
+  isQuestion: boolean;
+  numComment: number;
+  numFavorite: number;
+  numLike: number;
+  title: string;
+  updatedAt: Date;
+  writerAdmissionYear: number;
+  writerName: string;
+}
+
+interface IPost {
+  content: Array<IContent>;
+  totalPages: number;
+}
+
+interface IBoard {
+  boardId: "string";
+  boardName: "string";
+  isFavorite: "false";
+  post: IPost;
+  writeable: "true";
+}
 
 const getTimeDifference = (ISOtime: string) => {
   const createdTime = new Date(ISOtime);
@@ -164,130 +59,168 @@ const getTimeDifference = (ISOtime: string) => {
   }
 };
 
+const IconButton = (iconName: any, callback: any) => (
+  <button
+    className="flex h-6 w-8 items-center justify-center rounded-3xl border border-black sm:h-8 sm:w-10"
+    onClick={callback}
+  >
+    <Icon iconName={iconName} />
+  </button>
+);
+
 const BoardPage = () => {
   const pathName = usePathname();
+  const boardId = pathName.split("/").pop();
+
   const router = useRouter();
 
-  const boardId = pathName.split("/").pop();
-  if (!checkBoardValidation(boardId)) {
+  const [posts, setPosts] = useState([]);
+  const [boardName, setBoarName] = useState("");
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const lastPostElementRef = useRef(null);
+  const [boardIdValidation, setBoardIdValidation] = useState(true);
+  const { getBoardList } = BoardRscService();
+  useEffect(() => {
+    if (!boardId) return;
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await getBoardList(boardId, page);
+        setPosts((prev) => [...prev, ...response.post.content]);
+        setBoarName(() => response.boardName);
+        setHasMore(response.post.totalPages - 1 > page);
+        setLoading(false);
+      } catch (error) {
+        setBoardIdValidation(false);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [page]);
+
+  if (!boardIdValidation) {
     notFound();
   }
+  useEffect(() => {
+    if (loading || !hasMore) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !loading) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: 0.1 },
+    );
 
-  const boardInfo = boardInfos.filter((board) => board.boardId === boardId)[0];
+    if (lastPostElementRef.current) {
+      observer.observe(lastPostElementRef.current);
+    }
 
-  const [alarmActivation, setAlarmActivation] = useState(
-    boardInfo.alarmActivation,
-  );
-
+    return () => {
+      if (lastPostElementRef.current) {
+        observer.unobserve(lastPostElementRef.current);
+      }
+    };
+  }, [loading, hasMore]);
   return (
-    <div className="absolute bottom-24 top-28 w-full overflow-y-auto bg-boardPageBackground p-5 scrollbar-hide md:bottom-0 md:left-40 md:right-72 md:top-0 md:w-auto">
-      <div className="h-full w-full flex-col items-center">
+    <div className="h-full w-full">
+      <div className="fixed z-10 flex h-24 w-[calc(100%-40px)] items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem-20px)]">
         <PreviousButton />
-        <div className="flex w-full flex-col">
-          <div className="flex w-full justify-between pb-5 pt-10">
-            <div className="left-5">
-              <h1 className="truncate text-xl font-semibold">
-                {boardInfo.emoji}
-                <span className="underline">{boardInfo.boardName}</span>
-              </h1>
-            </div>
-            <div className="right-5 flex gap-2">
-              <button className="flex w-8 items-center justify-center rounded-xl border border-black">
-                <Icon iconName="add" />
-              </button>
-              <button
-                className="flex w-8 items-center justify-center rounded-xl border border-black"
-                onClick={() => setAlarmActivation(!alarmActivation)}
-              >
-                <Icon
-                  iconName={alarmActivation ? "alarm_active" : "alarm_inactive"}
-                />
-              </button>
-              <button
-                className="flex w-8 items-center justify-center rounded-xl border border-black"
-                onClick={() => router.push(`/board/${boardId}/search`)}
-              >
-                <Icon iconName="search" />
-              </button>
-            </div>
+        <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
+          {boardName}
+        </div>
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* TODO 게시글 생성 페이지로 이동 */}
+          {IconButton("add", () => {})}
+          {/* TODO 게시판 알람 설정 */}
+          {IconButton("alarm_inactive", () => {})}
+          {/* TODO 게시판 이동 페이지 */}
+          {IconButton("search", () => {
+            router.push(`/board/${boardId}/search`);
+          })}
+        </div>
+      </div>
+      <div className="absolute top-24 flex h-[calc(100%-6rem)] w-full flex-col gap-4 overflow-y-auto pl-[25px] pr-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
+        {posts.length === 0 ? (
+          <div className="flex h-full w-full items-center justify-center text-2xl">
+            게시글이 없습니다.
           </div>
-          <div className="flex flex-col gap-10">
-            {boardInfo.posts.map((post, idx) => {
-              return (
-                <div
-                  className="border-black-100 flex w-full rounded-3xl border bg-white p-5 shadow-lg"
-                  key={idx}
-                >
-                  <div className="flex w-full flex-col justify-between">
-                    <h1 className="pb-2 text-2xl font-bold">{post.title}</h1>
-                    <div>
-                      {post.content
-                        .split("\n")
-                        .filter((str) => str !== "")
-                        .map((str, idx) => (
-                          <p className="truncate" key={idx}>
-                            {str}
-                          </p>
-                        ))}
+        ) : (
+          posts.map((content: IContent, idx: number) => (
+            <div
+              key={idx}
+              ref={idx === posts.length - 1 ? lastPostElementRef : null}
+              className="flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+            >
+              <div className="flex w-full flex-col">
+                <div className="flex w-full items-center justify-between">
+                  <div className="flex w-2/3 flex-col">
+                    <div className="flex-auto truncate">
+                      <p className="overflow-hidden text-ellipsis whitespace-nowrap pb-2 text-sm font-bold md:text-2xl">
+                        {content.title}
+                      </p>
                     </div>
-                    <div className="flex gap-3 divide-x-2">
-                      <div className="flex gap-2">
-                        <div className="flex items-center gap-2">
-                          <Icon iconName="like" />
-                          <p className="text-md text-red-500">
-                            {post.likeCount > 999 ? "999+" : post.likeCount}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Icon iconName="scrap" />
-                          <p className="text-md text-yellow-500">
-                            {post.scrapCount > 999 ? "999+" : post.scrapCount}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Icon iconName="comment" />
-                          <p className="text-md text-blue-500">
-                            {post.commentCount > 999
-                              ? "999+"
-                              : post.commentCount}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 pl-3">
-                        <Icon
-                          iconName={
-                            post.isVote ? "vote_active" : "vote_inactive"
-                          }
-                        />
-                        <Icon
-                          iconName={
-                            post.isApply ? "apply_active" : "apply_inactive"
-                          }
-                        />
-                      </div>
-                      <div className="pl-3">
-                        <p className="opacity-40">
-                          {getTimeDifference(post.createTime)}
-                        </p>
-                      </div>
-                      <div className="pl-3">
-                        <p className="opacity-40">{post.author}</p>
-                      </div>
+
+                    {/* todo content도 2줄 정도만 미리 보이게 하기 */}
+                    <div className="md:text-md pb-2 text-sm">
+                      <p>게시글 내용입니다</p>
+                      <p>게시글 내용입니다</p>
                     </div>
                   </div>
-                  <div className="relative lg:h-36 lg:w-36">
+                  <div className="h-16 w-16 flex-shrink-0 sm:h-24 sm:w-24">
                     <Image
                       src="/images/post_default_thumbnail.png"
-                      alt="thumbnail"
-                      fill={true}
-                      style={{ objectFit: "contain" }}
+                      alt="default_thumbnail"
+                      width={100}
+                      height={100}
+                      className="object-cover"
                     />
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+
+                <div className="flex gap-2 divide-x-2 sm:gap-4">
+                  <div className="flex gap-2 lg:gap-4">
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <Icon iconName="like" />
+                      <p className="text-red-500">
+                        {content.numLike > 999 ? "999+" : content.numLike}
+                      </p>
+                    </div>
+                    <div className="hidden items-center gap-2 sm:flex">
+                      <Icon iconName="scrap" />
+                      <p className="text-yellow-500">
+                        {content.numFavorite > 999
+                          ? "999+"
+                          : content.numFavorite}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <Icon iconName="comment" />
+                      <p className="text-blue-300">
+                        {content.numFavorite > 999
+                          ? "999+"
+                          : content.numFavorite}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 pl-2 lg:pl-4">
+                    <Icon iconName="vote_inactive" />
+                    <Icon iconName="apply_inactive" />
+                  </div>
+                  <div className="sm:text-md flex items-center pl-2 text-center text-xs text-gray-300 lg:pl-4">
+                    {getTimeDifference(content.createdAt)}
+                  </div>
+                  <div className="sm:text-md flex items-center pl-2 text-center text-xs text-gray-300 lg:pl-4">
+                    {content.isAnonymous ? "익명" : content.writerName}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

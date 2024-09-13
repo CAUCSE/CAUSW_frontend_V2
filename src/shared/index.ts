@@ -29,10 +29,11 @@ export {
 
 export { AuthService } from "./hooks/services/AuthService";
 export { UserService } from "./hooks/services/UserService";
-
 export { AuthRscService } from "./hooks/services/AuthRscService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
 export { PostRscService } from "./hooks/services/PostRscService";
+export { MainBoardRscService } from "./hooks/services/MainBoardRscService";
+export { BoardRscService } from "./hooks/services/BoardRscService";
 export { CommentRscService } from "./hooks/services/CommentRscService";
 export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService";
 
@@ -42,7 +43,7 @@ export { usePostStore } from "./hooks/stores/usePostStore";
 export { useCommentStore } from "./hooks/stores/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/useChildCommentStore";
 
-export { usePostDetail } from "./hooks/usePostDetail"
+export { usePostDetail } from "./hooks/usePostDetail";
 
 export { WindowSizeListener } from "./listener/WindowSizeListener";
 
