@@ -12,8 +12,8 @@ declare namespace ChildComment {
     writerProfileImage: string;
     updatable: boolean;
     deletable: boolean;
-    numLike: number;
     isAnonymous: boolean;
+    numLike: number;
   }
   export interface CreateChildCommentDto {
     content: string;

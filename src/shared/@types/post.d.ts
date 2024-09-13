@@ -7,17 +7,23 @@ declare namespace Post {
     writerName: string;
     writerAdmissionYear: number;
     writerProfileImage: string;
-    attachmentList: AttachmentDto[];
+    attachmentList: Array<AttachmentDto>;
     numComment: number;
+    numLike: number;
+    numFavorite: number;
+    isAnonymous: boolean;
+    isQuestion: boolean;
     updatable: boolean;
     deletable: boolean;
     createdAt: string;
     updatedAt: string;
-    numLike: number;
-    isAnonymous: boolean;
-    isQuestion: boolean;
-    commentList: CommentDto[];
+    commentList: CommentListDto;
     boardName: string;
+  }
+
+  export interface CommentListDto{
+    content: Array<CommentDto>;
+    //content: CommentDto[];
   }
 
   export interface AttachmentDto {
@@ -25,5 +31,13 @@ declare namespace Post {
     downloadFilePath: string;
   }
 
+  export interface CreatePostDto {
+    title: string;
+    content: string;
+    boardId: string;
+    attachmentList: Array<string>;
+    isAnonymous: boolean;
+    isQuestion: boolean;
+  }
   
 }
