@@ -6,7 +6,12 @@ export { ProfileImage } from "./layout/ProfileImage";
 export { ImageBackground } from "./background/ImageBackground";
 export { VideoBackground } from "./background/VideoBackground";
 
-export { FormInput, FormSubmitButton } from "./input/FormInput";
+export {
+  FormInput,
+  FormSubmitButton,
+  SignInInput,
+  SignInSubmitButton,
+} from "./input/FormInput";
 
 export { Header } from "./header/Header";
 
@@ -29,4 +34,3 @@ export { PostCard } from "./board/post/PostCard";
 export { CommentCard } from "./board/post/CommentCard";
 export { ChildCommentCard } from "./board/post/ChildCommentCard";
 export { CommentInput } from "./board/post/CommentInput";
-
