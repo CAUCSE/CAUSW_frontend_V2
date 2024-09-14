@@ -1,41 +1,53 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { BASEURL, useLayoutStore } from '@/shared';
 import { FormInput, FormSubmitButton } from '../../../../src/entities/input/FormInput';
 import FormErrorMessage from '../../../../src/entities/layout/FormErrorMessage';
-import axios from 'axios';
-import { BASEURL } from '@/shared';
 
 interface PasswordResetData {
   originPassword: string;
   updatedPassword: string;
 }
 
-const PasswordResetPage: React.FC = () => {
+const PasswordResetPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<PasswordResetData>();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  
+  // 레이아웃에서 오류 메시지 설정 메서드 가져오기
+  const setErrorMessageGlobal = useLayoutStore((state) => state.setErrorMessage);
 
   const onSubmit = async (data: PasswordResetData) => {
+    // localStorage에서 accessToken 가져오기
+    const accessToken = localStorage.getItem('accessToken');
+    
+    if (!accessToken) {
+      setErrorMessageGlobal('로그인이 필요합니다.');
+      return;
+    }
+
     try {
       const response = await axios.put(`${BASEURL}/api/v1/users/password`, data, {
         headers: {
+          'Authorization': `Bearer ${accessToken}`, // accessToken을 헤더에 포함
           'Content-Type': 'application/json',
         },
       });
 
       if (response.status === 200) {
-        setSuccessMessage("비밀번호가 성공적으로 재설정되었습니다.");
+        setSuccessMessage("비밀번호가 성공적으로 변경되었습니다.");
         setErrorMessage(null);
-        reset(); // 폼을 제출 후 초기화
+        reset(); // 폼 초기화
       } else {
-        setErrorMessage('비밀번호 재설정에 실패했습니다.');
+        setErrorMessage('비밀번호 변경에 실패했습니다.');
         setSuccessMessage(null);
       }
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.message) {
-        setErrorMessage(error.response.data.message || '비밀번호 재설정에 실패했습니다.');
+        setErrorMessage(error.response.data.message || '비밀번호 변경에 실패했습니다.');
       } else {
         setErrorMessage('서버와 통신하는 도중 오류가 발생했습니다.');
       }
