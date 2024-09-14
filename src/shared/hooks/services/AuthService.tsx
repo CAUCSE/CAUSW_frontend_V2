@@ -31,19 +31,12 @@ export const AuthService = () => {
         refreshToken: string;
       }>;
 
-      // accessToken과 refreshToken 처리 (기존 로직)
       await setRscToken(accessToken, body.auto ? refreshToken : false);
+
       setRccToken(accessToken, body.auto ? refreshToken : false);
 
-      // accessToken을 localStorage에 저장
-      localStorage.setItem("accessToken", accessToken);
-      if (body.auto && refreshToken) {
-        localStorage.setItem("refreshToken", refreshToken);
-      }
-
-      // 로그인 후 홈으로 이동
       router.push("/home");
-    } catch (error) {
+    } catch {
       setErrorMessage("로그인 정보가 일치하지 않습니다!");
     }
   };

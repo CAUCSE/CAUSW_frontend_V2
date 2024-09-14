@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { BASEURL, useLayoutStore } from '@/shared';
+import { BASEURL, useLayoutStore, getRccAccess } from '@/shared';
 import { FormInput, FormSubmitButton } from '../../../../src/entities/input/FormInput';
 import FormErrorMessage from '../../../../src/entities/layout/FormErrorMessage';
 
@@ -16,14 +16,12 @@ const PasswordResetPage = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<PasswordResetData>();
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  
-  // 레이아웃에서 오류 메시지 설정 메서드 가져오기
+
   const setErrorMessageGlobal = useLayoutStore((state) => state.setErrorMessage);
 
   const onSubmit = async (data: PasswordResetData) => {
-    // localStorage에서 accessToken 가져오기
-    const accessToken = localStorage.getItem('accessToken');
-    
+    const accessToken = getRccAccess();
+
     if (!accessToken) {
       setErrorMessageGlobal('로그인이 필요합니다.');
       return;
@@ -32,7 +30,7 @@ const PasswordResetPage = () => {
     try {
       const response = await axios.put(`${BASEURL}/api/v1/users/password`, data, {
         headers: {
-          'Authorization': `Bearer ${accessToken}`, // accessToken을 헤더에 포함
+          'Authorization': accessToken,
           'Content-Type': 'application/json',
         },
       });
