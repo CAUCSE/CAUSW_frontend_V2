@@ -34,3 +34,5 @@ export { PostCard } from "./board/post/PostCard";
 export { CommentCard } from "./board/post/CommentCard";
 export { ChildCommentCard } from "./board/post/ChildCommentCard";
 export { CommentInput } from "./board/post/CommentInput";
+
+export { FormErrorMessage } from "./layout/FormErrorMessage";
