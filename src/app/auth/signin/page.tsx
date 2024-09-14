@@ -9,8 +9,8 @@ import { useLayoutStore, AuthService, emailRegex } from "@/shared";
 import {
   VideoBackground,
   ImageBackground,
-  FormInput,
-  FormSubmitButton,
+  SignInInput,
+  SignInSubmitButton,
 } from "@/entities";
 
 const SignInPage = () => {
@@ -52,30 +52,30 @@ const SignInPage = () => {
         alt="sign in page background img"
         darkBackground
       />
-      <div className="absolute top-1/3 left-1/2 w-full transform -translate-x-1/2 flex flex-col justify-center items-center">
-        <div className="text-white text-xl mb-4">함께라면 더 밝은 미래로</div>
-        <div className="text-center text-white text-3xl font-bold tracking-widest mb-10 sm:text-5xl ">
+      <div className="absolute left-1/2 top-1/3 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
+        <div className="mb-4 text-xl text-white">함께라면 더 밝은 미래로</div>
+        <div className="mb-10 text-center text-3xl font-bold tracking-widest text-white sm:text-5xl">
           우리들의 동문 네트워크
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col justify-center items-center space-y-4"
+          className="flex flex-col items-center justify-center space-y-4"
         >
-          <FormInput
+          <SignInInput
             register={register}
             name="email"
             placeholder="이메일을 입력해주세요"
-          ></FormInput>
+          ></SignInInput>
 
           {enterEmail ? (
             <>
-              <FormInput
+              <SignInInput
                 register={register}
                 name="password"
                 type="password"
                 placeholder="비밀번호를 입력해주세요"
-              ></FormInput>
-              <FormSubmitButton />
+              ></SignInInput>
+              <SignInSubmitButton />
             </>
           ) : (
             <>
@@ -83,7 +83,7 @@ const SignInPage = () => {
                 <input type="checkbox" id="auto" {...register("auto")} />
                 <label
                   htmlFor="auto"
-                  className="text-white text-sm ml-1 font-thin"
+                  className="ml-1 text-sm font-thin text-white"
                 >
                   자동 로그인
                 </label>
@@ -98,17 +98,17 @@ const SignInPage = () => {
               onClick={() => {
                 router.push(route.route);
               }}
-              className="text-white text-sm mt-2 underline font-thin md:mt-1"
+              className="mt-2 text-sm font-thin text-white underline md:mt-1"
             >
               {route.name}
             </div>
           ))}
       </div>
-      <div className="w-full absolute bottom-10 flex flex-col items-center md:flex-row md:justify-end md:bottom-5">
-        <span className="text-white text-lg font-bold mt-2 md:mr-7">
+      <div className="absolute bottom-10 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
+        <span className="mt-2 text-lg font-bold text-white md:mr-7">
           문의하기
         </span>
-        <div className="w-32 flex flex-row justify-between mt-2 md:mr-4">
+        <div className="mt-2 flex w-32 flex-row justify-between md:mr-4">
           <Image
             src="/images/kakao.png"
             alt="kakao"

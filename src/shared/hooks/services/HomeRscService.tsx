@@ -1,20 +1,20 @@
-import axios, { AxiosResponse } from "axios";
-
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const HomeRscService = () => {
   const URI = BASEURL + "/api/v1/home";
 
-  const getHomePage = async () => {
+  const getHomePosts = async () => {
     try {
       const headers = await setRscHeader();
-      const response = (await fetch(URI, { headers: headers }).then((res) =>
-        res.json()
-      )) as Home.GetHomePageResponseDto;
+      const response = await fetch(URI, {
+        method: "GET",
+        headers: headers,
+      });
+      if (!response.ok) throw new Error(response.statusText);
 
-      if (response.errorCode) throw new Error(response.errorCode);
-
-      return response;
+      const data = (await response.json()) as Home.GetHomePostsResponseDto;
+      console.log(data);
+      return data;
     } catch (error) {
       console.error(error);
       
@@ -22,5 +22,30 @@ export const HomeRscService = () => {
     }
   };
 
-  return { getHomePage };
+  const getEvents = async () => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/events`, {
+      method: "GET",
+      headers: headers,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Home.GetEventsResponseDto;
+  };
+
+  const getCalendars = async () => {
+    const headers = await setRscHeader();
+    const response = await fetch(
+      `${BASEURL}/api/v1/calendars/year=${new Date().getFullYear()}`,
+      {
+        method: "GET",
+        headers: headers,
+      },
+    );
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Home.GetCalendarsResponseDto;
+  };
+
+  return { getHomePosts, getEvents, getCalendars };
 };
