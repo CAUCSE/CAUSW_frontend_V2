@@ -41,19 +41,18 @@ input:-webkit-autofill:active {
   }
 }
 
-/* 웹킷 브라우저(Chrome, Safari 등)용 커스텀 스크롤바 */
 ::-webkit-scrollbar {
-  width: 20px; /* 스크롤바 너비 */
+  width: 10px; /* 스크롤바 너비 */
 }
 
 ::-webkit-scrollbar-track {
-  background: none; /* 트랙 색상 */
+  background: transparent; /* 투명 배경 */
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #e8e8e8; /* 손잡이 색상 */
-  border-radius: 20px; /* 손잡이 모서리 곡률 */
-  border: 5px solid #f8f8f8; /* 손잡이와 트랙 사이의 간격 */
+  border-radius: 10px; /* 손잡이 모서리 곡률 */
+  border: 1px solid #f8f8f8; /* 손잡이와 트랙 사이의 간격 */
 }
 
 main {
