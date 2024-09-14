@@ -226,24 +226,6 @@ declare namespace User {
     profileImage: string | null;
   }
 
-  export interface SignUpFormPost
-  {        
-    email: string;
-    name: string;
-    password: string;
-    studentId: string;
-    admissionYear: number;
-    attachImages: string[];
-    profileImage: string | null;
-    nickname: string;
-    major: string;
-    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
-    currentCompletedSemester: number | null;
-    graduationYear: number | null;
-    graduationMonth: number | null;
-    phoneNumber: string;
-  }
-
   export interface FindPostsResponse {
     posts: Model.HistoryPost[];
     last: boolean;

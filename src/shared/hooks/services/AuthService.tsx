@@ -43,15 +43,12 @@ export const AuthService = () => {
   };
 
 
-  const signup = async (selectedData: User.SignUpFormPost) => {
+  const signup = async (selectedData: any) => {
     try {
-
-
-
       // axios POST 요청
       const response = await axios.post(`https://13.209.181.162.nip.io:8081/api/v1/users/sign-up`, selectedData, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
       });
       

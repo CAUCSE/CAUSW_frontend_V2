@@ -82,7 +82,10 @@ const SignUpPage = () => {
 
   const handleImageDelete = (index: number) => {
     setImagePreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
+    const updatedFiles = Array.from(files).filter((_, i) => i !== index);
+    setValue('files', updatedFiles); // useForm의 files 상태 업데이트
   };
+  
   // 이용약관 선택 여부
   const handleCheckboxChange = (checked: boolean) => {
     setValue('agreeToTerms', checked);
@@ -137,52 +140,35 @@ const SignUpPage = () => {
         phoneNumberHyphen,
       } = data;
             
-      // files 배열에서 파일 이름만 추출하여 attachImages 배열에 저장
+      // phoneNumber에서 하이픈 빼서 저장
       const phoneNumber = phoneNumberHyphen.replace(/-/g, '');
-      const attachImages = [... imagePreviews];
-
-
-
-
-      const selectedData = {
-        email,
-        name,
-        password,
-        studentId,
-        admissionYear: Number(admissionYear),
-        attachImages,
-        profileImage: null,
-        nickname,
-        major,
-        academicStatus,
-        currentCompletedSemester: (academicStatus === "LEAVE_OF_ABSENCE") || (academicStatus === "ENROLLED") ? Number(currentCompletedSemester): null,
-        graduationYear: academicStatus === "GRADUATED" ? Number(graduationYear) : null,
-        graduationMonth: academicStatus === "GRADUATED" ? Number(graduationMonth) : null,
-        phoneNumber,
-      };
-      console.log(attachImages);
-    
-      // const dummyData = {
-        
-      //     email: "11@naver.com",
-      //     name: "이예빈",
-      //     password: "password00!!",
-      //     studentId: "20209999",
-      //     admissionYear: 2020,
-      //     profileImage: "string",
-      //     attachImages: [
-      //       "string"
-      //     ],
-      //     nickname: "test",
-      //     major: "소프트웨어학부",
-      //     academicStatus: "GRADUATED",
-      //     currentCompletedSemester: 0,
-      //     graduationYear: 1,
-      //     graduationMonth: 2,
-      //     phoneNumber: "01012345678"
-      //   }
       
-      const response = await signup(selectedData);  // signup 함수 호출
+      const formData = new FormData();
+
+      formData.append('email', email);
+      formData.append('name', name);
+      formData.append('password', password);
+      formData.append('studentId', studentId);
+      formData.append('admissionYear', admissionYear.toString()); // 숫자는 문자열로 변환해서 추가
+      formData.append('attachImages','');
+      formData.append('profileImage', '');
+      formData.append('nickname', nickname);
+      formData.append('major', major);
+      formData.append('academicStatus', academicStatus);
+      formData.append('currentCompletedSemester', 
+        ((academicStatus === "ENROLLED" || academicStatus === "LEAVE_OF_ABSENCE") && (currentCompletedSemester)) ? currentCompletedSemester.toString() : '');
+      formData.append('graduationYear', (academicStatus === "GRADUATED" && graduationYear) ? graduationYear.toString() : '');
+      formData.append('graduationMonth', (academicStatus === "GRADUATED" && graduationMonth) ? graduationMonth.toString() : '');
+      formData.append('phoneNumber', phoneNumber);
+
+      if (files && files.length > 0) {
+        Array.from(files).forEach((file, index) => {
+          formData.append(`attachImages`, file); // 배열처럼 처리
+        });
+      }
+    
+      
+      const response = await signup(formData);  // signup 함수 호출
   
       if (response) {  // 성공한 경우
         setIsSuccessModalOpen(true);
