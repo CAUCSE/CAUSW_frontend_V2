@@ -34,9 +34,12 @@ export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike
       </button>
 
       <div className="flex flex-row items-center px-2 mb-1">
-        <div
-          className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"
-          style={{ backgroundImage: `url(${writerProfileImage})` }}
+        <Image
+          src = {writerProfileImage}
+          alt = "Comment Profil"
+          width={10}
+          height={10}
+          className="m-2 bg-center bg-no-repeat bg-contain"
         />
         <div className="font-bold text-[16px]">{comment.isAnonymous ? "익명" : comment.writerName}</div>
       </div>

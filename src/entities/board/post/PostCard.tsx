@@ -20,6 +20,10 @@ const isImageFile = (fileName: string) => {
   return /\.(jpg|jpeg|png|gif|bmp|webp)$/.test(fileName);
 };
 
+const extractFileName = (url: string) => {
+  return url.substring(url.lastIndexOf('/') + 1);
+}
+
 export const PostCard = (
 { 
   postData,
@@ -32,24 +36,23 @@ export const PostCard = (
 }
 :PostCardProps) => {
 
-  const defaultAttachmentList: Array<Post.AttachmentDto> = [
-    {originalFileName: 'file1.jpg', downloadFilePath: 'http://example.com/file1.jpg'},
-    {originalFileName: 'file2.pdf', downloadFilePath: 'http://example.com/file2.pdf'},
-    {originalFileName: 'file3.docx', downloadFilePath: 'http://example.com/file3.docx'},
-    {originalFileName: 'file4.xlsx', downloadFilePath: 'http://example.com/file4.xlsx'},
-    {originalFileName: 'file5.png', downloadFilePath: 'http://example.com/file5.png'},
-    {originalFileName: 'file6.zip', downloadFilePath: 'http://example.com/file6.zip'},
-    {originalFileName: 'file1.jpg', downloadFilePath: 'http://example.com/file1.jpg'},
-    {originalFileName: 'file2.pdf', downloadFilePath: 'http://example.com/file2.pdf'},
-    {originalFileName: 'file3.docx', downloadFilePath: 'http://example.com/file3.docx'},
-    {originalFileName: 'file4.xlsx', downloadFilePath: 'http://example.com/file4.xlsx'},
-    {originalFileName: 'file5.png', downloadFilePath: 'http://example.com/file5.png'},
-    {originalFileName: 'file6.zip', downloadFilePath: 'http://example.com/file6.zip'},
+  const defaultAttachmentList: Array<string> = [
+    'http://example.com/file1.jpg',
+    'http://example.com/file2.pdf',
+    'http://example.com/file3.docx',
+    'http://example.com/file4.xlsx',
+    'http://example.com/file5.png',
+    'http://example.com/file6.zip',
+    'http://example.com/file1.jpg',
+    'http://example.com/file2.pdf',
+    'http://example.com/file3.docx',
+    'http://example.com/file4.xlsx',
+    'http://example.com/file5.png',
+    'http://example.com/file6.zip',
   ];
-  const attachmentList = postData.attachmentList;
-  console.log(attachmentList);
-  const userImage = useUserStore((state) => state.profileImage);
-  const postImage = useUserStore((state) => state.profileImage);
+  const attachmentList = defaultAttachmentList;
+  
+  const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
 
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
@@ -91,12 +94,12 @@ export const PostCard = (
         
 
         <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto w-full scrollbar-hide pb-3">
-          {defaultAttachmentList.map((attachment, index) =>
-            isImageFile(attachment.originalFileName) ? (
+          {attachmentList.map((attachment, index) =>
+            isImageFile(attachment) ? (
               <div
                 key={index}
                 className="w-20 h-20 w-min-20 h-min-20 bg-center bg-cover border border-black"
-                style={{ backgroundImage: `url(${attachment.downloadFilePath})` }}
+                style={{ backgroundImage: `url(${attachment})` }}
               />
             ) : (
               <div
@@ -105,11 +108,11 @@ export const PostCard = (
               >
                 <Image
                   src="/images/post/file-icon.svg"
-                  alt={attachment.originalFileName}
+                  alt={extractFileName(attachment)}
                   width={30}
                   height={30}
                 />
-                <span className="text-[10px]">{attachment.originalFileName}</span>
+                <span className="text-[10px]">{extractFileName(attachment)}</span>
               </div>
             )
           )}
