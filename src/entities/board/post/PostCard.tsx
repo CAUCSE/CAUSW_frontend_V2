@@ -64,10 +64,13 @@ export const PostCard = (
           height={4}
         ></Image>
       </button> 
-      <div className="flex flex-row items-center">
-        <div
-          className="m-2 w-12 h-12 bg-no-repeat bg-contain"
-          style={{ backgroundImage: `url(${userImage})` }}
+      <div className="flex flex-row items-center p-2">
+        <Image
+          src = {userImage}
+          alt = "Comment Profil"
+          width={80}
+          height={80}
+          className="m-2 bg-center bg-no-repeat bg-contain"
         />
         <div className="flex flex-col items-start">
           <div className="flex items-center text-[16px] font-bold">  {postData.isAnonymous ? '익명' : postData.writerName}</div>
@@ -76,11 +79,11 @@ export const PostCard = (
       </div>
       
       <div className="flex flex-col items-start px-3">
-        <div className="lg:pl-16">
-          <div className="mb-2 text-[20px] font-medium px-1">
+        <div>
+          <div className="mb-2 text-[24px] font-medium px-1">
             {postData.title}
           </div>
-          <div className="mb-2 text-[14px] px-1">
+          <div className="mb-2 text-[16px] px-1 pb-2">
             {postData.content}
           </div>
 
@@ -120,13 +123,13 @@ export const PostCard = (
       </div>
       
       {/* 디자인 따라 위치 조정해야함 */}
-      <div className="flex flex-row space-x-2 lg:pl-16">
+      <div className="flex flex-row space-x-3 p-2">
         <button className="flex items-center bg-post-like space-x-2 p-1 px-3 rounded-post-br text-post-like text-[13px]" onClick={handlePostLike}>
           <Image
             src="/images/post/like.svg"
             alt="Like Icon"
-            width={18}
-            height={18}
+            width={20}
+            height={20}
           ></Image>
           <span>{numLike > 999 ? '999+' : numLike}</span>
         </button>
@@ -134,8 +137,8 @@ export const PostCard = (
           <Image
             src="/images/post/star.svg"
             alt="Favorite Icon"
-            width={18}
-            height={18}
+            width={20}
+            height={20}
           ></Image>
           <span>{numFavorite  > 999 ? '999+' : numFavorite}</span>
         </button>
@@ -143,8 +146,8 @@ export const PostCard = (
           <Image
             src="/images/post/comment.svg"
             alt="Comment Icon"
-            width={18}
-            height={18}
+            width={20}
+            height={20}
           ></Image>
           <span>{numComment  > 999 ? '999+' : numComment}</span>
         </button>
@@ -152,8 +155,8 @@ export const PostCard = (
           <Image
             src="/images/post/form.svg"
             alt="Form Icon"
-            width={18}
-            height={18}
+            width={20}
+            height={20}
           ></Image>
           <span>form 작성</span>
         </button>
