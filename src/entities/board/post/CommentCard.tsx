@@ -14,7 +14,7 @@ interface CommentCardProps {
 // max-w-md mx-auto space-x-4
 export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike }: CommentCardProps) => {
   const { toggleCommentOverlay} = useCommentStore();
-  const { setChildComment} = usePostStore();
+  const { setCommentInfo: setChildComment} = usePostStore();
   const writerProfileImage = comment.writerProfileImage ?? "/images/default_profile.png";
   
   const handleOverlayToggle = () => {
