@@ -41,7 +41,7 @@ export { CommentRscService } from "./hooks/services/CommentRscService";
 export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService";
 
 //Store
-export { useUserStore } from "./hooks/stores/useUserStore";
+export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 export { usePostStore } from "./hooks/stores/usePostStore";
 export { useCommentStore } from "./hooks/stores/useCommentStore";

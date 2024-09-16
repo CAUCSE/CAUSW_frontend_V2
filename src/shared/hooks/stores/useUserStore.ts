@@ -32,7 +32,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
 
   roleTxt: () => {
     return get()
-      .roles.map((element) => UserRoleCodes[element])
+      .roles.map((element) => userRoleCodes[element])
       .join(" / ");
   },
 
@@ -95,7 +95,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
 }));
 
-export const UserRoleCodes: {
+export const userRoleCodes: {
   [key in User.Role]: string;
 } = {
   ADMIN: "관리자",
