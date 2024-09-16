@@ -5,20 +5,18 @@ declare namespace ChildComment {
     createdAt: string;
     updatedAt: string;
     isDeleted: boolean;
-    tagUserName?: string | null;
-    refChildComment?: string | null;
     writerName: string;
     writerAdmissionYear: number;
-    writerProfileImage: string;
+    writerProfileImage: string | null;
     updatable: boolean;
     deletable: boolean;
     isAnonymous: boolean;
+    isChildCommentLike: boolean;
     numLike: number;
   }
   export interface CreateChildCommentDto {
     content: string;
-    parentCommentID: string;
-    refChildComment: string | null;
+    parentCommentId: string;
     isAnonymous: boolean;
   }
 }

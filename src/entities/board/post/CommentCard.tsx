@@ -14,9 +14,9 @@ interface CommentCardProps {
 // max-w-md mx-auto space-x-4
 export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike }: CommentCardProps) => {
   const { toggleCommentOverlay} = useCommentStore();
-  const { setChildComment} = usePostStore();
-  const writerProfileImage = useUserStore((state) => state.profileImage);
-
+  const { setCommentInfo: setChildComment} = usePostStore();
+  const writerProfileImage = comment.writerProfileImage ?? "/images/default_profile.png";
+  
   const handleOverlayToggle = () => {
     setChildComment(comment.id);
     toggleCommentOverlay(comment.id);
@@ -34,32 +34,35 @@ export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike
       </button>
 
       <div className="flex flex-row items-center px-2 mb-1">
-        <div
-          className="m-2 w-10 h-10 bg-center bg-no-repeat bg-contain"
-          style={{ backgroundImage: `url(${writerProfileImage})` }}
+        <Image
+          src = {writerProfileImage}
+          alt = "Comment Profil"
+          width={50}
+          height={50}
+          className="m-2 bg-center bg-no-repeat bg-contain"
         />
         <div className="font-bold text-[16px]">{comment.isAnonymous ? "익명" : comment.writerName}</div>
       </div>
 
-      <div className="text-gray-700 mb-1 px-8 text-[14px]">{comment.content}</div>
+      <div className="mb-1 px-8 text-[16px]">{comment.content}</div>
 
-      <button className="flex flex-row justify-start items-center space-x-2 px-8 text-post-like text-[12px]" onClick={handleCommentLike}>
+      <button className="flex flex-row justify-start items-center space-x-3 py-1 px-8 text-post-like text-[13px]" onClick={handleCommentLike}>
         <Image
           src="/images/post/like.svg"
           alt="Like Icon"
-          width={16}
-          height={16}
+          width={20}
+          height={20}
         ></Image>
         <span>{numLike > 999 ? '999+' : numLike}</span>
       </button>
 
-      <div className={`absolute flex flex-row items-center justify-between space-x-3 px-2 py-1 bottom-2 right-10  ${overlayActive ? 'bg-overlay-btn' : 'bg-comment-btn'} rounded-comment-br`}>
+      <div className={`absolute flex flex-row items-center justify-between space-x-3 px-2.5 py-1.5 bottom-3 right-10  ${overlayActive ? 'bg-overlay-btn' : 'bg-comment-btn'} rounded-comment-br`}>
         <button onClick={handleCommentLike}>
           <Image
             src="/images/post/comment-like.svg"
             alt="Like Icon"
-            width={16}
-            height={16}
+            width={18}
+            height={18}
             className="items-center"
           ></Image>
         </button>
@@ -74,8 +77,8 @@ export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike
           <Image
             src="/images/post/comment-comment.svg"
             alt="Like Icon"
-            width={16}
-            height={16}
+            width={18}
+            height={18}
             className="items-center"
           ></Image>
         </button>
