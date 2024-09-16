@@ -20,6 +20,7 @@ interface IFormInput {
 interface IContent {
   createdAt: string;
   id: string;
+  content: string;
   isAnonymous: boolean;
   isDeleted: boolean;
   isQuestion: boolean;
@@ -166,9 +167,10 @@ const SearchPost = () => {
                           </div>
 
                           {/* todo content도 2줄 정도만 미리 보이게 하기 */}
-                          <div className="md:text-md pb-2 text-sm">
-                            <p>게시글 내용입니다</p>
-                            <p>게시글 내용입니다</p>
+                          <div className="md:text-md w-full pb-2 text-sm">
+                            <p className="whitespace-normal">
+                              {content.content}
+                            </p>
                           </div>
                         </div>
                         <div className="h-16 w-16 flex-shrink-0 sm:h-24 sm:w-24">
@@ -236,14 +238,14 @@ const SearchPost = () => {
           )}
         </div>
 
-        <div className="flex h-14 w-full items-center justify-center">
+        <div className="flex h-14 w-full justify-center">
           <form
             action=""
             onSubmit={handleSubmit(onSubmit)}
-            className="flex h-full w-full justify-between gap-4 pt-4 lg:w-3/4"
+            className="flex h-full w-full justify-between gap-4 lg:w-3/4"
           >
             <input
-              className="w-full rounded-3xl border border-black text-center"
+              className="h-full w-full rounded-3xl border border-black text-center"
               type="text"
               {...register("searchContent", { required: true })}
               id="searchContent"
