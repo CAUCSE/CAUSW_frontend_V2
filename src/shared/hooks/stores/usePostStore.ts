@@ -19,7 +19,7 @@ interface PostState {
   incrementComment: () => void;
   addComment: (comment:Comment.CommentDto) => void;
   setPostComment: () => void;
-  setChildComment: (commentId: string) => void;
+  setCommentInfo: (commentId: string) => void;
   decrementComment: () => void;
 }
 
@@ -42,6 +42,6 @@ export const usePostStore = create<PostState>((set) => ({
   incrementComment: () => set((state) => ({ numComment: state.numComment + 1 })),
   addComment: (newComment) => set((state) => ({ commentList: [...state.commentList, newComment], numComment: state.numComment+1,})),
   setPostComment: () => set(() => ({ createCommentInfo: {isChildComment: false, commentId: null}})),
-  setChildComment: (commentId) =>set(() => ({ createCommentInfo: {isChildComment: true, commentId: commentId}})),
+  setCommentInfo: (commentId) =>set(() => ({ createCommentInfo: {isChildComment: true, commentId: commentId}})),
   decrementComment: () => set((state) => ({ numComment: state.numComment - 1 })),
 }));
