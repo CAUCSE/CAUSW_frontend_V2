@@ -1,6 +1,6 @@
 "use client";
 
-import { BoardRscService, Icon, PreviousButton } from "@/shared";
+import { BoardRscService, Icon, IconButton, PreviousButton } from "@/shared";
 import { notFound, usePathname, useRouter } from "next/navigation";
 import { use, useEffect, useRef, useState } from "react";
 
@@ -12,6 +12,7 @@ import Image from "next/image";
 interface IContent {
   createdAt: string;
   id: string;
+  content: string;
   isAnonymous: boolean;
   isDeleted: boolean;
   isQuestion: boolean;
@@ -59,21 +60,13 @@ const getTimeDifference = (ISOtime: string) => {
   }
 };
 
-const IconButton = (iconName: any, callback: any) => (
-  <button
-    className="flex h-6 w-8 items-center justify-center rounded-3xl border border-black sm:h-8 sm:w-10"
-    onClick={callback}
-  >
-    <Icon iconName={iconName} />
-  </button>
-);
-
 const BoardPage = () => {
   const pathName = usePathname();
   const boardId = pathName.split("/").pop();
 
   const router = useRouter();
 
+  const [isBoardFavorite, setIsBoardFavorite] = useState(false);
   const [posts, setPosts] = useState([]);
   const [boardName, setBoarName] = useState("");
   const [page, setPage] = useState(0);
@@ -88,6 +81,7 @@ const BoardPage = () => {
       setLoading(true);
       try {
         const response = await getBoardList(boardId, page);
+        setIsBoardFavorite(() => response.isFavorite);
         setPosts((prev) => [...prev, ...response.post.content]);
         setBoarName(() => response.boardName);
         setHasMore(response.post.totalPages - 1 > page);
@@ -125,25 +119,42 @@ const BoardPage = () => {
       }
     };
   }, [loading, hasMore]);
+
+  //TODO 게시판 즐겨찾기 api 추가되면 연동하기
+  // useEffect(() => {
+  //   const setBoardFavorite = async () => {
+  //     await toggleBoardFavorite(boardId, isBoardFavorite);
+  //   };
+  //   if (loading) return;
+  //   setBoardFavorite();
+  // }, [isBoardFavorite]);
+
   return (
     <div className="h-full w-full">
-      <div className="fixed z-10 flex h-24 w-[calc(100%-40px)] items-end justify-between bg-[#F8F8F8] px-2 pb-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem-20px)]">
+      <div className="fixed flex h-20 w-[calc(100%-20px)] items-end bg-[#F8F8F8] px-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem-20px)]">
         <PreviousButton />
-        <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
-          {boardName}
-        </div>
-        <div className="flex items-center gap-2 sm:gap-4">
-          {/* TODO 게시글 생성 페이지로 이동 */}
-          {IconButton("add", () => {})}
-          {/* TODO 게시판 알람 설정 */}
-          {IconButton("alarm_inactive", () => {})}
-          {/* TODO 게시판 이동 페이지 */}
-          {IconButton("search", () => {
-            router.push(`/board/${boardId}/search`);
-          })}
+        <div className="z-10 flex w-full items-center justify-between">
+          <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
+            {boardName}
+          </div>
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* TODO 게시글 생성 페이지로 이동 */}
+            <IconButton iconName={"add"} callback={() => {}} />
+            {/* TODO 게시판 알람 설정 */}
+            <IconButton
+              iconName={isBoardFavorite ? "alarm_active" : "alarm_inactive"}
+              callback={() => setIsBoardFavorite((prev) => !prev)}
+            />
+            <IconButton
+              iconName={"search"}
+              callback={() => {
+                router.push(`/board/${boardId}/search`);
+              }}
+            />
+          </div>
         </div>
       </div>
-      <div className="absolute top-24 flex h-[calc(100%-6rem)] w-full flex-col gap-4 overflow-y-auto pl-[25px] pr-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
+      <div className="absolute top-24 flex h-[calc(100%-6rem)] w-full flex-col gap-4 overflow-y-auto px-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
         {posts.length === 0 ? (
           <div className="flex h-full w-full items-center justify-center text-2xl">
             게시글이 없습니다.
@@ -166,8 +177,22 @@ const BoardPage = () => {
 
                     {/* todo content도 2줄 정도만 미리 보이게 하기 */}
                     <div className="md:text-md pb-2 text-sm">
-                      <p>게시글 내용입니다</p>
-                      <p>게시글 내용입니다</p>
+                      {content.content ? (
+                        content.content
+                          .split("\n")
+                          .slice(0, 2)
+                          .map((str, idx) => {
+                            if (
+                              idx === 1 &&
+                              content.content.split("\n").length > 2
+                            ) {
+                              return <p key={idx}>{str}...</p>;
+                            }
+                            return <p key={idx}>{str}</p>;
+                          })
+                      ) : (
+                        <p></p>
+                      )}
                     </div>
                   </div>
                   <div className="h-16 w-16 flex-shrink-0 sm:h-24 sm:w-24">
