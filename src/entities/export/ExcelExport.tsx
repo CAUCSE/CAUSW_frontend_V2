@@ -1,9 +1,19 @@
 "use client";
 
-import { CSVLink } from "react-csv";
-import { Headers, Data } from "react-csv/lib/core";
-
 export const ExcelExport = ({
+  exportHandler,
+}: {
+  exportHandler: () => void;
+}) => {
+  return (
+    <div className="flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg">
+      Excel Export
+    </div>
+  );
+};
+
+//Export 서버 다운으로 구조가 바뀜에 따라 불필요
+/* export const ExcelExport = ({
   data,
   headers,
 }: {
@@ -23,4 +33,4 @@ export const ExcelExport = ({
       </div>
     </CSVLink>
   );
-};
+}; */

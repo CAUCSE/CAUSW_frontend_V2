@@ -36,7 +36,7 @@ const UserManagement = async ({
       firstNavigation={{ name: "가입 대기 유저", state: "admission" }}
       navigation={navigation}
       data={data}
-      headers={headers}
+      exportHandler={() => {}}
     />
   );
 };

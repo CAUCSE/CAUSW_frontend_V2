@@ -8,7 +8,7 @@ interface Prop {
   firstNavigation: { name: string; state: string };
   navigation?: { name: string; state: string }[];
   data: { userName: string; studentId: string; id: string }[];
-  headers: { label: string; key: string }[];
+  exportHandler?: () => void;
 }
 
 export const Management = ({
@@ -17,7 +17,7 @@ export const Management = ({
   firstNavigation,
   navigation,
   data,
-  headers,
+  exportHandler,
 }: Prop) => {
   const isFirstNavigation = navigation
     ? navigation.findIndex((elemenent) => elemenent.state === state) === -1
@@ -29,7 +29,7 @@ export const Management = ({
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
-      <ExcelExport headers={headers} data={data} />
+      {exportHandler ? <ExcelExport exportHandler={exportHandler} /> : null}
       <Header bold big>
         {title}
       </Header>

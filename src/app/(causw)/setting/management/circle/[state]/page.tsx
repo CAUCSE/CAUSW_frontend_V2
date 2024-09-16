@@ -31,7 +31,7 @@ const CircleManagement = async ({
         firstNavigation={{ name: "동아리원 목록", state: "member" }}
         navigation={[{ name: "동아리 시청 유저 목록", state: "apply" }]}
         data={data}
-        headers={headers}
+        exportHandler={() => {}}
       />
     </>
   );

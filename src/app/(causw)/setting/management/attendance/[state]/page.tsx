@@ -34,7 +34,7 @@ const AttendanceManagement = async ({
         firstNavigation={{ name: "유저 목록", state: "all" }}
         navigation={[{ name: "승인 대기 목록", state: "waiting" }]}
         data={data}
-        headers={headers}
+        exportHandler={() => {}}
       />
     </>
   );

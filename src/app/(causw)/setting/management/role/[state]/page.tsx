@@ -39,7 +39,6 @@ const RoleManagement = async ({
         firstNavigation={{ name: "학생회장", state: "president" }}
         navigation={navigation}
         data={data}
-        headers={headers}
       />
     </>
   );
