@@ -1,5 +1,3 @@
-import { PreviousButton } from "./ui/previousButton";
-
 export { BASEURL } from "./configs/url";
 export {
   API,
@@ -51,3 +49,4 @@ export { Modal } from "./ui/modal";
 export { PreviousButton } from "./ui/previousButton";
 
 export { Icon } from "./ui/icon";
+export { IconButton } from "./ui/IconButton";
