@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { BarLoader, ClipLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 
 const override: CSSProperties = {
   display: "flex",
