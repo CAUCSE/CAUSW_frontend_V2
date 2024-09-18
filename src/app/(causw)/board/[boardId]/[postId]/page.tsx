@@ -41,9 +41,11 @@ const PostDetailPage = (props: any) => {
     incrementCommentLike,
     decrementCommentLike,
     clearAllOverlays,
+    addChildComment,
   } = useCommentStore();
   const {
     childComments,
+    setChildCommentLikes,
     incrementChildCommentLike,
     decrementChildCommentLike,
   } = useChildCommentStore();
@@ -54,6 +56,7 @@ const PostDetailPage = (props: any) => {
     setPostComment();
     clearAllOverlays();
   };
+
   const handlePostLike = async () => {
     try {
       incrementLike();
@@ -121,6 +124,7 @@ const PostDetailPage = (props: any) => {
         numLike: 0,
         numChildComment: 0,
         childCommentList: [],
+        isCommentLike: false
       };
       const createComment: Comment.CreateCommentDto = {
         content: newComentContent,
@@ -134,11 +138,41 @@ const PostDetailPage = (props: any) => {
           await CommentRscService().createComment(createComment);
         console.log("게시물 댓글 완료: ", createCommentResponse);
       } catch (error) {
-        console.error("즐겨찾기 처리 에러: ", error);
+        console.error("게시물 댓글 처리 에러: ", error);
         decrementComment();
       }
     } else {
-      console.log("대댓글이다ㅏㅏㅏㅏㅏㅏㅏ");
+      const tempChildCommentId = `new_${Date.now()}`;
+      const newChildComment: ChildComment.ChildCommentDto = {
+        id: tempChildCommentId,
+        content: newComentContent,
+        createdAt: Date.now().toString(),
+        updatedAt: Date.now().toString(),
+        isDeleted: false,
+        writerName: name,
+        writerAdmissionYear: admissionYear,
+        writerProfileImage: profileImage,
+        updatable: false,
+        deletable: false,
+        isAnonymous: isAnonymous,
+        numLike: 0,
+        isChildCommentLike: false,
+      };
+      const createChildComment: ChildComment.CreateChildCommentDto = {
+        content: newComentContent,
+        isAnonymous: isAnonymous,
+        parentCommentId: createCommentInfo.commentId!,
+      };
+      try {
+        addChildComment(createCommentInfo.commentId!, newChildComment);
+        setChildCommentLikes(tempChildCommentId, 0);
+        console.log(childComments);
+        const createChildCommentResponse =
+          await ChildCommentRscService().createChildComment(createChildComment);
+        console.log("대댓글 완료: ", createChildCommentResponse);
+      } catch (error) {
+        console.error("게시물 대댓글 처리 에러: ", error);
+      }
     }
   };
 
@@ -176,7 +210,7 @@ const PostDetailPage = (props: any) => {
                     overlayActive={commentData.overlayActive}
                     handleCommentLike={() => handleCommentLike(comment.id)}
                   />
-                  {comment.childCommentList.map((childComment, idx) => (
+                  {commentData.childCommentList.map((childComment, idx) => (
                     <ChildCommentCard
                       key={childComment.id}
                       childComment={childComment}

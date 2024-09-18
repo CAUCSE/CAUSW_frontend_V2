@@ -189,6 +189,9 @@ const BoardPage = () => {
                     key={idx}
                     ref={idx === posts.length - 1 ? lastPostElementRef : null}
                     className="flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+                    onClick={() => {
+                      router.push(`/board/${boardId}/${content.id}`);
+                    }}
                   >
                     <div className="flex w-full flex-col">
                       <div className="flex w-full items-center justify-between">

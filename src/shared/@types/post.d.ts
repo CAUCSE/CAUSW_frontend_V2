@@ -6,13 +6,15 @@ declare namespace Post {
     isDeleted: boolean;
     writerName: string;
     writerAdmissionYear: number;
-    writerProfileImage: string;
-    attachmentList: Array<AttachmentDto>;
+    writerProfileImage: string | null;
+    attachmentList: string[];
     numComment: number;
     numLike: number;
     numFavorite: number;
     isAnonymous: boolean;
     isQuestion: boolean;
+    isPostLike: boolean;
+    isPostFavorite: boolean;
     updatable: boolean;
     deletable: boolean;
     createdAt: string;
@@ -24,11 +26,6 @@ declare namespace Post {
   export interface CommentListDto {
     content: Array<CommentDto>;
     //content: CommentDto[];
-  }
-
-  export interface AttachmentDto {
-    originalFileName: string;
-    downloadFilePath: string;
   }
 
   export interface CreatePostDto {
