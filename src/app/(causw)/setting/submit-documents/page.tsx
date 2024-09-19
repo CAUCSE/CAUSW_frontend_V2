@@ -12,7 +12,7 @@ const SubmitDocumentsPage = () => {
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { updateUserInfo } = UserService();
+  const { updateUserAcademicInfo } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const router = useRouter(); // useRouter 초기화
@@ -88,7 +88,7 @@ const SubmitDocumentsPage = () => {
       });
 
       // 서버에 전송하는 로직 작성 (axios 예시)
-      const response = await updateUserInfo(formData);
+      const response = await updateUserAcademicInfo(formData);
       console.log(response);
       if (response.status === 200) {  // 성공한 경우
         console.log(11);
