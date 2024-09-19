@@ -1,5 +1,3 @@
-import { PreviousButton } from "./ui/previousButton";
-
 export { BASEURL } from "./configs/url";
 export {
   API,
@@ -49,5 +47,6 @@ export { WindowSizeListener } from "./listener/WindowSizeListener";
 
 export { Modal } from "./ui/modal";
 export { PreviousButton } from "./ui/previousButton";
-
+export { Loading } from "./ui/Loading";
 export { Icon } from "./ui/icon";
+export { IconButton } from "./ui/IconButton";
