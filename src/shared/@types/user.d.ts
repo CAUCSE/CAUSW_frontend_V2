@@ -212,19 +212,26 @@ declare namespace User {
     password: string;
     pwConfirm: string;
     studentId: string;
+    admissionYearString: string;
+    nickname: string;
+    major: string;
+    agreeToTerms: boolean;
+    agreeToPopup: boolean;
+    phoneNumberHyphen: string;
+  }
+
+  export interface SignUpFormPost
+  {        
+    email: string;
+    name: string;
+    password: string;
+    studentId: string;
     admissionYear: number;
     nickname: string;
     major: string;
-    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
-    currentCompletedSemester: number | null;
-    agreeToTerms: boolean;
-    agreeToPopup: boolean;
-    graduationYear: number | null;
-    graduationMonth: number | null;
-    phoneNumberHyphen: string;
-    files: File[]; 
-    profileImage: string | null;
+    phoneNumber: string;
   }
+
 
   export interface FindPostsResponse {
     posts: Model.HistoryPost[];

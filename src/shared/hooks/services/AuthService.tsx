@@ -43,15 +43,21 @@ export const AuthService = () => {
   };
 
 
-  const signup = async (selectedData: any) => {
+  const signup = async (selectedData: User.SignUpFormPost) => {
     try {
       // axios POST 요청
-      const response = await axios.post(`https://13.209.181.162.nip.io:8081/api/v1/users/sign-up`, selectedData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+        const response = await axios.post(`https://13.209.181.162.nip.io:8081/api/v1/users/sign-up`, selectedData, {
+          headers: {
+           'Content-Type': 'application/json',
+         },
+       });
+/*
+          const response = await API.post(`${URI}/sign-up`, selectedData, {
+          headers: {
+            'Content-Type': 'application/json',
         },
       });
-      
+   */    
       return response.data; // 서버에서 받은 데이터를 리턴
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -72,15 +78,12 @@ export const AuthService = () => {
       const response = (await API.get(`${URI}/${email}/is-duplicated`, {
         params: { email }
       })) as AxiosResponse<any>;  // 타입 변경
-      console.log(response);
       return response.data.result;  // 서버에서 받은 데이터를 리턴
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Axios error:', error.response?.data?.message || 'Unknown error');
-        throw new Error(error.response?.data?.message || 'Failed to check email duplication');
+        throw new Error(error.response?.data?.message || '이메일 중복검사에 실패했습니다.');
       } else {
-        console.error('General error:', error);
-        throw new Error('An unexpected error occurred');
+        throw new Error('알 수 없는 오류가 발생했습니다.');
       }
     }
   }
@@ -94,14 +97,28 @@ export const AuthService = () => {
       return response.data.result;  // 서버에서 받은 데이터를 리턴
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error('Axios error:', error.response?.data?.message || 'Unknown error');
-        throw new Error(error.response?.data?.message || 'Failed to check email duplication');
+        throw new Error(error.response?.data?.message || '닉네임 중복검사에 실패했습니다.');
       } else {
-        console.error('General error:', error);
-        throw new Error('An unexpected error occurred');
+        throw new Error('알 수 없는 오류가 발생했습니다.');
       }
     }
   }
 
-  return { signin, signup, checkEmailDuplicate, checkNicknameDuplicate };
+  const checkStudentIdDuplicate = async (studentId: string): Promise<boolean> => {
+    try {      
+      const response = (await API.get(`${URI}/${studentId}/is-duplicated-student-id`, {
+        params: { studentId }
+      })) as AxiosResponse<any>;  // 타입 변경
+      return response.data.result;  // 서버에서 받은 데이터를 리턴
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error(error.response?.data?.message || '학번 중복검사에 실패했습니다.');
+      } else {
+        throw new Error('알 수 없는 오류가 발생했습니다.');
+      }
+    }
+  }
+
+  return { signin, signup, checkEmailDuplicate, checkNicknameDuplicate, checkStudentIdDuplicate};
 };
