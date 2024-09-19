@@ -15,5 +15,15 @@ export const UserService = () => {
     setUserStore(data);
   };
 
-  return { getUserInfo };
+  const updateUserInfo = async (data: any) => {
+    try
+  {  const response = (await API.put(`${URI}/academic-record/update`, data)) as AxiosResponse;
+    return response;
+  } catch(error)
+  {
+    throw error;
+  }  
+  }
+
+  return { getUserInfo, updateUserInfo };
 };

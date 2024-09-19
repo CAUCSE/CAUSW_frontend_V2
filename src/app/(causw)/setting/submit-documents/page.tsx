@@ -2,6 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import axios, {AxiosResponse} from 'axios';
+import { UserService, useUserStore } from '@/shared';
+import { useRouter } from 'next/navigation';
 
 
 const SubmitDocumentsPage = () => {
@@ -9,6 +12,14 @@ const SubmitDocumentsPage = () => {
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { updateUserInfo } = UserService();
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const router = useRouter(); // useRouter 초기화
+  const id = useUserStore((state) => state.id)
+
+
+
 
   // 졸업 년도 선택에 쓰이는 yearOptions
   const startYear = 1972; 
@@ -17,9 +28,15 @@ const SubmitDocumentsPage = () => {
   for (let year = currentYear; year >= startYear; year--) {
     yearOptions.push(year);
   }
-
-
-
+  
+  // 완료 모달
+  const closeCompleteModal = () => {
+    if (isSuccessModalOpen) {
+      router.push('/setting');
+    } else {
+      setIsSuccessModalOpen(false);
+    }
+  };
 
 
   const files = watch("images") as FileList;
@@ -63,7 +80,7 @@ const SubmitDocumentsPage = () => {
       formData.append('graduationYear', data.graduationYear.toString());
       formData.append('graduationType', data.graduationType.toString());
       formData.append('note', data.note);
-
+      formData.append('targetUserId', id);
 
       // 파일들을 FormData에 추가
       Array.from(data.images).forEach((file, index) => {
@@ -71,13 +88,30 @@ const SubmitDocumentsPage = () => {
       });
 
       // 서버에 전송하는 로직 작성 (axios 예시)
-      // const response = await axios.post('/api/your-endpoint', formData);
-
+      const response = await updateUserInfo(formData);
+      console.log(response);
+      if (response.status === 200) {  // 성공한 경우
+        console.log(11);
+        setIsSuccessModalOpen(true);
+      }
     } catch (error) {
       // 에러 처리
+      console.log(1);
       console.log(error);
     }
   };
+
+    // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
+    const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
+    const closeInCompleteModal = () => {
+      setIsIncompleteModalOpen(false);
+    }
+
+    const onInvalid = (errors: any) => {
+      // 모든 필드를 입력하지 않았을 경우에 대한 로직
+      console.error('Form Errors:', errors);
+      setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
+    };
 
   return (
     <div className="p-6">
@@ -88,7 +122,7 @@ const SubmitDocumentsPage = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-8">
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="grid grid-cols-1 gap-8">
         {/* 학적 상태 선택 */}
         <div className="flex flex-col">
           <label className="text-lg font-semibold mb-2">본 학기 학적 상태</label>
@@ -166,7 +200,7 @@ const SubmitDocumentsPage = () => {
             {...register("note", { maxLength: 500,
               required: "특이사항을 작성해주세요."
              })}
-            placeholder="특이사항을 작성해주세요."
+            placeholder="특이사항을 작성해주세요. ( 500자 이내 )"
             className="p-2 border border-gray-300 rounded-md w-full mb-1"
           />
           {errors.note && <span className="text-red-500">{errors.note.message}</span>}
@@ -239,6 +273,28 @@ const SubmitDocumentsPage = () => {
             </div>
           </div>
         )}
+
+        {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
+              {isIncompleteModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={closeInCompleteModal}>
+          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full grid justify-items-center">
+            <h2 className="text-xl font-bold mb-4">입력되지 않은 항목이 있습니다</h2>
+            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
+          </div>
+        </div>
+      )}
+            {/* 회원가입을 성공했을 때 표시되는 모달 */}
+            {isSuccessModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeCompleteModal}>
+          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
+            <div className = "grid justify-items-center">
+            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 완료</h2>
+            <p>화면을 클릭하면 환경 설정 페이지로 이동합니다.</p>
+
+            </div>
+          </div>
+        </div>
+      )}
 
         <div className="mt-8 flex justify-center">
           <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
