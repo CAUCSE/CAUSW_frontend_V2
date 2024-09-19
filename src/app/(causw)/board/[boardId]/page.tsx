@@ -153,7 +153,7 @@ const BoardPage = () => {
         <LoadingComponent />
       ) : (
         <>
-          <div className="fixed flex h-20 w-[calc(100%-20px)] items-end bg-[#F8F8F8] px-2 sm:h-28 sm:px-10 sm:pb-2 lg:w-[calc(100%-29rem-20px)]">
+          <div className="flex h-24 w-full items-end px-5 sm:px-10">
             <PreviousButton />
 
             <div className="z-10 flex w-full items-center justify-between">
@@ -162,7 +162,12 @@ const BoardPage = () => {
               </div>
               <div className="flex items-center gap-2 sm:gap-4">
                 {/* TODO 게시글 생성 페이지로 이동 */}
-                <IconButton iconName={"add"} callback={() => {}} />
+                <IconButton
+                  iconName={"add"}
+                  callback={() => {
+                    router.push(`/board/${boardId}/create`);
+                  }}
+                />
                 {/* TODO 게시판 알람 설정 */}
                 <IconButton
                   iconName={isBoardFavorite ? "alarm_active" : "alarm_inactive"}
@@ -177,7 +182,7 @@ const BoardPage = () => {
               </div>
             </div>
           </div>
-          <div className="absolute top-24 flex h-[calc(100%-6rem)] w-full flex-col gap-4 overflow-y-auto px-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
+          <div className="absolute top-28 flex h-[calc(100%-7rem)] w-full flex-col gap-4 overflow-y-auto px-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
             {posts.length === 0 ? (
               <div className="flex h-full w-full items-center justify-center text-2xl">
                 게시글이 없습니다.
