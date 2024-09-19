@@ -1,66 +1,109 @@
 "use client";
-
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';  // useRouter import
-import { useLayoutStore } from '@/shared';
 import { AuthService } from '@/shared';
-import axios, { AxiosResponse } from 'axios';
 
 const SignUpPage = () => {
-  const { register, handleSubmit, watch, trigger, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.IAuthForm>({mode: 'onBlur'});
+  const { register, handleSubmit, watch, formState: { errors }, getValues, setValue, setError, clearErrors} = useForm<User.SignUpForm>({mode: 'onBlur'});
   const router = useRouter(); // useRouter 초기화
 
-  const { signup, checkEmailDuplicate, checkNicknameDuplicate } = AuthService();
-  const [isEmailDuplicate, setIsEmailDuplicate] = useState(false);
-  const [isNicknameDuplicate, setIsNicknameDuplicate] = useState(false);
+  const { signup, checkEmailDuplicate, checkNicknameDuplicate, checkStudentIdDuplicate } = AuthService();
 
+  // 이메일 중복 및 형식 검사
+  const handleEmailBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+    const email = e.target.value;
+
+    if (!email) return; // 빈 값일 경우 무시
+
+    // 이메일 형식 검사
+    const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (!emailPattern.test(email)) {
+      setError("email", {
+        type: "pattern",
+        message: "이메일 형식으로 입력해주세요.",
+      });
+      return;
+    } else {
+      clearErrors("email");
+    }
+
+    // 이메일 중복 검사
+    const isDuplicate = await checkEmailDuplicate(email);
+    if (isDuplicate) {
+      setError("email", {
+        type: "duplicate",
+        message: "이미 사용 중인 이메일입니다.",
+      });
+    } else {
+      clearErrors("email");
+    }
+  };
+
+  // 닉네임 중복 검사 및 형식 검사
+  const handleNicknameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+    const nickname = e.target.value;
+
+    if (!nickname) return; // 빈 값일 경우 무시
+
+    // 닉네임 길이 및 형식 검사
+    if (nickname.length < 1 || nickname.length > 16) {
+      setError("nickname", {
+        type: "length",
+        message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요.",
+      });
+      return;
+    } else {
+      clearErrors("nickname");
+    }
+
+    // 닉네임 중복 검사
+    const isDuplicate = await checkNicknameDuplicate(nickname);
+    if (isDuplicate) {
+      setError("nickname", {
+        type: "duplicate",
+        message: "이미 사용 중인 닉네임입니다.",
+      });
+    } else {
+      clearErrors("nickname");
+    }
+  };
+
+    // 학번 중복 및 형식 검사
+    const handleStudentIdBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+      const studentId = e.target.value;
   
-  const [emailError, setEmailError] = useState<string | null>(null);
+      if (!studentId) return; // 빈 값일 경우 무시
+  
+      // 학번 형식 검사
+      const studentIdPattern = /^\d{8}$/;
+      if (!studentIdPattern.test(studentId)) {
+        setError("studentId", {
+          type: "pattern",
+          message: "학번은 8자리로 입력해주세요.",
+        });
+        return;
+      } else {
+        clearErrors("studentId");
+      }
+  
+      // 학번 중복 검사
+      const isDuplicate = await checkStudentIdDuplicate(studentId);
+      if (isDuplicate) {
+        setError("studentId", {
+          type: "duplicate",
+          message: "이미 사용 중인 학번입니다.",
+        });
+      } else {
+        clearErrors("studentId");
+      }
+    };
 
-
-  // const [nicknameError, setNicknameError] = useState<string | null>(null);
-
-  // // 닉네임 중복 검사 함수
-  // const checkNicknameDuplicate = async (nickname: string) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:8080/api/v1/users/${nickname}/is-duplicated-nickname`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       }
-  //     });
-  //     console.log(response);
-      
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       return data; // 서버에서 받은 응답 데이터 반환
-  //     } else {
-  //       console.log(response);
-  //       console.error('Nickname duplicate check failed');
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     console.error('Nickname duplicate check error:', error);
-  //     return null;
-  //   }
-  // };
-
-  // // 닉네임 중복 검사 트리거 함수
-  // const validateNickname = async (nickname: string) => {
-  //   if (!nickname) {
-  //     return; // 닉네임이 비어있을 경우 중복 검사하지 않음
-  //   }
-
-  //   const result = await checkNicknameDuplicate(nickname);
-  //   if (result && !result.isAvailable) {
-  //     setError('nickname', { type: 'manual', message: result.message || '이미 사용 중인 닉네임입니다.' });
-  //   } else {
-  //     setNicknameError(null);
-  //   }
-  // };
-
+// 뒤로가기 버튼
+  const handleBack = () => {
+    router.push('/auth/signin'); 
+  };
 
     // 비밀번호 숨김 / 보임 기능
 
@@ -93,38 +136,7 @@ const SignUpPage = () => {
     }
   } 
 
-
   
-  // 파일 업로드할 때 파일 이미지들 배열로 저장
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const files = watch("files") as FileList;
-  useEffect(() => {
-    if (files && files.length > 0) {
-      const newImagePreviews = Array.from(files).map(file =>
-        URL.createObjectURL(file)
-      );
-      setImagePreviews(prevPreviews => [...newImagePreviews.reverse(), ...prevPreviews]);
-      console.log(imagePreviews);
-    }
-  }, [files]);
-
-  // 이미지 클릭 시 확대 기능
-
-  const handleImageClick = (src: string) => {
-    setSelectedImage(src);
-  };
-
-  const closeImage = () => {
-    setSelectedImage(null);
-  };
-
-  // 이미지 삭제 기능
-
-  const handleImageDelete = (index: number) => {
-    setImagePreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
-  };
   // 이용약관 선택 여부
   const handleCheckboxChange = (checked: boolean) => {
     setValue('agreeToTerms', checked);
@@ -138,10 +150,7 @@ const SignUpPage = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const [selectedStatus, setSelectedStatus] = useState(''); // 학적상태 선택에 따른 UI 표시
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStatus(e.target.value);
-  };
+
 
   // 회원가입 성공, 혹은 실패 시 모달
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -159,20 +168,39 @@ const SignUpPage = () => {
     }
   };
 
-  // 제출 
-
-  interface SignUpResponse {
-    message: string;  // 서버가 반환하는 성공 메시지
-  }
-  
-  interface ErrorResponse {
-    message: string;  // 서버가 반환하는 에러 메시지
-  }
-  
-  const onSubmit = async (data: User.IAuthForm) => {
-  
+  // 제출
+  const onSubmit = async (data: User.SignUpForm) => {
+    
     try {
-      const response = await signup(data);  // signup 호출
+      const {
+        email,
+        name,
+        password,
+        studentId,
+        admissionYearString,
+        nickname,
+        major,
+        phoneNumberHyphen,
+      } = data;
+            
+      // phoneNumber에서 하이픈 빼서 저장
+      const phoneNumber = phoneNumberHyphen.replace(/-/g, '');
+
+      // admissionYear 숫자 값으로 저장
+      const admissionYear = Number(admissionYearString);
+
+      const selectedData = {
+        email,
+        name,
+        password,
+        studentId,
+        admissionYear,
+        nickname,
+        major,
+        phoneNumber
+      }
+      
+      const response = await signup(selectedData);  // signup 함수 호출
   
       if (response) {  // 성공한 경우
         setIsSuccessModalOpen(true);
@@ -198,6 +226,7 @@ const SignUpPage = () => {
   };
   
 
+
   // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
   const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
   const closeInCompleteModal = () => {
@@ -209,15 +238,23 @@ const SignUpPage = () => {
     setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
   };
 
-  const handleError = (errorData: { errorCode: number; message: string, field?: string }) => {
-    const { errorCode, message, field } = errorData;
-    setServerError(errorData.message);
-  };
   
   return (
     <div className="flex items-center justify-center min-h-screen bg-white-100 w-full">
-      <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="">
-        
+      <div></div>
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)} className=" w-80 lg:w-96">
+      <div className="sticky top-0 left-4 bg-white lg:hidden z-10 w-full flex justify-left items-left py-2 mb-4 mt-8">
+        <button
+          onClick={handleBack}
+          className="text-black-500 hover:text-gray-500 flex items-left"
+        >
+            {/* SVG 화살표 아이콘 */}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>  
+          <span>이전</span>
+        </button>
+      </div>
         <h1 className="sm:text-3xl text-2xl font-bold mb-6 text-center mt-8">회원가입</h1>
         
         <div className="mb-6 ml-4 mr-4">
@@ -228,24 +265,13 @@ const SignUpPage = () => {
             placeholder="아이디를 입력해주세요" 
             {...register('email', { 
               required: '아이디를 입력해주세요',              
-              
-              pattern: {
-                value: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: '이메일 형식으로 입력해주세요'
-              }})}
+              })}
 
-              onBlur={async (e) => {
-                const email = e.target.value;
-                if (email) {
-                  const isDuplicate = await checkEmailDuplicate(email);
-                  console.log(isDuplicate);
-                  setIsEmailDuplicate(isDuplicate);
-                }
-              }}
+              onBlur={handleEmailBlur}
 
           />
         {errors.email && <p>{errors.email.message}</p>}
-        {isEmailDuplicate && <p>이미 사용 중인 이메일입니다.</p>}
+
         </div>
 
         <div className="mb-6 ml-4 mr-4">
@@ -347,36 +373,19 @@ const SignUpPage = () => {
             type="text" 
             placeholder="닉네임을 입력해주세요" 
             {...register('nickname', { 
-              required: '닉네임을 입력해주세요',
-
-              minLength: {
-                value: 1,
-                message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요"
-              },
-              maxLength: {
-                value: 16,
-                message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요"
-              }
+              required: '닉네임을 입력해주세요'
             })}
-            onBlur={async (e) => {
-              const nickname = e.target.value;
-              if (nickname) {
-                const isDuplicate = await checkNicknameDuplicate(nickname);
-                console.log(isDuplicate);
-                setIsNicknameDuplicate(isDuplicate);
-              }
-            }}
+            onBlur={handleNicknameBlur}
 
         />
       {errors.nickname && <p>{errors.nickname.message}</p>}
-      {isNicknameDuplicate && <p>이미 사용 중인 닉네임입니다.</p>}
         </div>
 
         <div className="mb-6 ml-4 mr-4">
           <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">입학년도</label>
           <select 
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
-            {...register('admissionYear', { 
+            {...register('admissionYearString', { 
               required: '입학 년도를 선택해주세요' })}
           >
             <option value="">-선택해주세요-</option>
@@ -386,7 +395,7 @@ const SignUpPage = () => {
               </option>
             ))}
           </select>
-          <p>{errors?.admissionYear?.message}</p>
+          <p>{errors?.admissionYearString?.message}</p>
         </div>
 
         <div className="mb-6 ml-4 mr-4">
@@ -398,14 +407,9 @@ const SignUpPage = () => {
             {...register('studentId', { 
               required:
               '학번을 입력해주세요',
-              pattern:
-              {
-                value : /^\d{8}$/,
-                message : '학번은 8자리로 입력해주세요'
-              } 
             }
-              
             )}
+            onBlur = {handleStudentIdBlur}
           />
           <p>{errors?.studentId?.message}</p>
         </div>
@@ -428,167 +432,14 @@ const SignUpPage = () => {
             className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md" 
             type="text" 
             placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234" 
-            {...register('phoneNumber', { 
+            {...register('phoneNumberHyphen', { 
               required: '연락처를 입력해주세요',
               pattern: {
                 value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
                 message: '전화번호 형식이 아닙니다.'
               } })}
           />
-          <p>{errors?.phoneNumber?.message}</p>
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <div className = "flex sm:flex-col">
-            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2 sm:mb-0">학적 상태</label>
-            <p className="text-md text-red-500 mt-1 ml-4 sm:ml-0">(졸업 선택 시 추후 재학/휴학 전환이 불가합니다)</p>
-          </div>
-          <select
-            className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
-            {...register('academicStatus', { 
-              required: '학적 상태를 선택해주세요' })}
-              onChange={handleStatusChange}
-          >
-            <option value="">-선택해주세요-</option>
-            <option key="ENROLLED" value= "ENROLLED">재학</option>
-            <option key="LEAVE_OF_ABSENCE" value = "LEAVE_OF_ABSENSE">휴학</option>
-            <option key="GRADUATED" value="GRADUATED">졸업</option>
-          </select>
-          <p>{errors?.academicStatus?.message}</p>
-        </div>
-        
-        {(selectedStatus === 'ENROLLED'|| selectedStatus === 'LEAVE_OF_ABSENCE') &&(
-        <div className="mb-6 ml-4 mr-4">
-          <div className = "flex sm:flex-col">
-            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2 sm:mb-0">현재 등록 완료된 학기</label>
-            <p className="text-md text-red-500 mt-1 ml-4 sm:ml-0">(등록금을 납부한 학기)</p>
-          </div>
-          <select 
-            className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
-            {...register('currentCompletedSemester', { 
-              required: '현재 등록 완료된 학기를 선택해주세요' })}
-          >
-            <option value="">-선택해주세요-</option>
-            {currentCompletedSemester.map((option, index) => (
-              <option key={index + 1} value={index + 1}>
-                {`${index + 1}차 학기 (${option})`}
-              </option>
-            ))}
-            <option key="9" value= '9'>9차 학기 이상</option>
-          </select>
-          <p>{errors?.currentCompletedSemester?.message}</p>
-        </div>)}
-        
-
-        {selectedStatus === 'GRADUATED' &&(
-        <div>
-          <div className="mb-6 ml-4 mr-4 max-w-md">
-            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">졸업 시기</label>
-
-            <div className="flex space-x-4 sm:space-x-0 sm:flex-col">
-
-              <div>
-                <div className="flex space-x-4">
-                  <p className = "text-gray-700 sm:text-xl text-lg font-bold mb-2 p-2">년</p>
-                  <select 
-                    className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
-                    {...register('graduationYear', { 
-                      required: '졸업 년도를 선택해주세요' })}
-                  >
-                    <option value="">-선택해주세요-</option>
-                    {yearOptions.map(option => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <p>{errors?.graduationYear?.message}</p>
-
-              </div>
-
-              <div>
-                <div className="flex space-x-4">
-                  <p className = "text-gray-700 sm:text-xl text-lg font-bold mb-2 p-2">월</p>
-                  <select 
-                    className="p-2 border-2 border-gray-300 rounded-lg w-full max-w-md"
-                    {...register('graduationMonth', { 
-                      required: '졸업한 월을 선택해주세요' })}
-                  >
-                    <option value="">-선택해주세요-</option>
-                    <option key="1" value="2">2월</option>
-                    <option key="2" value="8">8월</option>
-                  </select>
-                </div>
-                <p>{errors?.graduationMonth?.message}</p>
-              </div>
-            </div>
-          </div>
-
-
-        </div>)}
-
-
-
-        <div className="mb-2 ml-4 mr-4 max-w-md">
-          <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학부 재적/졸업 증빙 자료</label>
-          <p className="text-md text-red-500 mt-1">
-          ex) mportal &gt; 내 정보수정 &gt; 등록현황, 재학/휴학 증명서, 졸업 증명서, 졸업장 등
-            증빙 자료 포함 필수 요소: 이름, 학번, 학부(학과), 현재 학적 상태(재학/휴학/졸업), 재학/휴학의 경우 수료 학기 차수, 졸업의 경우 졸업 시기
-          </p>
-          
-          <div className="flex items-center justify-left border-2 border-gray-300 rounded-lg p-4 overflow-auto">
-            <div className="w-32 h-32 border-2 border-gray-300 rounded-lg p-4 mr-4 flex-shrink-0 basis-1/3">
-              <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center h-full">
-                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                <span className="text-gray-600 mt-2 text-center sm:hidden">파일을 선택하세요</span>
-                <input id="file-upload" type="file" multiple className="hidden" {...register('files', { 
-                  required: '파일을 첨부해 주세요' })} />
-              </label>            
-            </div>
-            {imagePreviews.length > 0 && (
-              <div className="flex flex-nowrap basis-1/3">
-                {imagePreviews.map((preview, index) => (
-                  <div key={index} className="relative w-full h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 mr-4">
-                    <img
-                      src={preview}
-                      alt={`Preview ${index + 1}`}
-                      className="object-cover w-full h-full cursor-pointer"
-                      onClick={() => handleImageClick(preview)}
-                    />
-                    <button
-                      type="button"
-                      className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
-                      onClick={() => handleImageDelete(index)}
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className = "ml-4 mb-4">
-        {errors.files && (
-          <p className="text-gray-700 sm:text-xl text-lg font-bold mt-2">{errors.files.message}</p>
-        )}
+          <p>{errors?.phoneNumberHyphen?.message}</p>
         </div>
 
         <div className="flex items-center ml-4">
@@ -618,14 +469,7 @@ const SignUpPage = () => {
         </div>
       </form>
 
-      {/* 사진을 클릭했을 때 표시되는 모달 */}
-      {selectedImage && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeImage}>
-          <div className="bg-white p-4 rounded-lg max-w-3xl max-h-full overflow-auto">
-            <img src={selectedImage} alt="Selected" className="object-contain w-full h-full" />
-          </div>
-        </div>
-      )}
+
 
       {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
             {isIncompleteModalOpen && (
@@ -640,7 +484,7 @@ const SignUpPage = () => {
       {/* 회원가입을 성공했을 때 표시되는 모달 */}
       {isSuccessModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center h-1/3 overflow-y-auto">
+          <div className="bg-white p-8 rounded-lg justify-center items-center overflow-y-auto">
             <div className = "grid justify-items-center">
             <h2 className="text-xl font-bold mb-4">회원가입 완료</h2>
             <p>회원가입이 성공적으로 완료되었습니다!</p>
@@ -672,7 +516,7 @@ const SignUpPage = () => {
 
       {/* 이용약관 모달 */}
 {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeModal}>
           <div className="bg-white p-8 rounded-lg max-w-lg w-full h-5/6 overflow-y-auto">
             <div>
             <>

@@ -203,33 +203,37 @@ declare namespace User {
     refreshToken: string;
   }
   
-  export enum AcademicStatus {
-    ENROLLED = "ENROLLED",
-    LEAVE_OF_ABSENCE = "LEAVE_OF_ABSENCE",
-    GRADUATED = "GRADUATED",
-  }
   
   // Signup
-  export interface IAuthForm 
+  export interface SignUpForm 
   {        
     email: string;
     name: string;
     password: string;
     pwConfirm: string;
     studentId: string;
+    admissionYearString: string;
+    nickname: string;
+    major: string;
+    agreeToTerms: boolean;
+    agreeToPopup: boolean;
+    phoneNumberHyphen: string;
+  }
+
+  export interface SignUpFormPost
+  {        
+    email: string;
+    name: string;
+    password: string;
+    studentId: string;
     admissionYear: number;
     nickname: string;
     major: string;
-    academicStatus: AcademicStatus;
-    currentCompletedSemester: number;
-    agreeToTerms: boolean;
-    agreeToPopup: boolean;
-    graduationYear: number | null;
-    graduationMonth: number | null;
     phoneNumber: string;
     profileImage: nullable;
     files: FileList; 
   }
+
 
   export interface CreateUserAcademicRecordApplicationRequestDto{
     targetAcademicStatus: 
