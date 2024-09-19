@@ -231,6 +231,22 @@ declare namespace User {
     files: FileList; 
   }
 
+  export interface CreateUserAcademicRecordApplicationRequestDto{
+    targetAcademicStatus: 
+    "ENROLLED"
+    | "LEAVE_OF_ABSENCE"
+    | "GRADUATED"
+    | "DROPPED_OUT"
+    | "PROBATION"
+    | "PROFESSOR"
+    | "UNDETERMINED";
+    targetCompletedSemester: number;
+    graduationYear: number;
+    graduationType: "FEBRUARY" | "AUGUST";
+    note: string;
+    images: FileList;
+  }
+
   export interface FindPostsResponse {
     posts: Model.HistoryPost[];
     last: boolean;
