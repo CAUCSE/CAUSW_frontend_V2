@@ -7,10 +7,8 @@ export const UserService = () => {
 
   const setUserStore = useUserStore((state) => state.setUserStore);
 
-  const getUserInfo = async () => {
-    const { data } = (await API.get(
-      `${URI}/me`
-    )) as AxiosResponse<User.UserDto>;
+  const getMe = async () => {
+    const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<User.User>;
 
     setUserStore(data);
   };
@@ -54,5 +52,5 @@ export const UserService = () => {
     }
   }
 
-  return { getUserInfo, getUserInfoRevised, updateUserInfo, updateUserAcademicInfo, checkCurrentAcademicRecord };
+  return { getMe, getUserInfoRevised, updateUserInfo, updateUserAcademicInfo, checkCurrentAcademicRecord };
 };

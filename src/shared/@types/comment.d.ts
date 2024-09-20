@@ -8,10 +8,11 @@ declare namespace Comment {
     postId: string;
     writerName: string;
     writerAdmissionYear: number;
-    writerProfileImage: string;
+    writerProfileImage: string | null;
     updatable: boolean;
     deletable: boolean;
     isAnonymous: boolean;
+    isCommentLike: boolean;
     numLike: number;
     numChildComment: number;
     childCommentList: Array<ChildCommentDto>;

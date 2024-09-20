@@ -1,6 +1,5 @@
 declare namespace User {
-  //DTO
-  export interface UserDto {
+  export interface User {
     admissionYear: number;
     circleIdIfLeader: string[] | null;
     circleNameIfLeader: string[] | null;
@@ -8,7 +7,7 @@ declare namespace User {
     id: string;
     name: string;
     profileImage: string;
-    role: Role;
+    roles: Role[];
     state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
     studentId: string;
   }
@@ -25,25 +24,20 @@ declare namespace User {
     | "LEADER_CIRCLE"
     | "LEADER_ALUMNI"
     | "COMMON"
-    | "PROFESSOR"
-    | "COUNCIL_N_LEADER_CIRCLE"
-    | "LEADER_1_N_LEADER_CIRCLE"
-    | "LEADER_2_N_LEADER_CIRCLE"
-    | "LEADER_3_N_LEADER_CIRCLE"
-    | "LEADER_4_N_LEADER_CIRCLE";
+    | "PROFESSOR";
 
   // findByName
-  export type FindByNameResponseDto = UserDto[];
+  export type FindByNameResponseDto = User[];
   export type FindByNameResponse = Model.User[];
 
   // updateRole
   export interface UpdateRoleRequestDto {
-    role: UserDto["role"];
+    role: User["role"];
     circleId?: string;
   }
 
   // findAllAdmissions
-  export interface AdmissionUserDto {
+  export interface AdmissionUser {
     admissionYear: number;
     attachImage: string | null;
     createdAt: string;
@@ -53,87 +47,17 @@ declare namespace User {
     userEmail: string;
     userName: string;
     //#71 추가
-    userState: UserDto["state"];
-  }
-
-  export interface FindAllAdmissionsResponseDto {
-    content: AdmissionUserDto[];
-    last: boolean;
-
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  }
-  export interface FindAllAdmissionsResponse {
-    users: Model.AdmissionUser[];
-    last: boolean;
-  }
-
-  // findByState
-  export interface FindByStateResponseDto {
-    content: UserDto[];
-    last: boolean;
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  }
-  export interface FindByStateResponse {
-    users: Model.User[];
-    last: boolean;
+    userState: User["state"];
   }
 
   // findPrivilegedUsers
   export interface FindPrivilegedUsersResponseDto {
-    presidentUser: UserDto[];
-    vicePresidentUser: UserDto[];
-    councilUsers: UserDto[];
-    leaderGradeUsers: UserDto[];
-    leaderCircleUsers: UserDto[];
-    leaderAlumni: UserDto[];
+    presidentUser: User[];
+    vicePresidentUser: User[];
+    councilUsers: User[];
+    leaderGradeUsers: User[];
+    leaderCircleUsers: User[];
+    leaderAlumni: User[];
   }
 
   export interface FindPrivilegedUsersResponse {
@@ -342,12 +266,13 @@ declare namespace User {
   }
 
   //Store
-  export interface UseUserStore extends UserDto {
-    setUserStore: (props: User.UserDto) => void;
+  export interface UseUserStore extends User {
+    setUserStore: (props: User.User) => void;
 
     roleTxt: () => string;
     nameWithAdmission: () => string;
     profileImageSrc: () => string;
+    isAdmin: () => boolean;
     isStudent: () => boolean;
     isProfessor: () => boolean;
     isAdmin: () => boolean;
@@ -358,4 +283,69 @@ declare namespace User {
     isStudentLeader: () => boolean;
     isAlumniLeader: () => boolean;
   }
+
+  //DTO
+  export type UserDto = User & Error.ApiErrorResponse;
+
+  // findByState
+  export type FindByStateResponseDto = {
+    content: User[];
+    last: boolean;
+    //#71 추가
+    empty: boolean;
+    first: boolean;
+    number: number;
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      unpaged: boolean;
+    };
+    size: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    totalElements: number;
+    totalPages: number;
+  } & Error.ApiErrorResponse;
+
+  export type FindAllAdmissionsResponseDto = {
+    content: AdmissionUser[];
+    last: boolean;
+
+    //#71 추가
+    empty: boolean;
+    first: boolean;
+    number: number;
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      unpaged: boolean;
+    };
+    size: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    totalElements: number;
+    totalPages: number;
+  } & Error.ApiErrorResponse;
 }

@@ -4,7 +4,7 @@ import { usePostStore, useCommentStore, useChildCommentStore, PostRscService } f
 
 export const usePostDetail = (postId: string) => {
   const { setPost } = usePostStore();
-  const {setCommentLikes} = useCommentStore();
+  const {setComments} = useCommentStore();
   const {setChildCommentLikes} = useChildCommentStore();
   const { getPostById } = PostRscService();
 
@@ -34,11 +34,10 @@ export const usePostDetail = (postId: string) => {
     const fetchPost = async () => {
       try {
         const postData = await getPostById(postId);
-        console.log(postData.commentList);
         postData.updatedAt = getTimeDifference(postData.updatedAt)
         setPost(postData);  // post와 numLikes를 상태로 설정
         postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
-          setCommentLikes(comment.id, comment.numLike);
+          setComments(comment.id, comment.childCommentList, comment.numLike);
           comment.childCommentList.forEach((childComment: any) => {
             setChildCommentLikes(childComment.id, childComment.numLike);  // 각 대댓글의 좋아요 수 설정
           });
@@ -51,5 +50,5 @@ export const usePostDetail = (postId: string) => {
     if (postId) {
       fetchPost();
     }
-  }, [postId, setPost, setCommentLikes]);
+  }, [postId, setPost, setComments]);
 };

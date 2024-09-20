@@ -1,5 +1,7 @@
-export type ApiErrorResponse = {
-  errorCode: string;
-  message: string;
-  timeStamp: string;
-};
+declare namespace Error {
+  export interface ApiErrorResponse {
+    errorCode: string | undefined;
+    message: string | undefined;
+    timeStamp: string | undefined;
+  }
+}

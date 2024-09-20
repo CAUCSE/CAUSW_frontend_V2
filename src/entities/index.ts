@@ -16,6 +16,11 @@ export {
 export { Header } from "./header/Header";
 
 export { SubHeader } from "./header/SubHeader";
+export { Line } from "./header/Line";
+
+export { CircleElement } from "./element/CircleElement";
+
+export { ExcelExport } from "./export/ExcelExport";
 
 export type {
   IBoardContent,

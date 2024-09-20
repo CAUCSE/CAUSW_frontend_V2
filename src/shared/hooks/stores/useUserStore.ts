@@ -5,20 +5,20 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   email: "",
   name: "",
   admissionYear: 0,
-  role: "COMMON",
+  roles: ["COMMON"],
   profileImage: "",
   studentId: "",
   circleIdIfLeader: null,
   circleNameIfLeader: null,
   state: "ACTIVE",
 
-  setUserStore: (props: User.UserDto) => {
+  setUserStore: (props: User.User) => {
     set(() => ({
       id: props.id,
       email: props.email,
       name: props.name,
       admissionYear: props.admissionYear,
-      role: props.role,
+      roles: props.roles,
       profileImage:
         !props.profileImage || props.profileImage === ""
           ? "/images/default_profile.png"
@@ -31,7 +31,9 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
 
   roleTxt: () => {
-    return UserRoleCodes[get().role];
+    return get()
+      .roles.map((element) => userRoleCodes[element])
+      .join(" / ");
   },
 
   nameWithAdmission: () => {
@@ -45,64 +47,56 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
 
   isStudent: () => {
-    return get().role === "COMMON";
+    return get().roles.includes("COMMON");
   },
 
   isProfessor: () => {
-    return get().role === "PROFESSOR";
+    return get().roles.includes("PROFESSOR");
   },
 
   isAdmin: () => {
-    return get().role === "ADMIN";
+    return get().roles.includes("ADMIN");
   },
 
   isPresidents: () => {
-    return get().role === "PRESIDENT" || get().role === "VICE_PRESIDENT";
+    return (
+      get().roles.includes("PRESIDENT") ||
+      get().roles.includes("VICE_PRESIDENT")
+    );
   },
 
   isVicePresidents: () => {
-    return get().role === "VICE_PRESIDENT";
+    return get().roles.includes("VICE_PRESIDENT");
   },
 
   isCircleLeader: () => {
-    return (
-      get().role === "LEADER_CIRCLE" ||
-      get().role === "COUNCIL_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_1_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_2_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_3_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_4_N_LEADER_CIRCLE"
-    );
+    return get().roles.includes("LEADER_CIRCLE");
   },
 
   isCouncil: () => {
     return (
-      get().role === "COUNCIL" ||
-      get().role === "VICE_PRESIDENT" ||
-      get().role === "COUNCIL_N_LEADER_CIRCLE"
+      get().roles.includes("COUNCIL") ||
+      get().roles.includes("VICE_PRESIDENT") ||
+      get().roles.includes("PRESIDENT")
     );
   },
 
   isStudentLeader: () => {
     return (
-      get().role === "LEADER_1" ||
-      get().role === "LEADER_2" ||
-      get().role === "LEADER_3" ||
-      get().role === "LEADER_4" ||
-      get().role === "LEADER_1_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_2_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_3_N_LEADER_CIRCLE" ||
-      get().role === "LEADER_4_N_LEADER_CIRCLE"
+      get().roles.includes("LEADER_1") ||
+      get().roles.includes("LEADER_2") ||
+      get().roles.includes("LEADER_3") ||
+      get().roles.includes("LEADER_4")
     );
   },
 
   isAlumniLeader: () => {
-    return get().role === "LEADER_ALUMNI";
+    return get().roles.includes("LEADER_ALUMNI");
   },
 }));
 
-export const UserRoleCodes: {
-  [key in User.UserDto["role"]]: string;
+export const userRoleCodes: {
+  [key in User.Role]: string;
 } = {
   ADMIN: "관리자",
   PRESIDENT: "학생회장",
@@ -116,9 +110,4 @@ export const UserRoleCodes: {
   LEADER_ALUMNI: "동문회장",
   COMMON: "학생",
   PROFESSOR: "교수",
-  COUNCIL_N_LEADER_CIRCLE: "학생회 / 동아리장",
-  LEADER_1_N_LEADER_CIRCLE: "1학년 학년대표 / 동아리장",
-  LEADER_2_N_LEADER_CIRCLE: "2학년 학년대표 / 동아리장",
-  LEADER_3_N_LEADER_CIRCLE: "3학년 학년대표 / 동아리장",
-  LEADER_4_N_LEADER_CIRCLE: "4학년 학년대표 / 동아리장",
 };
