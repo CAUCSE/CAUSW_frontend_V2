@@ -34,15 +34,26 @@ const PersonalInfoPage = () => {
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
 
   const router = useRouter();
-  const { getUserInfoRevised, updateUserInfo } = UserService();
+  const { getUserInfoRevised, updateUserInfo, checkCurrentAcademicRecord } = UserService();
+  const { getUserCouncilFeeId, getUserCouncilFeeInfo } = UserCouncilFeeService();
+  const formData = new FormData();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await getUserInfoRevised();
         const userData = response.data;
+        console.log(userData);
 
-        // 서버 응답 데이터를 상태로 설정
+        formData.append('name', await userData.name);
+        formData.append('studentId', await userData.studentId);
+        formData.append('admissionYear', await userData.admissionYear);
+        formData.append('major', await userData.major);
+        formData.append('currentCompletedSemester', await userData.currentCompletedSemester);
+        formData.append('graduationYear', await userData.graduationYear);
+        formData.append('graduationMonth', await userData.graduationType);
+        formData.append('phoneNumber', await userData.phoneNumber);
+
         setProfileImagePreview(userData.profileImage ?? '/images/default_profile.png');
         setValue('nickname', userData.nickname);
         setValue('academicStatus', userData.academicStatus);
@@ -54,6 +65,9 @@ const PersonalInfoPage = () => {
         setGraduationYear(userData.graduationYear);
         setCompletedSemester(userData.currentCompletedSemester);
         setDepartment(userData.major);
+        
+
+
       } catch (error) {
         console.error('Failed to fetch user info:', error);
       }
@@ -71,18 +85,12 @@ const PersonalInfoPage = () => {
     }
   };
 
+
+  // 개인정보 수정한 내용 제출하는 함수
   const onSubmit = async (data: FormValues) => {
-    const formData = new FormData();
     formData.append('nickname', data.nickname);
     formData.append('academicStatus', data.academicStatus);
-    formData.append('name', "푸앙");
-    formData.append('studentId', "20209999");
-    formData.append('admissionYear', "2020");
-    formData.append('major', "소프트웨어학부");
-    formData.append('currentCompletedSemester', '0');
-    formData.append('graduationYear', '2022');
-    formData.append('graduationMonth', '2');
-    formData.append('phoneNumber', "01012345678");
+
 
     if (data.profileImage) {
       formData.append('profileImage', data.profileImage);

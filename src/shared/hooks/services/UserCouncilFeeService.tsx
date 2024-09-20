@@ -2,15 +2,32 @@ import { AxiosResponse } from "axios";
 import { API, useUserStore } from "@/shared";
 
 export const UserCouncilFeeService = () => {
-  const URI = "/api/v1/users-council-fee";
+  const URI = "/api/v1/user-council-fee";
 
 
-  const getUserCouncilFeeInfo = async (data: any) => {
+  const getUserCouncilFeeInfo = async (studentId: string) => {
     try
-{   const response = await API.get(`${URI}/info/${data}`);
-    const id = useUserStore((state) => state.id);
-  
+{   const response = (await API.get(`${URI}/info/${studentId}`)) as AxiosResponse;
+    return response;
 }   
+    catch(error)
+    {
+        throw(error);
+    }
+  }
+
+  const getUserCouncilFeeId = async (studentId: string) => {
+    try
+    {
+        const response = (await API.get(`${URI}/getUserIdByStudentId`,
+            {
+                headers: {
+                    'studentId': studentId,
+                }
+            }
+         )) as AxiosResponse;
+        return response;
+    }
     catch(error)
     {
         throw(error);
@@ -19,5 +36,5 @@ export const UserCouncilFeeService = () => {
 
 
 
-  return { getUserCouncilFeeInfo };
+  return { getUserCouncilFeeInfo, getUserCouncilFeeId };
 };

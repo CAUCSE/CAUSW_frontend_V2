@@ -43,5 +43,16 @@ export const UserService = () => {
   }  
   }
 
-  return { getUserInfo, getUserInfoRevised, updateUserInfo, updateUserAcademicInfo };
+  const checkCurrentAcademicRecord = async () => {
+    try {
+      const response = (await API.get(`${URI}/academic-record/current/not-accepted`)) as AxiosResponse;
+      return response;
+    }
+    catch(error)
+    {
+      throw error;
+    }
+  }
+
+  return { getUserInfo, getUserInfoRevised, updateUserInfo, updateUserAcademicInfo, checkCurrentAcademicRecord };
 };
