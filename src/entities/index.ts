@@ -23,6 +23,8 @@ export type {
   IBoardResponseDto,
 } from "./board/main/MainBoard";
 
+export { CustomCheckBox } from "./board/form/CustomCheckBox";
+
 export {
   EmptyContent,
   Board,
