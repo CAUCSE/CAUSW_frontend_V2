@@ -132,12 +132,10 @@ const ApplyCreatePage = () => {
     const currentOptions = currentQuestions[index].options;
     const newOptionNumber = currentOptions.length + 1;
 
-    const newFields = [...fields];
-    console.log(newFields[index].questionText);
+    const newFields = getValues("questions");
     newFields[index].options.push({
       optionNumber: newOptionNumber,
       optionText: "",
-      isSelected: false,
     });
     setValue("questions", newFields);
   };
@@ -149,7 +147,6 @@ const ApplyCreatePage = () => {
     const updatedField = getValues("questions");
     updatedField[index].options = currentOptions;
     setValue("questions", updatedField);
-    //setValue(`questions.${index}.options`, currentOptions);
   };
 
   const handleStatusChange = (status: string) => {
