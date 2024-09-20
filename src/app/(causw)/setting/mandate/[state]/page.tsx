@@ -58,9 +58,9 @@ const RoleMandate = ({ params: { state } }: { params: { state: string } }) => {
             <input
               className="w-full rounded-3xl border border-black text-center"
               type="text"
-              {...register("searchContent", { required: true })}
+              {...register("searchContent", { required: true, maxLength: 30 })}
               id="searchContent"
-              placeholder="찾고자 하는 유저의 학번을 입력해주세요."
+              placeholder="30자 이내로 입력해주세요."
             />
             <button
               className="w-36 rounded-3xl bg-red-500 text-white"
