@@ -34,6 +34,24 @@ export const UserCouncilFeeService = () => {
     }
   }
 
+  const getUserCouncilFeeList = async () =>
+  {
+    try {
+        const response = (await API.get(`${URI}/list`, {
+            params: {
+                page: 0,
+                size: 20,
+                sort: ['name, asc'],
+            }
+        }))
+        console.log(response);
+    }
+    catch (error)
+    {
+        throw error;
+    }
+  }
+
 
 
   return { getUserCouncilFeeInfo, getUserCouncilFeeId };

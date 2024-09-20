@@ -123,19 +123,6 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
             <MenuItem title="게시판 관리" items={menuItems.게시판관리} />
           </>
         )}
-
-        {(isAdmin()) ? (
-          <>
-            <MenuItem
-              title="관리"
-              items={menuItems.관리_관리자_학생회장_부학생회장}
-            />
-            <MenuItem title="권한 위임" items={menuItems.권한위임} />
-            <MenuItem title="홈 화면 관리" items={menuItems.홈화면관리} />
-            <MenuItem title="동아리 관리" items={menuItems.동아리관리} />
-            <MenuItem title="게시판 관리" items={menuItems.게시판관리} />
-          </>
-        ) : null}
       </>
     );
   };
