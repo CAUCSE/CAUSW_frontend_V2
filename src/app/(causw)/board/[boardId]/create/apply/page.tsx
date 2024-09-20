@@ -30,7 +30,6 @@ interface Question {
 interface Option {
   optionNumber: number;
   optionText: string;
-  isSelected: boolean;
 }
 
 const colSpan: { [key in 1 | 2 | 3 | 4 | 5]: string } = {
@@ -65,6 +64,7 @@ const ApplyCreatePage = () => {
     register,
     control,
     handleSubmit,
+    getValues,
     setValue,
     setError,
     clearErrors,
@@ -81,7 +81,7 @@ const ApplyCreatePage = () => {
           questionType: "OBJECTIVE",
           questionText: "",
           isMultiple: false,
-          options: [{ optionNumber: 1, optionText: "", isSelected: false }],
+          options: [{ optionNumber: 1, optionText: "" }],
         },
       ],
     },
@@ -128,10 +128,12 @@ const ApplyCreatePage = () => {
   };
 
   const addOption = (index) => {
-    const currentOptions = fields[index].options;
+    const currentQuestions = getValues("questions");
+    const currentOptions = currentQuestions[index].options;
     const newOptionNumber = currentOptions.length + 1;
 
     const newFields = [...fields];
+    console.log(newFields[index].questionText);
     newFields[index].options.push({
       optionNumber: newOptionNumber,
       optionText: "",
@@ -141,9 +143,10 @@ const ApplyCreatePage = () => {
   };
 
   const removeOption = (index, optionIndex) => {
-    const currentOptions = [...fields[index].options];
+    const currentQuestions = getValues("questions");
+    const currentOptions = currentQuestions[index].options;
     currentOptions.splice(optionIndex, 1);
-    const updatedField = [...fields];
+    const updatedField = getValues("questions");
     updatedField[index].options = currentOptions;
     setValue("questions", updatedField);
     //setValue(`questions.${index}.options`, currentOptions);
