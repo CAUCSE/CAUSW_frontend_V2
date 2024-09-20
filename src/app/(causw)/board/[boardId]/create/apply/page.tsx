@@ -1,63 +1,9 @@
 "use client";
 
-import { ChangeEventHandler, use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon, IconButton, PreviousButton } from "@/shared";
 import { useFieldArray, useForm } from "react-hook-form";
-
-interface ICustomCheckBox {
-  colSize: 1 | 2 | 3 | 4 | 5;
-  targetValue: any;
-  callback: ChangeEventHandler<HTMLInputElement>;
-  value: any;
-  name: string;
-}
-
-interface FormData {
-  title: string;
-  allowedAcademicStatus: string[];
-  allowedGrades: string[];
-  questions: Question[];
-}
-
-interface Question {
-  questionNumber: number;
-  questionType: string;
-  questionText: string;
-  isMultiple: boolean;
-  options: Option[];
-}
-
-interface Option {
-  optionNumber: number;
-  optionText: string;
-}
-
-const colSpan: { [key in 1 | 2 | 3 | 4 | 5]: string } = {
-  1: "col-span-1",
-  2: "col-span-2",
-  3: "col-span-3",
-  4: "col-span-4",
-  5: "col-span-5",
-};
-
-const CustomCheckBox: React.FC<ICustomCheckBox> = ({
-  colSize,
-  targetValue,
-  callback,
-  value,
-  name,
-}) => (
-  <div className={`${colSpan[colSize]} flex items-center gap-2`}>
-    <input
-      type="checkbox"
-      value={value}
-      checked={targetValue.includes(value)}
-      onChange={callback}
-      className="h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
-    />
-    <p className="text-sm">{name}</p>
-  </div>
-);
+import { CustomCheckBox } from "@/entities";
 
 const ApplyCreatePage = () => {
   const {
@@ -70,7 +16,7 @@ const ApplyCreatePage = () => {
     clearErrors,
     watch,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<Form.FormDataDto>({
     defaultValues: {
       title: "",
       allowedAcademicStatus: [],
@@ -123,7 +69,7 @@ const ApplyCreatePage = () => {
       questionType: "OBJECTIVE",
       questionText: "",
       isMultiple: false,
-      options: [{ optionNumber: 1, optionText: "", isSelected: false }],
+      options: [{ optionNumber: 1, optionText: "" }],
     });
   };
 
@@ -192,14 +138,14 @@ const ApplyCreatePage = () => {
     if (selectedStatus.length > 0) {
       clearErrors("allowedAcademicStatus");
     }
-  }, [selectedStatus, setValue, clearErrors]);
+  }, [selectedStatus]);
 
   useEffect(() => {
     setValue("allowedGrades", selectedGrade as never);
     if (selectedGrade.length > 0) {
       clearErrors("allowedGrades");
     }
-  }, [selectedGrade, setValue, clearErrors]);
+  }, [selectedGrade]);
 
   const [isViewPointLg, setIsViewPointLg] = useState(false);
   useEffect(() => {
