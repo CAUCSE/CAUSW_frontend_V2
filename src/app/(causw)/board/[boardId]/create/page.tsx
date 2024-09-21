@@ -62,7 +62,7 @@ const CreatePostPage = (props: any) => {
 
   return (
     <>
-      <div className="bottom-14 h-full w-full lg:bottom-0">
+      <div className="relative bottom-14 h-full w-full lg: bottom-5">
         <div className="w-full flex-col items-center">
           <PreviousButton />
         </div>
