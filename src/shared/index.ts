@@ -37,11 +37,11 @@ export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService"
 
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
-export { usePostStore } from "./hooks/stores/usePostStore";
-export { useCommentStore } from "./hooks/stores/useCommentStore";
-export { useChildCommentStore } from "./hooks/stores/useChildCommentStore";
+export { usePostStore } from "./hooks/stores/post/usePostStore";
+export { useCommentStore } from "./hooks/stores/post/useCommentStore";
+export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
 
-export { usePostDetail } from "./hooks/usePostDetail";
+export { usePostDetail } from "./hooks/stores/post/usePostDetail";
 
 export { WindowSizeListener } from "./listener/WindowSizeListener";
 

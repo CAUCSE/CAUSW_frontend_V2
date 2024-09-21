@@ -110,72 +110,36 @@ const PostDetailPage = (props: any) => {
     isAnonymous: boolean,
   ) => {
     if (!createCommentInfo.isChildComment) {
-      const tempCommentId = `new_${Date.now()}`;
-      const newComment: Comment.CommentDto = {
-        id: tempCommentId,
-        content: newComentContent,
-        createdAt: Date.now().toString(),
-        updatedAt: Date.now().toString(),
-        isDeleted: false,
-        postId: postId,
-        writerName: name,
-        writerAdmissionYear: admissionYear,
-        writerProfileImage: profileImage,
-        updatable: false,
-        deletable: false,
-        isAnonymous: isAnonymous,
-        numLike: 0,
-        numChildComment: 0,
-        childCommentList: [],
-        isCommentLike: false
-      };
       const createComment: Comment.CreateCommentDto = {
         content: newComentContent,
         postId: postId,
         isAnonymous: isAnonymous,
       };
       try {
-        addComment(newComment);
-        setComments(tempCommentId, [], 0);
-        incrementComment();
-        console.log(commentList);
         const createCommentResponse =
           await CommentRscService().createComment(createComment);
         console.log("게시물 댓글 완료: ", createCommentResponse);
+        addComment(createCommentResponse);
+        setComments(createCommentResponse.id, [], 0);
+        incrementComment();
+        
       } catch (error) {
         console.error("게시물 댓글 처리 에러: ", error);
         decrementComment();
       }
     } else {
-      const tempChildCommentId = `new_${Date.now()}`;
-      const newChildComment: ChildComment.ChildCommentDto = {
-        id: tempChildCommentId,
-        content: newComentContent,
-        createdAt: Date.now().toString(),
-        updatedAt: Date.now().toString(),
-        isDeleted: false,
-        writerName: name,
-        writerAdmissionYear: admissionYear,
-        writerProfileImage: profileImage,
-        updatable: false,
-        deletable: false,
-        isAnonymous: isAnonymous,
-        numLike: 0,
-        isChildCommentLike: false,
-      };
       const createChildComment: ChildComment.CreateChildCommentDto = {
         content: newComentContent,
         isAnonymous: isAnonymous,
         parentCommentId: createCommentInfo.commentId!,
       };
       try {
-        addChildComment(createCommentInfo.commentId!, newChildComment);
-        setChildCommentLikes(tempChildCommentId, 0);
-        incrementComment();
-        console.log(childComments);
         const createChildCommentResponse =
           await ChildCommentRscService().createChildComment(createChildComment);
         console.log("대댓글 완료: ", createChildCommentResponse);
+        addChildComment(createCommentInfo.commentId!, createChildCommentResponse);
+        setChildCommentLikes(createChildCommentResponse.id, 0);
+        incrementComment();
       } catch (error) {
         console.error("게시물 대댓글 처리 에러: ", error);
         decrementComment();
