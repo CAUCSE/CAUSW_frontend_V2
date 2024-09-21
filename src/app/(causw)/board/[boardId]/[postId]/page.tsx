@@ -14,13 +14,11 @@ import {
   usePostStore,
   useCommentStore,
   useChildCommentStore,
-  useUserStore,
 } from "@/shared";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
-  const { name, admissionYear, profileImage } = useUserStore();
   const {
     post,
     numLike,

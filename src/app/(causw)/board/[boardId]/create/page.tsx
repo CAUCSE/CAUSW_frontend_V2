@@ -1,8 +1,7 @@
 "use client";
 import { PreviousButton, PostRscService, useCreatePostStore, useCreateVoteStore } from '@/shared';
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { PostForm, VotingForm, CreatePostFooter } from '@/entities';
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -39,81 +38,6 @@ const CreatePostPage = (props: any) => {
   } = useCreateVoteStore();
   const router = useRouter();
 
-  /* const [isQuestion, setIsQuestion] = useState(false);
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [isVote, setIsVote] = useState(false);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-
-  const [voteTitle, setVoteTitle] = useState('');
-  const [isMultipleChoice, setIsMultipleChoice] = useState(false);
-  const [allowAnonymous, setAllowAnonymousVote] = useState(false);
-  const [options, setOptions] = useState(['', '']);
-
-  // vote 관련 handle 함수들
-  const handleVoteButton = () => {
-    setIsVote(!isVote);
-    console.log(isVote);
-  }
-
-  const handleOptionChange = (index: number, value: string) => {
-    const newOptions = [...options];
-    newOptions[index] = value;
-    setOptions(newOptions);
-  };
-
-  const handleAddOption = () => {
-    setOptions([...options, '']);
-  };
-
-  const handleRemoveOption = (index: number) => {
-    const newOptions = options.filter((_, i) => i !== index);
-    setOptions(newOptions);
-  };
-
-  const handleSubmitVote = () => {
-    const filteredOptions = options.filter((_, i) => options[i] != '');
-    console.log('투표 항목들:', filteredOptions);
-  };
-
-  const handelSelectMultiple = () => {
-    setIsMultipleChoice(!isMultipleChoice)
-  };
-
-  const handleAllowAnonymous = () => {
-    setAllowAnonymousVote(!allowAnonymous);
-  };
-  
-  // 기본 post 관련 handle 함수
-  const handleQuestionCheckbox = () => {
-    setIsQuestion(!isQuestion);
-  }
-  const handleAnonymousCheckbox = () => {
-    setIsAnonymous(!isAnonymous);
-  }
-
-  // 일반 게시글 post api
-  const handleSubmitPost = async () => {
-    const postRequest: Post.CreatePostDto = {
-      title,
-      content,
-      boardId: boardId,
-      attachmentList: [
-        "http://example.com/file1.jpg",
-        "http://example.com/file2.jpg"
-      ],
-      isAnonymous,
-      isQuestion,
-    };
-    try {
-      const createPostResponse = await createPost(postRequest);
-      console.log('게시물 생성 완료: ', createPostResponse);
-      router.back()
-    }catch(error) {
-      console.error('게시물 생성 에러: ', error);
-    }  
-  }; */
-
   const handleSubmit = async () => {
     if (isVote) {
       submitVote();
@@ -122,15 +46,15 @@ const CreatePostPage = (props: any) => {
         title,
         content,
         boardId: boardId,
-        attachmentList: [
+        /* attachmentList: [
           "http://example.com/file1.jpg",
           "http://example.com/file2.jpg"
-        ],
+        ], */
         isAnonymous,
         isQuestion,
       };
       try {
-        const createPostResponse = await createPost(postRequest);
+        const createPostResponse = await createPost(postRequest,[]);
         console.log('게시물 생성 완료: ', createPostResponse);
         router.back()
       }catch(error) {
