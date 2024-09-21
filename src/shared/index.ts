@@ -38,6 +38,8 @@ export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService"
 export { useUserStore } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 
+export { useBoardStore } from "./hooks/stores/board/useBoardStore"
+
 export { usePostStore } from "./hooks/stores/post/usePostStore";
 export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
