@@ -11,7 +11,7 @@ export const useFileUpload = () => {
   };
 
   const resetFiles = () => {
-    clearFiles();  // 파일 목록 초기화
+    clearFiles(); 
   };
 
   return {

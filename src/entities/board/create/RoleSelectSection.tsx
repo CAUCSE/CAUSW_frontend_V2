@@ -10,7 +10,7 @@ export const RoleSelectSection = ({ userRole, roles }: RoleSelectSectionPorps) =
 
   return (
     <div className="mb-2">
-      <div className="text-[28px] mb-4">게시글 작성 권한 명단</div>
+      <div className="text-[28px] mb-2lg:mb-4">게시글 작성 권한 명단</div>
       {(userRole === 'ADMIN' || userRole === 'PRESIDENT' || userRole === 'VICE_PRESIDENT') 
       ? <div className="p-4 bg-notice-board-role rounded-2xl">
           <div className="flex items-center space-x-3 mb-2">

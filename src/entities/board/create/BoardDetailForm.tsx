@@ -5,8 +5,8 @@ export const BoardDetailForm = () => {
 
   return (
     <>
-      <div className="text-[35px] mt-2 mb-6">게시판 생성</div>
-      <div className="relative mb-6">
+      <div className="text-[35px] mb-2 lg:mt-2 lg:mb-6">게시판 생성</div>
+      <div className="relative mb-2 lg:mb-6">
         <div className="text-[28px] mb-2">게시판 이름</div>
         <input
           type="text"

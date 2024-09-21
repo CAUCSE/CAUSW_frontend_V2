@@ -12,7 +12,6 @@ export const CreatePostFooter = ({ isVote, handleSubmit, handleVoteToggle }: Cre
   const { handleFileUpload } = useFileUpload();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // 파일 선택 버튼 클릭 시 input 트리거
   const handleUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -26,7 +25,7 @@ export const CreatePostFooter = ({ isVote, handleSubmit, handleVoteToggle }: Cre
             ref={fileInputRef}
             className="hidden"
             multiple
-            onChange={(e) => handleFileUpload(e.target.files?.[0] || null)}  // 파일 선택 시 호출
+            onChange={(e) => handleFileUpload(e.target.files?.[0] || null)} 
           />
           <button 
             className={`flex justify-center p-3 bg-comment-input rounded-full w-[80px]`}

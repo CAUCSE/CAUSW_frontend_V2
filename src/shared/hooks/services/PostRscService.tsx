@@ -8,11 +8,8 @@ export const PostRscService = () => {
     attachImageList: File[]
   ): Promise<Post.PostDto> => {
     const URI = `${BASEURL}/api/v1/posts`;
-
     try {
       const formData = new FormData();
-
-      // postCreateRequestDto key로 JSON 데이터를 string 형태로 추가
       formData.append(
         'postCreateRequestDto',
         new Blob(
@@ -26,9 +23,6 @@ export const PostRscService = () => {
           { type: 'application/json' }
         )
       );
-
-
-      // attachImageList key로 파일들 추가
       attachImageList.forEach((file) => {
         formData.append(
           'attachImageList',
@@ -37,23 +31,18 @@ export const PostRscService = () => {
             {type: file.type}
           ),
           file.name
-        ); // 여러 파일 전송 가능
+        ); 
       });
-
-      const headers = await setRscHeader(); // 인증 헤더 세팅 함수 호출
-
-      // FormData로 POST 요청
+      const headers = await setRscHeader();
       const response: AxiosResponse<Post.PostDto> = await axios.post(URI, formData, {
         headers: {
           ...headers,
-          'Content-Type': 'multipart/form-data',  // form-data로 전송
+          'Content-Type': 'multipart/form-data',
         },
       });
-
       if (response.status !== 201) {
         throw new Error(`Failed to create post. Response status: ${response.status}`);
       }
-
       console.log('게시글 생성 완료:', response.data);
       return response.data;
     } catch (error) {

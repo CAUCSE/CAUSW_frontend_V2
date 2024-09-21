@@ -35,8 +35,6 @@ export const useBoardStore = create<BoardState>((set) => ({
       if (updatedRoles.includes('NONE')) {
         updatedRoles = updatedRoles.filter((role) => role !== 'NONE');
       }
-
-      // 선택된 역할이 이미 포함된 경우 제거, 아니면 추가
       const allSelected = roleEnums.every((enumRole) => updatedRoles.includes(enumRole));
       if (allSelected) {
         updatedRoles = updatedRoles.filter((enumRole) => !roleEnums.includes(enumRole));

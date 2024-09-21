@@ -10,7 +10,6 @@ interface CreatePostState {
   setContent: (content: string) => void;
   toggleQuestion: () => void;
   toggleAnonymous: () => void;
-  //createPost: (boardId: string) => Promise<void>;
   clearPost: () => void;
 }
 

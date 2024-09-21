@@ -63,11 +63,11 @@ const CreateBoardPage = (props: any) => {
   };
   return (
     
-    <div className="relative h-full w-full">
+    <div className="relative top-0 bottom-12 lg:bottom-0 h-full w-full">
       <div className="w-full flex-col items-center">
         <PreviousButton />
       </div>
-      <div className="h-full flex flex-col p-10 pt-10">
+      <div className="h-full flex flex-col p-2 lg:p-10 pt-10">
         <BoardDetailForm/>
         <RoleSelectSection 
           userRole={role} 
