@@ -6,14 +6,11 @@ import { PostForm, VotingForm, CreatePostFooter, FilePreview } from '@/entities'
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
-  console.log(props.params.boardId);
-  //추후에 boardId =  params로 변경
   const boardId = props.params.boardId;
   const { createPost } = PostRscService();
   const {
     title,
     content,
-    //createPost,
     isAnonymous,
     isQuestion,
     setContent,
