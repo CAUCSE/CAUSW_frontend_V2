@@ -76,14 +76,14 @@ const CreateBoardPage = (props: any) => {
 
         <AllowAnonymousToggle/>
       </div>
-      <div className="absolute bottom-2 w-full translate-x-1/2 flex space-x-20">
+    
         <button
           onClick={handleSubmit}
-          className="bg-confirm-btn text-white py-2 px-8 rounded-full shadow-md text-[16px] hover:bg-orange-600 focus:outline-none"
+          className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-confirm-btn px-6 py-3 font-bold text-white lg:bottom-6"
         >
-          글작성
+          {(role === 'ADMIN' || role === 'PRESIDENT' || role === 'VICE_PRESIDENT') ? "게시판 생성" : "게시판 생성 신청" }
         </button>
-      </div>
+    
     </div>
   );
 

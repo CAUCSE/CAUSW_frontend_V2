@@ -5,7 +5,7 @@ export const AllowAnonymousToggle = () => {
   const { allowAnonymous, toggleAllowAnonymous } = useBoardStore();
 
   return (
-    <div className="flex items-center space-x-4 ml-2">
+    <div className="flex items-center pt-4 space-x-4 ml-2">
       <span onClick={toggleAllowAnonymous}>
         {allowAnonymous ? 
           <Image
