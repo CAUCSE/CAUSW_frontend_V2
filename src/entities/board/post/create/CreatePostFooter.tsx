@@ -19,7 +19,7 @@ export const CreatePostFooter = ({ isVote, handleSubmit, handleVoteToggle }: Cre
     }
   };
   return (
-    <div className="fixed lg:left-10 lg:bottom-0 bottom-28 w-full flex justify-center lg:space-x-24">
+    <div className="fixed lg:left-10 lg:bottom-0 bottom-[100px] w-full flex justify-center lg:space-x-24">
         <div className="flex flex-grow justify-center grid-cols-4 gap-2 lg:space-x-4">
           <input
             type="file"
