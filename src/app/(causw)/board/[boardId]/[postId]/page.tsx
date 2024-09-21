@@ -28,6 +28,7 @@ const PostDetailPage = (props: any) => {
     numComment,
     commentList,
     createCommentInfo,
+    incrementComment,
     decrementComment,
     addComment,
     setPostComment,
@@ -42,6 +43,7 @@ const PostDetailPage = (props: any) => {
     decrementCommentLike,
     clearAllOverlays,
     addChildComment,
+    setComments,
   } = useCommentStore();
   const {
     childComments,
@@ -108,8 +110,9 @@ const PostDetailPage = (props: any) => {
     isAnonymous: boolean,
   ) => {
     if (!createCommentInfo.isChildComment) {
+      const tempCommentId = `new_${Date.now()}`;
       const newComment: Comment.CommentDto = {
-        id: `new_${Date.now()}`,
+        id: tempCommentId,
         content: newComentContent,
         createdAt: Date.now().toString(),
         updatedAt: Date.now().toString(),
@@ -133,6 +136,8 @@ const PostDetailPage = (props: any) => {
       };
       try {
         addComment(newComment);
+        setComments(tempCommentId, [], 0);
+        incrementComment();
         console.log(commentList);
         const createCommentResponse =
           await CommentRscService().createComment(createComment);
@@ -166,12 +171,14 @@ const PostDetailPage = (props: any) => {
       try {
         addChildComment(createCommentInfo.commentId!, newChildComment);
         setChildCommentLikes(tempChildCommentId, 0);
+        incrementComment();
         console.log(childComments);
         const createChildCommentResponse =
           await ChildCommentRscService().createChildComment(createChildComment);
         console.log("대댓글 완료: ", createChildCommentResponse);
       } catch (error) {
         console.error("게시물 대댓글 처리 에러: ", error);
+        decrementComment();
       }
     }
   };

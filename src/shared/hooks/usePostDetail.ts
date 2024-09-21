@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { usePostStore, useCommentStore, useChildCommentStore, PostRscService } from '@/shared';
 
 export const usePostDetail = (postId: string) => {
-  const { setPost } = usePostStore();
+  const { setPost, setPostComment } = usePostStore();
   const {setComments} = useCommentStore();
   const {setChildCommentLikes} = useChildCommentStore();
   const { getPostById } = PostRscService();
@@ -36,6 +36,7 @@ export const usePostDetail = (postId: string) => {
         const postData = await getPostById(postId);
         postData.updatedAt = getTimeDifference(postData.updatedAt)
         setPost(postData);  // post와 numLikes를 상태로 설정
+        setPostComment();
         postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
           setComments(comment.id, comment.childCommentList, comment.numLike);
           comment.childCommentList.forEach((childComment: any) => {
