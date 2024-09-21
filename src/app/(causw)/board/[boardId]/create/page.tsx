@@ -1,5 +1,5 @@
 "use client";
-import { PreviousButton, PostRscService } from '@/shared';
+import { PreviousButton, PostRscService, useCreatePostStore, useCreateVoteStore } from '@/shared';
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -11,9 +11,35 @@ const CreatePostPage = (props: any) => {
   //추후에 boardId =  params로 변경
   const boardId = props.params.boardId;
   const { createPost } = PostRscService();
+  const {
+    title,
+    content,
+    //createPost,
+    isAnonymous,
+    isQuestion,
+    setContent,
+    setTitle,
+    toggleAnonymous,
+    toggleQuestion,
+  } = useCreatePostStore();
+  const {
+    isVote,
+    voteTitle,
+    options,
+    isMultipleChoice,
+    allowAnonymous,
+    toggleVote,
+    setVoteTitle,
+    setOption,
+    addOption,
+    removeOption,
+    toggleMultipleChoice,
+    toggleAllowAnonymous,
+    submitVote,
+  } = useCreateVoteStore();
   const router = useRouter();
 
-  const [isQuestion, setIsQuestion] = useState(false);
+  /* const [isQuestion, setIsQuestion] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [isVote, setIsVote] = useState(false);
   const [title, setTitle] = useState('');
@@ -86,6 +112,31 @@ const CreatePostPage = (props: any) => {
     }catch(error) {
       console.error('게시물 생성 에러: ', error);
     }  
+  }; */
+
+  const handleSubmit = async () => {
+    if (isVote) {
+      submitVote();
+    }else {
+      const postRequest: Post.CreatePostDto = {
+        title,
+        content,
+        boardId: boardId,
+        attachmentList: [
+          "http://example.com/file1.jpg",
+          "http://example.com/file2.jpg"
+        ],
+        isAnonymous,
+        isQuestion,
+      };
+      try {
+        const createPostResponse = await createPost(postRequest);
+        console.log('게시물 생성 완료: ', createPostResponse);
+        router.back()
+      }catch(error) {
+        console.error('게시물 생성 에러: ', error);
+      }  
+    }
   };
 
   return (
@@ -103,8 +154,8 @@ const CreatePostPage = (props: any) => {
           isVote={isVote} 
           onTitleChange={setTitle} 
           onContentChange={setContent} 
-          onQuestionToggle={handleQuestionCheckbox} 
-          onAnonymousToggle={handleAnonymousCheckbox}
+          onQuestionToggle={toggleQuestion} 
+          onAnonymousToggle={toggleAnonymous}
         />
         {/* 투표 파트 */}
         {isVote 
@@ -114,18 +165,18 @@ const CreatePostPage = (props: any) => {
             isMultipleChoice={isMultipleChoice} 
             allowAnonymous={allowAnonymous} 
             onVoteTitleChange={setVoteTitle} 
-            onAddOption={handleAddOption} 
-            onChangeOption={handleOptionChange} 
-            onRemoveOption={handleRemoveOption} 
-            onSelectMultiple={handelSelectMultiple} 
-            onAllowAnonymous={handleAllowAnonymous}/>
+            onAddOption={addOption} 
+            onChangeOption={setOption} 
+            onRemoveOption={removeOption} 
+            onSelectMultiple={toggleMultipleChoice} 
+            onAllowAnonymous={toggleAllowAnonymous}/>
         : ''
         }
       </div>
       <CreatePostFooter 
         isVote={isVote} 
-        handleSubmit={isVote ? handleSubmitVote : handleSubmitPost} 
-        handleVoteToggle={handleVoteButton}/>
+        handleSubmit={handleSubmit} 
+        handleVoteToggle={toggleVote}/>
     </div>
   );
 

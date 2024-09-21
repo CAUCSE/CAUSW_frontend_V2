@@ -26,7 +26,7 @@ export const useChildCommentStore = create<ChildCommentStore>((set) => ({
         },
       },
     })),
-    decrementChildCommentLike: (id) =>
+  decrementChildCommentLike: (id) =>
     set((state) => ({
       childComments: {
         ...state.childComments,
