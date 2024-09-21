@@ -61,48 +61,51 @@ const CreatePostPage = (props: any) => {
   };
 
   return (
-    <div className="relative h-full w-full">
-      <div className="w-full flex-col items-center">
-        <PreviousButton />
-      </div>
-      {/* 게시글 공통 부분 - 제목 / 내용 */}
-      <div className="h-full flex flex-col p-10 pt-10">
-        <PostForm 
-          title={title} 
-          content={content} 
-          isQuestion={isQuestion} 
-          isAnonymous={isAnonymous} 
-          isVote={isVote} 
-          onTitleChange={setTitle} 
-          onContentChange={setContent} 
-          onQuestionToggle={toggleQuestion} 
-          onAnonymousToggle={toggleAnonymous}
-        />
-        {/* 투표 파트 */}
-        {isVote 
-        ? <VotingForm 
-            voteTitle={voteTitle} 
-            options={options} 
-            isMultipleChoice={isMultipleChoice} 
-            allowAnonymous={allowAnonymous} 
-            onVoteTitleChange={setVoteTitle} 
-            onAddOption={addOption} 
-            onChangeOption={setOption} 
-            onRemoveOption={removeOption} 
-            onSelectMultiple={toggleMultipleChoice} 
-            onAllowAnonymous={toggleAllowAnonymous}/>
-        : ''
-        }
-        {(selectedFiles.length === 0)
-        ? ''
-        : <FilePreview/>
-        }
+    <>
+      <div className="bottom-14 h-full w-full lg:bottom-0">
+        <div className="w-full flex-col items-center">
+          <PreviousButton />
+        </div>
+        {/* 게시글 공통 부분 - 제목 / 내용 */}
+        <div className="h-full flex flex-col p-4 lg:p-10 pt-10">
+          <PostForm 
+            title={title} 
+            content={content} 
+            isQuestion={isQuestion} 
+            isAnonymous={isAnonymous} 
+            isVote={isVote} 
+            onTitleChange={setTitle} 
+            onContentChange={setContent} 
+            onQuestionToggle={toggleQuestion} 
+            onAnonymousToggle={toggleAnonymous}
+          />
+          {/* 투표 파트 */}
+          {isVote 
+          ? <VotingForm 
+              voteTitle={voteTitle} 
+              options={options} 
+              isMultipleChoice={isMultipleChoice} 
+              allowAnonymous={allowAnonymous} 
+              onVoteTitleChange={setVoteTitle} 
+              onAddOption={addOption} 
+              onChangeOption={setOption} 
+              onRemoveOption={removeOption} 
+              onSelectMultiple={toggleMultipleChoice} 
+              onAllowAnonymous={toggleAllowAnonymous}/>
+          : ''
+          }
+          {(selectedFiles.length === 0)
+          ? ''
+          : <FilePreview/>
+          }
+        </div>
       </div>
       <CreatePostFooter 
-        isVote={isVote} 
-        handleSubmit={handleSubmit} 
-        handleVoteToggle={toggleVote}/>
-    </div>
+          isVote={isVote} 
+          handleSubmit={handleSubmit} 
+          handleVoteToggle={toggleVote}/>
+    </>
+    
   );
 
 }

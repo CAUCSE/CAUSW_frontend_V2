@@ -9,16 +9,16 @@ export const FilePreview = () => {
   };
 
   return (
-    <div className="h-full w-full border-t-comment-bw border-file-preview-border pt-6 grid grid-cols-6 gap-4 mt-4">
+    <div className="h-full w-full border-t-comment-bw border-file-preview-border pt-6 grid grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
       {selectedFiles.map((file, index) => (
-        <div key={index} className="relative w-32 h-32 w-min-20 h-min-20 bg-center bg-cover border border-black">
+        <div key={index} className="relative w-24 h-24 lg:w-32 lg:h-32 w-min-20 h-min-20 bg-center bg-cover border border-black">
           {isImageFile(file.name) ? (
             <div
               className="w-full h-full bg-cover bg-center"
               style={{ backgroundImage: `url(${URL.createObjectURL(file)})` }}
             />
           ) : (
-            <div className="flex flex-col items-center justify-center w-32 h-32 w-min-20 h-min-20 border border-black p-2 space-y-2">
+            <div className="flex flex-col items-center justify-center w-24 h-24 lg:w-32 lg:h-32 w-min-20 h-min-20 border border-black p-2 space-y-2">
               <Image
                 src="/images/post/file-icon.svg"
                 alt={file.name}

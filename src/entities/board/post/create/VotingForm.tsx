@@ -15,17 +15,17 @@ export const VotingForm = ({ voteTitle, options, isMultipleChoice, allowAnonymou
   return (
     <div className="h-full flex flex-col w-full">
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-4 w-full">
+        <div className="flex items-center lg:space-x-4 w-full">
           <div className="mt-4 w-full">
             <input
               type="text"
               placeholder="투표 이름"
               value={voteTitle}
               onChange={(e)=>onVoteTitleChange(e.target.value)}
-              className="w-full p-2 border-b-post-title-input border-black bg-transparent text-[24px] placeholder:text-create-post-text focus:outline-none"
+              className="w-full p-1 lg:p-2 border-b-post-title-input border-black bg-transparent text-[24px] placeholder:text-create-post-text focus:outline-none"
             />
           </div>
-          <div className="flex items-center space-x-4 mt-4">
+          <div className="flex items-center lg:space-x-4 mt-4">
             <label className="flex items-center justify-center space-x-3 w-[120px]" onClick={onSelectMultiple}>
               <span className={`w-5 h-5 rounded-full ${isMultipleChoice ? 'bg-red-500' :'bg-gray-400'}`}></span>
               <span className="text-gray-700">복수 선택</span>

@@ -16,14 +16,14 @@ export const PostForm = ({ title, content, isQuestion, isAnonymous, isVote, onTi
   return (
     <>
       <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-4 w-full">
+        <div className="flex items-center space-x-2 lg:space-x-4 w-full">
           <div className="mt-4 w-full">
             <input
               type="text"
               placeholder="제목"
               value={title}
               onChange={(e) => onTitleChange(e.target.value)}
-              className="w-full pb-2 mb-2 p-2 border-b-post-title-input border-black bg-transparent text-[24px] placeholder:text-create-post-text focus:outline-none"
+              className="w-full pb-2 mb-2 lg:p-2 border-b-post-title-input border-black bg-transparent text-[24px] placeholder:text-create-post-text focus:outline-none"
             />
           </div>
           <div className="flex items-center space-x-2 w-[85px] mt-4">
@@ -68,10 +68,10 @@ export const PostForm = ({ title, content, isQuestion, isAnonymous, isVote, onTi
       </div>
       <div className={`relative ${isVote ? 'h-60' : 'h-full'}`}>
         {content === "" && (
-          <div className="absolute inset-0 p-2 pointer-events-none">
-            <span className="bg-transparent text-[24px] text-create-post-text ">내용을 입력하세요!</span>
+          <div className="absolute inset-0 lg:p-2 pointer-events-none">
+            <span className="bg-transparent text-[20px] lg:text-[24px] text-create-post-text ">내용을 입력하세요!</span>
             <br/>
-            <span className="bg-transparent text-[20px] text-create-post-text ">{"(게시글과 댓글은 작성 후에는 수정할 수 없습니다.)"} </span>
+            <span className="bg-transparent text-[16px] lg:text-[20px] text-create-post-text ">{"(게시글과 댓글은 작성 후에는 수정할 수 없습니다.)"} </span>
           </div>
         )}
         <textarea
