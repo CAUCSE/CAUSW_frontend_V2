@@ -26,4 +26,15 @@ declare namespace Form {
     optionNumber: number;
     optionText: string;
   }
+
+  export interface OptionProps {
+    questionIndex: number;
+    optionIndex: number;
+    removeOption: () => void;
+  }
+
+  export interface QuestionProps {
+    index: number;
+    removeQuestion: () => void;
+  }
 }

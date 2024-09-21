@@ -24,6 +24,8 @@ export type {
 } from "./board/main/MainBoard";
 
 export { CustomCheckBox } from "./board/form/CustomCheckBox";
+export { Option } from "./board/form/Option";
+export { Question } from "./board/form/Question";
 
 export {
   EmptyContent,
