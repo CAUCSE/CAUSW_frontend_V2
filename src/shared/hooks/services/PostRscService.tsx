@@ -30,7 +30,14 @@ export const PostRscService = () => {
 
       // attachImageList key로 파일들 추가
       attachImageList.forEach((file) => {
-        formData.append('attachImageList', file, file.name); // 여러 파일 전송 가능
+        formData.append(
+          'attachImageList',
+          new Blob(
+            [file],
+            {type: file.type}
+          ),
+          file.name
+        ); // 여러 파일 전송 가능
       });
 
       const headers = await setRscHeader(); // 인증 헤더 세팅 함수 호출
@@ -41,10 +48,6 @@ export const PostRscService = () => {
           ...headers,
           'Content-Type': 'multipart/form-data',  // form-data로 전송
         },
-        transformRequest: [(data, headers) => {
-          // Content-Type을 자동으로 설정해주는 transform
-          return data;
-        }],
       });
 
       if (response.status !== 201) {

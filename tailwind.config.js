@@ -34,6 +34,7 @@ module.exports = {
         "overlay-border": "rgba(71, 119, 125, 1)",
         "overlay-bg": "rgba(213, 237, 241, 1)",
         "overlay-btn": "rgba(118, 198, 209, 1)",
+        "file-preview-border": "rgba(186, 186, 186, 1)",
       },
       boxShadow: {
         "post-sh": "0px 3px 6px 0px rgba(0, 0, 0, 0.25)",

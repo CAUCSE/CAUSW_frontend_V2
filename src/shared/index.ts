@@ -45,6 +45,8 @@ export { usePostDetail } from "./hooks/stores/post/usePostDetail";
 
 export { useCreatePostStore } from "./hooks/stores/post/create/useCreatePostStore";
 export { useCreateVoteStore } from "./hooks/stores/post/create/useCreateVoteStore";
+export { useFileUploadStore } from "./hooks/stores/post/create/useFileUploadStore"
+export { useFileUpload } from "./hooks/stores/post/create/useFileUpload"
 
 export { WindowSizeListener } from "./listener/WindowSizeListener";
 

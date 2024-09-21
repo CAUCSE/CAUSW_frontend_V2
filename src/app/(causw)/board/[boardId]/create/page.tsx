@@ -1,8 +1,8 @@
 "use client";
-import { PreviousButton, PostRscService, useCreatePostStore, useCreateVoteStore } from '@/shared';
+import { PreviousButton, PostRscService, useCreatePostStore, useCreateVoteStore, useFileUpload } from '@/shared';
 import React from 'react';
 import { useRouter } from "next/navigation";
-import { PostForm, VotingForm, CreatePostFooter } from '@/entities';
+import { PostForm, VotingForm, CreatePostFooter, FilePreview } from '@/entities';
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
@@ -20,6 +20,7 @@ const CreatePostPage = (props: any) => {
     setTitle,
     toggleAnonymous,
     toggleQuestion,
+    clearPost,
   } = useCreatePostStore();
   const {
     isVote,
@@ -36,6 +37,7 @@ const CreatePostPage = (props: any) => {
     toggleAllowAnonymous,
     submitVote,
   } = useCreateVoteStore();
+  const { selectedFiles,resetFiles } = useFileUpload();
   const router = useRouter();
 
   const handleSubmit = async () => {
@@ -45,17 +47,15 @@ const CreatePostPage = (props: any) => {
       const postRequest: Post.CreatePostDto = {
         title,
         content,
-        boardId: boardId,
-        /* attachmentList: [
-          "http://example.com/file1.jpg",
-          "http://example.com/file2.jpg"
-        ], */
+        boardId,
         isAnonymous,
         isQuestion,
       };
       try {
-        const createPostResponse = await createPost(postRequest,[]);
+        const createPostResponse = await createPost(postRequest,selectedFiles);
         console.log('게시물 생성 완료: ', createPostResponse);
+        clearPost();
+        resetFiles();
         router.back()
       }catch(error) {
         console.error('게시물 생성 에러: ', error);
@@ -95,6 +95,10 @@ const CreatePostPage = (props: any) => {
             onSelectMultiple={toggleMultipleChoice} 
             onAllowAnonymous={toggleAllowAnonymous}/>
         : ''
+        }
+        {(selectedFiles.length === 0)
+        ? ''
+        : <FilePreview/>
         }
       </div>
       <CreatePostFooter 
