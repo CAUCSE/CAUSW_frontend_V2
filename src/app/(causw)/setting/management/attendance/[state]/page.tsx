@@ -31,10 +31,19 @@ const AttendanceManagement = async ({
       <Management
         state={state}
         title="학적 상태 관리"
-        firstNavigation={{ name: "유저 목록", state: "all" }}
-        navigation={[{ name: "승인 대기 목록", state: "waiting" }]}
+        firstNavigation={{
+          name: "유저 목록",
+          state: "all",
+          exportType: "ALL_USERS",
+        }}
+        navigation={[
+          {
+            name: "승인 대기 목록",
+            state: "waiting",
+            exportType: "WAITING_USERS",
+          },
+        ]}
         data={data}
-        exportHandler={() => {}}
       />
     </>
   );

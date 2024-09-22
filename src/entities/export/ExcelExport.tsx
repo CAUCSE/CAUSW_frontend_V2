@@ -1,12 +1,13 @@
 "use client";
 
 export const ExcelExport = ({
-  exportHandler,
+  exportType,
 }: {
-  exportHandler: () => void;
+  exportType: Setting.ExportType;
 }) => {
+  console.log(exportType);
   return (
-    <div className="flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg">
+    <div className="absolute right-0 flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg md:top-2">
       Excel Export
     </div>
   );

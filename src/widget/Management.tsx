@@ -1,3 +1,5 @@
+"use server";
+
 import { Header, Line, SubHeader, ExcelExport } from "@/entities";
 
 import Link from "next/link";
@@ -5,10 +7,17 @@ import Link from "next/link";
 interface Prop {
   state: string;
   title: string;
-  firstNavigation: { name: string; state: string };
-  navigation?: { name: string; state: string }[];
+  firstNavigation: {
+    name: string;
+    state: string;
+    exportType?: Setting.ExportType;
+  };
+  navigation?: {
+    name: string;
+    state: string;
+    exportType?: Setting.ExportType;
+  }[];
   data: { userName: string; studentId: string; id: string }[];
-  exportHandler?: () => void;
 }
 
 export const Management = ({
@@ -17,11 +26,14 @@ export const Management = ({
   firstNavigation,
   navigation,
   data,
-  exportHandler,
 }: Prop) => {
   const isFirstNavigation = navigation
     ? navigation.findIndex((elemenent) => elemenent.state === state) === -1
     : false;
+
+  const exportType = isFirstNavigation
+    ? firstNavigation.exportType
+    : navigation?.find((element) => element.state === state)?.exportType;
 
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
@@ -29,7 +41,7 @@ export const Management = ({
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
-      {exportHandler ? <ExcelExport exportHandler={exportHandler} /> : null}
+      {exportType ? <ExcelExport exportType={exportType} /> : null}
       <Header bold big>
         {title}
       </Header>
