@@ -249,17 +249,17 @@ const CreatePostPage = (props: any) => {
           <PreviousButton />
         </div>
         {/* 게시글 공통 부분 - 제목 / 내용 */}
-        <div className="flex h-full flex-col p-4 pt-10 lg:p-10">
+        <div className="flex h-full flex-col p-4 pt-10 lg:px-5 lg:py-10">
           {isApply ? (
             <FormProvider {...methods}>
               <div className="h-full w-full">
                 <div className="h-16 w-full bg-[#F8F8F8]">
                   <PreviousButton />
                 </div>
-                <div className="absolute top-16 h-[calc(100%-9rem)] w-full overflow-y-auto">
+                <div className="h-[calc(100%-9rem)] w-full overflow-y-auto">
                   <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="flex w-full flex-col items-center gap-8 lg:items-start lg:px-8"
+                    className="flex w-full flex-col items-center gap-8 lg:items-start"
                   >
                     <div className="flex w-56 flex-col items-center border-b border-black">
                       <input
@@ -299,7 +299,7 @@ const CreatePostPage = (props: any) => {
                       )}
                       <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                       <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[490px]">
-                        <div className="grid grid-cols-2 gap-1 lg:grid-cols-5 lg:gap-2">
+                        <div className="grid grid-cols-2 gap-x-5 gap-y-1 lg:grid-cols-5 lg:gap-2">
                           {gradeOptions.map((grade, idx) => (
                             <CustomCheckBox
                               colSize={grade.colSize as 1 | 2 | 3 | 4 | 5}
