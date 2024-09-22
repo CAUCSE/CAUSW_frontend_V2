@@ -6,9 +6,10 @@ interface CreatePostFooterProps {
   isVote: boolean;
   handleSubmit: () => void;
   handleVoteToggle: () => void;
+  handleApplyToggle: () => void;
 }
 
-export const CreatePostFooter = ({ isVote, handleSubmit, handleVoteToggle }: CreatePostFooterProps) => {
+export const CreatePostFooter = ({ isVote, handleSubmit, handleVoteToggle, handleApplyToggle }: CreatePostFooterProps) => {
   const { handleFileUpload } = useFileUpload();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -49,7 +50,10 @@ export const CreatePostFooter = ({ isVote, handleSubmit, handleVoteToggle }: Cre
               height={30}
             ></Image>
           </button>
-          <button className={`flex justify-center p-3 bg-comment-input rounded-full w-[80px]`}>
+          <button 
+            className={`flex justify-center p-3 bg-comment-input rounded-full w-[80px]`}
+            onClick={handleApplyToggle}
+          >
             <Image
               src="/images/post/application.svg"
               alt="Application Icon"
