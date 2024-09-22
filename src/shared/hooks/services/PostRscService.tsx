@@ -4,20 +4,46 @@ import { BASEURL, setRscHeader } from "@/shared";
 
 export const PostRscService = () => {
   const createPost = async (
-    data: Post.CreatePostDto
+    data: Post.CreatePostDto,
+    attachImageList: File[]
   ): Promise<Post.PostDto> => {
     const URI = `${BASEURL}/api/v1/posts`;
-
     try {
-      const headers = await setRscHeader();
-      const response: AxiosResponse<Post.PostDto> = await axios.postForm(URI, data, {
-        headers: headers,
+      const formData = new FormData();
+      formData.append(
+        'postCreateRequestDto',
+        new Blob(
+          [JSON.stringify({
+            title: data.title,
+            content: data.content,
+            boardId: data.boardId,
+            isAnonymous: data.isAnonymous,
+            isQuestion: data.isQuestion,
+          })],
+          { type: 'application/json' }
+        )
+      );
+      attachImageList.forEach((file) => {
+        formData.append(
+          'attachImageList',
+          new Blob(
+            [file],
+            {type: file.type}
+          ),
+          file.name
+        ); 
       });
-
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Post.PostDto> = await axios.post(URI, formData, {
+        headers: {
+          ...headers,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       if (response.status !== 201) {
         throw new Error(`Failed to create post. Response status: ${response.status}`);
       }
-      console.log('게시글 생성했다이!!!!!!!!!!!1:',response.data);
+      console.log('게시글 생성 완료:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error creating post:', error);

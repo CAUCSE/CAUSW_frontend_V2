@@ -7,7 +7,7 @@ declare namespace Post {
     writerName: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
-    attachmentList: string[];
+    fileUrlList: string[];
     numComment: number;
     numLike: number;
     numFavorite: number;
@@ -32,7 +32,6 @@ declare namespace Post {
     title: string;
     content: string;
     boardId: string;
-    attachmentList: Array<string>;
     isAnonymous: boolean;
     isQuestion: boolean;
   }
