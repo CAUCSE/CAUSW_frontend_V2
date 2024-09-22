@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { PreviousButton } from "@/shared";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { CustomCheckBox, Question } from "@/entities";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+
+import { PreviousButton } from "@/shared";
 
 const ApplyCreatePage = () => {
   const methods = useForm<Form.FormDataDto>({

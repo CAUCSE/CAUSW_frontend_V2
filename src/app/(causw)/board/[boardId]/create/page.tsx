@@ -1,17 +1,30 @@
 "use client";
-import { PreviousButton, PostRscService, useCreatePostStore, useCreateVoteStore, useFileUpload } from '@/shared';
-import React, {useEffect, useState } from 'react';
-import { useRouter } from "next/navigation";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+
+import {
+  CreatePostFooter,
+  FilePreview,
+  PostForm,
+  VotingForm,
+} from "@/entities";
 import { CustomCheckBox, Question } from "@/entities";
-import { PostForm, VotingForm, CreatePostFooter, FilePreview } from '@/entities';
-import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from 'next/dist/lib/constants';
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  PostRscService,
+  PreviousButton,
+  useCreatePostStore,
+  useCreateVoteStore,
+  useFileUpload,
+} from "@/shared";
+import React, { useEffect, useState } from "react";
+
+import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from "next/dist/lib/constants";
+import { useRouter } from "next/navigation";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
   const { createPost } = PostRscService();
-  
+
   const {
     title,
     content,
@@ -39,14 +52,14 @@ const CreatePostPage = (props: any) => {
     toggleAllowAnonymous,
     submitVote,
   } = useCreateVoteStore();
-  const { selectedFiles,resetFiles } = useFileUpload();
+  const { selectedFiles, resetFiles } = useFileUpload();
   const router = useRouter();
   const [isApply, setIsApply] = useState(false);
   const toggleApply = () => {
     // 일단은 isApply면 isVote 무조건 flase되도록 해둠.
     toggleVote();
     setIsApply(!isApply);
-  }
+  };
   const methods = useForm<Form.FormDataDto>({
     defaultValues: {
       title: "",
@@ -114,28 +127,6 @@ const CreatePostPage = (props: any) => {
       isMultiple: false,
       options: [{ optionNumber: 1, optionText: "" }],
     });
-  };
-
-  const addOption = (index) => {
-    const currentQuestions = getValues("questions");
-    const currentOptions = currentQuestions[index].options;
-    const newOptionNumber = currentOptions.length + 1;
-
-    const newFields = getValues("questions");
-    newFields[index].options.push({
-      optionNumber: newOptionNumber,
-      optionText: "",
-    });
-    setValue("questions", newFields);
-  };
-
-  const removeOption = (index, optionIndex) => {
-    const currentQuestions = getValues("questions");
-    const currentOptions = currentQuestions[index].options;
-    currentOptions.splice(optionIndex, 1);
-    const updatedField = getValues("questions");
-    updatedField[index].options = currentOptions;
-    setValue("questions", updatedField);
   };
 
   const handleStatusChange = (status: string) => {
@@ -228,14 +219,10 @@ const CreatePostPage = (props: any) => {
     { colSize: 1, name: "5-1 수료", value: "9" },
   ];
 
-
   const handlePostSubmit = async () => {
-    if(isApply){
-      return;
-    }
     if (isVote) {
       submitVote();
-    }else {
+    } else {
       const postRequest: Post.CreatePostDto = {
         title,
         content,
@@ -244,33 +231,32 @@ const CreatePostPage = (props: any) => {
         isQuestion,
       };
       try {
-        const createPostResponse = await createPost(postRequest,selectedFiles);
-        console.log('게시물 생성 완료: ', createPostResponse);
+        const createPostResponse = await createPost(postRequest, selectedFiles);
+        console.log("게시물 생성 완료: ", createPostResponse);
         clearPost();
         resetFiles();
-        router.back()
-      }catch(error) {
-        console.error('게시물 생성 에러: ', error);
-      }  
+        router.back();
+      } catch (error) {
+        console.error("게시물 생성 에러: ", error);
+      }
     }
   };
 
   return (
     <>
-      <div className="relative top-0 bottom-28 h-full w-full lg: bottom-5">
+      <div className="bottom-5 top-0 h-full w-full lg:relative lg:bottom-28">
         <div className="w-full flex-col items-center">
           <PreviousButton />
         </div>
         {/* 게시글 공통 부분 - 제목 / 내용 */}
-        <div className="h-full flex flex-col p-4 lg:p-10 pt-10">
-          { isApply
-          ? (
+        <div className="flex h-full flex-col p-4 pt-10 lg:p-10">
+          {isApply ? (
             <FormProvider {...methods}>
               <div className="h-full w-full">
                 <div className="h-16 w-full bg-[#F8F8F8]">
                   <PreviousButton />
                 </div>
-                <div className="absolute top-16 h-[calc(100%-5rem)] w-full overflow-y-auto">
+                <div className="absolute top-16 h-[calc(100%-9rem)] w-full overflow-y-auto">
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex w-full flex-col items-center gap-8 lg:items-start lg:px-8"
@@ -327,7 +313,9 @@ const CreatePostPage = (props: any) => {
                         </div>
                       </div>
                       {errors.allowedGrades && (
-                        <p className="text-red-500">{errors.allowedGrades.message}</p>
+                        <p className="text-red-500">
+                          {errors.allowedGrades.message}
+                        </p>
                       )}
                       <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                       <div className="flex w-3/4 min-w-[260px] flex-col bg-white lg:min-w-[500px]"></div>
@@ -348,58 +336,53 @@ const CreatePostPage = (props: any) => {
                     >
                       +
                     </button>
-                    <button>완료</button>
                   </form>
                 </div>
               </div>
             </FormProvider>
-          ) 
-          : (<>
-            <PostForm 
-              title={title} 
-              content={content} 
-              isQuestion={isQuestion} 
-              isAnonymous={isAnonymous} 
-              isVote={isVote} 
-              onTitleChange={setTitle} 
-              onContentChange={setContent} 
-              onQuestionToggle={toggleQuestion} 
-              onAnonymousToggle={toggleAnonymous}
-            />
-            {/* 투표 파트 */}
-            {isVote 
-            ? <VotingForm 
-                voteTitle={voteTitle} 
-                options={options} 
-                isMultipleChoice={isMultipleChoice} 
-                allowAnonymous={allowAnonymous} 
-                onVoteTitleChange={setVoteTitle} 
-                onAddOption={addVoteOption} 
-                onChangeOption={setVoteOption} 
-                onRemoveOption={removeVoteOption} 
-                onSelectMultiple={toggleMultipleChoice} 
-                onAllowAnonymous={toggleAllowAnonymous}/>
-            : ''
-            }
-            {(selectedFiles.length === 0)
-            ? ''
-            : <FilePreview/>
-            }
-           </>
-          )
-          }
+          ) : (
+            <>
+              <PostForm
+                title={title}
+                content={content}
+                isQuestion={isQuestion}
+                isAnonymous={isAnonymous}
+                isVote={isVote}
+                onTitleChange={setTitle}
+                onContentChange={setContent}
+                onQuestionToggle={toggleQuestion}
+                onAnonymousToggle={toggleAnonymous}
+              />
+              {/* 투표 파트 */}
+              {isVote ? (
+                <VotingForm
+                  voteTitle={voteTitle}
+                  options={options}
+                  isMultipleChoice={isMultipleChoice}
+                  allowAnonymous={allowAnonymous}
+                  onVoteTitleChange={setVoteTitle}
+                  onAddOption={addVoteOption}
+                  onChangeOption={setVoteOption}
+                  onRemoveOption={removeVoteOption}
+                  onSelectMultiple={toggleMultipleChoice}
+                  onAllowAnonymous={toggleAllowAnonymous}
+                />
+              ) : (
+                ""
+              )}
+              {selectedFiles.length === 0 ? "" : <FilePreview />}
+            </>
+          )}
         </div>
       </div>
-      <CreatePostFooter 
-          isVote={isVote} 
-          handleSubmit={handlePostSubmit} 
-          handleVoteToggle={toggleVote}
-          handleApplyToggle={toggleApply}  
-        />
+      <CreatePostFooter
+        isVote={isVote}
+        handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit}
+        handleVoteToggle={toggleVote}
+        handleApplyToggle={toggleApply}
+      />
     </>
-    
   );
-
-}
+};
 
 export default CreatePostPage;
