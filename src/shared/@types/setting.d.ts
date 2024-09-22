@@ -8,5 +8,6 @@ declare namespace Setting {
     | "ACTIVE_USERS"
     | "INACTIVE_N_DROP_USERS"
     | "INACTIVE_USERS"
-    | "ADMISSION_USERS";
+    | "ADMISSION_USERS"
+    | "PAYERS";
 }

@@ -5,7 +5,7 @@ import { Header, Line, SubHeader, ExcelExport } from "@/entities";
 import Link from "next/link";
 
 interface Prop {
-  state: string;
+  state: string | undefined;
   title: string;
   firstNavigation: {
     name: string;
@@ -27,9 +27,11 @@ export const Management = ({
   navigation,
   data,
 }: Prop) => {
-  const isFirstNavigation = navigation
-    ? navigation.findIndex((elemenent) => elemenent.state === state) === -1
-    : false;
+  const isFirstNavigation = !state
+    ? true
+    : navigation
+      ? navigation.findIndex((elemenent) => elemenent.state === state) === -1
+      : false;
 
   const exportType = isFirstNavigation
     ? firstNavigation.exportType

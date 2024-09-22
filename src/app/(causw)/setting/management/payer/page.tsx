@@ -25,11 +25,14 @@ const PayerManagement = async () => {
         납부자 추가
       </div>
       <Management
-        state={""}
+        state={undefined}
         title="학생회비 관리"
-        firstNavigation={{ name: "학생회비 납부자 목록", state: "" }}
+        firstNavigation={{
+          name: "학생회비 납부자 목록",
+          state: "",
+          exportType: "PAYERS",
+        }}
         data={data}
-        headers={headers}
       />
     </>
   );
