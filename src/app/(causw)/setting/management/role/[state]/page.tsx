@@ -1,4 +1,4 @@
-import { UserRscService } from "@/shared";
+import { SettingRscService } from "@/shared";
 
 import { Management } from "@/widget";
 
@@ -15,11 +15,11 @@ const RoleManagement = async ({
 }: {
   params: { state: string };
 }) => {
-  const { findByState, findAllAdmissions } = UserRscService();
+  const { getByState, getAllAdmissions } = SettingRscService();
 
   /* const data = isAddmission
-    ? await findAllAdmissions(null, 0)
-    : await findByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
+    ? await getAllAdmissions(null, 0)
+    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
 
   const headers = [
     { label: "이름", key: "userName" },
