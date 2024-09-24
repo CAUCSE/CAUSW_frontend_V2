@@ -43,6 +43,13 @@ declare namespace Setting {
     userAcademicRecordApplicationId: string;
   }
 
+  export interface AttendanceRecord {
+    targetAcademicStatus: string;
+    userNote: string;
+    attachedImageUrlList: string[];
+    changeDate: string;
+  }
+
   //DTO
   // getByState
   export type GetByStateResponseDto = {
@@ -67,5 +74,16 @@ declare namespace Setting {
     leaderGradeUsers: User.User[];
     leaderCircleUsers: User.User[];
     leaderAlumni: User.User[];
+  } & Error.ApiErrorResponse;
+
+  //Detail
+  export type GetAttendanceUserResponseDto = {
+    userId: string;
+    userName: string;
+    studentId: string;
+    academicStatus: string;
+    currentCompleteSemester: number;
+    note: string;
+    userAcademicRecordApplicationResponseDtoList: AttendanceRecord[];
   } & Error.ApiErrorResponse;
 }
