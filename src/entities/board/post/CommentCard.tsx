@@ -2,6 +2,7 @@
 
 import { useUserStore, useCommentStore, usePostStore } from "@/shared";
 import Image from "next/image";
+import { PopupMenu } from "./PopupMenu";
 
 // 여기도 좋아요 싫어요 디자인 문의하기
 interface CommentCardProps {
@@ -32,6 +33,9 @@ export const CommentCard = ({ comment, numLike, overlayActive, handleCommentLike
           height={4}
         ></Image>
       </button>
+      <PopupMenu
+        message="댓글 삭제"
+      />
 
       <div className="flex flex-row items-center px-2 mb-1">
         <Image

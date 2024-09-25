@@ -2,6 +2,7 @@
 
 import { useUserStore } from "@/shared";
 import Image from "next/image";
+import { PopupMenu } from "./PopupMenu";
 import VotingSection from './VotingSection';
 
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
@@ -60,6 +61,9 @@ export const PostCard = (
 
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
+      <PopupMenu
+        message="게시글 삭제"
+      />
       <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
         <Image
           src="/images/post/comment-menu.svg"
@@ -92,11 +96,11 @@ export const PostCard = (
           </div>
 
           {/* 나중에 투표 api 생기면 연결 */}
-          {hasVote 
+          {/* {hasVote 
           ? <div className="lg:pr-12 w-full">
               <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={(options)=>{}} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
             </div>
-          : ''}
+          : ''} */}
         </div>
         
 

@@ -113,26 +113,6 @@ export const PostRscService = () => {
     }
   };
 
-  /* const postLikeForPost = async (postId: string) => {
-    const URI = `${BASEURL}/api/v1/posts/${postId}/like`;
-
-    try {
-      const headers = await setRscHeader();
-      const response: AxiosResponse<void> = await axios.post(URI, null, {
-        headers: headers,
-      });
-
-      if (response.status !== 201) {
-        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
-      }
-
-      console.log("Post liked successfully");
-    } catch (error) {
-      console.error(`Error liking post with id ${postId}:`, error);
-      throw error;
-    }
-  }; */
-
   const postFavorite = async (postId: string) => {
     const URI = `${BASEURL}/api/v1/posts/${postId}/favorite`;
 
