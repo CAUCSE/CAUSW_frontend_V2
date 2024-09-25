@@ -24,5 +24,19 @@ export const SettingService = () => {
     });
   };
 
-  return { useGetAttendanceUser };
+  const useGetWaitingUser = (userId: string, applicationId: string) => {
+    return useQuery({
+      queryKey: ["waitingUser", userId, applicationId],
+      queryFn: async () => {
+        const { data } = (await API.get(
+          `${URI}/academic-record/application/${userId}/${applicationId}`,
+        )) as AxiosResponse<Setting.GetWaitingUserResponseDto>;
+
+        return data;
+      },
+      enabled: !!userId && !!applicationId,
+    });
+  };
+
+  return { useGetAttendanceUser, useGetWaitingUser };
 };

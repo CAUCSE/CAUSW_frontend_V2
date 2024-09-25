@@ -86,4 +86,16 @@ declare namespace Setting {
     note: string;
     userAcademicRecordApplicationResponseDtoList: AttendanceRecord[];
   } & Error.ApiErrorResponse;
+
+  export type GetWaitingUserResponseDto = {
+    userId: string;
+    userName: string;
+    studentId: string;
+    academicRecordRequestStatus: string;
+    targetAcademicStatus: string;
+    targetCompletedSemester: number;
+    note: string;
+    attachedImageUrlList: string[];
+    rejectMessage: string;
+  };
 }
