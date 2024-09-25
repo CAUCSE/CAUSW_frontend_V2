@@ -2,16 +2,17 @@ export const Header = ({
   children,
   underline,
   wide,
-  bord,
+  bold,
+  big,
 }: {
   children: React.ReactNode;
   underline?: boolean;
   wide?: boolean;
-  bord?: boolean;
+  bold?: boolean;
+  big?: boolean;
 }) => (
   <span
-    className={`text-2xl ${underline ? "underline" : ""} 
-    ${bord ? "font-bold" : ""} ${wide ? "tracking-widest" : ""}`}
+    className={`flex flex-row items-end ${big ? "text-3xl" : "text-2xl"} ${underline ? "underline" : ""} ${bold ? "font-bold" : ""} ${wide ? "tracking-widest" : ""}`}
   >
     {children}
   </span>

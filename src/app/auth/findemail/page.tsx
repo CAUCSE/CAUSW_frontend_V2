@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FormInput, FormSubmitButton } from '@/entities';
-import FormErrorMessage from '@/entities/layout/FormErrorMessage';
+import { FormInput, FormSubmitButton, FormErrorMessage } from '@/entities';
 import axios from 'axios';
 import { BASEURL } from '@/shared';
 
