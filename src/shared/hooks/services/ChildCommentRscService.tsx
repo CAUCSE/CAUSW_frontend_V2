@@ -23,6 +23,26 @@ export const ChildCommentRscService = () => {
     }
   };
 
+  const deleteChildComment = async (childCommentId: string) => {
+    const URI = `${BASEURL}/api/v1/child-comments/${childCommentId}`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Comment.CommentDto> = await axios.delete(URI, {
+        headers: headers,
+      });
+
+      if (response.status !== 200) {
+        throw new Error(`Failed to delete child comment with id ${childCommentId}. Response status: ${response.status}`);
+      }
+
+      console.log("Child comment deleted successfully");
+    } catch (error) {
+      console.error(`Error deleting child comment with id ${childCommentId}:`, error);
+      throw error;
+    }
+  };
+
   const createChildComment = async (
     data: ChildComment.CreateChildCommentDto
   ): Promise<ChildComment.ChildCommentDto> => {
@@ -45,5 +65,5 @@ export const ChildCommentRscService = () => {
     }
   };
 
-  return { postLikeForChildComment, createChildComment};
+  return { postLikeForChildComment, deleteChildComment, createChildComment};
 };

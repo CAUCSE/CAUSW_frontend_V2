@@ -71,6 +71,26 @@ export const PostRscService = () => {
     }
   };
 
+  const deletePost = async (postId: string) => {
+    const URI = `${BASEURL}/api/v1/posts/${postId}`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Post.PostDto> = await axios.delete(URI, {
+        headers: headers,
+      });
+
+      if (response.status !== 200) {
+        throw new Error(`Failed to delete post with id ${postId}. Response status: ${response.status}`);
+      }
+
+      console.log("Post deleted successfully");
+    } catch (error) {
+      console.error(`Error deleting post with id ${postId}:`, error);
+      throw error;
+    }
+  };
+
   const postLikeForPost = async (postId: string) => {
     const URI = `${BASEURL}/api/v1/posts/${postId}/like`;
 
@@ -132,5 +152,5 @@ export const PostRscService = () => {
   };
 
 
-  return { createPost, getPostById, postLikeForPost, postFavorite, cancelFavorite };
+  return { createPost,deletePost, getPostById, postLikeForPost, postFavorite, cancelFavorite };
 };

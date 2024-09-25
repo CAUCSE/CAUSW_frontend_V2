@@ -14,6 +14,8 @@ interface PostCardProps {
   handlePostLike: () => void;
   handlePostFavorite: () => void;
   handleCommentBtn: () => void;
+  hasVote: boolean;
+  options: string[]; 
 }
 
 const isImageFile = (fileName: string) => {
@@ -32,7 +34,9 @@ export const PostCard = (
   numFavorite,
   handlePostLike,
   handlePostFavorite,
-  handleCommentBtn
+  handleCommentBtn,
+  hasVote,
+  options
 }
 :PostCardProps) => {
 
@@ -88,11 +92,11 @@ export const PostCard = (
           </div>
 
           {/* 나중에 투표 api 생기면 연결 */}
-          {/* {hasVote 
+          {hasVote 
           ? <div className="lg:pr-12 w-full">
-              <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={handleVote} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
+              <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={(options)=>{}} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
             </div>
-          : ''} */}
+          : ''}
         </div>
         
 

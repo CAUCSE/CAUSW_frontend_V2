@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 
 interface VotingSectionProps {
   isResult: boolean;
-  options: string[];
+  options: string[]; 
   totalVotes?: number;
   voteResult?: { name: string; votes: number }[];
   isMultiple: boolean;

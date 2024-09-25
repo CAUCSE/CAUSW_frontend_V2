@@ -11,7 +11,8 @@ const CreateBoardPage = (props: any) => {
   const {clearBoardInfo, boardName, setIsNameValid, boardDescription, allowAnonymous, selectedRoles} = useBoardStore();
   const { applyBoard, createBoard} = BoardRscService();
   const {role} = useUserStore();
-  
+  console.log('ROLEEEEEe');
+  console.log(role);
   const router = useRouter();
 
   const roles = {

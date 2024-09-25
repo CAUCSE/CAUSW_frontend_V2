@@ -164,6 +164,8 @@ const PostDetailPage = (props: any) => {
             handlePostFavorite={handlePostFavorite}
             handlePostLike={handlePostLike}
             handleCommentBtn={changeToPostComment}
+            hasVote={true}
+            options={['1등','2등','3등']}
           />
           <div className="pl-4 sm:pt-3">
             {commentList.map((comment) => {
