@@ -1,6 +1,5 @@
 declare namespace User {
-  //DTO
-  export interface UserDto {
+  export interface User {
     admissionYear: number;
     circleIdIfLeader: string[] | null;
     circleNameIfLeader: string[] | null;
@@ -8,7 +7,7 @@ declare namespace User {
     id: string;
     name: string;
     profileImage: string;
-    role: Role;
+    roles: Role[];
     state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
     studentId: string;
   }
@@ -25,115 +24,26 @@ declare namespace User {
     | "LEADER_CIRCLE"
     | "LEADER_ALUMNI"
     | "COMMON"
-    | "PROFESSOR"
-    | "COUNCIL_N_LEADER_CIRCLE"
-    | "LEADER_1_N_LEADER_CIRCLE"
-    | "LEADER_2_N_LEADER_CIRCLE"
-    | "LEADER_3_N_LEADER_CIRCLE"
-    | "LEADER_4_N_LEADER_CIRCLE";
+    | "PROFESSOR";
 
   // findByName
-  export type FindByNameResponseDto = UserDto[];
+  export type FindByNameResponseDto = User[];
   export type FindByNameResponse = Model.User[];
 
   // updateRole
   export interface UpdateRoleRequestDto {
-    role: UserDto["role"];
+    role: User["role"];
     circleId?: string;
-  }
-
-  // findAllAdmissions
-  export interface AdmissionUserDto {
-    admissionYear: number;
-    attachImage: string | null;
-    createdAt: string;
-    description: string;
-    id: string;
-    updatedAt: string;
-    userEmail: string;
-    userName: string;
-    //#71 추가
-    userState: UserDto["state"];
-  }
-
-  export interface FindAllAdmissionsResponseDto {
-    content: AdmissionUserDto[];
-    last: boolean;
-
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  }
-  export interface FindAllAdmissionsResponse {
-    users: Model.AdmissionUser[];
-    last: boolean;
-  }
-
-  // findByState
-  export interface FindByStateResponseDto {
-    content: UserDto[];
-    last: boolean;
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  }
-  export interface FindByStateResponse {
-    users: Model.User[];
-    last: boolean;
   }
 
   // findPrivilegedUsers
   export interface FindPrivilegedUsersResponseDto {
-    presidentUser: UserDto[];
-    vicePresidentUser: UserDto[];
-    councilUsers: UserDto[];
-    leaderGradeUsers: UserDto[];
-    leaderCircleUsers: UserDto[];
-    leaderAlumni: UserDto[];
+    presidentUser: User[];
+    vicePresidentUser: User[];
+    councilUsers: User[];
+    leaderGradeUsers: User[];
+    leaderCircleUsers: User[];
+    leaderAlumni: User[];
   }
 
   export interface FindPrivilegedUsersResponse {
@@ -202,33 +112,49 @@ declare namespace User {
     accessToken: string;
     refreshToken: string;
   }
-  
-  export enum AcademicStatus {
-    ENROLLED = "ENROLLED",
-    LEAVE_OF_ABSENCE = "LEAVE_OF_ABSENCE",
-    GRADUATED = "GRADUATED",
-  }
-  
+
   // Signup
-  export interface IAuthForm 
-  {        
+  export interface SignUpForm {
     email: string;
     name: string;
     password: string;
     pwConfirm: string;
     studentId: string;
+    admissionYearString: string;
+    nickname: string;
+    major: string;
+    agreeToTerms: boolean;
+    agreeToPopup: boolean;
+    phoneNumberHyphen: string;
+  }
+
+  export interface SignUpFormPost {
+    email: string;
+    name: string;
+    password: string;
+    studentId: string;
     admissionYear: number;
     nickname: string;
     major: string;
-    academicStatus: AcademicStatus;
-    currentCompletedSemester: number;
-    agreeToTerms: boolean;
-    agreeToPopup: boolean;
-    graduationYear: number | null;
-    graduationMonth: number | null;
     phoneNumber: string;
     profileImage: nullable;
-    files: FileList; 
+    files: FileList;
+  }
+
+  export interface CreateUserAcademicRecordApplicationRequestDto {
+    targetAcademicStatus:
+      | "ENROLLED"
+      | "LEAVE_OF_ABSENCE"
+      | "GRADUATED"
+      | "DROPPED_OUT"
+      | "PROBATION"
+      | "PROFESSOR"
+      | "UNDETERMINED";
+    targetCompletedSemester: number;
+    graduationYear: number;
+    graduationType: "FEBRUARY" | "AUGUST";
+    note: string;
+    images: FileList;
   }
 
   export interface FindPostsResponse {
@@ -322,12 +248,13 @@ declare namespace User {
   }
 
   //Store
-  export interface UseUserStore extends UserDto {
-    setUserStore: (props: User.UserDto) => void;
+  export interface UseUserStore extends User {
+    setUserStore: (props: User.User) => void;
 
     roleTxt: () => string;
     nameWithAdmission: () => string;
     profileImageSrc: () => string;
+    isAdmin: () => boolean;
     isStudent: () => boolean;
     isProfessor: () => boolean;
     isAdmin: () => boolean;
@@ -338,4 +265,7 @@ declare namespace User {
     isStudentLeader: () => boolean;
     isAlumniLeader: () => boolean;
   }
+
+  //DTO
+  export type UserDto = User & Error.ApiErrorResponse;
 }
