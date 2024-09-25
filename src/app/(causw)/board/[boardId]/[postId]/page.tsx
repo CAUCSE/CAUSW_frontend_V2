@@ -14,11 +14,12 @@ import {
   usePostStore,
   useCommentStore,
   useChildCommentStore,
+  usePopup
 } from "@/shared";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
-
+  const { isVisible, message, showPopup } = usePopup(2000);
   const {
     post,
     numLike,
@@ -65,6 +66,7 @@ const PostDetailPage = (props: any) => {
     } catch (error) {
       console.error("좋아요 처리 에러: ", error);
       decrementLike();
+      showPopup("이미 좋아요를 누른 게시글입니다.");
     }
   };
 
@@ -77,6 +79,7 @@ const PostDetailPage = (props: any) => {
     } catch (error) {
       console.error("댓글 좋아요 처리 에러: ", error);
       decrementCommentLike(commentId);
+      showPopup("이미 좋아요를 누른 댓글입니다.");
     }
   };
 
@@ -89,6 +92,7 @@ const PostDetailPage = (props: any) => {
     } catch (error) {
       console.error("대댓글 좋아요 처리 에러: ", error);
       decrementChildCommentLike(childCommentId);
+      showPopup("이미 좋아요를 누른 댓글입니다.");
     }
   };
 
@@ -100,6 +104,7 @@ const PostDetailPage = (props: any) => {
     } catch (error) {
       console.error("즐겨찾기 처리 에러: ", error);
       decrementFavorite();
+      showPopup("이미 즐겨찾기를 누른 게시글입니다.");
     }
   };
 
@@ -151,6 +156,16 @@ const PostDetailPage = (props: any) => {
 
   return (
     <div className="relative bottom-6 h-full w-full overflow-y-auto bg-boardPageBackground scrollbar-hide">
+      {isVisible && (
+        <div
+          className={`fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-600 text-white p-4 rounded-lg shadow-lg transition-opacity duration-2000 ${
+            isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ zIndex: 9999 }}
+        >
+          {message}
+        </div>
+      )}
       <div className="w-full flex-col items-center">
         <PreviousButton />
       </div>

@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const PostRscService = () => {
@@ -96,6 +95,29 @@ export const PostRscService = () => {
 
     try {
       const headers = await setRscHeader();
+
+      // fetch를 사용해 POST 요청
+      const response = await fetch(URI, {
+        method: 'POST',
+        headers: headers,
+      }).then(
+        (res) => res.json(),
+      );
+      console.log(response);
+      // 상태 코드 확인
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error ) {
+      throw error;
+    }
+  };
+
+  /* const postLikeForPost = async (postId: string) => {
+    const URI = `${BASEURL}/api/v1/posts/${postId}/like`;
+
+    try {
+      const headers = await setRscHeader();
       const response: AxiosResponse<void> = await axios.post(URI, null, {
         headers: headers,
       });
@@ -109,7 +131,7 @@ export const PostRscService = () => {
       console.error(`Error liking post with id ${postId}:`, error);
       throw error;
     }
-  };
+  }; */
 
   const postFavorite = async (postId: string) => {
     const URI = `${BASEURL}/api/v1/posts/${postId}/favorite`;
