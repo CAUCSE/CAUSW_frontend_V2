@@ -15,6 +15,7 @@ interface PostCardProps {
   handlePostLike: () => void;
   handlePostFavorite: () => void;
   handleCommentBtn: () => void;
+  handlePostDelete: () => {};
   hasVote: boolean;
   options: string[]; 
 }
@@ -36,6 +37,7 @@ export const PostCard = (
   handlePostLike,
   handlePostFavorite,
   handleCommentBtn,
+  handlePostDelete,
   hasVote,
   options
 }
@@ -63,6 +65,7 @@ export const PostCard = (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
       <PopupMenu
         message="게시글 삭제"
+        handleBtn={handlePostDelete}
       />
       <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
         <Image

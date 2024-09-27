@@ -16,9 +16,11 @@ import {
   useChildCommentStore,
   usePopup
 } from "@/shared";
+import { useRouter } from "next/navigation";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
+  const router = useRouter();
   const { isVisible, message, showPopup } = usePopup(2000);
   const {
     post,
@@ -69,6 +71,16 @@ const PostDetailPage = (props: any) => {
       showPopup("이미 좋아요를 누른 게시글입니다.");
     }
   };
+
+  const handleDeletePost = async() => {
+    try {
+      const deletePostResponse = await PostRscService().deletePost(postId);
+      router.back();
+      console.log("게시물 삭제 완료: ", deletePostResponse);
+    }catch (error) {
+      console.error("게시글 삭제 처리 에러: ", error);
+    }
+  }
 
   const handleCommentLike = async (commentId: string) => {
     try {
@@ -181,6 +193,7 @@ const PostDetailPage = (props: any) => {
             handleCommentBtn={changeToPostComment}
             hasVote={true}
             options={['1등','2등','3등']}
+            handlePostDelete={handleDeletePost}
           />
           <div className="pl-4 sm:pt-3">
             {commentList.map((comment) => {
