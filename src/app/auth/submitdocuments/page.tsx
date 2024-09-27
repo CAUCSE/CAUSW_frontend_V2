@@ -14,9 +14,9 @@ const SubmitDocumentsPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { updateUserAcademicInfo } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [countdown, setCountdown] = useState(0);
   const router = useRouter(); // useRouter 초기화
   const id = useUserStore((state) => state.id)
+  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
 
 
 
@@ -40,6 +40,9 @@ const SubmitDocumentsPage = () => {
 
 
   const files = watch("images") as FileList;
+  const selectedAcademicStatus = watch('targetAcademicStatus');
+
+  
   useEffect(() => {
     if (files && files.length > 0) {
       const newFiles = Array.from(files);
@@ -48,6 +51,10 @@ const SubmitDocumentsPage = () => {
       setFileList(newFiles); // 파일 업데이트
     }
   }, [files]);
+
+  useEffect(() => {
+    setAcademicStatus(selectedAcademicStatus); // 학적 상태 변경 시 UI 갱신
+  }, [selectedAcademicStatus]);
 
   const handleImageClick = (src: string) => {
     setSelectedImage(src);
@@ -80,7 +87,6 @@ const SubmitDocumentsPage = () => {
       formData.append('graduationYear', data.graduationYear.toString());
       formData.append('graduationType', data.graduationType.toString());
       formData.append('note', data.note);
-      formData.append('targetUserId', id);
 
       // 파일들을 FormData에 추가
       Array.from(data.images).forEach((file, index) => {
@@ -91,12 +97,12 @@ const SubmitDocumentsPage = () => {
       const response = await updateUserAcademicInfo(formData);
       console.log(response);
       if (response.status === 200) {  // 성공한 경우
-        console.log(11);
+        console.log('성공');
         setIsSuccessModalOpen(true);
       }
     } catch (error) {
       // 에러 처리
-      console.log(1);
+      console.log('실패');
       console.log(error);
     }
   };
@@ -115,7 +121,27 @@ const SubmitDocumentsPage = () => {
 
   return (
     <div className="p-6">
+              {/* 이전 버튼 */}
+              <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
+          <button
+            onClick={() => router.back()}
+            className="text-black-500 hover:text-gray-500 flex items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            이전
+          </button>
+        </div>
       <div className="mb-6">
+        
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
         <p className="text-gray-600 hidden lg:block">
           재학 중일 시 학부 사무실, 동문회 등의 사업/행사 신청을 위한 증빙 절차입니다. 증빙이 되지 않으면 휴학/졸업이 아닌 재학 중인 회원은 서비스 이용이 어렵습니다.
@@ -134,12 +160,17 @@ const SubmitDocumentsPage = () => {
             <option value="ENROLLED">재학</option>
             <option value="LEAVE_OF_ABSENCE">휴학</option>
             <option value="GRADUATED">졸업</option>
-            <option value="UNDETERMINED">미정</option>
           </select>
           {errors.targetAcademicStatus && <span className="text-red-500">{errors.targetAcademicStatus.message}</span>}
+          {academicStatus === "GRADUATED" && ( 
+            <label className = "font-semibold text-red-500">
+                졸업 선택 시 추후 재학, 휴학으로 변경이 불가합니다.
+            </label>
+        )}
         </div>
 
         {/* N차 학기 선택 */}
+        {academicStatus === "ENROLLED" && (
         <div className="flex flex-col">
           <label className="text-lg font-semibold mb-2">본 학기 기준 등록 완료 학기 차수</label>
           <select
@@ -158,9 +189,11 @@ const SubmitDocumentsPage = () => {
             <option value="9">9차 학기 이상</option>
           </select>
           {errors.targetCompletedSemester && <span className="text-red-500">{errors.targetCompletedSemester.message}</span>}
-        </div>
+        </div>)}
+        
 
         {/* 졸업 년도 선택 */}
+    {academicStatus === "GRADUATED" && ( 
         <div className="flex flex-col">
           <label className="text-lg font-semibold mb-2">졸업 년도</label>
           <select
@@ -174,10 +207,11 @@ const SubmitDocumentsPage = () => {
             </option>))}
           </select>
           {errors.graduationYear && <span className="text-red-500">{errors.graduationYear.message}</span>}
-        </div>
+        </div>)}
 
 
         {/* 졸업 월 선택 */}
+        {academicStatus === "GRADUATED" && ( 
         <div className="flex flex-col">
           <label className="text-lg font-semibold mb-2">졸업 월</label>
           <select
@@ -190,7 +224,7 @@ const SubmitDocumentsPage = () => {
           </select>
           {errors.graduationType && <span className="text-red-500">{errors.graduationType.message}</span>}
         </div>
-
+)}
 
 
         {/* 특이사항 입력 */}
@@ -205,8 +239,8 @@ const SubmitDocumentsPage = () => {
           />
           {errors.note && <span className="text-red-500">{errors.note.message}</span>}
         </div>
-
         {/* 증빙 서류 제출 */}
+        {academicStatus === "ENROLLED" && (
         <div className="mb-2 mr-4 max-w-full">
           <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학부 재적/졸업 증빙 자료</label>
           <p className="text-md text-red-500 mt-1">
@@ -215,54 +249,49 @@ const SubmitDocumentsPage = () => {
           <p className="text-md text-red-500 mb-2">
           (이외의 파일로는 재학 증빙이 불가능합니다.)
           </p>
-          <div className="flex items-center justify-left border-2 border-gray-300 rounded-lg p-4 overflow-auto w-full mb-1">
-            <div className="w-32 h-32 border-2 border-gray-300 rounded-lg p-4 mr-4 flex-shrink-0 basis-1/3">
-              <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center h-full">
-                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                <input id="file-upload" type="file" multiple className="hidden" {...register('images', { 
-                  required: '파일을 첨부해 주세요' })} />
-              </label>            
-            </div>
-            {imagePreviews.length > 0 && (
-              <div className="flex flex-nowrap w-full basis-1/3 mb-2">
-                {imagePreviews.map((preview, index) => (
-                  <div key={index} className="relative w-full h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 mr-4">
-                    <img
-                      src={preview}
-                      alt={`Preview ${index + 1}`}
-                      className="object-cover w-full h-full cursor-pointer"
-                      onClick={() => handleImageClick(preview)}
-                    />
-                    <button
-                      type="button"
-                      className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
-                      onClick={() => handleImageDelete(index)}
-                    >
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                  
-                ))} 
-              </div>
-            )}
-          </div>
-          {errors.images && <span className="text-red-500">{errors.images.message}</span>}
+          <div className="flex items-center justify-left border-2 border-gray-300 rounded-lg p-4 overflow-auto w-full lg:w-4/6 mb-1">
+    <div className="w-32 h-32 border-2 border-gray-300 rounded-lg p-4 mr-4 flex-shrink-0 aspect-square">
+        <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center justify-center h-full">
+        <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        <input id="file-upload" type="file" multiple className="hidden" {...register('images', { required: '파일을 첨부해 주세요' })} />
+        </label>
+    </div>
+
+    {imagePreviews.length > 0 && (
+        <div className="flex flex-nowrap w-full gap-4 mb-2">
+        {imagePreviews.map((preview, index) => (
+            <div key={index} className="relative w-32 h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 aspect-square">
+            <img
+                src={preview}
+                alt={`Preview ${index + 1}`}
+                className="object-cover w-full h-full cursor-pointer"
+                onClick={() => handleImageClick(preview)}
+            />
+          <button
+            type="button"
+            className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
+            onClick={() => handleImageDelete(index)}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
         </div>
+      ))}
+    </div>
+  )}
+</div>
+
+          {errors.images && <span className="text-red-500">{errors.images.message}</span>}
+        </div>)}
 
 
         {/* 모달 */}

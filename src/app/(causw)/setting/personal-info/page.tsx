@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService } from '@/shared';
-import { UserCouncilFeeService } from '@/shared/hooks/services/UserCouncilFeeService';
+import { UserService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
 
 type FormValues = {
   profileImage: File | null;
@@ -33,30 +32,83 @@ const PersonalInfoPage = () => {
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
 
+  const [originAcademicStatus, setOriginAcademicStatus] = useState('');
+
   const router = useRouter();
   const { getUserInfoRevised, updateUserInfo, checkCurrentAcademicRecord } = UserService();
-  const { getUserCouncilFeeId, getUserCouncilFeeInfo } = UserCouncilFeeService();
+  const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
   const formData = new FormData();
+
+
+  // 모달 열림/닫힘 상태를 관리
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isWarningAccepted, setIsWarningAccepted] = useState(false);
+
+  // 모달 열기
+  const openSubmitModal = () => {
+    setIsSubmitModalOpen(true);
+  };
+
+  const openWarningModal = () => {
+    setIsWarningModalOpen(true);
+  }
+
+  // 모달 닫기
+  const closeModal = () => {
+    if (isSubmitModalOpen)
+      setIsSubmitModalOpen(false);
+    if (isWarningModalOpen)
+    {
+      setIsWarningModalOpen(false);
+      setIsWarningAccepted(true);
+    }
+      
+  };
+  
+  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
+  const selectedAcademicStatus = watch('academicStatus');
+  
+
+  useEffect(() => {
+    setAcademicStatus(selectedAcademicStatus)
+  }, [selectedAcademicStatus])
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await getUserInfoRevised();
-        const userData = response.data;
+
+        // 유저 기본 정보 받아오기
+        const responseUserData = await getUserInfoRevised();
+        const userData = responseUserData.data;
         console.log(userData);
 
+
+//         학생회비 납부 정보 받아오기 
+//         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
+//         const userCouncilFeeData = responseUserCouncilFeeData.data;
+//         console.log(userCouncilFeeData);
+
+
+
+        // const responseAcademicRecord = await checkCurrentAcademicRecord();/
+        // console.log(responseAcademicRecord);
+
+        // formData에 유저 정보 값들 넣어두기
         formData.append('name', await userData.name);
-        formData.append('studentId', await userData.studentId);
+        formData.append('studentId', '11');
         formData.append('admissionYear', await userData.admissionYear);
         formData.append('major', await userData.major);
         formData.append('currentCompletedSemester', await userData.currentCompletedSemester);
         formData.append('graduationYear', await userData.graduationYear);
         formData.append('graduationMonth', await userData.graduationType);
-        formData.append('phoneNumber', await userData.phoneNumber);
+        formData.append('phoneNumber', '01012363334');
 
+        // 유저에 맞게 값들 대입입
         setProfileImagePreview(userData.profileImage ?? '/images/default_profile.png');
         setValue('nickname', userData.nickname);
         setValue('academicStatus', userData.academicStatus);
+        setValue('profileImage', userData.profileImage);
 
         setName(userData.name);
         setEmail(userData.email);
@@ -65,11 +117,11 @@ const PersonalInfoPage = () => {
         setGraduationYear(userData.graduationYear);
         setCompletedSemester(userData.currentCompletedSemester);
         setDepartment(userData.major);
-        
+        setOriginAcademicStatus(userData.academicStatus);
 
-
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to fetch user info:', error);
+        console.log(error.message);
       }
     };
 
@@ -91,31 +143,37 @@ const PersonalInfoPage = () => {
     formData.append('nickname', data.nickname);
     formData.append('academicStatus', data.academicStatus);
 
-
-    if (data.profileImage) {
+    if (data.academicStatus === "ENROLLED" && originAcademicStatus === "LEAVE_OF_ABSENCE")
+    {
+      openSubmitModal();
+    }
+    else if (data.academicStatus === "GRADUATED" && isWarningAccepted === false)
+    {
+      openWarningModal();
+    }
+    else
+    {
+      if (data.profileImage) {
       formData.append('profileImage', data.profileImage);
-    }
-    console.log(formData);  
-
-    try {
-      const response = await updateUserInfo(formData);
-      if (response.status === 200) {
-        console.log("Profile updated successfully");
       }
-    } catch (error) {
-      console.error("Failed to update profile:", error);
-    }
-  };
+      console.log(formData);  
 
-  const goToSubmitPage = () => {
-    router.push('/setting/submit-documents');
+      try {
+        const response = await updateUserInfo(formData);
+        if (response.status === 200) {
+          console.log("Profile updated successfully");
+        }
+      } catch (error) {
+        console.error("Failed to update profile:", error);
+      }
+    }
   };
 
   return (
     <div className="p-3">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 이전 버튼 */}
-        <div className="sticky top-0 bg-[#F8F8F8] z-10 w-full flex justify-left items-center py-2 mb-4">
+        <div className="sticky top-0 bg-[#F8F8F8] w-full flex justify-left items-center py-2 mb-4">
           <button
             onClick={() => router.back()}
             className="text-black-500 hover:text-gray-500 flex items-center"
@@ -170,6 +228,9 @@ const PersonalInfoPage = () => {
                   className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
                 />
               </div>
+
+              {/* 학적 상태가 졸업이 아닐 경우 */}
+              {originAcademicStatus !== "GRADUATED" && (
               <div className="mb-4 ml-4 w-1/2 lg:w-full">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
                 <select
@@ -179,11 +240,24 @@ const PersonalInfoPage = () => {
                   <option value="ENROLLED">재학</option>
                   <option value="LEAVE_OF_ABSENCE">휴학</option>
                   <option value="GRADUATED">졸업</option>
-                  <option value="UNDETERMINED">미정</option>
                 </select>
+              </div>)}
+              
+
+              
+              {/* 학적 상태가 졸업 일 경우 */}
+              {originAcademicStatus === "GRADUATED" && (
+                <div className="mb-4 ml-4 w-1/2 lg:w-full">
+                <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
+                <div className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6">졸업</div>
               </div>
-              <div onClick={goToSubmitPage}> 클릭</div>
+              )}
+              {}
             </div>
+            {academicStatus == "GRADUATED" && (
+                <label className = "text-red-500 lg:block">학적 상태를 졸업으로 변경할 경우 이후 재학, 휴학으로 변경이 불가합니다.</label>
+              )}
+            
           </div>
 
           {/* 오른쪽: 이메일, 이름, 학번 등 */}
@@ -235,6 +309,25 @@ const PersonalInfoPage = () => {
             </div>
           </div>
         </div>
+
+        {/* 재학 증빙서류 제출 안내 모달 */}
+        {isSubmitModalOpen &&(
+        <RedirectModal closeModal={closeModal} redirectTo="./updatedocuments">
+          <div className = "flex items-center flex-col ">
+            <h1>휴학->재학 변경 시</h1>
+            <p>재학 증빙 서류를 제출해야 합니다.</p>
+          </div>
+        </RedirectModal>)}
+
+        {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+        {isWarningModalOpen && (
+          <Modal closeModal={closeModal}>
+            <div className='p-2 lg:p-4'>
+            <div>졸업 변경 시 추후 재학, 휴학으로 변경이 불가합니다.</div>
+            <div>(창을 닫은 후 다시 제출하면 변경사항이 저장됩니다.)</div>
+            </div>
+          </Modal>
+        )}
 
         {/* 변경 사항 저장 버튼 */}
         <div className="mt-8 flex justify-center">

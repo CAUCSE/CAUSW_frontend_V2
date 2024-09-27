@@ -33,7 +33,7 @@ export const UserService = () => {
 
   const updateUserAcademicInfo = async (data: any) => {
     try
-  {  const response = (await API.put(`${URI}/academic-record/update`, data)) as AxiosResponse;
+  {  const response = (await API.put(`${URI}/academic-record/application/update`, data)) as AxiosResponse;
     return response;
   } catch(error)
   {

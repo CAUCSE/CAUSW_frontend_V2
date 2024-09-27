@@ -29,6 +29,7 @@ export {
 //Service
 export { AuthService } from "./hooks/services/AuthService";
 export { UserService } from "./hooks/services/UserService";
+export { UserCouncilFeeService } from "./hooks/services/UserCouncilFeeService";
 export { AuthRscService } from "./hooks/services/AuthRscService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
 export { CircleRscService } from "./hooks/services/CircleRscSevice";
@@ -54,6 +55,7 @@ export { WindowSizeListener } from "./listener/WindowSizeListener";
 
 //Ui
 export { Modal } from "./ui/modal";
+export { RedirectModal } from "./ui/redirectModal";
 export { PreviousButton } from "./ui/previousButton";
 export { Icon } from "./ui/icon";
 import { PreviousButton } from "./ui/previousButton";
