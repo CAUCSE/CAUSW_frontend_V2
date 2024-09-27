@@ -10,11 +10,13 @@ interface Prop {
   firstNavigation: {
     name: string;
     state: string;
+    router: string;
     exportType?: Setting.ExportType;
   };
   navigation?: {
     name: string;
     state: string;
+    router: string;
     exportType?: Setting.ExportType;
   }[];
   data: { userName: string; studentId: string; id: string }[];
@@ -73,9 +75,20 @@ export const Management = ({
       <Line />
       <div className="ml-2 mt-6 flex flex-col">
         {data.map((element) => (
-          <div className="text-lg" key={element.userName}>
+          <Link
+            href={
+              isFirstNavigation
+                ? firstNavigation.router
+                : navigation!.find((element) => element.state === state)
+                    ?.router +
+                  "/" +
+                  element.id
+            }
+            className="text-lg"
+            key={element.userName}
+          >
             {element.userName}({element.studentId})
-          </div>
+          </Link>
         ))}
       </div>
     </div>
