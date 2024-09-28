@@ -45,7 +45,16 @@ const HomePage = async () => {
   return (
     <>
       <div className="flex min-h-screen w-full flex-col justify-center gap-[5vh] bg-[rgba(248,248,248,1)] px-4 py-[6vh]">
-        {events && <Banner images={events.events.map((e) => e.image)} />}
+        {events && (
+          <Banner
+            images={
+              events.count > 0
+                ? events.events.map((e) => e.image)
+                : ["/images/puang-proud.png"]
+            }
+            loop={events.count > 0}
+          />
+        )}
         <div className="grid h-full w-full grid-cols-[1fr_3fr] gap-[25px]">
           <Calendar />
           <div className="grid grid-rows-[0.5fr_2fr] gap-[25px]">

@@ -13,11 +13,10 @@ export const HomeRscService = () => {
       if (!response.ok) throw new Error(response.statusText);
 
       const data = (await response.json()) as Home.GetHomePostsResponseDto;
-      console.log(data);
+
       return data;
     } catch (error) {
       console.error(error);
-      
       throw error;
     }
   };
@@ -29,8 +28,9 @@ export const HomeRscService = () => {
       headers: headers,
     });
     if (!response.ok) throw new Error(response.statusText);
-
-    return (await response.json()) as Home.GetEventsResponseDto;
+    const data = await response.json();
+    console.log(data);
+    return data as Home.GetEventsResponseDto;
   };
 
   const getCalendars = async () => {
