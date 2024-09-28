@@ -80,4 +80,44 @@ declare namespace Post {
     };
     empty: boolean;
   };
+
+  export interface PostCreateWithFormRequestDto extends CreatePostDto {
+    formCreateRequestDto: FormCreateRequestDto;
+    attachImageList: string[];
+  }
+
+  export interface FormCreateRequestDto {
+    title: string;
+    questionCreateRequestDtoList: QuestionCreateRequestDto[];
+    isAllowedEnrolled: boolean;
+    enrolledRegisteredSemesterList: SemesterType[];
+    isNeedCouncilFeePaid: boolean;
+    isAllowedLeaveOfAbsence: boolean;
+    leaveOfAbsenceRegisteredSemesterList: SemesterType[];
+    isAllowedGraduation: boolean;
+  }
+
+  export interface QuestionCreateRequestDto {
+    questionType: QuestionType;
+    questionText: string;
+    isMultiple: boolean;
+    optionCreateRequestDtoList: OptionCreateRequestDto[];
+  }
+
+  export interface OptionCreateRequestDto {
+    optionText: string;
+  }
+
+  type QuestionType = "SUBJECTIVE" | "OBJECTIVE";
+
+  type SemesterType =
+    | "FIRST_SEMESTER"
+    | "SECOND_SEMESTER"
+    | "THIRD_SEMESTER"
+    | "FOURTH_SEMESTER"
+    | "FIFTH_SEMESTER"
+    | "SIXTH_SEMESTER"
+    | "SEVENTH_SEMESTER"
+    | "EIGHTH_SEMESTER"
+    | "ABOVE_NINTH_SEMESTER";
 }
