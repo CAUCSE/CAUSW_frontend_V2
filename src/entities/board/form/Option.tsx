@@ -21,23 +21,28 @@ export const Option = ({
             type="text"
             placeholder="항목 내용"
             {...register(
-              `questions.${questionIndex}.options.${optionIndex}.optionText`,
+              `questionCreateRequestDtoList.${questionIndex}.optionCreateRequestDtoList.${optionIndex}.optionText`,
               {
                 required: "항목 내용을 입력해주세요.",
               },
             )}
             className="w-1/3 min-w-[100px] border-b border-[#000000] bg-[#FCFCFC] placeholder:text-center"
           />
-          <button type="button" onClick={removeOption}>
+          <button
+            type="button"
+            onClick={() => {
+              removeOption();
+            }}
+          >
             <Icon iconName="remove" />
           </button>
         </div>
-        {errors.questions?.[questionIndex]?.options?.[optionIndex]
-          ?.optionText && (
+        {errors.questionCreateRequestDtoList?.[questionIndex]
+          ?.optionCreateRequestDtoList?.[optionIndex]?.optionText && (
           <p className="text-red-500">
             {
-              errors.questions?.[questionIndex]?.options?.[optionIndex]
-                ?.optionText.message
+              errors.questionCreateRequestDtoList?.[questionIndex]
+                ?.optionCreateRequestDtoList?.[optionIndex]?.optionText.message
             }
           </p>
         )}
