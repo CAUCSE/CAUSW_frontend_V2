@@ -39,11 +39,13 @@ const CreatePostPage = (props: any) => {
 
   const {
     isVote,
+    isApply,
     voteTitle,
     options,
     isMultipleChoice,
     allowAnonymous,
     toggleVote,
+    toggleApply,
     setVoteTitle,
     setVoteOption,
     addVoteOption,
@@ -54,26 +56,36 @@ const CreatePostPage = (props: any) => {
   } = useCreateVoteStore();
   const { selectedFiles, resetFiles } = useFileUpload();
   const router = useRouter();
-  const [isApply, setIsApply] = useState(false);
-  const toggleApply = () => {
-    // 일단은 isApply면 isVote 무조건 flase되도록 해둠.
-    toggleVote();
-    setIsApply(!isApply);
-  };
-  const methods = useForm<Form.FormDataDto>({
+
+  const methods = useForm<Post.PostCreateWithFormRequestDto>({
     defaultValues: {
       title: "",
-      allowedAcademicStatus: [],
-      allowedGrades: [],
-      questions: [
-        {
-          questionNumber: 1,
-          questionType: "OBJECTIVE",
-          questionText: "",
-          isMultiple: false,
-          options: [{ optionNumber: 1, optionText: "" }],
-        },
-      ],
+      content: "",
+      boardId: boardId,
+      isAnonymous: false,
+      isQuestion: false,
+      formCreateRequestDto: {
+        title: "",
+        questionCreateRequestDtoList: [
+          {
+            questionType: "OBJECTIVE",
+            questionText: "",
+            isMultiple: false,
+            optionCreateRequestDtoList: [
+              {
+                optionText: "",
+              },
+            ],
+          },
+        ],
+        isAllowedEnrolled: false,
+        enrolledRegisteredSemesterList: [],
+        isNeedCouncilFeePaid: false,
+        isAllowedLeaveOfAbsence: false,
+        leaveOfAbsenceRegisteredSemesterList: [],
+        isAllowedGraduation: false,
+      },
+      attachImageList: [],
     },
   });
 
@@ -91,41 +103,42 @@ const CreatePostPage = (props: any) => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "questions" as never,
+    name: "formCreateRequestDto.questionCreateRequestDtoList",
   });
 
   const onSubmit = (data) => {
     //TODO 신청서 생성 완료 -> api 연동
-    if (selectedStatus.length === 0) {
-      setError("allowedAcademicStatus", {
-        type: "manual",
-        message: "하나 이상의 항목을 선택해야 합니다.",
-      });
-      return;
-    }
+    // if (selectedStatus.length === 0) {
+    //   setError("allowedAcademicStatus", {
+    //     type: "manual",
+    //     message: "하나 이상의 항목을 선택해야 합니다.",
+    //   });
+    //   return;
+    // }
 
-    if (selectedGrade.length === 0) {
-      setError("allowedGrades", {
-        type: "manual",
-        message: "하나 이상의 항목을 선택해야 합니다.",
-      });
-      return;
-    }
+    // if (selectedGrade.length === 0) {
+    //   setError("allowedGrades", {
+    //     type: "manual",
+    //     message: "하나 이상의 항목을 선택해야 합니다.",
+    //   });
+    //   return;
+    // }
 
     console.log(data);
   };
 
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const [selectedGrade, setSelectedGrade] = useState<(string | number)[]>([]);
+  const [
+    selectedEnrolledRegisterSemester,
+    setSelectedEnrolledRegisterSemester,
+  ] = useState<(Post.SemesterType | string)[]>([]);
 
   const addSurveyForm = () => {
-    const newFormNumber = fields.length + 1;
     append({
-      questionNumber: newFormNumber,
       questionType: "OBJECTIVE",
       questionText: "",
       isMultiple: false,
-      options: [{ optionNumber: 1, optionText: "" }],
+      optionCreateRequestDtoList: [{ optionText: "" }],
     });
   };
 
@@ -148,38 +161,40 @@ const CreatePostPage = (props: any) => {
     );
   };
 
-  const handleGradeChange = (grade: string | number) => {
+  const handleEnrolledRegisterSemesterListChange = (
+    grade: string | Post.SemesterType,
+  ) => {
     if (grade === "UNDEFINED") {
-      if (selectedGrade.includes("UNDEFINED")) {
-        setSelectedGrade([]);
+      if (selectedEnrolledRegisterSemester.includes("UNDEFINED")) {
+        setSelectedEnrolledRegisterSemester([]);
         return;
       }
-      setSelectedGrade([grade]);
+      setSelectedEnrolledRegisterSemester([grade]);
       return;
-    } else if (selectedGrade.includes("UNDEFINED")) {
-      setSelectedGrade([grade]);
+    } else if (selectedEnrolledRegisterSemester.includes("UNDEFINED")) {
+      setSelectedEnrolledRegisterSemester([grade]);
       return;
     }
-    setSelectedGrade((prevGrade) =>
+    setSelectedEnrolledRegisterSemester((prevGrade) =>
       prevGrade.includes(grade)
         ? prevGrade.filter((element) => element !== grade)
         : [...prevGrade, grade],
     );
   };
 
-  useEffect(() => {
-    setValue("allowedAcademicStatus", selectedStatus as never);
-    if (selectedStatus.length > 0) {
-      clearErrors("allowedAcademicStatus");
-    }
-  }, [selectedStatus]);
+  // useEffect(() => {
+  //   setValue("allowedAcademicStatus", selectedStatus as never);
+  //   if (selectedStatus.length > 0) {
+  //     clearErrors("allowedAcademicStatus");
+  //   }
+  // }, [selectedStatus]);
 
-  useEffect(() => {
-    setValue("allowedGrades", selectedGrade as never);
-    if (selectedGrade.length > 0) {
-      clearErrors("allowedGrades");
-    }
-  }, [selectedGrade]);
+  // useEffect(() => {
+  //   setValue("allowedGrades", selectedGrade as never);
+  //   if (selectedGrade.length > 0) {
+  //     clearErrors("allowedGrades");
+  //   }
+  // }, [selectedGrade]);
 
   const [isViewPointLg, setIsViewPointLg] = useState(false);
   useEffect(() => {
@@ -206,17 +221,16 @@ const CreatePostPage = (props: any) => {
     { colSize: isViewPointLg ? 1 : 2, name: "상관없음", value: "UNDEFINED" },
   ];
 
-  const gradeOptions = [
-    { colSize: isViewPointLg ? 1 : 2, name: "상관없음", value: "UNDEFINED" },
-    { colSize: 1, name: "1-1 수료", value: 1 },
-    { colSize: 1, name: "1-2 수료", value: "2" },
-    { colSize: 1, name: "2-1 수료", value: "3" },
-    { colSize: 1, name: "2-2 수료", value: "4" },
-    { colSize: 1, name: "3-1 수료", value: "5" },
-    { colSize: 1, name: "3-2 수료", value: "6" },
-    { colSize: 1, name: "4-1 수료", value: "7" },
-    { colSize: 1, name: "4-2 수료", value: "8" },
-    { colSize: 1, name: "5-1 수료", value: "9" },
+  const SemesterOptions = [
+    { colSize: 1, name: "1-1 수료", value: "FIRST_SEMESTER" },
+    { colSize: 1, name: "1-2 수료", value: "SECOND_SEMESTER" },
+    { colSize: 1, name: "2-1 수료", value: "THIRD_SEMESTER" },
+    { colSize: 1, name: "2-2 수료", value: "FOURTH_SEMESTER" },
+    { colSize: 1, name: "3-1 수료", value: "FIFTH_SEMESTER" },
+    { colSize: 1, name: "3-2 수료", value: "SIXTH_SEMESTER" },
+    { colSize: 1, name: "4-1 수료", value: "SEVENTH_SEMESTER" },
+    { colSize: 1, name: "4-2 수료", value: "EIGHTH_SEMESTER" },
+    { colSize: 1, name: "5-1 이상", value: "ABOVE_NINTH_SEMESTER" },
   ];
 
   const handlePostSubmit = async () => {
@@ -241,6 +255,75 @@ const CreatePostPage = (props: any) => {
       }
     }
   };
+
+  const isAllowedEnrolled = watch("formCreateRequestDto.isAllowedEnrolled");
+
+  const isNeedCouncilFeePaid = watch(
+    "formCreateRequestDto.isNeedCouncilFeePaid",
+  );
+
+  useEffect(() => {
+    if (!isAllowedEnrolled) {
+      setValue("formCreateRequestDto.isNeedCouncilFeePaid", false);
+    }
+  }, [isAllowedEnrolled, setValue]);
+
+  useEffect(() => {
+    if (isNeedCouncilFeePaid) {
+      setValue("formCreateRequestDto.isAllowedEnrolled", true);
+    }
+  }, [isNeedCouncilFeePaid, setValue]);
+
+  const enrolledRegisteredSemesterList = watch(
+    "formCreateRequestDto.enrolledRegisteredSemesterList",
+  );
+
+  useEffect(() => {
+    if (enrolledRegisteredSemesterList.length > 0) {
+      setAllowAllEnrolledRegisteredSemester(false);
+    }
+    if (enrolledRegisteredSemesterList.length === 9) {
+      setAllowAllEnrolledRegisteredSemester(true);
+    }
+  }, [enrolledRegisteredSemesterList]);
+
+  const [
+    allowAllEnrolledRegisteredSemester,
+    setAllowAllEnrolledRegisteredSemester,
+  ] = useState(false);
+
+  useEffect(() => {
+    if (allowAllEnrolledRegisteredSemester) {
+      setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
+    }
+  }, [allowAllEnrolledRegisteredSemester, setValue]);
+
+  const [
+    allowAllLeaveOfAbsenceRegisteredSemester,
+    setAllowAllLeaveOfAbsenceRegisteredSemester,
+  ] = useState(false);
+
+  useEffect(() => {
+    console.log(allowAllLeaveOfAbsenceRegisteredSemester);
+    if (allowAllLeaveOfAbsenceRegisteredSemester) {
+      setValue("formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList", []);
+    }
+  }, [allowAllLeaveOfAbsenceRegisteredSemester, setValue]);
+
+  const leaveOfAbsenceRegisteredSemesterList = watch(
+    "formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList",
+  );
+
+  useEffect(() => {
+    console.log(leaveOfAbsenceRegisteredSemesterList);
+    if (leaveOfAbsenceRegisteredSemesterList.length === 0) return;
+    if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
+      setAllowAllLeaveOfAbsenceRegisteredSemester(false);
+    }
+    if (leaveOfAbsenceRegisteredSemesterList.length === 9) {
+      setAllowAllLeaveOfAbsenceRegisteredSemester(true);
+    }
+  }, [leaveOfAbsenceRegisteredSemesterList]);
 
   return (
     <>
@@ -280,43 +363,86 @@ const CreatePostPage = (props: any) => {
                     <div className="flex h-full w-full flex-col items-center gap-5 lg:items-start">
                       <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FFF5C5] py-10 lg:min-w-[490px]">
                         <div className="grid grid-cols-2 gap-1 lg:grid-cols-5 lg:gap-2">
-                          {statusOptions.map((status, idx) => (
-                            <CustomCheckBox
-                              colSize={status.colSize as 1 | 2 | 3 | 4 | 5}
-                              targetValue={selectedStatus}
-                              callback={() => handleStatusChange(status.value)}
-                              value={status.value}
-                              name={status.name}
-                              key={idx}
+                          <CustomCheckBox
+                            colSize={1}
+                            name="재학생"
+                            register={register(
+                              "formCreateRequestDto.isAllowedEnrolled",
+                            )}
+                          />
+                          <CustomCheckBox
+                            colSize={isViewPointLg ? 4 : 1}
+                            name="학생회비 납부자"
+                            register={register(
+                              "formCreateRequestDto.isNeedCouncilFeePaid",
+                            )}
+                          />
+
+                          <div className="col-span-1 flex items-center gap-2">
+                            <input
+                              type="checkbox"
+                              checked={allowAllEnrolledRegisteredSemester}
+                              onChange={() =>
+                                setAllowAllEnrolledRegisteredSemester(
+                                  !allowAllEnrolledRegisteredSemester,
+                                )
+                              }
+                              className="h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
                             />
-                          ))}
-                        </div>
-                      </div>
-                      {errors.allowedAcademicStatus && (
-                        <p className="text-red-500">
-                          {errors.allowedAcademicStatus.message}
-                        </p>
-                      )}
-                      <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
-                      <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[490px]">
-                        <div className="grid grid-cols-2 gap-x-5 gap-y-1 lg:grid-cols-5 lg:gap-2">
-                          {gradeOptions.map((grade, idx) => (
+                            <p className="text-sm">상관없음</p>
+                          </div>
+                          {SemesterOptions.map((grade, idx) => (
                             <CustomCheckBox
                               colSize={grade.colSize as 1 | 2 | 3 | 4 | 5}
-                              targetValue={selectedGrade}
-                              callback={() => handleGradeChange(grade.value)}
                               value={grade.value}
                               name={grade.name}
                               key={idx}
+                              register={register(
+                                "formCreateRequestDto.enrolledRegisteredSemesterList",
+                              )}
                             />
                           ))}
                         </div>
                       </div>
-                      {errors.allowedGrades && (
+                      {/* {errors.allowedAcademicStatus && (
+                        <p className="text-red-500">
+                          {errors.allowedAcademicStatus.message}
+                        </p>
+                      )} */}
+                      <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
+                      <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[490px]">
+                        <div className="grid grid-cols-2 gap-x-5 gap-y-1 lg:grid-cols-5 lg:gap-2">
+                          <div className="col-span-1 flex items-center gap-2">
+                            <input
+                              type="checkbox"
+                              checked={allowAllLeaveOfAbsenceRegisteredSemester}
+                              onChange={() =>
+                                setAllowAllLeaveOfAbsenceRegisteredSemester(
+                                  !allowAllLeaveOfAbsenceRegisteredSemester,
+                                )
+                              }
+                              className="h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
+                            />
+                            <p className="text-sm">상관없음</p>
+                          </div>
+                          {SemesterOptions.map((grade, idx) => (
+                            <CustomCheckBox
+                              colSize={grade.colSize as 1 | 2 | 3 | 4 | 5}
+                              value={grade.value}
+                              name={grade.name}
+                              key={idx}
+                              register={register(
+                                "formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList",
+                              )}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      {/* {errors.allowedGrades && (
                         <p className="text-red-500">
                           {errors.allowedGrades.message}
                         </p>
-                      )}
+                      )} */}
                       <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                       <div className="flex w-3/4 min-w-[260px] flex-col bg-white lg:min-w-[500px]"></div>
                     </div>
@@ -377,6 +503,7 @@ const CreatePostPage = (props: any) => {
       </div>
       <CreatePostFooter
         isVote={isVote}
+        isApply={isApply}
         handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit}
         handleVoteToggle={toggleVote}
         handleApplyToggle={toggleApply}
