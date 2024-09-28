@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon } from "@/shared";
 import { useFormContext } from "react-hook-form";
 

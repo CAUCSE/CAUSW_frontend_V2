@@ -1,3 +1,5 @@
+"use client";
+
 import { IconButton } from "@/shared";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { Option } from "./Option";
