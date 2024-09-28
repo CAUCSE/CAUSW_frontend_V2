@@ -256,9 +256,9 @@ const BoardPage = () => {
                           <div className="flex items-center gap-1 sm:gap-2">
                             <Icon iconName="comment" />
                             <p className="text-blue-300">
-                              {content.numFavorite > 999
+                              {content.numComment > 999
                                 ? "999+"
-                                : content.numFavorite}
+                                : content.numComment}
                             </p>
                           </div>
                         </div>
