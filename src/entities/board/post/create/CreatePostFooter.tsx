@@ -6,6 +6,7 @@ import { useRef } from "react";
 
 interface CreatePostFooterProps {
   isVote: boolean;
+  isApply: boolean;
   handleSubmit: (data) => void;
   handleVoteToggle: () => void;
   handleApplyToggle: () => void;
@@ -13,6 +14,7 @@ interface CreatePostFooterProps {
 
 export const CreatePostFooter = ({
   isVote,
+  isApply,
   handleSubmit,
   handleVoteToggle,
   handleApplyToggle,
@@ -58,7 +60,7 @@ export const CreatePostFooter = ({
           ></Image>
         </button>
         <button
-          className={`flex w-[80px] justify-center rounded-full bg-comment-input p-3`}
+          className={`flex w-[80px] justify-center rounded-full ${isApply ? "bg-[#E27C00]" : "bg-comment-input"} p-3`}
           onClick={handleApplyToggle}
         >
           <Image
