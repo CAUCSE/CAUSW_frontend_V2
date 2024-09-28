@@ -15,9 +15,10 @@ import {
   useCreateVoteStore,
   useFileUpload,
 } from "@/shared";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from "next/dist/lib/constants";
+import { all } from "axios";
 import { useRouter } from "next/navigation";
 
 // eslint-disable-next-line @next/next/no-async-client-component
@@ -80,8 +81,10 @@ const CreatePostPage = (props: any) => {
         ],
         isAllowedEnrolled: false,
         enrolledRegisteredSemesterList: [],
+        allowAllEnrolledRegisteredSemester: false,
         isNeedCouncilFeePaid: false,
         isAllowedLeaveOfAbsence: false,
+        allowAllLeaveOfAbsenceRegisteredSemester: false,
         leaveOfAbsenceRegisteredSemesterList: [],
         isAllowedGraduation: false,
       },
@@ -127,12 +130,6 @@ const CreatePostPage = (props: any) => {
     console.log(data);
   };
 
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const [
-    selectedEnrolledRegisterSemester,
-    setSelectedEnrolledRegisterSemester,
-  ] = useState<(Post.SemesterType | string)[]>([]);
-
   const addSurveyForm = () => {
     append({
       questionType: "OBJECTIVE",
@@ -141,60 +138,6 @@ const CreatePostPage = (props: any) => {
       optionCreateRequestDtoList: [{ optionText: "" }],
     });
   };
-
-  const handleStatusChange = (status: string) => {
-    if (status === "UNDEFINED") {
-      if (selectedStatus.includes("UNDEFINED")) {
-        setSelectedStatus([]);
-        return;
-      }
-      setSelectedStatus([status]);
-      return;
-    } else if (selectedStatus.includes("UNDEFINED")) {
-      setSelectedStatus([status]);
-      return;
-    }
-    setSelectedStatus((prevStatus) =>
-      prevStatus.includes(status)
-        ? prevStatus.filter((element) => element !== status)
-        : [...prevStatus, status],
-    );
-  };
-
-  const handleEnrolledRegisterSemesterListChange = (
-    grade: string | Post.SemesterType,
-  ) => {
-    if (grade === "UNDEFINED") {
-      if (selectedEnrolledRegisterSemester.includes("UNDEFINED")) {
-        setSelectedEnrolledRegisterSemester([]);
-        return;
-      }
-      setSelectedEnrolledRegisterSemester([grade]);
-      return;
-    } else if (selectedEnrolledRegisterSemester.includes("UNDEFINED")) {
-      setSelectedEnrolledRegisterSemester([grade]);
-      return;
-    }
-    setSelectedEnrolledRegisterSemester((prevGrade) =>
-      prevGrade.includes(grade)
-        ? prevGrade.filter((element) => element !== grade)
-        : [...prevGrade, grade],
-    );
-  };
-
-  // useEffect(() => {
-  //   setValue("allowedAcademicStatus", selectedStatus as never);
-  //   if (selectedStatus.length > 0) {
-  //     clearErrors("allowedAcademicStatus");
-  //   }
-  // }, [selectedStatus]);
-
-  // useEffect(() => {
-  //   setValue("allowedGrades", selectedGrade as never);
-  //   if (selectedGrade.length > 0) {
-  //     clearErrors("allowedGrades");
-  //   }
-  // }, [selectedGrade]);
 
   const [isViewPointLg, setIsViewPointLg] = useState(false);
   useEffect(() => {
@@ -208,18 +151,6 @@ const CreatePostPage = (props: any) => {
       window.removeEventListener("resize", checkWidth);
     };
   }, []);
-
-  const statusOptions = [
-    { colSize: 1, name: "재학생", value: "ENROLLED" },
-    {
-      colSize: isViewPointLg ? 2 : 1,
-      name: "학생회비 납부자",
-      value: "MEMBERSHIP_FEE_PAID",
-    },
-    { colSize: 1, name: "휴학생", value: "LEAVE_OF_ABSENCE" },
-    { colSize: 1, name: "졸업생", value: "GRADUATED" },
-    { colSize: isViewPointLg ? 1 : 2, name: "상관없음", value: "UNDEFINED" },
-  ];
 
   const SemesterOptions = [
     { colSize: 1, name: "1-1 수료", value: "FIRST_SEMESTER" },
@@ -262,9 +193,27 @@ const CreatePostPage = (props: any) => {
     "formCreateRequestDto.isNeedCouncilFeePaid",
   );
 
+  const usePrevious = (value: any) => {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+    return ref.current;
+  };
+
   useEffect(() => {
+    console.log(isAllowedEnrolled);
     if (!isAllowedEnrolled) {
       setValue("formCreateRequestDto.isNeedCouncilFeePaid", false);
+      if (enrolledRegisteredSemesterList.length > 0) {
+        setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
+      }
+      if (allowAllEnrolledRegisteredSemester) {
+        setValue(
+          "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
+          false,
+        );
+      }
     }
   }, [isAllowedEnrolled, setValue]);
 
@@ -278,52 +227,105 @@ const CreatePostPage = (props: any) => {
     "formCreateRequestDto.enrolledRegisteredSemesterList",
   );
 
+  const prevIsAllowedEnrolled = usePrevious(isAllowedEnrolled);
+
   useEffect(() => {
     if (enrolledRegisteredSemesterList.length > 0) {
-      setAllowAllEnrolledRegisteredSemester(false);
+      setValue(
+        "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
+        false,
+      );
+      if (!isAllowedEnrolled && !prevIsAllowedEnrolled) {
+        setValue("formCreateRequestDto.isAllowedEnrolled", true);
+      }
     }
     if (enrolledRegisteredSemesterList.length === 9) {
-      setAllowAllEnrolledRegisteredSemester(true);
-    }
-  }, [enrolledRegisteredSemesterList]);
-
-  const [
-    allowAllEnrolledRegisteredSemester,
-    setAllowAllEnrolledRegisteredSemester,
-  ] = useState(false);
-
-  useEffect(() => {
-    if (allowAllEnrolledRegisteredSemester) {
+      setValue("formCreateRequestDto.allowAllEnrolledRegisteredSemester", true);
       setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
     }
-  }, [allowAllEnrolledRegisteredSemester, setValue]);
-
-  const [
-    allowAllLeaveOfAbsenceRegisteredSemester,
-    setAllowAllLeaveOfAbsenceRegisteredSemester,
-  ] = useState(false);
-
-  useEffect(() => {
-    console.log(allowAllLeaveOfAbsenceRegisteredSemester);
-    if (allowAllLeaveOfAbsenceRegisteredSemester) {
-      setValue("formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList", []);
-    }
-  }, [allowAllLeaveOfAbsenceRegisteredSemester, setValue]);
+  }, [enrolledRegisteredSemesterList, setValue]);
 
   const leaveOfAbsenceRegisteredSemesterList = watch(
     "formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList",
   );
 
+  const isAllowedLeaveOfAbsence = watch(
+    "formCreateRequestDto.isAllowedLeaveOfAbsence",
+  );
+  const prevIsAllowedLeaveOfAbsence = usePrevious(isAllowedLeaveOfAbsence);
+
   useEffect(() => {
-    console.log(leaveOfAbsenceRegisteredSemesterList);
-    if (leaveOfAbsenceRegisteredSemesterList.length === 0) return;
+    if (!isAllowedLeaveOfAbsence) {
+      if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
+        setValue(
+          "formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList",
+          [],
+        );
+      }
+      if (allowAllLeaveOfAbsenceRegisteredSemester) {
+        setValue(
+          "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+          false,
+        );
+      }
+    }
+  }, [isAllowedLeaveOfAbsence, setValue]);
+
+  useEffect(() => {
     if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
-      setAllowAllLeaveOfAbsenceRegisteredSemester(false);
+      setValue(
+        "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+        false,
+      );
+      if (!isAllowedLeaveOfAbsence && !prevIsAllowedLeaveOfAbsence) {
+        setValue("formCreateRequestDto.isAllowedLeaveOfAbsence", true);
+      }
     }
     if (leaveOfAbsenceRegisteredSemesterList.length === 9) {
-      setAllowAllLeaveOfAbsenceRegisteredSemester(true);
+      setValue(
+        "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+        true,
+      );
+      setValue("formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList", []);
     }
-  }, [leaveOfAbsenceRegisteredSemesterList]);
+  }, [leaveOfAbsenceRegisteredSemesterList, setValue]);
+
+  const allowAllEnrolledRegisteredSemester = watch(
+    "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
+  );
+
+  useEffect(() => {
+    if (allowAllEnrolledRegisteredSemester) {
+      setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
+      setValue("formCreateRequestDto.allowAllEnrolledRegisteredSemester", true);
+      if (!isAllowedEnrolled && !prevIsAllowedEnrolled) {
+        setValue("formCreateRequestDto.isAllowedEnrolled", true);
+      }
+    }
+  }, [allowAllEnrolledRegisteredSemester, setValue]);
+
+  const allowAllLeaveOfAbsenceRegisteredSemester = watch(
+    "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+  );
+
+  useEffect(() => {
+    if (allowAllLeaveOfAbsenceRegisteredSemester) {
+      setValue("formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList", []);
+      setValue(
+        "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+        true,
+      );
+      if (!isAllowedLeaveOfAbsence && !prevIsAllowedLeaveOfAbsence) {
+        setValue("formCreateRequestDto.isAllowedLeaveOfAbsence", true);
+      }
+    }
+  }, [allowAllLeaveOfAbsenceRegisteredSemester, setValue]);
+
+  useEffect(() => {
+    if (fields.length === 0) {
+      addSurveyForm();
+    }
+  }, [fields, addSurveyForm]);
 
   return (
     <>
@@ -336,9 +338,6 @@ const CreatePostPage = (props: any) => {
           {isApply ? (
             <FormProvider {...methods}>
               <div className="h-full w-full">
-                <div className="h-16 w-full bg-[#F8F8F8]">
-                  <PreviousButton />
-                </div>
                 <div className="h-[calc(100%-9rem)] w-full overflow-y-auto">
                   <form
                     onSubmit={handleSubmit(onSubmit)}
@@ -378,19 +377,13 @@ const CreatePostPage = (props: any) => {
                             )}
                           />
 
-                          <div className="col-span-1 flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              checked={allowAllEnrolledRegisteredSemester}
-                              onChange={() =>
-                                setAllowAllEnrolledRegisteredSemester(
-                                  !allowAllEnrolledRegisteredSemester,
-                                )
-                              }
-                              className="h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
-                            />
-                            <p className="text-sm">상관없음</p>
-                          </div>
+                          <CustomCheckBox
+                            colSize={1}
+                            name="상관없음"
+                            register={register(
+                              "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
+                            )}
+                          />
                           {SemesterOptions.map((grade, idx) => (
                             <CustomCheckBox
                               colSize={grade.colSize as 1 | 2 | 3 | 4 | 5}
@@ -412,19 +405,27 @@ const CreatePostPage = (props: any) => {
                       <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                       <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[490px]">
                         <div className="grid grid-cols-2 gap-x-5 gap-y-1 lg:grid-cols-5 lg:gap-2">
-                          <div className="col-span-1 flex items-center gap-2">
-                            <input
-                              type="checkbox"
-                              checked={allowAllLeaveOfAbsenceRegisteredSemester}
-                              onChange={() =>
-                                setAllowAllLeaveOfAbsenceRegisteredSemester(
-                                  !allowAllLeaveOfAbsenceRegisteredSemester,
-                                )
-                              }
-                              className="h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
-                            />
-                            <p className="text-sm">상관없음</p>
-                          </div>
+                          <CustomCheckBox
+                            colSize={1}
+                            name="휴학생"
+                            register={register(
+                              "formCreateRequestDto.isAllowedLeaveOfAbsence",
+                            )}
+                          />
+                          <CustomCheckBox
+                            colSize={isViewPointLg ? 4 : 1}
+                            name="졸업생"
+                            register={register(
+                              "formCreateRequestDto.isAllowedGraduation",
+                            )}
+                          />
+                          <CustomCheckBox
+                            colSize={1}
+                            name="상관없음"
+                            register={register(
+                              "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+                            )}
+                          />
                           {SemesterOptions.map((grade, idx) => (
                             <CustomCheckBox
                               colSize={grade.colSize as 1 | 2 | 3 | 4 | 5}
