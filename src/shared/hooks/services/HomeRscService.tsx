@@ -33,15 +33,12 @@ export const HomeRscService = () => {
     return data as Home.GetEventsResponseDto;
   };
 
-  const getCalendars = async () => {
+  const getCalendars = async (year: number) => {
     const headers = await setRscHeader();
-    const response = await fetch(
-      `${BASEURL}/api/v1/calendars/year=${new Date().getFullYear()}`,
-      {
-        method: "GET",
-        headers: headers,
-      },
-    );
+    const response = await fetch(`${BASEURL}/api/v1/calendars/year=${year}`, {
+      method: "GET",
+      headers: headers,
+    });
     if (!response.ok) throw new Error(response.statusText);
 
     return (await response.json()) as Home.GetCalendarsResponseDto;

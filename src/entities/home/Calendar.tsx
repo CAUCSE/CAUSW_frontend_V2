@@ -6,14 +6,31 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CardBox } from "./card/CardBox";
 
-export const Calendar = async () => {
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const Calendar = () => {
   const [calendars, setCalendars] = useState<Home.GetCalendarsResponseDto>();
   const { getCalendars } = HomeRscService();
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   useEffect(() => {
     const fetchCalendars = async () => {
       try {
-        const response = await getCalendars();
+        const response = await getCalendars(selectedYear);
         setCalendars(response);
       } catch (e: any) {
         console.error(e.message);
@@ -21,41 +38,40 @@ export const Calendar = async () => {
     };
 
     fetchCalendars();
-  });
-
-  const [selectedYearMonth, setSelectedYearMonth] = useState({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth(),
-  });
+  }, [selectedYear, getCalendars]);
 
   const handlePrevMonth = () => {
-    setSelectedYearMonth((prev) => {
-      if (prev.month === 0) {
-        return { year: prev.year - 1, month: 11 };
+    setSelectedMonth((prev) => {
+      if (prev === 0) {
+        setSelectedYear(selectedYear - 1);
+        return 11;
       }
-      return { year: prev.year, month: prev.month - 1 };
+      return prev - 1;
     });
   };
 
   const handleNextMonth = () => {
-    setSelectedYearMonth((prev) => {
-      if (prev.month === 11) {
-        return { year: prev.year + 1, month: 0 };
+    setSelectedMonth((prev) => {
+      if (prev === 11) {
+        setSelectedYear(selectedYear + 1);
+        return 0;
       }
-      return { year: prev.year, month: prev.month + 1 };
+      return prev + 1;
     });
   };
 
   return (
     <CardBox className="flex h-full flex-col items-center gap-[25px] p-[30px]">
       <div className="flex h-[25px] w-full items-center justify-center gap-[40px]">
-        <button>
+        <button className="cursor-pointer" onClick={handlePrevMonth}>
           <i className="icon-[material-symbols--chevron-left] h-[25px] w-[25px] text-gray-400" />
         </button>
-        <p className="w-full text-center text-[14px] text-[#4A5660]">
-          September 2024
+        <p className="w-[150px] text-center text-[14px] text-[#4A5660]">
+          {MONTHS[selectedMonth]}
+          <br />
+          {selectedYear}
         </p>
-        <button>
+        <button className="cursor-pointer" onClick={handleNextMonth}>
           <i className="icon-[material-symbols--chevron-right] h-[25px] w-[25px] text-gray-400" />
         </button>
       </div>
@@ -63,9 +79,7 @@ export const Calendar = async () => {
         src={
           calendars
             ? (calendars.calendars.find(
-                (c) =>
-                  c.year === selectedYearMonth.year &&
-                  c.month === selectedYearMonth.month,
+                (c) => c.year === selectedYear && c.month === selectedMonth,
               )?.image as string)
             : "/images/calendar-dummy.png"
         }
