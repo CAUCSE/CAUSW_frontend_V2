@@ -90,9 +90,11 @@ declare namespace Post {
     title: string;
     questionCreateRequestDtoList: QuestionCreateRequestDto[];
     isAllowedEnrolled: boolean;
+    allowAllEnrolledRegisteredSemester: boolean;
     enrolledRegisteredSemesterList: SemesterType[];
     isNeedCouncilFeePaid: boolean;
     isAllowedLeaveOfAbsence: boolean;
+    allowAllLeaveOfAbsenceRegisteredSemester: boolean;
     leaveOfAbsenceRegisteredSemesterList: SemesterType[];
     isAllowedGraduation: boolean;
   }
