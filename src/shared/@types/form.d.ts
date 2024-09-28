@@ -1,10 +1,11 @@
 declare namespace Form {
   export interface ICustomCheckBox {
     colSize: 1 | 2 | 3 | 4 | 5;
-    targetValue: any;
-    callback: ChangeEventHandler<HTMLInputElement>;
-    value: any;
+    // targetValue: any;
+    // callback: ChangeEventHandler<HTMLInputElement>;
+    value?: any;
     name: string;
+    register: any;
   }
 
   export interface FormDataDto {
