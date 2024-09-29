@@ -1,23 +1,25 @@
 import { create } from 'zustand';
 
 interface CommentState {
-  comments: { [id: string]: {numLike: number, childCommentList: Array<ChildComment.ChildCommentDto>, overlayActive: boolean}};
-  setComments:(id:string, childCommentList: Array<ChildComment.ChildCommentDto>, numLike: number) => void;
+  comments: { [id: string]: {numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean, childCommentList: Array<ChildComment.ChildCommentDto>, overlayActive: boolean}};
+  setComments:(id:string, isOwner: boolean, isCommentPopupVisible:boolean, isDeleted:boolean, childCommentList: Array<ChildComment.ChildCommentDto>, numLike: number) => void;
   incrementCommentLike: (id: string) => void;
   decrementCommentLike: (id: string) => void;
   addChildComment: (id:string, newChildComment:ChildComment.ChildCommentDto) => void;
   toggleCommentOverlay: (id: string) => void;
   clearAllOverlays: () => void;
+  deleteComment: (id: string) => void;
+  toggleCommentPopup: (id:string) => void;
 }
 
 export const useCommentStore = create<CommentState>((set)=>({
   comments: {},
   childCommentList: [],
-  setComments: (id, childCommentList, numLike) =>
+  setComments: (id,isCommentPopupVisible, isOwner, isDeleted, childCommentList, numLike) =>
     set((state) => ({
       comments: {
         ...state.comments,
-        [id]: { numLike, childCommentList, overlayActive: false },
+        [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted, childCommentList, overlayActive: false },
       },
     })),
   addChildComment: (id, newChildComment) => 
@@ -26,6 +28,9 @@ export const useCommentStore = create<CommentState>((set)=>({
         ...state.comments,
         [id]: {
           numLike: state.comments[id].numLike,
+          isCommentPopupVisible: false,
+          isOwner: true, 
+          isDeleted: false,
           childCommentList: [...state.comments[id].childCommentList, newChildComment],
           overlayActive: state.comments[id].overlayActive,
         }
@@ -37,18 +42,24 @@ export const useCommentStore = create<CommentState>((set)=>({
         ...state.comments,
         [id]: {
           numLike: state.comments[id].numLike + 1,
+          isCommentPopupVisible: false,
+          isOwner: state.comments[id].isOwner, 
+          isDeleted: state.comments[id].isDeleted,
           childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
         }
       }
     })),
-    decrementCommentLike: (id) => 
+  decrementCommentLike: (id) => 
     set((state) => ({
       comments: {
         ...state.comments,
         [id]: {
           numLike: state.comments[id].numLike - 1,
-                    childCommentList: state.comments[id].childCommentList,
+          isCommentPopupVisible: false,
+          isOwner: state.comments[id].isOwner, 
+          isDeleted: state.comments[id].isDeleted,
+          childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
         }
       }
@@ -77,4 +88,32 @@ export const useCommentStore = create<CommentState>((set)=>({
 
       return { comments: updatedComments };
     }),
+  deleteComment: (id) => 
+    set((state) => ({
+      comments: {
+        ...state.comments,
+        [id]: {
+          numLike: state.comments[id].numLike,
+          isCommentPopupVisible: false,
+          isOwner: state.comments[id].isOwner, 
+          isDeleted: false,
+          childCommentList: state.comments[id].childCommentList,
+          overlayActive: state.comments[id].overlayActive,
+        }
+      }
+    })),
+  toggleCommentPopup: (id) => 
+    set((state) => ({
+      comments: {
+        ...state.comments,
+        [id]: {
+          numLike: state.comments[id].numLike,
+          isCommentPopupVisible: !state.comments[id].isCommentPopupVisible,
+          isOwner: state.comments[id].isOwner, 
+          isDeleted: state.comments[id].isDeleted,
+          childCommentList: state.comments[id].childCommentList,
+          overlayActive: state.comments[id].overlayActive,
+        }
+      }
+    })),
 }))

@@ -19,6 +19,7 @@ interface PostCardProps {
   hasVote: boolean;
   options: string[]; 
   toggleMenu: () => void;
+  isPopupVisible: boolean;
 }
 
 const isImageFile = (fileName: string) => {
@@ -42,10 +43,11 @@ export const PostCard = (
   hasVote,
   options,
   toggleMenu,
+  isPopupVisible
 }
 :PostCardProps) => {
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
-  const {isPopupVisible} = usePostStore();
+  //const {isPopupVisible} = usePostStore();
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
       {isPopupVisible ? <PopupMenu

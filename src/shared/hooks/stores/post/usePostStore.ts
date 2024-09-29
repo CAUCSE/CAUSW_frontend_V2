@@ -22,7 +22,7 @@ interface PostState {
   setPostComment: () => void;
   setCommentInfo: (commentId: string) => void;
   decrementComment: () => void;
-  togglePopupMenu: () => void;
+  togglePostPopup: () => void;
 }
 
 export const usePostStore = create<PostState>((set) => ({
@@ -47,5 +47,5 @@ export const usePostStore = create<PostState>((set) => ({
   setPostComment: () => set(() => ({ createCommentInfo: {isChildComment: false, commentId: null}})),
   setCommentInfo: (commentId) =>set(() => ({ createCommentInfo: {isChildComment: true, commentId: commentId}})),
   decrementComment: () => set((state) => ({ numComment: state.numComment - 1 })),
-  togglePopupMenu: () => set((state) => ({isPopupVisible: !state.isPopupVisible})),
+  togglePostPopup: () => set((state) => ({isPopupVisible: !state.isPopupVisible})),
 }));

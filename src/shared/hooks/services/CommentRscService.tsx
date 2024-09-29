@@ -23,7 +23,7 @@ export const CommentRscService = () => {
     }
   };
 
-  const deleteComment = async (commentId: string) => {
+  const deleteCommentById = async (commentId: string) => {
     const URI = `${BASEURL}/api/v1/comments/${commentId}`;
 
     try {
@@ -66,5 +66,5 @@ export const CommentRscService = () => {
   };
 
 
-  return { postLikeForComment, deleteComment, createComment };
+  return { postLikeForComment, deleteCommentById, createComment };
 };

@@ -34,12 +34,13 @@ export const usePostDetail = (postId: string) => {
     const fetchPost = async () => {
       try {
         const postData = await getPostById(postId);
+        console.log(postData);
         //console.log(`isOwner????// ${postData.isOwner}`)
         postData.updatedAt = getTimeDifference(postData.updatedAt)
         setPost(postData);  // post와 numLikes를 상태로 설정
         setPostComment();
         postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
-          setComments(comment.id, comment.childCommentList, comment.numLike);
+          setComments(comment.id, false, comment.isOwner, comment.isDeleted, comment.childCommentList, comment.numLike);
           comment.childCommentList.forEach((childComment: any) => {
             setChildCommentLikes(childComment.id, childComment.numLike);  // 각 대댓글의 좋아요 수 설정
           });
