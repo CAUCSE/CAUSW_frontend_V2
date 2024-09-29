@@ -17,13 +17,10 @@ interface CommentCardProps {
   handleDeleteComment: () => void;
 }
 
-// max-w-md mx-auto space-x-4
 export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, isDeleted, handleCommentToggle, handleCommentLike,handleDeleteComment }: CommentCardProps) => {
-  const { toggleCommentOverlay,deleteComment} = useCommentStore();
+  const { toggleCommentOverlay} = useCommentStore();
   const { setCommentInfo: setChildComment} = usePostStore();
   const writerProfileImage = comment.writerProfileImage ?? "/images/default_profile.png";
-  //const [isPopupVisible, setIsPopupVisible] = useState(false); // Popup 상태 관리
-  //const {deleteCommentById} = CommentRscService();
   const handleOverlayToggle = () => {
     if(!isDeleted){
       setChildComment(comment.id);

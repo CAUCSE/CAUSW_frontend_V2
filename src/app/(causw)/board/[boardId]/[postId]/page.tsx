@@ -52,9 +52,11 @@ const PostDetailPage = (props: any) => {
   } = useCommentStore();
   const {
     childComments,
-    setChildCommentLikes,
+    setChildComment,
     incrementChildCommentLike,
     decrementChildCommentLike,
+    deleteChildComment,
+    toggleChildCommentPopup
   } = useChildCommentStore();
 
   usePostDetail(postId);
@@ -157,7 +159,7 @@ const PostDetailPage = (props: any) => {
           await ChildCommentRscService().createChildComment(createChildComment);
         console.log("대댓글 완료: ", createChildCommentResponse);
         addChildComment(createCommentInfo.commentId!, createChildCommentResponse);
-        setChildCommentLikes(createChildCommentResponse.id, 0);
+        setChildComment(createChildCommentResponse.id, 0, false, true,false);
         incrementComment();
       } catch (error) {
         console.error("게시물 대댓글 처리 에러: ", error);
@@ -182,12 +184,26 @@ const PostDetailPage = (props: any) => {
     try {
       const deleteCommentResponse = await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
-      console.log("게시물 삭제 완료: ", deleteCommentResponse);
+      console.log("댓글 삭제 완료: ", deleteCommentResponse);
     }catch (error) {
-      console.error("게시글 삭제 처리 에러: ", error);
+      console.error("댓글 삭제 처리 에러: ", error);
     }
   }
 
+  const toggleChildCommentPopupMenu = (childCommentId: string) => {
+    if(childComments[childCommentId].isOwner && !childComments[childCommentId].isDeleted){
+      toggleChildCommentPopup(childCommentId);
+    }
+  }
+  const handleDeleteChildComment = async (childCommentId:string)=>{
+    try {
+      const deleteChildCommentResponse = await ChildCommentRscService().deleteChildComment(childCommentId);
+      deleteChildComment(childCommentId);
+    console.log("대댓글 삭제 완료: ", deleteChildCommentResponse);
+    }catch (error) {
+      console.error("대댓글 삭제 처리 에러: ", error);
+    }
+  }
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -250,7 +266,11 @@ const PostDetailPage = (props: any) => {
                       key={childComment.id}
                       childComment={childComment}
                       numLike={childComments[childComment.id].numLike}
+                      isDeleted={childComments[childComment.id].isDeleted}
+                      isPopupVisible={childComments[childComment.id].isCommentPopupVisible}
                       handleChildCommentLike={() =>handleChildCommentLike(childComment.id)}
+                      handleChildCommentToggle={() => toggleChildCommentPopupMenu(childComment.id)}
+                      handleDeleteChildComment={() => handleDeleteChildComment(childComment.id)}
                     />
                   ))}
                 </div>

@@ -5,7 +5,7 @@ import { useVoteStore, usePostStore, useCommentStore, useChildCommentStore, Post
 export const usePostDetail = (postId: string) => {
   const { setPost, setPostComment } = usePostStore();
   const {setComments} = useCommentStore();
-  const {setChildCommentLikes} = useChildCommentStore();
+  const {setChildComment} = useChildCommentStore();
   const { getPostById } = PostRscService();
   const { setVote } = useVoteStore();
   const getTimeDifference = (ISOtime: string) => {
@@ -34,15 +34,13 @@ export const usePostDetail = (postId: string) => {
     const fetchPost = async () => {
       try {
         const postData = await getPostById(postId);
-        console.log(postData);
-        //console.log(`isOwner????// ${postData.isOwner}`)
         postData.updatedAt = getTimeDifference(postData.updatedAt)
-        setPost(postData);  // post와 numLikes를 상태로 설정
+        setPost(postData);
         setPostComment();
         postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
           setComments(comment.id, false, comment.isOwner, comment.isDeleted, comment.childCommentList, comment.numLike);
           comment.childCommentList.forEach((childComment: any) => {
-            setChildCommentLikes(childComment.id, childComment.numLike);  // 각 대댓글의 좋아요 수 설정
+            setChildComment(childComment.id, childComment.numLike, false, childComment.isOwner, childComment.isDeleted);  // 각 대댓글의 좋아요 수 설정
           });
         });
         if (postData.isPostVote){
