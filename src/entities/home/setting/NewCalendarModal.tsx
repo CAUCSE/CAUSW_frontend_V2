@@ -21,6 +21,16 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
     setMonth(event.target.value);
   };
 
+  const handleSubmit = () => {
+    if (!year || !month) {
+      alert("년도와 월을 선택해주세요.");
+      return;
+    }
+    // TODO : api call
+    alert("저장되었습니다.");
+    router.back();
+  };
+
   return (
     <div
       className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-20 backdrop-blur-lg"
@@ -135,7 +145,10 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
             </div>
           </div>
         </div>
-        <button className="mt-[50px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold">
+        <button
+          onClick={handleSubmit}
+          className="mt-[50px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold"
+        >
           저장
         </button>
       </div>
