@@ -57,19 +57,19 @@ const LockerList = () => {
         {
           id: locationIdMap['2층'],
           name: '2층',
-          available: responses[0].data.lockerList.filter((locker: any) => !locker.isActive).length,
+          available: responses[0].data.lockerList.filter((locker: any) => locker.isActive === true).length,
           total: responses[0].data.lockerList.length,
         },
         {
           id: locationIdMap['3층'],
           name: '3층',
-          available: responses[1].data.lockerList.filter((locker: any) => !locker.isActive).length,
+          available: responses[1].data.lockerList.filter((locker: any) => locker.isActive === true).length,
           total: responses[1].data.lockerList.length,
         },
         {
           id: locationIdMap['4층'],
           name: '4층',
-          available: responses[2].data.lockerList.filter((locker: any) => !locker.isActive).length,
+          available: responses[2].data.lockerList.filter((locker: any) => locker.isActive === true).length,
           total: responses[2].data.lockerList.length,
         },
       ];
