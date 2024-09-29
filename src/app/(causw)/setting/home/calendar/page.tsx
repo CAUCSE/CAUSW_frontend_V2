@@ -45,7 +45,7 @@ export default async function CalendarSettingPage() {
           이전
         </Link>
         <Link
-          href="./banner"
+          href="./calendar/new"
           className="rounded-full border border-black bg-white px-8 py-3"
         >
           캘린더 추가
