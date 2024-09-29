@@ -14,20 +14,22 @@ const BannerCard = ({
   date: string;
 }) => {
   return (
-    <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
-      <img
-        src={imgSrc}
-        alt="banner"
-        className="h-[141px] w-full object-cover"
-      />
-      <div className="flex justify-between">
-        <p>{url}</p>
-        <div className="flex items-end gap-[18px]">
-          <p className="text-[15px] text-[#B4B1B1]">{date}</p>
-          <i className="icon-[fa6-regular--trash-can] h-[50px] w-[50px]" />
+    <Link href={`./event/${bannerId}?bannerImg=${imgSrc}`}>
+      <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
+        <img
+          src={imgSrc}
+          alt="banner"
+          className="h-[141px] w-full object-cover"
+        />
+        <div className="flex justify-between">
+          <p>{url}</p>
+          <div className="flex items-end gap-[18px]">
+            <p className="text-[15px] text-[#B4B1B1]">{date}</p>
+            <i className="icon-[fa6-regular--trash-can] h-[50px] w-[50px]" />
+          </div>
         </div>
-      </div>
-    </CardBox>
+      </CardBox>
+    </Link>
   );
 };
 
@@ -49,7 +51,7 @@ export default async function EventSetting() {
           이전
         </Link>
         <Link
-          href="./banner"
+          href="./event/new"
           className="rounded-full border border-black bg-white px-8 py-3"
         >
           배너 추가
@@ -64,7 +66,7 @@ export default async function EventSetting() {
       <BannerCard
         url="https//:~~"
         imgSrc="/images/calendar-dummy.png"
-        bannerId=""
+        bannerId="1"
         date="2021.09.01"
       />
       <BannerCard
@@ -76,22 +78,22 @@ export default async function EventSetting() {
       <BannerCard
         url="https//:~~"
         imgSrc="/images/calendar-dummy.png"
-        bannerId=""
+        bannerId="2"
         date="2021.09.01"
       />
       <BannerCard
         url="https//:~~"
         imgSrc="/images/calendar-dummy.png"
-        bannerId=""
+        bannerId="3"
         date="2021.09.01"
       />
       <BannerCard
         url="https//:~~"
         imgSrc="/images/calendar-dummy.png"
-        bannerId=""
+        bannerId="4"
         date="2021.09.01"
       />
-      {events && <p>이벤트 목록</p>}
+      {events && <p>TODO : 실제 이벤트 목록</p>}
     </div>
   );
 }
