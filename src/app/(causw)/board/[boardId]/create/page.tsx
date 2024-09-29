@@ -17,10 +17,10 @@ import {
 } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
+import Image from "next/image";
 import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from "next/dist/lib/constants";
 import { all } from "axios";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
@@ -461,7 +461,7 @@ const CreatePostPage = (props: any) => {
           {isApply ? (
             <FormProvider {...methods}>
               <div className="h-full w-full">
-                <div className="h-[calc(100%-9rem)] w-full overflow-y-auto">
+                <div className="h-[calc(100%-60px)] w-full overflow-y-auto">
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex w-full flex-col items-center gap-4 lg:items-start"
