@@ -20,11 +20,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from "next/dist/lib/constants";
 import { all } from "axios";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
-  const { createPost } = PostRscService();
+  const { createPost, createPostWithForm } = PostRscService();
 
   const {
     title,
@@ -33,6 +34,8 @@ const CreatePostPage = (props: any) => {
     isQuestion,
     setContent,
     setTitle,
+    setIsAnonymous,
+    setIsQuestion,
     toggleAnonymous,
     toggleQuestion,
     clearPost,
@@ -88,7 +91,6 @@ const CreatePostPage = (props: any) => {
         leaveOfAbsenceRegisteredSemesterList: [],
         isAllowedGraduation: false,
       },
-      attachImageList: [],
     },
   });
 
@@ -109,25 +111,109 @@ const CreatePostPage = (props: any) => {
     name: "formCreateRequestDto.questionCreateRequestDtoList",
   });
 
-  const onSubmit = (data) => {
-    //TODO 신청서 생성 완료 -> api 연동
-    // if (selectedStatus.length === 0) {
-    //   setError("allowedAcademicStatus", {
-    //     type: "manual",
-    //     message: "하나 이상의 항목을 선택해야 합니다.",
-    //   });
-    //   return;
-    // }
+  const onSubmit = async (data) => {
+    if (
+      data.formCreateRequestDto.enrolledRegisteredSemesterList.length === 0 &&
+      data.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList.length ===
+        0 &&
+      !data.formCreateRequestDto.isAllowedEnrolled &&
+      !data.formCreateRequestDto.isAllowedGraduation &&
+      !data.formCreateRequestDto.isNeedCouncilFeePaid &&
+      !data.formCreateRequestDto.isAllowedLeaveOfAbsence
+    ) {
+      setError("formCreateRequestDto.isAllowedLeaveOfAbsence", {
+        type: "manual",
+        message: "신청 가능 대상을 하나 이상 지정해주세요",
+      });
+      return;
+    }
 
-    // if (selectedGrade.length === 0) {
-    //   setError("allowedGrades", {
-    //     type: "manual",
-    //     message: "하나 이상의 항목을 선택해야 합니다.",
-    //   });
-    //   return;
-    // }
+    if (
+      data.formCreateRequestDto.isAllowedEnrolled &&
+      data.formCreateRequestDto.enrolledRegisteredSemesterList.length === 0 &&
+      !data.formCreateRequestDto.allowAllEnrolledRegisteredSemester
+    ) {
+      setError("formCreateRequestDto.isAllowedEnrolled", {
+        type: "manual",
+        message: "신청 가능 학년을 하나 이상 지정해주세요 ",
+      });
+      return;
+    }
 
-    console.log(data);
+    if (
+      data.formCreateRequestDto.isAllowedLeaveOfAbsence &&
+      data.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList.length ===
+        0 &&
+      !data.formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester
+    ) {
+      setError("formCreateRequestDto.isAllowedLeaveOfAbsence", {
+        type: "manual",
+        message: "신청 가능 학년을 하나 이상 지정해주세요",
+      });
+    }
+    const postCreateWithFormRequestDto = { ...data };
+    if (
+      postCreateWithFormRequestDto.formCreateRequestDto
+        .allowAllEnrolledRegisteredSemester
+    ) {
+      postCreateWithFormRequestDto.formCreateRequestDto.enrolledRegisteredSemesterList =
+        [
+          "FIRST_SEMESTER",
+          "SECOND_SEMESTER",
+          "THIRD_SEMESTER",
+          "FOURTH_SEMESTER",
+          "FIFTH_SEMESTER",
+          "SIXTH_SEMESTER",
+          "SEVENTH_SEMESTER",
+          "EIGHTH_SEMESTER",
+          "ABOVE_NINTH_SEMESTER",
+        ];
+      delete postCreateWithFormRequestDto.formCreateRequestDto
+        .allowAllEnrolledRegisteredSemester;
+    }
+
+    if (
+      postCreateWithFormRequestDto.formCreateRequestDto
+        .allowAllLeaveOfAbsenceRegisteredSemester
+    ) {
+      postCreateWithFormRequestDto.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList =
+        [
+          "FIRST_SEMESTER",
+          "SECOND_SEMESTER",
+          "THIRD_SEMESTER",
+          "FOURTH_SEMESTER",
+          "FIFTH_SEMESTER",
+          "SIXTH_SEMESTER",
+          "SEVENTH_SEMESTER",
+          "EIGHTH_SEMESTER",
+          "ABOVE_NINTH_SEMESTER",
+        ];
+      delete postCreateWithFormRequestDto.formCreateRequestDto
+        .allowAllLeaveOfAbsenceRegisteredSemester;
+    }
+
+    postCreateWithFormRequestDto.formCreateRequestDto.questionCreateRequestDtoList.forEach(
+      (question: Post.QuestionCreateRequestDto) => {
+        if (question.questionType === "SUBJECTIVE") {
+          question.optionCreateRequestDtoList.length = 0;
+          question.isMultiple = false;
+        }
+      },
+    );
+
+    console.log(JSON.stringify(postCreateWithFormRequestDto, null, 2));
+    console.log(JSON.stringify(data, null, 2));
+    try {
+      const response = await createPostWithForm(
+        postCreateWithFormRequestDto,
+        selectedFiles,
+      );
+      clearPost();
+      resetFiles();
+      router.back();
+    } catch (error) {
+      console.log("게시물 + 신청서 생성 실패 : ", error);
+    }
   };
 
   const addSurveyForm = () => {
@@ -327,6 +413,43 @@ const CreatePostPage = (props: any) => {
     }
   }, [fields, addSurveyForm]);
 
+  const postTitle = watch("title");
+  const postContent = watch("content");
+  const postIsAnonymous = watch("isAnonymous");
+  const postIsQuestion = watch("isQuestion");
+
+  useEffect(() => {
+    if (isApply) setTitle(postTitle);
+  }, [postTitle]);
+
+  useEffect(() => {
+    if (isApply) setContent(postContent);
+  }, [postContent]);
+
+  useEffect(() => {
+    if (isApply) setIsAnonymous(postIsAnonymous);
+  }, [postIsAnonymous]);
+
+  useEffect(() => {
+    if (isApply) setIsQuestion(postIsQuestion);
+  }, [postIsQuestion]);
+
+  useEffect(() => {
+    if (!isApply) setValue("title", title);
+  }, [title, setValue]);
+
+  useEffect(() => {
+    if (!isApply) setValue("content", content);
+  }, [content, setValue]);
+
+  useEffect(() => {
+    if (!isApply) setValue("isAnonymous", isAnonymous);
+  }, [isAnonymous, setValue]);
+
+  useEffect(() => {
+    if (!isApply) setValue("isQuestion", isQuestion);
+  }, [isQuestion, setValue]);
+
   return (
     <>
       <div className="bottom-5 top-0 h-full w-full lg:relative lg:bottom-28">
@@ -341,19 +464,69 @@ const CreatePostPage = (props: any) => {
                 <div className="h-[calc(100%-9rem)] w-full overflow-y-auto">
                   <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="flex w-full flex-col items-center gap-8 lg:items-start"
+                    className="flex w-full flex-col items-center gap-4 lg:items-start"
                   >
+                    <div className="mt-4 flex w-full items-center justify-between">
+                      <div className="flex w-full items-center space-x-2 lg:space-x-4">
+                        <div className="mt-2 w-full">
+                          <input
+                            type="text"
+                            placeholder="제목"
+                            {...register("title", {
+                              required: true,
+                            })}
+                            className="mb-2 w-full border-b-post-title-input border-black bg-transparent pb-2 text-lg placeholder:text-[#B7B7B7] focus:outline-none lg:p-2"
+                          />
+                        </div>
+                        <div className="flex w-[85px] items-center gap-2">
+                          <input
+                            type="checkbox"
+                            {...register("isQuestion")}
+                            className={`h-[12px] w-[12px] cursor-pointer appearance-none border-[2px] border-solid border-[#A0A0A0] bg-[#D9D9D9] bg-[length:100%_100%] checked:border-[#FF0000] checked:bg-[#FF0000] sm:h-[18px] sm:w-[18px]`}
+                          />
+                          <p
+                            className={`sm:text-md text-sm ${watch("isQuestion") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
+                          >
+                            질문
+                          </p>
+                        </div>
+                        <div className="flex w-[85px] items-center gap-2">
+                          <input
+                            type="checkbox"
+                            {...register("isAnonymous")}
+                            className={`h-[12px] w-[12px] cursor-pointer appearance-none border-[2px] border-solid border-[#A0A0A0] bg-[#D9D9D9] bg-[length:100%_100%] checked:border-[#FF0000] checked:bg-[#FF0000] sm:h-[18px] sm:w-[18px]`}
+                          />
+                          <p
+                            className={`sm:text-md text-sm ${watch("isAnonymous") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
+                          >
+                            익명
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={`${isApply ? "h-60" : "h-full"} w-full`}>
+                      <textarea
+                        id="content"
+                        {...register("content", {
+                          required: "게시글 내용을 입력해주세요.",
+                        })}
+                        placeholder="내용을 입력하세요!"
+                        className="h-full w-full bg-[#F8F8F8] outline-none placeholder:text-xl"
+                      ></textarea>
+                    </div>
+                    {selectedFiles.length === 0 ? "" : <FilePreview />}
+                    <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                     <div className="flex w-56 flex-col items-center border-b border-black">
                       <input
                         type="text"
                         id="title"
-                        {...register("title", {
+                        {...register("formCreateRequestDto.title", {
                           required: true,
                         })}
-                        placeholder="신청서 제목 텍스트 필드"
+                        placeholder="신청서 제목"
                         className="h-10 bg-[#F8F8F8] text-xl placeholder:text-center"
                       />
-                      {errors.title && (
+                      {errors.formCreateRequestDto?.title && (
                         <p className="text-sm text-red-500">
                           신청서 제목을 입력해주세요
                         </p>
@@ -376,7 +549,6 @@ const CreatePostPage = (props: any) => {
                               "formCreateRequestDto.isNeedCouncilFeePaid",
                             )}
                           />
-
                           <CustomCheckBox
                             colSize={1}
                             name="상관없음"
@@ -397,11 +569,14 @@ const CreatePostPage = (props: any) => {
                           ))}
                         </div>
                       </div>
-                      {/* {errors.allowedAcademicStatus && (
+                      {errors.formCreateRequestDto?.isAllowedEnrolled && (
                         <p className="text-red-500">
-                          {errors.allowedAcademicStatus.message}
+                          {
+                            errors.formCreateRequestDto.isAllowedEnrolled
+                              .message
+                          }
                         </p>
-                      )} */}
+                      )}
                       <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                       <div className="flex w-3/4 min-w-[260px] items-center justify-around rounded-2xl bg-[#FDE4DE] py-10 lg:min-w-[490px]">
                         <div className="grid grid-cols-2 gap-x-5 gap-y-1 lg:grid-cols-5 lg:gap-2">
@@ -439,11 +614,14 @@ const CreatePostPage = (props: any) => {
                           ))}
                         </div>
                       </div>
-                      {/* {errors.allowedGrades && (
+                      {errors.formCreateRequestDto?.isAllowedLeaveOfAbsence && (
                         <p className="text-red-500">
-                          {errors.allowedGrades.message}
+                          {
+                            errors.formCreateRequestDto.isAllowedLeaveOfAbsence
+                              .message
+                          }
                         </p>
-                      )} */}
+                      )}
                       <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
                       <div className="flex w-3/4 min-w-[260px] flex-col bg-white lg:min-w-[500px]"></div>
                     </div>
