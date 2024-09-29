@@ -26,7 +26,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
       onClick={() => router.back()}
     >
       <div
-        className="relative flex h-[70vh] w-[80vw] flex-col items-center overflow-auto bg-white p-[50px] pb-[50px]"
+        className="relative flex w-[80vw] flex-col overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:items-center lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -35,7 +35,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
         >
           <i className="icon-[ep--close-bold]" />
         </button>
-        <p className="text-[40px] font-semibold">
+        <p className="text-[21px] font-semibold lg:text-[40px]">
           이벤트 공지 배너 {bannerId ? "수정" : "추가"}
         </p>
         <div className="relative flex h-[150px] w-full flex-col">
@@ -70,22 +70,22 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
             )}
           </label>
         </div>
-        <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)]">
+        <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)] max-lg:text-[10px]">
           이미지는 1100 * 150 px 크기로 맞춰주세요.
           <br />
           10MB 이하의 이미지만 업로드 가능합니다.
         </p>
-        <p className="self-start text-[24px] text-red-500 underline underline-offset-2">
+        <p className="self-start text-[20px] text-red-500 underline underline-offset-2 lg:text-[24px]">
           이벤트 공지 URL
         </p>
         <input
-          className="h-[120px] w-full rounded-2xl border border-black p-[20px] text-[20px]"
+          className="h-[120px] w-full rounded-2xl border border-black p-[20px] text-[14px] lg:text-[20px]"
           placeholder="이벤트 공지 URL을 입력해주세요."
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         ></input>
         <button
-          className="mt-[80px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold"
+          className="mt-[40px] h-[55px] w-[150px] rounded-lg bg-[#6BBEEC] lg:mt-[80px] lg:w-[250px] lg:text-[24px] lg:font-semibold"
           onClick={handleSubmit}
         >
           {bannerId ? "배너 수정" : "저장"}
