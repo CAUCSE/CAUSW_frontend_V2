@@ -21,7 +21,7 @@ export const Option = ({
             type="text"
             placeholder="항목 내용"
             {...register(
-              `questionCreateRequestDtoList.${questionIndex}.optionCreateRequestDtoList.${optionIndex}.optionText`,
+              `formCreateRequestDto.questionCreateRequestDtoList.${questionIndex}.optionCreateRequestDtoList.${optionIndex}.optionText`,
               {
                 required: "항목 내용을 입력해주세요.",
               },
@@ -37,12 +37,14 @@ export const Option = ({
             <Icon iconName="remove" />
           </button>
         </div>
-        {errors.questionCreateRequestDtoList?.[questionIndex]
-          ?.optionCreateRequestDtoList?.[optionIndex]?.optionText && (
+        {errors.formCreateRequestDto?.questionCreateRequestDtoList?.[
+          questionIndex
+        ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText && (
           <p className="text-red-500">
             {
-              errors.questionCreateRequestDtoList?.[questionIndex]
-                ?.optionCreateRequestDtoList?.[optionIndex]?.optionText.message
+              errors.formCreateRequestDto?.questionCreateRequestDtoList?.[
+                questionIndex
+              ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText.message
             }
           </p>
         )}
