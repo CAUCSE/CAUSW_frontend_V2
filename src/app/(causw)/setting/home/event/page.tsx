@@ -1,37 +1,6 @@
-import { CardBox } from "@/entities/home";
+import { BannerCard } from "@/entities/home";
 import { HomeRscService } from "@/shared";
 import Link from "next/link";
-
-const BannerCard = ({
-  url,
-  imgSrc,
-  bannerId,
-  date,
-}: {
-  url: string;
-  imgSrc: string;
-  bannerId: string;
-  date: string;
-}) => {
-  return (
-    <Link href={`./event/${bannerId}?bannerImg=${imgSrc}`}>
-      <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
-        <img
-          src={imgSrc}
-          alt="banner"
-          className="h-[141px] w-full object-cover"
-        />
-        <div className="flex justify-between">
-          <p>{url}</p>
-          <div className="flex items-end gap-[18px]">
-            <p className="text-[15px] text-[#B4B1B1]">{date}</p>
-            <i className="icon-[fa6-regular--trash-can] h-[50px] w-[50px]" />
-          </div>
-        </div>
-      </CardBox>
-    </Link>
-  );
-};
 
 export default async function EventSetting() {
   const { getEvents } = HomeRscService();

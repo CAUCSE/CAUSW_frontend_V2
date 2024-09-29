@@ -11,6 +11,15 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
 
   const router = useRouter();
 
+  const handleSubmit = () => {
+    if (!currImg || !url) {
+      alert("이미지와 URL을 입력해주세요.");
+      return;
+    }
+    alert("저장되었습니다.");
+    router;
+  };
+
   return (
     <div
       className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-20 backdrop-blur-lg"
@@ -75,7 +84,10 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         ></input>
-        <button className="mt-[80px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold">
+        <button
+          className="mt-[80px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold"
+          onClick={handleSubmit}
+        >
           {bannerId ? "배너 수정" : "저장"}
         </button>
       </div>

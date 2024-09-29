@@ -44,5 +44,16 @@ export const HomeRscService = () => {
     return (await response.json()) as Home.GetCalendarsResponseDto;
   };
 
+  const getCalendar = async (id: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
+      method: "GET",
+      headers: headers,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Home.Calendar;
+  };
+
   return { getHomePosts, getEvents, getCalendars };
 };
