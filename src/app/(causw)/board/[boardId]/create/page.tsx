@@ -25,7 +25,7 @@ import { useRouter } from "next/navigation";
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
-  const { createPost, createPostWithForm } = PostRscService();
+  const { createPost, createPostWithForm, createVote } = PostRscService();
 
   const {
     title,
@@ -56,7 +56,6 @@ const CreatePostPage = (props: any) => {
     removeVoteOption,
     toggleMultipleChoice,
     toggleAllowAnonymous,
-    submitVote,
   } = useCreateVoteStore();
   const { selectedFiles, resetFiles } = useFileUpload();
   const router = useRouter();
@@ -251,25 +250,36 @@ const CreatePostPage = (props: any) => {
   ];
 
   const handlePostSubmit = async () => {
-    if (isVote) {
-      submitVote();
-    } else {
-      const postRequest: Post.CreatePostDto = {
-        title,
-        content,
-        boardId,
-        isAnonymous,
-        isQuestion,
-      };
-      try {
-        const createPostResponse = await createPost(postRequest, selectedFiles);
-        console.log("게시물 생성 완료: ", createPostResponse);
-        clearPost();
-        resetFiles();
-        router.back();
-      } catch (error) {
-        console.error("게시물 생성 에러: ", error);
+    const postRequest: Post.CreatePostDto = {
+      title,
+      content,
+      boardId,
+      isAnonymous,
+      isQuestion,
+    };
+    try {
+      const createPostResponse = await createPost(postRequest, selectedFiles);
+      console.log("게시물 생성 완료: ", createPostResponse);
+      clearPost();
+      resetFiles();
+      if (isVote) {
+        const voteRequest: Post.CreateVoteDto = {
+          title: voteTitle,
+          allowAnonymous: allowAnonymous,
+          allowMultiple: isMultipleChoice,
+          options: options,
+          postId: createPostResponse,
+        };
+        try {
+          const createVoteResponse = await createVote(voteRequest);
+          console.log("투표 생성 완!!!", createVoteResponse);
+        } catch (error) {
+          console.error("투표 생성 에러: ", error);
+        }
       }
+      router.back();
+    } catch (error) {
+      console.error("게시물 생성 에러: ", error);
     }
   };
 

@@ -1,7 +1,8 @@
 "use client"
 
-import { useUserStore } from "@/shared";
+import { usePostStore } from "@/shared";
 import Image from "next/image";
+import { PopupMenu } from "./PopupMenu";
 import VotingSection from './VotingSection';
 
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
@@ -14,10 +15,15 @@ interface PostCardProps {
   handlePostLike: () => void;
   handlePostFavorite: () => void;
   handleCommentBtn: () => void;
+  handlePostDelete: () => void;
+  hasVote: boolean;
+  options: string[]; 
+  toggleMenu: () => void;
+  isPopupVisible: boolean;
 }
 
 const isImageFile = (fileName: string) => {
-  return /\.(jpg|jpeg|png|gif|bmp|webp)$/.test(fileName);
+  return /\.(jpg|jpeg|png|gif|bmp)$/.test(fileName);
 };
 
 const extractFileName = (url: string) => {
@@ -32,31 +38,26 @@ export const PostCard = (
   numFavorite,
   handlePostLike,
   handlePostFavorite,
-  handleCommentBtn
+  handleCommentBtn,
+  handlePostDelete,
+  hasVote,
+  options,
+  toggleMenu,
+  isPopupVisible
 }
 :PostCardProps) => {
-
-  const defaultAttachmentList: Array<string> = [
-    'http://example.com/file1.jpg',
-    'http://example.com/file2.pdf',
-    'http://example.com/file3.docx',
-    'http://example.com/file4.xlsx',
-    'http://example.com/file5.png',
-    'http://example.com/file6.zip',
-    'http://example.com/file1.jpg',
-    'http://example.com/file2.pdf',
-    'http://example.com/file3.docx',
-    'http://example.com/file4.xlsx',
-    'http://example.com/file5.png',
-    'http://example.com/file6.zip',
-  ];
-  const attachmentList = defaultAttachmentList;
-  
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
-
+  //const {isPopupVisible} = usePostStore();
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
-      <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
+      {isPopupVisible ? <PopupMenu
+        message="게시글 삭제"
+        handleBtn={handlePostDelete}
+      />: ''}
+      <button 
+        className="absolute top-3 right-3 flex items-center justify-center w-10 h-10"
+        onClick={toggleMenu}
+      >
         <Image
           src="/images/post/comment-menu.svg"
           alt="Comment Menu"
@@ -88,16 +89,22 @@ export const PostCard = (
           </div>
 
           {/* 나중에 투표 api 생기면 연결 */}
-          {/* {hasVote 
-          ? <div className="lg:pr-12 w-full">
-              <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={handleVote} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
+          {postData.isPostVote 
+          ? <div className="lg:pr-12 w-full w-32">
+              <VotingSection 
+                isResult={true} 
+                //isMultiple={false} 
+                //isAnonymous={false} 
+                onVote={function (selectedOptions: string[]): void {
+                throw new Error("Function not implemented.");
+              } } /> 
             </div>
-          : ''} */}
+          : ''}
         </div>
         
 
         <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto w-full scrollbar-hide pb-3">
-          {attachmentList.map((attachment, index) =>
+          {postData.fileUrlList.map((attachment, index) =>
             isImageFile(attachment) ? (
               <div
                 key={index}

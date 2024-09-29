@@ -51,6 +51,8 @@ export { usePostStore } from "./hooks/stores/post/usePostStore";
 export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
 export { usePostDetail } from "./hooks/stores/post/usePostDetail";
+export { usePopup } from "./hooks/stores/post/usePopup";
+export { useVoteStore } from "./hooks/stores/post/useVoteStore";
 
 export { useCreatePostStore } from "./hooks/stores/post/create/useCreatePostStore";
 export { useCreateVoteStore } from "./hooks/stores/post/create/useCreateVoteStore";
@@ -63,5 +65,6 @@ export { WindowSizeListener } from "./listener/WindowSizeListener";
 export { Modal } from "./ui/modal";
 export { PreviousButton } from "./ui/previousButton";
 export { Loading } from "./ui/Loading";
-export { Icon } from "./ui/icon";
 export { IconButton } from "./ui/IconButton";
+
+export { Icon } from "./ui/icon";

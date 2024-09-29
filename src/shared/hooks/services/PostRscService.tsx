@@ -1,12 +1,11 @@
-import axios, { AxiosResponse } from "axios";
-
 import { BASEURL, setRscHeader } from "@/shared";
+import axios, { AxiosResponse } from "axios";
 
 export const PostRscService = () => {
   const createPost = async (
     data: Post.CreatePostDto,
     attachImageList: File[],
-  ): Promise<Post.PostDto> => {
+  ): Promise<string> => {
     const URI = `${BASEURL}/api/v1/posts`;
     try {
       const formData = new FormData();
@@ -88,7 +87,8 @@ export const PostRscService = () => {
       if (response.status !== 201) {
         throw new Error(`${response.status}`);
       }
-      console.log("게시물 + 신청서 생성 완료");
+      console.log("게시글 생성 완료:", response.data);
+      return response.data.id;
     } catch (error) {
       console.error("error 발생 : ", error);
       throw error;
@@ -111,6 +111,56 @@ export const PostRscService = () => {
       return response.data;
     } catch (error) {
       console.error("Error fetching post:", error);
+      throw error;
+    }
+  };
+
+  const createVote = async (
+    data: Post.CreateVoteDto,
+  ): Promise<Post.VoteResponseDto> => {
+    const URI = `${BASEURL}/api/v1/votes/create`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Post.VoteResponseDto> = await axios.post(
+        URI,
+        data,
+        {
+          headers: headers,
+        },
+      );
+
+      if (response.status !== 201) {
+        throw new Error(
+          `Failed to create comment. Response status: ${response.status}`,
+        );
+      }
+      console.log("투표 생성 완료!!!!!!!!");
+      return response.data;
+    } catch (error) {
+      console.error("Error creating comment:", error);
+      throw error;
+    }
+  };
+
+  const deletePost = async (postId: string) => {
+    const URI = `${BASEURL}/api/v1/posts/${postId}`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<void> = await axios.delete(URI, {
+        headers: headers,
+      });
+
+      if (response.status !== 200) {
+        throw new Error(
+          `Failed to delete post with id ${postId}. Response status: ${response.status}`,
+        );
+      }
+
+      console.log("Post deleted successfully");
+    } catch (error) {
+      console.error(`Error deleting post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -148,13 +198,13 @@ export const PostRscService = () => {
 
       if (response.status !== 201) {
         throw new Error(
-          `Failed to like post with id ${postId}. Response status: ${response.status}`,
+          `Failed to favorite post with id ${postId}. Response status: ${response.status}`,
         );
       }
 
-      console.log("Post liked successfully");
+      console.log("Post favorite successfully");
     } catch (error) {
-      console.error(`Error liking post with id ${postId}:`, error);
+      console.error(`Error favorite post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -184,6 +234,8 @@ export const PostRscService = () => {
   return {
     createPost,
     createPostWithForm,
+    createVote,
+    deletePost,
     getPostById,
     postLikeForPost,
     postFavorite,
