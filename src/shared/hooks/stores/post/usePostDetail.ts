@@ -34,7 +34,7 @@ export const usePostDetail = (postId: string) => {
     const fetchPost = async () => {
       try {
         const postData = await getPostById(postId);
-        console.log(`isOwner????// ${postData.isOwner}`)
+        //console.log(`isOwner????// ${postData.isOwner}`)
         postData.updatedAt = getTimeDifference(postData.updatedAt)
         setPost(postData);  // post와 numLikes를 상태로 설정
         setPostComment();

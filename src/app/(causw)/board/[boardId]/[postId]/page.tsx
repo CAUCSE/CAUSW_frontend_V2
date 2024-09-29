@@ -23,6 +23,7 @@ const PostDetailPage = (props: any) => {
   const router = useRouter();
   const { isVisible, message, showPopup } = usePopup(2000);
   const {
+    isPopupVisible,
     post,
     numLike,
     numFavorite,
@@ -37,6 +38,7 @@ const PostDetailPage = (props: any) => {
     decrementLike,
     incrementFavorite,
     decrementFavorite,
+    togglePopupMenu,
   } = usePostStore();
   const {
     comments,
@@ -162,6 +164,14 @@ const PostDetailPage = (props: any) => {
     }
   };
 
+  const togglePostPopupMenu = () => {
+    console.log(post?.isOwner);
+    if (post?.isOwner) {
+      togglePopupMenu();
+      console.log(isPopupVisible)
+    }
+  }
+
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -194,6 +204,7 @@ const PostDetailPage = (props: any) => {
             hasVote={true}
             options={['1등','2등','3등']}
             handlePostDelete={handleDeletePost}
+            toggleMenu={togglePostPopupMenu}
           />
           <div className="pl-4 sm:pt-3">
             {commentList.map((comment) => {

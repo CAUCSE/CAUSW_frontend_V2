@@ -1,6 +1,6 @@
 "use client"
 
-import { useUserStore } from "@/shared";
+import { usePostStore } from "@/shared";
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from './VotingSection';
@@ -15,13 +15,14 @@ interface PostCardProps {
   handlePostLike: () => void;
   handlePostFavorite: () => void;
   handleCommentBtn: () => void;
-  handlePostDelete: () => {};
+  handlePostDelete: () => void;
   hasVote: boolean;
   options: string[]; 
+  toggleMenu: () => void;
 }
 
 const isImageFile = (fileName: string) => {
-  return /\.(jpg|jpeg|png|gif|bmp|webp)$/.test(fileName);
+  return /\.(jpg|jpeg|png|gif|bmp)$/.test(fileName);
 };
 
 const extractFileName = (url: string) => {
@@ -39,18 +40,22 @@ export const PostCard = (
   handleCommentBtn,
   handlePostDelete,
   hasVote,
-  options
+  options,
+  toggleMenu,
 }
 :PostCardProps) => {
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
-
+  const {isPopupVisible} = usePostStore();
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
-      <PopupMenu
+      {isPopupVisible ? <PopupMenu
         message="게시글 삭제"
         handleBtn={handlePostDelete}
-      />
-      <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10">
+      />: ''}
+      <button 
+        className="absolute top-3 right-3 flex items-center justify-center w-10 h-10"
+        onClick={toggleMenu}
+      >
         <Image
           src="/images/post/comment-menu.svg"
           alt="Comment Menu"
