@@ -15,6 +15,34 @@ declare namespace Post {
     isQuestion: boolean;
     isPostLike: boolean;
     isPostFavorite: boolean;
+    isPostVote: boolean;
+    isPostForm: boolean;
+    isOwner: boolean;
+    updatable: boolean;
+    deletable: boolean;
+    createdAt: string;
+    updatedAt: string;
+    commentList: CommentListDto;
+    boardName: string;
+    formResponseDto: FormResponseDto | null;
+    voteResponseDto: VoteResponseDto | null;
+  }
+  export interface PostDeleteDto {
+    id: string;
+    title: string;
+    content: string;
+    isDeleted: boolean;
+    writerName: string;
+    writerAdmissionYear: number;
+    writerProfileImage: string | null;
+    fileUrlList: string[];
+    numComment: number;
+    numLike: number;
+    numFavorite: number;
+    isAnonymous: boolean;
+    isQuestion: boolean;
+    isPostLike: boolean;
+    isPostFavorite: boolean;
     updatable: boolean;
     deletable: boolean;
     createdAt: string;
@@ -22,12 +50,68 @@ declare namespace Post {
     commentList: CommentListDto;
     boardName: string;
   }
+  export interface PostCreateResponseDto {
+    id: string;
+  }
 
+  export interface FormResponseDto {
+
+  }
+
+  export interface VoteResponseDto {
+    voteId: string;
+    title: string;
+    allowAnonymous: boolean;
+    allowMultiple: boolean;
+    options:VoteOptionDto[];
+    postId: string;
+    isOwner: boolean;
+    isEnd: boolean;
+  }
+
+  export interface VoteUserDto {
+    id: string;
+    email: string;
+    name: string;
+    studentId: string;
+    admissionYear: number;
+    roles: string[],
+    profileImageUrl: string;
+    state: string;
+    circleIdIfLeader: string[];
+    circleNameIfLeader: string[];
+    nickname: string;
+    major: string;
+    academicStatus: string;
+    currentCompletedSemester: number;
+    graduationYear: number;
+    graduationType: string;
+    phoneNumber:string;
+    rejectionOrDropReason: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+  export interface VoteOptionDto {
+    id: string;
+    optionName: string;
+    voteCount: number;
+    voteUsers: VoteUserDto[];
+
+  }
   export interface CommentListDto {
     content: Array<CommentDto>;
     //content: CommentDto[];
   }
-
+  export interface CreateVoteDto {
+    title: string;
+    allowAnonymous: boolean;
+    allowMultiple: boolean;
+    options: string[];
+    postId: string;
+  }
+  export interface DoVoteDto {
+    voteOptionIdList: string[];
+  }
   export interface CreatePostDto {
     title: string;
     content: string;

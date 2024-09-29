@@ -2,6 +2,7 @@
 
 import { useUserStore } from "@/shared";
 import Image from "next/image";
+import { PopupMenu } from "./PopupMenu";
 
 // 여기도 좋아요 싫어요 디자인 문의하기
 interface ChildCommentCardProps {
@@ -32,6 +33,10 @@ export const ChildCommentCard = ({ childComment, numLike, handleChildCommentLike
             height={4}
           ></Image>
         </button> 
+        <PopupMenu
+          message="대댓글 삭제"
+          handleBtn={()=>{}}
+        />
         <div className="flex flex-row items-center px-2 mb-1">
           <Image
             src = {writerProfileImage}

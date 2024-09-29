@@ -10,8 +10,18 @@ import { create } from 'domain';
 const CreateBoardPage = (props: any) => {
   const {clearBoardInfo, boardName, setIsNameValid, boardDescription, allowAnonymous, selectedRoles} = useBoardStore();
   const { applyBoard, createBoard} = BoardRscService();
-  const {role} = useUserStore();
-  
+  const isPresidents = useUserStore(state => state.isPresidents);
+  const isVicePresidents = useUserStore(state => state.isVicePresidents);
+  const isAdmin = useUserStore(state => state.isAdmin);
+  const hasAuth = (isAdmin()||isPresidents()||isVicePresidents());
+  console.log('isAdmin');
+  console.log(isAdmin);
+  console.log('isPresidents');
+  console.log(isPresidents);
+  console.log('isVicePresidents');
+  console.log(isVicePresidents);
+  console.log('hasAuth');
+  console.log(hasAuth);
   const router = useRouter();
 
   const roles = {
@@ -30,7 +40,7 @@ const CreateBoardPage = (props: any) => {
       setIsNameValid(false);
       return;
     }
-    if (role === 'ADMIN' || role === 'PRESIDENT' || role === 'VICE_PRESIDENT'){
+    if (hasAuth){
       const boardReqeust: Board.CreateBoardDto = {
         boardName: boardName,
         description: boardDescription,
@@ -70,7 +80,7 @@ const CreateBoardPage = (props: any) => {
       <div className="h-full flex flex-col p-2 lg:p-10 pt-10">
         <BoardDetailForm/>
         <RoleSelectSection 
-          userRole={role} 
+          userRole={hasAuth} 
           roles={roles}
         />
 
@@ -81,7 +91,7 @@ const CreateBoardPage = (props: any) => {
           onClick={handleSubmit}
           className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-confirm-btn px-6 py-3 font-bold text-white lg:bottom-6"
         >
-          {(role === 'ADMIN' || role === 'PRESIDENT' || role === 'VICE_PRESIDENT') ? "게시판 생성" : "게시판 생성 신청" }
+          {(hasAuth) ? "게시판 생성" : "게시판 생성 신청" }
         </button>
     
     </div>

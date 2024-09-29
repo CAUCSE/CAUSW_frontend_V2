@@ -1,20 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from "next/image";
+import { useVoteStore } from '@/shared';
 
 interface VotingSectionProps {
   isResult: boolean;
-  options: string[];
-  totalVotes?: number;
-  voteResult?: { name: string; votes: number }[];
-  isMultiple: boolean;
-  isAnonymous: boolean;
+  //options: Post.VoteOptionDto[]; 
+  //totalVotes?: number;
+  //voteResult?: { name: string; votes: number }[];
+  //isAnonymous: boolean;
   onVote: (selectedOptions: string[]) => void;
 }
 
-const VotingSection: React.FC<VotingSectionProps> = ({ isResult, options, totalVotes, voteResult, isMultiple, isAnonymous, onVote }) => {
+const VotingSection: React.FC<VotingSectionProps> = ({ isResult, onVote }) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { vote, totalVote, voteOptions} = useVoteStore();
+  const isMultiple = vote.allowMultiple;
+  const isAnonymous = vote.allowAnonymous;
   const handleChange = (option: string) => {
     if (isMultiple) {
       if (selectedOptions.includes(option)) {
@@ -43,9 +45,12 @@ const VotingSection: React.FC<VotingSectionProps> = ({ isResult, options, totalV
   return (
     <div className="mb-6 w-full">
       <div className="flex justify-between items-center">
-        <div className="w-[70px] text-[14px] text-center">{isResult ? `총 ${totalVotes}명` : ''}</div>
-        <div className="text-red-500 w-max-[300px] bg-vote-title px-4 py-2 text-[14px] font-semibold text-center">투표: 상품 누군가한테 줄까요?</div>
-        <div className="text-gray-500 w-[70px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
+        <div className="w-[70px] text-[14px] text-center">{isResult ? `총 ${totalVote}명` : ''}</div>
+        <div className="text-red-500 w-max-[300px] bg-vote-title px-4 py-2 text-[14px] font-semibold text-center">{vote.title}</div>
+        {(isAnonymous || isMultiple) 
+          ? <div className="text-gray-500 w-[70px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
+          : <div className="w-[70px] mr-2"></div>
+        }
       </div>
       {isResult
       ?<div className="relative mb-4 bg-white border-comment-bw border-black p-3 rounded-lg space-y-3">
@@ -68,10 +73,10 @@ const VotingSection: React.FC<VotingSectionProps> = ({ isResult, options, totalV
             </button>
           </div>
         }
-        {voteResult!.map((voteResult) => {
-          const percentage = (voteResult.votes / totalVotes!) * 100;
+        {voteOptions!.map((option) => {
+          const percentage = (option.voteCount / totalVote) * 100;
           return (
-            <div key={voteResult.name} className="flex flex-col pt-4 mx-1">
+            <div key={option.id} className="flex flex-col pt-4 mx-1">
               <div className="flex items-center">
                 {/* TODO: winner일 때만 표시되도록 하기 */}
                 <Image
@@ -81,8 +86,8 @@ const VotingSection: React.FC<VotingSectionProps> = ({ isResult, options, totalV
                   height={20}
                   className="my-2 ml-0 mr-4"
                 ></Image>
-                <span className="text-[16px] flex-1">{voteResult.name}</span>
-                <span className="text-[14px]">{voteResult.votes}명</span>
+                <span className="text-[16px] flex-1">{option.optionName}</span>
+                <span className="text-[14px]">{option.voteCount}명</span>
               </div>
               <span className="flex-1">
                 <div className="relative w-full h-2 bg-gray-300 rounded">
@@ -117,24 +122,24 @@ const VotingSection: React.FC<VotingSectionProps> = ({ isResult, options, totalV
             </button>
           </div>
         }
-        {options.map((option) => (
-          <label key={option} className="flex items-center mb-4">
+        {voteOptions.map((option) => (
+          <label key={option.id} className="flex items-center mb-4">
             <input
               type="checkbox"
               name="vote"
-              value={option}
-              checked={selectedOptions.includes(option)}
-              onChange={() => handleChange(option)}
+              value={option.optionName}
+              checked={selectedOptions.includes(option.optionName)}
+              onChange={() => handleChange(option.optionName)}
               className="hidden"
             />
             <span
               className={`inline-block w-[20px] h-[20px] mr-3 rounded-full transition-all duration-200 border-black border-comment-bw ${
-                selectedOptions.includes(option)
+                selectedOptions.includes(option.optionName)
                   ?  'bg-vote-theme shadow-vote-option'
                   : ''
               }`}
             />
-            <span className='text-[16px]'>{option}</span>
+            <span className='text-[16px]'>{option.optionName}</span>
           </label>
         ))}
         <button

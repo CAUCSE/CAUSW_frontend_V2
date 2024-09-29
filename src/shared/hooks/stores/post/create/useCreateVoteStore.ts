@@ -17,7 +17,7 @@ interface CreateVoteState {
   removeVoteOption: (index: number) => void;
   toggleMultipleChoice: () => void;
   toggleAllowAnonymous: () => void;
-  submitVote: () => void;
+  //submitVote: () => void;
 }
 
 export const useCreateVoteStore = create<CreateVoteState>((set) => ({

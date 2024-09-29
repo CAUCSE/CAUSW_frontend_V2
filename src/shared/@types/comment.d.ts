@@ -13,6 +13,7 @@ declare namespace Comment {
     deletable: boolean;
     isAnonymous: boolean;
     isCommentLike: boolean;
+    isOwner: boolean;
     numLike: number;
     numChildComment: number;
     childCommentList: Array<ChildCommentDto>;

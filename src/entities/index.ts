@@ -42,6 +42,7 @@ export {
 export { PostCard } from "./board/post/PostCard";
 export { CommentCard } from "./board/post/CommentCard";
 export { ChildCommentCard } from "./board/post/ChildCommentCard";
+export { PopupMenu } from "./board/post/PopupMenu"
 export { CommentInput } from "./board/post/CommentInput";
 
 export { AllowAnonymousToggle } from "./board/create/AllowAnonymousToggle"
