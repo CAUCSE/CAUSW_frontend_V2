@@ -26,7 +26,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
       onClick={() => router.back()}
     >
       <div
-        className="relative flex w-[80vw] flex-col overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:items-center lg:p-[50px]"
+        className="relative flex w-[80vw] flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -35,7 +35,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
         >
           <i className="icon-[ep--close-bold]" />
         </button>
-        <p className="text-[21px] font-semibold lg:text-[40px]">
+        <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
           이벤트 공지 배너 {bannerId ? "수정" : "추가"}
         </p>
         <div className="relative flex h-[150px] w-full flex-col">
@@ -85,7 +85,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
           onChange={(e) => setUrl(e.target.value)}
         ></input>
         <button
-          className="mt-[40px] h-[55px] w-[150px] rounded-lg bg-[#6BBEEC] lg:mt-[80px] lg:w-[250px] lg:text-[24px] lg:font-semibold"
+          className="mt-[40px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] max-lg:w-[150px] lg:mt-[80px] lg:text-[24px] lg:font-semibold"
           onClick={handleSubmit}
         >
           {bannerId ? "배너 수정" : "저장"}
