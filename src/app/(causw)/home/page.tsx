@@ -1,14 +1,8 @@
-import {
-  Banner,
-  Calendar,
-  CardBox,
-  HomeCard,
-  HomeCardProps,
-} from "@/entities/home";
+import { Banner, Calendar, CardBox, HomeCard } from "@/entities/home";
 import { HomeRscService } from "@/shared";
 import Link from "next/link";
 
-const cardsEntities: HomeCardProps[] = [
+const cardsEntities = [
   {
     title: "Team Project Room",
     subtitle: "틸플룸 예약하기",
@@ -55,18 +49,25 @@ const HomePage = async () => {
             loop={events.count > 0}
           />
         )}
-        <div className="grid h-full w-full grid-cols-[1fr_3fr] gap-[25px]">
-          <Calendar />
+        <div className="grid h-full w-full gap-[25px] lg:grid-cols-[1fr_3fr]">
+          <div className="max-lg:hidden">
+            <Calendar />
+          </div>
           <div className="grid grid-rows-[0.5fr_2fr] gap-[25px]">
-            <div className="grid grid-cols-3 gap-[20px]">
-              {cardsEntities.map((card, idx) => (
-                <HomeCard key={idx} {...card} />
-              ))}
+            <div className="flex h-fit w-full overflow-auto bg-transparent scrollbar-hide">
+              <div className="-mx-3 grid grid-cols-[repeat(3,75vw)] gap-[20px] bg-transparent px-3 py-4 lg:grid-cols-3">
+                {cardsEntities.map((card, idx) => (
+                  <HomeCard key={idx} {...card} />
+                ))}
+              </div>
+            </div>
+            <div className="lg:hidden">
+              <Calendar />
             </div>
             <CardBox className="flex h-full w-full flex-col items-center gap-[24px] p-[18px]">
               <p className="text-[24px] font-bold">빠른 공지 모아모아!!</p>
-              <div className="grid h-full w-full grid-cols-[1fr_1.2fr]">
-                <div className="flex w-full flex-col items-center justify-around border-r border-[rgba(209,209,209,1)]">
+              <div className="h-full w-full lg:grid lg:grid-cols-[1fr_1.2fr]">
+                <div className="flex w-full flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] max-lg:hidden">
                   {/* TODO : href 연결 */}
                   <Link href={""} className="underline">
                     ❗️ 서비스 공지
