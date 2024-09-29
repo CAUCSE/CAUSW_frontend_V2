@@ -18,9 +18,11 @@ export const UserCouncilFeeService = () => {
 
 
   
-  const registerCouncilFee = async () => {
+  const registerCouncilFee = async (body: any) => {
     try
-{   const response = (await API.post(`${URI}/create-user`)) as AxiosResponse;
+{   
+    console.log(body);
+    const response = (await API.post(`${URI}/create-user`, body)) as AxiosResponse;
     return response;
 }   
     catch(error)

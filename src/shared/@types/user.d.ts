@@ -104,6 +104,20 @@ declare namespace User {
     studentId: string;
   }
 
+  export interface userUpdateDto {
+    name: string;
+    studentId: string;
+    admissionYear: number;
+    nickname: string;
+    major: string;
+    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+    currentCompletedSemester: number | null;
+    graduationYear: string | null;
+    graduationMonth: string | null;
+    phoneNumber: string;
+    profileImage: File | null;
+  }
+
   export interface PasswordUpdateRequestDto {
     originPassword: string;
     updatedPassword: string;
@@ -168,9 +182,9 @@ declare namespace User {
     | "PROBATION"
     | "PROFESSOR"
     | "UNDETERMINED";
-    targetCompletedSemester: number;
-    graduationYear: number;
-    graduationType: "FEBRUARY" | "AUGUST";
+    targetCompletedSemester: number | null;
+    graduationYear: number | null;
+    graduationType: "FEBRUARY" | "AUGUST"| null;
     note: string;
     images: FileList;
   }

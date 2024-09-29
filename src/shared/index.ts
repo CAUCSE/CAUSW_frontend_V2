@@ -40,7 +40,7 @@ export { MainBoardRscService } from "./hooks/services/MainBoardRscService";
 export { BoardRscService } from "./hooks/services/BoardRscService";
 export { CommentRscService } from "./hooks/services/CommentRscService";
 export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService";
-
+export { AcademicRecordRscService } from "./hooks/services/AcademicRecordRscService";
 //Store
 export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";

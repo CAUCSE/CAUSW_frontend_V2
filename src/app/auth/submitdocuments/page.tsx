@@ -82,12 +82,15 @@ const SubmitDocumentsPage = () => {
     try {
       const formData = new FormData();
 
-      formData.append('targetAcademicStatus', data.targetAcademicStatus);
-      formData.append('targetCompletedSemester', data.targetCompletedSemester.toString());
-      formData.append('graduationYear', data.graduationYear.toString());
-      formData.append('graduationType', data.graduationType.toString());
-      formData.append('note', data.note);
-
+      const jsonData = {
+        "targetAcademicStatus": data.targetAcademicStatus,
+        "targetCompletedSemester": data.targetAcademicStatus === "ENROLLED" ? data.targetAcademicStatus : null,
+        "graduationYear": data.targetAcademicStatus === "GRADUATED" ? data.graduationYear : null,
+        "graduationType": data.targetAcademicStatus === "GRADUATED" ? data.graduationType : null,
+        "note": data.note        
+      }
+      formData.append("createUserAcademicRecordApplicationRequestDto", JSON.stringify(jsonData));
+      
       // 파일들을 FormData에 추가
       Array.from(data.images).forEach((file, index) => {
         formData.append('images', file);

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
+import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
 
 type FormValues = {
   profileImage: File | null;
@@ -12,7 +12,7 @@ type FormValues = {
 };
 
 const PersonalInfoPage = () => {
-  const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
+  const { register, handleSubmit, setValue, watch } = useForm<User.userUpdateDto>({
     defaultValues: {
       profileImage: null,
       nickname: '',
@@ -32,12 +32,13 @@ const PersonalInfoPage = () => {
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
 
+  // 원래의 학적 상태 저장
   const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
   const router = useRouter();
-  const { getUserInfoRevised, updateUserInfo, checkCurrentAcademicRecord } = UserService();
+  const { getUserInfoRevised } = UserService();
   const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
-  const formData = new FormData();
+  const { updateInfo } = UserRscService();
 
 
   // 모달 열림/닫힘 상태를 관리
@@ -83,32 +84,48 @@ const PersonalInfoPage = () => {
         const userData = responseUserData.data;
         console.log(userData);
 
-
 //         학생회비 납부 정보 받아오기 
 //         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
 //         const userCouncilFeeData = responseUserCouncilFeeData.data;
 //         console.log(userCouncilFeeData);
+const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<File> => {
+  try {
+    // 이미지 URL로부터 데이터를 fetch
+    const response = await fetch(imageUrl);
+    console.log(response);
+    // 응답 데이터를 Blob으로 변환
+    const blob = await response.blob();
+    // Blob 데이터를 File로 변환
+    const file = new File([blob], fileName, { type: blob.type });
+    return file;
+  } catch (error) {
+    console.error("Error converting URL to file:", error);
+    throw error;
+  }
+};
+        
 
-
-
-        // const responseAcademicRecord = await checkCurrentAcademicRecord();/
-        // console.log(responseAcademicRecord);
 
         // formData에 유저 정보 값들 넣어두기
-        formData.append('name', await userData.name);
-        formData.append('studentId', '11');
-        formData.append('admissionYear', await userData.admissionYear);
-        formData.append('major', await userData.major);
-        formData.append('currentCompletedSemester', await userData.currentCompletedSemester);
-        formData.append('graduationYear', await userData.graduationYear);
-        formData.append('graduationMonth', await userData.graduationType);
-        formData.append('phoneNumber', '01012363334');
+        setValue('name', await userData.name);
+        setValue('studentId', await userData.studentId);
+        setValue('admissionYear', await userData.admissionYear);
+        setValue('major', await userData.major);
+        setValue('currentCompletedSemester', await userData.currentCompletedSemester);
+        setValue('graduationYear', await userData.graduationYear);
+        setValue('graduationMonth', await userData.graduationType);
+        setValue('phoneNumber', await userData.phoneNUmber);
 
         // 유저에 맞게 값들 대입입
-        setProfileImagePreview(userData.profileImage ?? '/images/default_profile.png');
-        setValue('nickname', userData.nickname);
-        setValue('academicStatus', userData.academicStatus);
-        setValue('profileImage', userData.profileImage);
+        setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
+        setValue('nickname', await userData.nickname);
+        setValue('academicStatus', await userData.academicStatus);
+
+        const imageFile = await convertUrlToFile(await userData.profileImageUrl, 'profileImage.jpg');
+        console.log(imageFile);
+        setValue('profileImage', imageFile);  
+
+
 
         setName(userData.name);
         setEmail(userData.email);
@@ -118,9 +135,12 @@ const PersonalInfoPage = () => {
         setCompletedSemester(userData.currentCompletedSemester);
         setDepartment(userData.major);
         setOriginAcademicStatus(userData.academicStatus);
-
+        // setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
+        // setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
+        // setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
+        
       } catch (error: any) {
-        console.error('Failed to fetch user info:', error);
+        console.error('Failed to fetch user info:', error?.message);
         console.log(error.message);
       }
     };
@@ -134,35 +154,32 @@ const PersonalInfoPage = () => {
       const newImageUrl = URL.createObjectURL(file);
       setProfileImagePreview(newImageUrl);
       setValue('profileImage', file);
+      console.log(file);
     }
+  
   };
 
 
   // 개인정보 수정한 내용 제출하는 함수
-  const onSubmit = async (data: FormValues) => {
-    formData.append('nickname', data.nickname);
-    formData.append('academicStatus', data.academicStatus);
+  const onSubmit = async (data: User.userUpdateDto) => {
 
+    // 학적 재학 -> 휴학 변경 시 증빙 서류 제출 모달
     if (data.academicStatus === "ENROLLED" && originAcademicStatus === "LEAVE_OF_ABSENCE")
     {
       openSubmitModal();
     }
+    // 학적 졸업 상태로 변경할 경우 경고 창
     else if (data.academicStatus === "GRADUATED" && isWarningAccepted === false)
     {
       openWarningModal();
     }
     else
     {
-      if (data.profileImage) {
-      formData.append('profileImage', data.profileImage);
-      }
-      console.log(formData);  
 
       try {
-        const response = await updateUserInfo(formData);
-        if (response.status === 200) {
-          console.log("Profile updated successfully");
-        }
+      
+        const response = await updateInfo(data);
+        console.log(response);
       } catch (error) {
         console.error("Failed to update profile:", error);
       }
