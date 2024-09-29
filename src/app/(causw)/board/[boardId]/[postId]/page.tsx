@@ -167,7 +167,7 @@ const PostDetailPage = (props: any) => {
   }
 
   return (
-    <div className="relative bottom-6 h-full w-full overflow-y-auto bg-boardPageBackground scrollbar-hide">
+    <div className="lg:relative bottom-5 top-0 h-full w-full bg-boardPageBackground scrollbar-hide">
       {isVisible && (
         <div
           className={`fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-600 text-white p-4 rounded-lg shadow-lg transition-opacity duration-2000 ${
@@ -178,10 +178,10 @@ const PostDetailPage = (props: any) => {
           {message}
         </div>
       )}
-      <div className="w-full flex-col items-center">
+      <div className="w-full h-16 bg-[#F8F8F8]">
         <PreviousButton />
       </div>
-      <div className="flex w-full flex-col space-y-3 p-3 pt-14">
+      <div className="flex w-full h-[calc(100%-9rem)] flex-col overflow-y-auto space-y-3 p-3">
         <div className="sm:pl-3">
           <PostCard
             postData={post}

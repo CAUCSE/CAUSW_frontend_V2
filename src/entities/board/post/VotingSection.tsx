@@ -47,7 +47,10 @@ const VotingSection: React.FC<VotingSectionProps> = ({ isResult, onVote }) => {
       <div className="flex justify-between items-center">
         <div className="w-[70px] text-[14px] text-center">{isResult ? `총 ${totalVote}명` : ''}</div>
         <div className="text-red-500 w-max-[300px] bg-vote-title px-4 py-2 text-[14px] font-semibold text-center">{vote.title}</div>
-        <div className="text-gray-500 w-[70px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
+        {(isAnonymous || isMultiple) 
+          ? <div className="text-gray-500 w-[70px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
+          : <div className="w-[70px] mr-2"></div>
+        }
       </div>
       {isResult
       ?<div className="relative mb-4 bg-white border-comment-bw border-black p-3 rounded-lg space-y-3">

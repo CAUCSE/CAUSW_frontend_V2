@@ -42,25 +42,7 @@ export const PostCard = (
   options
 }
 :PostCardProps) => {
-
-  const defaultAttachmentList: Array<string> = [
-    'http://example.com/file1.jpg',
-    'http://example.com/file2.pdf',
-    'http://example.com/file3.docx',
-    'http://example.com/file4.xlsx',
-    'http://example.com/file5.png',
-    'http://example.com/file6.zip',
-    'http://example.com/file1.jpg',
-    'http://example.com/file2.pdf',
-    'http://example.com/file3.docx',
-    'http://example.com/file4.xlsx',
-    'http://example.com/file5.png',
-    'http://example.com/file6.zip',
-  ];
-  const attachmentList = defaultAttachmentList;
-  
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
-  console.log(postData);
 
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
