@@ -32,23 +32,20 @@ export const PostRscService = () => {
         );
       });
       const headers = await setRscHeader();
-      const response: AxiosResponse<Post.PostDto> = await axios.post(
-        URI,
-        formData,
-        {
+      const response: AxiosResponse<Post.PostCreateResponseDto> =
+        await axios.post(URI, formData, {
           headers: {
             ...headers,
             "Content-Type": "multipart/form-data",
           },
-        },
-      );
+        });
       if (response.status !== 201) {
         throw new Error(
           `Failed to create post. Response status: ${response.status}`,
         );
       }
       console.log("게시글 생성 완료:", response.data);
-      return response.data;
+      return response.data.id;
     } catch (error) {
       console.error("Error creating post:", error);
       throw error;
