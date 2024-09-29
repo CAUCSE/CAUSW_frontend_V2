@@ -5,55 +5,99 @@ import { BASEURL, setRscHeader } from "@/shared";
 export const PostRscService = () => {
   const createPost = async (
     data: Post.CreatePostDto,
-    attachImageList: File[]
+    attachImageList: File[],
   ): Promise<Post.PostDto> => {
     const URI = `${BASEURL}/api/v1/posts`;
     try {
       const formData = new FormData();
       formData.append(
-        'postCreateRequestDto',
+        "postCreateRequestDto",
         new Blob(
-          [JSON.stringify({
-            title: data.title,
-            content: data.content,
-            boardId: data.boardId,
-            isAnonymous: data.isAnonymous,
-            isQuestion: data.isQuestion,
-          })],
-          { type: 'application/json' }
-        )
+          [
+            JSON.stringify({
+              title: data.title,
+              content: data.content,
+              boardId: data.boardId,
+              isAnonymous: data.isAnonymous,
+              isQuestion: data.isQuestion,
+            }),
+          ],
+          { type: "application/json" },
+        ),
       );
       attachImageList.forEach((file) => {
         formData.append(
-          'attachImageList',
-          new Blob(
-            [file],
-            {type: file.type}
-          ),
-          file.name
-        ); 
+          "attachImageList",
+          new Blob([file], { type: file.type }),
+          file.name,
+        );
       });
       const headers = await setRscHeader();
-      const response: AxiosResponse<Post.PostDto> = await axios.post(URI, formData, {
-        headers: {
-          ...headers,
-          'Content-Type': 'multipart/form-data',
+      const response: AxiosResponse<Post.PostDto> = await axios.post(
+        URI,
+        formData,
+        {
+          headers: {
+            ...headers,
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
+      );
       if (response.status !== 201) {
-        throw new Error(`Failed to create post. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to create post. Response status: ${response.status}`,
+        );
       }
-      console.log('게시글 생성 완료:', response.data);
+      console.log("게시글 생성 완료:", response.data);
       return response.data;
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error("Error creating post:", error);
+      throw error;
+    }
+  };
+
+  const createPostWithForm = async (
+    data: Post.PostCreateWithFormRequestDto,
+    attachImageList: File[],
+  ) => {
+    const URI = `${BASEURL}/api/v1/posts/form`;
+    try {
+      console.log(JSON.stringify(data, null, 2));
+      const formData = new FormData();
+      formData.append(
+        "postCreateWithFormRequestDto",
+        new Blob([JSON.stringify(data)], { type: "application/json" }),
+      );
+
+      attachImageList.forEach((file) => {
+        formData.append(
+          "attachImageList",
+          new Blob([file], { type: file.type }),
+          file.name,
+        );
+      });
+
+      const headers = await setRscHeader();
+      const response = await axios.post(URI, formData, {
+        headers: {
+          ...headers,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status !== 201) {
+        throw new Error(`${response.status}`);
+      }
+      console.log("게시물 + 신청서 생성 완료");
+    } catch (error) {
+      console.error("error 발생 : ", error);
       throw error;
     }
   };
 
   const getPostById = async (postId: string): Promise<Post.PostDto> => {
     const URI = `${BASEURL}/api/v1/posts/${postId}`;
-    
+
     try {
       const headers = await setRscHeader();
       const response: AxiosResponse<Post.PostDto> = await axios.get(URI, {
@@ -81,7 +125,9 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to like post with id ${postId}. Response status: ${response.status}`,
+        );
       }
 
       console.log("Post liked successfully");
@@ -101,7 +147,9 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to like post with id ${postId}. Response status: ${response.status}`,
+        );
       }
 
       console.log("Post liked successfully");
@@ -121,7 +169,9 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 200) {
-        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to like post with id ${postId}. Response status: ${response.status}`,
+        );
       }
 
       console.log("Post liked successfully");
@@ -131,6 +181,12 @@ export const PostRscService = () => {
     }
   };
 
-
-  return { createPost, getPostById, postLikeForPost, postFavorite, cancelFavorite };
+  return {
+    createPost,
+    createPostWithForm,
+    getPostById,
+    postLikeForPost,
+    postFavorite,
+    cancelFavorite,
+  };
 };
