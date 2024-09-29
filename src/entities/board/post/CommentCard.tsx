@@ -11,31 +11,29 @@ interface CommentCardProps {
   numLike: number;
   overlayActive: boolean;
   isDeleted: boolean;
+  isPopupVisible:boolean;
   handleCommentToggle: () => void;
   handleCommentLike: () => void;
+  handleDeleteComment: () => void;
 }
 
 // max-w-md mx-auto space-x-4
-export const CommentCard = ({ comment, numLike, overlayActive, isDeleted, handleCommentToggle, handleCommentLike }: CommentCardProps) => {
+export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, isDeleted, handleCommentToggle, handleCommentLike,handleDeleteComment }: CommentCardProps) => {
   const { toggleCommentOverlay,deleteComment} = useCommentStore();
   const { setCommentInfo: setChildComment} = usePostStore();
   const writerProfileImage = comment.writerProfileImage ?? "/images/default_profile.png";
-  const [isPopupVisible, setIsPopupVisible] = useState(false); // Popup 상태 관리
-  const {deleteCommentById} = CommentRscService();
+  //const [isPopupVisible, setIsPopupVisible] = useState(false); // Popup 상태 관리
+  //const {deleteCommentById} = CommentRscService();
   const handleOverlayToggle = () => {
-    setChildComment(comment.id);
-    toggleCommentOverlay(comment.id);
+    if(!isDeleted){
+      setChildComment(comment.id);
+      toggleCommentOverlay(comment.id);
+    }
   };
   
-  const handleDeleteComment = async () => {
-    try {
-      const deleteCommentResponse = await deleteCommentById(comment.id);
-      deleteComment(comment.id);
-      console.log
-      //togglePopupMenu();
-      console.log("게시물 삭제 완료: ", deleteCommentResponse);
-    }catch (error) {
-      console.error("게시글 삭제 처리 에러: ", error);
+  const handleLike = () => {
+    if(!isDeleted){
+      handleCommentLike();
     }
   }
   return (
@@ -77,7 +75,7 @@ export const CommentCard = ({ comment, numLike, overlayActive, isDeleted, handle
       </button>
 
       <div className={`absolute flex flex-row items-center justify-between space-x-3 px-2.5 py-1.5 bottom-3 right-10  ${overlayActive ? 'bg-overlay-btn' : 'bg-comment-btn'} rounded-comment-br`}>
-        <button onClick={handleCommentLike}>
+        <button onClick={handleLike}>
           <Image
             src="/images/post/comment-like.svg"
             alt="Like Icon"

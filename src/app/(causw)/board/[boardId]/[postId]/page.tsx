@@ -167,20 +167,14 @@ const PostDetailPage = (props: any) => {
   };
 
   const togglePostPopupMenu = () => {
-    console.log(post?.isOwner);
     if (post?.isOwner) {
       togglePostPopup();
-      console.log(isPopupVisible)
     }
   }
 
   const toggleCommentPopupMenu = (commentId: string) => {
-    console.log(comments[commentId].isOwner)
-    console.log('comment popuyp')
-    console.log(comments[commentId].isCommentPopupVisible);
-    if(comments[commentId].isOwner){
+    if(comments[commentId].isOwner && !comments[commentId].isDeleted){
       toggleCommentPopup(commentId);
-      console.log(comments[commentId].isCommentPopupVisible);
     }
   }
 
@@ -188,8 +182,6 @@ const PostDetailPage = (props: any) => {
     try {
       const deleteCommentResponse = await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
-      console.log
-      toggleCommentPopup(commentId);
       console.log("게시물 삭제 완료: ", deleteCommentResponse);
     }catch (error) {
       console.error("게시글 삭제 처리 에러: ", error);
@@ -235,6 +227,7 @@ const PostDetailPage = (props: any) => {
             {commentList.map((comment) => {
               const commentData = comments[comment.id] || {
                 numLike: 0,
+                isCommentPopupVisible:false,
                 isOwner: false,
                 isDeleted: false,
                 overlayActive: false,
@@ -247,8 +240,10 @@ const PostDetailPage = (props: any) => {
                     numLike={commentData.numLike}
                     overlayActive={commentData.overlayActive}
                     isDeleted={commentData.isDeleted}
+                    isPopupVisible={commentData.isCommentPopupVisible}
                     handleCommentToggle={() => toggleCommentPopupMenu(comment.id)}
                     handleCommentLike={() => handleCommentLike(comment.id)}
+                    handleDeleteComment={()=>handleDeleteComment(comment.id)}
                   />
                   {commentData.childCommentList.map((childComment, idx) => (
                     <ChildCommentCard

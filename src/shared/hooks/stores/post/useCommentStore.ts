@@ -96,7 +96,7 @@ export const useCommentStore = create<CommentState>((set)=>({
           numLike: state.comments[id].numLike,
           isCommentPopupVisible: false,
           isOwner: state.comments[id].isOwner, 
-          isDeleted: false,
+          isDeleted: true,
           childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
         }
