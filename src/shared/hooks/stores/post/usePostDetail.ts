@@ -1,13 +1,13 @@
 "use client"
 import { useEffect } from 'react';
-import { usePostStore, useCommentStore, useChildCommentStore, PostRscService } from '@/shared';
+import { useVoteStore, usePostStore, useCommentStore, useChildCommentStore, PostRscService } from '@/shared';
 
 export const usePostDetail = (postId: string) => {
   const { setPost, setPostComment } = usePostStore();
   const {setComments} = useCommentStore();
   const {setChildCommentLikes} = useChildCommentStore();
   const { getPostById } = PostRscService();
-
+  const { setVote } = useVoteStore();
   const getTimeDifference = (ISOtime: string) => {
     const createdTime = new Date(ISOtime);
     const now = new Date();
@@ -42,7 +42,11 @@ export const usePostDetail = (postId: string) => {
           comment.childCommentList.forEach((childComment: any) => {
             setChildCommentLikes(childComment.id, childComment.numLike);  // 각 대댓글의 좋아요 수 설정
           });
-        })
+        });
+        if (postData.isPostVote){
+          setVote(postData.voteResponseDto!);
+        }
+        
       } catch (error) {
         console.error('게시물 불러오기 실패: ', error);
       }
@@ -51,5 +55,5 @@ export const usePostDetail = (postId: string) => {
     if (postId) {
       fetchPost();
     }
-  }, [postId, setPost, setComments]);
+  }, [postId, setPost, setComments, setVote]);
 };

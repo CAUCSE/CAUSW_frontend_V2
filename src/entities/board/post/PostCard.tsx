@@ -60,6 +60,7 @@ export const PostCard = (
   const attachmentList = defaultAttachmentList;
   
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
+  console.log(postData);
 
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
@@ -99,16 +100,22 @@ export const PostCard = (
           </div>
 
           {/* 나중에 투표 api 생기면 연결 */}
-          {/* {hasVote 
-          ? <div className="lg:pr-12 w-full">
-              <VotingSection options={options} isMultiple={true} isAnonymous={true} onVote={(options)=>{}} isResult={true} totalVotes={4} voteResult={[{ name: '1등', votes: 3 },{ name: '2등', votes: 1 },{ name: '3등', votes: 0 },]} /> 
+          {postData.isPostVote 
+          ? <div className="lg:pr-12 w-full w-32">
+              <VotingSection 
+                isResult={true} 
+                //isMultiple={false} 
+                //isAnonymous={false} 
+                onVote={function (selectedOptions: string[]): void {
+                throw new Error("Function not implemented.");
+              } } /> 
             </div>
-          : ''} */}
+          : ''}
         </div>
         
 
         <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto w-full scrollbar-hide pb-3">
-          {attachmentList.map((attachment, index) =>
+          {postData.fileUrlList.map((attachment, index) =>
             isImageFile(attachment) ? (
               <div
                 key={index}

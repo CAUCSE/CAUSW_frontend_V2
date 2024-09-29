@@ -25,7 +25,29 @@ declare namespace Post {
     boardName: string;
     formResponseDto: FormResponseDto | null;
     voteResponseDto: VoteResponseDto | null;
-
+  }
+  export interface PostDeleteDto {
+    id: string;
+    title: string;
+    content: string;
+    isDeleted: boolean;
+    writerName: string;
+    writerAdmissionYear: number;
+    writerProfileImage: string | null;
+    fileUrlList: string[];
+    numComment: number;
+    numLike: number;
+    numFavorite: number;
+    isAnonymous: boolean;
+    isQuestion: boolean;
+    isPostLike: boolean;
+    isPostFavorite: boolean;
+    updatable: boolean;
+    deletable: boolean;
+    createdAt: string;
+    updatedAt: string;
+    commentList: CommentListDto;
+    boardName: string;
   }
 
   export interface FormResponseDto {

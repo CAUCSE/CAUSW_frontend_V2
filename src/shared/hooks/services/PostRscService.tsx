@@ -5,7 +5,7 @@ export const PostRscService = () => {
   const createPost = async (
     data: Post.CreatePostDto,
     attachImageList: File[]
-  ): Promise<Post.PostDto> => {
+  ) => {
     const URI = `${BASEURL}/api/v1/posts`;
     try {
       const formData = new FormData();
@@ -33,7 +33,7 @@ export const PostRscService = () => {
         ); 
       });
       const headers = await setRscHeader();
-      const response: AxiosResponse<Post.PostDto> = await axios.post(URI, formData, {
+      const response: AxiosResponse<void> = await axios.post(URI, formData, {
         headers: {
           ...headers,
           'Content-Type': 'multipart/form-data',
@@ -43,7 +43,6 @@ export const PostRscService = () => {
         throw new Error(`Failed to create post. Response status: ${response.status}`);
       }
       console.log('게시글 생성 완료:', response.data);
-      return response.data;
     } catch (error) {
       console.error('Error creating post:', error);
       throw error;
@@ -75,7 +74,7 @@ export const PostRscService = () => {
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<Post.PostDto> = await axios.delete(URI, {
+      const response: AxiosResponse<void> = await axios.delete(URI, {
         headers: headers,
       });
 
@@ -95,20 +94,17 @@ export const PostRscService = () => {
 
     try {
       const headers = await setRscHeader();
-
-      // fetch를 사용해 POST 요청
-      const response = await fetch(URI, {
-        method: 'POST',
+      const response: AxiosResponse<void> = await axios.post(URI, null, {
         headers: headers,
-      }).then(
-        (res) => res.json(),
-      );
-      console.log(response);
-      // 상태 코드 확인
-      if (response.errorCode) throw new Error(response.errorCode);
+      });
 
-      return response;
-    } catch (error ) {
+      if (response.status !== 201) {
+        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
+      }
+
+      console.log("Post liked successfully");
+    } catch (error) {
+      console.error(`Error liking post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -123,12 +119,12 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
+        throw new Error(`Failed to favorite post with id ${postId}. Response status: ${response.status}`);
       }
 
-      console.log("Post liked successfully");
+      console.log("Post favorite successfully");
     } catch (error) {
-      console.error(`Error liking post with id ${postId}:`, error);
+      console.error(`Error favorite post with id ${postId}:`, error);
       throw error;
     }
   };

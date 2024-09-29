@@ -52,7 +52,7 @@ export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
 export { usePostDetail } from "./hooks/stores/post/usePostDetail";
 export { usePopup } from "./hooks/stores/post/usePopup";
-
+export { useVoteStore } from "./hooks/stores/post/useVoteStore";
 
 export { useCreatePostStore } from "./hooks/stores/post/create/useCreatePostStore";
 export { useCreateVoteStore } from "./hooks/stores/post/create/useCreateVoteStore";
