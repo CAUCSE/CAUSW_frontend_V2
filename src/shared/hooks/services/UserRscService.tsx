@@ -100,7 +100,7 @@ export const UserRscService = () => {
 
   const updateInfo = async (
     data: User.userUpdateDto // FileList 타입 사용
-  ): Promise<string> => {
+  ): Promise<any> => {
     const URI = `${BASEURL}/api/v1/users`;
     try {
       const formData = new FormData();
@@ -128,9 +128,9 @@ export const UserRscService = () => {
       // attachImageList가 단일 파일인 경우
       const file = data.profileImage;
 
-      // if (file !== null) {
-      //   formData.append("profileImage", file, file.name);
-      // }
+      if (file !== null) {
+        formData.append("profileImage", file, file.name);
+      }
 
       const headers = await setRscHeader();
       const response: AxiosResponse<any> = await axios.put(URI, formData, {
@@ -140,10 +140,8 @@ export const UserRscService = () => {
         },
       });
 
-      console.log("게시글 생성 완료:", response.data);
-      return response.data.id;
+      return response;
     } catch (error) {
-      console.error("Error creating post:", error);
       throw error;
     }
   };

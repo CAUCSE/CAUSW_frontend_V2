@@ -46,6 +46,13 @@ const PersonalInfoPage = () => {
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const [isWarningAccepted, setIsWarningAccepted] = useState(false);
 
+  // 제출 시 모달
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isFailModalOpen, setIsFailModalOpen] = useState(false);
+
+  
+
+
   // 모달 열기
   const openSubmitModal = () => {
     setIsSubmitModalOpen(true);
@@ -120,10 +127,10 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
         setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
         setValue('nickname', await userData.nickname);
         setValue('academicStatus', await userData.academicStatus);
-
-        const imageFile = await convertUrlToFile(await userData.profileImageUrl, 'profileImage.jpg');
-        console.log(imageFile);
-        setValue('profileImage', imageFile);  
+        setValue('profileImage', await userData.profileImageUrl);
+        // const imageFile = await convertUrlToFile(await userData.profileImageUrl, 'profileImage.jpg');
+        // console.log(imageFile);
+        // setValue('profileImage', imageFile);  
 
 
 
@@ -179,9 +186,11 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
       try {
       
         const response = await updateInfo(data);
+        setIsSuccessModalOpen(true)
         console.log(response);
       } catch (error) {
-        console.error("Failed to update profile:", error);
+        setIsFailModalOpen(true)
+        console.error("개인정보 수정에 실패하였습니다 :", error);
       }
     }
   };
@@ -342,6 +351,25 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
             <div className='p-2 lg:p-4'>
             <div>졸업 변경 시 추후 재학, 휴학으로 변경이 불가합니다.</div>
             <div>(창을 닫은 후 다시 제출하면 변경사항이 저장됩니다.)</div>
+            </div>
+          </Modal>
+        )}
+                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {isSuccessModalOpen && (
+          <Modal closeModal={() => setIsSuccessModalOpen(false)}>
+            <div className='p-2 lg:p-4'>
+            <div>변경 사항이 저장되었습니다.</div>
+            </div>
+          </Modal>
+        )}
+                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {isFailModalOpen && (
+          <Modal closeModal={() => setIsFailModalOpen(false)}>
+            <div className='p-2 lg:p-4'>
+            <div className ="flex flex-col justify-center items-center">
+            <div>오류가 발생했습니다. </div>
+                <div>다시 시도해주세요</div>
+              </div>  
             </div>
           </Modal>
         )}
