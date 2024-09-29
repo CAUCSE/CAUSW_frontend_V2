@@ -17,11 +17,13 @@ const CalendarCard = ({
   return (
     <CardBox className="flex h-fit w-full justify-between gap-[17px] rounded-2xl p-[14px]">
       <div className="flex flex-col justify-between">
-        <p className="text-[32px]">
+        <p className="text-[16px] lg:text-[32px]">
           {year}년 {month}월
         </p>
 
-        <p className="text-[15px] text-[#B4B1B1]">최종 수정일: {editDate}</p>
+        <p className="text-[10px] text-[#B4B1B1] lg:text-[15px]">
+          최종 수정일: {editDate}
+        </p>
       </div>
       <Image
         src={imgSrc}
@@ -38,7 +40,7 @@ export default async function CalendarSettingPage() {
   const { getEvents } = HomeRscService();
 
   return (
-    <div className="flex h-full w-full flex-col gap-10 p-8">
+    <div className="flex h-full w-full flex-col gap-5 p-3 lg:gap-10 lg:p-8">
       <div className="flex justify-between">
         <Link href=".." className="flex items-center">
           <i className="icon-[ooui--next-rtl]" />
@@ -46,12 +48,12 @@ export default async function CalendarSettingPage() {
         </Link>
         <Link
           href="./calendar/new"
-          className="rounded-full border border-black bg-white px-8 py-3"
+          className="rounded-full border border-black bg-white px-5 py-2 max-lg:text-[13px] lg:px-8 lg:py-3"
         >
           캘린더 추가
         </Link>
       </div>
-      <p className="text-[40px] font-medium">캘린더 편집</p>
+      <p className="text-[21px] font-medium lg:text-[40px]">캘린더 편집</p>
       <CalendarCard
         imgSrc="/images/calendar-dummy.png"
         year={2021}

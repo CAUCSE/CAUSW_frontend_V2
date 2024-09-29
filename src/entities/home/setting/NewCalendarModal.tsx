@@ -37,7 +37,7 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
       onClick={() => router.back()}
     >
       <div
-        className="relative flex h-[70vh] w-[80vw] flex-col items-center overflow-auto bg-white p-[50px] pb-[50px]"
+        className="relative flex w-[80vw] flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -46,12 +46,14 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
         >
           <i className="icon-[ep--close-bold]" />
         </button>
-        <p className="text-[40px] font-semibold">캘린더 추가</p>
+        <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
+          캘린더 추가
+        </p>
 
-        <div className="grid w-full grid-cols-[400px_1fr] gap-[20px]">
+        <div className="flex w-full flex-col gap-[20px] lg:grid lg:grid-cols-[400px_1fr]">
           {/* 캘린더 이미지 선택 */}
           <div className="flex flex-col gap-[17px]">
-            <div className="relative flex h-[400px] flex-col">
+            <div className="relative flex h-[250px] flex-col max-lg:w-[250px] lg:h-[400px]">
               <input
                 className="hidden"
                 id="file"
@@ -71,7 +73,7 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
               />
               <label
                 htmlFor="file"
-                className="flex h-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-black"
+                className="flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-black"
               >
                 {currImg ? (
                   <img
@@ -79,20 +81,20 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
                     className="h-full w-full rounded-lg object-cover"
                   />
                 ) : (
-                  <i className="icon-[gravity-ui--plus] h-[94px] w-[94px]" />
+                  <i className="icon-[gravity-ui--plus] h-[40px] w-[40px] lg:h-[94px] lg:w-[94px]" />
                 )}
               </label>
             </div>
-            <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)]">
+            <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)] max-lg:text-[10px]">
               이미지는 2070 * 2070 px 크기로 맞춰주세요.
               <br />
               10MB 이하의 이미지만 업로드 가능합니다.
             </p>
           </div>
 
-          <div className="mt-[30px] flex gap-[30px]">
+          <div className="flex gap-3 max-lg:flex-col lg:mt-[30px] lg:gap-[30px]">
             <div className="flex h-fit items-center gap-[11px]">
-              <p className="text-[24px] font-bold">년</p>
+              <p className="text-[20px] font-bold lg:text-[24px]">년</p>
               <FormControl>
                 <InputLabel id="year-label">년도</InputLabel>
                 <Select
@@ -120,7 +122,7 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
               </FormControl>
             </div>
             <div className="flex h-fit items-center gap-[11px]">
-              <p className="text-[24px] font-bold">월</p>
+              <p className="text-[20px] font-bold lg:text-[24px]">월</p>
               <FormControl>
                 <InputLabel id="month-label">월</InputLabel>
                 <Select
@@ -147,7 +149,7 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
         </div>
         <button
           onClick={handleSubmit}
-          className="mt-[50px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold"
+          className="h-[55px] w-[150px] rounded-lg bg-[#6BBEEC] font-semibold lg:mt-[50px] lg:w-[250px] lg:text-[24px]"
         >
           저장
         </button>
