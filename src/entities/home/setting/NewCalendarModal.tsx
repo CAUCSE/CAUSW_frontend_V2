@@ -74,7 +74,7 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
               </label>
             </div>
             <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)]">
-              이미지는 1100 * 150 px 크기로 맞춰주세요.
+              이미지는 2070 * 2070 px 크기로 맞춰주세요.
               <br />
               10MB 이하의 이미지만 업로드 가능합니다.
             </p>
