@@ -5,7 +5,7 @@ export const PostRscService = () => {
   const createPost = async (
     data: Post.CreatePostDto,
     attachImageList: File[]
-  ) => {
+  ):Promise<string> => {
     const URI = `${BASEURL}/api/v1/posts`;
     try {
       const formData = new FormData();
@@ -29,11 +29,11 @@ export const PostRscService = () => {
             [file],
             {type: file.type}
           ),
-          file.name
+          file.name,
         ); 
       });
       const headers = await setRscHeader();
-      const response: AxiosResponse<void> = await axios.post(URI, formData, {
+      const response: AxiosResponse<Post.PostCreateResponseDto> = await axios.post(URI, formData, {
         headers: {
           ...headers,
           'Content-Type': 'multipart/form-data',
@@ -43,6 +43,7 @@ export const PostRscService = () => {
         throw new Error(`Failed to create post. Response status: ${response.status}`);
       }
       console.log('게시글 생성 완료:', response.data);
+      return response.data.id;
     } catch (error) {
       console.error('Error creating post:', error);
       throw error;
@@ -65,6 +66,28 @@ export const PostRscService = () => {
       return response.data;
     } catch (error) {
       console.error("Error fetching post:", error);
+      throw error;
+    }
+  };
+  
+  const createVote = async (
+    data: Post.CreateVoteDto
+  ):Promise<Post.VoteResponseDto> => {
+    const URI = `${BASEURL}/api/v1/votes/create`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Post.VoteResponseDto> = await axios.post(URI, data, {
+        headers: headers,
+      });
+
+      if (response.status !== 201) {
+        throw new Error(`Failed to create comment. Response status: ${response.status}`);
+      }
+      console.log("투표 생성 완료!!!!!!!!");
+      return response.data;
+    } catch (error) {
+      console.error('Error creating comment:', error);
       throw error;
     }
   };
@@ -150,5 +173,5 @@ export const PostRscService = () => {
   };
 
 
-  return { createPost,deletePost, getPostById, postLikeForPost, postFavorite, cancelFavorite };
+  return { createPost, createVote, deletePost, getPostById, postLikeForPost, postFavorite, cancelFavorite };
 };

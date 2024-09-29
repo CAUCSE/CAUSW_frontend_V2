@@ -15,7 +15,7 @@ interface CreateVoteState {
   removeVoteOption: (index: number) => void;
   toggleMultipleChoice: () => void;
   toggleAllowAnonymous: () => void;
-  submitVote: () => void;
+  //submitVote: () => void;
 }
 
 export const useCreateVoteStore = create<CreateVoteState>((set) => ({
@@ -40,9 +40,9 @@ export const useCreateVoteStore = create<CreateVoteState>((set) => ({
     })),
   toggleMultipleChoice: () => set((state) => ({ isMultipleChoice: !state.isMultipleChoice })),
   toggleAllowAnonymous: () => set((state) => ({ allowAnonymous: !state.allowAnonymous })),
-  submitVote: () => {
-    const { options, isMultipleChoice, allowAnonymous } = useCreateVoteStore.getState();
+  /* submitVote: (postId: string) => {
+    const { voteTitle, options, isMultipleChoice, allowAnonymous } = useCreateVoteStore.getState();
     const filteredOptions = options.filter((option) => option !== '');
     console.log('투표 제출:', filteredOptions, { isMultipleChoice, allowAnonymous });
-  },
+  }, */
 }));

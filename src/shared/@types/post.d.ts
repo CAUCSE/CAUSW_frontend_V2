@@ -17,6 +17,7 @@ declare namespace Post {
     isPostFavorite: boolean;
     isPostVote: boolean;
     isPostForm: boolean;
+    isOwner: boolean;
     updatable: boolean;
     deletable: boolean;
     createdAt: string;
@@ -49,6 +50,9 @@ declare namespace Post {
     commentList: CommentListDto;
     boardName: string;
   }
+  export interface PostCreateResponseDto {
+    id: string;
+  }
 
   export interface FormResponseDto {
 
@@ -64,17 +68,28 @@ declare namespace Post {
     isOwner: boolean;
     isEnd: boolean;
   }
+
   export interface VoteUserDto {
-    admissionYear: number;
-    circleIdIfLeader: string[] | null;
-    circleNameIfLeader: string[] | null;
-    email: string;
     id: string;
+    email: string;
     name: string;
-    profileImage: string | null;
-    roles: string[];
-    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
     studentId: string;
+    admissionYear: number;
+    roles: string[],
+    profileImageUrl: string;
+    state: string;
+    circleIdIfLeader: string[];
+    circleNameIfLeader: string[];
+    nickname: string;
+    major: string;
+    academicStatus: string;
+    currentCompletedSemester: number;
+    graduationYear: number;
+    graduationType: string;
+    phoneNumber:string;
+    rejectionOrDropReason: string;
+    createdAt: string;
+    updatedAt: string;
   }
   export interface VoteOptionDto {
     id: string;

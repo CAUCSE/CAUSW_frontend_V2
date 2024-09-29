@@ -35,6 +35,7 @@ export const ChildCommentCard = ({ childComment, numLike, handleChildCommentLike
         </button> 
         <PopupMenu
           message="대댓글 삭제"
+          handleBtn={()=>{}}
         />
         <div className="flex flex-row items-center px-2 mb-1">
           <Image
