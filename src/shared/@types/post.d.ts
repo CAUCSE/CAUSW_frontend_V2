@@ -83,7 +83,6 @@ declare namespace Post {
 
   export interface PostCreateWithFormRequestDto extends CreatePostDto {
     formCreateRequestDto: FormCreateRequestDto;
-    attachImageList: string[];
   }
 
   export interface FormCreateRequestDto {
