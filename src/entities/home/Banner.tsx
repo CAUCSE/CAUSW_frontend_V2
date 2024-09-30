@@ -8,16 +8,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 interface BannerProps {
   images: string[];
+  loop: boolean;
 }
 
-export function Banner({ images }: BannerProps) {
+export function Banner({ images, loop }: BannerProps) {
   return (
-    <div className="h-[17vh] w-full">
+    <div className="h-[17vh] w-full overflow-hidden rounded-lg shadow-md">
       <Swiper
         pagination={true}
         modules={[Pagination, Autoplay]}
         autoplay={true}
-        loop={true}
+        loop={loop}
         className="h-[17vh] w-full"
       >
         {images.map((image, idx) => (
@@ -28,10 +29,9 @@ export function Banner({ images }: BannerProps) {
             <Image
               src={image}
               alt={image}
-              width={0}
-              height={0}
-              className="h-auto w-full object-scale-down object-center"
-              unoptimized
+              width={700}
+              height={500}
+              className="h-auto w-full bg-white object-scale-down object-top"
             />
           </SwiperSlide>
         ))}
