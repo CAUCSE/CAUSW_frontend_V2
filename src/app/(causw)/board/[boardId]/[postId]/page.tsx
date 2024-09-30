@@ -1,21 +1,23 @@
 "use client";
+
 import {
-  PostCard,
-  CommentCard,
   ChildCommentCard,
+  CommentCard,
   CommentInput,
+  PostCard,
 } from "@/entities";
 import {
-  PreviousButton,
-  PostRscService,
-  CommentRscService,
   ChildCommentRscService,
+  CommentRscService,
+  PostRscService,
+  PreviousButton,
+  useChildCommentStore,
+  useCommentStore,
+  usePopup,
   usePostDetail,
   usePostStore,
-  useCommentStore,
-  useChildCommentStore,
-  usePopup
 } from "@/shared";
+
 import { useRouter } from "next/navigation";
 
 const PostDetailPage = (props: any) => {
@@ -28,6 +30,8 @@ const PostDetailPage = (props: any) => {
     numLike,
     numFavorite,
     numComment,
+    isPostForm,
+    formId,
     commentList,
     createCommentInfo,
     incrementComment,
@@ -48,7 +52,7 @@ const PostDetailPage = (props: any) => {
     addChildComment,
     setComments,
     deleteComment,
-    toggleCommentPopup
+    toggleCommentPopup,
   } = useCommentStore();
   const {
     childComments,
@@ -76,15 +80,15 @@ const PostDetailPage = (props: any) => {
     }
   };
 
-  const handleDeletePost = async() => {
+  const handleDeletePost = async () => {
     try {
       const deletePostResponse = await PostRscService().deletePost(postId);
       router.back();
       console.log("게시물 삭제 완료: ", deletePostResponse);
-    }catch (error) {
+    } catch (error) {
       console.error("게시글 삭제 처리 에러: ", error);
     }
-  }
+  };
 
   const handleCommentLike = async (commentId: string) => {
     try {
@@ -139,9 +143,8 @@ const PostDetailPage = (props: any) => {
           await CommentRscService().createComment(createComment);
         console.log("게시물 댓글 완료: ", createCommentResponse);
         addComment(createCommentResponse);
-        setComments(createCommentResponse.id,false, true, false, [], 0);
+        setComments(createCommentResponse.id, false, true, false, [], 0);
         incrementComment();
-        
       } catch (error) {
         console.error("게시물 댓글 처리 에러: ", error);
         decrementComment();
@@ -156,7 +159,10 @@ const PostDetailPage = (props: any) => {
         const createChildCommentResponse =
           await ChildCommentRscService().createChildComment(createChildComment);
         console.log("대댓글 완료: ", createChildCommentResponse);
-        addChildComment(createCommentInfo.commentId!, createChildCommentResponse);
+        addChildComment(
+          createCommentInfo.commentId!,
+          createChildCommentResponse,
+        );
         setChildCommentLikes(createChildCommentResponse.id, 0);
         incrementComment();
       } catch (error) {
@@ -170,63 +176,66 @@ const PostDetailPage = (props: any) => {
     console.log(post?.isOwner);
     if (post?.isOwner) {
       togglePostPopup();
-      console.log(isPopupVisible)
+      console.log(isPopupVisible);
     }
-  }
+  };
 
   const toggleCommentPopupMenu = (commentId: string) => {
-    console.log(comments[commentId].isOwner)
-    console.log('comment popuyp')
+    console.log(comments[commentId].isOwner);
+    console.log("comment popuyp");
     console.log(comments[commentId].isCommentPopupVisible);
-    if(comments[commentId].isOwner){
+    if (comments[commentId].isOwner) {
       toggleCommentPopup(commentId);
       console.log(comments[commentId].isCommentPopupVisible);
     }
-  }
+  };
 
   const handleDeleteComment = async (commentId: string) => {
     try {
-      const deleteCommentResponse = await CommentRscService().deleteCommentById(commentId);
+      const deleteCommentResponse =
+        await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
-      console.log
+      console.log;
       toggleCommentPopup(commentId);
       console.log("게시물 삭제 완료: ", deleteCommentResponse);
-    }catch (error) {
+    } catch (error) {
       console.error("게시글 삭제 처리 에러: ", error);
     }
-  }
+  };
 
   if (!post) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="lg:relative bottom-5 top-0 h-full w-full bg-boardPageBackground scrollbar-hide">
+    <div className="bottom-5 top-0 h-full w-full bg-boardPageBackground scrollbar-hide lg:relative">
       {isVisible && (
         <div
-          className={`fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-600 text-white p-4 rounded-lg shadow-lg transition-opacity duration-2000 ${
-            isVisible ? 'opacity-100' : 'opacity-0'
+          className={`duration-2000 fixed left-1/2 top-20 -translate-x-1/2 transform rounded-lg bg-red-600 p-4 text-white shadow-lg transition-opacity ${
+            isVisible ? "opacity-100" : "opacity-0"
           }`}
           style={{ zIndex: 9999 }}
         >
           {message}
         </div>
       )}
-      <div className="w-full h-16 bg-[#F8F8F8]">
+      <div className="h-16 w-full bg-[#F8F8F8]">
         <PreviousButton />
       </div>
-      <div className="flex w-full h-[calc(100%-9rem)] flex-col overflow-y-auto space-y-3 p-3">
+      <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
         <div className="sm:pl-3">
           <PostCard
             postData={post}
             numComment={numComment}
             numFavorite={numFavorite}
             numLike={numLike}
+            isPostForm={isPostForm}
+            formId={formId}
             handlePostFavorite={handlePostFavorite}
             handlePostLike={handlePostLike}
             handleCommentBtn={changeToPostComment}
             hasVote={true}
-            options={['1등','2등','3등']}
+            options={["1등", "2등", "3등"]}
             handlePostDelete={handleDeletePost}
             toggleMenu={togglePostPopupMenu}
             isPopupVisible={isPopupVisible}
@@ -238,7 +247,7 @@ const PostDetailPage = (props: any) => {
                 isOwner: false,
                 isDeleted: false,
                 overlayActive: false,
-                childCommentList:[]
+                childCommentList: [],
               };
               return (
                 <div key={comment.id}>
@@ -247,7 +256,9 @@ const PostDetailPage = (props: any) => {
                     numLike={commentData.numLike}
                     overlayActive={commentData.overlayActive}
                     isDeleted={commentData.isDeleted}
-                    handleCommentToggle={() => toggleCommentPopupMenu(comment.id)}
+                    handleCommentToggle={() =>
+                      toggleCommentPopupMenu(comment.id)
+                    }
                     handleCommentLike={() => handleCommentLike(comment.id)}
                   />
                   {commentData.childCommentList.map((childComment, idx) => (
@@ -255,7 +266,9 @@ const PostDetailPage = (props: any) => {
                       key={childComment.id}
                       childComment={childComment}
                       numLike={childComments[childComment.id].numLike}
-                      handleChildCommentLike={() =>handleChildCommentLike(childComment.id)}
+                      handleChildCommentLike={() =>
+                        handleChildCommentLike(childComment.id)
+                      }
                     />
                   ))}
                 </div>
