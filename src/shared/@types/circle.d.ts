@@ -62,4 +62,7 @@ declare namespace Circle {
   export type CirclesRequestDto = FindByIdDto[] & Error.ApiErrorResponse;
   export type CircleRequestDto = FindByIdDto & Error.ApiErrorResponse;
   export type GetUserListResponseDto = CircleUser[] & Error.ApiErrorResponse;
+  export type GetCircleBoardsResponseDto = {
+    boardList: Board[];
+  } & Error.ApiErrorResponse;
 }
