@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import axios, {AxiosResponse} from 'axios';
-import { UserService, useUserStore, AcademicRecordRscService, Modal } from '@/shared';
+import { useForm } from 'react-hook-form';
+import { UserService, AcademicRecordRscService, Modal } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 
@@ -12,12 +11,10 @@ const UpdataeAcademicRecordPage = () => {
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { updateUserAcademicInfo, checkCurrentAcademicRecord } = UserService();
+  const { checkCurrentAcademicRecord } = UserService();
   const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [countdown, setCountdown] = useState(0);
   const router = useRouter(); // useRouter 초기화
-  const id = useUserStore((state) => state.id)
   const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
 
 
@@ -144,7 +141,7 @@ const UpdataeAcademicRecordPage = () => {
         data.images = null
       }
 
-      const response = isAlreadySubmitted ? await updateAcademicRecord(files) : await postAcademicRecord(files);
+      const response = isAlreadySubmitted ? await updateAcademicRecord(data) : await postAcademicRecord(data);
       
       // 서버에 전송하는 로직 작성 (axios 예시)
       console.log(response);
@@ -406,7 +403,7 @@ const UpdataeAcademicRecordPage = () => {
       </div>)}      
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
+          <button type="submit" className="bg-focus text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
             변경 사항 저장
           </button>
         </div>

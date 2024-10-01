@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import axios, {AxiosResponse} from 'axios';
+import { useForm } from 'react-hook-form';
 import { UserService, useUserStore, AcademicRecordRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +11,7 @@ const SubmitAcademicRecordPage = () => {
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { updateUserAcademicInfo, checkCurrentAcademicRecord } = UserService();
+  const { checkCurrentAcademicRecord } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
   const id = useUserStore((state) => state.id)
@@ -137,7 +136,7 @@ const SubmitAcademicRecordPage = () => {
           data.images = null
         }
       
-      const response = isAlreadySubmitted ? await updateAcademicRecord(files) : await postAcademicRecord(files);
+      const response = isAlreadySubmitted ? await updateAcademicRecord(data) : await postAcademicRecord(data);
 
       // 서버에 전송하는 로직 작성 (axios 예시)
       console.log(response);

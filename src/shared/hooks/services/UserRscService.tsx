@@ -142,7 +142,7 @@ export const UserRscService = () => {
   };
 
   const submitAdmissionsApplication = async (
-    data: User.userUpdateDto // FileList 타입 사용
+    data:User.UserAdmissionCreateRequestDto  // FileList 타입 사용
   ): Promise<any> => {
     const URI = `${BASEURL}/api/v1/users/admissions/apply`;
     try {
@@ -152,23 +152,25 @@ export const UserRscService = () => {
         new Blob(
           [
             JSON.stringify({
-              email: data.nickname,  
-              description: "안녕하세요"
+              email: data.email,  
+              description: data.description
             }),
           ],
           { type: "application/json" }
         )
       );
-
-      // attachImageList가 단일 파일인 경우
-      const file = data.profileImage;
-
-      if (file !== null) {
-        formData.append("userAdmissionAttachImageList ", file, file.name);
-      }
-      else{
-        formData.append('userAdmissionAttachImageList ', '');
-      }
+         
+      // FileList를 배열로 변환하여 forEach 사용
+      Array.from(data.images).forEach((file) => {
+        formData.append(
+            'userAdmissionAttachImageList ',
+            new Blob(
+              [file],
+              {type: file.type}
+            ),
+            file.name,
+          ); 
+        });
 
       const headers = await setRscHeader();
       const response: AxiosResponse<any> = await axios.post(URI, formData, {

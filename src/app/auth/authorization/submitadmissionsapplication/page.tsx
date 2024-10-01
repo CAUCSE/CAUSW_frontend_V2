@@ -12,13 +12,9 @@ const SubmitApplicationPage = () => {
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { updateUserAcademicInfo, checkCurrentAcademicRecord } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
   const email = useUserStore((state) => state.email)
-  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-  const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
-  const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
   const { submitAdmissionsApplication } = UserRscService();
 
 

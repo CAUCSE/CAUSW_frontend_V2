@@ -4,7 +4,7 @@ import { BASEURL, setRscHeader } from "@/shared";
 export const AcademicRecordRscService = () => {
 
     const postAcademicRecord = async (
-        attachImageList: FileList // FileList 타입 사용
+        data:User.CreateUserAcademicRecordApplicationRequestDto // FileList 타입 사용
       ): Promise<any> => {
         const URI = `${BASEURL}/api/v1/users/academic-record/application/create`;
         try {
@@ -14,11 +14,11 @@ export const AcademicRecordRscService = () => {
             new Blob(
               [
                 JSON.stringify({
-                  targetAcademicStatus: "ENROLLED",
-                  targetCompletedSemester: 5,
-                  graduationYear: 2026,
-                  graduationType: 0,
-                  note: "s",
+                  targetAcademicStatus: data.targetAcademicStatus,
+                  targetCompletedSemester: data.targetCompletedSemester,
+                  graduationYear: data.graduationYear,
+                  graduationType: data.graduationType,
+                  note: data.note,
                 }),
               ],
               { type: "application/json" }
@@ -26,16 +26,21 @@ export const AcademicRecordRscService = () => {
           );
     
           // FileList를 배열로 변환하여 forEach 사용
-          Array.from(attachImageList).forEach((file) => {
-            formData.append(
-                'imageFileList',
+          if (data.images !== null)
+            {          
+              Array.from(data.images).forEach((file) => {
+              formData.append('imageFileList',
                 new Blob(
                   [file],
                   {type: file.type}
                 ),
                 file.name,
               ); 
-            });
+            });}
+          else
+          {
+            formData.append('imageFileList', '')
+          }
     
           const headers = await setRscHeader();
           const response: AxiosResponse<any> = await axios.post(URI, formData, {
@@ -57,7 +62,7 @@ export const AcademicRecordRscService = () => {
 
 
   const updateAcademicRecord = async (
-    attachImageList: FileList // FileList 타입 사용
+    data:User.CreateUserAcademicRecordApplicationRequestDto // FileList 타입 사용
   ): Promise<any> => {
     const URI = `${BASEURL}/api/v1/users/academic-record/application/update`;
     try {
@@ -67,28 +72,32 @@ export const AcademicRecordRscService = () => {
         new Blob(
           [
             JSON.stringify({
-              targetAcademicStatus: "ENROLLED",
-              targetCompletedSemester: 5,
-              graduationYear: null,
-              graduationType: null,
-              note: "s",
+              targetAcademicStatus: data.targetAcademicStatus,
+              targetCompletedSemester: data.targetCompletedSemester,
+              graduationYear: data.graduationYear,
+              graduationType: data.graduationType,
+              note: data.note,
             }),
           ],
           { type: "application/json" }
         )
       );
-
-      // FileList를 배열로 변환하여 forEach 사용
-      Array.from(attachImageList).forEach((file) => {
-        formData.append(
-            'imageFileList',
-            new Blob(
-              [file],
-              {type: file.type}
-            ),
-            file.name,
-          ); 
-        });
+          // FileList를 배열로 변환하여 forEach 사용
+          if (data.images !== null)
+            {          
+              Array.from(data.images).forEach((file) => {
+              formData.append('imageFileList',
+                new Blob(
+                  [file],
+                  {type: file.type}
+                ),
+                file.name,
+              ); 
+            });}
+          else
+          {
+            formData.append('imageFileList', '')
+          }
 
       const headers = await setRscHeader();
       const response: AxiosResponse<any> = await axios.put(URI, formData, {
