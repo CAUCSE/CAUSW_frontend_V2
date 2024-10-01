@@ -14,6 +14,7 @@ import {
   useCreatePostStore,
   useCreateVoteStore,
   useFileUpload,
+  VoteRscService,
 } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -25,8 +26,8 @@ import { useRouter } from "next/navigation";
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
-  const { createPost, createPostWithForm, createVote } = PostRscService();
-
+  const { createPost, createPostWithForm } = PostRscService();
+  const { createVote } = VoteRscService();
   const {
     title,
     content,

@@ -58,7 +58,7 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
 
         <div className="mb-1 px-8 text-[14px]">{isDeleted ? "삭제된 댓글입니다.":childComment.content}</div>
         
-        <button className="flex flex-row justify-start items-center space-x-3 py-1 px-8 text-post-like text-[13px]" onClick={handleChildCommentLike}>
+        <button className="flex flex-row justify-start items-center space-x-3 py-1 px-8 text-post-like text-[13px]" onClick={handleLike}>
           <Image
             src="/images/post/like.svg"
             alt="Like Icon"

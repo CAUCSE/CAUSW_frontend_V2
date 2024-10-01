@@ -61,7 +61,7 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
 
       <div className="mb-1 px-8 text-[16px]">{isDeleted ? "삭제된 댓글입니다.":comment.content}</div>
 
-      <button className="flex flex-row justify-start items-center space-x-3 py-1 px-8 text-post-like text-[13px]" onClick={handleCommentLike}>
+      <button className="flex flex-row justify-start items-center space-x-3 py-1 px-8 text-post-like text-[13px]" onClick={handleLike}>
         <Image
           src="/images/post/like.svg"
           alt="Like Icon"

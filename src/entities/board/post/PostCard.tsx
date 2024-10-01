@@ -92,7 +92,7 @@ export const PostCard = (
           {postData.isPostVote 
           ? <div className="lg:pr-12 w-full w-32">
               <VotingSection 
-                isResult={true} 
+                isResult={false} 
                 //isMultiple={false} 
                 //isAnonymous={false} 
                 onVote={function (selectedOptions: string[]): void {

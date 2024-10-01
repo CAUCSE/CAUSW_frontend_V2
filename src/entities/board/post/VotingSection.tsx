@@ -4,10 +4,6 @@ import { useVoteStore } from '@/shared';
 
 interface VotingSectionProps {
   isResult: boolean;
-  //options: Post.VoteOptionDto[]; 
-  //totalVotes?: number;
-  //voteResult?: { name: string; votes: number }[];
-  //isAnonymous: boolean;
   onVote: (selectedOptions: string[]) => void;
 }
 
@@ -52,7 +48,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ isResult, onVote }) => {
           : <div className="w-[70px] mr-2"></div>
         }
       </div>
-      {isResult
+      {vote.isEnd
       ?<div className="relative mb-4 bg-white border-comment-bw border-black p-3 rounded-lg space-y-3">
         <button className="absolute top-0 right-0 flex items-center justify-center w-10 h-10" onClick={toggleMenu}>
           <Image

@@ -33,7 +33,7 @@ export { HomeRscService } from "./hooks/services/HomeRscService";
 export { CircleRscService } from "./hooks/services/CircleRscSevice";
 export { UserRscService } from "./hooks/services/UserRscService";
 export { SettingRscService } from "./hooks/services/SettingRscService";
-
+export { VoteRscService } from "./hooks/services/VoteRscService";
 export { PostRscService } from "./hooks/services/PostRscService";
 export { MainBoardRscService } from "./hooks/services/MainBoardRscService";
 export { BoardRscService } from "./hooks/services/BoardRscService";
