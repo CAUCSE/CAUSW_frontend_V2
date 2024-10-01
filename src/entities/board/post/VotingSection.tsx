@@ -1,4 +1,6 @@
+"use client"
 import React, { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from "next/image";
 import { useVoteStore } from '@/shared';
 
@@ -14,6 +16,8 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { vote, totalVote, voteOptions,votedMostOptions, castVote, endVote} = useVoteStore();
+  const router = useRouter();
+  const path = usePathname();
 
   const isMultiple = vote.allowMultiple;
   const isAnonymous = vote.allowAnonymous;
@@ -30,7 +34,10 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
       setSelectedOptions([option]);
     }
   };
-  console.log('owner?? ', vote.isOwner);
+
+  const handleViewResult = () => {
+    router.push(`${path}/result`);
+  };
 
   const handleVote = () => {
     if (selectedOptions.length > 0) {
@@ -67,8 +74,8 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
         </button>: ''}
         {isMenuOpen && 
           <div className="absolute top-0 right-8 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              투표 현황 보기
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
+              투표 결과 보기
             </button>
             <hr className="border-gray-300" />
             <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -116,7 +123,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
         </button>: ''}
         {isMenuOpen && 
           <div className="absolute top-0 right-8 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
               투표 현황 보기
             </button>
             <hr className="border-gray-300" />

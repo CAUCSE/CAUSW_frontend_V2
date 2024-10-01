@@ -233,8 +233,8 @@ const PostDetailPage = (props: any) => {
             handlePostFavorite={handlePostFavorite}
             handlePostLike={handlePostLike}
             handleCommentBtn={changeToPostComment}
-            hasVote={true}
-            options={['1등','2등','3등']}
+            //hasVote={true}
+            //options={['1등','2등','3등']}
             handlePostDelete={handleDeletePost}
             toggleMenu={togglePostPopupMenu}
             isPopupVisible={isPopupVisible}
