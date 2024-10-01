@@ -3,21 +3,22 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios, {AxiosResponse} from 'axios';
-import { UserService, useUserStore, AcademicRecordRscService } from '@/shared';
+import { UserService, useUserStore, AcademicRecordRscService, Modal } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 
-const UpdateDocumentPage = () => {
+const UpdataeAcademicRecordPage = () => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { updateUserAcademicInfo, checkCurrentAcademicRecord } = UserService();
-  const { updateAcademicRecord } = AcademicRecordRscService();
+  const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const router = useRouter(); // useRouter 초기화
   const id = useUserStore((state) => state.id)
+  const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
 
 
 
@@ -30,6 +31,13 @@ const UpdateDocumentPage = () => {
     yearOptions.push(year);
   }
   
+  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
+  const selectedAcademicStatus = watch('targetAcademicStatus');
+
+  useEffect(() => {
+    setAcademicStatus(selectedAcademicStatus); // 학적 상태 변경 시 UI 갱신
+  }, [selectedAcademicStatus]);
+
   // 완료 모달
   const closeCompleteModal = () => {
     if (isSuccessModalOpen) {
@@ -40,7 +48,7 @@ const UpdateDocumentPage = () => {
   };
 
   // 이미 증빙 서류를 제출한 경우
-  const [hasExistingRecord, setHasExistingRecord] = useState(true);
+  const [hasExistingRecord, setHasExistingRecord] = useState(false);
   const [isRejectedRecord, setIsRejectedRecord] = useState(false);
   const [rejectMessage, setRejectMessage] = useState('');
 
@@ -72,6 +80,7 @@ const UpdateDocumentPage = () => {
             setValue('note', academicRecordInfo.userNote);
             setValue('images', academicRecordInfo.attachedImageUrlList);
           }
+          setIsAlreadySubmitted(true);
         }
       } catch (error: any) {
         if (error.response?.status === 400) {
@@ -95,6 +104,8 @@ const UpdateDocumentPage = () => {
     }
   }, [files]);
 
+
+  // 이미지 관련
   const handleImageClick = (src: string) => {
     setSelectedImage(src);
   };
@@ -121,9 +132,21 @@ const UpdateDocumentPage = () => {
 
 
     try {
+
+      // 이미 제출된 경우 put method, 아닌 경우 post method 이용
+      if (data.targetAcademicStatus !== "GRADUATED")
+      {
+        data.graduationType = null
+        data.graduationYear = null
+      }
+      if (data.targetAcademicStatus !== "ENROLLED")
+      {
+        data.images = null
+      }
+
+      const response = isAlreadySubmitted ? await updateAcademicRecord(files) : await postAcademicRecord(files);
       
       // 서버에 전송하는 로직 작성 (axios 예시)
-      const response = await updateUserAcademicInfo(files);
       console.log(response);
       if (response.status === 200) {  // 성공한 경우
         console.log('성공');
@@ -181,10 +204,20 @@ const UpdateDocumentPage = () => {
         {/* 학적 상태 선택 */}
         <div className="flex flex-col">
           <label className="text-lg font-semibold mb-2">본 학기 학적 상태</label>
-          <label className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1">재학</label>
+          <select
+            {...register("targetAcademicStatus", { required: "학적 상태는 필수 항목입니다." })}
+            className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+          >
+            <option value="">-선택해주세요-</option>            
+            <option value="ENROLLED">재학</option>
+            <option value="LEAVE_OF_ABSENCE">휴학</option>
+            <option value="GRADUATED">졸업</option>
+          </select>
+          {errors.targetAcademicStatus && <span className="text-red-500">{errors.targetAcademicStatus.message}</span>}
         </div>
 
         {/* N차 학기 선택 */}
+        {academicStatus === "ENROLLED" && (
         <div className="flex flex-col">
           <label className="text-lg font-semibold mb-2">본 학기 기준 등록 완료 학기 차수</label>
           <select
@@ -203,7 +236,40 @@ const UpdateDocumentPage = () => {
             <option value="9">9차 학기 이상</option>
           </select>
           {errors.targetCompletedSemester && <span className="text-red-500">{errors.targetCompletedSemester.message}</span>}
-        </div>
+        </div>)}
+
+
+          {/* 졸업 년도 선택 */}
+          {academicStatus === "GRADUATED" && (
+                <div className="flex flex-col">
+          <label className="text-lg font-semibold mb-2">졸업 년도</label>
+          <select
+            {...register("graduationYear", { required: "졸업 년도는 필수 항목입니다." })}
+            className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1 overflow-y-auto "
+          >
+            <option value="">-선택해주세요-</option>            
+            {yearOptions.map((year) => <option value= {year}>{year}년</option>)}
+
+          </select>
+          {errors.graduationYear && <span className="text-red-500">{errors.graduationYear.message}</span>}
+        </div>)}
+
+
+        {/* 졸업 월 선택 */}
+        {academicStatus === "GRADUATED" && (
+        <div className="flex flex-col">
+          <label className="text-lg font-semibold mb-2">졸업 월</label>
+          <select
+            {...register("graduationType", { required: "학기 차수는 필수 항목입니다." })}
+            className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+          >
+            <option value="">-선택해주세요-</option>            
+            <option value= "FEBRUARY">2월</option>
+            <option value= "AUGUST">8월</option>
+
+          </select>
+          {errors.graduationType && <span className="text-red-500">{errors.graduationType.message}</span>}
+        </div>)}
 
         {/* 특이사항 입력 */}
         <div className="flex flex-col">
@@ -219,6 +285,7 @@ const UpdateDocumentPage = () => {
         </div>
 
         {/* 증빙 서류 제출 */}
+        {academicStatus === "ENROLLED" && (
         <div className="mb-2 mr-4 max-w-full">
           <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학부 재적/졸업 증빙 자료</label>
           <p className="text-md text-red-500 mt-1">
@@ -275,7 +342,7 @@ const UpdateDocumentPage = () => {
           </div>
           {errors.images && <span className="text-red-500">{errors.images.message}</span>}
         </div>
-
+        )}
 
         {/* 모달 */}
         {selectedImage && (
@@ -336,7 +403,7 @@ const UpdateDocumentPage = () => {
 
           </div>
         </div>
-      </div>      )}
+      </div>)}      
 
         <div className="mt-8 flex justify-center">
           <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
@@ -348,4 +415,4 @@ const UpdateDocumentPage = () => {
   );
 };
 
-export default UpdateDocumentPage;
+export default UpdataeAcademicRecordPage;

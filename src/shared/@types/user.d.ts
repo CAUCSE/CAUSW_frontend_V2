@@ -172,6 +172,11 @@ declare namespace User {
     files: FileList; 
   }
 
+  export interface UserAdmissionCreateRequestDto {
+    email: string;
+    description: string;
+    images: FileList;
+  }
 
   export interface CreateUserAcademicRecordApplicationRequestDto{
     targetAcademicStatus: 
@@ -184,9 +189,9 @@ declare namespace User {
     | "UNDETERMINED";
     targetCompletedSemester: number | null;
     graduationYear: number | null;
-    graduationType: "FEBRUARY" | "AUGUST"| null;
+    graduationType: "FEBRUARY" | "AUGUST" | null;
     note: string;
-    images: FileList;
+    images: FileList | null;
   }
 
   export interface FindPostsResponse {

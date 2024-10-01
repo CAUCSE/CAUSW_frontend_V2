@@ -109,15 +109,7 @@ export const UserRscService = () => {
         new Blob(
           [
             JSON.stringify({
-              name: data.name,
-              studentId: data.studentId,
-              admissionYear: data.admissionYear,
-              nickname: data.nickname,
-              major: data.major,
-              academicStatus: data.academicStatus,
-              currentCompletedSemester: data.currentCompletedSemester,
-              graduationYear: data.graduationYear,
-              graduationMonth: data.graduationMonth,
+              nickname: data.nickname,  
               phoneNumber: "01011111111"
             }),
           ],
@@ -130,6 +122,9 @@ export const UserRscService = () => {
 
       if (file !== null) {
         formData.append("profileImage", file, file.name);
+      }
+      else{
+        formData.append('profileImage', '');
       }
 
       const headers = await setRscHeader();
@@ -145,5 +140,49 @@ export const UserRscService = () => {
       throw error;
     }
   };
-  return { getMe, getUser, findByState, findAllAdmissions, getMyCircles, updateInfo };
+
+  const submitAdmissionsApplication = async (
+    data: User.userUpdateDto // FileList 타입 사용
+  ): Promise<any> => {
+    const URI = `${BASEURL}/api/v1/users/admissions/apply`;
+    try {
+      const formData = new FormData();
+      formData.append(
+        "userAdmissionCreateRequestDto ",
+        new Blob(
+          [
+            JSON.stringify({
+              email: data.nickname,  
+              description: "안녕하세요"
+            }),
+          ],
+          { type: "application/json" }
+        )
+      );
+
+      // attachImageList가 단일 파일인 경우
+      const file = data.profileImage;
+
+      if (file !== null) {
+        formData.append("userAdmissionAttachImageList ", file, file.name);
+      }
+      else{
+        formData.append('userAdmissionAttachImageList ', '');
+      }
+
+      const headers = await setRscHeader();
+      const response: AxiosResponse<any> = await axios.post(URI, formData, {
+        headers: {
+          ...headers,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return { getMe, getUser, findByState, findAllAdmissions, getMyCircles, updateInfo, submitAdmissionsApplication };
 };

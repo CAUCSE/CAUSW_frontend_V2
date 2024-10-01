@@ -5,18 +5,13 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
 
-type FormValues = {
-  profileImage: File | null;
-  nickname: string;
-  academicStatus: string;
-};
 
 const PersonalInfoPage = () => {
   const { register, handleSubmit, setValue, watch } = useForm<User.userUpdateDto>({
     defaultValues: {
       profileImage: null,
       nickname: '',
-      academicStatus: '재학',
+      academicStatus: 'ENROLLED',
     },
   });
 
@@ -92,26 +87,9 @@ const PersonalInfoPage = () => {
         console.log(userData);
 
 //         학생회비 납부 정보 받아오기 
-//         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
-//         const userCouncilFeeData = responseUserCouncilFeeData.data;
-//         console.log(userCouncilFeeData);
-const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<File> => {
-  try {
-    // 이미지 URL로부터 데이터를 fetch
-    const response = await fetch(imageUrl);
-    console.log(response);
-    // 응답 데이터를 Blob으로 변환
-    const blob = await response.blob();
-    // Blob 데이터를 File로 변환
-    const file = new File([blob], fileName, { type: blob.type });
-    return file;
-  } catch (error) {
-    console.error("Error converting URL to file:", error);
-    throw error;
-  }
-};
-        
-
+        const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
+        const userCouncilFeeData = responseUserCouncilFeeData.data;
+        console.log(userCouncilFeeData);
 
         // formData에 유저 정보 값들 넣어두기
         setValue('name', await userData.name);
@@ -127,12 +105,9 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
         setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
         setValue('nickname', await userData.nickname);
         setValue('academicStatus', await userData.academicStatus);
-        setValue('profileImage', await userData.profileImageUrl);
-        // const imageFile = await convertUrlToFile(await userData.profileImageUrl, 'profileImage.jpg');
-        // console.log(imageFile);
-        // setValue('profileImage', imageFile);  
+      
 
-
+        console.log(userData.profileImageUrl);
 
         setName(userData.name);
         setEmail(userData.email);
@@ -142,9 +117,9 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
         setCompletedSemester(userData.currentCompletedSemester);
         setDepartment(userData.major);
         setOriginAcademicStatus(userData.academicStatus);
-        // setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
-        // setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
-        // setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
+        setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
+        setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
+        setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
         
       } catch (error: any) {
         console.error('Failed to fetch user info:', error?.message);
@@ -182,7 +157,7 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
     }
     else
     {
-
+      
       try {
       
         const response = await updateInfo(data);
@@ -254,35 +229,23 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
                   className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
                 />
               </div>
-
-              {/* 학적 상태가 졸업이 아닐 경우 */}
-              {originAcademicStatus !== "GRADUATED" && (
+              
               <div className="mb-4 ml-4 w-1/2 lg:w-full">
-                <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
-                <select
-                  {...register('academicStatus', { required: true })}
-                  className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
-                >
-                  <option value="ENROLLED">재학</option>
-                  <option value="LEAVE_OF_ABSENCE">휴학</option>
-                  <option value="GRADUATED">졸업</option>
-                </select>
-              </div>)}
+                <div className="w-full lg:w-full">
+                  <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
+                    <div className= "flex flex-row flex-wrap sm:flex-nowrap rounded-md w-full lg:w-5/6">
+                      <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">재학</div>
+                      <button onClick = {() => {router.push('./updateacademicrecord')}} className="p-2 mr-2 mb-2 border border-gray-300 rounded-md bg-focus text-white text-center w-full lg:w-5/6">
+                      학적 상태 수정</button>
+                    </div>
+                </div>
+              </div>
+
               
 
               
-              {/* 학적 상태가 졸업 일 경우 */}
-              {originAcademicStatus === "GRADUATED" && (
-                <div className="mb-4 ml-4 w-1/2 lg:w-full">
-                <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
-                <div className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6">졸업</div>
-              </div>
-              )}
-              {}
+              
             </div>
-            {academicStatus == "GRADUATED" && (
-                <label className = "text-red-500 lg:block">학적 상태를 졸업으로 변경할 경우 이후 재학, 휴학으로 변경이 불가합니다.</label>
-              )}
             
           </div>
 
@@ -301,14 +264,17 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학번</label>
                 <p className="text-gray-700">{studentId}</p>
               </div>
+
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">입학 년도</label>
                 <p className="text-gray-700">{admissionYear}</p>
               </div>
+              
+              {academicStatus === "GRADUATED" && (
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">졸업 년도</label>
                 <p className="text-gray-700">{graduationYear}</p>
-              </div>
+              </div>)}
             </div>
 
             <div>
@@ -336,24 +302,6 @@ const convertUrlToFile = async (imageUrl: string, fileName: string): Promise<Fil
           </div>
         </div>
 
-        {/* 재학 증빙서류 제출 안내 모달 */}
-        {isSubmitModalOpen &&(
-        <RedirectModal closeModal={closeModal} redirectTo="./updatedocuments">
-          <div className = "flex items-center flex-col ">
-            <h1>휴학->재학 변경 시</h1>
-            <p>재학 증빙 서류를 제출해야 합니다.</p>
-          </div>
-        </RedirectModal>)}
-
-        {/* 졸업 상태로 변경 시도 시 경고 모달 */}
-        {isWarningModalOpen && (
-          <Modal closeModal={closeModal}>
-            <div className='p-2 lg:p-4'>
-            <div>졸업 변경 시 추후 재학, 휴학으로 변경이 불가합니다.</div>
-            <div>(창을 닫은 후 다시 제출하면 변경사항이 저장됩니다.)</div>
-            </div>
-          </Modal>
-        )}
                 {/* 졸업 상태로 변경 시도 시 경고 모달 */}
                 {isSuccessModalOpen && (
           <Modal closeModal={() => setIsSuccessModalOpen(false)}>

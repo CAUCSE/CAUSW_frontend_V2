@@ -3,21 +3,22 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios, {AxiosResponse} from 'axios';
-import { UserService, useUserStore } from '@/shared';
+import { UserService, useUserStore, AcademicRecordRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 
-const SubmitDocumentsPage = () => {
+const SubmitAcademicRecordPage = () => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { updateUserAcademicInfo } = UserService();
+  const { updateUserAcademicInfo, checkCurrentAcademicRecord } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
   const id = useUserStore((state) => state.id)
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-
+  const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
+  const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
 
 
 
@@ -38,6 +39,51 @@ const SubmitDocumentsPage = () => {
     }
   };
 
+    // 이미 증빙 서류를 제출한 경우
+    const [hasExistingRecord, setHasExistingRecord] = useState(false);
+    const [isRejectedRecord, setIsRejectedRecord] = useState(false);
+    const [rejectMessage, setRejectMessage] = useState('');
+  
+    const closeAcademicRecordModal = () => {
+      if (hasExistingRecord) {
+        setHasExistingRecord(false);
+      } else if (isRejectedRecord) {
+        setIsRejectedRecord(false);
+        setRejectMessage('');
+      }
+    }
+
+    // 증빙 서류 제출 여부 확인
+    useEffect(() => {
+      const fetchAcademicRecord = async () => {
+        try {
+          const response = await checkCurrentAcademicRecord();
+          if (response.status === 200) {
+            const academicRecordInfo = response.data;
+            if (academicRecordInfo.isRejected === true) // 거절 당한 경우
+            {
+              setIsRejectedRecord(true);
+              setRejectMessage(academicRecordInfo.rejectMessage);
+            }
+            else{   // 승인 대기 중인 경우
+              setHasExistingRecord(true);
+              setValue('targetAcademicStatus', academicRecordInfo.targetAcademicStatus);
+              setValue('targetCompletedSemester', academicRecordInfo.targetCompletedSemester);
+              setValue('note', academicRecordInfo.userNote);
+              setValue('images', academicRecordInfo.attachedImageUrlList);
+            }
+            setIsAlreadySubmitted(true);
+          }
+        } catch (error: any) {
+          if (error.response?.status === 400) {
+          } else {
+            console.error('Error checking academic record:', error);
+          }
+        }
+      };
+  
+      fetchAcademicRecord();
+    }, []);
 
   const files = watch("images") as FileList;
   const selectedAcademicStatus = watch('targetAcademicStatus');
@@ -80,24 +126,20 @@ const SubmitDocumentsPage = () => {
 
   const onSubmit = async (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
     try {
-      const formData = new FormData();
 
-      const jsonData = {
-        "targetAcademicStatus": data.targetAcademicStatus,
-        "targetCompletedSemester": data.targetAcademicStatus === "ENROLLED" ? data.targetAcademicStatus : null,
-        "graduationYear": data.targetAcademicStatus === "GRADUATED" ? data.graduationYear : null,
-        "graduationType": data.targetAcademicStatus === "GRADUATED" ? data.graduationType : null,
-        "note": data.note        
-      }
-      formData.append("createUserAcademicRecordApplicationRequestDto", JSON.stringify(jsonData));
+      if (data.targetAcademicStatus !== "GRADUATED")
+        {
+          data.graduationType = null
+          data.graduationYear = null
+        }
+        if (data.targetAcademicStatus !== "ENROLLED")
+        {
+          data.images = null
+        }
       
-      // 파일들을 FormData에 추가
-      Array.from(data.images).forEach((file, index) => {
-        formData.append('images', file);
-      });
+      const response = isAlreadySubmitted ? await updateAcademicRecord(files) : await postAcademicRecord(files);
 
       // 서버에 전송하는 로직 작성 (axios 예시)
-      const response = await updateUserAcademicInfo(formData);
       console.log(response);
       if (response.status === 200) {  // 성공한 경우
         console.log('성공');
@@ -258,7 +300,17 @@ const SubmitDocumentsPage = () => {
         <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        <input id="file-upload" type="file" multiple className="hidden" {...register('images', { required: '파일을 첨부해 주세요' })} />
+        <input id="file-upload" type="file" multiple className="hidden" {...register('images', { required: '파일을 첨부해 주세요', validate: (files) => {
+            if (files && files.length > 0) {
+              const fileArray = Array.from(files)
+              for (const file of fileArray) {
+                if (file.size > 5 * 1024 * 1024) {
+                  return '파일 사이즈는 5MB를 초과할 수 없습니다.';
+                }
+              }
+            }
+            return true;
+          } })} />
         </label>
     </div>
 
@@ -327,6 +379,35 @@ const SubmitDocumentsPage = () => {
           </div>
         </div>
       )}
+                  {/* 기존 작성중인 정보가 있을 때 표시되는 모달 */}
+                  {hasExistingRecord && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+          
+        <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
+          <div className = "grid justify-items-center">
+
+          <h2 className="text-xl font-bold mb-4">이미 제출한 증빙 서류가 있습니다.  
+
+          </h2>
+          <div className = "flex lg:flex-row flex-col">
+          <button className="h-10 w-28 rounded bg-focus hover:bg-blue-500 mt-4 mr-4 ml-4 text-white" onClick = {closeAcademicRecordModal}>수정하기</button>
+          <button className="h-10 w-28 rounded bg-focus hover:bg-blue-500 mt-4 mr-4 ml-4 text-white" onClick = {() => router.back()}>돌아가기</button>
+          </div>
+
+          </div>
+        </div>
+      </div>)}
+
+      {isRejectedRecord && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeAcademicRecordModal}>
+        <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
+          <div className = "grid justify-items-center">
+          <h2 className="text-xl font-bold mb-4">증빙 서류 제출이 거절 당했습니다.</h2>
+          <p>거절 사유 : {rejectMessage}</p>
+
+          </div>
+        </div>
+      </div>)}
 
         <div className="mt-8 flex justify-center">
           <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
@@ -338,4 +419,4 @@ const SubmitDocumentsPage = () => {
   );
 };
 
-export default SubmitDocumentsPage;
+export default SubmitAcademicRecordPage;
