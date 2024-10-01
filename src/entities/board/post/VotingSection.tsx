@@ -59,8 +59,9 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
           : <div className="w-[70px] mr-2"></div>
         }
       </div>
+      
       {showResult
-      ?<div className="relative mb-4 bg-white border-comment-bw border-black p-3 rounded-lg space-y-3">
+      ?<div className="relative mb-4 bg-white border-comment-bw border-black p-4 rounded-lg space-y-3">
         {vote.isOwner ? <button className="absolute top-0 right-0 flex items-center justify-center w-10 h-10" onClick={toggleMenu}>
           <Image
             src="/images/post/comment-menu.svg"
@@ -69,6 +70,14 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
             height={4}
           ></Image>
         </button>: ''}
+        {!vote.allowAnonymous && <div className="absolute bottom-4 right-4">
+          <button
+            onClick={handleViewResult}
+            className="text-normal-board-role-text border-b-comment-bw border-normal-board-role-text focus:outline-none"
+          >
+            투표 결과 확인하기
+          </button>
+        </div>}
         {isMenuOpen && 
           <div className="absolute top-0 right-8 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
             <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
@@ -83,7 +92,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
         {voteOptions!.map((option) => {
           const percentage = (option.voteCount / totalVote) * 100;
           return (
-            <div key={option.id} className="flex flex-col pt-4 mx-1">
+            <div key={option.id} className="flex flex-col pt-4 mx-1 pb-10">
               <div className="flex items-center">
                 {/* TODO: winner일 때만 표시되도록 하기 */}
                 {votedMostOptions.includes(option.id) ? <Image

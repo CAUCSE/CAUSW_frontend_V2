@@ -68,6 +68,8 @@ declare namespace Post {
     isOwner: boolean;
     hasVoted: boolean;
     isEnd: boolean;
+    totalVoteCount: number;
+    totalUserCount: number;
   }
 
   export interface VoteUserDto {
