@@ -1,6 +1,6 @@
 "use client"
 
-import { usePostStore } from "@/shared";
+import { usePostStore, useVoteStore } from "@/shared";
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from './VotingSection';
@@ -15,9 +15,7 @@ interface PostCardProps {
   handlePostLike: () => void;
   handlePostFavorite: () => void;
   handleCommentBtn: () => void;
-  handlePostDelete: () => void;
-  hasVote: boolean;
-  options: string[]; 
+  handlePostDelete: () => void; 
   toggleMenu: () => void;
   isPopupVisible: boolean;
 }
@@ -40,13 +38,12 @@ export const PostCard = (
   handlePostFavorite,
   handleCommentBtn,
   handlePostDelete,
-  hasVote,
-  options,
   toggleMenu,
   isPopupVisible
 }
 :PostCardProps) => {
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
+  const { vote, totalVote, voteOptions,votedMostOptions, castVote, endVote} = useVoteStore();
   //const {isPopupVisible} = usePostStore();
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
@@ -92,12 +89,13 @@ export const PostCard = (
           {postData.isPostVote 
           ? <div className="lg:pr-12 w-full w-32">
               <VotingSection 
-                isResult={false} 
-                //isMultiple={false} 
-                //isAnonymous={false} 
                 onVote={function (selectedOptions: string[]): void {
-                throw new Error("Function not implemented.");
-              } } /> 
+                  console.log("Function not implemented.", selectedOptions);
+                } } 
+                /* isMultiple={vote.allowMultiple} 
+                isAnonymous={vote.allowAnonymous} 
+                showResult={vote.isEnd || vote.hasVoted} 
+                isOwner={vote.isOwner} */ /> 
             </div>
           : ''}
         </div>

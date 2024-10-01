@@ -45,6 +45,7 @@ export const usePostDetail = (postId: string) => {
         });
         if (postData.isPostVote){
           setVote(postData.voteResponseDto!);
+          console.log(postData.voteResponseDto);
         }
         
       } catch (error) {
