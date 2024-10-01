@@ -43,20 +43,6 @@ declare namespace User {
     circleId?: string;
   }
 
-  // findAllAdmissions
-  export interface AdmissionUser {
-    admissionYear: number;
-    attachImage: string | null;
-    createdAt: string;
-    description: string;
-    id: string;
-    updatedAt: string;
-    userEmail: string;
-    userName: string;
-    //#71 추가
-    userState: User["state"];
-  }
-
   // findPrivilegedUsers
   export interface FindPrivilegedUsersResponseDto {
     presidentUser: User[];
@@ -147,11 +133,9 @@ declare namespace User {
     accessToken: string;
     refreshToken: string;
   }
-  
-  
+
   // Signup
-  export interface SignUpForm 
-  {        
+  export interface SignUpForm {
     email: string;
     name: string;
     password: string;
@@ -165,8 +149,7 @@ declare namespace User {
     phoneNumberHyphen: string;
   }
 
-  export interface SignUpFormPost
-  {        
+  export interface SignUpFormPost {
     email: string;
     name: string;
     password: string;
@@ -176,7 +159,7 @@ declare namespace User {
     major: string;
     phoneNumber: string;
     profileImage: nullable;
-    files: FileList; 
+    files: FileList;
   }
 
   export interface UserAdmissionCreateRequestDto {
@@ -312,66 +295,4 @@ declare namespace User {
 
   //DTO
   export type UserDto = User & Error.ApiErrorResponse;
-
-  // findByState
-  export type FindByStateResponseDto = {
-    content: User[];
-    last: boolean;
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  } & Error.ApiErrorResponse;
-
-  export type FindAllAdmissionsResponseDto = {
-    content: AdmissionUser[];
-    last: boolean;
-
-    //#71 추가
-    empty: boolean;
-    first: boolean;
-    number: number;
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      unpaged: boolean;
-    };
-    size: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    totalElements: number;
-    totalPages: number;
-  } & Error.ApiErrorResponse;
 }

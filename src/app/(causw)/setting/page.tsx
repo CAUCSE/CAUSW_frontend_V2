@@ -24,8 +24,10 @@ const MenuItem: React.FC<{
   </div>
 );
 
+//CHECK: Role의 역활???
 const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
   const {
+    roles,
     isStudent,
     isProfessor,
     isAdmin,
@@ -35,14 +37,15 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     isCouncil,
     isStudentLeader,
     isAlumniLeader,
-  } = useUserStore(state => ({
+  } = useUserStore((state) => ({
+    roles: state.roles,
     isStudent: state.isStudent,
     isProfessor: state.isProfessor,
     isAdmin: state.isAdmin,
     isPresidents: state.isPresidents,
     isVicePresidents: state.isVicePresidents,
     isCircleLeader: state.isCircleLeader,
-    isCouncil: state.isCouncil, 
+    isCouncil: state.isCouncil,
     isStudentLeader: state.isStudentLeader,
     isAlumniLeader: state.isAlumniLeader,
   }));
@@ -61,19 +64,22 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     ],
     관리_동문회장: [{ name: "유저 관리", link: "/" }],
     관리_관리자_학생회장_부학생회장: [
-      { name: "권한 관리", link: "/" },
-      { name: "유저 관리", link: "/" },
-      { name: "학생회비 납부자 관리", link: "/" },
-      { name: "학적 상태 관리", link: "/" },
+      { name: "권한 관리", link: "/setting/management/role/president" },
+      { name: "유저 관리", link: "/setting/management/user/admission" },
+      { name: "학생회비 납부자 관리", link: "/setting/management/payer" },
+      { name: "학적 상태 관리", link: "/setting/management/attendance/all" },
     ],
-    권한위임: [{ name: "권한 위임", link: "/" }],
+    권한위임: [{ name: "권한 위임", link: "/setting/mandate/" + roles[0] }],
     홈화면관리: [
       { name: "이벤트 배너 공지 편집", link: "/" },
       { name: "캘린더 편집", link: "/" },
     ],
     동아리관리: [
-      { name: "동아리원 관리", link: "/" },
-      { name: "동아리 가입 신청 관리", link: "/" },
+      { name: "동아리원 관리", link: "/setting/management/circle/member" },
+      {
+        name: "동아리 가입 신청 관리",
+        link: "/setting/management/circle/apply",
+      },
     ],
     게시판관리: [{ name: "게시판 생성 신청 관리", link: "/" }],
   };

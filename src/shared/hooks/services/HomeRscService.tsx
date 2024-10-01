@@ -13,11 +13,10 @@ export const HomeRscService = () => {
       if (!response.ok) throw new Error(response.statusText);
 
       const data = (await response.json()) as Home.GetHomePostsResponseDto;
-      console.log(data);
+
       return data;
     } catch (error) {
       console.error(error);
-      
       throw error;
     }
   };
@@ -29,22 +28,31 @@ export const HomeRscService = () => {
       headers: headers,
     });
     if (!response.ok) throw new Error(response.statusText);
-
-    return (await response.json()) as Home.GetEventsResponseDto;
+    const data = await response.json();
+    console.log(data);
+    return data as Home.GetEventsResponseDto;
   };
 
-  const getCalendars = async () => {
+  const getCalendars = async (year: number) => {
     const headers = await setRscHeader();
-    const response = await fetch(
-      `${BASEURL}/api/v1/calendars/year=${new Date().getFullYear()}`,
-      {
-        method: "GET",
-        headers: headers,
-      },
-    );
+    const response = await fetch(`${BASEURL}/api/v1/calendars/year=${year}`, {
+      method: "GET",
+      headers: headers,
+    });
     if (!response.ok) throw new Error(response.statusText);
 
     return (await response.json()) as Home.GetCalendarsResponseDto;
+  };
+
+  const getCalendar = async (id: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
+      method: "GET",
+      headers: headers,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Home.Calendar;
   };
 
   return { getHomePosts, getEvents, getCalendars };

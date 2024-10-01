@@ -1,13 +1,13 @@
-import { UserRscService } from "@/shared";
+import { SettingRscService } from "@/shared";
 
 import { Management } from "@/widget";
 
 const PayerManagement = async () => {
-  const { findByState, findAllAdmissions } = UserRscService();
+  const { getByState, getAllAdmissions } = SettingRscService();
 
   /* const data = isAddmission
-    ? await findAllAdmissions(null, 0)
-    : await findByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
+    ? await getAllAdmissions(null, 0)
+    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
 
   const headers = [
     { label: "이름", key: "userName" },
@@ -25,11 +25,15 @@ const PayerManagement = async () => {
         납부자 추가
       </div>
       <Management
-        state={""}
+        state={undefined}
         title="학생회비 관리"
-        firstNavigation={{ name: "학생회비 납부자 목록", state: "" }}
+        firstNavigation={{
+          name: "학생회비 납부자 목록",
+          state: "",
+          exportType: "PAYERS",
+          router: "/setting/management/payer/TODO",
+        }}
         data={data}
-        headers={headers}
       />
     </>
   );

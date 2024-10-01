@@ -18,7 +18,7 @@ declare namespace Home {
   };
 
   export type GetEventsResponseDto = {
-    counts: number;
+    count: number;
     events: Event[];
   };
 

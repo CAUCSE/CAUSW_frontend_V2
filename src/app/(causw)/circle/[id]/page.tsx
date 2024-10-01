@@ -6,14 +6,18 @@ import Link from "next/link";
 
 const Circle = async ({ params: { id } }: { params: { id: string } }) => {
   const { getCircle } = CircleRscService();
-  const { getUser, getMe } = UserRscService();
+  const { getUser, getMe, getMyCircles } = UserRscService();
 
   const me = await getMe();
   const circle = await getCircle(id);
   const leader = await getUser(circle.leaderId);
+  const myCircles = await getMyCircles();
 
   const isCircleLeader =
     me.circleIdIfLeader?.includes(id) || me.roles.includes("ADMIN");
+
+  const isMyCircle =
+    myCircles.findIndex((myCircle) => myCircle.id === id) !== -1;
 
   return (
     <>
@@ -33,9 +37,12 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
           <div className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
             가입 신청 받기
           </div>
-          <div className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
+          <Link
+            href={"/setting/management/circle/" + id + "/apply"}
+            className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex"
+          >
             신청 현황 보기
-          </div>
+          </Link>
           <Link href={`/circle/${id}/edit`}>
             <span className="icon-[icon-park-outline--write] mt-2 text-3xl md:text-5xl"></span>
           </Link>
@@ -88,12 +95,18 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
           <div style={{ whiteSpace: "pre-line" }}>{circle.description}</div>
         </div>
 
-        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
-          신청하기
-        </div>
-        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-barkblue text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl">
-          동아리 게시판
-        </div>
+        {!isMyCircle ? (
+          <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-2 md:row-span-2 md:h-16 lg:text-xl">
+            신청하기
+          </div>
+        ) : (
+          <Link
+            href={"/circle/" + id + "/board"}
+            className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-barkblue text-lg text-white md:col-span-2 md:row-span-2 md:h-16 lg:text-xl"
+          >
+            동아리 게시판
+          </Link>
+        )}
         <Link
           href={"/circle/" + id + "/members"}
           className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-default text-lg text-white md:col-span-1 md:row-span-2 md:h-16 lg:text-xl"
