@@ -55,7 +55,28 @@ export const CircleRscService = () => {
   };
 
   //TODO: API 검증 필요
-  const getCircleUsers = async (id: string, state: Circle.JoinStatus) => {
+  const getCircleMembers = async (id: string) => {
+    try {
+      const headers = await setRscHeader();
+      const response = (await fetch(`${URI}/${id}/memberList`, {
+        headers: headers,
+      }).then((res) => res.json())) as Circle.GetCircleMembersResponseDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+
+      throw error;
+    }
+  };
+
+  //TODO: API 검증 필요
+  const getCircleUsersByState = async (
+    id: string,
+    state: Circle.JoinStatus,
+  ) => {
     try {
       const headers = await setRscHeader();
       const response = (await fetch(
@@ -91,5 +112,5 @@ export const CircleRscService = () => {
     }
   };
 
-  return { getCircles, getCircle, getCircleUsers, getCircleBoards };
+  return { getCircles, getCircle, getCircleMembers, getCircleBoards };
 };
