@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 
 const UpdataeAcademicRecordPage = () => {
-  const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -75,7 +75,6 @@ const UpdataeAcademicRecordPage = () => {
             setValue('targetAcademicStatus', academicRecordInfo.targetAcademicStatus);
             setValue('targetCompletedSemester', academicRecordInfo.targetCompletedSemester);
             setValue('note', academicRecordInfo.userNote);
-            setValue('images', academicRecordInfo.attachedImageUrlList);
           }
           setIsAlreadySubmitted(true);
         }
@@ -90,7 +89,7 @@ const UpdataeAcademicRecordPage = () => {
     fetchAcademicRecord();
   }, []);
 
-  // useEffect 이용한 상태 관리
+//  useEffect 이용한 상태 관리
   const files = watch("images") as FileList;
   useEffect(() => {
     if (files && files.length > 0) {

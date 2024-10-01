@@ -11,6 +11,12 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   circleIdIfLeader: null,
   circleNameIfLeader: null,
   state: "ACTIVE",
+  currentCompletedSemester: null,
+  nickname: "",
+  major: "",
+  academicStatus: "",
+  graduationYear: null,
+  graduationType: null,
 
   setUserStore: (props: User.User) => {
     set(() => ({
@@ -27,6 +33,12 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
       circleIdIfLeader: props.circleIdIfLeader ?? [],
       circleNameIfLeader: props.circleNameIfLeader ?? [],
       state: props.state,
+      currentCompletedSemester: props.currentCompletedSemester,
+      nickname: props.nickname,
+      major: props.major,
+      academicStatus: props.academicStatus,
+      graduationYear: props.graduationYear,
+      graduationType: props.graduationType
     }));
   },
 

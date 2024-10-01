@@ -13,21 +13,12 @@ export const UserService = () => {
     setUserStore(data);
   };
 
-  const getUserInfoRevised = async () => {
+  const getUserInfo = async () => {
     const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
     return response;
   }
   
 
-  const updateUserAcademicInfo = async (data: any) => {
-    try
-  {  const response = (await API.put(`${URI}/academic-record/application/update`, data)) as AxiosResponse;
-    return response;
-  } catch(error)
-  {
-    throw error;
-  }  
-  }
 
   const checkCurrentAcademicRecord = async () => {
     try {
@@ -41,5 +32,5 @@ export const UserService = () => {
   }
   
 
-  return { getMe, getUserInfoRevised, updateUserAcademicInfo, checkCurrentAcademicRecord };
+  return { getMe, getUserInfo, checkCurrentAcademicRecord };
 };

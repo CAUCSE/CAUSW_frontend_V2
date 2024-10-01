@@ -52,7 +52,7 @@ export const AcademicRecordRscService = () => {
     
           console.log(response)
     
-          console.log("게시글 생성 완료:", response.data);
+          console.log("증빙서류 제출 완료:", response.data);
           return response;
         } catch (error) {
           console.error("Error creating post:", error);
@@ -109,7 +109,7 @@ export const AcademicRecordRscService = () => {
 
       console.log(response)
 
-      console.log("재학 증빙 서류 작성 완료:", response.data);
+      console.log("증빙 서류 수정 완료:", response.data);
       return response;
     } catch (error) {
       console.error("Error creating post:", error);
