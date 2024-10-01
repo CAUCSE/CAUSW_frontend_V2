@@ -8,15 +8,8 @@ declare namespace User {
     name: string;
     profileImage: string;
     roles: Role[];
-    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP" | "AWAIT";
-
+    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
     studentId: string;
-    nickname: string;
-    major: string;
-    currentCompletedSemester : number | null;
-    academicStatus: string;
-    graduationYear: number | null;
-    graduationType: "FEBRUARY" | "AUGUST" | null;
   }
 
   export type Role =

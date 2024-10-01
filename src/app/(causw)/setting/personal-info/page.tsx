@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton, useUserStore } from '@/shared';
+import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
 
 
 const PersonalInfoPage = () => {
@@ -14,20 +14,32 @@ const PersonalInfoPage = () => {
       academicStatus: 'ENROLLED',
     },
   });
-  
-  const state = useUserStore((data) => data.state)
-  console.log(state);
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [studentId, setStudentId] = useState('');
+  const [admissionYear, setAdmissionYear] = useState('');
+  const [graduationYear, setGraduationYear] = useState('');
+  const [completedSemester, setCompletedSemester] = useState('');
+  const [department, setDepartment] = useState('');
   const [studentCouncilFeeStatus, setStudentCouncilFeeStatus] = useState('');
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
 
   // 원래의 학적 상태 저장
+  const [originAcademicStatus, setOriginAcademicStatus] = useState('');
+
   const router = useRouter();
-  const { getUserInfo } = UserService();
-  const { getUserCouncilFeeInfo } = UserCouncilFeeService();
+  const { getUserInfoRevised } = UserService();
+  const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
   const { updateInfo } = UserRscService();
+
+
+  // 모달 열림/닫힘 상태를 관리
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isWarningAccepted, setIsWarningAccepted] = useState(false);
 
   // 제출 시 모달
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -35,39 +47,59 @@ const PersonalInfoPage = () => {
 
   
 
-  const {
-    userEmail,
-    userName,
-    userAdmissionYear,
-    userStudentId,
-    userCurrentCompletedSemester,
-    userMajor,
-    userAcademicStatus,
-    userGraduationYear,
-  } = useUserStore((state) => ({
-    userEmail: state.email,
-    userName: state.name,
-    userAdmissionYear: state.admissionYear,
-    userStudentId: state.studentId,
-    userCurrentCompletedSemester: state.currentCompletedSemester,
-    userMajor: state.major,
-    userAcademicStatus: state.academicStatus,
-    userGraduationYear: state.graduationYear,
-  }));  
+
+  // 모달 열기
+  const openSubmitModal = () => {
+    setIsSubmitModalOpen(true);
+  };
+
+  const openWarningModal = () => {
+    setIsWarningModalOpen(true);
+  }
+
+  // 모달 닫기
+  const closeModal = () => {
+    if (isSubmitModalOpen)
+      setIsSubmitModalOpen(false);
+    if (isWarningModalOpen)
+    {
+      setIsWarningModalOpen(false);
+      setIsWarningAccepted(true);
+    }
+      
+  };
+  
+  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
+  const selectedAcademicStatus = watch('academicStatus');
+  
+
+  useEffect(() => {
+    setAcademicStatus(selectedAcademicStatus)
+  }, [selectedAcademicStatus])
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
 
         // 유저 기본 정보 받아오기
-        const responseUserData = await getUserInfo();
+        const responseUserData = await getUserInfoRevised();
         const userData = responseUserData.data;
         console.log(userData);
 
 //         학생회비 납부 정보 받아오기 
-        // const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
-        // const userCouncilFeeData = responseUserCouncilFeeData.data;
-        // console.log(userCouncilFeeData);
+        const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
+        const userCouncilFeeData = responseUserCouncilFeeData.data;
+        console.log(userCouncilFeeData);
+
+        // formData에 유저 정보 값들 넣어두기
+        setValue('name', await userData.name);
+        setValue('studentId', await userData.studentId);
+        setValue('admissionYear', await userData.admissionYear);
+        setValue('major', await userData.major);
+        setValue('currentCompletedSemester', await userData.currentCompletedSemester);
+        setValue('graduationYear', await userData.graduationYear);
+        setValue('graduationMonth', await userData.graduationType);
+        setValue('phoneNumber', await userData.phoneNUmber);
 
         // 유저에 맞게 값들 대입입
         setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
@@ -77,9 +109,17 @@ const PersonalInfoPage = () => {
 
         console.log(userData.profileImageUrl);
 
-        // setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
-        // setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
-        // setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
+        setName(userData.name);
+        setEmail(userData.email);
+        setStudentId(userData.studentId);
+        setAdmissionYear(userData.admissionYear);
+        setGraduationYear(userData.graduationYear);
+        setCompletedSemester(userData.currentCompletedSemester);
+        setDepartment(userData.major);
+        setOriginAcademicStatus(userData.academicStatus);
+        setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
+        setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
+        setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
         
       } catch (error: any) {
         console.error('Failed to fetch user info:', error?.message);
@@ -105,11 +145,21 @@ const PersonalInfoPage = () => {
   // 개인정보 수정한 내용 제출하는 함수
   const onSubmit = async (data: User.userUpdateDto) => {
 
-
-    
+    // 학적 재학 -> 휴학 변경 시 증빙 서류 제출 모달
+    if (data.academicStatus === "ENROLLED" && originAcademicStatus === "LEAVE_OF_ABSENCE")
+    {
+      openSubmitModal();
+    }
+    // 학적 졸업 상태로 변경할 경우 경고 창
+    else if (data.academicStatus === "GRADUATED" && isWarningAccepted === false)
+    {
+      openWarningModal();
+    }
+    else
     {
       
       try {
+      
         const response = await updateInfo(data);
         setIsSuccessModalOpen(true)
         console.log(response);
@@ -184,11 +234,7 @@ const PersonalInfoPage = () => {
                 <div className="w-full lg:w-full">
                   <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
                     <div className= "flex flex-row flex-wrap sm:flex-nowrap rounded-md w-full lg:w-5/6">
-                      <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">
-                      {userAcademicStatus === "ENROLLED" &&(<>재학</>)}
-                      {userAcademicStatus === "LEAVE_OF_ABSENCE" &&(<>휴학</>)}
-                      {userAcademicStatus === "GRADUATED" &&(<>졸업</>)}
-                      </div>
+                      <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">재학</div>
                       <button onClick = {() => {router.push('./updateacademicrecord')}} className="p-2 mr-2 mb-2 border border-gray-300 rounded-md bg-focus text-white text-center w-full lg:w-5/6">
                       학적 상태 수정</button>
                     </div>
@@ -208,37 +254,37 @@ const PersonalInfoPage = () => {
             <div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">이름</label>
-                <p className="text-gray-700">{userName}</p>
+                <p className="text-gray-700">{name}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">이메일</label>
-                <p className="text-gray-700">{userEmail}</p>
+                <p className="text-gray-700">{email}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학번</label>
-                <p className="text-gray-700">{userStudentId}</p>
+                <p className="text-gray-700">{studentId}</p>
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">입학 년도</label>
-                <p className="text-gray-700">{userAdmissionYear}</p>
+                <p className="text-gray-700">{admissionYear}</p>
               </div>
               
-              {userAcademicStatus === "GRADUATED" && (
+              {academicStatus === "GRADUATED" && (
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">졸업 년도</label>
-                <p className="text-gray-700">{userGraduationYear}</p>
+                <p className="text-gray-700">{graduationYear}</p>
               </div>)}
             </div>
 
             <div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">등록 완료 학기</label>
-                <p className="text-gray-700">{userCurrentCompletedSemester}</p>
+                <p className="text-gray-700">{completedSemester}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학부(학과)</label>
-                <p className="text-gray-700">{userMajor}</p>
+                <p className="text-gray-700">{department}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">본 학기 학생회비 적용 여부</label>

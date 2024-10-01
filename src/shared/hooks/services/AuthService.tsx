@@ -13,7 +13,6 @@ import {
   removeRscRefresh,
   removeRccAccess,
   removeRccRefresh,
-  UserService
 } from "@/shared";
 import { ErrorMessage } from "@/entities";
 
@@ -23,7 +22,6 @@ export const AuthService = () => {
   const router = useRouter();
   const setUserStore = useUserStore((state) => state.setUserStore);
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
-  const { getUserInfo } = UserService();
 
   const signin = async (body: User.SignInRequestDto) => {
     try {
@@ -33,14 +31,12 @@ export const AuthService = () => {
         accessToken: string;
         refreshToken: string;
       }>;
-      
+
       await setRscToken(accessToken, body.auto ? refreshToken : false);
       setRccToken(accessToken, body.auto ? refreshToken : false);
-      
-      router.push('/home');
-    } catch(error) {
+      router.push("/home");
+    } catch {
       setErrorMessage("로그인 정보가 일치하지 않습니다!");
-      console.log(error);
     }
   };
 
