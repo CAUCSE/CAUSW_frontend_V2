@@ -27,7 +27,9 @@ export const useVoteStore = create<VoteState>((set) => ({
     postId: '',
     isOwner: false,
     isEnd: false,
-    hasVoted: false
+    hasVoted: false,
+    totalVoteCount: 0,
+    totalUserCount:0.
   },
   voteOptions: [],
   totalVote: 0, // 초기값은 0
@@ -58,7 +60,7 @@ export const useVoteStore = create<VoteState>((set) => ({
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
-        vote: { ...state.vote, options: newOptions },
+        vote: { ...state.vote, options: newOptions, totalUserCount: state.vote.totalUserCount + 1 },
       };
     }),
 
@@ -75,7 +77,7 @@ export const useVoteStore = create<VoteState>((set) => ({
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
-        vote: { ...state.vote, options: newOptions },
+        vote: { ...state.vote, options: newOptions, totalUserCount: state.vote.totalUserCount - 1 },
       };
     }),
 
@@ -106,7 +108,7 @@ export const useVoteStore = create<VoteState>((set) => ({
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: true, options: newOptions },  // hasVoted를 true로 설정
+        vote: { ...state.vote, hasVoted: true, options: newOptions, totalUserCount: state.vote.totalUserCount + 1 },  // hasVoted를 true로 설정
       };
     }),
 
@@ -127,7 +129,7 @@ export const useVoteStore = create<VoteState>((set) => ({
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: false, options: newOptions },  // hasVoted를 true로 설정
+        vote: { ...state.vote, hasVoted: false, options: newOptions, totalUserCount: state.vote.totalUserCount - 1 },  // hasVoted를 true로 설정
       };
     }),
 

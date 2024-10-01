@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from "next/image";
-import { useVoteStore } from '@/shared';
+import { useVoteStore, VoteRscService } from '@/shared';
 
 interface VotingSectionProps {
   onVote: (selectedOptions: string[]) => void;
@@ -11,7 +11,7 @@ interface VotingSectionProps {
 const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  isAnonymous, showResult, isOwner */ }) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { vote, totalVote, voteOptions,votedMostOptions, castVote, endVote} = useVoteStore();
+  const { vote, totalVote, voteOptions,votedMostOptions, endVote, restartVote} = useVoteStore();
   const router = useRouter();
   const path = usePathname();
 
@@ -31,6 +31,29 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
     }
   };
 
+  const handleEndRestartVote = async () => {
+    if (vote.isEnd){
+      try {
+        const endVoteResponse = await VoteRscService().restartVoteById(vote.voteId);
+        restartVote();
+        console.log("투표 재시작 완료: ", endVoteResponse);
+      }catch(error){
+        endVote();
+        console.error("투표 재시작 처리 에러: ", error);
+      }
+    }else{
+      try {
+        const endVoteResponse = await VoteRscService().endVoteById(vote.voteId);
+        endVote();
+        console.log("투표 종료 완료: ", endVoteResponse);
+      }catch(error){
+        restartVote();
+        console.error("투표 종료 처리 에러: ", error);
+      }
+    }
+    
+  }
+
   const handleViewResult = () => {
     router.push(`${path}/result`);
   };
@@ -38,8 +61,6 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
   const handleVote = () => {
     if (selectedOptions.length > 0) {
       onVote(selectedOptions);
-      //castVote(selectedOptions)
-      //console.log(vote);
     } else {
       console.log('선택안함');
     }
@@ -52,7 +73,10 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
   return (
     <div className="mb-6 w-full">
       <div className="flex justify-between items-center">
-        <div className="w-[80px] text-[14px] text-center">{showResult ? `총 ${totalVote}명` : ''}</div>
+        <span>
+          <div className="w-[80px] text-[14px] text-center">{showResult ? `총 ${vote.totalUserCount}명` : ''}</div>
+          <div className="w-[80px] text-[14px] text-center mb-1">{(showResult && vote.allowAnonymous) ? `총 ${totalVote}표` : ''}</div>
+        </span>
         <div className="text-red-500 w-max-[300px] w-full bg-vote-title px-4 py-2 text-[14px] font-semibold text-center mx-2">{vote.title}</div>
         {(isAnonymous || isMultiple) 
           ? <div className="text-gray-500 w-[80px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
@@ -62,6 +86,17 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
       
       {showResult
       ?<div className="relative mb-4 bg-white border-comment-bw border-black p-4 rounded-lg space-y-3">
+        {isMenuOpen && 
+          <div className="absolute top-0 right-8 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
+              {vote.isEnd ? "투표 결과 보기": "투표 현황 보기"}
+            </button>
+            <hr className="border-gray-300" />
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleEndRestartVote}>
+              {vote.isEnd ? "투표 재시작": "투표 종료"}
+            </button>
+          </div>
+        }
         {vote.isOwner ? <button className="absolute top-0 right-0 flex items-center justify-center w-10 h-10" onClick={toggleMenu}>
           <Image
             src="/images/post/comment-menu.svg"
@@ -78,17 +113,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
             투표 결과 확인하기
           </button>
         </div>}
-        {isMenuOpen && 
-          <div className="absolute top-0 right-8 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
-              투표 결과 보기
-            </button>
-            <hr className="border-gray-300" />
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              투표 재시작
-            </button>
-          </div>
-        }
+        
         {voteOptions!.map((option) => {
           const percentage = (option.voteCount / totalVote) * 100;
           return (
@@ -118,6 +143,17 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
         })}
       </div>
       :<div className="relative mb-4 bg-white border-comment-bw border-black pt-6 p-3 rounded-lg">
+        {isMenuOpen && 
+          <div className="absolute top-0 right-8 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
+              {vote.isEnd ? "투표 결과 보기": "투표 현황 보기"}
+            </button>
+            <hr className="border-gray-300" />
+            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleEndRestartVote}>
+              {vote.isEnd ? "투표 재시작": "투표 종료"}
+            </button>
+          </div>
+        }
         {vote.isOwner ? <button className="absolute top-0 right-0 flex items-center justify-center w-10 h-10" onClick={toggleMenu}>
           <Image
             src="/images/post/comment-menu.svg"
@@ -126,17 +162,6 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
             height={4}
           ></Image>
         </button>: ''}
-        {isMenuOpen && 
-          <div className="absolute top-0 right-8 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleViewResult}>
-              투표 현황 보기
-            </button>
-            <hr className="border-gray-300" />
-            <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-              투표 종료
-            </button>
-          </div>
-        }
         {voteOptions.map((option) => (
           <label key={option.id} className="flex items-center mb-4">
             <input

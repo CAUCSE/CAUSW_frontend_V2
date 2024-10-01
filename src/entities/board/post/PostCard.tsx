@@ -111,11 +111,7 @@ export const PostCard = (
           {postData.isPostVote 
           ? <div className="lg:pr-12 flex w-full">
               <VotingSection 
-                onVote={handleCastVote} 
-                /* isMultiple={vote.allowMultiple} 
-                isAnonymous={vote.allowAnonymous} 
-                showResult={vote.isEnd || vote.hasVoted} 
-                isOwner={vote.isOwner} */ /> 
+                onVote={handleCastVote} /> 
             </div>
           : ''}
         </div>

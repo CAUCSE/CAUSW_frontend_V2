@@ -70,6 +70,26 @@ export const VoteRscService = () => {
     }
   };
 
+  const restartVoteById = async (voteId: string): Promise<Post.VoteResponseDto> => {
+    const URI = `${BASEURL}/api/v1/votes/${voteId}/restart`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Post.VoteResponseDto> = await axios.post(URI, {
+        headers: headers,
+      });
+
+      if (response.status !== 200) {
+        throw new Error(`Failed to fetch post with id ${voteId}`);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching post:", error);
+      throw error;
+    }
+  };
+
   const castVote = async (data: Post.CastVoteDto):Promise<string> => {
     const URI = `${BASEURL}/api/v1/votes/cast`;
 
@@ -96,6 +116,7 @@ export const VoteRscService = () => {
     createVote,
     getVoteById,
     endVoteById,
+    restartVoteById,
     castVote,
   };
 };
