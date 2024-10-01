@@ -4,6 +4,8 @@ import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from "./VotingSection";
 import { usePostStore } from "@/shared";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
@@ -51,14 +53,30 @@ export const PostCard = ({
   const userImage =
     postData.writerProfileImage ?? "/images/default_profile.png";
   //const {isPopupVisible} = usePostStore();
-  console.log("postData", postData);
-  console.log("formId: ", formId);
+  const router = useRouter();
+  const params = useParams();
+
+  const { boardId, postId } = params;
+
+  const popMenuList = [
+    { message: "게시물 삭제", handleBtn: handlePostDelete },
+    ...(postData.isOwner && postData.isPostForm
+      ? [
+          {
+            message: "신청 현황 보기",
+            handleBtn: () =>
+              router.push(`/board/${boardId}/${postId}/formInfo/${formId}`),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <div className="relative mb-4 mt-4 flex max-w-xl flex-col rounded-post-br border bg-post p-2 shadow-post-sh">
-      {isPopupVisible ? (
-        <PopupMenu message="게시글 삭제" handleBtn={handlePostDelete} />
-      ) : (
-        ""
+      {isPopupVisible && (
+        <div>
+          <PopupMenu PopupMenuChildren={popMenuList} />
+        </div>
       )}
       <button
         className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
@@ -180,7 +198,12 @@ export const PostCard = ({
           <span>{numComment > 999 ? "999+" : numComment}</span>
         </button>
         {isPostForm && (
-          <button className="flex items-center space-x-2 rounded-post-br bg-post-form p-1 px-3 text-[12px] text-black">
+          <button
+            className="flex items-center space-x-2 rounded-post-br bg-post-form p-1 px-3 text-[12px] text-black"
+            onClick={() => {
+              router.push(`/board/${boardId}/${postId}/${formId}`);
+            }}
+          >
             <Image
               src="/images/post/form.svg"
               alt="Form Icon"
