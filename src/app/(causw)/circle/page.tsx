@@ -7,9 +7,6 @@ const CirclePage = async () => {
   const circles = await getCircles();
   const myCircles = await getMyCircles();
 
-  console.log(myCircles);
-  console.log(circles);
-
   return (
     <>
       <div className="ml-7 mt-6 text-2xl font-bold md:ml-14 md:mt-16">

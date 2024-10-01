@@ -2,6 +2,7 @@
 export { BASEURL } from "./configs/url";
 export {
   API,
+  FORMAPI,
   setRccToken,
   removeRccAccess,
   getRccAccess,
@@ -41,6 +42,7 @@ export { BoardRscService } from "./hooks/services/BoardRscService";
 export { CommentRscService } from "./hooks/services/CommentRscService";
 export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService";
 export { SettingService } from "./hooks/services/SettingService";
+export { CircleService } from "./hooks/services/CircleService";
 
 //Store
 export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
