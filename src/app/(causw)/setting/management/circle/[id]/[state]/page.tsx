@@ -3,9 +3,9 @@ import { SettingRscService } from "@/shared";
 import { Management } from "@/widget";
 
 const CircleManagement = async ({
-  params: { state },
+  params: { state, id },
 }: {
-  params: { state: string };
+  params: { state: string; id: string };
 }) => {
   const { getByState, getAllAdmissions } = SettingRscService();
 
