@@ -1,10 +1,11 @@
 "use client";
 
-import { LoadingComponent } from "@/entities";
 import { FormRscService, Modal, PreviousButton, usePostStore } from "@/shared";
-import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+
+import Image from "next/image";
+import { LoadingComponent } from "@/entities";
 import { useForm } from "react-hook-form";
 
 const ApplyPage = () => {
@@ -74,6 +75,13 @@ const ApplyPage = () => {
     return () => {
       window.removeEventListener("resize", checkTruncate);
     };
+  }, [form]);
+
+  useEffect(() => {
+    if (form?.isClosed) {
+      setModalMessage("마감된 신청서입니다.");
+      setModalOpen(true);
+    }
   }, [form]);
 
   const onSubmit = async (data) => {
