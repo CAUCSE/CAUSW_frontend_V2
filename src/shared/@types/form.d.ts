@@ -8,24 +8,14 @@ declare namespace Form {
     register: any;
   }
 
-  export interface FormDataDto {
-    title: string;
-    allowedAcademicStatus: string[];
-    allowedGrades: string[];
-    questions: Question[];
+  export interface QuestionReplyRequestDtoList {
+    questionReplyRequestDtoList: QuestionReplyRequestDto[];
   }
 
-  interface Question {
-    questionNumber: number;
-    questionType: string;
-    questionText: string;
-    isMultiple: boolean;
-    options: Option[];
-  }
-
-  interface Option {
-    optionNumber: number;
-    optionText: string;
+  export interface QuestionReplyRequestDto {
+    questionId: string;
+    questionReply: string | null;
+    selectedOptionList: number[];
   }
 
   export interface OptionProps {
