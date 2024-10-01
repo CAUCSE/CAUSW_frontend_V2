@@ -6,10 +6,6 @@ import { useVoteStore } from '@/shared';
 
 interface VotingSectionProps {
   onVote: (selectedOptions: string[]) => void;
-  //isMultiple: boolean;
-  //isAnonymous: boolean;
-  //showResult: boolean;
-  //isOwner: boolean;
 }
 
 const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  isAnonymous, showResult, isOwner */ }) => {
@@ -42,7 +38,8 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
   const handleVote = () => {
     if (selectedOptions.length > 0) {
       onVote(selectedOptions);
-      castVote(selectedOptions)
+      //castVote(selectedOptions)
+      //console.log(vote);
     } else {
       console.log('선택안함');
     }
@@ -55,10 +52,10 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
   return (
     <div className="mb-6 w-full">
       <div className="flex justify-between items-center">
-        <div className="w-[70px] text-[14px] text-center">{showResult ? `총 ${totalVote}명` : ''}</div>
-        <div className="text-red-500 w-max-[300px] bg-vote-title px-4 py-2 text-[14px] font-semibold text-center">{vote.title}</div>
+        <div className="w-[80px] text-[14px] text-center">{showResult ? `총 ${totalVote}명` : ''}</div>
+        <div className="text-red-500 w-max-[300px] w-full bg-vote-title px-4 py-2 text-[14px] font-semibold text-center mx-2">{vote.title}</div>
         {(isAnonymous || isMultiple) 
-          ? <div className="text-gray-500 w-[70px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
+          ? <div className="text-gray-500 w-[80px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
           : <div className="w-[70px] mr-2"></div>
         }
       </div>
@@ -111,7 +108,6 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
           );
         })}
       </div>
-      // relative mb-4 bg-white border-comment-bw border-black p-3 rounded-lg space-y-3
       :<div className="relative mb-4 bg-white border-comment-bw border-black pt-6 p-3 rounded-lg">
         {vote.isOwner ? <button className="absolute top-0 right-0 flex items-center justify-center w-10 h-10" onClick={toggleMenu}>
           <Image

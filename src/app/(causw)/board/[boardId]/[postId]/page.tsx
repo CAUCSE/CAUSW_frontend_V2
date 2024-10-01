@@ -14,7 +14,9 @@ import {
   usePostStore,
   useCommentStore,
   useChildCommentStore,
-  usePopup
+  usePopup,
+  VoteRscService,
+  useVoteStore
 } from "@/shared";
 import { useRouter } from "next/navigation";
 

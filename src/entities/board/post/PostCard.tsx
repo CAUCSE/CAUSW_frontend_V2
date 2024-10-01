@@ -1,6 +1,6 @@
 "use client"
 
-import { usePostStore, useVoteStore } from "@/shared";
+import { usePostStore, useVoteStore, VoteRscService } from "@/shared";
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from './VotingSection';
@@ -43,7 +43,29 @@ export const PostCard = (
 }
 :PostCardProps) => {
   const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
-  const { vote, totalVote, voteOptions,votedMostOptions, castVote, endVote} = useVoteStore();
+  const { 
+    vote, 
+    totalVote, 
+    voteOptions,
+    votedMostOptions, 
+    castVote,
+    cancelVote, 
+    endVote
+  } = useVoteStore();
+
+  const handleCastVote = async (selectedOptions: string[]) => {
+    try {
+      const options: Post.CastVoteDto = {
+        voteOptionIdList: selectedOptions
+      }
+      const castVoteResponse = await VoteRscService().castVote(options);
+      castVote(selectedOptions);
+      console.log('투표완료: ', castVoteResponse);
+    }catch(error){
+      cancelVote(selectedOptions);
+      console.error("투표 처리 에러: ", error);
+    }
+  }
   //const {isPopupVisible} = usePostStore();
   return (
     <div className="relative flex flex-col bg-post border rounded-post-br mt-4 p-2 shadow-post-sh mb-4 max-w-xl">
@@ -76,8 +98,8 @@ export const PostCard = (
         </div>
       </div>
       
-      <div className="flex flex-col items-start px-3">
-        <div>
+      <div className="flex flex-col w-full items-start px-3">
+        <div className="w-full">
           <div className="mb-2 text-[24px] font-medium px-1">
             {postData.title}
           </div>
@@ -87,11 +109,9 @@ export const PostCard = (
 
           {/* 나중에 투표 api 생기면 연결 */}
           {postData.isPostVote 
-          ? <div className="lg:pr-12 w-full w-32">
+          ? <div className="lg:pr-12 flex w-full">
               <VotingSection 
-                onVote={function (selectedOptions: string[]): void {
-                  console.log("Function not implemented.", selectedOptions);
-                } } 
+                onVote={handleCastVote} 
                 /* isMultiple={vote.allowMultiple} 
                 isAnonymous={vote.allowAnonymous} 
                 showResult={vote.isEnd || vote.hasVoted} 

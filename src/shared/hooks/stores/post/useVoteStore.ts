@@ -12,6 +12,7 @@ interface VoteState {
   endVote: () => void;
   restartVote: () => void;
   castVote: (optionIds: string[]) => void;
+  cancelVote: (optionIds: string[]) => void;
   //addVoteUser: (optionId: string, user: VoteUserDto) => void;
   //removeVoteUser: (optionId: string, userId: string) => void;
 }
@@ -57,6 +58,7 @@ export const useVoteStore = create<VoteState>((set) => ({
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
+        vote: { ...state.vote, options: newOptions },
       };
     }),
 
@@ -69,9 +71,11 @@ export const useVoteStore = create<VoteState>((set) => ({
           : option
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
+      
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
+        vote: { ...state.vote, options: newOptions },
       };
     }),
 
@@ -102,7 +106,28 @@ export const useVoteStore = create<VoteState>((set) => ({
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: true },  // hasVoted를 true로 설정
+        vote: { ...state.vote, hasVoted: true, options: newOptions },  // hasVoted를 true로 설정
+      };
+    }),
+
+    cancelVote: (optionIds: string[]) => 
+    set((state) => {
+      const newOptions = state.voteOptions.map((option) =>
+        optionIds.includes(option.id)
+          ? { ...option, voteCount: option.voteCount - 1 }
+          : option
+      );
+      const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
+      const maxVoteCount = Math.max(...newOptions.map(option => option.voteCount));
+      const mostVotedOptions = newOptions
+        .filter(option => option.voteCount === maxVoteCount)
+        .map(option => option.id);
+
+      return {
+        voteOptions: newOptions,
+        totalVote: newTotalVote,
+        votedMostOptions: mostVotedOptions,
+        vote: { ...state.vote, hasVoted: false, options: newOptions },  // hasVoted를 true로 설정
       };
     }),
 
