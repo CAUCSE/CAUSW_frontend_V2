@@ -114,7 +114,7 @@ const BoardPage = () => {
   }, [page]);
 
   if (!boardIdValidation) {
-    notFound();
+    router.push("/not-found");
   }
   useEffect(() => {
     if (initialLoading || scrollLoading || !hasMore) return;
