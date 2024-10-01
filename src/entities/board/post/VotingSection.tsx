@@ -36,6 +36,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
       try {
         const endVoteResponse = await VoteRscService().restartVoteById(vote.voteId);
         restartVote();
+        toggleMenu();
         console.log("투표 재시작 완료: ", endVoteResponse);
       }catch(error){
         endVote();
@@ -45,6 +46,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
       try {
         const endVoteResponse = await VoteRscService().endVoteById(vote.voteId);
         endVote();
+        toggleMenu();
         console.log("투표 종료 완료: ", endVoteResponse);
       }catch(error){
         restartVote();
