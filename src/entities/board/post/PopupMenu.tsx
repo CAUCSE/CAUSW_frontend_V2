@@ -17,6 +17,7 @@ export const PopupMenu: React.FC<PopupMenuProps> = ({ PopupMenuChildren }) => {
         <>
           <button
             className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            key={idx}
             onClick={child.handleBtn}
           >
             {child.message}
