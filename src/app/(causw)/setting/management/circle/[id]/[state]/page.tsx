@@ -23,14 +23,14 @@ const CircleManagement = async ({
           name: "동아리원 목록",
           state: "member",
           exportType: "CIRCLE_MEMBERS",
-          router: "/setting/management/circle/TODO",
+          router: "/setting/management/circle/detail/" + id + "/member",
         }}
         navigation={[
           {
             name: "동아리 신청 유저 목록",
             state: "apply",
             exportType: "CIRCLE_APPLY_USERS",
-            router: "/setting/management/circle/TODO",
+            router: "/setting/management/circle/" + id + "/apply",
           },
         ]}
         data={data.map((element) => ({
