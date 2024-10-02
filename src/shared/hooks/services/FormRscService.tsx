@@ -104,12 +104,28 @@ export const FormRscService = () => {
       const headers = await setRscHeader();
       const response = await fetch(URI, {
         method: "PUT",
-        headers: { ...headers, targetIsClosed: targetIsClosed },
+        headers: { ...headers, targetIsClosed: `${targetIsClosed}` },
       });
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }
       console.log(response.status);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const getUserCanReply = async (formId: string | string[]) => {
+    const URI = `${BASEURL}/api/v1/forms/${formId}/can-reply`;
+    try {
+      const headers = await setRscHeader();
+      const response = await fetch(URI, { headers: headers });
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      const res = await response.json();
+      console.log(res);
+      return res;
     } catch (error) {
       throw error;
     }
@@ -122,5 +138,6 @@ export const FormRscService = () => {
     getTotalFormResult,
     exportExcelFile,
     setFormFinished,
+    getUserCanReply,
   };
 };
