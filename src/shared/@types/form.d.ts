@@ -8,24 +8,14 @@ declare namespace Form {
     register: any;
   }
 
-  export interface FormDataDto {
-    title: string;
-    allowedAcademicStatus: string[];
-    allowedGrades: string[];
-    questions: Question[];
+  export interface QuestionReplyRequestDtoList {
+    questionReplyRequestDtoList: QuestionReplyRequestDto[];
   }
 
-  interface Question {
-    questionNumber: number;
-    questionType: string;
-    questionText: string;
-    isMultiple: boolean;
-    options: Option[];
-  }
-
-  interface Option {
-    optionNumber: number;
-    optionText: string;
+  export interface QuestionReplyRequestDto {
+    questionId: string;
+    questionReply: string | null;
+    selectedOptionList: number[];
   }
 
   export interface OptionProps {
@@ -38,4 +28,95 @@ declare namespace Form {
     index: number;
     removeQuestion: () => void;
   }
+
+  export interface QuestionSummaryResponseDto {
+    questionId: string;
+    questionType: Post.QuestionType;
+    questionText: string;
+    questionAnswerList: string[] | null;
+    optionSummarieList: OptionSummaryResponseDto[] | null;
+  }
+
+  export interface OptionSummaryResponseDto {
+    optionId: string;
+    optionNumber: number;
+    optionText: string;
+    selectedCount: number;
+  }
+
+  export interface ReplyPageResponseDto {
+    questionResponseDtoList: Post.QuestionResponseDto[];
+    replyResponseDtoPage: ReplyResponseDtoPage;
+  }
+
+  export interface ReplyResponseDtoPage {
+    totalElements: number;
+    size: number;
+    content: ReplyResponseDto[];
+    number: number;
+    sort: SortObject;
+    numberOfElements: number;
+    pageable: PageableObject;
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+  }
+
+  export interface PageableObject {
+    offset: number;
+    sort: SortObject;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  }
+  export interface SortObject {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  }
+
+  export interface ReplyResponseDto {
+    replyUserResponseDto: ReplyUserResponseDto;
+    replyQuestionResponseDtoList: ReplyQuestionResponseDto[];
+    createdAt: string;
+  }
+
+  export interface ReplyUserResponseDto {
+    userId: string;
+    email: string;
+    name: string;
+    nickName: string;
+    admissionYear: number;
+    studentId: string;
+    major: string;
+    phoneNumber: string;
+    academicStatus: AcademicStatusType;
+    currentCompletedSemester: number;
+    graduationYear: number;
+    graduationType: GraduationYearType;
+    createdAt: string;
+    isAppliedThisSemester: boolean;
+    paidAt: number;
+    numOfPaidSemester: number;
+    restOfSemester: number;
+    isRefunded: boolean;
+  }
+
+  export interface ReplyQuestionResponseDto {
+    questionId: string;
+    questionAnswer: string;
+    selectedOptionList: number[];
+  }
+
+  type AcademicStatusType =
+    | "ENROLLED"
+    | "LEAVE_OF_ABSENCE"
+    | "GRADUATED"
+    | "DROPPED_OUT"
+    | "PROBATION"
+    | "PROFESSOR"
+    | "UNDETERMINED";
+
+  type GraduationYearType = "FEBRUARY" | "AUGUST";
 }

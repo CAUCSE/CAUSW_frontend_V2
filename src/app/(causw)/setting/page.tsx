@@ -1,32 +1,10 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { useUserStore } from "@/shared";
+import Link from "next/link";
+import React from "react";
 
-const MenuItem: React.FC<{
-  title: string;
-  items: { name: string; link: string }[];
-}> = ({ title, items }) => (
-  <div className="rounded-lg bg-white p-6 shadow-md">
-    <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
-    <ul>
-      {items.map((item, index) => (
-        <li key={index} className="mb-2">
-          <Link
-            href={item.link}
-            className="text-black-500 hover:text-gray-500 hover:underline"
-          >
-            {item.name}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-//CHECK: Role의 역활???
-const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
+const SettingsPage = () => {
   const {
     roles,
     isStudent,
@@ -64,7 +42,7 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     기록: [
       { name: "내가 쓴 글", link: "/setting/my/posts" },
       { name: "내가 쓴 댓글", link: "/setting/my/comments" },
-      { name: "내가 찜한 글", link: "/" },
+      { name: "내가 찜한 글", link: "/setting/my/favorite" },
     ],
     관리_동문회장: [{ name: "유저 관리", link: "/" }],
     관리_관리자_학생회장_부학생회장: [
@@ -75,8 +53,8 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     ],
     권한위임: [{ name: "권한 위임", link: "/setting/mandate/" + roles[0] }],
     홈화면관리: [
-      { name: "이벤트 배너 공지 편집", link: "/" },
-      { name: "캘린더 편집", link: "/" },
+      { name: "이벤트 배너 공지 편집", link: "/setting/home/event" },
+      { name: "캘린더 편집", link: "/setting/home/calendar" },
     ],
 
     동아리관리: (circleId: string) => [
@@ -100,6 +78,27 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
   };
+
+  const MenuItem: React.FC<{
+    title: string;
+    items: { name: string; link: string }[];
+  }> = ({ title, items }) => (
+    <div className="rounded-lg bg-white p-6 shadow-md">
+      <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index} className="mb-2">
+            <Link
+              href={item.link}
+              className="text-black-500 hover:text-gray-500 hover:underline"
+            >
+              {item.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   const renderMenuItems = () => {
     return (

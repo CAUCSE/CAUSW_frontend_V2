@@ -1,151 +1,43 @@
 "use client";
 
-import {
-  BoardRscService,
-  Icon,
-  IconButton,
-  Loading,
-  PreviousButton,
-} from "@/shared";
-import { notFound, usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { AxiosResponse } from "axios";
 
 import Image from "next/image";
+
 import { LoadingComponent } from "@/entities";
 
-// TODO 게시판 ID로 게시물 목록 조회 API 연동 필요
-// TODO 알람 설정 API 연동 필요 -> 아
+import { Icon, PreviousButton, API } from "@/shared";
 
-interface IContent {
-  createdAt: string;
-  id: string;
-  content: string;
-  isAnonymous: boolean;
-  isDeleted: boolean;
-  isQuestion: boolean;
-  numComment: number;
-  numFavorite: number;
-  numLike: number;
-  title: string;
-  updatedAt: Date;
-  writerAdmissionYear: number;
-  writerName: string;
-}
-
-interface IPost {
-  content: Array<IContent>;
-  totalPages: number;
-}
-
-interface IBoard {
-  boardId: "string";
-  boardName: "string";
-  isFavorite: "false";
-  post: IPost;
-  writeable: "true";
-}
-
-const getTimeDifference = (ISOtime: string) => {
-  const createdTime = new Date(ISOtime);
-  const now = new Date();
-  const diffMSec = now.getTime() - createdTime.getTime();
-  const diffMin = Math.round(diffMSec / (60 * 1000));
-  if (diffMin === 0) {
-    return `방금 전`;
-  } else if (diffMin < 60) {
-    return `${diffMin}분 전`;
-  } else if (
-    now.getFullYear() === createdTime.getFullYear() &&
-    now.getMonth() === createdTime.getMonth() &&
-    now.getDate() === createdTime.getDate()
-  ) {
-    return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
-  } else if (now.getFullYear() === createdTime.getFullYear()) {
-    return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
-  } else {
-    return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
-  }
-};
-
-const BoardPage = () => {
-  const pathName = usePathname();
-  const boardId = pathName.split("/").pop();
-
+const MyFavoritePostsPage = () => {
   const router = useRouter();
 
-  const [isBoardFavorite, setIsBoardFavorite] = useState(false);
-  const [posts, setPosts] = useState([]);
-  const [boardName, setBoarName] = useState("");
-  const [page, setPage] = useState(0);
+  const [posts, setPosts] = useState<Post.PostDto[]>([]);
 
   const [initialLoading, setInitialLoading] = useState(true);
-  const [scrollLoading, setScrollLoading] = useState(false);
 
-  const [hasMore, setHasMore] = useState(true);
   const lastPostElementRef = useRef(null);
-  const [boardIdValidation, setBoardIdValidation] = useState(true);
-  const { getBoardList } = BoardRscService();
+
+  const URI = "/api/v1/users";
+  const getMyFavoritePosts = async () => {
+    const { data } = (await API.get(
+      `${URI}/posts/favorite`,
+    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
+
+    return data.posts.content;
+  };
+
   useEffect(() => {
-    if (!boardId) return;
-    const fetchData = async () => {
-      if (page === 0) {
-        setInitialLoading(true);
-      } else {
-        setScrollLoading(true);
-      }
-      try {
-        const response = await getBoardList(boardId, page);
-        setIsBoardFavorite(() => response.isFavorite);
-        setPosts((prev) => [...prev, ...response.post.content]);
-        setBoarName(() => response.boardName);
-        setHasMore(response.post.totalPages - 1 > page);
-      } catch (error) {
-        setBoardIdValidation(false);
-      } finally {
-        if (page === 0) {
-          setInitialLoading(false);
-        } else {
-          setScrollLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-  }, [page]);
-
-  if (!boardIdValidation) {
-    router.push("/not-found");
-  }
-  useEffect(() => {
-    if (initialLoading || scrollLoading || !hasMore) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !initialLoading) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (lastPostElementRef.current) {
-      observer.observe(lastPostElementRef.current);
-    }
-
-    return () => {
-      if (lastPostElementRef.current) {
-        observer.unobserve(lastPostElementRef.current);
-      }
-    };
-  }, [initialLoading, scrollLoading, hasMore]);
-
-  //TODO 게시판 즐겨찾기 api 추가되면 연동하기
-  // useEffect(() => {
-  //   const setBoardFavorite = async () => {
-  //     await toggleBoardFavorite(boardId, isBoardFavorite);
-  //   };
-  //   if (loading) return;
-  //   setBoardFavorite();
-  // }, [isBoardFavorite]);
+    getMyFavoritePosts()
+      .then((res) => {
+        console.log(res);
+        setPosts(res);
+      })
+      .then(() => {
+        setInitialLoading(false);
+      });
+  }, []);
 
   return (
     <div className="h-full w-full">
@@ -158,46 +50,27 @@ const BoardPage = () => {
 
             <div className="z-10 flex w-full items-center justify-between">
               <div className="truncate pr-4 text-xl font-bold lg:text-3xl">
-                {boardName}
-              </div>
-              <div className="flex items-center gap-2 sm:gap-4">
-                {/* TODO 게시글 생성 페이지로 이동 */}
-                <IconButton
-                  iconName={"add"}
-                  callback={() => {
-                    router.push(`/board/${boardId}/create`);
-                  }}
-                />
-                {/* TODO 게시판 알람 설정 */}
-                <IconButton
-                  iconName={isBoardFavorite ? "alarm_active" : "alarm_inactive"}
-                  callback={() => setIsBoardFavorite((prev) => !prev)}
-                />
-                <IconButton
-                  iconName={"search"}
-                  callback={() => {
-                    router.push(`/board/${boardId}/search`);
-                  }}
-                />
+                내가 찜한 게시글
               </div>
             </div>
           </div>
+
           <div className="absolute top-28 flex h-[calc(100%-7rem)] w-full flex-col gap-4 overflow-y-auto px-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
             {posts.length === 0 ? (
               <div className="flex h-full w-full items-center justify-center text-2xl">
-                게시글이 없습니다.
+                작성하신 게시글이 없습니다.
               </div>
             ) : (
               <>
                 {posts
                   .filter((post) => !post.isDeleted)
-                  .map((content: IContent, idx: number) => (
+                  .map((content, idx: number) => (
                     <div
                       key={idx}
                       ref={idx === posts.length - 1 ? lastPostElementRef : null}
                       className="flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
                       onClick={() => {
-                        router.push(`/board/${boardId}/${content.id}`);
+                        router.push(`/board/my/${content.id}`);
                       }}
                     >
                       <div className="flex w-full flex-col">
@@ -280,11 +153,6 @@ const BoardPage = () => {
                       </div>
                     </div>
                   ))}
-                {scrollLoading && (
-                  <div className="pt-5">
-                    <Loading loading={scrollLoading} size={50} />
-                  </div>
-                )}
               </>
             )}
           </div>
@@ -294,4 +162,26 @@ const BoardPage = () => {
   );
 };
 
-export default BoardPage;
+const getTimeDifference = (ISOtime: string) => {
+  const createdTime = new Date(ISOtime);
+  const now = new Date();
+  const diffMSec = now.getTime() - createdTime.getTime();
+  const diffMin = Math.round(diffMSec / (60 * 1000));
+  if (diffMin === 0) {
+    return `방금 전`;
+  } else if (diffMin < 60) {
+    return `${diffMin}분 전`;
+  } else if (
+    now.getFullYear() === createdTime.getFullYear() &&
+    now.getMonth() === createdTime.getMonth() &&
+    now.getDate() === createdTime.getDate()
+  ) {
+    return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
+  } else if (now.getFullYear() === createdTime.getFullYear()) {
+    return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
+  } else {
+    return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
+  }
+};
+
+export default MyFavoritePostsPage;

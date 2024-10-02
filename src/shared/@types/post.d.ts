@@ -55,15 +55,41 @@ declare namespace Post {
   }
 
   export interface FormResponseDto {
-
+    formId: string;
+    title: string;
+    isClosed: boolean;
+    isAllowedEnrolled: boolean;
+    enrolledRegisteredSemesterList: SemesterType[];
+    isNeedCouncilFeePaid: boolean;
+    isAllowedLeaveOfAbsence: boolean;
+    leaveOfAbsenceRegisteredSemesterList: SemesterType[];
+    isAllowedGraduation: boolean;
+    questionResponseDtoList: QuestionResponseDto[];
   }
+
+  export interface QuestionResponseDto {
+    questionId: string;
+    questionType: QuestionType;
+    questionNumber: number;
+    questionText: string;
+    isMultiple: boolean;
+    optionResponseDtoList: OptionResponseDto[];
+  }
+
+  export interface OptionResponseDto {
+    optionId: string;
+    optionNumber: number;
+    optionText: string;
+  }
+
+  type QuestionType = "SUBJECTIVE" | "OBJECTIVE";
 
   export interface VoteResponseDto {
     voteId: string;
     title: string;
     allowAnonymous: boolean;
     allowMultiple: boolean;
-    options:VoteOptionDto[];
+    options: VoteOptionDto[];
     postId: string;
     isOwner: boolean;
     hasVoted: boolean;
@@ -78,7 +104,7 @@ declare namespace Post {
     name: string;
     studentId: string;
     admissionYear: number;
-    roles: string[],
+    roles: string[];
     profileImageUrl: string;
     state: string;
     circleIdIfLeader: string[];
@@ -89,7 +115,7 @@ declare namespace Post {
     currentCompletedSemester: number;
     graduationYear: number;
     graduationType: string;
-    phoneNumber:string;
+    phoneNumber: string;
     rejectionOrDropReason: string;
     createdAt: string;
     updatedAt: string;
@@ -99,7 +125,6 @@ declare namespace Post {
     optionName: string;
     voteCount: number;
     voteUsers: VoteUserDto[];
-
   }
   export interface CommentListDto {
     content: Array<CommentDto>;

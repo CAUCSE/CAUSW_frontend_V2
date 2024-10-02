@@ -54,10 +54,19 @@ export const SettingService = () => {
     return data.posts.content;
   };
 
+  const getMyFavoritePosts = async () => {
+    const { data } = (await API.get(
+      `${URI}/posts/favorite`,
+    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
+
+    return data.posts.content;
+  };
+
   return {
     useGetAttendanceUser,
     useGetWaitingUser,
     getMyPosts,
     getMyCommentPosts,
+    getMyFavoritePosts,
   };
 };

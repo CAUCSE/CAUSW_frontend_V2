@@ -1,6 +1,16 @@
-import { Header, Line, SubHeader, ExcelExport } from "@/entities";
+"use server";
+
+import { ExcelExport, Header, Line } from "@/entities";
+import { Setting } from "@/shared/@types/setting";
 
 import Link from "next/link";
+
+export type ManagementState =
+  | "admission"
+  | "drop"
+  | "active"
+  | "inactive_n_drop"
+  | "inactive";
 
 interface Prop {
   state: string | undefined;

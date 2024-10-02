@@ -7,7 +7,7 @@ export default async function EventSetting() {
 
   let events;
   try {
-    events = await getEvents();
+    events = (await getEvents()).events;
   } catch (e: any) {
     console.error(e.message);
   }
@@ -34,37 +34,16 @@ export default async function EventSetting() {
           이벤트 배너는 최대 10개까지 게시 가능합니다.
         </span>
       </div>
-      <BannerCard
-        url="https//:~~"
-        imgSrc="/images/calendar-dummy.png"
-        bannerId="1"
-        date="2021.09.01"
-      />
-      <BannerCard
-        url="https//:~~"
-        imgSrc="/images/calendar-dummy.png"
-        bannerId=""
-        date="2021.09.01"
-      />
-      <BannerCard
-        url="https//:~~"
-        imgSrc="/images/calendar-dummy.png"
-        bannerId="2"
-        date="2021.09.01"
-      />
-      <BannerCard
-        url="https//:~~"
-        imgSrc="/images/calendar-dummy.png"
-        bannerId="3"
-        date="2021.09.01"
-      />
-      <BannerCard
-        url="https//:~~"
-        imgSrc="/images/calendar-dummy.png"
-        bannerId="4"
-        date="2021.09.01"
-      />
-      {events && <p>TODO : 실제 이벤트 목록</p>}
+      {events &&
+        events.map(({ url, image, id, updatedAt }) => (
+          <BannerCard
+            key={id}
+            url={url}
+            imgSrc={image}
+            bannerId={id}
+            date={updatedAt}
+          />
+        ))}
     </div>
   );
 }
