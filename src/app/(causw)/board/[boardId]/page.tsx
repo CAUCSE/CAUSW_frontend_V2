@@ -74,7 +74,7 @@ const BoardPage = () => {
   const router = useRouter();
 
   const [isBoardFavorite, setIsBoardFavorite] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<IContent[]>([]);
   const [boardName, setBoarName] = useState("");
   const [page, setPage] = useState(0);
 
@@ -96,7 +96,9 @@ const BoardPage = () => {
       try {
         const response = await getBoardList(boardId, page);
         setIsBoardFavorite(() => response.isFavorite);
-        setPosts((prev) => [...prev, ...response.post.content]);
+        setPosts((prev) => {
+          return [...prev, ...response.post.content];
+        });
         setBoarName(() => response.boardName);
         setHasMore(response.post.totalPages - 1 > page);
       } catch (error) {
