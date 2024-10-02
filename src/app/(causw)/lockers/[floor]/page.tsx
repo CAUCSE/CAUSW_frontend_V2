@@ -46,6 +46,7 @@ const LockerSelectionPage = () => {
   const [modalMessage, setModalMessage] = useState<string | null>(null); // 모달 메시지 상태 추가
   const [modalTitle, setModalTitle] = useState<string | null>(null); // 모달 제목 상태 추가
   const [hasMyLocker, setHasMyLocker] = useState<boolean>(false); // 이미 신청된 사물함 여부 체크
+  const [isMobile, setIsMobile] = useState<boolean>(false); // 모바일 여부 체크
 
   const locationIdMap: { [key: string]: string } = {
     '2층': '5aa6099b8e13e49e018e13ef62d20001',
@@ -93,11 +94,15 @@ const LockerSelectionPage = () => {
     }
   };
 
-
   // 모달 닫기 함수
   const closeModal = () => {
     setModalMessage(null);
     setModalTitle(null);
+  };
+
+  // 사물함 클릭 시 색깔 토글
+  const handleLockerClick = (id: string) => {
+    setSelectedLocker((prev) => (prev === id ? null : id)); // 클릭된 사물함 색상 변경
   };
 
   // 사물함 액션 처리 함수 (신청, 반납, 연장)
@@ -159,13 +164,43 @@ const LockerSelectionPage = () => {
     if (floor) {
       fetchLockers();
     }
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // 초기화 시 한번 호출
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [floor]);
 
   return (
     <div className="flex flex-col md:flex-row items-start justify-center min-h-screen bg-gray-100">
       {/* 사물함 선택 영역 */}
-      <div className="w-full md:w-2/3 mt-8">
-        <h1 className="text-2xl font-semibold mb-4">{decodedFloor} 선택</h1>
+      <div className="w-full md:w-2/3 mt-8 flex flex-col">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold mb-4">{decodedFloor} 선택</h1>
+          {isMobile && (
+            <div className="flex items-center mb-2 mr-4">
+              <div className="flex items-center mr-2">
+                <span className="inline-block w-4 h-4 bg-gray-300 rounded-full mr-1"></span>
+                <span>선택 불가</span>
+              </div>
+              <div className="flex items-center mr-2">
+                <span className="inline-block w-4 h-4 bg-white border rounded-full mr-1"></span>
+                <span>선택 가능</span>
+              </div>
+              <div className="flex items-center">
+                <span className="inline-block w-4 h-4 bg-blue-300 rounded-full mr-1"></span>
+                <span>내 사물함</span>
+              </div>
+            </div>
+          )}
+        </div>
+
         {errorMessage && (
           <div className="text-red-500 mb-4">{errorMessage}</div>
         )}
@@ -175,9 +210,10 @@ const LockerSelectionPage = () => {
             <button
               key={locker.id}
               className={`p-4 rounded-lg shadow-md ${
+                selectedLocker === locker.id ? 'bg-green-300' : // 클릭된 사물함 색상 변경
                 locker.isMine ? 'bg-blue-300' : locker.isActive ? 'bg-white' : 'bg-gray-300'
               }`}
-              onClick={() => setSelectedLocker(locker.id)}
+              onClick={() => handleLockerClick(locker.id)} // 클릭 핸들러 추가
               disabled={!locker.isActive && !locker.isMine}
             >
               {locker.lockerNumber}
@@ -186,10 +222,8 @@ const LockerSelectionPage = () => {
         </div>
       </div>
 
-      {/* 정보 패널 - 웹에서는 오른쪽 고정, 모바일에서는 하단 */}
-      <div
-        className="w-full md:w-1/3 p-4 bg-white rounded-lg shadow-md mt-8 md:mt-0 md:sticky md:top-16"
-      >
+      {/* 웹 화면에서 정보 패널 보이기, 모바일에서 가리기 */}
+      <div className={`w-full md:w-1/3 p-4 bg-white rounded-lg shadow-md mt-8 md:mt-0 md:sticky md:top-16 ${isMobile ? 'hidden' : ''}`}>
         <h2 className="text-lg font-semibold mb-4">사물함을 선택해주세요!</h2>
         <div className="mb-2">
           <span className="inline-block w-4 h-4 bg-gray-300 rounded-full mr-2"></span>
@@ -244,6 +278,46 @@ const LockerSelectionPage = () => {
           </div>
         )}
       </div>
+
+      {/* 모바일 화면에서 보일 UI */}
+{isMobile && selectedLocker && (  // selectedLocker가 있을 때만 UI 표시
+  <div className="fixed bottom-32 left-0 right-0 p-2 bg-white rounded-lg shadow-md z-10 flex justify-center">
+    <div className="text-center w-3/4">
+      <p className="mb-1 text-sm">사물함 번호: {lockers.find(l => l.id === selectedLocker)?.lockerNumber}</p>
+
+      {!hasMyLocker && (
+        <button
+          className="bg-blue-500 text-white p-1 w-full rounded" // 너비를 100%로 설정
+          onClick={() => handleLockerAction('REGISTER', '사물함 신청')}
+          disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isActive}
+        >
+          신청하기
+        </button>
+      )}
+
+      {hasMyLocker && (
+        <div className="flex justify-between mt-1">
+          <button
+            className="bg-red-500 text-white p-1 w-1/2 rounded mr-1 text-sm"
+            onClick={() => handleLockerAction('RETURN', '사물함 반납')}
+            disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isMine}
+          >
+            반납하기
+          </button>
+
+          <button
+            className="bg-yellow-500 text-white p-1 w-1/2 rounded ml-1 text-sm"
+            onClick={() => handleLockerAction('EXTEND', '사물함 연장')}
+            disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isMine}
+          >
+            연장하기
+          </button>
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
 
       {/* 모달 창 */}
       {modalMessage && modalTitle && (
