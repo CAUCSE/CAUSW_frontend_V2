@@ -38,6 +38,7 @@ const CircleManagement = async ({
           },
         ]}
         data={data}
+        circleId={id}
       />
     </>
   );

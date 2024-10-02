@@ -20,6 +20,7 @@ interface Prop {
     exportType?: Setting.ExportType;
   }[];
   data: { userName: string; studentId: string; id: string }[];
+  circleId?: string;
 }
 
 export const Management = ({
@@ -28,6 +29,7 @@ export const Management = ({
   firstNavigation,
   navigation,
   data,
+  circleId,
 }: Prop) => {
   const isFirstNavigation = !state
     ? true
@@ -45,7 +47,9 @@ export const Management = ({
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
-      {exportType ? <ExcelExport exportType={exportType} /> : null}
+      {exportType ? (
+        <ExcelExport exportType={exportType} id={circleId} />
+      ) : null}
       <Header bold big>
         {title}
       </Header>
