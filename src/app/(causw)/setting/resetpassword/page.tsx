@@ -2,16 +2,16 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FormInput, FormSubmitButton, FormErrorMessage } from "@/entities";
 import axios from "axios";
-import { BASEURL } from "@/shared";
+import { BASEURL, useLayoutStore, getRccAccess } from "@/shared";
+import { FormInput, FormSubmitButton, FormErrorMessage } from "@/entities";
 
 interface PasswordResetData {
   originPassword: string;
   updatedPassword: string;
 }
 
-const PasswordResetPage: React.FC = () => {
+const PasswordResetPage = () => {
   const {
     register,
     handleSubmit,
@@ -21,24 +21,36 @@ const PasswordResetPage: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const setErrorMessageGlobal = useLayoutStore(
+    (state) => state.setErrorMessage,
+  );
+
   const onSubmit = async (data: PasswordResetData) => {
+    const accessToken = getRccAccess();
+
+    if (!accessToken) {
+      setErrorMessageGlobal("로그인이 필요합니다.");
+      return;
+    }
+
     try {
       const response = await axios.put(
         `${BASEURL}/api/v1/users/password`,
         data,
         {
           headers: {
+            Authorization: accessToken,
             "Content-Type": "application/json",
           },
         },
       );
 
       if (response.status === 200) {
-        setSuccessMessage("비밀번호가 성공적으로 재설정되었습니다.");
+        setSuccessMessage("비밀번호가 성공적으로 변경되었습니다.");
         setErrorMessage(null);
-        reset(); // 폼을 제출 후 초기화
+        reset(); // 폼 초기화
       } else {
-        setErrorMessage("비밀번호 재설정에 실패했습니다.");
+        setErrorMessage("비밀번호 변경에 실패했습니다.");
         setSuccessMessage(null);
       }
     } catch (error: any) {
@@ -48,7 +60,7 @@ const PasswordResetPage: React.FC = () => {
         error.response.data.message
       ) {
         setErrorMessage(
-          error.response.data.message || "비밀번호 재설정에 실패했습니다.",
+          error.response.data.message || "비밀번호 변경에 실패했습니다.",
         );
       } else {
         setErrorMessage("서버와 통신하는 도중 오류가 발생했습니다.");
