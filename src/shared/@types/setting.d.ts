@@ -1,3 +1,4 @@
+import { Role } from "./user";
 declare namespace Setting {
   export type ExportType =
     | "ALL_USERS"
@@ -66,6 +67,35 @@ declare namespace Setting {
   export type GetPayersResponseDto = {
     content: Payer[];
   } & Error.ApiErrorResponse;
+
+  type AdmissionAcademicStatus = "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+
+  export type AdmissionUserDto = {
+    roles: Role;
+    nickname: string;
+    major: string;
+    academicStatus: AdmissionAcademicStatus;
+    currentCompletedSemester: number;
+    graduationYear: number;
+    /**
+     * 졸업 월
+     */
+    graduationType: string;
+    phoneNumber: string;
+    rejectionOrDropReason: string;
+    createdAt: string;
+    updatedAt: string;
+  } & User.User;
+
+  export type GetAdmissionResponseDto = {
+    id: string;
+    user: AdmissionUserDto;
+    attachImageUrlList: string[];
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    rejectReason: string;
+  };
 
   export type GetPrivilegedUsersResponseDto = {
     presidentUser: User.User[];

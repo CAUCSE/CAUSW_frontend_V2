@@ -2,10 +2,10 @@
 
 import { Button } from "@/shared";
 import { ManagementState } from "@/widget";
-import { managementDetailEntities } from "./managementDetailEntities";
+import { uiEntities } from "./managementDetailEntities";
 
 export function ManagementDetailButtons({ state }: { state: ManagementState }) {
-  const buttons = managementDetailEntities[state].buttons;
+  const buttons = uiEntities[state].buttons;
 
   return (
     <div className="flex gap-[50px]">

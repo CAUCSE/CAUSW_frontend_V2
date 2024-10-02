@@ -1,3 +1,3 @@
+export * from "../../../../widget/ManagementDetailInfoTable";
 export { ManagementDetailButtons } from "./ManagementDetailButtons";
-export { managementDetailEntities } from "./managementDetailEntities";
-export { ManagementDetailInfoTable } from "./ManagementDetailInfoTable";
+export { uiEntities as managementDetailEntities } from "./managementDetailEntities";

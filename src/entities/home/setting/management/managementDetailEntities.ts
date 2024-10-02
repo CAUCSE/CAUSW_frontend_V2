@@ -1,6 +1,8 @@
+import { Setting } from "@/shared/@types/setting";
+
 type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
 
-export const managementDetailEntities: Record<
+export const uiEntities: Record<
   state,
   {
     titleSuffix: string;
@@ -106,4 +108,81 @@ export const managementDetailEntities: Record<
       },
     ],
   },
+};
+
+export type InfoTableEntity = {
+  email: string;
+  major: string;
+  name: string;
+  isPayed: string;
+  studentId: string;
+  leftPayedSemester: string;
+  admissionYear: string;
+  nickname: string;
+  graduateYearMonth: string;
+  academicStatus: string;
+  enrolledSemester: string;
+  phoneNumber: string;
+  requestedAt: string;
+  evidentImg: string;
+};
+
+export const convertDataToTableEntity = (
+  data: Setting.GetAdmissionResponseDto,
+): InfoTableEntity => {
+  const {
+    email,
+    major,
+    name,
+    studentId,
+    currentCompletedSemester,
+    admissionYear,
+    nickname,
+    graduationYear,
+    graduationType,
+    academicStatus,
+    phoneNumber,
+  } = data.user;
+  const { createdAt: requestedAt, attachImageUrlList } = data;
+  const evidentImg = attachImageUrlList[0];
+
+  const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
+    ENROLLED: "재학",
+    LEAVE_OF_ABSENCE: "휴학",
+    GRADUATED: "졸업",
+  };
+
+  return {
+    email,
+    major,
+    name,
+    isPayed: "O",
+    studentId,
+    leftPayedSemester: `${8 - currentCompletedSemester}차 학기`,
+    admissionYear: admissionYear.toString(),
+    nickname,
+    graduateYearMonth: `${graduationYear}/${+graduationType < 10 ? "0" + graduationType : graduationType}`,
+    academicStatus: academicStatusMap[academicStatus],
+    enrolledSemester: `${currentCompletedSemester}차 학기`,
+    phoneNumber,
+    requestedAt: requestedAt.split("T")[0].replaceAll("-", "."),
+    evidentImg,
+  };
+};
+
+export const titleMapping: Record<keyof InfoTableEntity, string> = {
+  email: "아이디(이메일)",
+  major: "학부",
+  name: "이름",
+  isPayed: "학생회비 납부 여부",
+  studentId: "학번",
+  leftPayedSemester: "잔여 학생회비 적용 학기",
+  admissionYear: "입학년도",
+  nickname: "닉네임",
+  graduateYearMonth: "졸업 시기",
+  academicStatus: "학적 상태",
+  enrolledSemester: "등록 완료 학기",
+  phoneNumber: "연락처",
+  requestedAt: "가입 요청 일시",
+  evidentImg: "학부 재적/졸업 증빙 자료",
 };
