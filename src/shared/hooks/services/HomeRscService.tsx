@@ -62,7 +62,7 @@ export const HomeRscService = () => {
       new Blob(
         [
           JSON.stringify({
-            url: url,
+            url,
           }),
         ],
         { type: "application/json" },
@@ -70,12 +70,15 @@ export const HomeRscService = () => {
     );
     formData.append(
       "eventImage",
+      // bannerImg,
       new Blob([bannerImg], { type: bannerImg.type }),
+      bannerImg.name,
     );
+
     const headers = await setRscHeader();
     const response = await fetch(`${BASEURL}/api/v1/events`, {
       method: "POST",
-      headers: { ...headers, "Content-Type": "multipart/form-data" },
+      headers: headers,
       body: formData,
     });
     if (!response.ok) throw new Error(response.statusText);
