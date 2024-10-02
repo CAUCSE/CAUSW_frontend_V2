@@ -1,11 +1,10 @@
-// TODO : API 연결, 납부여부?
-
 import Image from "next/image";
 import {
   InfoTableEntity,
   titleMapping,
 } from "../entities/home/setting/management/managementDetailEntities";
 
+// FIXME : API 연결, 납부여부?
 const data: InfoTableEntity = {
   email: "abc@abc.com",
   major: "소프트웨어학부",
