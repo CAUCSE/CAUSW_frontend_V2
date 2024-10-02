@@ -36,7 +36,7 @@ const Error = ({
 
   const handleNoRefresh = async () => {
     await signout();
-    location.href = "auth/signin";
+    location.href = "/auth/signin";
   };
 
   const handleNoAccesss = async () => {
@@ -69,7 +69,7 @@ const Error = ({
   if (allErrorCode.includes(error.message)) return <LoadingComponent />;
 
   return (
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center text-xl font-bold">
+    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
       <Image
         src="/images/puang-proud.png"
         alt="404"
@@ -78,7 +78,7 @@ const Error = ({
       ></Image>
       <span>일시적으로 서비스를 이용할 수 없습니다.</span>
       <button
-        className="w-40 h-12 rounded-xl bg-focus text-lg text-white text-center mt-3"
+        className="mt-3 h-12 w-40 rounded-xl bg-focus text-center text-lg text-white"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()

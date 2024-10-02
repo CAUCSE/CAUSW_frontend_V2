@@ -15,6 +15,8 @@ module.exports = {
         default: "#99dfec",
         focus: "#6BBEEC",
         error: "#b4391a",
+        account: "#B4B0B0",
+        barkblue: "#59959D",
         boardBackground: "#E8E8E8",
         boardPageBackground: "#F8F8F8",
         "post-hashtag": "rgba(152, 66, 8, 1)",
@@ -34,6 +36,7 @@ module.exports = {
         "overlay-border": "rgba(71, 119, 125, 1)",
         "overlay-bg": "rgba(213, 237, 241, 1)",
         "overlay-btn": "rgba(118, 198, 209, 1)",
+        "file-preview-border": "rgba(186, 186, 186, 1)",
       },
       boxShadow: {
         "post-sh": "0px 3px 6px 0px rgba(0, 0, 0, 0.25)",

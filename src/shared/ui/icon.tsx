@@ -26,6 +26,7 @@ const iconPath = {
   alarm_active: "/alarm_active_icon.png",
   alarm_inactive: "/alarm_inactive_icon.png",
   search: "/search_icon.png",
+  remove: "/remove_icon.png",
 };
 
 const getIconPath = (iconName: keyof typeof iconPath) => {

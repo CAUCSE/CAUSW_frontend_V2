@@ -1,13 +1,13 @@
 "use client"
 import { useEffect } from 'react';
-import { usePostStore, useCommentStore, useChildCommentStore, PostRscService } from '@/shared';
+import { useVoteStore, usePostStore, useCommentStore, useChildCommentStore, PostRscService } from '@/shared';
 
 export const usePostDetail = (postId: string) => {
-  const { setPost } = usePostStore();
+  const { setPost, setPostComment } = usePostStore();
   const {setComments} = useCommentStore();
-  const {setChildCommentLikes} = useChildCommentStore();
+  const {setChildComment} = useChildCommentStore();
   const { getPostById } = PostRscService();
-
+  const { setVote } = useVoteStore();
   const getTimeDifference = (ISOtime: string) => {
     const createdTime = new Date(ISOtime);
     const now = new Date();
@@ -35,13 +35,19 @@ export const usePostDetail = (postId: string) => {
       try {
         const postData = await getPostById(postId);
         postData.updatedAt = getTimeDifference(postData.updatedAt)
-        setPost(postData);  // post와 numLikes를 상태로 설정
+        setPost(postData);
+        setPostComment();
         postData.commentList.content.forEach((comment: Comment.CommentDto)=>{
-          setComments(comment.id, comment.childCommentList, comment.numLike);
+          setComments(comment.id, false, comment.isOwner, comment.isDeleted, comment.childCommentList, comment.numLike);
           comment.childCommentList.forEach((childComment: any) => {
-            setChildCommentLikes(childComment.id, childComment.numLike);  // 각 대댓글의 좋아요 수 설정
+            setChildComment(childComment.id, childComment.numLike, false, childComment.isOwner, childComment.isDeleted);  // 각 대댓글의 좋아요 수 설정
           });
-        })
+        });
+        if (postData.isPostVote){
+          setVote(postData.voteResponseDto!);
+          console.log(postData.voteResponseDto);
+        }
+        
       } catch (error) {
         console.error('게시물 불러오기 실패: ', error);
       }
@@ -50,5 +56,5 @@ export const usePostDetail = (postId: string) => {
     if (postId) {
       fetchPost();
     }
-  }, [postId, setPost, setComments]);
+  }, [postId, setPost, setComments, setVote]);
 };
