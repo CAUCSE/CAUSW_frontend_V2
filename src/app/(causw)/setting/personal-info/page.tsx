@@ -31,7 +31,7 @@ const PersonalInfoPage = () => {
   const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
   const router = useRouter();
-  const { getUserInfoRevised } = UserService();
+  const { getUserInfo, allowUser } = UserService();
   const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
   const { updateInfo } = UserRscService();
 
@@ -82,14 +82,10 @@ const PersonalInfoPage = () => {
       try {
 
         // 유저 기본 정보 받아오기
-        const responseUserData = await getUserInfoRevised();
+        const responseUserData = await getUserInfo();
         const userData = responseUserData.data;
         console.log(userData);
-
-//         학생회비 납부 정보 받아오기 
-        const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
-        const userCouncilFeeData = responseUserCouncilFeeData.data;
-        console.log(userCouncilFeeData);
+        
 
         // formData에 유저 정보 값들 넣어두기
         setValue('name', await userData.name);
@@ -117,12 +113,23 @@ const PersonalInfoPage = () => {
         setCompletedSemester(userData.currentCompletedSemester);
         setDepartment(userData.major);
         setOriginAcademicStatus(userData.academicStatus);
+
+
+
+        //         학생회비 납부 정보 받아오기 
+        const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
+        const userCouncilFeeData = responseUserCouncilFeeData.data;
+        console.log(userCouncilFeeData);
+
         setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
         setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
         setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
         
       } catch (error: any) {
         console.error('Failed to fetch user info:', error?.message);
+        setStudentCouncilFeeStatus("X");
+        setpaidFeeSemesters(`0학기`);
+        setRemainingFeeSemesters(`0학기`);
         console.log(error.message);
       }
     };
@@ -234,7 +241,11 @@ const PersonalInfoPage = () => {
                 <div className="w-full lg:w-full">
                   <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
                     <div className= "flex flex-row flex-wrap sm:flex-nowrap rounded-md w-full lg:w-5/6">
-                      <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">재학</div>
+                      <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">
+                      {academicStatus === "ENROLLED" && (<>재학</>)}
+                      {academicStatus === "LEAVE_OF_ABSENCE" && (<>휴학</>)}
+                      {academicStatus === "GRADUATED" && (<>졸업</>)}
+                      </div>
                       <button onClick = {() => {router.push('./updateacademicrecord')}} className="p-2 mr-2 mb-2 border border-gray-300 rounded-md bg-focus text-white text-center w-full lg:w-5/6">
                       학적 상태 수정</button>
                     </div>

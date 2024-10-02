@@ -13,11 +13,15 @@ export const UserService = () => {
     setUserStore(data);
   };
 
-  const getUserInfoRevised = async () => {
+  const getUserInfo = async () => {
     const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
     return response;
   }
   
+  const getUserAdmissionInfo = async () => {
+    const response = await API.get(`${URI}/admissions/self`);
+    return response;
+  }
 
   const updateUserAcademicInfo = async (data: any) => {
     try
@@ -28,8 +32,15 @@ export const UserService = () => {
     throw error;
   }  
   }
-
-  const checkCurrentAcademicRecord = async () => {
+  const checkCurrentAcademicStatus = async () => {
+    try {
+      const response = (await API.get(`${URI}/academic-record/current`)) as AxiosResponse;
+      return response;
+    } catch (error){
+      throw error;
+    }
+  }
+  const checkIsAcademicRecordSubmitted = async () => {
     try {
       const response = (await API.get(`${URI}/academic-record/current/not-accepted`)) as AxiosResponse;
       return response;
@@ -40,6 +51,16 @@ export const UserService = () => {
     }
   }
   
+  const allowUser = async (param: string) => {
+    try {
+      const response = (await API.put(`${URI}/admissions/${param}/accept`)) as AxiosResponse;
+      return response;
+    }
+    catch(error)
+    {
+      throw error;
+    }
+  }
 
-  return { getMe, getUserInfoRevised, updateUserAcademicInfo, checkCurrentAcademicRecord };
+  return { getMe, getUserInfo, getUserAdmissionInfo, updateUserAcademicInfo, checkCurrentAcademicStatus, checkIsAcademicRecordSubmitted, allowUser };
 };
