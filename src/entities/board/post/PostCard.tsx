@@ -81,10 +81,11 @@ export const PostCard = (
   };
 
   const handleDownload = (fileUrl: string) => {
+    console.log(fileUrl);
     const link = document.createElement("a");
-    link.href = fileUrl;
-    link.download = extractFileName(fileUrl); // 파일명 설정
-    link.click();
+    //link.href = fileUrl;
+    //link.download = extractFileName(fileUrl); // 파일명 설정
+    //link.click();
   };
 
   //const {isPopupVisible} = usePostStore();
