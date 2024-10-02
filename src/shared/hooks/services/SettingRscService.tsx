@@ -143,6 +143,7 @@ export const SettingRscService = () => {
     getAdmission,
     getPayers,
     getAllAttendanceUsers,
+    getPrivilegedUsers,
     acceptAdmission,
   };
 };

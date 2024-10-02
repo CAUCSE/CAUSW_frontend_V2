@@ -1,3 +1,6 @@
+export { Loading } from "./ui/Loading";
+export { IconButton } from "./ui/IconButton";
+
 export { BASEURL } from "./configs/url";
 
 export {

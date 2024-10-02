@@ -4,7 +4,6 @@ import { usePostStore, useVoteStore, VoteRscService } from "@/shared";
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from "./VotingSection";
-import { usePostStore } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -47,36 +46,36 @@ export const PostCard = ({
   handleCommentBtn,
   handlePostDelete,
   toggleMenu,
-  isPopupVisible
-}
-:PostCardProps) => {
-  const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
+  isPopupVisible,
+}: PostCardProps) => {
+  const userImage =
+    postData.writerProfileImage ?? "/images/default_profile.png";
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupImage, setPopupImage] = useState<string | null>(null);
 
-  const { 
-    vote, 
-    totalVote, 
+  const {
+    vote,
+    totalVote,
     voteOptions,
-    votedMostOptions, 
+    votedMostOptions,
     castVote,
-    cancelVote, 
-    endVote
+    cancelVote,
+    endVote,
   } = useVoteStore();
 
   const handleCastVote = async (selectedOptions: string[]) => {
     try {
       const options: Post.CastVoteDto = {
-        voteOptionIdList: selectedOptions
-      }
+        voteOptionIdList: selectedOptions,
+      };
       const castVoteResponse = await VoteRscService().castVote(options);
       castVote(selectedOptions);
-      console.log('투표완료: ', castVoteResponse);
-    }catch(error){
+      console.log("투표완료: ", castVoteResponse);
+    } catch (error) {
       cancelVote(selectedOptions);
       console.error("투표 처리 에러: ", error);
     }
-  }
+  };
 
   const handleImageClick = (imageUrl: string) => {
     setPopupImage(imageUrl);
@@ -150,7 +149,7 @@ export const PostCard = ({
         </div>
       </div>
 
-      <div className="flex flex-col w-full items-start px-3">
+      <div className="flex w-full flex-col items-start px-3">
         <div className="w-full">
           <div className="mb-2 px-1 text-[24px] font-medium">
             {postData.title}
@@ -158,30 +157,29 @@ export const PostCard = ({
           <div className="mb-2 px-1 pb-2 text-[16px]">{postData.content}</div>
 
           {/* 나중에 투표 api 생기면 연결 */}
-          {postData.isPostVote 
-          ? <div className="lg:pr-12 flex w-full">
-              <VotingSection 
-                onVote={handleCastVote} /> 
+          {postData.isPostVote ? (
+            <div className="flex w-full lg:pr-12">
+              <VotingSection onVote={handleCastVote} />
             </div>
           ) : (
             ""
           )}
         </div>
-        
+
         <div className="relative">
-          <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto w-full scrollbar-hide pb-3">
+          <div className="grid w-full auto-cols-max grid-flow-col gap-2 overflow-x-auto pb-3 scrollbar-hide">
             {postData.fileUrlList.map((attachment, index) =>
               isImageFile(attachment) ? (
                 <div
                   key={index}
-                  className="w-20 h-20 w-min-20 h-min-20 bg-center bg-cover border border-black"
+                  className="w-min-20 h-min-20 h-20 w-20 border border-black bg-cover bg-center"
                   style={{ backgroundImage: `url(${attachment})` }}
                   onClick={() => handleImageClick(attachment)}
                 />
               ) : (
                 <div
                   key={index}
-                  className="flex flex-col items-center justify-center w-20 h-20 w-min-20 h-min-20 border border-black p-2 space-y-2"
+                  className="w-min-20 h-min-20 flex h-20 w-20 flex-col items-center justify-center space-y-2 border border-black p-2"
                   onClick={() => handleDownload(attachment)}
                 >
                   <Image
@@ -190,15 +188,17 @@ export const PostCard = ({
                     width={30}
                     height={30}
                   />
-                  <span className="text-[10px]">{extractFileName(attachment)}</span>
+                  <span className="text-[10px]">
+                    {extractFileName(attachment)}
+                  </span>
                 </div>
-              )
+              ),
             )}
           </div>
           {isPopupOpen && popupImage && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-              <div className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
-                <div className="relative w-auto h-auto">
+              <div className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center">
+                <div className="relative h-auto w-auto">
                   <Image
                     src={popupImage}
                     alt="Preview Image"
@@ -210,7 +210,7 @@ export const PostCard = ({
                 </div>
                 <button
                   onClick={handleClosePopup}
-                  className="absolute flex items-center justify-center top-2 right-2 text-white bg-gray-800 rounded-full w-8 h-8 p-2 hover:bg-gray-700"
+                  className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 p-2 text-white hover:bg-gray-700"
                 >
                   x
                 </button>

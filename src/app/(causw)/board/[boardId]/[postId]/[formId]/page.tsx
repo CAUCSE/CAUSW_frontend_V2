@@ -48,7 +48,7 @@ const ApplyPage = () => {
         setForm(data1);
         setCanUserReply(data2);
       } catch (error) {
-        if (error.message !== "401") {
+        if ((error as { message: string }).message !== "401") {
           router.push("/not-found");
         }
       } finally {
@@ -192,7 +192,9 @@ const ApplyPage = () => {
                         <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
                           <p
                             className="truncate text-[14px] group-hover:block sm:text-xl"
-                            ref={(el) => (textRefs.current[questionIdx] = el)}
+                            ref={(el) => {
+                              textRefs.current[questionIdx] = el;
+                            }}
                           >
                             {question.questionText}
                           </p>
@@ -259,8 +261,8 @@ const ApplyPage = () => {
                           ?.questionReply && (
                           <p className="text-sm text-red-500">
                             {
-                              errors.questionReplyRequestDtoList[questionIdx]
-                                .questionReply.message
+                              errors!.questionReplyRequestDtoList[questionIdx]!
+                                .questionReply!.message
                             }
                           </p>
                         )}
@@ -268,8 +270,8 @@ const ApplyPage = () => {
                           ?.selectedOptionList && (
                           <p className="text-sm text-red-500">
                             {
-                              errors.questionReplyRequestDtoList[questionIdx]
-                                .selectedOptionList.message
+                              errors!.questionReplyRequestDtoList[questionIdx]!
+                                .selectedOptionList!.message
                             }
                           </p>
                         )}
