@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
-import Link from "next/link";
 import { useUserStore } from "@/shared";
+import Link from "next/link";
+import React from "react";
 
 const MenuItem: React.FC<{
   title: string;
@@ -71,8 +71,8 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     ],
     권한위임: [{ name: "권한 위임", link: "/setting/mandate/" + roles[0] }],
     홈화면관리: [
-      { name: "이벤트 배너 공지 편집", link: "/" },
-      { name: "캘린더 편집", link: "/" },
+      { name: "이벤트 배너 공지 편집", link: "/setting/home/event" },
+      { name: "캘린더 편집", link: "/setting/home/calendar" },
     ],
     동아리관리: [
       { name: "동아리원 관리", link: "/setting/management/circle/member" },
