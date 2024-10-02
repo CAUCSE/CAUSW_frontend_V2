@@ -1,11 +1,12 @@
 import { ManagementDetail, ManagementState } from "@/widget";
 
 const UserManagementDetail = async ({
-  params: { state, userId },
+  params,
 }: {
   params: { state: string; userId: string };
 }) => {
   // const { getByState, getAllAdmissions } = SettingRscService();
+  const { state, userId } = params;
 
   return <ManagementDetail state={state as ManagementState} userId={userId} />;
 };

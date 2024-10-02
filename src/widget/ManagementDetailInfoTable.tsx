@@ -2,26 +2,8 @@ import { Setting } from "@/shared/@types/setting";
 import Image from "next/image";
 import {
   convertDataToTableEntity,
-  InfoTableEntity,
   titleMapping,
 } from "../entities/home/setting/management/managementDetailEntities";
-
-// FIXME : API 연결
-const data: InfoTableEntity = {
-  email: "abc@abc.com",
-  major: "소프트웨어학부",
-  name: "홍길동",
-  studentId: "20201234",
-  leftPayedSemester: `${8}차 학기`,
-  admissionYear: "2020",
-  nickname: "hong",
-  graduateYearMonth: `${2026}/${2}`,
-  academicStatus: "재학",
-  enrolledSemester: `${5}차 학기`,
-  phoneNumber: "010-1234-5678",
-  requestedAt: "2024.10.02",
-  evidentImg: "/images/puang-proud.png",
-};
 
 const TableUnit = ({ title, data }: { title: string; data: string }) => {
   return (
