@@ -28,6 +28,10 @@ export type {
   IBoardResponseDto,
 } from "./board/main/MainBoard";
 
+export { CustomCheckBox } from "./board/form/CustomCheckBox";
+export { Option } from "./board/form/Option";
+export { Question } from "./board/form/Question";
+
 export {
   EmptyContent,
   Board,
@@ -38,6 +42,16 @@ export {
 export { PostCard } from "./board/post/PostCard";
 export { CommentCard } from "./board/post/CommentCard";
 export { ChildCommentCard } from "./board/post/ChildCommentCard";
+export { PopupMenu } from "./board/post/PopupMenu"
 export { CommentInput } from "./board/post/CommentInput";
+
+export { AllowAnonymousToggle } from "./board/create/AllowAnonymousToggle"
+export { RoleSelectSection } from "./board/create/RoleSelectSection"
+export { BoardDetailForm } from "./board/create/BoardDetailForm"
+
+export {PostForm} from "./board/post/create/PostForm"
+export {VotingForm} from "./board/post/create/VotingForm"
+export {CreatePostFooter} from "./board/post/create/CreatePostFooter"
+export {FilePreview} from "./board/post/create/FilePreview"
 
 export { FormErrorMessage } from "./layout/FormErrorMessage";

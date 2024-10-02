@@ -38,5 +38,26 @@ export const SettingService = () => {
     });
   };
 
-  return { useGetAttendanceUser, useGetWaitingUser };
+  const getMyPosts = async () => {
+    const { data } = (await API.get(
+      `${URI}/posts/written`,
+    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
+
+    return data.posts.content;
+  };
+
+  const getMyCommentPosts = async () => {
+    const { data } = (await API.get(
+      `${URI}/comments/written`,
+    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
+
+    return data.posts.content;
+  };
+
+  return {
+    useGetAttendanceUser,
+    useGetWaitingUser,
+    getMyPosts,
+    getMyCommentPosts,
+  };
 };

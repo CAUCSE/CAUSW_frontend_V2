@@ -37,9 +37,12 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
           <div className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
             가입 신청 받기
           </div>
-          <div className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
+          <Link
+            href={"/setting/management/circle/" + id + "/apply"}
+            className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex"
+          >
             신청 현황 보기
-          </div>
+          </Link>
           <Link href={`/circle/${id}/edit`}>
             <span className="icon-[icon-park-outline--write] mt-2 text-3xl md:text-5xl"></span>
           </Link>

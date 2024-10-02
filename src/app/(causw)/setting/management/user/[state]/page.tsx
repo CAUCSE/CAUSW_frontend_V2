@@ -40,14 +40,19 @@ const UserManagement = async ({
 }) => {
   const { getByState, getAllAdmissions } = SettingRscService();
 
-  /* const data = isAddmission
-    ? await getAllAdmissions(null, 0)
-    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
+  const nowNavigation = navigation.find((element) => element.state === state);
 
-  const data = [
-    { userName: "강민규", studentId: "20203128", id: "1" },
-    { userName: "윤민규", studentId: "20203128", id: "2" },
-  ];
+  const data = nowNavigation
+    ? await getByState(
+        nowNavigation
+          .exportType!.replace("_USERS", "")
+          .trim() as User.UserDto["state"],
+        null,
+        0,
+      ).then((res) =>
+        res.map((element) => ({ ...element, userName: element.name })),
+      )
+    : await getAllAdmissions(null, 0);
 
   return (
     <Management
@@ -60,7 +65,11 @@ const UserManagement = async ({
         router: "/setting/management/user/admission",
       }}
       navigation={navigation}
-      data={data}
+      data={data.map((element) => ({
+        userName: element.userName,
+        studentId: element.studentId,
+        id: element.id,
+      }))}
     />
   );
 };

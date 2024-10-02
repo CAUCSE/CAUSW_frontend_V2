@@ -16,12 +16,9 @@ const PayerManagement = async () => {
 
   return (
     <>
-      <div className="absolute right-4 top-6 flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black bg-focus text-lg text-white md:right-52 md:top-16">
-        게시찬 생성 신청 관리
-      </div>
       <Management
         state={undefined}
-        title="학생회비 관리"
+        title="게시판 생성 신청 관리"
         firstNavigation={{
           name: "생성 신청 게시판",
           state: "",

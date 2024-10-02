@@ -5,9 +5,9 @@ export const UserCouncilFeeService = () => {
   const URI = "/api/v1/user-council-fee";
 
 
-  const getUserCouncilFeeInfo = async (studentId: string) => {
+  const getUserCouncilFeeInfo = async () => {
     try
-{   const response = (await API.get(`${URI}/info/${studentId}`)) as AxiosResponse;
+{   const response = (await API.get(`${URI}/isCurrentSemesterApplied/self/info`)) as AxiosResponse;
     return response;
 }   
     catch(error)
@@ -16,43 +16,25 @@ export const UserCouncilFeeService = () => {
     }
   }
 
-  const getUserCouncilFeeId = async (studentId: string) => {
+
+  
+  const registerCouncilFee = async (body: any) => {
     try
-    {
-        const response = (await API.get(`${URI}/getUserIdByStudentId`,
-            {
-                headers: {
-                    'studentId': studentId,
-                }
-            }
-         )) as AxiosResponse;
-        return response;
-    }
+{   
+    console.log(body);
+    const response = (await API.post(`${URI}/create-user`, body)) as AxiosResponse;
+    return response;
+}   
     catch(error)
     {
         throw(error);
     }
   }
 
-  const getUserCouncilFeeList = async () =>
-  {
-    try {
-        const response = (await API.get(`${URI}/list`, {
-            params: {
-                page: 0,
-                size: 20,
-                sort: ['name, asc'],
-            }
-        }))
-        console.log(response);
-    }
-    catch (error)
-    {
-        throw error;
-    }
-  }
+  
 
 
 
-  return { getUserCouncilFeeInfo, getUserCouncilFeeId };
+
+  return { getUserCouncilFeeInfo, registerCouncilFee };
 };

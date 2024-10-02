@@ -33,9 +33,7 @@ export const AuthService = () => {
       }>;
 
       await setRscToken(accessToken, body.auto ? refreshToken : false);
-
       setRccToken(accessToken, body.auto ? refreshToken : false);
-
       router.push("/home");
     } catch {
       setErrorMessage("로그인 정보가 일치하지 않습니다!");
