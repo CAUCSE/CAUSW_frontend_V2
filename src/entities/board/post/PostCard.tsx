@@ -86,15 +86,36 @@ export const PostCard = ({
     setIsPopupOpen(false);
     setPopupImage(null);
   };
-
+/* 
   const handleDownload = (fileUrl: string) => {
     console.log(fileUrl);
-    const link = document.createElement("a");
+    const decodedUrl = decodeURIComponent(fileUrl) ;
+    const fileNameWithUuid = decodedUrl. substring(decodedUrl.lastIndexOf('/') + 1);
+    const filename= fileNameWithUuid.split('_')[0];
+    
+    const encodedFileName = encodeURIComponent(filename);
+    console.log(encodedFileName);
+    //const link = document.createElement("a");
     //link.href = fileUrl;
     //link.download = extractFileName(fileUrl); // 파일명 설정
     //link.click();
+  }; */
+
+  const handleDownload = (fileUrl: string) => {
+    const link = document.createElement("a");
+    link.href = fileUrl; // 여기에 디코딩한 URL을 사용
+    link.setAttribute("download", extractFileName(fileUrl)); // 파일명 설정
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
+  const extractFileName = (url) => {
+    const decodeFile = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1));
+    const filename= decodeFile.split('_')[0];
+    const fileExtension = decodeFile.substring(decodeFile.lastIndexOf('.') + 1);
+    return (filename+fileExtension);
+  };
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
   const params = useParams();
