@@ -64,7 +64,7 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     기록: [
       { name: "내가 쓴 글", link: "/setting/my/posts" },
       { name: "내가 쓴 댓글", link: "/setting/my/comments" },
-      { name: "내가 찜한 글", link: "/" },
+      { name: "내가 찜한 글", link: "/setting/my/favorite" },
     ],
     관리_동문회장: [{ name: "유저 관리", link: "/" }],
     관리_관리자_학생회장_부학생회장: [
