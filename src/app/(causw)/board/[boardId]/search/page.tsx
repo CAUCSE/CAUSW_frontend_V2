@@ -103,22 +103,28 @@ const SearchPost = () => {
   const [hasMore, setHasMore] = useState(true);
   const lastPostElementRef = useRef(null);
 
+  useEffect(() => {
+    if (!keyword) return;
+    const search = async () => {
+      try {
+        setSearchLoading(true);
+        const response = await searchPost(boardId, keyword, page);
+        setPosts(response.post.content);
+        setHasMore(response.post.totalPages - 1 > page);
+        setSearchLoading(false);
+      } catch (error) {
+        throw error;
+      }
+    };
+    search();
+  }, [keyword]);
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     //TODO 검색 api 연동
     setIsSearch(true);
     setPosts([]);
     setPage(0);
-    setKeyword(() => data.searchContent);
-    try {
-      setSearchLoading(true);
-      const response = await searchPost(boardId, keyword, page);
-      setPosts((prev) => [...prev, ...response.post.content]);
-      setHasMore(response.post.totalPages - 1 > page);
-
-      setSearchLoading(false);
-    } catch (error) {
-      throw error;
-    }
+    setKeyword(data.searchContent);
   };
 
   useEffect(() => {
@@ -158,7 +164,7 @@ const SearchPost = () => {
       }
     };
   }, [searchLoading, hasMore]);
-
+  //TODO 검색 결과 없는 페이지 추가
   return (
     <div className="bottom-0 top-0 h-full w-full bg-boardPageBackground p-5">
       <div className="flex h-full w-full flex-col items-center gap-[20px]">
