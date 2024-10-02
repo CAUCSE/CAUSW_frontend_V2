@@ -8,13 +8,13 @@ export function ManagementDetailButtons({ state }: { state: ManagementState }) {
   const buttons = uiEntities[state].buttons;
 
   return (
-    <div className="flex gap-[50px]">
+    <div className="flex gap-[20px] lg:gap-[50px]">
       {buttons.map(({ name, action, variant }) => (
         <Button
           key={name}
           action={action}
           variant={variant}
-          className="h-[55px] w-[300px]"
+          className="h-[55px] w-[150px] lg:w-[300px]"
         >
           {name}
         </Button>
