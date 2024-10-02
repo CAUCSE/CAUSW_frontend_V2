@@ -13,16 +13,18 @@ import {
   removeRscRefresh,
   removeRccAccess,
   removeRccRefresh,
+  UserService
 } from "@/shared";
 import { ErrorMessage } from "@/entities";
 
 export const AuthService = () => {
   const URI = "/api/v1/users";
+  const { getUserInfo, checkCurrentAcademicStatus } = UserService();
 
   const router = useRouter();
   const setUserStore = useUserStore((state) => state.setUserStore);
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
-
+  const state = useUserStore((state) =>state.state);
   const signin = async (body: User.SignInRequestDto) => {
     try {
       const {
@@ -33,9 +35,26 @@ export const AuthService = () => {
       }>;
 
       await setRscToken(accessToken, body.auto ? refreshToken : false);
-      setRccToken(accessToken, body.auto ? refreshToken : false);
-      router.push("/home");
-    } catch {
+      await setRccToken(accessToken, body.auto ? refreshToken : false);
+
+      const AdmissionResponse = await getUserInfo();
+
+      if (AdmissionResponse.data.state === "AWAIT"){
+        router.push('/auth/authorization');
+      }
+      else{
+        const academicStatusResponse = await checkCurrentAcademicStatus();
+        console.log(academicStatusResponse);
+        if (academicStatusResponse.data == "UNDETERMINED")
+        {
+          router.push('/auth/authorization');
+        }
+        else{
+        router.push('/home');
+        }
+      }
+    } catch(error) {
+      console.log(error);
       setErrorMessage("로그인 정보가 일치하지 않습니다!");
     }
   };

@@ -5,13 +5,12 @@ import { useForm } from 'react-hook-form';
 import { UserService, useUserStore, AcademicRecordRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
-
-const SubmitAcademicRecordPage = () => {
+const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { checkCurrentAcademicRecord } = UserService();
+  const { checkIsAcademicRecordSubmitted } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
   const id = useUserStore((state) => state.id)
@@ -19,7 +18,10 @@ const SubmitAcademicRecordPage = () => {
   const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
   const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
 
-
+  const handleCancel = () => {
+    // 취소 버튼을 클릭했을 때 모달을 닫습니다.
+    onClose();
+  };
 
   // 졸업 년도 선택에 쓰이는 yearOptions
   const startYear = 1972; 
@@ -56,7 +58,7 @@ const SubmitAcademicRecordPage = () => {
     useEffect(() => {
       const fetchAcademicRecord = async () => {
         try {
-          const response = await checkCurrentAcademicRecord();
+          const response = await checkIsAcademicRecordSubmitted();
           if (response.status === 200) {
             const academicRecordInfo = response.data;
             if (academicRecordInfo.isRejected === true) // 거절 당한 경우
@@ -69,7 +71,6 @@ const SubmitAcademicRecordPage = () => {
               setValue('targetAcademicStatus', academicRecordInfo.targetAcademicStatus);
               setValue('targetCompletedSemester', academicRecordInfo.targetCompletedSemester);
               setValue('note', academicRecordInfo.userNote);
-              setValue('images', academicRecordInfo.attachedImageUrlList);
             }
             setIsAlreadySubmitted(true);
           }
@@ -168,7 +169,7 @@ const SubmitAcademicRecordPage = () => {
               {/* 이전 버튼 */}
               <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
           <button
-            onClick={() => router.back()}
+            onClick={handleCancel}
             className="text-black-500 hover:text-gray-500 flex items-center"
           >
             <svg
