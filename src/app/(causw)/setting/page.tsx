@@ -77,12 +77,15 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
       { name: "이벤트 배너 공지 편집", link: "/" },
       { name: "캘린더 편집", link: "/" },
     ],
-    
-    동아리관리: (circleId: string ) => [
-      { name: "동아리원 관리", link: "/setting/management/circle/member" },
+
+    동아리관리: (circleId: string) => [
+      {
+        name: "동아리원 관리",
+        link: `/setting/management/circle/${circleId}/member`,
+      },
       {
         name: "동아리 가입 신청 관리",
-        link: `/setting/management/circle/apply/${circleId}`, // 주소 어떻게 넣나요
+        link: `/setting/management/circle/${circleId}/apply`,
       },
     ],
     동아리관리_관리자: [
@@ -94,7 +97,7 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     ],
     게시판관리: [{ name: "게시판 생성 신청 관리", link: "/" }],
   };
-  
+
   const renderMenuItems = () => {
     return (
       <>
@@ -116,9 +119,15 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
         {isCircleLeader() && (
           <>
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
-            {circleNameIfLeader?.map((circleName, idx) =>
-               (<MenuItem title={`동아리 관리 (${circleName})`} items= {menuItems.동아리관리(circleIdIfLeader? circleIdIfLeader[idx]: '')}>
-            </MenuItem>))}
+            {circleNameIfLeader?.map((circleName, idx) => (
+              <MenuItem
+                key={circleName}
+                title={`동아리 관리 (${circleName})`}
+                items={menuItems.동아리관리(
+                  circleIdIfLeader ? circleIdIfLeader[idx] : "",
+                )}
+              ></MenuItem>
+            ))}
           </>
         )}
 
