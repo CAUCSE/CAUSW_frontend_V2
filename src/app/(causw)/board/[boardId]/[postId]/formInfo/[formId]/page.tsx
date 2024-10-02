@@ -17,6 +17,7 @@ import { LoadingComponent } from "@/entities";
 import { finished } from "stream";
 import { stringify } from "querystring";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 const FormInfoPage = () => {
   const {
@@ -45,7 +46,10 @@ const FormInfoPage = () => {
   const [objectiveOptionResult, setObjectiveOptionResult] = useState<
     { id: string; data: object[] }[] | null
   >(null);
-  const [isFinish, setIsFinish] = useState<boolean>(false);
+  const [isFinish, setIsFinish] = useState<boolean | null>(null);
+  const [currentDetailPage, setCurrentDetailPage] = useState<number>(0);
+  const [totalDetailPage, setTotalDetailPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(false);
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
@@ -61,7 +65,6 @@ const FormInfoPage = () => {
         setFormResultSummary(data2);
         setTotalFormResult(data3);
         setIsFinish(data1.isClosed);
-        console.log(JSON.stringify(data2, null, 2));
       } catch (error) {
         console.log(error);
       } finally {
@@ -70,6 +73,14 @@ const FormInfoPage = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!totalFormResult) return;
+    setCurrentDetailPage(
+      totalFormResult.replyResponseDtoPage.pageable.pageNumber + 1,
+    );
+    setTotalDetailPage(totalFormResult.replyResponseDtoPage.totalElements);
+  }, [totalFormResult]);
 
   useEffect(() => {
     if (!formResultSummary) return;
@@ -151,11 +162,11 @@ const FormInfoPage = () => {
 
   const setFormState = async () => {
     try {
-      await setFormFinished(formId, isFinish);
-      setIsFinish(!isFinish);
+      await setFormFinished(formId, !isFinish);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
+    setIsFinish(!isFinish);
   };
 
   return (
@@ -168,11 +179,11 @@ const FormInfoPage = () => {
           <p className="absolute top-6 w-full text-center text-[18px] font-bold sm:hidden">
             {formData?.title}
           </p>
-          <div className="flex h-24 items-end justify-between sm:flex-row">
+          <div className="flex h-24 items-end justify-between pb-4 sm:flex-row">
             <p className="hidden pl-4 text-3xl font-bold sm:block">
               {formData?.title}
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-2 sm:gap-4">
               <button
                 className={`flex h-[30px] w-[50px] items-center justify-center rounded-3xl border border-black sm:h-[40px] sm:w-[60px] ${summary ? "bg-[#76C6D1]" : "bg-white"}`}
                 onClick={toggleSummaryBtn}
@@ -186,7 +197,7 @@ const FormInfoPage = () => {
                 <p className="text-[12px] font-bold sm:text-[16px]">개별</p>
               </button>
             </div>
-            <div className="flex gap-4 pr-4">
+            <div className="flex gap-2 sm:gap-4 sm:pr-4">
               <button
                 className={`flex h-[30px] w-[50px] items-center justify-center rounded-3xl border border-black bg-[##76C6D1] sm:h-[40px] sm:w-[60px]`}
                 onClick={setFormState}
@@ -205,7 +216,7 @@ const FormInfoPage = () => {
               </button>
             </div>
           </div>
-          <div className="mb-24 flex h-[calc(100%-6rem)] w-full flex-col items-center gap-8 pt-8">
+          <div className="flex h-[calc(100%-6rem)] w-full flex-col items-center gap-8 overflow-auto pb-10 pt-4">
             {summary &&
               formResultSummary?.map((result, resultIdx: number) => {
                 return (
@@ -237,7 +248,11 @@ const FormInfoPage = () => {
                             )
                             .map((option) => {
                               return (
-                                <ResponsiveContainer width="100%" height={300}>
+                                <ResponsiveContainer
+                                  width="100%"
+                                  height={300}
+                                  key={option.id}
+                                >
                                   <BarChart
                                     layout="vertical"
                                     data={option.data}
@@ -286,7 +301,32 @@ const FormInfoPage = () => {
                   </div>
                 );
               })}
-            {detail && <div>전체 결과</div>}
+            {detail && (
+              <>
+                <div className="flex w-full items-center justify-center">
+                  <button>
+                    <Image
+                      src="/images/page_decrease_btn_icon.png"
+                      alt="page-decrease-btn"
+                      width={10}
+                      height={10}
+                    />
+                  </button>
+                  <p className="px-4 text-2xl">
+                    {currentDetailPage} / {totalDetailPage}
+                  </p>
+
+                  <button>
+                    <Image
+                      src="/images/page_increase_btn_icon.png"
+                      alt="page-increase-btn"
+                      width={10}
+                      height={10}
+                    />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </>
       )}
