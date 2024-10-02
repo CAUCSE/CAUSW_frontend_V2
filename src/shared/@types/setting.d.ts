@@ -99,4 +99,8 @@ declare namespace Setting {
     attachedImageUrlList: string[];
     rejectMessage: string;
   };
+
+  export type GetMyPostsResponseDto = {
+    posts: { content: Post.PostDto[] };
+  };
 }
