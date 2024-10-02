@@ -23,10 +23,10 @@ const ApplyPage = () => {
     },
   });
 
-  const { getFormData, submitFormReply } = FormRscService();
+  const { getFormData, submitFormReply, getUserCanReply } = FormRscService();
   const [form, setForm] = useState<Post.FormResponseDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [notAllow, setNotAllow] = useState<boolean>(false);
+  const [canUserReply, setCanUserReply] = useState<boolean>(false);
   const [isTruncated, setIsTruncated] = useState<boolean[]>([]);
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -41,12 +41,14 @@ const ApplyPage = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await getFormData(formId);
-        setForm(data);
+        const [data1, data2] = await Promise.all([
+          getFormData(formId),
+          getUserCanReply(formId),
+        ]);
+        setForm(data1);
+        setCanUserReply(data2);
       } catch (error) {
-        if (error.message === "401") {
-          setNotAllow(true);
-        } else {
+        if (error.message !== "401") {
           router.push("/not-found");
         }
       } finally {
@@ -75,13 +77,6 @@ const ApplyPage = () => {
     return () => {
       window.removeEventListener("resize", checkTruncate);
     };
-  }, [form]);
-
-  useEffect(() => {
-    if (form?.isClosed) {
-      setModalMessage("마감된 신청서입니다.");
-      setModalOpen(true);
-    }
   }, [form]);
 
   const onSubmit = async (data) => {
@@ -151,7 +146,7 @@ const ApplyPage = () => {
       <PreviousButton />
       {loading ? (
         <LoadingComponent />
-      ) : notAllow ? (
+      ) : form?.isClosed ? (
         <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
           <Image
             src="/images/puang-proud.png"
@@ -159,7 +154,19 @@ const ApplyPage = () => {
             width={200}
             height={250}
           ></Image>
-          <span>신청 대상이 아닙니다.</span>
+          <span>마감된 신청서입니다.</span>
+        </div>
+      ) : !canUserReply ? (
+        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
+          <Image
+            src="/images/puang-proud.png"
+            alt="404"
+            width={200}
+            height={250}
+          ></Image>
+          <span className="text-center">
+            신청 대상이 아니거나 이미 제출한 신청서입니다.
+          </span>
         </div>
       ) : (
         <>
