@@ -4,7 +4,13 @@ import { Button } from "@/shared";
 import { ManagementState } from "@/widget";
 import { uiEntities } from "./managementDetailEntities";
 
-export function ManagementDetailButtons({ state }: { state: ManagementState }) {
+export function ManagementDetailButtons({
+  state,
+  actionArgs,
+}: {
+  state: ManagementState;
+  actionArgs?: any;
+}) {
   const buttons = uiEntities[state].buttons;
 
   return (
@@ -12,7 +18,7 @@ export function ManagementDetailButtons({ state }: { state: ManagementState }) {
       {buttons.map(({ name, action, variant }) => (
         <Button
           key={name}
-          action={action}
+          action={actionArgs ? action : () => action(actionArgs)}
           variant={variant}
           className="h-[55px] w-[150px] lg:w-[300px]"
         >

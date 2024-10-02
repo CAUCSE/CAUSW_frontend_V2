@@ -1,3 +1,4 @@
+import { SettingRscService } from "@/shared";
 import { Setting } from "@/shared/@types/setting";
 
 type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
@@ -9,7 +10,7 @@ export const uiEntities: Record<
     buttons: {
       name: string;
       variant: "BLUE" | "RED" | "GRAY";
-      action: () => void;
+      action: (...args: any) => void;
     }[];
   }
 > = {
@@ -19,7 +20,10 @@ export const uiEntities: Record<
       {
         name: "승인",
         variant: "BLUE",
-        action: () => {
+        action: async (admissionId) => {
+          const { acceptAdmission } = SettingRscService();
+          if (await acceptAdmission(admissionId)) return;
+          alert("승인에 실패했습니다. 관리자에게 문의하세요");
           console.log("승인");
         },
       },

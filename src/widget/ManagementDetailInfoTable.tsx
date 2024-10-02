@@ -1,5 +1,7 @@
+import { Setting } from "@/shared/@types/setting";
 import Image from "next/image";
 import {
+  convertDataToTableEntity,
   InfoTableEntity,
   titleMapping,
 } from "../entities/home/setting/management/managementDetailEntities";
@@ -34,7 +36,13 @@ const TableUnit = ({ title, data }: { title: string; data: string }) => {
   );
 };
 
-export function ManagementDetailInfoTable() {
+export function ManagementDetailInfoTable({
+  admission,
+}: {
+  admission: Setting.GetAdmissionResponseDto;
+}) {
+  const data = convertDataToTableEntity(admission);
+
   return (
     <div className="grid h-full w-full grid-cols-2 justify-around gap-y-[27px]">
       {Object.keys(data).map((k) => {

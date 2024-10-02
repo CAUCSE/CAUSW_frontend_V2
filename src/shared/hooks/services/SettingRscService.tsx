@@ -1,4 +1,5 @@
 import { BASEURL, setRscHeader } from "@/shared";
+import { Setting } from "@/shared/@types/setting";
 
 //페이징 적용시, 한 페이지 정도 (현재 미적용)
 const SIZE = 300;
@@ -96,6 +97,19 @@ export const SettingRscService = () => {
     }
   };
 
+  const getAdmission = async (userId: string) => {
+    const header = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${userId}`, {
+      method: "GET",
+      headers: header,
+    });
+
+    const data = (await response.json()) as Setting.GetAdmissionResponseDto;
+    console.log(data);
+    if (!response.ok) throw new Error(response.statusText);
+    return data;
+  };
+
   //납부자 조회
   const getPayers = useGetMethod("user-council-fee/list") as (
     page?: number,
@@ -113,5 +127,23 @@ export const SettingRscService = () => {
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
 
-  return { getByState, getAllAdmissions, getPayers, getAllAttendanceUsers };
+  const acceptAdmission = async (admissionId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${admissionId}/accept`, {
+      method: "PUT",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  return {
+    getByState,
+    getAllAdmissions,
+    getAdmission,
+    getPayers,
+    getAllAttendanceUsers,
+    acceptAdmission,
+  };
 };
