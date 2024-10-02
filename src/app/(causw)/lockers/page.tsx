@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
 import { BASEURL, getRccAccess } from "@/shared"; // getRccAccess로 AccessToken 관리
+import { LoadingComponent } from "@/entities";
 
 interface LockerFloor {
   id: string;
@@ -112,11 +113,7 @@ const LockerList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        로딩 중...
-      </div>
-    );
+    return <LoadingComponent />;
   }
 
   if (error) {
@@ -130,7 +127,7 @@ const LockerList = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
       <h1 className="mb-8 text-2xl font-semibold">사물함 관리</h1>
-      <div className="w-full max-w-md space-y-4">
+      <div className="flex w-full max-w-md flex-col gap-2 space-y-4">
         {lockers.map((lockerFloor) => (
           <Link
             key={lockerFloor.id}
