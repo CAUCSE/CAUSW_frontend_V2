@@ -4,29 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useUserStore } from "@/shared";
 
-const MenuItem: React.FC<{
-  title: string;
-  items: { name: string; link: string }[];
-}> = ({ title, items }) => (
-  <div className="rounded-lg bg-white p-6 shadow-md">
-    <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
-    <ul>
-      {items.map((item, index) => (
-        <li key={index} className="mb-2">
-          <Link
-            href={item.link}
-            className="text-black-500 hover:text-gray-500 hover:underline"
-          >
-            {item.name}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-//CHECK: Role의 역활???
-const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
+const SettingsPage = () => {
   const {
     roles,
     isStudent,
@@ -100,6 +78,27 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
   };
+
+  const MenuItem: React.FC<{
+    title: string;
+    items: { name: string; link: string }[];
+  }> = ({ title, items }) => (
+    <div className="rounded-lg bg-white p-6 shadow-md">
+      <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
+      <ul>
+        {items.map((item, index) => (
+          <li key={index} className="mb-2">
+            <Link
+              href={item.link}
+              className="text-black-500 hover:text-gray-500 hover:underline"
+            >
+              {item.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   const renderMenuItems = () => {
     return (
