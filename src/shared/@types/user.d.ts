@@ -155,21 +155,32 @@ declare namespace User {
     files: FileList;
   }
 
-  export interface UserAdmissionCreateRequestDto {
-    email: string;
-    description: string;
-    images: FileList;
-  }
-
-  export interface CreateUserAcademicRecordApplicationRequestDto{
-    targetAcademicStatus: 
-    "ENROLLED"
+  export type AcademicStatus =
+    | "ENROLLED"
     | "LEAVE_OF_ABSENCE"
     | "GRADUATED"
     | "DROPPED_OUT"
     | "PROBATION"
     | "PROFESSOR"
     | "UNDETERMINED";
+  export interface CreateUserAcademicRecordApplicationRequestDto {
+    targetAcademicStatus: AcademicStatus;
+    targetCompletedSemester: number;
+    graduationYear: number;
+    graduationType: "FEBRUARY" | "AUGUST";
+    note: string;
+    images: FileList;
+  }
+
+  export interface CreateUserAcademicRecordApplicationRequestDto {
+    targetAcademicStatus:
+      | "ENROLLED"
+      | "LEAVE_OF_ABSENCE"
+      | "GRADUATED"
+      | "DROPPED_OUT"
+      | "PROBATION"
+      | "PROFESSOR"
+      | "UNDETERMINED";
     targetCompletedSemester: number | null;
     graduationYear: number | null;
     graduationType: "FEBRUARY" | "AUGUST" | null;
