@@ -1,5 +1,3 @@
-"use server";
-
 import { Header, Line, SubHeader, ExcelExport } from "@/entities";
 
 import Link from "next/link";
@@ -43,7 +41,7 @@ export const Management = ({
 
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
-      <Link href={"/setting"} className="mb-7 flex items-center text-lg">
+      <Link href=".." className="mb-7 flex items-center text-lg">
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
@@ -81,14 +79,14 @@ export const Management = ({
         {data.map((element) => (
           <Link
             href={
-              isFirstNavigation
+              (isFirstNavigation
                 ? firstNavigation.router
                 : navigation!.find((element) => element.state === state)
-                    ?.router +
-                  "/" +
-                  element.id
+                    ?.router) +
+              "/" +
+              element.id
             }
-            className="text-lg"
+            className="mb-3 text-lg"
             key={element.userName}
           >
             {element.userName}({element.studentId})

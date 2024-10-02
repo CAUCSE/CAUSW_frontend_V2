@@ -95,7 +95,9 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
         link: `/setting/management/circle/apply/`,
       },
     ],
-    게시판관리: [{ name: "게시판 생성 신청 관리", link: "/" }],
+    게시판관리: [
+      { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
+    ],
   };
 
   const renderMenuItems = () => {

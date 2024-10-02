@@ -20,6 +20,7 @@ declare namespace Setting {
     updatedAt: string;
     userEmail: string;
     userName: string;
+    studentId: string;
     //#71 추가
     userState: User["state"];
   }

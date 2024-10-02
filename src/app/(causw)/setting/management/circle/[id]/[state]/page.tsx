@@ -1,4 +1,4 @@
-import { SettingRscService } from "@/shared";
+import { CircleRscService } from "@/shared";
 
 import { Management } from "@/widget";
 
@@ -7,16 +7,12 @@ const CircleManagement = async ({
 }: {
   params: { state: string; id: string };
 }) => {
-  const { getByState, getAllAdmissions } = SettingRscService();
+  const { getCircleUsersByState } = CircleRscService();
 
-  /* const data = isAddmission
-    ? await getAllAdmissions(null, 0)
-    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
-
-  const data = [
-    { userName: "강민규", studentId: "20203128", id: "1" },
-    { userName: "윤민규", studentId: "20203128", id: "2" },
-  ];
+  const data = await getCircleUsersByState(
+    id,
+    state === "apply" ? "AWAIT" : "MEMBER",
+  );
 
   return (
     <>
@@ -37,7 +33,11 @@ const CircleManagement = async ({
             router: "/setting/management/circle/TODO",
           },
         ]}
-        data={data}
+        data={data.map((element) => ({
+          userName: element.user.name,
+          studentId: element.user.studentId,
+          id: element.user.id,
+        }))}
         circleId={id}
       />
     </>

@@ -27,16 +27,23 @@ const RoleManagement = async ({
 }: {
   params: { state: string };
 }) => {
-  const { getByState, getAllAdmissions } = SettingRscService();
+  const { getPrivilegedUsers } = SettingRscService();
 
-  /* const data = isAddmission
-    ? await getAllAdmissions(null, 0)
-    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
+  const allRoles = await getPrivilegedUsers();
 
-  const data = [
-    { userName: "강민규", studentId: "20203128", id: "1" },
-    { userName: "윤민규", studentId: "20203128", id: "2" },
-  ];
+  //TODO: 가독성 수정 필요
+  const data =
+    state === "vicepresident"
+      ? allRoles.vicePresidentUser
+      : state === "council"
+        ? allRoles.councilUsers
+        : state === "leader"
+          ? allRoles.leaderGradeUsers
+          : state === "circleleader"
+            ? allRoles.leaderCircleUsers
+            : state === "alumunileader"
+              ? allRoles.leaderAlumni
+              : allRoles.presidentUser;
 
   return (
     <>
@@ -49,7 +56,11 @@ const RoleManagement = async ({
           router: "/setting/mandate/president",
         }}
         navigation={navigation}
-        data={data}
+        data={data.map((element) => ({
+          userName: element.name,
+          studentId: element.studentId,
+          id: element.id,
+        }))}
       />
     </>
   );
