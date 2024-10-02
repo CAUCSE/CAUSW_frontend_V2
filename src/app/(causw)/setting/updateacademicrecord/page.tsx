@@ -242,7 +242,7 @@ const UpdataeAcademicRecordPage = () => {
             className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1 overflow-y-auto "
           >
             <option value="">-선택해주세요-</option>            
-            {yearOptions.map((year) => <option value= {year}>{year}년</option>)}
+            {yearOptions.map((year, index) => <option key={index} value= {year}>{year}년</option>)}
 
           </select>
           {errors.graduationYear && <span className="text-red-500">{errors.graduationYear.message}</span>}

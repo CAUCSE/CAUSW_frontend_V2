@@ -1,4 +1,3 @@
-import { Role } from "./user";
 declare namespace Setting {
   export type ExportType =
     | "ALL_USERS"
@@ -72,7 +71,7 @@ declare namespace Setting {
   type AdmissionAcademicStatus = "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
 
   export type AdmissionUserDto = {
-    roles: Role;
+    roles: User.Role;
     nickname: string;
     major: string;
     academicStatus: AdmissionAcademicStatus;
