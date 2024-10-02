@@ -3,21 +3,9 @@ import { SettingRscService } from "@/shared";
 import { Management } from "@/widget";
 
 const PayerManagement = async () => {
-  const { getByState, getAllAdmissions } = SettingRscService();
+  const { getPayers } = SettingRscService();
 
-  /* const data = isAddmission
-    ? await getAllAdmissions(null, 0)
-    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
-
-  const headers = [
-    { label: "이름", key: "userName" },
-    { label: "학번", key: "studentId" },
-  ];
-
-  const data = [
-    { userName: "강민규", studentId: "20203128", id: "1" },
-    { userName: "윤민규", studentId: "20203128", id: "2" },
-  ];
+  const data = await getPayers();
 
   return (
     <>
@@ -31,8 +19,13 @@ const PayerManagement = async () => {
           name: "학생회비 납부자 목록",
           state: "",
           exportType: "PAYERS",
+          router: "/setting/management/payer/TODO",
         }}
-        data={data}
+        data={data.map((element) => ({
+          userName: element.userName,
+          studentId: element.studentId,
+          id: element.userId,
+        }))}
       />
     </>
   );

@@ -9,13 +9,12 @@ const useGetMethod = (endpoint: string) => {
     try {
       const headers = await setRscHeader();
 
-      const response = await fetch(`${BASEURL}/${endpoint}`, {
-        headers: headers,
-        body: JSON.stringify({
-          page: page,
-          size: size,
-        }),
-      }).then((res) => res.json());
+      const response = await fetch(
+        `${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`,
+        {
+          headers: headers,
+        },
+      ).then((res) => res.json());
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -104,14 +103,21 @@ export const SettingRscService = () => {
 
   //학적 인증 전체 조회
   const getAllAttendanceUsers = useGetMethod(
-    "academic-recor/list/active-users",
+    "users/academic-record/list/active-users",
   ) as (page?: number, size?: number) => Promise<Setting.UserElement[]>;
 
   //학적 인증 요청 사용자 조회
-  const getWaitingUsers = useGetMethod("academic-recor/list/await") as (
+  const getWaitingUsers = useGetMethod("users/academic-record/list/await") as (
     page?: number,
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
 
-  return { getByState, getAllAdmissions, getPayers, getAllAttendanceUsers };
+  return {
+    getByState,
+    getAllAdmissions,
+    getPrivilegedUsers,
+    getPayers,
+    getAllAttendanceUsers,
+    getWaitingUsers,
+  };
 };

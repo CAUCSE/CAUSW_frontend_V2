@@ -3,21 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService } from '@/shared';
-import { UserCouncilFeeService } from '@/shared/hooks/services/UserCouncilFeeService';
+import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
 
-type FormValues = {
-  profileImage: File | null;
-  nickname: string;
-  academicStatus: string;
-};
 
 const PersonalInfoPage = () => {
-  const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
+  const { register, handleSubmit, setValue, watch } = useForm<User.userUpdateDto>({
     defaultValues: {
       profileImage: null,
       nickname: '',
-      academicStatus: '재학',
+      academicStatus: 'ENROLLED',
     },
   });
 
@@ -32,31 +26,88 @@ const PersonalInfoPage = () => {
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
+  
+  // 원래의 학적 상태 저장
+  const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
   const router = useRouter();
-  const { getUserInfoRevised, updateUserInfo, checkCurrentAcademicRecord } = UserService();
-  const { getUserCouncilFeeId, getUserCouncilFeeInfo } = UserCouncilFeeService();
-  const formData = new FormData();
+  const { getUserInfoRevised } = UserService();
+  const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
+  const { updateInfo } = UserRscService();
+
+
+  // 모달 열림/닫힘 상태를 관리
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isWarningAccepted, setIsWarningAccepted] = useState(false);
+
+  // 제출 시 모달
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isFailModalOpen, setIsFailModalOpen] = useState(false);
+
+  
+
+
+  // 모달 열기
+  const openSubmitModal = () => {
+    setIsSubmitModalOpen(true);
+  };
+
+  const openWarningModal = () => {
+    setIsWarningModalOpen(true);
+  }
+
+  // 모달 닫기
+  const closeModal = () => {
+    if (isSubmitModalOpen)
+      setIsSubmitModalOpen(false);
+    if (isWarningModalOpen)
+    {
+      setIsWarningModalOpen(false);
+      setIsWarningAccepted(true);
+    }
+      
+  };
+  
+  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
+  const selectedAcademicStatus = watch('academicStatus');
+  
+
+  useEffect(() => {
+    setAcademicStatus(selectedAcademicStatus)
+  }, [selectedAcademicStatus])
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await getUserInfoRevised();
-        const userData = response.data;
+
+        // 유저 기본 정보 받아오기
+        const responseUserData = await getUserInfoRevised();
+        const userData = responseUserData.data;
         console.log(userData);
 
-        formData.append('name', await userData.name);
-        formData.append('studentId', await userData.studentId);
-        formData.append('admissionYear', await userData.admissionYear);
-        formData.append('major', await userData.major);
-        formData.append('currentCompletedSemester', await userData.currentCompletedSemester);
-        formData.append('graduationYear', await userData.graduationYear);
-        formData.append('graduationMonth', await userData.graduationType);
-        formData.append('phoneNumber', await userData.phoneNumber);
+//         학생회비 납부 정보 받아오기 
+        const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
+        const userCouncilFeeData = responseUserCouncilFeeData.data;
+        console.log(userCouncilFeeData);
 
-        setProfileImagePreview(userData.profileImage ?? '/images/default_profile.png');
-        setValue('nickname', userData.nickname);
-        setValue('academicStatus', userData.academicStatus);
+        // formData에 유저 정보 값들 넣어두기
+        setValue('name', await userData.name);
+        setValue('studentId', await userData.studentId);
+        setValue('admissionYear', await userData.admissionYear);
+        setValue('major', await userData.major);
+        setValue('currentCompletedSemester', await userData.currentCompletedSemester);
+        setValue('graduationYear', await userData.graduationYear);
+        setValue('graduationMonth', await userData.graduationType);
+        setValue('phoneNumber', await userData.phoneNUmber);
+
+        // 유저에 맞게 값들 대입입
+        setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
+        setValue('nickname', await userData.nickname);
+        setValue('academicStatus', await userData.academicStatus);
+      
+
+        console.log(userData.profileImageUrl);
 
         setName(userData.name);
         setEmail(userData.email);
@@ -65,11 +116,14 @@ const PersonalInfoPage = () => {
         setGraduationYear(userData.graduationYear);
         setCompletedSemester(userData.currentCompletedSemester);
         setDepartment(userData.major);
+        setOriginAcademicStatus(userData.academicStatus);
+        setStudentCouncilFeeStatus(userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X");
+        setpaidFeeSemesters(`${userCouncilFeeData.numOfPaidSemester}학기`);
+        setRemainingFeeSemesters(`${userCouncilFeeData.restOfSemester}학기`);
         
-
-
-      } catch (error) {
-        console.error('Failed to fetch user info:', error);
+      } catch (error: any) {
+        console.error('Failed to fetch user info:', error?.message);
+        console.log(error.message);
       }
     };
 
@@ -82,40 +136,45 @@ const PersonalInfoPage = () => {
       const newImageUrl = URL.createObjectURL(file);
       setProfileImagePreview(newImageUrl);
       setValue('profileImage', file);
+      console.log(file);
     }
+  
   };
 
 
   // 개인정보 수정한 내용 제출하는 함수
-  const onSubmit = async (data: FormValues) => {
-    formData.append('nickname', data.nickname);
-    formData.append('academicStatus', data.academicStatus);
+  const onSubmit = async (data: User.userUpdateDto) => {
 
-
-    if (data.profileImage) {
-      formData.append('profileImage', data.profileImage);
+    // 학적 재학 -> 휴학 변경 시 증빙 서류 제출 모달
+    if (data.academicStatus === "ENROLLED" && originAcademicStatus === "LEAVE_OF_ABSENCE")
+    {
+      openSubmitModal();
     }
-    console.log(formData);  
-
-    try {
-      const response = await updateUserInfo(formData);
-      if (response.status === 200) {
-        console.log("Profile updated successfully");
+    // 학적 졸업 상태로 변경할 경우 경고 창
+    else if (data.academicStatus === "GRADUATED" && isWarningAccepted === false)
+    {
+      openWarningModal();
+    }
+    else
+    {
+      
+      try {
+      
+        const response = await updateInfo(data);
+        setIsSuccessModalOpen(true)
+        console.log(response);
+      } catch (error) {
+        setIsFailModalOpen(true)
+        console.error("개인정보 수정에 실패하였습니다 :", error);
       }
-    } catch (error) {
-      console.error("Failed to update profile:", error);
     }
-  };
-
-  const goToSubmitPage = () => {
-    router.push('/setting/submit-documents');
   };
 
   return (
     <div className="p-3">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 이전 버튼 */}
-        <div className="sticky top-0 bg-[#F8F8F8] z-10 w-full flex justify-left items-center py-2 mb-4">
+        <div className="sticky top-0 bg-[#F8F8F8] w-full flex justify-left items-center py-2 mb-4">
           <button
             onClick={() => router.back()}
             className="text-black-500 hover:text-gray-500 flex items-center"
@@ -170,20 +229,24 @@ const PersonalInfoPage = () => {
                   className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
                 />
               </div>
+              
               <div className="mb-4 ml-4 w-1/2 lg:w-full">
-                <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
-                <select
-                  {...register('academicStatus', { required: true })}
-                  className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
-                >
-                  <option value="ENROLLED">재학</option>
-                  <option value="LEAVE_OF_ABSENCE">휴학</option>
-                  <option value="GRADUATED">졸업</option>
-                  <option value="UNDETERMINED">미정</option>
-                </select>
+                <div className="w-full lg:w-full">
+                  <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
+                    <div className= "flex flex-row flex-wrap sm:flex-nowrap rounded-md w-full lg:w-5/6">
+                      <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">재학</div>
+                      <button onClick = {() => {router.push('./updateacademicrecord')}} className="p-2 mr-2 mb-2 border border-gray-300 rounded-md bg-focus text-white text-center w-full lg:w-5/6">
+                      학적 상태 수정</button>
+                    </div>
+                </div>
               </div>
-              <div onClick={goToSubmitPage}> 클릭</div>
+
+              
+
+              
+              
             </div>
+            
           </div>
 
           {/* 오른쪽: 이메일, 이름, 학번 등 */}
@@ -201,14 +264,17 @@ const PersonalInfoPage = () => {
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학번</label>
                 <p className="text-gray-700">{studentId}</p>
               </div>
+
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">입학 년도</label>
                 <p className="text-gray-700">{admissionYear}</p>
               </div>
+              
+              {academicStatus === "GRADUATED" && (
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">졸업 년도</label>
                 <p className="text-gray-700">{graduationYear}</p>
-              </div>
+              </div>)}
             </div>
 
             <div>
@@ -235,6 +301,26 @@ const PersonalInfoPage = () => {
             </div>
           </div>
         </div>
+
+                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {isSuccessModalOpen && (
+          <Modal closeModal={() => setIsSuccessModalOpen(false)}>
+            <div className='p-2 lg:p-4'>
+            <div>변경 사항이 저장되었습니다.</div>
+            </div>
+          </Modal>
+        )}
+                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {isFailModalOpen && (
+          <Modal closeModal={() => setIsFailModalOpen(false)}>
+            <div className='p-2 lg:p-4'>
+            <div className ="flex flex-col justify-center items-center">
+            <div>오류가 발생했습니다. </div>
+                <div>다시 시도해주세요</div>
+              </div>  
+            </div>
+          </Modal>
+        )}
 
         {/* 변경 사항 저장 버튼 */}
         <div className="mt-8 flex justify-center">

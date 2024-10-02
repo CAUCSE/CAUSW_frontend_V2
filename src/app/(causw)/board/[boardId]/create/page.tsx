@@ -14,6 +14,7 @@ import {
   useCreatePostStore,
   useCreateVoteStore,
   useFileUpload,
+  VoteRscService,
 } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -25,8 +26,8 @@ import { useRouter } from "next/navigation";
 // eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
-  const { createPost, createPostWithForm, createVote } = PostRscService();
-
+  const { createPost, createPostWithForm } = PostRscService();
+  const { createVote } = VoteRscService();
   const {
     title,
     content,
@@ -56,6 +57,7 @@ const CreatePostPage = (props: any) => {
     removeVoteOption,
     toggleMultipleChoice,
     toggleAllowAnonymous,
+    clearVote,
   } = useCreateVoteStore();
   const { selectedFiles, resetFiles } = useFileUpload();
   const router = useRouter();
@@ -272,6 +274,7 @@ const CreatePostPage = (props: any) => {
         };
         try {
           const createVoteResponse = await createVote(voteRequest);
+          clearVote();
           console.log("투표 생성 완!!!", createVoteResponse);
         } catch (error) {
           console.error("투표 생성 에러: ", error);

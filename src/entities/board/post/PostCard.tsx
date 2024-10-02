@@ -1,12 +1,13 @@
 "use client";
 
+import { usePostStore, useVoteStore, VoteRscService } from "@/shared";
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from "./VotingSection";
 import { usePostStore } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
-
+import { useState } from "react";
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
 interface PostCardProps {
@@ -45,13 +46,56 @@ export const PostCard = ({
   handlePostFavorite,
   handleCommentBtn,
   handlePostDelete,
-  hasVote,
-  options,
   toggleMenu,
-  isPopupVisible,
-}: PostCardProps) => {
-  const userImage =
-    postData.writerProfileImage ?? "/images/default_profile.png";
+  isPopupVisible
+}
+:PostCardProps) => {
+  const userImage = postData.writerProfileImage ?? "/images/default_profile.png";
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupImage, setPopupImage] = useState<string | null>(null);
+
+  const { 
+    vote, 
+    totalVote, 
+    voteOptions,
+    votedMostOptions, 
+    castVote,
+    cancelVote, 
+    endVote
+  } = useVoteStore();
+
+  const handleCastVote = async (selectedOptions: string[]) => {
+    try {
+      const options: Post.CastVoteDto = {
+        voteOptionIdList: selectedOptions
+      }
+      const castVoteResponse = await VoteRscService().castVote(options);
+      castVote(selectedOptions);
+      console.log('투표완료: ', castVoteResponse);
+    }catch(error){
+      cancelVote(selectedOptions);
+      console.error("투표 처리 에러: ", error);
+    }
+  }
+
+  const handleImageClick = (imageUrl: string) => {
+    setPopupImage(imageUrl);
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    setPopupImage(null);
+  };
+
+  const handleDownload = (fileUrl: string) => {
+    console.log(fileUrl);
+    const link = document.createElement("a");
+    //link.href = fileUrl;
+    //link.download = extractFileName(fileUrl); // 파일명 설정
+    //link.click();
+  };
+
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
   const params = useParams();
@@ -106,55 +150,76 @@ export const PostCard = ({
         </div>
       </div>
 
-      <div className="flex flex-col items-start px-3">
-        <div>
+      <div className="flex flex-col w-full items-start px-3">
+        <div className="w-full">
           <div className="mb-2 px-1 text-[24px] font-medium">
             {postData.title}
           </div>
           <div className="mb-2 px-1 pb-2 text-[16px]">{postData.content}</div>
 
           {/* 나중에 투표 api 생기면 연결 */}
-          {postData.isPostVote ? (
-            // TODO css 물어봐야됨
-            <div className="w-32 w-full lg:pr-12">
-              <VotingSection
-                isResult={true}
-                //isMultiple={false}
-                //isAnonymous={false}
-                onVote={function (selectedOptions: string[]): void {
-                  throw new Error("Function not implemented.");
-                }}
-              />
+          {postData.isPostVote 
+          ? <div className="lg:pr-12 flex w-full">
+              <VotingSection 
+                onVote={handleCastVote} /> 
             </div>
           ) : (
             ""
           )}
         </div>
-
-        <div className="grid w-full auto-cols-max grid-flow-col gap-2 overflow-x-auto pb-3 scrollbar-hide">
-          {postData.fileUrlList.map((attachment, index) =>
-            isImageFile(attachment) ? (
-              <div
-                key={index}
-                className="w-min-20 h-min-20 h-20 w-20 border border-black bg-cover bg-center"
-                style={{ backgroundImage: `url(${attachment})` }}
-              />
-            ) : (
-              <div
-                key={index}
-                className="w-min-20 h-min-20 flex h-20 w-20 flex-col items-center justify-center space-y-2 border border-black p-2"
-              >
-                <Image
-                  src="/images/post/file-icon.svg"
-                  alt={extractFileName(attachment)}
-                  width={30}
-                  height={30}
+        
+        <div className="relative">
+          <div className="grid grid-flow-col auto-cols-max gap-2 overflow-x-auto w-full scrollbar-hide pb-3">
+            {postData.fileUrlList.map((attachment, index) =>
+              isImageFile(attachment) ? (
+                <div
+                  key={index}
+                  className="w-20 h-20 w-min-20 h-min-20 bg-center bg-cover border border-black"
+                  style={{ backgroundImage: `url(${attachment})` }}
+                  onClick={() => handleImageClick(attachment)}
                 />
-                <span className="text-[10px]">
-                  {extractFileName(attachment)}
-                </span>
+              ) : (
+                <div
+                  key={index}
+                  className="flex flex-col items-center justify-center w-20 h-20 w-min-20 h-min-20 border border-black p-2 space-y-2"
+                  onClick={() => handleDownload(attachment)}
+                >
+                  <Image
+                    src="/images/post/file-icon.svg"
+                    alt={extractFileName(attachment)}
+                    width={30}
+                    height={30}
+                  />
+                  <span className="text-[10px]">{extractFileName(attachment)}</span>
+                </div>
+              )
+            )}
+          </div>
+          {isPopupOpen && popupImage && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+              <div className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
+                <div className="relative w-auto h-auto">
+                  <Image
+                    src={popupImage}
+                    alt="Preview Image"
+                    width={300} // 기본 너비를 지정합니다. 필요시 조정
+                    height={300} // 기본 높이를 지정합니다. 필요시 조정
+                    objectFit="contain" // 원본 비율 유지
+                    unoptimized
+                  />
+                </div>
+                <button
+                  onClick={handleClosePopup}
+                  className="absolute flex items-center justify-center top-2 right-2 text-white bg-gray-800 rounded-full w-8 h-8 p-2 hover:bg-gray-700"
+                >
+                  x
+                </button>
               </div>
-            ),
+              <div
+                className="fixed inset-0 z-40 bg-transparent"
+                onClick={handleClosePopup}
+              ></div>
+            </div>
           )}
         </div>
       </div>

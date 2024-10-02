@@ -92,7 +92,10 @@ declare namespace Post {
     options: VoteOptionDto[];
     postId: string;
     isOwner: boolean;
+    hasVoted: boolean;
     isEnd: boolean;
+    totalVoteCount: number;
+    totalUserCount: number;
   }
 
   export interface VoteUserDto {
@@ -133,6 +136,9 @@ declare namespace Post {
     allowMultiple: boolean;
     options: string[];
     postId: string;
+  }
+  export interface CastVoteDto {
+    voteOptionIdList: string[];
   }
   export interface DoVoteDto {
     voteOptionIdList: string[];
