@@ -114,7 +114,6 @@ export type InfoTableEntity = {
   email: string;
   major: string;
   name: string;
-  isPayed: string;
   studentId: string;
   leftPayedSemester: string;
   admissionYear: string;
@@ -156,7 +155,6 @@ export const convertDataToTableEntity = (
     email,
     major,
     name,
-    isPayed: "O",
     studentId,
     leftPayedSemester: `${8 - currentCompletedSemester}차 학기`,
     admissionYear: admissionYear.toString(),
@@ -174,7 +172,6 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
   email: "아이디(이메일)",
   major: "학부",
   name: "이름",
-  isPayed: "학생회비 납부 여부",
   studentId: "학번",
   leftPayedSemester: "잔여 학생회비 적용 학기",
   admissionYear: "입학년도",

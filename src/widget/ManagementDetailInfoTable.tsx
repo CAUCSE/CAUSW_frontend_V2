@@ -4,12 +4,11 @@ import {
   titleMapping,
 } from "../entities/home/setting/management/managementDetailEntities";
 
-// FIXME : API 연결, 납부여부?
+// FIXME : API 연결
 const data: InfoTableEntity = {
   email: "abc@abc.com",
   major: "소프트웨어학부",
   name: "홍길동",
-  isPayed: "O",
   studentId: "20201234",
   leftPayedSemester: `${8}차 학기`,
   admissionYear: "2020",
