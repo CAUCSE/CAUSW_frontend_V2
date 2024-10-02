@@ -23,7 +23,7 @@ const CircleManagement = async ({
           name: "동아리원 목록",
           state: "member",
           exportType: "CIRCLE_MEMBERS",
-          router: "/setting/management/circle/detail/" + id + "/member",
+          router: "/setting/management/circle/" + id + "/member/detail",
         }}
         navigation={[
           {
