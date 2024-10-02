@@ -3,30 +3,34 @@ import { BASEURL, setRscHeader } from "@/shared";
 
 export const BoardRscService = () => {
   const createBoard = async (
-    data: Board.CreateBoardDto
+    data: Board.CreateBoardDto,
   ): Promise<Board.BoardDto> => {
     const URI = `${BASEURL}/api/v1/boards/normal`;
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<Board.BoardDto> = await axios.post(URI, data, {
-        headers: headers,
-      });
+      const response: AxiosResponse<Board.BoardDto> = await axios.post(
+        URI,
+        data,
+        {
+          headers: headers,
+        },
+      );
 
       if (response.status !== 201) {
-        throw new Error(`Failed to create comment. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to create comment. Response status: ${response.status}`,
+        );
       }
 
       return response.data;
     } catch (error) {
-      console.error('Error creating comment:', error);
+      console.error("Error creating comment:", error);
       throw error;
     }
   };
 
-  const applyBoard = async (
-    data: Board.ApplyBoardDto
-  ) => {
+  const applyBoard = async (data: Board.ApplyBoardDto) => {
     const URI = `${BASEURL}/api/v1/boards/apply`;
 
     try {
@@ -36,13 +40,12 @@ export const BoardRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(`Failed to create comment. Response status: ${response.status}`);
-      }else{
-        console.log(response.status);
-        console.log("성공!!!!!!1");
+        throw new Error(
+          `Failed to create comment. Response status: ${response.status}`,
+        );
       }
     } catch (error) {
-      console.error('Error creating comment:', error);
+      console.error("Error creating comment:", error);
       throw error;
     }
   };
