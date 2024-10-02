@@ -140,5 +140,5 @@ export const UserRscService = () => {
     }
   };
 
-  return { getMe, getUser, findByState, findAllAdmissions, getMyCircles, updateInfo, submitAdmissionsApplication };
+  return { getMe, getUser, getMyCircles, updateInfo, submitAdmissionsApplication };
 };

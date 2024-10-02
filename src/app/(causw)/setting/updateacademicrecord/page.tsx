@@ -75,7 +75,6 @@ const UpdataeAcademicRecordPage = () => {
             setValue('targetAcademicStatus', academicRecordInfo.targetAcademicStatus);
             setValue('targetCompletedSemester', academicRecordInfo.targetCompletedSemester);
             setValue('note', academicRecordInfo.userNote);
-            setValue('images', academicRecordInfo.attachedImageUrlList);
           }
           setIsAlreadySubmitted(true);
         }

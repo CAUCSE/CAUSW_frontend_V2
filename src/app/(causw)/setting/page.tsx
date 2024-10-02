@@ -50,6 +50,9 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     isAlumniLeader: state.isAlumniLeader,
   }));
 
+  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
+  const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
+
   const menuItems = {
     계정: [
       { name: "개인정보 관리", link: "/setting/personal-info" },
@@ -74,15 +77,24 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
       { name: "이벤트 배너 공지 편집", link: "/" },
       { name: "캘린더 편집", link: "/" },
     ],
-    동아리관리: [
+    
+    동아리관리: (circleId: string ) => [
       { name: "동아리원 관리", link: "/setting/management/circle/member" },
       {
         name: "동아리 가입 신청 관리",
-        link: "/setting/management/circle/apply",
+        link: `/setting/management/circle/apply/${circleId}`, // 주소 어떻게 넣나요
+      },
+    ],
+    동아리관리_관리자: [
+      { name: "동아리원 관리", link: "/setting/management/circle/member" },
+      {
+        name: "동아리 가입 신청 관리",
+        link: `/setting/management/circle/apply/`,
       },
     ],
     게시판관리: [{ name: "게시판 생성 신청 관리", link: "/" }],
   };
+  
   const renderMenuItems = () => {
     return (
       <>
@@ -104,7 +116,9 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
         {isCircleLeader() && (
           <>
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
-            <MenuItem title="동아리 관리" items={menuItems.동아리관리} />
+            {circleNameIfLeader?.map((circleName, idx) =>
+               (<MenuItem title={`동아리 관리 (${circleName})`} items= {menuItems.동아리관리(circleIdIfLeader? circleIdIfLeader[idx]: '')}>
+            </MenuItem>))}
           </>
         )}
 
@@ -125,7 +139,7 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
             />
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
             <MenuItem title="홈 화면 관리" items={menuItems.홈화면관리} />
-            <MenuItem title="동아리 관리" items={menuItems.동아리관리} />
+            <MenuItem title="동아리 관리" items={menuItems.동아리관리_관리자} />
             <MenuItem title="게시판 관리" items={menuItems.게시판관리} />
           </>
         )}

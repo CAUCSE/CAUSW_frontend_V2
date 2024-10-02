@@ -26,7 +26,7 @@ const PersonalInfoPage = () => {
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
-
+  
   // 원래의 학적 상태 저장
   const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
