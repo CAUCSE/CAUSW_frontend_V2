@@ -1,8 +1,15 @@
 "use server";
 
-import { Header, Line, SubHeader, ExcelExport } from "@/entities";
+import { ExcelExport, Header, Line } from "@/entities";
 
 import Link from "next/link";
+
+export type ManagementState =
+  | "admission"
+  | "drop"
+  | "active"
+  | "inactive_n_drop"
+  | "inactive";
 
 interface Prop {
   state: string | undefined;
@@ -77,12 +84,12 @@ export const Management = ({
         {data.map((element) => (
           <Link
             href={
-              isFirstNavigation
+              (isFirstNavigation
                 ? firstNavigation.router
                 : navigation!.find((element) => element.state === state)
-                    ?.router +
-                  "/" +
-                  element.id
+                    ?.router) +
+              "/" +
+              element.id
             }
             className="text-lg"
             key={element.userName}

@@ -3,7 +3,7 @@ import { Management } from "@/widget";
 
 const navigation: {
   name: string;
-  state: string;
+  state: "drop" | "active" | "inactive_n_drop" | "inactive";
   router: string;
   exportType?: Setting.ExportType;
 }[] = [
@@ -11,25 +11,25 @@ const navigation: {
     name: "가입 거부 유저",
     state: "drop",
     exportType: "DROP_USERS",
-    router: "/setting/management/user/TODO",
+    router: "/setting/management/user/drop",
   },
   {
     name: "활성 유저",
     state: "active",
     exportType: "ACTIVE_USERS",
-    router: "/setting/management/user/TODO",
+    router: "/setting/management/user/active",
   },
   {
     name: "추방 유저",
     state: "inactive_n_drop",
     exportType: "INACTIVE_N_DROP_USERS",
-    router: "/setting/management/user/TODO",
+    router: "/setting/management/user/inactive_n_drop",
   },
   {
     name: "탈퇴 유저",
     state: "inactive",
     exportType: "INACTIVE_USERS",
-    router: "/setting/management/user/TODO",
+    router: "/setting/management/user/inactive",
   },
 ];
 
@@ -57,7 +57,7 @@ const UserManagement = async ({
         name: "가입 대기 유저",
         state: "admission",
         exportType: "ADMISSION_USERS",
-        router: "/setting/management/user/TODO",
+        router: "/setting/management/user/admission",
       }}
       navigation={navigation}
       data={data}
