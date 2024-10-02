@@ -1,21 +1,27 @@
 "use client";
 
+import { HomeRscService } from "@/shared";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export function EventEditModal({ bannerId }: { bannerId?: string }) {
   const searchParams = useSearchParams();
   const bannerImg = searchParams.get("bannerImg");
-  const [currImg, setCurrImg] = useState(bannerImg);
+  const [currImg, setCurrImg] = useState<File | null>();
   const [url, setUrl] = useState("");
+
+  const { createEvent } = HomeRscService();
 
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!currImg || !url) {
       alert("이미지와 URL을 입력해주세요.");
       return;
     }
+    console.log(createEvent);
+    const done = await createEvent(currImg, url);
+    if (!done) alert("저장에 실패했습니다. 관리자에게 문의하세요");
     alert("저장되었습니다.");
     router;
   };
@@ -48,11 +54,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
               if (!e.target.files) return;
               const file = e.target.files[0];
               if (file) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                  setCurrImg(reader.result as string);
-                };
-                reader.readAsDataURL(file);
+                setCurrImg(file);
               }
             }}
           />
@@ -62,7 +64,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
           >
             {currImg ? (
               <img
-                src={currImg}
+                src={bannerImg || URL.createObjectURL(currImg)}
                 className="h-full w-full rounded-lg object-cover"
               />
             ) : (

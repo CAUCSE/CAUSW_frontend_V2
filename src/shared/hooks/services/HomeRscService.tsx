@@ -55,5 +55,32 @@ export const HomeRscService = () => {
     return (await response.json()) as Home.Calendar;
   };
 
-  return { getHomePosts, getEvents, getCalendars };
+  const createEvent = async (bannerImg: File, url: string) => {
+    const formData = new FormData();
+    formData.append(
+      "eventCreateRequestDto",
+      new Blob(
+        [
+          JSON.stringify({
+            url: url,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+    formData.append(
+      "eventImage",
+      new Blob([bannerImg], { type: bannerImg.type }),
+    );
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/events`, {
+      method: "POST",
+      headers: { ...headers, "Content-Type": "multipart/form-data" },
+      body: formData,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  return { getHomePosts, getEvents, getCalendars, getCalendar, createEvent };
 };
