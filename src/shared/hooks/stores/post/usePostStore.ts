@@ -1,7 +1,8 @@
 import {create} from 'zustand';
 
 interface PostState {
-  post: any | null;
+  isPopupVisible: boolean;
+  post: Post.PostDto | null;
   numLike: number;
   numFavorite: number;
   numComment: number;
@@ -21,16 +22,18 @@ interface PostState {
   setPostComment: () => void;
   setCommentInfo: (commentId: string) => void;
   decrementComment: () => void;
+  togglePostPopup: () => void;
 }
 
 export const usePostStore = create<PostState>((set) => ({
+  isPopupVisible: false,
   post: null,
   numLike: 0,
   numFavorite: 0,
   numComment: 0,
   commentList:[],
   createCommentInfo: {isChildComment: false, commentId: null},
-  setPost: (postData) => set({ post: postData,  numLike: postData.numLike, numFavorite: postData.numFavorite, numComment: postData.numComment, commentList: postData.commentList.content }),
+  setPost: (postData) => set({ isPopupVisible: false, post: postData,  numLike: postData.numLike, numFavorite: postData.numFavorite, numComment: postData.numComment, commentList: (postData.commentList.content ?? []) }),
   setNumLike: (num) => set({ numLike: num }),
   setNumFavorite: (num) => set({ numFavorite: num }),
   setNumComment: (num) => set({ numComment: num }),
@@ -40,8 +43,9 @@ export const usePostStore = create<PostState>((set) => ({
   incrementFavorite: () => set((state) => ({ numFavorite: state.numFavorite + 1 })),
   decrementFavorite: () => set((state) => ({ numFavorite: state.numFavorite - 1 })),
   incrementComment: () => set((state) => ({ numComment: state.numComment + 1 })),
-  addComment: (newComment) => set((state) => ({ commentList: [...state.commentList, newComment], numComment: state.numComment+1,})),
+  addComment: (newComment) => set((state) => ({ commentList: [...state.commentList, newComment]})),
   setPostComment: () => set(() => ({ createCommentInfo: {isChildComment: false, commentId: null}})),
   setCommentInfo: (commentId) =>set(() => ({ createCommentInfo: {isChildComment: true, commentId: commentId}})),
   decrementComment: () => set((state) => ({ numComment: state.numComment - 1 })),
+  togglePostPopup: () => set((state) => ({isPopupVisible: !state.isPopupVisible})),
 }));

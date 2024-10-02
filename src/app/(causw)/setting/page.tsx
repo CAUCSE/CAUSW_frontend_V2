@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
 import { useUserStore } from "@/shared";
@@ -56,7 +57,7 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
   const menuItems = {
     계정: [
       { name: "개인정보 관리", link: "/setting/personal-info" },
-      { name: "비밀번호 변경", link: "" },
+      { name: "비밀번호 변경", link: "/setting/resetpassword" },
       { name: "로그아웃", link: "" },
       { name: "이용약관", link: "/" },
     ],

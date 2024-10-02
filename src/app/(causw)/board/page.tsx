@@ -7,9 +7,6 @@ const BoardPage = async () => {
   const { getMainBoard } = MainBoardRscService();
   const boards = await getMainBoard();
 
-  //TODO 디버깅용 코드 지우기
-  //console.log(boards);
-
   return (
     <>
       <div className="absolute h-full w-full py-3">
