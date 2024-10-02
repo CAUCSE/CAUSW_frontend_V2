@@ -171,11 +171,11 @@ declare namespace User {
     | "UNDETERMINED";
   export interface CreateUserAcademicRecordApplicationRequestDto {
     targetAcademicStatus: AcademicStatus;
-    targetCompletedSemester: number;
-    graduationYear: number;
-    graduationType: "FEBRUARY" | "AUGUST";
+    targetCompletedSemester: number | null;
+    graduationYear: number | null;
+    graduationType: "FEBRUARY" | "AUGUST" | null;
     note: string;
-    images: FileList;
+    images: FileList | null;
   }
 
   export interface CreateUserAcademicRecordApplicationRequestDto {

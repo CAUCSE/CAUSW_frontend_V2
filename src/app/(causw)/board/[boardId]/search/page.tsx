@@ -92,7 +92,7 @@ const SearchPost = () => {
 
   const { searchPost } = BoardRscService();
 
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<IContent[]>([]);
   const [page, setPage] = useState(0);
   const [isSearch, setIsSearch] = useState(false);
   const [keyword, setKeyword] = useState("");

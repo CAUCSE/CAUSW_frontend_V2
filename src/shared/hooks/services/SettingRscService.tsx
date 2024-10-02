@@ -145,5 +145,6 @@ export const SettingRscService = () => {
     getAllAttendanceUsers,
     getPrivilegedUsers,
     acceptAdmission,
+    getWaitingUsers,
   };
 };
