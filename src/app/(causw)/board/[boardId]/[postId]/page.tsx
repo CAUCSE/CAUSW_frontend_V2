@@ -195,7 +195,6 @@ const PostDetailPage = (props: any) => {
       const deleteCommentResponse =
         await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
-      console.log;
       toggleCommentPopup(commentId);
       console.log("게시물 삭제 완료: ", deleteCommentResponse);
     } catch (error) {
