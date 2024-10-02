@@ -3,14 +3,22 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-export default function BannerManageModal() {
+export function EventEditModal({ bannerId }: { bannerId?: string }) {
   const searchParams = useSearchParams();
-  const bannerId = searchParams.get("bannerId");
   const bannerImg = searchParams.get("bannerImg");
   const [currImg, setCurrImg] = useState(bannerImg);
   const [url, setUrl] = useState("");
 
   const router = useRouter();
+
+  const handleSubmit = () => {
+    if (!currImg || !url) {
+      alert("이미지와 URL을 입력해주세요.");
+      return;
+    }
+    alert("저장되었습니다.");
+    router;
+  };
 
   return (
     <div
@@ -18,7 +26,7 @@ export default function BannerManageModal() {
       onClick={() => router.back()}
     >
       <div
-        className="relative flex h-[70vh] w-[80vw] flex-col items-center overflow-auto bg-white p-[50px] pb-[50px]"
+        className="relative flex w-[80vw] flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -27,7 +35,7 @@ export default function BannerManageModal() {
         >
           <i className="icon-[ep--close-bold]" />
         </button>
-        <p className="text-[40px] font-semibold">
+        <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
           이벤트 공지 배너 {bannerId ? "수정" : "추가"}
         </p>
         <div className="relative flex h-[150px] w-full flex-col">
@@ -50,7 +58,7 @@ export default function BannerManageModal() {
           />
           <label
             htmlFor="file"
-            className="flex h-full cursor-pointer items-center justify-center rounded-xl border border-black"
+            className="flex h-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-black"
           >
             {currImg ? (
               <img
@@ -62,22 +70,25 @@ export default function BannerManageModal() {
             )}
           </label>
         </div>
-        <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)]">
+        <p className="w-full whitespace-pre-wrap text-right text-[rgba(180,177,177,1)] max-lg:text-[10px]">
           이미지는 1100 * 150 px 크기로 맞춰주세요.
           <br />
           10MB 이하의 이미지만 업로드 가능합니다.
         </p>
-        <p className="self-start text-[24px] text-red-500 underline underline-offset-2">
+        <p className="self-start text-[20px] text-red-500 underline underline-offset-2 lg:text-[24px]">
           이벤트 공지 URL
         </p>
         <input
-          className="h-[120px] w-full rounded-2xl border border-black p-[20px] text-[20px]"
+          className="h-[120px] w-full rounded-2xl border border-black p-[20px] text-[14px] lg:text-[20px]"
           placeholder="이벤트 공지 URL을 입력해주세요."
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         ></input>
-        <button className="mt-[20px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] text-[24px] font-semibold">
-          저장
+        <button
+          className="mt-[40px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] max-lg:w-[150px] lg:mt-[80px] lg:text-[24px] lg:font-semibold"
+          onClick={handleSubmit}
+        >
+          {bannerId ? "배너 수정" : "저장"}
         </button>
       </div>
     </div>

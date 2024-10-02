@@ -2,6 +2,7 @@
 
 import { SettingService } from "@/shared";
 import { Line, LoadingComponent, Header, SubHeader } from "@/entities";
+import Link from "next/link";
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { useGetAttendanceUser } = SettingService();
@@ -11,23 +12,12 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
     return <LoadingComponent />;
   }
 
-  const test = [
-    {
-      targetAcademicStatus: "가입/승인/n차 학기 재학 등록/휴학 전환/졸업 전환",
-      userNote:
-        "유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항유저 작성 특이사항",
-      attachedImageUrlList: [
-        "https://prototyne.s3.ap-northeast-2.amazonaws.com/test/f38213c9-3164-4e23-b6a0-2402ea4f96c9.jpg",
-        "https://prototyne.s3.ap-northeast-2.amazonaws.com/test/f38213c9-3164-4e23-b6a0-2402ea4f96c9.jpg",
-        "https://prototyne.s3.ap-northeast-2.amazonaws.com/test/f38213c9-3164-4e23-b6a0-2402ea4f96c9.jpg",
-      ],
-      changeDate: "2024-09-24T03:30:04.768Z",
-    },
-  ];
-
   return (
     <main className="flex h-full flex-col gap-2">
-      <div className="mb-3 mt-6 flex w-full justify-center">
+      <div className="relative mb-3 mt-6 flex w-full justify-center">
+        <Link href=".." className="absolute left-0 text-lg">
+          <span className="icon-[tabler--x] mr-6 text-3xl font-bold"></span>
+        </Link>
         <Header bold>
           {data?.userName}({data?.studentId}) 상세 보기
         </Header>
@@ -61,7 +51,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         비고
       </SubHeader>
       <textarea
-        className="mb-5 h-24 w-full rounded-md border-2 p-3"
+        className="mb-5 h-24 min-h-24 w-full rounded-md border-2 p-3"
         placeholder={data?.note ? data?.note : "특이사항을 입력해주세요"}
       ></textarea>
 

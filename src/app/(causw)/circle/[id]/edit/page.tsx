@@ -2,7 +2,7 @@
 
 //API 호출을 최소화하기 위해 관리자로 접속시 이미지와 학번이 관리자로 표기됨.
 
-import { CircleRscService, UserRscService, useUserStore } from "@/shared";
+import { CircleRscService, CircleService, useUserStore } from "@/shared";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +11,7 @@ import { LoadingComponent, Header, SubHeader, ProfileImage } from "@/entities";
 
 const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const { getCircle } = CircleRscService();
+  const { editCircle } = CircleService();
 
   const [circle, setCircle] = useState<Circle.CircleRequestDto>();
   const [mainImg, setMainImg] = useState<File | undefined>();
@@ -51,6 +52,36 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   }, []);
 
   if (!circle) return <LoadingComponent />;
+
+  const submitHandler = () => {
+    const formData = new FormData();
+
+    formData.append(
+      "circleUpdateRequestDto",
+      new Blob(
+        [
+          JSON.stringify({
+            name: circle.name,
+            description: circle.description,
+            circleTax: circle.circleTax,
+            recruitMembers: circle.numMember,
+            recruitEndDate: circle.joinedAt,
+            isRecruit: false,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+
+    if (mainImg)
+      formData.append(
+        "mainImage",
+        new Blob([mainImg], { type: mainImg.type }),
+        mainImg.name,
+      );
+
+    editCircle(id, formData);
+  };
 
   return (
     <>
@@ -159,7 +190,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
 
         <div
           onClick={() => {
-            console.log(circle);
+            submitHandler();
           }}
           className="col-span-3 row-span-3 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
         >

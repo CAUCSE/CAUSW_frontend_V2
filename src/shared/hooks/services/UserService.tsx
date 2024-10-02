@@ -18,22 +18,10 @@ export const UserService = () => {
     return response;
   }
   
-  const updateUserInfo = async (data: any) => {
-    try{
-      const response = (await API.put(`${URI}`, data)) as AxiosResponse;
-      console.log(response);
-      return response;
-    }
-    catch(error)
-    {
-      throw error;
-    }
-    
-  }
 
   const updateUserAcademicInfo = async (data: any) => {
     try
-  {  const response = (await API.put(`${URI}/academic-record/update`, data)) as AxiosResponse;
+  {  const response = (await API.put(`${URI}/academic-record/application/update`, data)) as AxiosResponse;
     return response;
   } catch(error)
   {
@@ -51,6 +39,7 @@ export const UserService = () => {
       throw error;
     }
   }
+  
 
-  return { getMe, getUserInfoRevised, updateUserInfo, updateUserAcademicInfo, checkCurrentAcademicRecord };
+  return { getMe, getUserInfoRevised, updateUserAcademicInfo, checkCurrentAcademicRecord };
 };

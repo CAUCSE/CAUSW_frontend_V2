@@ -90,6 +90,20 @@ declare namespace User {
     studentId: string;
   }
 
+  export interface userUpdateDto {
+    name: string;
+    studentId: string;
+    admissionYear: number;
+    nickname: string;
+    major: string;
+    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+    currentCompletedSemester: number | null;
+    graduationYear: string | null;
+    graduationMonth: string | null;
+    phoneNumber: string;
+    profileImage: File | null;
+  }
+
   export interface PasswordUpdateRequestDto {
     originPassword: string;
     updatedPassword: string;
@@ -141,20 +155,26 @@ declare namespace User {
     files: FileList;
   }
 
-  export interface CreateUserAcademicRecordApplicationRequestDto {
-    targetAcademicStatus:
-      | "ENROLLED"
-      | "LEAVE_OF_ABSENCE"
-      | "GRADUATED"
-      | "DROPPED_OUT"
-      | "PROBATION"
-      | "PROFESSOR"
-      | "UNDETERMINED";
-    targetCompletedSemester: number;
-    graduationYear: number;
-    graduationType: "FEBRUARY" | "AUGUST";
-    note: string;
+  export interface UserAdmissionCreateRequestDto {
+    email: string;
+    description: string;
     images: FileList;
+  }
+
+  export interface CreateUserAcademicRecordApplicationRequestDto{
+    targetAcademicStatus: 
+    "ENROLLED"
+    | "LEAVE_OF_ABSENCE"
+    | "GRADUATED"
+    | "DROPPED_OUT"
+    | "PROBATION"
+    | "PROFESSOR"
+    | "UNDETERMINED";
+    targetCompletedSemester: number | null;
+    graduationYear: number | null;
+    graduationType: "FEBRUARY" | "AUGUST" | null;
+    note: string;
+    images: FileList | null;
   }
 
   export interface FindPostsResponse {

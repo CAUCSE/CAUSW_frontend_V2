@@ -51,6 +51,9 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
     isAlumniLeader: state.isAlumniLeader,
   }));
 
+  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
+  const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
+
   const menuItems = {
     계정: [
       { name: "개인정보 관리", link: "/setting/personal-info" },
@@ -59,8 +62,8 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
       { name: "이용약관", link: "/" },
     ],
     기록: [
-      { name: "내가 쓴 글", link: "/" },
-      { name: "내가 쓴 댓글", link: "/" },
+      { name: "내가 쓴 글", link: "/setting/my/posts" },
+      { name: "내가 쓴 댓글", link: "/setting/my/comments" },
       { name: "내가 찜한 글", link: "/" },
     ],
     관리_동문회장: [{ name: "유저 관리", link: "/" }],
@@ -75,15 +78,29 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
       { name: "이벤트 배너 공지 편집", link: "/" },
       { name: "캘린더 편집", link: "/" },
     ],
-    동아리관리: [
+
+    동아리관리: (circleId: string) => [
+      {
+        name: "동아리원 관리",
+        link: `/setting/management/circle/${circleId}/member`,
+      },
+      {
+        name: "동아리 가입 신청 관리",
+        link: `/setting/management/circle/${circleId}/apply`,
+      },
+    ],
+    동아리관리_관리자: [
       { name: "동아리원 관리", link: "/setting/management/circle/member" },
       {
         name: "동아리 가입 신청 관리",
-        link: "/setting/management/circle/apply",
+        link: `/setting/management/circle/apply/`,
       },
     ],
-    게시판관리: [{ name: "게시판 생성 신청 관리", link: "/" }],
+    게시판관리: [
+      { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
+    ],
   };
+
   const renderMenuItems = () => {
     return (
       <>
@@ -105,7 +122,15 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
         {isCircleLeader() && (
           <>
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
-            <MenuItem title="동아리 관리" items={menuItems.동아리관리} />
+            {circleNameIfLeader?.map((circleName, idx) => (
+              <MenuItem
+                key={circleName}
+                title={`동아리 관리 (${circleName})`}
+                items={menuItems.동아리관리(
+                  circleIdIfLeader ? circleIdIfLeader[idx] : "",
+                )}
+              ></MenuItem>
+            ))}
           </>
         )}
 
@@ -126,7 +151,7 @@ const SettingsPage: React.FC<{ role: User.Role }> = ({ role }) => {
             />
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
             <MenuItem title="홈 화면 관리" items={menuItems.홈화면관리} />
-            <MenuItem title="동아리 관리" items={menuItems.동아리관리} />
+            <MenuItem title="동아리 관리" items={menuItems.동아리관리_관리자} />
             <MenuItem title="게시판 관리" items={menuItems.게시판관리} />
           </>
         )}

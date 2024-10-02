@@ -20,6 +20,7 @@ declare namespace Setting {
     updatedAt: string;
     userEmail: string;
     userName: string;
+    studentId: string;
     //#71 추가
     userState: User["state"];
   }
@@ -97,5 +98,9 @@ declare namespace Setting {
     note: string;
     attachedImageUrlList: string[];
     rejectMessage: string;
+  };
+
+  export type GetMyPostsResponseDto = {
+    posts: { content: Post.PostDto[] };
   };
 }
