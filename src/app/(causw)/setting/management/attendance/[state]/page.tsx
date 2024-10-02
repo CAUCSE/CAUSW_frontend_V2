@@ -7,24 +7,12 @@ const AttendanceManagement = async ({
 }: {
   params: { state: string };
 }) => {
-  const { getByState, getAllAdmissions } = SettingRscService();
+  const { getAllAttendanceUsers, getWaitingUsers } = SettingRscService();
 
-  /* const data = isAddmission
-    ? await getAllAdmissions(null, 0)
-    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
-
-  const data = [
-    {
-      userName: "강민규",
-      studentId: "20203128",
-      id: "1",
-    },
-    {
-      userName: "윤민규",
-      studentId: "20203128",
-      id: "2",
-    },
-  ];
+  const data =
+    state === "waiting"
+      ? await getWaitingUsers()
+      : await getAllAttendanceUsers();
 
   return (
     <>
@@ -48,7 +36,11 @@ const AttendanceManagement = async ({
             router: "/setting/management/attendance/detail/waiting",
           },
         ]}
-        data={data}
+        data={data.map((element) => ({
+          userName: element.userName,
+          studentId: element.studentId,
+          id: element.userId,
+        }))}
       />
     </>
   );

@@ -22,6 +22,7 @@ export const ExcelExport = ({
   );
 };
 
+//TODO: Service로 분리
 const getExcelFile = async (type: Setting.ExportType, id?: string) => {
   const { data } = (await API.get(
     type === "PAYERS"
@@ -39,7 +40,7 @@ const getExcelFile = async (type: Setting.ExportType, id?: string) => {
   const url = window.URL.createObjectURL(data);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "type.xlsx";
+  a.download = type + ".xlsx";
   document.body.appendChild(a);
   a.click();
   a.remove();
