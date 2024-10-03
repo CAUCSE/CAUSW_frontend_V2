@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   useVoteStore,
   usePostStore,
@@ -14,6 +14,7 @@ export const usePostDetail = (postId: string) => {
   const { setChildComment } = useChildCommentStore();
   const { getPostById } = PostRscService();
   const { setVote } = useVoteStore();
+   const [loading, setLoading] = useState<boolean>(true);
   const getTimeDifference = (ISOtime: string) => {
     const createdTime = new Date(ISOtime);
     const now = new Date();
@@ -39,6 +40,7 @@ export const usePostDetail = (postId: string) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        setLoading(true);
         const postData = await getPostById(postId);
         postData.updatedAt = getTimeDifference(postData.updatedAt);
         setPost(postData);
@@ -68,6 +70,8 @@ export const usePostDetail = (postId: string) => {
         }
       } catch (error) {
         console.error("게시물 불러오기 실패: ", error);
+      } finally {
+        setLoading(false); // 데이터 가져온 후 로딩 끝
       }
     };
 
@@ -75,4 +79,6 @@ export const usePostDetail = (postId: string) => {
       fetchPost();
     }
   }, [postId, setPost, setComments, setVote]);
+
+  return {loading};
 };

@@ -5,6 +5,7 @@ import {
   CommentCard,
   CommentInput,
   PostCard,
+  LoadingComponent
 } from "@/entities";
 import {
   ChildCommentRscService,
@@ -65,7 +66,7 @@ const PostDetailPage = (props: any) => {
     toggleChildCommentPopup,
   } = useChildCommentStore();
 
-  usePostDetail(postId);
+  const { loading } = usePostDetail(postId);
 
   const changeToPostComment = () => {
     setPostComment();
@@ -220,6 +221,10 @@ const PostDetailPage = (props: any) => {
   };
   if (!post) {
     return <div>Loading...</div>;
+  }
+
+  if(loading) {
+    return ( <LoadingComponent />);
   }
 
   return (
