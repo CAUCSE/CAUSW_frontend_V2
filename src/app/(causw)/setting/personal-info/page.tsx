@@ -3,8 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
-import { ErrorMessage } from '@/entities';
+import { UserService, UserRscService, UserCouncilFeeService, useUserStore, Modal, PreviousButton } from '@/shared';
 
 
 const PersonalInfoPage = () => {
@@ -12,28 +11,19 @@ const PersonalInfoPage = () => {
     defaultValues: {
       profileImage: null,
       nickname: '',
-      academicStatus: 'ENROLLED',
     },
   });
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [studentId, setStudentId] = useState('');
-  const [admissionYear, setAdmissionYear] = useState('');
-  const [graduationYear, setGraduationYear] = useState('');
-  const [completedSemester, setCompletedSemester] = useState('');
-  const [department, setDepartment] = useState('');
+
   const [studentCouncilFeeStatus, setStudentCouncilFeeStatus] = useState('');
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
-  const [ errorMessage, setErrorMessage ] = useState('');
+  const [errorMessage, setErrorMessage ] = useState('');
   // 원래의 학적 상태 저장
-  const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
   const router = useRouter();
-  const { getUserInfo, allowUser } = UserService();
-  const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
+  const { getUserCouncilFeeInfo } = UserCouncilFeeService();
   const { updateInfo } = UserRscService();
 
 
@@ -47,8 +37,20 @@ const PersonalInfoPage = () => {
   const [isFailModalOpen, setIsFailModalOpen] = useState(false);
 
   
-
-
+  const user = useUserStore(state => ({
+    email: state.email,
+    name: state.name,
+    admissionYear: state.admissionYear,
+    profileImage: state.profileImageUrl,
+    studentId: state.studentId,
+    currentCompletedSemester: state.currentCompletedSemester,
+    nickname: state.nickname,
+    major: state.major,
+    academicStatus: state.academicStatus,
+    graduationYear: state.graduationYear,
+    phoneNumber: state.phoneNumber,
+  }));
+  
   // 모달 열기
   const openSubmitModal = () => {
     setIsSubmitModalOpen(true);
@@ -71,53 +73,27 @@ const PersonalInfoPage = () => {
   };
   
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-  const selectedAcademicStatus = watch('academicStatus');
-  
 
-  useEffect(() => {
-    setAcademicStatus(selectedAcademicStatus)
-  }, [selectedAcademicStatus])
-
+  const { getUserInfo } = UserService();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
 
         // 유저 기본 정보 받아오기
-        const responseUserData = await getUserInfo();
-        const userData = responseUserData.data;
-        console.log(userData);
         
 
         // formData에 유저 정보 값들 넣어두기
-        setValue('name', await userData.name);
-        setValue('studentId', await userData.studentId);
-        setValue('admissionYear', await userData.admissionYear);
-        setValue('major', await userData.major);
-        setValue('currentCompletedSemester', await userData.currentCompletedSemester);
-        setValue('graduationYear', await userData.graduationYear);
-        setValue('graduationMonth', await userData.graduationType);
-        setValue('phoneNumber', await userData.phoneNUmber);
-
+        const response = await getUserInfo();
+        console.log(response);
         // 유저에 맞게 값들 대입입
-        setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
-        setValue('nickname', await userData.nickname);
-        setValue('academicStatus', await userData.academicStatus);
-      
+        setProfileImagePreview(user.profileImage ?? '/images/default_profile.png');
+        setValue('nickname', user.nickname);
+        setValue('phoneNumber', user.phoneNumber ?? '');
+        
+        
+        console.log(user.nickname, user.phoneNumber, user.profileImage);
 
-        console.log(userData.profileImageUrl);
-
-        setName(userData.name);
-        setEmail(userData.email);
-        setStudentId(userData.studentId);
-        setAdmissionYear(userData.admissionYear);
-        setGraduationYear(userData.graduationYear);
-        setCompletedSemester(userData.currentCompletedSemester);
-        setDepartment(userData.major);
-        setOriginAcademicStatus(userData.academicStatus);
-
-
-
-        //         학생회비 납부 정보 받아오기 
+        //  학생회비 납부 정보 받아오기 
         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
         const userCouncilFeeData = responseUserCouncilFeeData.data;
         console.log(userCouncilFeeData);
@@ -153,19 +129,8 @@ const PersonalInfoPage = () => {
   // 개인정보 수정한 내용 제출하는 함수
   const onSubmit = async (data: User.userUpdateDto) => {
 
-    // 학적 재학 -> 휴학 변경 시 증빙 서류 제출 모달
-    if (data.academicStatus === "ENROLLED" && originAcademicStatus === "LEAVE_OF_ABSENCE")
-    {
-      openSubmitModal();
-    }
-    // 학적 졸업 상태로 변경할 경우 경고 창
-    else if (data.academicStatus === "GRADUATED" && isWarningAccepted === false)
-    {
-      openWarningModal();
-    }
-    else
-    {
-      
+
+      console.log(data);
       try {
       
         const response = await updateInfo(data);
@@ -182,7 +147,6 @@ const PersonalInfoPage = () => {
         }
         console.log(error);
       }
-    }
   };
 
   return (
@@ -250,12 +214,12 @@ const PersonalInfoPage = () => {
                   <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
                     <div className= "flex flex-row flex-wrap sm:flex-nowrap rounded-md w-full lg:w-5/6">
                       <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">
-                      {academicStatus === "ENROLLED" && (<>재학</>)}
-                      {academicStatus === "LEAVE_OF_ABSENCE" && (<>휴학</>)}
-                      {academicStatus === "GRADUATED" && (<>졸업</>)}
+                      {user.academicStatus === "ENROLLED" && (<>재학</>)}
+                      {user.academicStatus === "LEAVE_OF_ABSENCE" && (<>휴학</>)}
+                      {user.academicStatus === "GRADUATED" && (<>졸업</>)}
                       </div>
                       <button onClick = {() => {router.push('./updateacademicrecord')}} className="p-2 mr-2 mb-2 border border-gray-300 rounded-md bg-focus text-white text-center w-full lg:w-5/6">
-                      학적 상태 수정</button>
+                      학적 상태 수정</button> 
                     </div>
                 </div>
               </div>
@@ -273,37 +237,37 @@ const PersonalInfoPage = () => {
             <div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">이름</label>
-                <p className="text-gray-700">{name}</p>
+                <p className="text-gray-700">{user.name}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">이메일</label>
-                <p className="text-gray-700">{email}</p>
+                <p className="text-gray-700">{user.email}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학번</label>
-                <p className="text-gray-700">{studentId}</p>
+                <p className="text-gray-700">{user.studentId}</p>
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">입학 년도</label>
-                <p className="text-gray-700">{admissionYear}</p>
+                <p className="text-gray-700">{user.admissionYear}</p>
               </div>
               
               {academicStatus === "GRADUATED" && (
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">졸업 년도</label>
-                <p className="text-gray-700">{graduationYear}</p>
+                <p className="text-gray-700">{user.graduationYear}</p>
               </div>)}
             </div>
 
             <div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">등록 완료 학기</label>
-                <p className="text-gray-700">{completedSemester}</p>
+                <p className="text-gray-700">{user.currentCompletedSemester}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학부(학과)</label>
-                <p className="text-gray-700">{department}</p>
+                <p className="text-gray-700">{user.major}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">본 학기 학생회비 적용 여부</label>
