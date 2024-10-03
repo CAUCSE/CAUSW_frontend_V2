@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
+import { ErrorMessage } from '@/entities';
 
 
 const PersonalInfoPage = () => {
@@ -26,7 +27,7 @@ const PersonalInfoPage = () => {
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
-  
+  const [ errorMessage, setErrorMessage ] = useState('');
   // 원래의 학적 상태 저장
   const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
@@ -170,9 +171,16 @@ const PersonalInfoPage = () => {
         const response = await updateInfo(data);
         setIsSuccessModalOpen(true)
         console.log(response);
-      } catch (error) {
-        setIsFailModalOpen(true)
-        console.error("개인정보 수정에 실패하였습니다 :", error);
+      } catch (error: any) {
+        setIsFailModalOpen(true);
+        if (error.status === 400)
+        {
+          setErrorMessage("중복된 닉네임입니다.");
+        }
+        else{
+          setErrorMessage("알 수 없는 에러가 발생했습니다.");
+        }
+        console.log(error);
       }
     }
   };
@@ -326,7 +334,7 @@ const PersonalInfoPage = () => {
           <Modal closeModal={() => setIsFailModalOpen(false)}>
             <div className='p-2 lg:p-4'>
             <div className ="flex flex-col justify-center items-center">
-            <div>오류가 발생했습니다. </div>
+            <div>{errorMessage} </div>
                 <div>다시 시도해주세요</div>
               </div>  
             </div>
