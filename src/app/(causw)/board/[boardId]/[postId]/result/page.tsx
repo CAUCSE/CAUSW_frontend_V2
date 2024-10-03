@@ -1,11 +1,16 @@
 "use client"
 import { PreviousButton, useVoteStore } from "@/shared";
-
+import { useVoteDetail } from "@/shared/hooks/stores/post/useVoteDetail";
+import { LoadingComponent } from "@/entities";
 
 const VoteStatusPage = () => {
   const {vote}=useVoteStore();
+  const {loading}= useVoteDetail(vote.voteId);
   console.log(vote);
-  
+
+  if(loading) {
+    return ( <LoadingComponent />);
+  }
   return(
     <div className="h-full w-full">
       <div className="w-full flex-col items-center">
