@@ -174,6 +174,7 @@ const PostDetailPage = (props: any) => {
         decrementComment();
       }
     }
+    changeToPostComment();
   };
 
   const togglePostPopupMenu = () => {
