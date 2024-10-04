@@ -48,7 +48,7 @@ const ApplyPage = () => {
         setForm(data1);
         setCanUserReply(data2);
       } catch (error) {
-        if (error.message !== "401") {
+        if ((error as Error).message !== "401") {
           router.push("/not-found");
         }
       } finally {
@@ -79,7 +79,7 @@ const ApplyPage = () => {
     };
   }, [form]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     let hasErrors = false;
     data.questionReplyRequestDtoList.forEach(
       (questionReplyRequestDto: Form.QuestionReplyRequestDto, idx: number) => {
@@ -192,7 +192,9 @@ const ApplyPage = () => {
                         <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
                           <p
                             className="truncate text-[14px] group-hover:block sm:text-xl"
-                            ref={(el) => (textRefs.current[questionIdx] = el)}
+                            ref={(el) => {
+                              textRefs.current[questionIdx] = el;
+                            }}
                           >
                             {question.questionText}
                           </p>
