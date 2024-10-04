@@ -39,7 +39,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         <div
           className={`${isCircleLeader ? "flex" : "hidden"} col-span-1 flex items-center justify-end gap-5 md:col-span-2 md:row-span-2`}
         >
-          <CircleApplyOnButton circle={circle} />
+          <CircleApplyOnButton md={true} circle={circle} />
           <Link
             href={"/setting/management/circle/" + id + "/apply"}
             className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex"
@@ -119,12 +119,13 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
         {isCircleLeader ? (
           <>
-            <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16">
-              가입 신청 받기
-            </div>
-            <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16">
+            <CircleApplyOnButton md={false} circle={circle} />
+            <Link
+              href={"/setting/management/circle/" + id + "/apply"}
+              className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16"
+            >
               신청 현황 보기
-            </div>
+            </Link>
           </>
         ) : null}
         <div className="h-5"></div>
