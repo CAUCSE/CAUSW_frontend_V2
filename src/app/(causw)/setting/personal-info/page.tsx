@@ -15,6 +15,7 @@ const PersonalInfoPage = () => {
   });
 
 
+
   const [studentCouncilFeeStatus, setStudentCouncilFeeStatus] = useState('');
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
@@ -36,7 +37,6 @@ const PersonalInfoPage = () => {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isFailModalOpen, setIsFailModalOpen] = useState(false);
 
-  
   const user = useUserStore(state => ({
     email: state.email,
     name: state.name,
@@ -132,10 +132,8 @@ const PersonalInfoPage = () => {
 
       console.log(data);
       try {
-      
         const response = await updateInfo(data);
         setIsSuccessModalOpen(true)
-        console.log(response);
       } catch (error: any) {
         setIsFailModalOpen(true);
         if (error.status === 400)
@@ -287,7 +285,10 @@ const PersonalInfoPage = () => {
 
                 {/* 졸업 상태로 변경 시도 시 경고 모달 */}
                 {isSuccessModalOpen && (
-          <Modal closeModal={() => setIsSuccessModalOpen(false)}>
+          <Modal closeModal={() => {  
+            setIsSuccessModalOpen(false);
+            window.location.reload();
+          }}>
             <div className='p-2 lg:p-4'>
             <div>변경 사항이 저장되었습니다.</div>
             </div>

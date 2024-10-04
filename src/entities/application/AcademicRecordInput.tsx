@@ -13,7 +13,6 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   const { checkIsAcademicRecordSubmitted } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
-  const id = useUserStore((state) => state.id)
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
   const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
   const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
