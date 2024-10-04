@@ -1,14 +1,8 @@
 "use client";
 
 import { BoardRscService, Icon, Loading, PreviousButton } from "@/shared";
-import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  useForm,
-} from "react-hook-form";
 import { LoadingComponent, getTimeDifference } from "@/entities";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
@@ -16,35 +10,6 @@ import { usePathname } from "next/navigation";
 
 interface IFormInput {
   searchContent: string;
-}
-
-interface IContent {
-  createdAt: string;
-  id: string;
-  content: string;
-  isAnonymous: boolean;
-  isDeleted: boolean;
-  isQuestion: boolean;
-  numComment: number;
-  numFavorite: number;
-  numLike: number;
-  title: string;
-  updatedAt: Date;
-  writerAdmissionYear: number;
-  writerName: string;
-}
-
-interface IPost {
-  content: Array<IContent>;
-  totalPages: number;
-}
-
-interface IBoard {
-  boardId: "string";
-  boardName: "string";
-  isFavorite: "false";
-  post: IPost;
-  writeable: "true";
 }
 
 const SearchPost = () => {

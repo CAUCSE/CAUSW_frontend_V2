@@ -1,19 +1,9 @@
 "use client";
 
-import {
-  BoardRscService,
-  Icon,
-  IconButton,
-  Loading,
-  PostRscService,
-  PreviousButton,
-  usePostListStore,
-} from "@/shared";
 import { LoadingComponent, PostList, PostListHeader } from "@/entities";
-import { notFound, useParams, usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-
-import Image from "next/image";
+import { PostRscService, usePostListStore } from "@/shared";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 // TODO 게시판 ID로 게시물 목록 조회 API 연동 필요
 // TODO 알람 설정 API 연동 필요 -> 아
@@ -26,7 +16,6 @@ const BoardPage = () => {
   const { boardId } = params;
 
   const {
-    posts,
     page,
     initialLoading,
     setIsBoardFavorite,
