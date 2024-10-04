@@ -1,7 +1,82 @@
 "use client";
 
-const CreatePostPage = ({ params: { id } }: { params: { id: string } }) => {
-  return <>{id}</>;
+import { RoleSelectSection } from "@/entities";
+import { SettingService } from "@/shared";
+import { LoadingComponent } from "@/entities";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+
+const BoardDetailManagement = ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const { getApplyBoards } = SettingService();
+
+  const [data, setData] = useState<
+    undefined | Setting.GetApplyBoardResponseDto
+  >();
+
+  useEffect(() => {
+    getApplyBoards(id).then((res) => setData(res));
+  }, []);
+
+  if (!data) return <LoadingComponent />;
+
+  return (
+    <div className="relative bottom-12 top-0 h-full w-full lg:bottom-0">
+      <div className="flex h-full flex-col gap-3 p-2 pt-10 lg:p-10">
+        <div className="mb-2 text-[35px] lg:mb-6 lg:mt-2">게시판 생성</div>
+
+        <div className="text-[28px]">게시판 이름</div>
+        <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
+          {data.boardName}
+        </div>
+
+        <div className="text-[28px]">신청자</div>
+        <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
+          {data.user.name} ({data.user.studentId})
+        </div>
+
+        <div className="text-[28px]">게시판 설명</div>
+        <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
+          {data.description}
+        </div>
+
+        {/* <RoleSelectSection userRole={hasAuth} roles={roles} /> */}
+
+        <div className="flex items-center space-x-4 pt-4">
+          <span>
+            {data.isAnonymousAllowed ? (
+              <Image
+                src="/images/board/role-checked.svg"
+                alt="Checked Checkbox Icon"
+                width={22}
+                height={22}
+              ></Image>
+            ) : (
+              <Image
+                src="/images/board/role-non-checked.svg"
+                alt="Non Checked Checkbox Icon"
+                width={22}
+                height={22}
+              ></Image>
+            )}
+          </span>
+          <span className="text-[20px]">익명 허용 여부</span>
+        </div>
+
+        <div className="flex w-full justify-center gap-3">
+          <button className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl">
+            승인
+          </button>
+          <button className="flex h-10 w-80 items-center justify-center rounded-xl bg-gray-400 text-lg text-white md:h-16 lg:text-xl">
+            거부
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default CreatePostPage;
+export default BoardDetailManagement;

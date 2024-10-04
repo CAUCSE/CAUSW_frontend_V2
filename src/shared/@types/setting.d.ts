@@ -147,5 +147,5 @@ declare namespace Setting {
     createRoles: string;
     isAnonymousAllowed: boolean;
     user: User.User;
-  } & Error.ApiErrorResponse;
+  };
 }

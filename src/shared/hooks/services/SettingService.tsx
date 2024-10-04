@@ -76,5 +76,6 @@ export const SettingService = () => {
     getMyPosts,
     getMyCommentPosts,
     getMyFavoritePosts,
+    getApplyBoards,
   };
 };
