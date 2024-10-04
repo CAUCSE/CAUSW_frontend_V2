@@ -30,7 +30,8 @@ declare namespace User {
     | "LEADER_CIRCLE"
     | "LEADER_ALUMNI"
     | "COMMON"
-    | "PROFESSOR";
+    | "PROFESSOR"
+    | "NONE";
 
   // findByName
   export type FindByNameResponseDto = User[];
