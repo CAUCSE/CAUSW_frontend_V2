@@ -200,6 +200,26 @@ export const PostRscService = () => {
     }
   };
 
+  const getPostList = async (boardId: string | string[], pageNum: number) => {
+    const URI = BASEURL + "/api/v1/posts";
+    try {
+      const headers = await setRscHeader();
+      const response = await fetch(
+        `${URI}?boardId=${boardId}&pageNum=${pageNum}`,
+        { headers: headers },
+      );
+
+      if (response.status !== 200) {
+        throw new Error(`${response.status} : ${response.statusText}`);
+      }
+      const boardList = await response.json();
+      return boardList;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return {
     createPost,
     createPostWithForm,
@@ -208,5 +228,6 @@ export const PostRscService = () => {
     postLikeForPost,
     postFavorite,
     cancelFavorite,
+    getPostList,
   };
 };
