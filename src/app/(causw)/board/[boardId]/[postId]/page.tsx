@@ -19,12 +19,14 @@ import {
   VoteRscService,
   useVoteStore,
 } from "@/shared";
-
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
   const router = useRouter();
+  const params = useParams();
+  const { boardId } = params;
+
   const { isVisible, message, showPopup } = usePopup(2000);
   const {
     isPopupVisible,
@@ -234,7 +236,9 @@ const PostDetailPage = (props: any) => {
         </div>
       )}
       <div className="h-16 w-full bg-[#F8F8F8]">
-        <PreviousButton />
+        <PreviousButton
+          routeCallback={() => router.replace(`/board/${boardId}`)}
+        />
       </div>
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
         <div className="sm:pl-3">

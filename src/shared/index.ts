@@ -59,7 +59,9 @@ export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
 
 export { useBoardStore } from "./hooks/stores/board/useBoardStore";
-
+export { usePostListStore } from "./hooks/stores/post/usePostListStore";
+export { usePostStore } from "./hooks/stores/post/usePostStore";
+export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
 export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { usePopup } from "./hooks/stores/post/usePopup";
