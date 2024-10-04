@@ -19,12 +19,12 @@ const PayerManagement = async () => {
           name: "학생회비 납부자 목록",
           state: "",
           exportType: "PAYERS",
-          router: "/setting/management/payer/TODO",
+          router: "/setting/management/payer/",
         }}
         data={data.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
-          id: element.userId,
+          id: element.userCouncilFeeId,
         }))}
       />
     </>

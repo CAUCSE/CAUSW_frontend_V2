@@ -2,9 +2,9 @@
 
 import { Button } from "@/shared";
 import { ManagementState } from "@/widget";
-import { uiEntities } from "./managementDetailEntities";
+import { uiEntities } from "./AdmissionManagementDetailEntities";
 
-export function ManagementDetailButtons({
+export function AdmissionManagementDetailButtons({
   state,
   admission,
 }: {
