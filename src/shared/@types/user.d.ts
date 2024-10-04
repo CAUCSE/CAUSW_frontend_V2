@@ -160,22 +160,6 @@ declare namespace User {
     files: FileList;
   }
 
-  export type AcademicStatus =
-    | "ENROLLED"
-    | "LEAVE_OF_ABSENCE"
-    | "GRADUATED"
-    | "DROPPED_OUT"
-    | "PROBATION"
-    | "PROFESSOR"
-    | "UNDETERMINED";
-  export interface CreateUserAcademicRecordApplicationRequestDto {
-    targetAcademicStatus: AcademicStatus;
-    targetCompletedSemester: number | null;
-    graduationYear: number | null;
-    graduationType: "FEBRUARY" | "AUGUST" | null;
-    note: string;
-    images: FileList | null;
-  }
 
   export interface CreateUserAcademicRecordApplicationRequestDto {
     targetAcademicStatus:

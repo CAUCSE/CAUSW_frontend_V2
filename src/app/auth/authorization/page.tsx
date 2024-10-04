@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PreviousButton, UserService, useUserStore } from "@/shared";
+import { UserService } from "@/shared";
 import SubmitAcademicRecordModal from "@/entities/application/AcademicRecordInput";
 import SubmitApplicationModal from "@/entities/application/AdmissionApplicationPage";
 
@@ -10,21 +10,10 @@ import SubmitApplicationModal from "@/entities/application/AdmissionApplicationP
 const VerificationPage: React.FC = () => {
   const router = useRouter();
   const { getUserAdmissionInfo, getUserInfo, checkIsAcademicRecordSubmitted } = UserService();
-  const [ isAdmissionApplicationApplied, setIsAdmissionApplicationApplied] = useState(false);
-  const [ isModalOpen, setIsModalOpen ] = useState(true);
   const [ isAcademicRecordModalOpen, setIsAcademicModalOpen ] = useState(false);
   const [ isAdmissionModalOpen, setIsAdmissionModalOpen ] = useState(false);
-  const [ isUserUndetermined, setIsUndetermined ] = useState(false);
-  const [ userState, setUserState ] = useState('');
-  const [ userAcademicStatus, setUserAcademicStatus] = useState('');
 
-  // true 상태일 경우 재학 증빙 서류 제출 칸은 비활성화 ( 회색 버튼 )
-  // false 상태일 경우 가입 신청서 제출 칸은 비활성화 ( 회색 버튼, 이미 제출 표시 )
-  const [ isAwaitStatus, setIsAwaitStatus ] = useState(false); 
-
-  // undetermined 상태일 경우
-  const [ isUndeterminedStatus, SetIsUndeterminedStatus ] = useState(false);
-
+  const [ emailValue, setEmailValue ] = useState('');
 
   // UNDONE, AWAIT, COMPLETED로 관리
   const [ admissionApplicationStatus , setAdmissionApplicationStatus ] = useState('');
@@ -45,17 +34,13 @@ const VerificationPage: React.FC = () => {
           const academicStatus = response.data.academicStatus;
 
           // 상태 업데이트
-          setUserState(state);
-          setUserAcademicStatus(academicStatus);
-
+          setEmailValue(response.data.email);
           // 조건문 처리 (상태 값이 올바르게 설정된 후에 처리)
           if (state === "AWAIT") {
-            setIsAwaitStatus(true);
             console.log("await 인 상태");
             setAcademicRecordApplicationStatus("BANNED");
             checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
           } else if (state === "ACTIVE") {
-            setIsAwaitStatus(false);
             console.log("await가 아닌 상태");
             setAdmissionApplicationStatus("COMPLETED");
             checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
@@ -64,10 +49,13 @@ const VerificationPage: React.FC = () => {
           console.log(error);
         }
       };
-      
-      getInfo();
 
-      }, []);
+
+      if (!isAcademicRecordModalOpen && !isAdmissionModalOpen)
+      {
+        getInfo();
+      }
+      }, [isAcademicRecordModalOpen, isAdmissionModalOpen]);
 
 
   const checkAdmissionApplication = async() => {
@@ -75,7 +63,7 @@ const VerificationPage: React.FC = () => {
     try{
       const response = await getUserAdmissionInfo();
       console.log("가입 신청서 제출 정보", response);
-      setAdmissionApplicationStatus("COMPLETED");
+      setAdmissionApplicationStatus("AWAIT");
     }
     catch(error){
       console.log('가입 신청서 조회 에러 ', error);
@@ -96,12 +84,12 @@ const VerificationPage: React.FC = () => {
     }
   }
   
-
+//
 
   return (
 <div>    
 {isAcademicRecordModalOpen && <SubmitAcademicRecordModal onClose = {() => {setIsAcademicModalOpen(false)}}/>}
-{isAdmissionModalOpen && <SubmitApplicationModal onClose = {() => {setIsAdmissionModalOpen(false)}}/>}
+{isAdmissionModalOpen && <SubmitApplicationModal onClose = {() => {setIsAdmissionModalOpen(false)}} emailValue={`${emailValue}`}/>}
 { (!isAcademicRecordModalOpen && !isAdmissionModalOpen) && (
     <div className="flex items-center justify-center h-screen bg-gray-100">
 

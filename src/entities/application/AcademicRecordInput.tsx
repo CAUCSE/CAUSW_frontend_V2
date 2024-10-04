@@ -26,7 +26,7 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   // 졸업 년도 선택에 쓰이는 yearOptions
   const startYear = 1972; 
   const currentYear = new Date().getFullYear();
-  const yearOptions = [];
+  const yearOptions: number[] = [];
   for (let year = currentYear; year >= startYear; year--) {
     yearOptions.push(year);
   }

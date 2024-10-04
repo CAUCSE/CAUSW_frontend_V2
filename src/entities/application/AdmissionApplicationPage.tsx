@@ -1,53 +1,31 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import axios, {AxiosResponse} from 'axios';
-import { UserService, useUserStore, AcademicRecordRscService, UserRscService } from '@/shared';
+import { useForm } from 'react-hook-form';
+import { useUserStore, UserRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 
-const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
-  const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.UserAdmissionCreateRequestDto>();
+const SubmitApplicationModal = ( {onClose, emailValue}: {onClose: () => void; emailValue: string}) => {
+  const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.AdmissionCreateRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
-  const email = useUserStore((state) => state.email)
   const { submitAdmissionsApplication } = UserRscService();
 
-  const handleCancel = () => {
-    // 취소 버튼을 클릭했을 때 모달을 닫습니다.
-    onClose();
-  };
 
-  // 졸업 년도 선택에 쓰이는 yearOptions
-  const startYear = 1972; 
-  const currentYear = new Date().getFullYear();
-  const yearOptions = [];
-  for (let year = currentYear; year >= startYear; year--) {
-    yearOptions.push(year);
-  }
-  
-  // 완료 모달
-  const closeCompleteModal = () => {
-    if (isSuccessModalOpen) {
-      router.push('/setting');
-    } else {
-      setIsSuccessModalOpen(false);
+
+
+
+  const files = watch("attachImage") as FileList;
+
+  useEffect(() => {
+    if (emailValue) {
+      setValue("email", emailValue); // emailValue 값으로 input 값 설정
     }
-  };
-
-    // 증빙 서류 제출 여부 확인
-    useEffect(() => {
-      const fetchEmailValue = async () => {
-        setValue('email', email);
-        fetchEmailValue();
-    }}, []);
-
-  const files = watch("images") as FileList;
-
+  }, [emailValue, setValue]);
   
   useEffect(() => {
     if (files && files.length > 0) {
@@ -76,15 +54,15 @@ const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
     // useForm에서 관리하는 files 상태도 함께 업데이트
     const dataTransfer = new DataTransfer();
     updatedFiles.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransfer 구성
-    setValue('images', dataTransfer.files); // useForm에 새로운 파일 목록 설정
+    setValue('attachImage', dataTransfer.files); // useForm에 새로운 파일 목록 설정
   };
 
 
-  const onSubmit = async (data:User.UserAdmissionCreateRequestDto) => {
+  const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
 
       const response = submitAdmissionsApplication(data);
-
+      setIsSuccessModalOpen(true);
     } catch (error) {
       // 에러 처리
       console.log('실패');
@@ -109,7 +87,7 @@ const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
               {/* 이전 버튼 */}
               <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
           <button
-            onClick={handleCancel}
+            onClick={() => {onClose()}}
             className="text-black-500 hover:text-gray-500 flex items-center"
           >
             <svg
@@ -134,11 +112,13 @@ const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
       <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="grid grid-cols-1 gap-8">
         {/* 이메일 */}
         <div className="flex flex-col">
-          <label className="text-lg font-semibold mb-2">이메일</label>
+          <label className="text-lg font-semibold mb-2">이메일{emailValue}</label>
           <input
             {...register("email", { required: "학적 상태는 필수 항목입니다." })}
             className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
             placeholder='이메일을 입력해주세요'
+            defaultValue={emailValue} // 기본값으로 설정
+            readOnly={!!emailValue} // emailValue가 존재하면 input을 readOnly로 고정
           >
           </input>
           {errors.email && <span className="text-red-500">{errors.email.message}</span>}
@@ -169,7 +149,7 @@ const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
         <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        <input id="file-upload" type="file" multiple className="hidden" {...register('images', { required: '파일을 첨부해 주세요' })} />
+        <input id="file-upload" type="file" multiple className="hidden" {...register('attachImage', { required: '파일을 첨부해 주세요' })} />
         </label>
     </div>
 
@@ -204,7 +184,7 @@ const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
   )}
 </div>
 
-          {errors.images && <span className="text-red-500">{errors.images.message}</span>}
+          {errors.attachImage && <span className="text-red-500">{errors.attachImage.message}</span>}
         </div>
 
 
@@ -228,11 +208,11 @@ const SubmitApplicationModal = ( {onClose}: {onClose: () => void;}) => {
       )}
             {/* 회원가입을 성공했을 때 표시되는 모달 */}
             {isSuccessModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeCompleteModal}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={() => {onClose()}}>
           <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
             <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 완료</h2>
-            <p>화면을 클릭하면 환경 설정 페이지로 이동합니다.</p>
+            <h2 className="text-xl font-bold mb-4">가입 신청서 제출 완료</h2>
+            <p>화면을 클릭하면 창이 닫힙니다.</p>
 
             </div>
           </div>
