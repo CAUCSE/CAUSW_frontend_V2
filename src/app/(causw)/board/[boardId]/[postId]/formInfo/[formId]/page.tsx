@@ -3,16 +3,14 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { FormRscService, PreviousButton, emailRegex } from "@/shared";
+import { FormRscService, PreviousButton } from "@/shared";
 import { useEffect, useRef, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
 
 import Image from "next/image";
 import { LoadingComponent } from "@/entities";
@@ -96,24 +94,18 @@ const FormInfoPage = () => {
   } = FormRscService();
 
   const params = useParams();
-  const router = useRouter();
-  const formId = params.formId;
+  const { formId } = params;
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<Form.QuestionReplyRequestDtoList>({
-    defaultValues: {
-      questionReplyRequestDtoList: [],
-    },
-  });
-
-  const { getFormData, submitFormReply, getUserCanReply } = FormRscService();
-  const [form, setForm] = useState<Post.FormResponseDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [canUserReply, setCanUserReply] = useState<boolean>(false);
+
+  const [formData, setFormData] = useState<Post.FormResponseDto | null>(null);
+  const [formResultSummary, setFormResultSummary] = useState<
+    Form.QuestionSummaryResponseDto[] | null
+  >(null);
+  const [totalFormResult, setTotalFormResult] =
+    useState<Form.ReplyPageResponseDto | null>(null);
+  const [summary, setSummary] = useState<boolean>(true);
+  const [detail, setDetail] = useState<boolean>(false);
   const [isTruncated, setIsTruncated] = useState<boolean[]>([]);
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [objectiveOptionResult, setObjectiveOptionResult] = useState<
@@ -137,11 +129,7 @@ const FormInfoPage = () => {
     useState<Form.ReplyQuestionResponseDto[][]>([]);
 
   useEffect(() => {
-    if (!formId) {
-      router.push("/not-found");
-      return;
-    }
-
+    setLoading(true);
     const fetchData = async () => {
       try {
         //TODO totalResult API물어보기
@@ -150,13 +138,12 @@ const FormInfoPage = () => {
           getFormResultBySummary(formId),
           getTotalFormResult(formId, numOfRequestDetailResult, 20),
         ]);
-        setForm(data1);
-        setCanUserReply(data2);
-      } catch (error: any) {
-        // Replace 'any' with your error type
-        if (error.message !== "401") {
-          router.push("/not-found");
-        }
+        setFormData(data1);
+        setFormResultSummary(data2);
+        setTotalFormResult(data3);
+        setIsFinish(data1.isClosed);
+      } catch (error) {
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -264,8 +251,8 @@ const FormInfoPage = () => {
   };
 
   const checkTruncate = () => {
-    if (form) {
-      const truncateStatus = form.questionResponseDtoList.map((_, idx) => {
+    if (formResultSummary) {
+      const truncateStatus = formResultSummary?.map((_, idx: number) => {
         const element = textRefs.current[idx];
         if (element) {
           return element.scrollWidth > element.clientWidth;
@@ -282,79 +269,15 @@ const FormInfoPage = () => {
     return () => {
       window.removeEventListener("resize", checkTruncate);
     };
-  }, [form]);
+  }, [formResultSummary]);
 
-  const onSubmit: SubmitHandler<Form.QuestionReplyRequestDtoList> = async (
-    data,
-  ) => {
-    let hasErrors = false;
-    data.questionReplyRequestDtoList.forEach(
-      (questionReplyRequestDto: Form.QuestionReplyRequestDto, idx: number) => {
-        const question = form?.questionResponseDtoList[idx];
-        if (!question) return;
-
-        if (
-          (question.questionType === "SUBJECTIVE" &&
-            !questionReplyRequestDto.questionReply?.trim()) ||
-          (question.questionType === "OBJECTIVE" &&
-            (!questionReplyRequestDto.selectedOptionList ||
-              questionReplyRequestDto.selectedOptionList.length === 0))
-        ) {
-          if (question.questionType === "SUBJECTIVE") {
-            setError(
-              `questionReplyRequestDtoList.${idx}.questionReply` as const,
-              {
-                type: "manual",
-                message: "해당 문항에 대한 답변을 입력해주세요.",
-              },
-            );
-          } else if (question.questionType === "OBJECTIVE") {
-            setError(
-              `questionReplyRequestDtoList.${idx}.selectedOptionList` as const,
-              {
-                type: "manual",
-                message: "해당 문항에 대한 항목을 체크해주세요.",
-              },
-            );
-          }
-          hasErrors = true;
-        }
-      },
-    );
-
-    if (hasErrors) {
-      return;
-    }
-
-    // Prepare the data for submission
-    const questionReplyDtoList = data.questionReplyRequestDtoList.map(
-      (dto) => ({
-        ...dto,
-        questionReply: dto.questionReply ?? null,
-        selectedOptionList:
-          typeof dto.selectedOptionList === "string"
-            ? [Number(dto.selectedOptionList)]
-            : dto.selectedOptionList
-              ? dto.selectedOptionList.map(Number)
-              : [],
-      }),
-    );
-
+  const setFormState = async () => {
     try {
-      await submitFormReply(formId, {
-        questionReplyRequestDtoList: questionReplyDtoList,
-      });
-      setModalMessage("신청서 제출 완료");
-    } catch (error: any) {
-      // Replace 'any' with your error type
-      if (error.message === "401") {
-        router.push("/not-found");
-        return;
-      }
-      setModalMessage("신청 대상이 아니거나 이미 제출한 신청서입니다.");
-    } finally {
-      setModalOpen(true);
+      await setFormFinished(formId, !isFinish);
+    } catch (error) {
+      console.log(error);
     }
+    setIsFinish(!isFinish);
   };
 
   return (
@@ -362,32 +285,47 @@ const FormInfoPage = () => {
       <PreviousButton />
       {loading ? (
         <LoadingComponent />
-      ) : form?.isClosed ? (
-        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
-          <Image
-            src="/images/puang-proud.png"
-            alt="마감된 신청서"
-            width={200}
-            height={250}
-          />
-          <span>마감된 신청서입니다.</span>
-        </div>
-      ) : !canUserReply ? (
-        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
-          <Image
-            src="/images/puang-proud.png"
-            alt="이미 제출된 신청서"
-            width={200}
-            height={250}
-          />
-          <span className="text-center">
-            신청 대상이 아니거나 이미 제출한 신청서입니다.
-          </span>
-        </div>
       ) : (
         <>
-          <div className="flex h-20 w-full items-end pl-4 text-xl">
-            {form?.title}
+          <p className="absolute top-6 w-full text-center text-[18px] font-bold sm:hidden">
+            {formData?.title}
+          </p>
+          <div className="flex h-24 items-end justify-between pb-4 sm:flex-row">
+            <p className="hidden pl-4 text-3xl font-bold sm:block">
+              {formData?.title}
+            </p>
+            <div className="flex gap-2 sm:gap-4">
+              <button
+                className={`flex h-[30px] w-[50px] items-center justify-center rounded-3xl border border-black sm:h-[40px] sm:w-[60px] ${summary ? "bg-[#76C6D1]" : "bg-white"}`}
+                onClick={toggleSummaryBtn}
+              >
+                <p className="text-[12px] font-bold sm:text-[16px]">요약</p>
+              </button>
+              <button
+                className={`flex h-[30px] w-[50px] items-center justify-center rounded-3xl border border-black sm:h-[40px] sm:w-[60px] ${detail ? "bg-[#76C6D1]" : "bg-[#FFFFFF]"}`}
+                onClick={toggleDetailBtn}
+              >
+                <p className="text-[12px] font-bold sm:text-[16px]">개별</p>
+              </button>
+            </div>
+            <div className="flex gap-2 sm:gap-4 sm:pr-4">
+              <button
+                className={`flex h-[30px] w-[50px] items-center justify-center rounded-3xl border border-black bg-[##76C6D1] sm:h-[40px] sm:w-[60px]`}
+                onClick={setFormState}
+              >
+                <p className="text-[12px] font-bold sm:text-[16px]">
+                  {isFinish ? "재시작" : "마감"}
+                </p>
+              </button>
+              <button
+                className={`flex h-[30px] w-[100px] items-center justify-center rounded-3xl border border-black bg-[##76C6D1] sm:h-[40px] sm:w-[120px]`}
+                onClick={() => exportExcelFile(`${formId}`)}
+              >
+                <p className="text-[12px] font-bold sm:text-[16px]">
+                  Excel export
+                </p>
+              </button>
+            </div>
           </div>
           <div className="flex h-[calc(100%-6rem)] w-full flex-col items-center gap-8 overflow-auto pb-10 pt-4">
             {summary &&
@@ -412,40 +350,63 @@ const FormInfoPage = () => {
                           </span>
                         )}
                       </div>
-
-                      <div
-                        className={`${
-                          question.questionType === "SUBJECTIVE"
-                            ? "justify-end"
-                            : ""
-                        } flex min-h-[50px] w-full flex-col gap-2 rounded-sm border border-black bg-white px-4 py-2 sm:min-w-[400px]`}
-                      >
-                        {question.questionType === "OBJECTIVE" ? (
-                          question.optionResponseDtoList
-                            .sort(
-                              (optionA, optionB) =>
-                                optionA.optionNumber - optionB.optionNumber,
+                    </div>
+                    <div
+                      className={`flex min-h-[50px] w-full flex-col gap-2 rounded-sm border border-black bg-white px-3 py-2 sm:min-w-[400px]`}
+                    >
+                      {result.questionType === "OBJECTIVE"
+                        ? objectiveOptionResult
+                            ?.filter(
+                              (option) => option.id === result.questionId,
                             )
-                            .map((option: Post.OptionResponseDto) => (
-                              <div className="flex gap-2" key={option.optionId}>
-                                {question.isMultiple ? (
-                                  <input
-                                    type="checkbox"
-                                    value={option.optionNumber}
-                                    {...register(
-                                      `questionReplyRequestDtoList.${questionIdx}.selectedOptionList` as const,
-                                    )}
-                                  />
-                                ) : (
-                                  <input
-                                    type="radio"
-                                    value={option.optionNumber}
-                                    {...register(
-                                      `questionReplyRequestDtoList.${questionIdx}.selectedOptionList` as const,
-                                    )}
-                                  />
-                                )}
-                                <p>{option.optionText}</p>
+                            .map((option) => {
+                              return (
+                                <ResponsiveContainer
+                                  width="100%"
+                                  height={300}
+                                  key={option.id}
+                                >
+                                  <BarChart
+                                    layout="vertical"
+                                    data={option.data}
+                                    margin={{
+                                      top: 20,
+                                      right: 30,
+                                      left: 0,
+                                      bottom: 5,
+                                    }}
+                                    barSize={15}
+                                  >
+                                    <XAxis
+                                      type="number"
+                                      domain={[0, "dataMax"]}
+                                      tickLine={false}
+                                      allowDecimals={false}
+                                    />
+                                    {/* X축: 값의 축 */}
+                                    <YAxis
+                                      dataKey="optionText"
+                                      type="category"
+                                    />
+                                    {/* Y축: 카테고리 */}
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar
+                                      dataKey="selectedCount"
+                                      name="응답 수"
+                                      fill="#82ca9d"
+                                    />
+                                  </BarChart>
+                                </ResponsiveContainer>
+                              );
+                            })
+                        : result.questionAnswerList?.map((answer, idx) => {
+                            return (
+                              <div
+                                key={idx}
+                                className="flex h-10 w-full items-center bg-[#E8E8E8] pl-2"
+                              >
+                                <p className="text-[#515151]">{answer}</p>
                               </div>
                             );
                           })}
@@ -575,7 +536,7 @@ const FormInfoPage = () => {
                             );
                           } else if (key === "isAppliedThisSemester") {
                             return (
-                              <li>
+                              <li key={key}>
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
@@ -617,7 +578,7 @@ const FormInfoPage = () => {
                             );
                           } else if (key === "isRefunded") {
                             return (
-                              <li>
+                              <li key={key}>
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
@@ -663,7 +624,10 @@ const FormInfoPage = () => {
                                     questionDto.questionId,
                                 )[0];
                               return (
-                                <div className="flex gap-2">
+                                <div
+                                  key={option.optionId}
+                                  className="flex gap-2"
+                                >
                                   {questionDto.isMultiple ? (
                                     <input
                                       type="checkbox"
@@ -713,4 +677,4 @@ const FormInfoPage = () => {
   );
 };
 
-export default ApplyPage;
+export default FormInfoPage;
