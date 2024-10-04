@@ -66,7 +66,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
             circleTax: circle.circleTax,
             recruitMembers: circle.numMember,
             recruitEndDate: circle.joinedAt,
-            isRecruit: false,
+            isRecruit: circle.isRecruit,
           }),
         ],
         { type: "application/json" },

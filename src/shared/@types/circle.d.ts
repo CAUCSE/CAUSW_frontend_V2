@@ -22,6 +22,7 @@ declare namespace Circle {
     isDeleted: boolean;
     circleTax: number;
     recruitMembers: number;
+    isRecruit: boolean;
   }
 
   export interface Board {

@@ -1,4 +1,9 @@
-import { ProfileImage, Header, SubHeader } from "@/entities";
+import {
+  ProfileImage,
+  Header,
+  SubHeader,
+  CircleApplyOnButton,
+} from "@/entities";
 import { CircleRscService, UserRscService } from "@/shared";
 import { formatDateString } from "@/utils";
 
@@ -34,9 +39,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         <div
           className={`${isCircleLeader ? "flex" : "hidden"} col-span-1 flex items-center justify-end gap-5 md:col-span-2 md:row-span-2`}
         >
-          <div className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
-            가입 신청 받기
-          </div>
+          <CircleApplyOnButton circle={circle} />
           <Link
             href={"/setting/management/circle/" + id + "/apply"}
             className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex"

@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
 import { RoleSelectSection } from "@/entities";
 import { SettingService } from "@/shared";
 import { LoadingComponent } from "@/entities";
-import { useEffect, useState } from "react";
-import Image from "next/image";
 
 const BoardDetailManagement = ({
   params: { id },
@@ -24,9 +26,18 @@ const BoardDetailManagement = ({
   if (!data) return <LoadingComponent />;
 
   return (
-    <div className="relative bottom-12 top-0 h-full w-full lg:bottom-0">
+    <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+      <Link
+        href="/setting/management/board"
+        className="mb-7 flex items-center text-lg"
+      >
+        <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
+        이전
+      </Link>
       <div className="flex h-full flex-col gap-3 p-2 pt-10 lg:p-10">
-        <div className="mb-2 text-[35px] lg:mb-6 lg:mt-2">게시판 생성</div>
+        <div className="mb-2 text-[35px] lg:mb-6 lg:mt-2">
+          게시판 생성 신청 정보
+        </div>
 
         <div className="text-[28px]">게시판 이름</div>
         <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
