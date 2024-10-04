@@ -5,6 +5,7 @@ import { ManagementState } from "@/widget";
 import { uiEntities } from "./AdmissionManagementDetailEntities";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import { useUserStore } from "@/shared";
 
 export function CircleManagementButtons({ params: { name, studentId, userId, circleId } }: { 
   params: { name: string; studentId: string; userId: string; circleId: string } 
@@ -14,6 +15,7 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
   const [isSuccessModal, setIsSuccessModal] = useState(false);
   const { dropMember }= CircleService();
   const router = useRouter();
+  const myId = useUserStore((state) => state.id);
   const expelMember = async() => {
     try{
       const response = await dropMember(userId, circleId);
@@ -36,14 +38,14 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
           닫기
         </Button>
 
-        <Button
+        {myId !== userId && (<Button
           key= "추방"
           action={() => {setIsOpenModal(true);}}
           variant="RED"
           className="h-[45px] w-[125px] lg:w-[200px]"
         >
           추방
-        </Button>
+        </Button>)}
 
         {isOpenModal && (    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
       <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
