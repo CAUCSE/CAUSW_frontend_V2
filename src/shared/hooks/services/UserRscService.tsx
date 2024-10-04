@@ -53,7 +53,7 @@ export const UserRscService = () => {
   };
 
   const updateInfo = async (
-    data: User.userUpdateDto // FileList 타입 사용
+    data: User.userUpdateDto, // FileList 타입 사용
   ): Promise<any> => {
     const URI = `${BASEURL}/api/v1/users`;
     try {
@@ -63,12 +63,12 @@ export const UserRscService = () => {
         new Blob(
           [
             JSON.stringify({
-              nickname: data.nickname,  
-              phoneNumber: "01011111111"
+              nickname: data.nickname,
+              phoneNumber: "01011111111",
             }),
           ],
-          { type: "application/json" }
-        )
+          { type: "application/json" },
+        ),
       );
 
       // attachImageList가 단일 파일인 경우
@@ -76,9 +76,8 @@ export const UserRscService = () => {
 
       if (file !== null) {
         formData.append("profileImage", file, file.name);
-      }
-      else{
-        formData.append('profileImage', '');
+      } else {
+        formData.append("profileImage", "");
       }
 
       const headers = await setRscHeader();
@@ -96,7 +95,7 @@ export const UserRscService = () => {
   };
 
   const submitAdmissionsApplication = async (
-    data:User.UserAdmissionCreateRequestDto  // FileList 타입 사용
+    data: User.AdmissionCreateRequestDto, // FileList 타입 사용
   ): Promise<any> => {
     const URI = `${BASEURL}/api/v1/users/admissions/apply`;
     try {
@@ -106,25 +105,22 @@ export const UserRscService = () => {
         new Blob(
           [
             JSON.stringify({
-              email: data.email,  
-              description: data.description
+              email: data.email,
+              description: data.description,
             }),
           ],
-          { type: "application/json" }
-        )
+          { type: "application/json" },
+        ),
       );
-         
+
       // FileList를 배열로 변환하여 forEach 사용
       Array.from(data.images).forEach((file) => {
         formData.append(
-            'userAdmissionAttachImageList ',
-            new Blob(
-              [file],
-              {type: file.type}
-            ),
-            file.name,
-          ); 
-        });
+          "userAdmissionAttachImageList ",
+          new Blob([file], { type: file.type }),
+          file.name,
+        );
+      });
 
       const headers = await setRscHeader();
       const response: AxiosResponse<any> = await axios.post(URI, formData, {
@@ -140,5 +136,11 @@ export const UserRscService = () => {
     }
   };
 
-  return { getMe, getUser, getMyCircles, updateInfo, submitAdmissionsApplication };
+  return {
+    getMe,
+    getUser,
+    getMyCircles,
+    updateInfo,
+    submitAdmissionsApplication,
+  };
 };

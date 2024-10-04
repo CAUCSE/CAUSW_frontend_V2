@@ -12,6 +12,12 @@ declare namespace User {
     studentId: string;
   }
 
+  export interface UserAdmissionCreateRequestDto {
+    email: string;
+    description: string;
+    images: FileList;
+  }
+
   export type Role =
     | "ADMIN"
     | "PRESIDENT"
