@@ -1,7 +1,5 @@
 "use client";
 import {
-    ManagementDetailButtons,
-    managementDetailEntities,
     ManagementDetailInfoTable,
   } from "@/entities/home/setting/management";
 import {
@@ -12,17 +10,23 @@ import {
 import { UserRscService } from "@/shared";
 import { useEffect, useState } from "react";
 import { UserCouncilFeeService } from "@/shared";
-
+import { CircleManagementButtons } from "@/entities/home/setting/management/CircleManagementDetailButtons";
 
   interface ManagementDetailProp {
     userId: string;
+    id: string;
+    state: string;
   }
 
-  
+  const AcademicStatus  = {
+    ENROLLED: "재학",
+    LEAVE_OF_ABSENCE: "휴학",
+    GRADUATED: "졸업",
+  }
 
 
   export function CircleMemberManagementDetail({
-    userId,
+    userId, id, state
   }: ManagementDetailProp) {
 
 
@@ -34,7 +38,6 @@ import { UserCouncilFeeService } from "@/shared";
       major: "",
       name: "",
       studentId: "",
-      leftPayedSemester: "",  
       admissionYear: "",
       nickname: "",
       graduateYearMonth: "",  
@@ -49,21 +52,20 @@ import { UserCouncilFeeService } from "@/shared";
             try{
                 const response = await getUser(userId);
                 console.log(response);
-                const graduationYear = (response.graduationYear)?.toString();
-                const graduationType = (response.graduationType)?.toString();
-
-
+                const graduationYear = (response.graduationYear)?.toString() || "";
+                const graduationType = (response.graduationType)?.toString() || "";
+                const academicStatus = AcademicStatus[response.academicStatus]
+                
 
                 setUserData({
                     email: response.email,
                     major: response.major?? "",
                     name: response.name,
                     studentId: response.studentId,
-                    leftPayedSemester: (response.currentCompletedSemester)?.toString() || "",  
                     admissionYear: (response.admissionYear).toString() || "",
                     nickname: response.nickname,
                     graduateYearMonth: `${graduationYear}/${graduationType}`,  
-                    academicStatus: response.academicStatus,  
+                    academicStatus: academicStatus,  
                     enrolledSemester: response.currentCompletedSemester?.toString() || "",  
                     phoneNumber: response.phoneNumber || "",
                     evidentImg: response.profileImageUrl || "",
@@ -88,6 +90,12 @@ import { UserCouncilFeeService } from "@/shared";
           data={userData}
           titleMapping={titleMappingForCircle}
         />
+        <CircleManagementButtons params={{ 
+          name: userData.name,
+          studentId: userData.studentId, 
+          userId: userId, 
+          circleId: id 
+        }}></CircleManagementButtons>
       </div>
     );
   }

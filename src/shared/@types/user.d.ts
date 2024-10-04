@@ -159,7 +159,7 @@ declare namespace User {
     profileImage: nullable;
     files: FileList;
   }
-
+  
 
   export interface CreateUserAcademicRecordApplicationRequestDto {
     targetAcademicStatus:
