@@ -1,15 +1,18 @@
 "use client";
 
+import { HomeRscService } from "@/shared";
 import { FormControl, InputLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
-  const [currImg, setCurrImg] = useState("");
+export function NewCalendarModal() {
+  const [currImg, setCurrImg] = useState<File | null>();
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
+  const { createCalendar } = HomeRscService();
 
   const router = useRouter();
 
@@ -21,13 +24,19 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
     setMonth(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!year || !month) {
       alert("년도와 월을 선택해주세요.");
       return;
     }
-    // TODO : api call
-    alert("저장되었습니다.");
+    if (!currImg) {
+      alert("이미지를 선택해주세요.");
+      return;
+    }
+    if (await createCalendar(currImg, +year, +month)) alert("저장되었습니다.");
+    else alert("저장에 실패했습니다. 관리자에게 문의하세요");
+
+    router.refresh();
     router.back();
   };
 
@@ -63,11 +72,7 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
                   if (!e.target.files) return;
                   const file = e.target.files[0];
                   if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                      setCurrImg(reader.result as string);
-                    };
-                    reader.readAsDataURL(file);
+                    setCurrImg(file);
                   }
                 }}
               />
@@ -76,8 +81,11 @@ export function NewCalendarModal({ bannerId }: { bannerId?: string }) {
                 className="flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-black"
               >
                 {currImg ? (
-                  <img
-                    src={currImg}
+                  <Image
+                    src={URL.createObjectURL(currImg)}
+                    alt="calendar"
+                    width={2070}
+                    height={2070}
                     className="h-full w-full rounded-lg object-cover"
                   />
                 ) : (
