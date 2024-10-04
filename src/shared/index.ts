@@ -1,3 +1,5 @@
+import { usePostListStore } from "./hooks/stores/post/usePostListStore";
+
 export { BASEURL } from "./configs/url";
 export {
   API,
@@ -35,7 +37,6 @@ export { UserRscService } from "./hooks/services/UserRscService";
 export { SettingRscService } from "./hooks/services/SettingRscService";
 export { FormRscService } from "./hooks/services/FormRscService";
 export { PostRscService } from "./hooks/services/PostRscService";
-export { MainBoardRscService } from "./hooks/services/MainBoardRscService";
 export { BoardRscService } from "./hooks/services/BoardRscService";
 export { CommentRscService } from "./hooks/services/CommentRscService";
 export { ChildCommentRscService } from "./hooks/services/ChildCommentRscService";
@@ -46,7 +47,7 @@ export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 
 export { useBoardStore } from "./hooks/stores/board/useBoardStore";
-
+export { usePostListStore } from "./hooks/stores/post/usePostListStore";
 export { usePostStore } from "./hooks/stores/post/usePostStore";
 export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
