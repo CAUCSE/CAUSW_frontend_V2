@@ -19,7 +19,7 @@ export const BannerCard = ({
   const { deleteEvent } = HomeRscService();
 
   return (
-    <Link href={`./event/${bannerId}?bannerImg=${imgSrc}`}>
+    <Link href={`./event/${bannerId}?bannerImg=${imgSrc}&url=${url}`}>
       <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
         <Image
           src={imgSrc}
