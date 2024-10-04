@@ -14,8 +14,14 @@ export const UserService = () => {
   };
 
   const getUserInfo = async () => {
-    const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
-    return response;
+
+    try{
+      const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
+      return response;  
+    }
+    catch(error){
+      throw error;
+    }
   }
   
   const getUserAdmissionInfo = async () => {
