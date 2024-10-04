@@ -40,7 +40,6 @@ export { SettingRscService } from "./hooks/services/SettingRscService";
 export { FormRscService } from "./hooks/services/FormRscService";
 export { VoteRscService } from "./hooks/services/VoteRscService";
 export { PostRscService } from "./hooks/services/PostRscService";
-export { MainBoardRscService } from "./hooks/services/MainBoardRscService";
 
 export { AuthService } from "./hooks/services/AuthService";
 
@@ -60,8 +59,6 @@ export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
 
 export { useBoardStore } from "./hooks/stores/board/useBoardStore";
 export { usePostListStore } from "./hooks/stores/post/usePostListStore";
-export { usePostStore } from "./hooks/stores/post/usePostStore";
-export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
 export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { usePopup } from "./hooks/stores/post/usePopup";
