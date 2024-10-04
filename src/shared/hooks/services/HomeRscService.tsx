@@ -130,6 +130,40 @@ export const HomeRscService = () => {
     return true;
   };
 
+  const createCalendar = async (
+    calendarImg: File,
+    year: number,
+    month: number,
+  ) => {
+    const formData = new FormData();
+    formData.append(
+      "calendarCreateRequestDto",
+      new Blob(
+        [
+          JSON.stringify({
+            year,
+            month,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+    formData.append(
+      "image",
+      new Blob([calendarImg], { type: calendarImg.type }),
+      calendarImg.name,
+    );
+
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/calendars`, {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
   return {
     getHomePosts,
     getEvents,
@@ -138,5 +172,6 @@ export const HomeRscService = () => {
     createEvent,
     deleteEvent,
     updateEvent,
+    createCalendar,
   };
 };
