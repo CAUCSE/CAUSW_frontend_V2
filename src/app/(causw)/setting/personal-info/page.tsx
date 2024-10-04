@@ -74,7 +74,7 @@ const PersonalInfoPage = () => {
   
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
 
-  const { getUserInfo } = UserService();
+  const { getMyInfo } = UserService();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -83,7 +83,7 @@ const PersonalInfoPage = () => {
         
 
         // formData에 유저 정보 값들 넣어두기
-        const response = await getUserInfo();
+        const response = await getMyInfo();
         console.log(response);
         // 유저에 맞게 값들 대입입
         setProfileImagePreview(user.profileImage ?? '/images/default_profile.png');

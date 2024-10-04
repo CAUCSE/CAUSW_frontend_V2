@@ -9,7 +9,7 @@ import SubmitApplicationModal from "@/entities/application/AdmissionApplicationP
 
 const VerificationPage: React.FC = () => {
   const router = useRouter();
-  const { getUserAdmissionInfo, getUserInfo, checkIsAcademicRecordSubmitted } = UserService();
+  const { getUserAdmissionInfo, getMyInfo, checkIsAcademicRecordSubmitted } = UserService();
   const [ isAcademicRecordModalOpen, setIsAcademicModalOpen ] = useState(false);
   const [ isAdmissionModalOpen, setIsAdmissionModalOpen ] = useState(false);
 
@@ -26,7 +26,7 @@ const VerificationPage: React.FC = () => {
 
       const getInfo = async () => {
         try {
-          const response = await getUserInfo();
+          const response = await getMyInfo();
           console.log(response);
 
           // 상태 값들 가져오기
