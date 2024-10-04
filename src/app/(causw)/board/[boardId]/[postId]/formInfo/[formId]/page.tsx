@@ -3,14 +3,13 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { FormRscService, PreviousButton, emailRegex } from "@/shared";
+import { FormRscService, PreviousButton } from "@/shared";
 import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
@@ -537,7 +536,7 @@ const FormInfoPage = () => {
                             );
                           } else if (key === "isAppliedThisSemester") {
                             return (
-                              <li>
+                              <li key={key}>
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
@@ -579,7 +578,7 @@ const FormInfoPage = () => {
                             );
                           } else if (key === "isRefunded") {
                             return (
-                              <li>
+                              <li key={key}>
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
@@ -625,7 +624,10 @@ const FormInfoPage = () => {
                                     questionDto.questionId,
                                 )[0];
                               return (
-                                <div className="flex gap-2">
+                                <div
+                                  key={option.optionId}
+                                  className="flex gap-2"
+                                >
                                   {questionDto.isMultiple ? (
                                     <input
                                       type="checkbox"
