@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/shared";
+import { Button, CircleService } from "@/shared";
 import { ManagementState } from "@/widget";
 import { uiEntities } from "./AdmissionManagementDetailEntities";
 import { useState } from "react";
@@ -10,8 +10,21 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
   params: { name: string; studentId: string; userId: string; circleId: string } 
 }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isErrorModal, setIsErrorModal] = useState(false);
+  const [isSuccessModal, setIsSuccessModal] = useState(false);
+  const { dropMember }= CircleService();
   const router = useRouter();
-  
+  const expelMember = async() => {
+    try{
+      const response = await dropMember(userId, circleId);
+      console.log(response);  
+      setIsSuccessModal(true);
+    }
+    catch(error){
+      setIsErrorModal(true);
+      console.log(error);
+    }
+  }
   return (
     <div className="flex justify-center mt-8 gap-[30px] lg:gap-[60px]">
         <Button
@@ -42,7 +55,7 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
         <div className="flex space-x-8 p-4 m-4">
           <Button
             key= "추방"
-            action={() => {setIsOpenModal(true);}}
+            action={() => {expelMember();}}
             variant="RED"
             className="h-[45px] w-[125px] lg:w-[200px]"
           >
@@ -59,6 +72,33 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
         </div>
       </div>
     </div>)}
+
+    {isErrorModal && (    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+      <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
+      <p className="font-bold text-md lg:text-xl mb-2">알 수 없는 오류가 발생했습니다.</p>
+      <Button
+            key= "모달 닫기"
+            action={() => {setIsErrorModal(false);}}
+            variant="GRAY"
+            className="h-[45px] w-[125px] lg:w-[200px]"
+          >
+            닫기
+          </Button>
     </div>
-  );
-}
+    </div>
+  )}
+      {isSuccessModal && (    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+      <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
+      <p className="font-bold text-md lg:text-xl mb-2">{name}이 추방되었습니다.</p>
+          <Button
+            action={() => {setIsSuccessModal(false);}}
+            variant="GRAY"
+            className="h-[45px] w-[125px] lg:w-[200px]"
+          >
+            닫기
+          </Button>
+    </div>
+    </div>
+  )}
+    </div>
+  )}

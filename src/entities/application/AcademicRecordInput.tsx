@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserService, useUserStore, AcademicRecordRscService } from '@/shared';
+import { UserService, AcademicRecordRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {

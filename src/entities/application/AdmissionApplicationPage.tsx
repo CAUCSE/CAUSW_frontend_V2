@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useUserStore, UserRscService } from '@/shared';
-import { useRouter } from 'next/navigation';
+import { UserRscService } from '@/shared';
 
 
 const SubmitApplicationModal = ( {onClose, emailValue}: {onClose: () => void; emailValue: string}) => {
@@ -12,7 +11,6 @@ const SubmitApplicationModal = ( {onClose, emailValue}: {onClose: () => void; em
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const router = useRouter(); // useRouter 초기화
   const { submitAdmissionsApplication } = UserRscService();
 
 
