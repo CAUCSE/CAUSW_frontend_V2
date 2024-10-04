@@ -35,7 +35,7 @@ export async function ManagementDetail({
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-4">
       <p className="text-[18px] font-semibold lg:text-[40px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
       <ManagementDetailInfoTable admission={admission} />
-      <ManagementDetailButtons state={state} />
+      <ManagementDetailButtons state={state} admission={admission} />
     </div>
   );
 }

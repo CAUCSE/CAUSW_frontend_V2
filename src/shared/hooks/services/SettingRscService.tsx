@@ -1,5 +1,4 @@
 import { BASEURL, setRscHeader } from "@/shared";
-import { Setting } from "@/shared/@types/setting";
 
 //페이징 적용시, 한 페이지 정도 (현재 미적용)
 const SIZE = 300;
@@ -126,9 +125,22 @@ export const SettingRscService = () => {
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
 
+  //가입 승인
   const acceptAdmission = async (admissionId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${admissionId}/accept`, {
+      method: "PUT",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  //가입 거부
+  const rejectAdmission = async (admissionId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${admissionId}/reject`, {
       method: "PUT",
       headers: headers,
     });
@@ -146,5 +158,6 @@ export const SettingRscService = () => {
     getPrivilegedUsers,
     acceptAdmission,
     getWaitingUsers,
+    rejectAdmission,
   };
 };
