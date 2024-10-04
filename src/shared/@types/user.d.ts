@@ -156,8 +156,6 @@ declare namespace User {
     nickname: string;
     major: string;
     phoneNumber: string;
-    profileImage: nullable;
-    files: FileList;
   }
   
 

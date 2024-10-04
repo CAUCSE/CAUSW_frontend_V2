@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService, UserRscService, UserCouncilFeeService, useUserStore, Modal, PreviousButton } from '@/shared';
+import { UserService, UserRscService, UserCouncilFeeService, useUserStore, Modal, AuthService } from '@/shared';
 
 
 const PersonalInfoPage = () => {
-  const { register, handleSubmit, setValue, watch } = useForm<User.userUpdateDto>({
+  const { register, handleSubmit, setValue, formState: { errors }, setError, clearErrors } = useForm<User.userUpdateDto>({
     defaultValues: {
       profileImage: null,
       nickname: '',
@@ -26,12 +26,7 @@ const PersonalInfoPage = () => {
   const router = useRouter();
   const { getUserCouncilFeeInfo } = UserCouncilFeeService();
   const { updateInfo } = UserRscService();
-
-
-  // 모달 열림/닫힘 상태를 관리
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
-  const [isWarningAccepted, setIsWarningAccepted] = useState(false);
+  const { checkNicknameDuplicate } = AuthService();
 
   // 제출 시 모달
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -50,29 +45,8 @@ const PersonalInfoPage = () => {
     graduationYear: state.graduationYear,
     phoneNumber: state.phoneNumber,
   }));
-  
-  // 모달 열기
-  const openSubmitModal = () => {
-    setIsSubmitModalOpen(true);
-  };
 
-  const openWarningModal = () => {
-    setIsWarningModalOpen(true);
-  }
-
-  // 모달 닫기
-  const closeModal = () => {
-    if (isSubmitModalOpen)
-      setIsSubmitModalOpen(false);
-    if (isWarningModalOpen)
-    {
-      setIsWarningModalOpen(false);
-      setIsWarningAccepted(true);
-    }
-      
-  };
   
-  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
 
   const { getMyInfo } = UserService();
   useEffect(() => {
@@ -124,7 +98,34 @@ const PersonalInfoPage = () => {
     }
   
   };
+// 닉네임 중복 검사 및 형식 검사
+const handleNicknameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+  const nickname = e.target.value;
 
+  if (!nickname || nickname === user.nickname) return; // 빈 값일 경우 무시
+
+  // 닉네임 길이 및 형식 검사
+  if (nickname.length < 1 || nickname.length > 16) {
+    setError("nickname", {
+      type: "length",
+      message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요.",
+    });
+    return;
+  } else {
+    clearErrors("nickname");
+  }
+
+  // 닉네임 중복 검사
+  const isDuplicate = await checkNicknameDuplicate(nickname);
+  if (isDuplicate) {
+    setError("nickname", {
+      type: "duplicate",
+      message: "이미 사용 중인 닉네임입니다.",
+    });
+  } else {
+    clearErrors("nickname");
+  }
+};
 
   // 개인정보 수정한 내용 제출하는 함수
   const onSubmit = async (data: User.userUpdateDto) => {
@@ -203,8 +204,12 @@ const PersonalInfoPage = () => {
                 <input
                   type="text"
                   {...register('nickname', { required: true })}
+                  onBlur={handleNicknameBlur}
+
                   className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
                 />
+                {errors.nickname && <p className = "text-red-500">{errors.nickname.message}</p>}
+
               </div>
               
               <div className="mb-4 ml-4 w-1/2 lg:w-full">
@@ -251,7 +256,7 @@ const PersonalInfoPage = () => {
                 <p className="text-gray-700">{user.admissionYear}</p>
               </div>
               
-              {academicStatus === "GRADUATED" && (
+              {user.academicStatus === "GRADUATED" && (
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">졸업 년도</label>
                 <p className="text-gray-700">{user.graduationYear}</p>
@@ -283,7 +288,7 @@ const PersonalInfoPage = () => {
           </div>
         </div>
 
-                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {/* 성공 시 모달 */}
                 {isSuccessModalOpen && (
           <Modal closeModal={() => {  
             setIsSuccessModalOpen(false);
@@ -294,7 +299,7 @@ const PersonalInfoPage = () => {
             </div>
           </Modal>
         )}
-                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {/* 오류 발생 시 모달 */}
                 {isFailModalOpen && (
           <Modal closeModal={() => setIsFailModalOpen(false)}>
             <div className='p-2 lg:p-4'>
