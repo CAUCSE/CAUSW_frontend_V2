@@ -3,6 +3,10 @@ import {
   managementDetailEntities,
   ManagementDetailInfoTable,
 } from "@/entities/home/setting/management";
+import {
+  convertDataToTableEntity,
+  titleMapping,
+} from "@/entities/home/setting/management/AdmissionManagementDetailEntities";
 import { SettingRscService } from "@/shared";
 import { ManagementState } from "./Management";
 
@@ -30,11 +34,15 @@ export async function ManagementDetail({
 
   const { user } = admission;
   const { name, studentId } = user;
+  const admissionStringData = convertDataToTableEntity(admission);
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-4">
       <p className="text-[18px] font-semibold lg:text-[40px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
-      <ManagementDetailInfoTable admission={admission} />
+      <ManagementDetailInfoTable
+        data={admissionStringData}
+        titleMapping={titleMapping}
+      />
       <ManagementDetailButtons state={state} admission={admission} />
     </div>
   );
