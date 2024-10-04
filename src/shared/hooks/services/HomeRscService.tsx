@@ -85,5 +85,22 @@ export const HomeRscService = () => {
     return true;
   };
 
-  return { getHomePosts, getEvents, getCalendars, getCalendar, createEvent };
+  const deleteEvent = async (id: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/events/${id}`, {
+      method: "DELETE",
+      headers: headers,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  return {
+    getHomePosts,
+    getEvents,
+    getCalendars,
+    getCalendar,
+    createEvent,
+    deleteEvent,
+  };
 };

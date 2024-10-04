@@ -1,6 +1,7 @@
 "use client";
 
 import { HomeRscService } from "@/shared";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -32,7 +33,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
       onClick={() => router.back()}
     >
       <div
-        className="relative flex w-[80vw] flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
+        className="relative flex flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -44,7 +45,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
         <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
           이벤트 공지 배너 {bannerId ? "수정" : "추가"}
         </p>
-        <div className="relative flex h-[150px] w-full flex-col">
+        <div className="relative flex h-[150px] w-[1100px] flex-col">
           <input
             className="hidden"
             id="file"
@@ -63,7 +64,10 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
             className="flex h-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-black"
           >
             {currImg ? (
-              <img
+              <Image
+                alt={currImg.name}
+                width={1100}
+                height={150}
                 src={bannerImg || URL.createObjectURL(currImg)}
                 className="h-full w-full rounded-lg object-cover"
               />
