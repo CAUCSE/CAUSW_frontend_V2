@@ -51,6 +51,11 @@ declare namespace Setting {
     changeDate: string;
   }
 
+  export type BoardList = {
+    id: string;
+    boardName: string;
+  }[];
+
   //DTO
   // getByState
   export type GetByStateResponseDto = {
@@ -132,4 +137,15 @@ declare namespace Setting {
   export type GetMyPostsResponseDto = {
     posts: { content: Post.PostDto[] };
   };
+
+  export type GetApplyBoardsResponseDto = BoardList & Error.ApiErrorResponse;
+
+  export type GetApplyBoardResponseDto = {
+    id: string;
+    boardName: string;
+    description: string;
+    createRoles: string;
+    isAnonymousAllowed: boolean;
+    user: User.User;
+  } & Error.ApiErrorResponse;
 }

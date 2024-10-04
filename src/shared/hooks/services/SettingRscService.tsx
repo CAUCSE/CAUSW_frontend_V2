@@ -1,5 +1,4 @@
 import { BASEURL, setRscHeader } from "@/shared";
-import { Setting } from "@/shared/@types/setting";
 
 //페이징 적용시, 한 페이지 정도 (현재 미적용)
 const SIZE = 300;
@@ -137,6 +136,24 @@ export const SettingRscService = () => {
     return true;
   };
 
+  //게시판 신청 목록 조회
+  const getApplyBoards = async () => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
+        headers: headers,
+      }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return {
     getByState,
     getAllAdmissions,
@@ -146,5 +163,6 @@ export const SettingRscService = () => {
     getPrivilegedUsers,
     acceptAdmission,
     getWaitingUsers,
+    getApplyBoards,
   };
 };

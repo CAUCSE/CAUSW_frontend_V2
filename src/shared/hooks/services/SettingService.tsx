@@ -62,6 +62,14 @@ export const SettingService = () => {
     return data.posts.content;
   };
 
+  const getApplyBoards = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/boards/apply/${id}`,
+    )) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
+
+    return data;
+  };
+
   return {
     useGetAttendanceUser,
     useGetWaitingUser,
