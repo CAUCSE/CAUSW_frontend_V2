@@ -22,7 +22,7 @@ const MONTHS = [
 ];
 
 export const Calendar = () => {
-  const [calendars, setCalendars] = useState<Home.GetCalendarsResponseDto>();
+  const [calendars, setCalendars] = useState<Home.Calendar[]>();
   const { getCalendars } = HomeRscService();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
@@ -30,7 +30,7 @@ export const Calendar = () => {
   useEffect(() => {
     const fetchCalendars = async () => {
       try {
-        const response = await getCalendars(selectedYear);
+        const response = (await getCalendars(selectedYear)).calendars;
         setCalendars(response);
       } catch (e: any) {
         console.error(e.message);
@@ -38,7 +38,7 @@ export const Calendar = () => {
     };
 
     fetchCalendars();
-  }, [selectedYear, getCalendars]);
+  }, [selectedYear]);
 
   const handlePrevMonth = () => {
     setSelectedMonth((prev) => {
@@ -61,7 +61,7 @@ export const Calendar = () => {
   };
 
   return (
-    <CardBox className="flex h-full flex-col items-center gap-[25px] p-[30px]">
+    <CardBox className="flex h-full w-full flex-col items-center gap-[25px] p-[30px]">
       <div className="flex h-[25px] w-full items-center justify-center gap-[40px]">
         <button onClick={handlePrevMonth}>
           <i className="icon-[material-symbols--chevron-left] h-[25px] w-[25px] text-gray-400" />
@@ -78,13 +78,13 @@ export const Calendar = () => {
       <Image
         src={
           calendars
-            ? (calendars.calendars.find(
+            ? (calendars.find(
                 (c) => c.year === selectedYear && c.month === selectedMonth,
               )?.image as string)
             : "/images/calendar-dummy.png"
         }
-        width={391}
-        height={383}
+        width={2070}
+        height={2070}
         className="h-full w-full border-b-[1px] object-cover"
         alt="캘린더"
       />

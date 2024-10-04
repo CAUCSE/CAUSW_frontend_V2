@@ -37,7 +37,14 @@ const CalendarCard = ({
 };
 
 export default async function CalendarSettingPage() {
-  const { getEvents } = HomeRscService();
+  const { getCalendars } = HomeRscService();
+  let calendars: Home.Calendar[] = [];
+  try {
+    calendars = (await getCalendars(2024)).calendars;
+    console.log(calendars);
+  } catch (e: any) {
+    console.error(e.message);
+  }
 
   return (
     <div className="flex h-full w-full flex-col gap-5 p-3 lg:gap-10 lg:p-8">
@@ -54,12 +61,22 @@ export default async function CalendarSettingPage() {
         </Link>
       </div>
       <p className="text-[21px] font-medium lg:text-[40px]">캘린더 편집</p>
-      <CalendarCard
+      {/* <CalendarCard
         imgSrc="/images/calendar-dummy.png"
         year={2021}
         month={10}
         editDate="2021.10.10"
-      />
+      /> */}
+      {calendars &&
+        calendars.map(({ image, year, month, updatedAt }) => (
+          <CalendarCard
+            key={year + month}
+            imgSrc={image}
+            year={year}
+            month={month}
+            editDate={updatedAt}
+          />
+        ))}
 
       {/* {events && <p>이벤트 목록</p>} */}
     </div>

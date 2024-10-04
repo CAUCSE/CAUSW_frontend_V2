@@ -35,7 +35,7 @@ export const HomeRscService = () => {
 
   const getCalendars = async (year: number) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/calendars/year=${year}`, {
+    const response = await fetch(`${BASEURL}/api/v1/calendars?year=${year}`, {
       method: "GET",
       headers: headers,
     });
