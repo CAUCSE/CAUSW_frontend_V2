@@ -11,16 +11,56 @@ export const CircleService = () => {
   const editCircle = async (id: string, body: FormData) => {
     await FORMAPI.put(`${URI}/${id}`, body);
 
-    window.location.reload();
+    window.location.href = "/circle/" + id;
   };
-  
+
   const dropMember = async (userId: string, circleId: string) => {
-    try {const response = await API.put(`${URI}/${circleId}/users/${userId}/drop`) as AxiosResponse;
-    return response;}
-    catch(error){
+    try {
+      const response = (await API.put(
+        `${URI}/${circleId}/users/${userId}/drop`,
+      )) as AxiosResponse;
+      return response;
+    } catch (error) {
       throw error;
     }
   };
 
-  return { editCircle, dropMember };
+  const getApplication = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${id}/apply/application`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  const checkApplication = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${id}/apply/application/is-exist`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  const editCircleApplication = async (id: string, body: any) => {
+    const { data } = (await API.post(
+      `/api/v1/circles/${id}/apply/application`,
+      body,
+    )) as AxiosResponse<any>;
+  };
+
+  const applyCircle = async (id: string, body: any) => {
+    const { data } = (await API.post(
+      `/api/v1/circles/${id}/applications`,
+      body,
+    )) as AxiosResponse<any>;
+  };
+
+  return {
+    editCircle,
+    dropMember,
+    getApplication,
+    checkApplication,
+    editCircleApplication,
+    applyCircle,
+  };
 };

@@ -12,7 +12,11 @@ interface IFormInput {
   searchContent: string;
 }
 
-const RoleMandate = ({ params: { state } }: { params: { state: string } }) => {
+const RoleMandate = ({
+  params: { state, id },
+}: {
+  params: { state: string; id: string };
+}) => {
   const router = useRouter();
 
   const {
@@ -41,7 +45,7 @@ const RoleMandate = ({ params: { state } }: { params: { state: string } }) => {
           이전
         </Link>
         <Header bold big>
-          권한 변경
+          권한 위임
           <div className="w-3"></div>
           <SubHeader gray big>
             피위임인을 선택해주세요.
@@ -105,19 +109,18 @@ const RoleMandate = ({ params: { state } }: { params: { state: string } }) => {
       <button
         onClick={() => {
           if (!selectId) return;
+
           updateRole(
             selectId,
             state.toUpperCase() as User.Role,
-            state.toUpperCase() === "LEADER_CIRCLE" && circleIdIfLeader
-              ? circleIdIfLeader[0]
-              : null,
+            state.toUpperCase() === "LEADER_CIRCLE" ? id : null,
           ).then(() => {
             router.back();
           });
         }}
         className="absolute bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10"
       >
-        선택 완료
+        권한 위임
       </button>
     </>
   );

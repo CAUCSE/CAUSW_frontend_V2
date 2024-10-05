@@ -293,7 +293,6 @@ const CreatePostPage = (props: any) => {
   };
 
   useEffect(() => {
-    console.log(isAllowedEnrolled);
     if (!isAllowedEnrolled) {
       setValue("formCreateRequestDto.isNeedCouncilFeePaid", false);
       if (enrolledRegisteredSemesterList.length > 0) {

@@ -3,7 +3,7 @@
 import { Icon } from "@/shared";
 import { useFormContext } from "react-hook-form";
 
-export const Option = ({
+export const CircleApplyOption = ({
   questionIndex,
   optionIndex,
   removeOption,
@@ -11,11 +11,10 @@ export const Option = ({
   const {
     register,
     formState: { errors },
-  } = useFormContext<Post.PostCreateWithFormRequestDto>();
+  } = useFormContext<Circle.Application>();
 
-  const fieldName = `formCreateRequestDto?.questionCreateRequestDtoList?.
-      ${questionIndex}
-    .optionCreateRequestDtoList.${optionIndex}.optionText`;
+  const fieldName = `questionCreateRequestDtoList.${questionIndex}
+  .optionCreateRequestDtoList.${optionIndex}.optionText`;
 
   return (
     <div className="flex flex-col gap-2">
@@ -26,7 +25,7 @@ export const Option = ({
             type="text"
             placeholder="항목 내용"
             {...register(
-              `formCreateRequestDto.questionCreateRequestDtoList.${questionIndex}.optionCreateRequestDtoList.${optionIndex}.optionText`,
+              `questionCreateRequestDtoList.${questionIndex}.optionCreateRequestDtoList.${optionIndex}.optionText`,
               {
                 required: "항목 내용을 입력해주세요.",
               },

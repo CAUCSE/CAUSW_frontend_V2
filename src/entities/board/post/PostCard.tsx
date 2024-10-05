@@ -123,7 +123,7 @@ export const PostCard = ({
     const decodeFile = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1));
     const filename= decodeFile.split('_')[0];
     const fileExtension = decodeFile.substring(decodeFile.lastIndexOf('.') + 1);
-    return (filename+fileExtension);
+    return (filename+"."+fileExtension);
   };
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
