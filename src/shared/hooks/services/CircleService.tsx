@@ -57,10 +57,10 @@ export const CircleService = () => {
 
   const getApplicationById = async (circleid: string, userId: string) => {
     const { data } = (await API.get(
-      `/api/v1/circles/${circleid}/applications`,
-    )) as AxiosResponse<any>;
+      `/api/v1/forms/${userId}/${circleid}`,
+    )) as AxiosResponse<Circle.ApplyResponseDto>;
 
-    return data;
+    return data[0];
   };
 
   const rejectApplyUser = async (id: string) => {
