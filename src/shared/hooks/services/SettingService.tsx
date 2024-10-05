@@ -89,6 +89,14 @@ export const SettingService = () => {
     return data;
   };
 
+  const rejectApplyBoards = async (id: string) => {
+    await API.put(`/api/v1/boards/apply/${id}/reject`);
+  };
+
+  const acceptApplyBoards = async (id: string) => {
+    await API.put(`/api/v1/boards/apply/${id}/accept`);
+  };
+
   return {
     updateRole,
     useGetAttendanceUser,
@@ -98,5 +106,7 @@ export const SettingService = () => {
     getMyFavoritePosts,
     getApplyBoards,
     getUserByName,
+    rejectApplyBoards,
+    acceptApplyBoards,
   };
 };

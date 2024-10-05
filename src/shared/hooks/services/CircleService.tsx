@@ -11,13 +11,16 @@ export const CircleService = () => {
   const editCircle = async (id: string, body: FormData) => {
     await FORMAPI.put(`${URI}/${id}`, body);
 
-    window.location.reload();
+    window.location.href = "/circle/" + id;
   };
-  
+
   const dropMember = async (userId: string, circleId: string) => {
-    try {const response = await API.put(`${URI}/${circleId}/users/${userId}/drop`) as AxiosResponse;
-    return response;}
-    catch(error){
+    try {
+      const response = (await API.put(
+        `${URI}/${circleId}/users/${userId}/drop`,
+      )) as AxiosResponse;
+      return response;
+    } catch (error) {
       throw error;
     }
   };

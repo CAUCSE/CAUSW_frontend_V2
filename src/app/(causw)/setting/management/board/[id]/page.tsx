@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { RoleSelectSection } from "@/entities";
 import { SettingService } from "@/shared";
@@ -13,7 +14,10 @@ const BoardDetailManagement = ({
 }: {
   params: { id: string };
 }) => {
-  const { getApplyBoards } = SettingService();
+  const router = useRouter();
+
+  const { getApplyBoards, acceptApplyBoards, rejectApplyBoards } =
+    SettingService();
 
   const [data, setData] = useState<
     undefined | Setting.GetApplyBoardResponseDto
@@ -78,10 +82,24 @@ const BoardDetailManagement = ({
         </div>
 
         <div className="flex w-full flex-col justify-center gap-3 md:flex-row">
-          <button className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl">
+          <button
+            className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl"
+            onClick={() => {
+              acceptApplyBoards(id).then(() => {
+                window.location.href = "/setting/management/board";
+              });
+            }}
+          >
             승인
           </button>
-          <button className="flex h-10 w-80 items-center justify-center rounded-xl bg-gray-400 text-lg text-white md:h-16 lg:text-xl">
+          <button
+            className="flex h-10 w-80 items-center justify-center rounded-xl bg-gray-400 text-lg text-white md:h-16 lg:text-xl"
+            onClick={() => {
+              rejectApplyBoards(id).then(() => {
+                window.location.href = "/setting/management/board";
+              });
+            }}
+          >
             거부
           </button>
         </div>
