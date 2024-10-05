@@ -23,6 +23,7 @@ declare namespace Circle {
     circleTax: number;
     recruitMembers: number;
     isRecruit: boolean;
+    recruitEndDate: string;
   }
 
   export interface Board {

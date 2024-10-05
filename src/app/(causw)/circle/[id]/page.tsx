@@ -78,10 +78,10 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          {circle.isJoined && circle.joinedAt ? (
+          {circle.isRecruit && circle.isRecruit ? (
             <>
               <div className="mr-4 font-bold lg:mr-6">모집 마감일</div>
-              <div>{formatDateString(circle.joinedAt)}</div>
+              <div>{formatDateString(circle.recruitEndDate)}</div>
             </>
           ) : (
             <div className="text-gray-500">모집 기간이 아닙니다.</div>
