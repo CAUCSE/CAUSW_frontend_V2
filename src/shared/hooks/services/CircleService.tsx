@@ -55,6 +55,22 @@ export const CircleService = () => {
     )) as AxiosResponse<any>;
   };
 
+  const getApplicationById = async (circleid: string, userId: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${circleid}/applications`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  const rejectApplyUser = async (id: string) => {
+    await API.put(`${URI}/applications/${id}/reject`);
+  };
+
+  const acceptApplyUser = async (id: string) => {
+    await API.put(`${URI}/applications/${id}/accept`);
+  };
+
   return {
     editCircle,
     dropMember,
@@ -62,5 +78,8 @@ export const CircleService = () => {
     checkApplication,
     editCircleApplication,
     applyCircle,
+    acceptApplyUser,
+    rejectApplyUser,
+    getApplicationById,
   };
 };
