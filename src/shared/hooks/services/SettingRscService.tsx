@@ -183,6 +183,30 @@ export const SettingRscService = () => {
     }
   };
 
+  const addPayer = async (
+    userId: string,
+    paidAt: number,
+    numOfPaidSemester: number,
+    isRefunded: boolean,
+    refundedAt?: number,
+  ) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/user-council-fee`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        userId,
+        paidAt,
+        numOfPaidSemester,
+        isRefunded,
+        refundedAt,
+      }),
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
   return {
     getByState,
     getAllAdmissions,
@@ -194,6 +218,7 @@ export const SettingRscService = () => {
     getWaitingUsers,
     getApplyBoards,
     rejectAdmission,
+    addPayer,
     getUserCouncilFeeInfo,
   };
 };
