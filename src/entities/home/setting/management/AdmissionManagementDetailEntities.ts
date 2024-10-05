@@ -1,5 +1,4 @@
 import { SettingRscService } from "@/shared";
-import { Setting } from "@/shared/@types/setting";
 
 type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
 
@@ -10,7 +9,7 @@ export const uiEntities: Record<
     buttons: {
       name: string;
       variant: "BLUE" | "RED" | "GRAY";
-      action: (...args: any) => void;
+      action: (admission: Setting.GetAdmissionResponseDto) => void;
     }[];
   }
 > = {
@@ -20,18 +19,19 @@ export const uiEntities: Record<
       {
         name: "승인",
         variant: "BLUE",
-        action: async (admissionId) => {
+        action: async (admission) => {
           const { acceptAdmission } = SettingRscService();
-          if (await acceptAdmission(admissionId)) return;
+          if (await acceptAdmission(admission.id)) return;
           alert("승인에 실패했습니다. 관리자에게 문의하세요");
-          console.log("승인");
         },
       },
       {
         name: "거부",
         variant: "GRAY",
-        action: () => {
-          console.log("거부");
+        action: async (admission) => {
+          const { rejectAdmission } = SettingRscService();
+          if (await rejectAdmission(admission.id)) return;
+          alert("거부에 실패했습니다. 관리자에게 문의하세요");
         },
       },
     ],
@@ -187,3 +187,11 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
   requestedAt: "가입 요청 일시",
   evidentImg: "학부 재적/졸업 증빙 자료",
 };
+
+// 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)
+export const titleMappingForCircle = Object.keys(titleMapping)
+  .filter((key) => !['requestedAt', 'leftPayedSemester'].includes(key))
+  .reduce((obj, key) => {
+    obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
+    return obj;
+  }, {} as Record<keyof InfoTableEntity, string>);

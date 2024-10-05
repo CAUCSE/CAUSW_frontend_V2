@@ -86,15 +86,45 @@ export const PostCard = ({
     setIsPopupOpen(false);
     setPopupImage(null);
   };
-
+/* 
   const handleDownload = (fileUrl: string) => {
     console.log(fileUrl);
-    const link = document.createElement("a");
+    const decodedUrl = decodeURIComponent(fileUrl) ;
+    const fileNameWithUuid = decodedUrl. substring(decodedUrl.lastIndexOf('/') + 1);
+    const filename= fileNameWithUuid.split('_')[0];
+    
+    const encodedFileName = encodeURIComponent(filename);
+    console.log(encodedFileName);
+    //const link = document.createElement("a");
     //link.href = fileUrl;
     //link.download = extractFileName(fileUrl); // 파일명 설정
     //link.click();
+  }; */
+
+  const openFileLink = (url) => {
+    const fileName = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1)); // 파일명 추출 후 디코딩
+    const fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1); // 확장자 추출
+
+    if (fileExtension === "pdf" || fileExtension === "jpg" || fileExtension === "png") {
+      // PDF나 이미지 파일은 새 탭에서 열기
+      window.open(url, '_blank');
+    } else {
+      // 그 외 파일은 다운로드
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
+  const extractFileName = (url) => {
+    const decodeFile = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1));
+    const filename= decodeFile.split('_')[0];
+    const fileExtension = decodeFile.substring(decodeFile.lastIndexOf('.') + 1);
+    return (filename+"."+fileExtension);
+  };
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
   const params = useParams();
@@ -180,7 +210,7 @@ export const PostCard = ({
                 <div
                   key={index}
                   className="w-min-20 h-min-20 flex h-20 w-20 flex-col items-center justify-center space-y-2 border border-black p-2"
-                  onClick={() => handleDownload(attachment)}
+                  onClick={() => openFileLink(attachment)}
                 >
                   <Image
                     src="/images/post/file-icon.svg"
@@ -198,7 +228,7 @@ export const PostCard = ({
           {isPopupOpen && popupImage && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
               <div className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center">
-                <div className="relative h-auto w-auto">
+                <div className="relative h-auto w-auto bg-black">
                   <Image
                     src={popupImage}
                     alt="Preview Image"
@@ -210,9 +240,15 @@ export const PostCard = ({
                 </div>
                 <button
                   onClick={handleClosePopup}
-                  className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-gray-800 p-2 text-white hover:bg-gray-700"
+                  className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center text-white hover:bg-gray-700"
                 >
                   x
+                </button>
+                <button
+                  onClick={()=>openFileLink(popupImage)}
+                  className="absolute right-[40px] top-1 z-50 flex h-10 w-10 items-center justify-center text-white"
+                >
+                  ↓
                 </button>
               </div>
               <div

@@ -5,6 +5,7 @@ import {
   CommentCard,
   CommentInput,
   PostCard,
+  LoadingComponent
 } from "@/entities";
 import {
   ChildCommentRscService,
@@ -67,7 +68,7 @@ const PostDetailPage = (props: any) => {
     toggleChildCommentPopup,
   } = useChildCommentStore();
 
-  usePostDetail(postId);
+  const { loading } = usePostDetail(postId);
 
   const changeToPostComment = () => {
     setPostComment();
@@ -176,6 +177,7 @@ const PostDetailPage = (props: any) => {
         decrementComment();
       }
     }
+    changeToPostComment();
   };
 
   const togglePostPopupMenu = () => {
@@ -219,8 +221,9 @@ const PostDetailPage = (props: any) => {
       console.error("대댓글 삭제 처리 에러: ", error);
     }
   };
-  if (!post) {
-    return <div>Loading...</div>;
+
+  if(loading || !post) {
+    return ( <LoadingComponent />);
   }
 
   return (

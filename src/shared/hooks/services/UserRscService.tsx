@@ -64,7 +64,7 @@ export const UserRscService = () => {
           [
             JSON.stringify({
               nickname: data.nickname,
-              phoneNumber: "01011111111",
+              phoneNumber: data.phoneNumber,
             }),
           ],
           { type: "application/json" },
@@ -114,14 +114,18 @@ export const UserRscService = () => {
       );
 
       // FileList를 배열로 변환하여 forEach 사용
-      Array.from(data.images).forEach((file) => {
+      if (data.attachImage)
+{      Array.from(data.attachImage).forEach((file) => {
         formData.append(
-          "userAdmissionAttachImageList ",
+          "userAdmissionAttachImageList",
           new Blob([file], { type: file.type }),
           file.name,
         );
       });
-
+}
+      else{
+        formData.append("userAdmissionAttachImageList", '');
+      }
       const headers = await setRscHeader();
       const response: AxiosResponse<any> = await axios.post(URI, formData, {
         headers: {

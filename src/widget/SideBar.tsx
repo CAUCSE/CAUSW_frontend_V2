@@ -19,6 +19,7 @@ export const SideBar = () => {
 
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
+  const profileImage = useUserStore((state) => state.profileImageUrl);
 
   const handleNoRefresh = async () => {
     await signout();
@@ -44,12 +45,12 @@ export const SideBar = () => {
           </span>
         </div>
 
-        {sm || md ? null : <ProfileImage />}
+        {sm || md ? null : <ProfileImage src={profileImage} />}
         <div className="mr-2 flex flex-col items-end lg:mr-0 lg:items-center">
           <Header wide>{name}</Header>
           <SubHeader gray>{email}</SubHeader>
         </div>
-        {sm || md ? <ProfileImage /> : null}
+        {sm || md ? <ProfileImage src={profileImage} /> : null}
       </div>
     </>
   );

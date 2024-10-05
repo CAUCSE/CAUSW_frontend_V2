@@ -1,29 +1,44 @@
 "use client";
 
 import { HomeRscService } from "@/shared";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export function EventEditModal({ bannerId }: { bannerId?: string }) {
   const searchParams = useSearchParams();
   const bannerImg = searchParams.get("bannerImg");
+  const _url = searchParams.get("url");
   const [currImg, setCurrImg] = useState<File | null>();
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState(_url ? _url : "");
 
-  const { createEvent } = HomeRscService();
+  const { createEvent, updateEvent } = HomeRscService();
 
   const router = useRouter();
 
   const handleSubmit = async () => {
-    if (!currImg || !url) {
-      alert("이미지와 URL을 입력해주세요.");
-      return;
+    if (!bannerId) {
+      if (!currImg || !url) {
+        alert("사진과 url을 입력해주세요.");
+        return;
+      }
+      const done = await createEvent(currImg, url);
+      if (!done) alert("저장에 실패했습니다. 관리자에게 문의하세요");
+      alert("저장되었습니다.");
+    } else {
+      // updateEvent
+      if (!url) {
+        alert("url을 입력해주세요.");
+        return;
+      }
+      const done = currImg
+        ? await updateEvent(bannerId, currImg, url)
+        : await updateEvent(bannerId, null, url);
+      if (!done) alert("수정에 실패했습니다. 관리자에게 문의하세요");
     }
-    console.log(createEvent);
-    const done = await createEvent(currImg, url);
-    if (!done) alert("저장에 실패했습니다. 관리자에게 문의하세요");
-    alert("저장되었습니다.");
-    router;
+
+    router.refresh();
+    router.back();
   };
 
   return (
@@ -32,7 +47,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
       onClick={() => router.back()}
     >
       <div
-        className="relative flex w-[80vw] flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
+        className="relative flex flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -44,7 +59,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
         <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
           이벤트 공지 배너 {bannerId ? "수정" : "추가"}
         </p>
-        <div className="relative flex h-[150px] w-full flex-col">
+        <div className="relative flex h-[150px] w-[1100px] flex-col">
           <input
             className="hidden"
             id="file"
@@ -62,11 +77,26 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
             htmlFor="file"
             className="flex h-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-black"
           >
-            {currImg ? (
-              <img
-                src={bannerImg || URL.createObjectURL(currImg)}
-                className="h-full w-full rounded-lg object-cover"
-              />
+            {bannerImg || currImg ? (
+              currImg ? (
+                <Image
+                  alt={""}
+                  width={1100}
+                  height={150}
+                  src={URL.createObjectURL(currImg)}
+                  className="h-full w-full rounded-lg object-cover"
+                />
+              ) : (
+                bannerImg && (
+                  <Image
+                    alt={""}
+                    width={1100}
+                    height={150}
+                    src={bannerImg}
+                    className="h-full w-full rounded-lg object-cover"
+                  />
+                )
+              )
             ) : (
               <i className="icon-[gravity-ui--plus] h-[94px] w-[94px]" />
             )}

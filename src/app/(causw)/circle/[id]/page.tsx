@@ -1,16 +1,24 @@
-import { ProfileImage, Header, SubHeader } from "@/entities";
+import {
+  ProfileImage,
+  Header,
+  SubHeader,
+  CircleApplyOnButton,
+} from "@/entities";
 import { CircleRscService, UserRscService } from "@/shared";
 import { formatDateString } from "@/utils";
 
 import Link from "next/link";
 
 const Circle = async ({ params: { id } }: { params: { id: string } }) => {
-  const { getCircle } = CircleRscService();
-  const { getUser, getMe, getMyCircles } = UserRscService();
+  const { getCircle, getCircleMembers } = CircleRscService();
+  const { getMe, getMyCircles } = UserRscService();
 
   const me = await getMe();
   const circle = await getCircle(id);
-  const leader = await getUser(circle.leaderId);
+  const members = await getCircleMembers(id);
+  const leader = members.find(
+    (member) => member.user.id === circle.leaderId,
+  )?.user;
   const myCircles = await getMyCircles();
 
   const isCircleLeader =
@@ -34,9 +42,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         <div
           className={`${isCircleLeader ? "flex" : "hidden"} col-span-1 flex items-center justify-end gap-5 md:col-span-2 md:row-span-2`}
         >
-          <div className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex">
-            가입 신청 받기
-          </div>
+          <CircleApplyOnButton md={true} circle={circle} />
           <Link
             href={"/setting/management/circle/" + id + "/apply"}
             className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex"
@@ -72,10 +78,10 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-2 flex flex-row items-center text-sm md:h-10 md:text-lg">
-          {circle.isJoined && circle.joinedAt ? (
+          {circle.isRecruit && circle.isRecruit ? (
             <>
               <div className="mr-4 font-bold lg:mr-6">모집 마감일</div>
-              <div>{formatDateString(circle.joinedAt)}</div>
+              <div>{formatDateString(circle.recruitEndDate)}</div>
             </>
           ) : (
             <div className="text-gray-500">모집 기간이 아닙니다.</div>
@@ -84,9 +90,13 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
         <div className="col-span-3 row-span-1 flex w-32 flex-col items-center gap-2 md:col-span-1 md:row-span-4">
           <div className="mb-6 mt-6 w-full text-2xl font-bold">운영진</div>
-          <ProfileImage src={leader.profileImage}></ProfileImage>
+          <ProfileImage
+            src={
+              leader ? leader.profileImageUrl : "/images/default_profile.png"
+            }
+          ></ProfileImage>
           <SubHeader bold>
-            회장 {circle.leaderName} ({leader.admissionYear % 100})
+            회장 {circle.leaderName} ({leader!.admissionYear % 100})
           </SubHeader>
         </div>
 
@@ -96,9 +106,12 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         {!isMyCircle ? (
-          <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-2 md:row-span-2 md:h-16 lg:text-xl">
+          <Link
+            href={"/circle/" + id + "/apply"}
+            className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-2 md:row-span-2 md:h-16 lg:text-xl"
+          >
             신청하기
-          </div>
+          </Link>
         ) : (
           <Link
             href={"/circle/" + id + "/board"}
@@ -116,12 +129,13 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
         {isCircleLeader ? (
           <>
-            <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16">
-              가입 신청 받기
-            </div>
-            <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16">
+            <CircleApplyOnButton md={false} circle={circle} />
+            <Link
+              href={"/setting/management/circle/" + id + "/apply"}
+              className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16"
+            >
               신청 현황 보기
-            </div>
+            </Link>
           </>
         ) : null}
         <div className="h-5"></div>

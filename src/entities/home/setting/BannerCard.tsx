@@ -1,5 +1,7 @@
 "use client";
 
+import { HomeRscService } from "@/shared";
+import Image from "next/image";
 import Link from "next/link";
 import { CardBox } from "../card/CardBox";
 
@@ -14,22 +16,33 @@ export const BannerCard = ({
   bannerId: string;
   date: string;
 }) => {
+  const { deleteEvent } = HomeRscService();
+
   return (
-    <Link href={`./event/${bannerId}?bannerImg=${imgSrc}`}>
+    <Link href={`./event/${bannerId}?bannerImg=${imgSrc}&url=${url}`}>
       <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
-        <img
+        <Image
           src={imgSrc}
           alt="banner"
-          className="h-[141px] w-full object-cover"
+          height={150}
+          width={1100}
+          className="h-[150px] w-[1100px] object-cover"
         />
         <div className="flex justify-between">
           <p>{url}</p>
           <div className="flex items-end gap-[18px]">
             <p className="text-[15px] text-[#B4B1B1]">{date}</p>
             <button
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
-                confirm("정말 삭제하시겠습니까?") && alert("삭제되었습니다.");
+                if (confirm("정말 삭제하시겠습니까?")) {
+                  if (await deleteEvent(bannerId)) {
+                    alert("삭제되었습니다.");
+                    location.reload();
+                  } else {
+                    alert("삭제에 실패했습니다. 관리자에게 문의하세요.");
+                  }
+                }
               }}
               className="z-10"
             >

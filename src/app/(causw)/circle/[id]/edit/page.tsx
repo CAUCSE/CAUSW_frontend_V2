@@ -5,6 +5,7 @@
 import { CircleRscService, CircleService, useUserStore } from "@/shared";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { debounce } from "@/utils";
 import { LoadingComponent, Header, SubHeader, ProfileImage } from "@/entities";
@@ -16,10 +17,8 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const [circle, setCircle] = useState<Circle.CircleRequestDto>();
   const [mainImg, setMainImg] = useState<File | undefined>();
 
-  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const admissionYear = useUserStore((state) => state.admissionYear);
-  const profileImage = useUserStore((state) => state.profileImage);
-  const isAdmin = useUserStore((state) => state.isAdmin);
+  const profileImage = useUserStore((state) => state.profileImageUrl);
 
   const router = useRouter();
 
@@ -31,7 +30,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
       const newCircle = { ...circle };
 
       newCircle[key] =
-        key === "joinedAt"
+        key === "recruitEndDate"
           ? ((event.target.value +
               "T23:59:59.999999") as Circle.CircleRequestDto[K])
           : (event.target.value as Circle.CircleRequestDto[K]);
@@ -42,9 +41,6 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   );
 
   useEffect(() => {
-    if (!isAdmin() && !circleIdIfLeader?.includes(id))
-      router.push("/no-permission");
-
     (async () => {
       const data = await getCircle(id);
       setCircle(data);
@@ -64,9 +60,9 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
             name: circle.name,
             description: circle.description,
             circleTax: circle.circleTax,
-            recruitMembers: circle.numMember,
-            recruitEndDate: circle.joinedAt,
-            isRecruit: false,
+            recruitMembers: circle.recruitMembers,
+            recruitEndDate: circle.recruitEndDate,
+            isRecruit: circle.isRecruit,
           }),
         ],
         { type: "application/json" },
@@ -86,7 +82,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <>
       <div className="ml-[3%] mt-8 grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:mt-[6%] lg:h-5/6">
-        <div className="col-span-3 min-h-24 md:row-span-2">
+        <div className="col-span-3 min-h-24 md:col-span-2 md:row-span-2">
           <div
             onClick={() => router.back()}
             className="mb-4 flex items-center text-lg"
@@ -96,6 +92,13 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           </div>
           <Header bold>{circle.name}</Header>
         </div>
+
+        <Link
+          href={"/circle/" + id + "/edit/application"}
+          className="col-span-1 hidden h-16 w-full items-center justify-center rounded-xl border-2 border-black text-lg md:row-span-2 md:flex"
+        >
+          신청서 수정하기
+        </Link>
 
         <label
           className="row-span-4 flex min-h-36 min-w-36 items-center overflow-hidden"
@@ -167,7 +170,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           <input
             type="date"
             className="rounded-md pl-4"
-            onChange={(event) => handleChange(event, "joinedAt")}
+            onChange={(event) => handleChange(event, "recruitEndDate")}
           ></input>
         </div>
 
@@ -195,6 +198,9 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           className="col-span-3 row-span-3 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
         >
           수정 완료
+        </div>
+        <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16">
+          신청서 수정하기
         </div>
         <div className="h-5"></div>
       </div>

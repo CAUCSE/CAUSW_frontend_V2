@@ -77,13 +77,13 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
       <div className="flex justify-between items-center">
         <span>
           <div className="w-[80px] text-[14px] text-center">{showResult ? `총 ${vote.totalUserCount}명` : ''}</div>
-          <div className="w-[80px] text-[14px] text-center mb-1">{(showResult && vote.allowAnonymous) ? `총 ${totalVote}표` : ''}</div>
+          <div className="w-[80px] text-[14px] text-center">{(showResult && vote.allowAnonymous) ? `총 ${totalVote}표` : ''}</div>
         </span>
-        <div className="text-red-500 w-max-[300px] w-full bg-vote-title px-4 py-2 text-[14px] font-semibold text-center mx-2">{vote.title}</div>
-        {(isAnonymous || isMultiple) 
-          ? <div className="text-gray-500 w-[80px] border-b-comment-bw text-[14px] text-center border-black mr-2">{isAnonymous ? '익명':''} {isMultiple ? '복수' : ''}</div>
-          : <div className="w-[70px] mr-2"></div>
-        }
+        <div className="text-red-500 w-max-[300px] w-full bg-vote-title px-4 py-3 text-[14px] font-semibold text-center mx-2">{vote.title}</div>
+        <span>
+          <div className="text-gray-500 w-[80px] text-[14px] text-center">{isAnonymous ? '익명':''}</div>
+          <div className="text-gray-500 w-[80px] text-[14px] text-center">{isAnonymous ? '복수':''}</div>
+        </span>
       </div>
       
       {showResult
@@ -119,9 +119,8 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
         {voteOptions!.map((option) => {
           const percentage = (option.voteCount / totalVote) * 100;
           return (
-            <div key={option.id} className="flex flex-col pt-4 mx-1 pb-10">
+            <div key={option.id} className="flex flex-col pt-1 mx-1 pb-8">
               <div className="flex items-center">
-                {/* TODO: winner일 때만 표시되도록 하기 */}
                 {votedMostOptions.includes(option.id) ? <Image
                   src="/images/post/vote-winner.svg"
                   alt="Vote Winner"

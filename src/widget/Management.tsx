@@ -1,7 +1,6 @@
 "use server";
 
 import { ExcelExport, Header, Line } from "@/entities";
-import { Setting } from "@/shared/@types/setting";
 
 import Link from "next/link";
 

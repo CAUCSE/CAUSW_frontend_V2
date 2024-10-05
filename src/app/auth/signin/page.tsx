@@ -110,12 +110,19 @@ const SignInPage = () => {
         </span>
         <div className="mt-2 flex w-32 flex-row justify-between md:mr-4">
           <Image
+            onClick={() => {
+              window.location.href = "https://pf.kakao.com/_HYxjFj";
+            }}
             src="/images/kakao.png"
             alt="kakao"
             width={50}
             height={50}
           ></Image>
           <Image
+            onClick={() => {
+              window.location.href =
+                "https://www.instagram.com/causwcse_dongne/";
+            }}
             src="/images/instagram.png"
             alt="instagram"
             width={50}

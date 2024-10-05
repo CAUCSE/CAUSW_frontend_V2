@@ -1,5 +1,4 @@
 import { BASEURL, setRscHeader } from "@/shared";
-import { Setting } from "@/shared/@types/setting";
 
 //페이징 적용시, 한 페이지 정도 (현재 미적용)
 const SIZE = 300;
@@ -126,6 +125,7 @@ export const SettingRscService = () => {
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
 
+  //가입 승인
   const acceptAdmission = async (admissionId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${admissionId}/accept`, {
@@ -137,6 +137,52 @@ export const SettingRscService = () => {
     return true;
   };
 
+  //가입 거부
+  const rejectAdmission = async (admissionId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${admissionId}/reject`, {
+      method: "PUT",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  // 납부자 상세 조회
+  const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(
+      `${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`,
+      {
+        method: "GET",
+        headers: headers,
+      },
+    );
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
+  };
+
+  //게시판 신청 목록 조회
+  const getApplyBoards = async () => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
+        headers: headers,
+      }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return {
     getByState,
     getAllAdmissions,
@@ -146,5 +192,8 @@ export const SettingRscService = () => {
     getPrivilegedUsers,
     acceptAdmission,
     getWaitingUsers,
+    getApplyBoards,
+    rejectAdmission,
+    getUserCouncilFeeInfo,
   };
 };

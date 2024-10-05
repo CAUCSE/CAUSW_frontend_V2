@@ -34,6 +34,37 @@ declare namespace Setting {
     studentId: string;
   }
 
+  export interface UserCouncilFeeInfoDTO extends Payer {
+    email: string;
+    nickname: string;
+    admissionYear: number;
+    major: string;
+    /**
+     * psarsed
+     * 바로 재학, 휴학, 졸업으로 들어옴
+     */
+    academicStatus: string;
+    currentCompletedSemester: number;
+    graduationYear: number;
+    /**
+     * parsed
+     * 바로 "졸업예정" 과 같이 들어옴
+     */
+    graduationType: string;
+    phoneNumber: string;
+    /**
+     * parsed
+     * 바로 "2021-01-01" 과 같이 들어옴
+     */
+    joinedAt: string;
+    paidAt: number;
+    numOfPaidSemester: number;
+    isRefunded: boolean;
+    refundedAt: number;
+    restOfSemester: number;
+    isAppliedThisSemester: boolean;
+  }
+
   export interface UserElement {
     userId: string;
     userName: string;
@@ -50,6 +81,11 @@ declare namespace Setting {
     attachedImageUrlList: string[];
     changeDate: string;
   }
+
+  export type BoardList = {
+    id: string;
+    boardName: string;
+  }[];
 
   //DTO
   // getByState
@@ -131,5 +167,16 @@ declare namespace Setting {
 
   export type GetMyPostsResponseDto = {
     posts: { content: Post.PostDto[] };
+  };
+
+  export type GetApplyBoardsResponseDto = BoardList & Error.ApiErrorResponse;
+
+  export type GetApplyBoardResponseDto = {
+    id: string;
+    boardName: string;
+    description: string;
+    createRoles: string;
+    isAnonymousAllowed: boolean;
+    user: User.User;
   };
 }

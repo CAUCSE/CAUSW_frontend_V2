@@ -6,11 +6,18 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   name: "",
   admissionYear: 0,
   roles: ["COMMON"],
-  profileImage: "",
+  profileImageUrl: "",
   studentId: "",
   circleIdIfLeader: null,
   circleNameIfLeader: null,
   state: "ACTIVE",
+  nickname: "",
+  academicStatus: "ENROLLED",
+  major: "",
+  currentCompletedSemester: null,
+  graduationType: null,
+  graduationYear: null,
+  phoneNumber: "",
 
   setUserStore: (props: User.User) => {
     set(() => ({
@@ -19,14 +26,21 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
       name: props.name,
       admissionYear: props.admissionYear,
       roles: props.roles,
-      profileImage:
-        !props.profileImage || props.profileImage === ""
+      profileImageUrl:
+        !props.profileImageUrl || props.profileImageUrl === ""
           ? "/images/default_profile.png"
-          : props.profileImage,
+          : props.profileImageUrl,
       studentId: props.studentId,
       circleIdIfLeader: props.circleIdIfLeader ?? [],
       circleNameIfLeader: props.circleNameIfLeader ?? [],
       state: props.state,
+      nickname: props.nickname,
+      academicStatus: props.academicStatus,
+      major: props.major,
+      currentCompletedSemester: props.currentCompletedSemester,
+      graduationType: props.graduationType,
+      graduationYear: props.graduationYear,
+      phoneNumber: props.phoneNumber,
     }));
   },
 
@@ -41,9 +55,9 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
 
   profileImageSrc: () => {
-    return !get().profileImage || get().profileImage === ""
+    return !get().profileImageUrl || get().profileImageUrl === ""
       ? "/images/default_profile.png"
-      : (get().profileImage as string);
+      : (get().profileImageUrl as string);
   },
 
   isStudent: () => {
@@ -110,4 +124,5 @@ export const userRoleCodes: {
   LEADER_ALUMNI: "동문회장",
   COMMON: "학생",
   PROFESSOR: "교수",
+  NONE: "권한 없음",
 };

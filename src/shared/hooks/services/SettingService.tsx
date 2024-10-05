@@ -10,6 +10,25 @@ export const SettingService = () => {
 
   const router = useRouter();
 
+  const getUserByName = async (name: string) => {
+    const { data } = (await API.get(`${URI}/name/${name}`)) as AxiosResponse<
+      User.User[]
+    >;
+
+    return data;
+  };
+
+  const updateRole = async (
+    id: string,
+    role: User.Role,
+    circleId: string | null,
+  ) => {
+    await API.put(`${URI}/${id}/role`, {
+      role: role,
+      circleId: circleId,
+    });
+  };
+
   const useGetAttendanceUser = (id: string) => {
     return useQuery({
       queryKey: ["attendanceUser", id],
@@ -62,11 +81,32 @@ export const SettingService = () => {
     return data.posts.content;
   };
 
+  const getApplyBoards = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/boards/apply/${id}`,
+    )) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
+
+    return data;
+  };
+
+  const rejectApplyBoards = async (id: string) => {
+    await API.put(`/api/v1/boards/apply/${id}/reject`);
+  };
+
+  const acceptApplyBoards = async (id: string) => {
+    await API.put(`/api/v1/boards/apply/${id}/accept`);
+  };
+
   return {
+    updateRole,
     useGetAttendanceUser,
     useGetWaitingUser,
     getMyPosts,
     getMyCommentPosts,
     getMyFavoritePosts,
+    getApplyBoards,
+    getUserByName,
+    rejectApplyBoards,
+    acceptApplyBoards,
   };
 };
