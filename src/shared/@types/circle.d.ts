@@ -51,11 +51,11 @@ declare namespace Circle {
     questionCreateRequestDtoList: Post.QuestionCreateRequestDto[];
     isAllowedEnrolled: boolean;
     allowAllEnrolledRegisteredSemester: boolean;
-    enrolledRegisteredSemesterList: SemesterType[];
+    enrolledRegisteredSemesterList: Post.SemesterType[];
     isNeedCouncilFeePaid: boolean;
     isAllowedLeaveOfAbsence: boolean;
     allowAllLeaveOfAbsenceRegisteredSemester: boolean;
-    leaveOfAbsenceRegisteredSemesterList: SemesterType[];
+    leaveOfAbsenceRegisteredSemesterList: Post.SemesterType[];
     isAllowedGraduation: boolean;
   }
 
