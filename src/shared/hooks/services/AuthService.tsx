@@ -19,7 +19,7 @@ import { ErrorMessage } from "@/entities";
 
 export const AuthService = () => {
   const URI = "/api/v1/users";
-  const { getUserInfo, checkCurrentAcademicStatus } = UserService();
+  const { getMyInfo, checkCurrentAcademicStatus } = UserService();
 
   const router = useRouter();
   const setUserStore = useUserStore((state) => state.setUserStore);
@@ -37,7 +37,7 @@ export const AuthService = () => {
       await setRscToken(accessToken, body.auto ? refreshToken : false);
       await setRccToken(accessToken, body.auto ? refreshToken : false);
 
-      const AdmissionResponse = await getUserInfo();
+      const AdmissionResponse = await getMyInfo();
 
       if (AdmissionResponse.data.state === "AWAIT"){
         router.push('/auth/authorization');

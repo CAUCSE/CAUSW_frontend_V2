@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserService, useUserStore, AcademicRecordRscService } from '@/shared';
+import { UserService, AcademicRecordRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
@@ -13,7 +13,6 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   const { checkIsAcademicRecordSubmitted } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
-  const id = useUserStore((state) => state.id)
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
   const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
   const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
@@ -26,7 +25,7 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   // 졸업 년도 선택에 쓰이는 yearOptions
   const startYear = 1972; 
   const currentYear = new Date().getFullYear();
-  const yearOptions = [];
+  const yearOptions: number[] = [];
   for (let year = currentYear; year >= startYear; year--) {
     yearOptions.push(year);
   }

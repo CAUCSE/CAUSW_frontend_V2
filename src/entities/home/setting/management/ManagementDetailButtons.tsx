@@ -2,14 +2,14 @@
 
 import { Button } from "@/shared";
 import { ManagementState } from "@/widget";
-import { uiEntities } from "./managementDetailEntities";
+import { uiEntities } from "./AdmissionManagementDetailEntities";
 
-export function ManagementDetailButtons({
+export function AdmissionManagementDetailButtons({
   state,
-  actionArgs,
+  admission,
 }: {
   state: ManagementState;
-  actionArgs?: any;
+  admission: Setting.GetAdmissionResponseDto;
 }) {
   const buttons = uiEntities[state].buttons;
 
@@ -18,7 +18,7 @@ export function ManagementDetailButtons({
       {buttons.map(({ name, action, variant }) => (
         <Button
           key={name}
-          action={actionArgs ? action : () => action(actionArgs)}
+          action={() => action(admission)}
           variant={variant}
           className="h-[55px] w-[150px] lg:w-[300px]"
         >

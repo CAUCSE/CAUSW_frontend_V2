@@ -6,10 +6,17 @@ declare namespace User {
     email: string;
     id: string;
     name: string;
-    profileImage: string;
+    profileImageUrl: string;
     roles: Role[];
-    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
+    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP" | "AWAIT";
+    nickname: string;
     studentId: string;
+    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+    major: string | null;
+    currentCompletedSemester: number | null;
+    graduationYear: string | null;
+    graduationType: "AUGUST" | "FEBRUARY" | null;
+    phoneNumber: string | null;
   }
 
   export interface UserAdmissionCreateRequestDto {
@@ -85,7 +92,7 @@ declare namespace User {
 
   export interface AdmissionCreateRequestDto {
     email: string;
-    attachImage: File | null;
+    attachImage: FileList | null;
     description: string;
   }
 
@@ -98,15 +105,7 @@ declare namespace User {
   }
 
   export interface userUpdateDto {
-    name: string;
-    studentId: string;
-    admissionYear: number;
     nickname: string;
-    major: string;
-    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
-    currentCompletedSemester: number | null;
-    graduationYear: string | null;
-    graduationMonth: string | null;
     phoneNumber: string;
     profileImage: File | null;
   }
@@ -158,26 +157,8 @@ declare namespace User {
     nickname: string;
     major: string;
     phoneNumber: string;
-    profileImage: nullable;
-    files: FileList;
   }
-
-  export type AcademicStatus =
-    | "ENROLLED"
-    | "LEAVE_OF_ABSENCE"
-    | "GRADUATED"
-    | "DROPPED_OUT"
-    | "PROBATION"
-    | "PROFESSOR"
-    | "UNDETERMINED";
-  export interface CreateUserAcademicRecordApplicationRequestDto {
-    targetAcademicStatus: AcademicStatus;
-    targetCompletedSemester: number | null;
-    graduationYear: number | null;
-    graduationType: "FEBRUARY" | "AUGUST" | null;
-    note: string;
-    images: FileList | null;
-  }
+  
 
   export interface CreateUserAcademicRecordApplicationRequestDto {
     targetAcademicStatus:

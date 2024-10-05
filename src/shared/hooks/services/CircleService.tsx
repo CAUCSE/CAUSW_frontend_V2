@@ -1,6 +1,7 @@
 "use client";
 
-import { FORMAPI } from "@/shared";
+import { FORMAPI, API } from "@/shared";
+import { AxiosResponse } from "axios";
 //import { useRouter } from "next/navigation";
 
 export const CircleService = () => {
@@ -12,6 +13,14 @@ export const CircleService = () => {
 
     window.location.reload();
   };
+  
+  const dropMember = async (userId: string, circleId: string) => {
+    try {const response = await API.put(`${URI}/${circleId}/users/${userId}/drop`) as AxiosResponse;
+    return response;}
+    catch(error){
+      throw error;
+    }
+  };
 
-  return { editCircle };
+  return { editCircle, dropMember };
 };

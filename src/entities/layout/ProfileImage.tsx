@@ -3,7 +3,7 @@
 import { useUserStore } from "@/shared";
 
 export const ProfileImage = ({ src }: { src?: string }) => {
-  const profileImage = useUserStore((state) => state.profileImage);
+  const profileImage = useUserStore((state) => state.profileImageUrl);
 
   return (
     <div className="w-24 h-24 shadow-2xl rounded-full overflow-hidden">
