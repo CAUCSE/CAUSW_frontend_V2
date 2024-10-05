@@ -221,11 +221,8 @@ const PostDetailPage = (props: any) => {
       console.error("대댓글 삭제 처리 에러: ", error);
     }
   };
-  if (!post) {
-    return <div>Loading...</div>;
-  }
 
-  if(loading) {
+  if(loading || !post) {
     return ( <LoadingComponent />);
   }
 
