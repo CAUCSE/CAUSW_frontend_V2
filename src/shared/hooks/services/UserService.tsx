@@ -13,9 +13,26 @@ export const UserService = () => {
     setUserStore(data);
   };
 
-  const getUserInfo = async () => {
-    const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
-    return response;
+  const getMyInfo = async () => {
+
+    try{
+      const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
+      return response;  
+    }
+    catch(error){
+      throw error;
+    }
+  }
+
+  const getUserInfo = async (userId: string) => {
+    try{
+      const response = await API.get(`${URI}/${userId}`);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+
   }
   
   const getUserAdmissionInfo = async () => {
@@ -62,5 +79,5 @@ export const UserService = () => {
     }
   }
 
-  return { getMe, getUserInfo, getUserAdmissionInfo, updateUserAcademicInfo, checkCurrentAcademicStatus, checkIsAcademicRecordSubmitted, allowUser };
+  return { getMe, getMyInfo, getUserInfo, getUserAdmissionInfo, updateUserAcademicInfo, checkCurrentAcademicStatus, checkIsAcademicRecordSubmitted, allowUser };
 };

@@ -18,6 +18,14 @@ export const CommentInput = ({handleAddComment}:CommentInputProps) => {
     setCommentContent(""); 
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // 기본 Enter 동작 방지
+      handleSubmit(); 
+    }
+  };
+
+
   return (
     <div className="fixed flex items-center justify-center bottom-[100px] w-full px-3 lg:bottom-2 lg:left-40 lg:right-72 lg:mr-4 lg:w-auto">
       <div className="flex flex-grow items-center justify-between p-4 bg-comment-input rounded-comment-input-br">
@@ -33,6 +41,7 @@ export const CommentInput = ({handleAddComment}:CommentInputProps) => {
           className="flex flex-grow bg-comment-input border-none outline-none text-black text-[16px] "
           value={commentContent}
           onChange={(e) => setCommentContent(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
         
         <button className="flex items-end" onClick={handleSubmit}>

@@ -35,7 +35,7 @@ export const HomeRscService = () => {
 
   const getCalendars = async (year: number) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/calendars/year=${year}`, {
+    const response = await fetch(`${BASEURL}/api/v1/calendars?year=${year}`, {
       method: "GET",
       headers: headers,
     });
@@ -85,5 +85,93 @@ export const HomeRscService = () => {
     return true;
   };
 
-  return { getHomePosts, getEvents, getCalendars, getCalendar, createEvent };
+  const updateEvent = async (
+    id: string,
+    bannerImg: File | null,
+    url: string,
+  ) => {
+    const formData = new FormData();
+    formData.append(
+      "eventUpdateRequestDto",
+      new Blob(
+        [
+          JSON.stringify({
+            url,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+    bannerImg &&
+      formData.append(
+        "eventImage",
+        // bannerImg,
+        new Blob([bannerImg], { type: bannerImg.type }),
+        bannerImg.name,
+      );
+
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/events/${id}`, {
+      method: "PUT",
+      headers: headers,
+      body: formData,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  const deleteEvent = async (id: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/events/${id}`, {
+      method: "DELETE",
+      headers: headers,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  const createCalendar = async (
+    calendarImg: File,
+    year: number,
+    month: number,
+  ) => {
+    const formData = new FormData();
+    formData.append(
+      "calendarCreateRequestDto",
+      new Blob(
+        [
+          JSON.stringify({
+            year,
+            month,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+    formData.append(
+      "image",
+      new Blob([calendarImg], { type: calendarImg.type }),
+      calendarImg.name,
+    );
+
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/calendars`, {
+      method: "POST",
+      headers: headers,
+      body: formData,
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  return {
+    getHomePosts,
+    getEvents,
+    getCalendars,
+    getCalendar,
+    createEvent,
+    deleteEvent,
+    updateEvent,
+    createCalendar,
+  };
 };

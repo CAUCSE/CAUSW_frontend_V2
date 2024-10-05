@@ -49,8 +49,8 @@ const HomePage = async () => {
             loop={events.count > 0}
           />
         )}
-        <div className="grid h-full w-full gap-[25px] lg:grid-cols-[1fr_3fr]">
-          <div className="max-lg:hidden">
+        <div className="grid h-full w-full gap-[25px] lg:grid-cols-[300px_3fr]">
+          <div className="w-full max-lg:hidden">
             <Calendar />
           </div>
           <div className="grid grid-rows-[0.5fr_2fr] gap-[25px]">
@@ -61,7 +61,7 @@ const HomePage = async () => {
                 ))}
               </div>
             </div>
-            <div className="lg:hidden">
+            <div className="w-[calc(100vw-60px)] lg:hidden">
               <Calendar />
             </div>
             <CardBox className="flex h-full w-full flex-col items-center gap-[24px] p-[18px]">

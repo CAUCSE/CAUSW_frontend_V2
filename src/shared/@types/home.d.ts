@@ -22,7 +22,7 @@ declare namespace Home {
     events: Event[];
   };
 
-  type Calendar = {
+  export type Calendar = {
     id: string;
     year: number;
     month: number;

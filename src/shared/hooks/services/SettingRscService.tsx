@@ -125,6 +125,7 @@ export const SettingRscService = () => {
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
 
+  //가입 승인
   const acceptAdmission = async (admissionId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${admissionId}/accept`, {
@@ -134,6 +135,34 @@ export const SettingRscService = () => {
 
     if (!response.ok) throw new Error(response.statusText);
     return true;
+  };
+
+  //가입 거부
+  const rejectAdmission = async (admissionId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${admissionId}/reject`, {
+      method: "PUT",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  // 납부자 상세 조회
+  const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(
+      `${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`,
+      {
+        method: "GET",
+        headers: headers,
+      },
+    );
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
   };
 
   //게시판 신청 목록 조회
@@ -164,5 +193,7 @@ export const SettingRscService = () => {
     acceptAdmission,
     getWaitingUsers,
     getApplyBoards,
+    rejectAdmission,
+    getUserCouncilFeeInfo,
   };
 };
