@@ -22,6 +22,9 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
       handleChildCommentLike();
     }
   }
+  const popMenuList = [
+    { message: "댓글 삭제", handleBtn: handleDeleteChildComment },
+  ];
   return (
     <div className=" flex flex-row items-center justify-start space-x-4">
       <div className="p-2">
@@ -41,10 +44,7 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
             height={4}
           ></Image>
         </button> 
-        {isPopupVisible ? <PopupMenu
-          message="대댓글 삭제"
-          handleBtn={handleDeleteChildComment}
-        />:''}
+        {isPopupVisible ? <PopupMenu PopupMenuChildren={popMenuList}/>:''}
         <div className="flex flex-row items-center px-2 mb-1">
           <Image
             src = {writerProfileImage}
