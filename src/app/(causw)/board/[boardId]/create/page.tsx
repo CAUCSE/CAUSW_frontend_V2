@@ -11,19 +11,15 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import {
   PostRscService,
   PreviousButton,
+  VoteRscService,
   useCreatePostStore,
   useCreateVoteStore,
   useFileUpload,
-  VoteRscService,
 } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
-import Image from "next/image";
-import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from "next/dist/lib/constants";
-import { all } from "axios";
 import { useRouter } from "next/navigation";
 
-// eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
   const { createPost, createPostWithForm } = PostRscService();
@@ -99,10 +95,8 @@ const CreatePostPage = (props: any) => {
     register,
     control,
     handleSubmit,
-    getValues,
     setValue,
     setError,
-    clearErrors,
     watch,
     formState: { errors },
   } = methods;
@@ -202,8 +196,6 @@ const CreatePostPage = (props: any) => {
       },
     );
 
-    console.log(JSON.stringify(postCreateWithFormRequestDto, null, 2));
-    console.log(JSON.stringify(data, null, 2));
     try {
       const response = await createPostWithForm(
         postCreateWithFormRequestDto,

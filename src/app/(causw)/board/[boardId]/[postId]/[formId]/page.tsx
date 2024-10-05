@@ -48,7 +48,7 @@ const ApplyPage = () => {
         setForm(data1);
         setCanUserReply(data2);
       } catch (error) {
-        if ((error as { message: string }).message !== "401") {
+        if ((error as Error).message !== "401") {
           router.push("/not-found");
         }
       } finally {
@@ -79,7 +79,7 @@ const ApplyPage = () => {
     };
   }, [form]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     let hasErrors = false;
     data.questionReplyRequestDtoList.forEach(
       (questionReplyRequestDto: Form.QuestionReplyRequestDto, idx: number) => {

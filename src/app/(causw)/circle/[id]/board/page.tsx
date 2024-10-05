@@ -1,18 +1,19 @@
-import { MainBoardRscService, CircleRscService } from "@/shared";
-import { CustomBoard, DefaultBoard, IBoardInfo } from "@/entities";
+import { BoardRscService, CircleRscService } from "@/shared";
+import { CustomBoard, DefaultBoard } from "@/entities";
 
 import Link from "next/link";
 
 const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {
-  const { getMainBoard } = MainBoardRscService();
+  const { getMainBoardList } = BoardRscService();
   const { getCircleBoards } = CircleRscService();
-  const mainBoards = (await getMainBoard()) as Array<IBoardInfo>;
+  const mainBoards =
+    (await getMainBoardList()) as Array<Board.BoardResponseDto>;
   const circleBoardIds = await getCircleBoards(id).then((circleBoards) =>
     circleBoards.boardList.map((circleBoard) => circleBoard.id),
   );
 
-  const defaultBoards: Array<IBoardInfo> = [];
-  const commonBoards: Array<IBoardInfo> = [];
+  const defaultBoards: Array<Board.BoardResponseDto> = [];
+  const commonBoards: Array<Board.BoardResponseDto> = [];
 
   mainBoards.forEach((element) => {
     if (circleBoardIds.includes(element.boardId)) {
