@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Header, SubHeader, Line } from "@/entities";
-import { userRoleCodes, SettingService, useUserStore } from "@/shared";
+import { Header, Line } from "@/entities";
+import { SettingService } from "@/shared";
 import { useState } from "react";
 
 interface IFormInput {
@@ -95,7 +95,7 @@ const AddPayer = () => {
         onClick={() => {
           if (!selectId) return;
 
-          router.push("/setting/management/payer/add" + selectId);
+          router.push("/setting/management/payer/add/" + selectId);
         }}
         className="absolute bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10"
       >

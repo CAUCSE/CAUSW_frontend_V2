@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ReactNode } from "react";
 
 const TableUnit = ({ title, data }: { title: string; data: string }) => {
   return (
@@ -16,9 +17,11 @@ const TableUnit = ({ title, data }: { title: string; data: string }) => {
 export function ManagementDetailInfoTable({
   data,
   titleMapping,
+  additionalUnit,
 }: {
   data: { [key: string]: string };
   titleMapping: { [key: string]: string };
+  additionalUnit?: ReactNode;
 }) {
   return (
     <div className="grid h-full w-full grid-cols-2 justify-around gap-y-[27px]">
@@ -26,6 +29,7 @@ export function ManagementDetailInfoTable({
         const key = k as keyof typeof data;
         return <TableUnit key={key} title={titleMapping[k]} data={data[key]} />;
       })}
+      {additionalUnit}
     </div>
   );
 }

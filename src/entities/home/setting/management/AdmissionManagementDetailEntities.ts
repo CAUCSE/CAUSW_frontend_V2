@@ -1,5 +1,4 @@
 import { SettingRscService } from "@/shared";
-import { useRouter } from "next/navigation";
 
 type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
 
@@ -22,10 +21,8 @@ export const uiEntities: Record<
         variant: "BLUE",
         action: async (admission) => {
           const { acceptAdmission } = SettingRscService();
-          const router = useRouter();
           if (await acceptAdmission(admission.id)) {
             alert("승인되었습니다");
-            router.back();
           }
           alert("승인에 실패했습니다. 관리자에게 문의하세요");
         },
@@ -35,10 +32,8 @@ export const uiEntities: Record<
         variant: "GRAY",
         action: async (admission) => {
           const { rejectAdmission } = SettingRscService();
-          const router = useRouter();
           if (await rejectAdmission(admission.id)) {
             alert("거부되었습니다");
-            router.back();
           }
           alert("거부에 실패했습니다. 관리자에게 문의하세요");
         },
@@ -199,8 +194,12 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
 
 // 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)
 export const titleMappingForCircle = Object.keys(titleMapping)
-  .filter((key) => !['requestedAt', 'leftPayedSemester'].includes(key))
-  .reduce((obj, key) => {
-    obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
-    return obj;
-  }, {} as Record<keyof InfoTableEntity, string>);
+  .filter((key) => !["requestedAt", "leftPayedSemester"].includes(key))
+  .reduce(
+    (obj, key) => {
+      obj[key as keyof InfoTableEntity] =
+        titleMapping[key as keyof InfoTableEntity];
+      return obj;
+    },
+    {} as Record<keyof InfoTableEntity, string>,
+  );
