@@ -12,12 +12,12 @@ import { ManagementState } from "./Management";
 
 interface ManagementDetailProp {
   state: ManagementState;
-  userId: string;
+  admissionId: string;
 }
 
 export async function ManagementDetail({
   state,
-  userId,
+  admissionId,
 }: ManagementDetailProp) {
   const entities = managementDetailEntities[state];
   const { titleSuffix } = entities;
@@ -25,7 +25,7 @@ export async function ManagementDetail({
 
   let admission;
   try {
-    admission = await getAdmission(userId);
+    admission = await getAdmission(admissionId);
   } catch {
     console.error("가입 신청서 조회 실패");
   }

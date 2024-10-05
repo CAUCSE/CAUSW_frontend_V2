@@ -39,7 +39,6 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
 
     router.refresh();
     router.back();
-    router.refresh();
   };
 
   return (
