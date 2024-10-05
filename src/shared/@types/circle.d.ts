@@ -46,6 +46,19 @@ declare namespace Circle {
     boards: Model.CircleBoard[];
   }
 
+  export interface Application {
+    title: string;
+    questionCreateRequestDtoList: Post.QuestionCreateRequestDto[];
+    isAllowedEnrolled: boolean;
+    allowAllEnrolledRegisteredSemester: boolean;
+    enrolledRegisteredSemesterList: SemesterType[];
+    isNeedCouncilFeePaid: boolean;
+    isAllowedLeaveOfAbsence: boolean;
+    allowAllLeaveOfAbsenceRegisteredSemester: boolean;
+    leaveOfAbsenceRegisteredSemesterList: SemesterType[];
+    isAllowedGraduation: boolean;
+  }
+
   // Client
   // 기본, 신청완료, 대기중, 가입됨, 제한
   export type JoinStatus = "NONE" | "DONE" | "AWAIT" | "MEMBER" | "BLOCK";

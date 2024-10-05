@@ -99,7 +99,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <Link
-          href={"/TODO"}
+          href={"/circle/" + id + "/edit/application"}
           className="col-span-1 hidden h-16 w-full items-center justify-center rounded-xl border-2 border-black text-lg md:row-span-2 md:flex"
         >
           신청서 수정하기
