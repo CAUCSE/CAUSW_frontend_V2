@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/shared";
+import { userRoleCodes, useUserStore } from "@/shared";
 import Link from "next/link";
 import React from "react";
 
@@ -32,11 +32,32 @@ const SettingsPage = () => {
   const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
 
+  const roleItems: {
+    name: string;
+    link: string;
+  }[] = [];
+
+  roles.forEach((role) => {
+    if (role !== "LEADER_CIRCLE")
+      roleItems.push({
+        name: userRoleCodes[role] + " 권한 위임",
+        link: "/setting/mandate/" + role.toLowerCase() + "/none",
+      });
+  });
+
+  const circleLeaderItems =
+    circleIdIfLeader && circleIdIfLeader.length > 0
+      ? circleIdIfLeader.map((id, index) => ({
+          name: circleNameIfLeader![index] + " 동아리장 권한 위임",
+          link: "/setting/mandate/leader_circle/" + id,
+        }))
+      : [];
+
   const menuItems = {
     계정: [
       { name: "개인정보 관리", link: "/setting/personal-info" },
       { name: "비밀번호 변경", link: "/setting/resetpassword" },
-      { name: "로그아웃", link: "" },
+      { name: "로그아웃", link: "/auth/signin" },
       { name: "이용약관", link: "/" },
     ],
     기록: [
@@ -51,7 +72,7 @@ const SettingsPage = () => {
       { name: "학생회비 납부자 관리", link: "/setting/management/payer" },
       { name: "학적 상태 관리", link: "/setting/management/attendance/all" },
     ],
-    권한위임: [{ name: "권한 위임", link: "/setting/mandate/" + roles[0] }],
+    권한위임: [...roleItems, ...circleLeaderItems],
     홈화면관리: [
       { name: "이벤트 배너 공지 편집", link: "/setting/home/event" },
       { name: "캘린더 편집", link: "/setting/home/calendar" },
