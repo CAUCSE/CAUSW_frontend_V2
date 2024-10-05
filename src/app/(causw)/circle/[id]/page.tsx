@@ -10,12 +10,15 @@ import { formatDateString } from "@/utils";
 import Link from "next/link";
 
 const Circle = async ({ params: { id } }: { params: { id: string } }) => {
-  const { getCircle } = CircleRscService();
-  const { getUser, getMe, getMyCircles } = UserRscService();
+  const { getCircle, getCircleMembers } = CircleRscService();
+  const { getMe, getMyCircles } = UserRscService();
 
   const me = await getMe();
   const circle = await getCircle(id);
-  const leader = await getUser(circle.leaderId);
+  const members = await getCircleMembers(id);
+  const leader = members.find(
+    (member) => member.user.id === circle.leaderId,
+  )?.user;
   const myCircles = await getMyCircles();
 
   const isCircleLeader =
@@ -87,9 +90,13 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
         <div className="col-span-3 row-span-1 flex w-32 flex-col items-center gap-2 md:col-span-1 md:row-span-4">
           <div className="mb-6 mt-6 w-full text-2xl font-bold">운영진</div>
-          <ProfileImage src={leader.profileImage}></ProfileImage>
+          <ProfileImage
+            src={
+              leader ? leader.profileImageUrl : "/images/default_profile.png"
+            }
+          ></ProfileImage>
           <SubHeader bold>
-            회장 {circle.leaderName} ({leader.admissionYear % 100})
+            회장 {circle.leaderName} ({leader!.admissionYear % 100})
           </SubHeader>
         </div>
 

@@ -17,7 +17,8 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   currentCompletedSemester: null,
   graduationType: null,
   graduationYear: null,
-  phoneNumber: "",  
+  phoneNumber: "",
+
   setUserStore: (props: User.User) => {
     set(() => ({
       id: props.id,
@@ -54,9 +55,9 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
 
   profileImageSrc: () => {
-    return !get().profileImage || get().profileImage === ""
+    return !get().profileImageUrl || get().profileImageUrl === ""
       ? "/images/default_profile.png"
-      : (get().profileImage as string);
+      : (get().profileImageUrl as string);
   },
 
   isStudent: () => {
@@ -123,4 +124,5 @@ export const userRoleCodes: {
   LEADER_ALUMNI: "동문회장",
   COMMON: "학생",
   PROFESSOR: "교수",
+  NONE: "권한 없음",
 };

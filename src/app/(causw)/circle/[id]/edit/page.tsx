@@ -19,7 +19,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
 
   const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const admissionYear = useUserStore((state) => state.admissionYear);
-  const profileImage = useUserStore((state) => state.profileImage);
+  const profileImage = useUserStore((state) => state.profileImageUrl);
   const isAdmin = useUserStore((state) => state.isAdmin);
 
   const router = useRouter();
