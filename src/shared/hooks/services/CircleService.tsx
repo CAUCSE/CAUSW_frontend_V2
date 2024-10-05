@@ -41,5 +41,18 @@ export const CircleService = () => {
     return data;
   };
 
-  return { editCircle, dropMember, getApplication, checkApplication };
+  const editCircleApplication = async (id: string, body: any) => {
+    const { data } = (await API.post(
+      `/api/v1/circles/${id}/apply/application`,
+      body,
+    )) as AxiosResponse<any>;
+  };
+
+  return {
+    editCircle,
+    dropMember,
+    getApplication,
+    checkApplication,
+    editCircleApplication,
+  };
 };

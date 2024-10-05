@@ -6,6 +6,8 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+import { CircleService } from "@/shared";
+
 const SemesterOptions = [
   { colSize: 1, name: "1-1 수료", value: "FIRST_SEMESTER" },
   { colSize: 1, name: "1-2 수료", value: "SECOND_SEMESTER" },
@@ -26,6 +28,8 @@ const CircleApplicationEdit = ({
   const router = useRouter();
   const [isViewPointLg, setIsViewPointLg] = useState<boolean>(false);
 
+  const { editCircleApplication } = CircleService();
+
   useEffect(() => {
     const checkWidth = () => {
       setIsViewPointLg(window.innerWidth >= 1024 ? true : false);
@@ -40,7 +44,7 @@ const CircleApplicationEdit = ({
 
   const methods = useForm<Circle.Application>({
     defaultValues: {
-      title: "",
+      title: "동아리 신청서",
       questionCreateRequestDtoList: [
         {
           questionType: "OBJECTIVE",
@@ -160,9 +164,9 @@ const CircleApplicationEdit = ({
     );
 
     try {
-      console.log(data);
-      console.log(JSON.stringify(circleApplicationDto, null, 2));
-      router.back();
+      editCircleApplication(id, data).then(() => {
+        router.back();
+      });
     } catch (error) {
       console.log("신청서 수정 실패 : ", error);
     }
