@@ -13,14 +13,33 @@ export const CircleService = () => {
 
     window.location.reload();
   };
-  
+
   const dropMember = async (userId: string, circleId: string) => {
-    try {const response = await API.put(`${URI}/${circleId}/users/${userId}/drop`) as AxiosResponse;
-    return response;}
-    catch(error){
+    try {
+      const response = (await API.put(
+        `${URI}/${circleId}/users/${userId}/drop`,
+      )) as AxiosResponse;
+      return response;
+    } catch (error) {
       throw error;
     }
   };
 
-  return { editCircle, dropMember };
+  const getApplication = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${id}/apply/application`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  const checkApplication = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${id}/apply/application/is-exist`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  return { editCircle, dropMember, getApplication, checkApplication };
 };

@@ -106,9 +106,12 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         {!isMyCircle ? (
-          <div className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-2 md:row-span-2 md:h-16 lg:text-xl">
+          <Link
+            href={"/circle/" + id + "/apply"}
+            className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl bg-account text-lg text-white md:col-span-2 md:row-span-2 md:h-16 lg:text-xl"
+          >
             신청하기
-          </div>
+          </Link>
         ) : (
           <Link
             href={"/circle/" + id + "/board"}

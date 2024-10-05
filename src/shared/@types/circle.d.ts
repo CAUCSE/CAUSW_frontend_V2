@@ -36,6 +36,12 @@ declare namespace Circle {
     postWriterStudentId: string | null;
   }
 
+  export interface OptionResponseDto {
+    optionId: string;
+    optionNumber: number;
+    optionText: string;
+  }
+
   export interface FindBoardsDto {
     circle: FindByIdDto;
     boardList: Board[];
