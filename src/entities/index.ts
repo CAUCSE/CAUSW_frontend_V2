@@ -1,3 +1,6 @@
+import { CustomBoard } from "@/entities";
+import { getTimeDifference } from "./board/postList/PostListUtil";
+
 export { ErrorMessage } from "./layout/ErrorMessage";
 export { LoadingComponent } from "./layout/LoadingComponent";
 export { NavigationBar } from "./layout/NavigationBar";
@@ -23,22 +26,14 @@ export { CircleApplyOnButton } from "./element/CircleApplyButton";
 
 export { ExcelExport } from "./export/ExcelExport";
 
-export type {
-  IBoardContent,
-  IBoardInfo,
-  IBoardResponseDto,
-} from "./board/main/MainBoard";
-
 export { CustomCheckBox } from "./board/form/CustomCheckBox";
 export { Option } from "./board/form/Option";
 export { Question } from "./board/form/Question";
 
-export {
-  EmptyContent,
-  Board,
-  DefaultBoard,
-  CustomBoard,
-} from "./board/main/MainBoard";
+export { Board } from "./board/main/Board";
+export { DefaultBoard } from "./board/main/DefaultBoard";
+export { EmptyContent } from "./board/main/EmptyContent";
+export { CustomBoard } from "./board/main/CustomBoard";
 
 export { PostCard } from "./board/post/PostCard";
 export { CommentCard } from "./board/post/CommentCard";
@@ -56,3 +51,7 @@ export { CreatePostFooter } from "./board/post/create/CreatePostFooter";
 export { FilePreview } from "./board/post/create/FilePreview";
 
 export { FormErrorMessage } from "./layout/FormErrorMessage";
+
+export { PostList } from "./board/postList/PostList";
+export { getTimeDifference } from "./board/postList/PostListUtil";
+export { PostListHeader } from "./board/postList/PostListHeader";
