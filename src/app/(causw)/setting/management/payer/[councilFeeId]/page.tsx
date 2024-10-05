@@ -1,5 +1,6 @@
 import { SettingRscService } from "@/shared";
-
+import { convertDataToTableEntity } from "@/entities/home/setting/management/CouncilFeeManagementDetailEntities";
+import CouncilFeeDetail from "@/widget/CouncilFeeManagementDetail";
 export default async function CouncilFeeDetailPage({
   params,
 }: {
@@ -14,9 +15,11 @@ export default async function CouncilFeeDetailPage({
     console.error(e);
   }
 
-  return (
-    <div className="whitespace-pre-wrap">
-      {JSON.stringify(userCouncilFeeInfo).replace(/,/g, ",\n")}
+return (
+  
+    <div className = "mb-4">
+      <CouncilFeeDetail councilFeeId ={councilFeeId}></CouncilFeeDetail>
+      <></>
     </div>
   );
 }

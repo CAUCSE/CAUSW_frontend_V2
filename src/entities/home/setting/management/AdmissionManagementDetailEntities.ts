@@ -194,12 +194,11 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
 
 // 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)
 export const titleMappingForCircle = Object.keys(titleMapping)
-  .filter((key) => !["requestedAt", "leftPayedSemester"].includes(key))
-  .reduce(
-    (obj, key) => {
-      obj[key as keyof InfoTableEntity] =
-        titleMapping[key as keyof InfoTableEntity];
-      return obj;
-    },
-    {} as Record<keyof InfoTableEntity, string>,
-  );
+  .filter((key) => !['requestedAt', 'leftPayedSemester'].includes(key))
+  .reduce((obj, key) => {
+    obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
+    return obj;
+  }, {} as Record<keyof InfoTableEntity, string>);
+
+// 학생회비 납부자 페이지용
+

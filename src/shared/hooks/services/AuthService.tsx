@@ -34,15 +34,17 @@ export const AuthService = () => {
 
       const AdmissionResponse = await getMyInfo();
 
-      if (AdmissionResponse.data.state === "AWAIT") {
-        router.push("/auth/authorization");
-      } else {
-        const academicStatusResponse = await checkCurrentAcademicStatus();
-        console.log(academicStatusResponse);
-        if (academicStatusResponse.data == "UNDETERMINED") {
-          router.push("/auth/authorization");
-        } else {
-          router.push("/home");
+
+      if (AdmissionResponse.data.state === "AWAIT"){
+        router.push('/auth/authorization');
+      }
+      else{
+        if (AdmissionResponse.data.academicStatus == "UNDETERMINED")
+        {
+          router.push('/auth/authorization');
+        }
+        else{
+        router.push('/home');
         }
       }
     } catch (error) {

@@ -39,7 +39,7 @@ const CreateBoardPage = (props: any) => {
   const roles = {
     학생회장: ["PRESIDENT"],
     부학생회장: ["VICE_PRESIDENT"],
-    관리자: ["AMIN"],
+    관리자: ["ADMIN"],
     동문회장: ["LEADER_ALUMNI"],
     교수: ["PROFESSOR"],
     학년대표: ["LEADER_1", "LEADER_2", "LEADER_3", "LEADER_4"],
@@ -56,9 +56,12 @@ const CreateBoardPage = (props: any) => {
       const boardReqeust: Board.CreateBoardDto = {
         boardName: boardName,
         description: boardDescription,
+        boardCategory:"APP_NOTICE",
         createRoleList: selectedRoles as User.Role[],
         isAnonymousAllowed: allowAnonymous,
+        circleId: null,
       };
+      console.log(boardReqeust);
       try {
         const createBoardResponse = await createBoard(boardReqeust);
         console.log("게시판 생성 완료: ", createBoardResponse);

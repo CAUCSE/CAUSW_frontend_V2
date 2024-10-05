@@ -9,27 +9,32 @@ interface CommentInputProps {
 export const CommentInput = ({handleAddComment}:CommentInputProps) => {
   const [commentContent, setCommentContent] = useState(""); 
   const [isAnonymous, setIsAnonymous] = useState(false); 
+  
 
-const handleSubmit = () => {
-  if (commentContent.trim() === "") return;
 
-  console.log("Content:", commentContent);
-  console.log("Anonymous:", isAnonymous);
-  const comment = commentContent;
-  setCommentContent("");
-  handleAddComment(comment, isAnonymous);
-};
+  const handleSubmit = () => {
+    if (commentContent.trim() === "") return;
 
-const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  if (e.key === "Enter") {
-    e.preventDefault(); // 기본 Enter 동작 방지
-    handleSubmit();
-  }
-};
+    console.log("Content:", commentContent);
+    console.log("Anonymous:", isAnonymous);
+    
+    setCommentContent("");
+    handleAddComment(commentContent, isAnonymous);
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  setCommentContent(e.target.value);
-};
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if(e.nativeEvent.isComposing)
+        return;
+      handleSubmit()
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCommentContent(e.target.value);
+  };
 
   return (
     <div className="fixed flex items-center justify-center bottom-[100px] w-full px-3 lg:bottom-2 lg:left-40 lg:right-72 lg:mr-4 lg:w-auto">

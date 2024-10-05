@@ -21,9 +21,9 @@ export const useBoardStore = create<BoardState>((set) => ({
   boardName: '',
   boardDescription: '',
   allowAnonymous: false,
-  selectedRoles: ['NONE'],
+  selectedRoles: ['ALL'],
   isNameValid: true,
-  clearBoardInfo: () => {set({boardName:'', boardDescription:'',allowAnonymous: false,selectedRoles: ['NONE']})},
+  clearBoardInfo: () => {set({boardName:'', boardDescription:'',allowAnonymous: false,selectedRoles: ['ALL']})},
   setBoardName: (name) => set({ boardName: name }),
   setBoardDescription: (description) => set({ boardDescription: description }),
   toggleAllowAnonymous: () =>
@@ -32,8 +32,8 @@ export const useBoardStore = create<BoardState>((set) => ({
   toggleRole: (roleEnums) => 
     set((state) => {
       let updatedRoles = [...state.selectedRoles];
-      if (updatedRoles.includes('NONE')) {
-        updatedRoles = updatedRoles.filter((role) => role !== 'NONE');
+      if (updatedRoles.includes('ALL')) {
+        updatedRoles = updatedRoles.filter((role) => role !== 'ALL');
       }
       const allSelected = roleEnums.every((enumRole) => updatedRoles.includes(enumRole));
       if (allSelected) {
@@ -46,9 +46,9 @@ export const useBoardStore = create<BoardState>((set) => ({
     }),
   toggleAnyRole: () =>
     set((state) => ({
-      selectedRoles: state.selectedRoles.includes('NONE')
+      selectedRoles: state.selectedRoles.includes('ALL')
         ? []
-        : ['NONE'],
+        : ['ALL'],
     })),
   setIsNameValid: (isValid) => set({ isNameValid: isValid }),
 }));
