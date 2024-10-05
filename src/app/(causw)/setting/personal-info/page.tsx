@@ -3,120 +3,71 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { UserService, UserRscService, UserCouncilFeeService, Modal, RedirectModal, PreviousButton } from '@/shared';
+import { UserService, UserRscService, UserCouncilFeeService, useUserStore, Modal, AuthService } from '@/shared';
 
 
 const PersonalInfoPage = () => {
-  const { register, handleSubmit, setValue, watch } = useForm<User.userUpdateDto>({
+  const { register, handleSubmit, setValue, formState: { errors }, setError, clearErrors } = useForm<User.userUpdateDto>({
     defaultValues: {
       profileImage: null,
       nickname: '',
-      academicStatus: 'ENROLLED',
     },
   });
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [studentId, setStudentId] = useState('');
-  const [admissionYear, setAdmissionYear] = useState('');
-  const [graduationYear, setGraduationYear] = useState('');
-  const [completedSemester, setCompletedSemester] = useState('');
-  const [department, setDepartment] = useState('');
+
+
   const [studentCouncilFeeStatus, setStudentCouncilFeeStatus] = useState('');
   const [paidFeeSemesters, setpaidFeeSemesters] = useState('');
   const [remainingFeeSemesters, setRemainingFeeSemesters] = useState('');
   const [profileImagePreview, setProfileImagePreview] = useState('/images/default_profile.png');
-  
+  const [errorMessage, setErrorMessage ] = useState('');
   // 원래의 학적 상태 저장
-  const [originAcademicStatus, setOriginAcademicStatus] = useState('');
 
   const router = useRouter();
-  const { getUserInfo, allowUser } = UserService();
-  const { getUserCouncilFeeInfo, registerCouncilFee } = UserCouncilFeeService();
+  const { getUserCouncilFeeInfo } = UserCouncilFeeService();
   const { updateInfo } = UserRscService();
-
-
-  // 모달 열림/닫힘 상태를 관리
-  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
-  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
-  const [isWarningAccepted, setIsWarningAccepted] = useState(false);
+  const { checkNicknameDuplicate } = AuthService();
 
   // 제출 시 모달
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isFailModalOpen, setIsFailModalOpen] = useState(false);
 
+  const user = useUserStore(state => ({
+    email: state.email,
+    name: state.name,
+    admissionYear: state.admissionYear,
+    profileImage: state.profileImageUrl,
+    studentId: state.studentId,
+    currentCompletedSemester: state.currentCompletedSemester,
+    nickname: state.nickname,
+    major: state.major,
+    academicStatus: state.academicStatus,
+    graduationYear: state.graduationYear,
+    phoneNumber: state.phoneNumber,
+  }));
+
   
 
-
-  // 모달 열기
-  const openSubmitModal = () => {
-    setIsSubmitModalOpen(true);
-  };
-
-  const openWarningModal = () => {
-    setIsWarningModalOpen(true);
-  }
-
-  // 모달 닫기
-  const closeModal = () => {
-    if (isSubmitModalOpen)
-      setIsSubmitModalOpen(false);
-    if (isWarningModalOpen)
-    {
-      setIsWarningModalOpen(false);
-      setIsWarningAccepted(true);
-    }
-      
-  };
-  
-  const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-  const selectedAcademicStatus = watch('academicStatus');
-  
-
-  useEffect(() => {
-    setAcademicStatus(selectedAcademicStatus)
-  }, [selectedAcademicStatus])
-
+  const { getMyInfo } = UserService();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
 
         // 유저 기본 정보 받아오기
-        const responseUserData = await getUserInfo();
-        const userData = responseUserData.data;
-        console.log(userData);
         
 
         // formData에 유저 정보 값들 넣어두기
-        setValue('name', await userData.name);
-        setValue('studentId', await userData.studentId);
-        setValue('admissionYear', await userData.admissionYear);
-        setValue('major', await userData.major);
-        setValue('currentCompletedSemester', await userData.currentCompletedSemester);
-        setValue('graduationYear', await userData.graduationYear);
-        setValue('graduationMonth', await userData.graduationType);
-        setValue('phoneNumber', await userData.phoneNUmber);
-
+        const response = await getMyInfo();
+        console.log(response);
         // 유저에 맞게 값들 대입입
-        setProfileImagePreview(await userData.profileImageUrl ?? '/images/default_profile.png');
-        setValue('nickname', await userData.nickname);
-        setValue('academicStatus', await userData.academicStatus);
-      
+        setProfileImagePreview(user.profileImage ?? '/images/default_profile.png');
+        setValue('nickname', user.nickname);
+        setValue('phoneNumber', user.phoneNumber ?? '');
+        
+        
+        console.log(user.nickname, user.phoneNumber, user.profileImage);
 
-        console.log(userData.profileImageUrl);
-
-        setName(userData.name);
-        setEmail(userData.email);
-        setStudentId(userData.studentId);
-        setAdmissionYear(userData.admissionYear);
-        setGraduationYear(userData.graduationYear);
-        setCompletedSemester(userData.currentCompletedSemester);
-        setDepartment(userData.major);
-        setOriginAcademicStatus(userData.academicStatus);
-
-
-
-        //         학생회비 납부 정보 받아오기 
+        //  학생회비 납부 정보 받아오기 
         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
         const userCouncilFeeData = responseUserCouncilFeeData.data;
         console.log(userCouncilFeeData);
@@ -147,34 +98,54 @@ const PersonalInfoPage = () => {
     }
   
   };
+// 닉네임 중복 검사 및 형식 검사
+const handleNicknameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
+  const nickname = e.target.value;
 
+  if (!nickname || nickname === user.nickname) return; // 빈 값일 경우 무시
+
+  // 닉네임 길이 및 형식 검사
+  if (nickname.length < 1 || nickname.length > 16) {
+    setError("nickname", {
+      type: "length",
+      message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요.",
+    });
+    return;
+  } else {
+    clearErrors("nickname");
+  }
+
+  // 닉네임 중복 검사
+  const isDuplicate = await checkNicknameDuplicate(nickname);
+  if (isDuplicate) {
+    setError("nickname", {
+      type: "duplicate",
+      message: "이미 사용 중인 닉네임입니다.",
+    });
+  } else {
+    clearErrors("nickname");
+  }
+};
 
   // 개인정보 수정한 내용 제출하는 함수
   const onSubmit = async (data: User.userUpdateDto) => {
 
-    // 학적 재학 -> 휴학 변경 시 증빙 서류 제출 모달
-    if (data.academicStatus === "ENROLLED" && originAcademicStatus === "LEAVE_OF_ABSENCE")
-    {
-      openSubmitModal();
-    }
-    // 학적 졸업 상태로 변경할 경우 경고 창
-    else if (data.academicStatus === "GRADUATED" && isWarningAccepted === false)
-    {
-      openWarningModal();
-    }
-    else
-    {
-      
+
+      console.log(data);
       try {
-      
         const response = await updateInfo(data);
         setIsSuccessModalOpen(true)
-        console.log(response);
-      } catch (error) {
-        setIsFailModalOpen(true)
-        console.error("개인정보 수정에 실패하였습니다 :", error);
+      } catch (error: any) {
+        setIsFailModalOpen(true);
+        if (error.status === 400)
+        {
+          setErrorMessage("중복된 닉네임입니다.");
+        }
+        else{
+          setErrorMessage("알 수 없는 에러가 발생했습니다.");
+        }
+        console.log(error);
       }
-    }
   };
 
   return (
@@ -233,8 +204,12 @@ const PersonalInfoPage = () => {
                 <input
                   type="text"
                   {...register('nickname', { required: true })}
+                  onBlur={handleNicknameBlur}
+
                   className="p-2 border border-gray-300 rounded-md w-full lg:w-5/6"
                 />
+                {errors.nickname && <p className = "text-red-500">{errors.nickname.message}</p>}
+
               </div>
               
               <div className="mb-4 ml-4 w-1/2 lg:w-full">
@@ -242,12 +217,12 @@ const PersonalInfoPage = () => {
                   <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학적 상태</label>
                     <div className= "flex flex-row flex-wrap sm:flex-nowrap rounded-md w-full lg:w-5/6">
                       <div className="p-2 mr-2 mb-2 border border-gray-300 rounded-md text-center w-full lg:w-3/6">
-                      {academicStatus === "ENROLLED" && (<>재학</>)}
-                      {academicStatus === "LEAVE_OF_ABSENCE" && (<>휴학</>)}
-                      {academicStatus === "GRADUATED" && (<>졸업</>)}
+                      {user.academicStatus === "ENROLLED" && (<>재학</>)}
+                      {user.academicStatus === "LEAVE_OF_ABSENCE" && (<>휴학</>)}
+                      {user.academicStatus === "GRADUATED" && (<>졸업</>)}
                       </div>
                       <button onClick = {() => {router.push('./updateacademicrecord')}} className="p-2 mr-2 mb-2 border border-gray-300 rounded-md bg-focus text-white text-center w-full lg:w-5/6">
-                      학적 상태 수정</button>
+                      학적 상태 수정</button> 
                     </div>
                 </div>
               </div>
@@ -265,37 +240,37 @@ const PersonalInfoPage = () => {
             <div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">이름</label>
-                <p className="text-gray-700">{name}</p>
+                <p className="text-gray-700">{user.name}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">이메일</label>
-                <p className="text-gray-700">{email}</p>
+                <p className="text-gray-700">{user.email}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학번</label>
-                <p className="text-gray-700">{studentId}</p>
+                <p className="text-gray-700">{user.studentId}</p>
               </div>
 
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">입학 년도</label>
-                <p className="text-gray-700">{admissionYear}</p>
+                <p className="text-gray-700">{user.admissionYear}</p>
               </div>
               
-              {academicStatus === "GRADUATED" && (
+              {user.academicStatus === "GRADUATED" && (
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">졸업 년도</label>
-                <p className="text-gray-700">{graduationYear}</p>
+                <p className="text-gray-700">{user.graduationYear}</p>
               </div>)}
             </div>
 
             <div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">등록 완료 학기</label>
-                <p className="text-gray-700">{completedSemester}</p>
+                <p className="text-gray-700">{user.currentCompletedSemester}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">학부(학과)</label>
-                <p className="text-gray-700">{department}</p>
+                <p className="text-gray-700">{user.major}</p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm sm:text-2xl lg:text-lg font-semibold mb-1">본 학기 학생회비 적용 여부</label>
@@ -313,20 +288,23 @@ const PersonalInfoPage = () => {
           </div>
         </div>
 
-                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {/* 성공 시 모달 */}
                 {isSuccessModalOpen && (
-          <Modal closeModal={() => setIsSuccessModalOpen(false)}>
+          <Modal closeModal={() => {  
+            setIsSuccessModalOpen(false);
+            window.location.reload();
+          }}>
             <div className='p-2 lg:p-4'>
             <div>변경 사항이 저장되었습니다.</div>
             </div>
           </Modal>
         )}
-                {/* 졸업 상태로 변경 시도 시 경고 모달 */}
+                {/* 오류 발생 시 모달 */}
                 {isFailModalOpen && (
           <Modal closeModal={() => setIsFailModalOpen(false)}>
             <div className='p-2 lg:p-4'>
             <div className ="flex flex-col justify-center items-center">
-            <div>오류가 발생했습니다. </div>
+            <div>{errorMessage} </div>
                 <div>다시 시도해주세요</div>
               </div>  
             </div>

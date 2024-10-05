@@ -11,7 +11,7 @@ export const Option = ({
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<Post.PostCreateWithFormRequestDto>();
   return (
     <div className="flex flex-col gap-2">
       <div className="ml-4 flex flex-col gap-2">
@@ -37,6 +37,7 @@ export const Option = ({
             <Icon iconName="remove" />
           </button>
         </div>
+        {/* TODO: build error 로 임시 배제
         {errors.formCreateRequestDto?.questionCreateRequestDtoList?.[
           questionIndex
         ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText && (
@@ -47,7 +48,7 @@ export const Option = ({
               ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText.message
             }
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );

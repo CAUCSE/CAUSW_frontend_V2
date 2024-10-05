@@ -31,10 +31,22 @@ export const UserCouncilFeeService = () => {
     }
   }
 
-  
+  const checkIsCurrentSemesterApplied = async(userId: string) => {
+    try{
+      const response = (await API.get(`${URI}/isCurrentSemesterApplied`), {
+        headers: {
+          params: userId,
+        }
+      });
+      return response;
+    }
+    catch(error){
+      return false;
+    }
+  }
 
 
 
 
-  return { getUserCouncilFeeInfo, registerCouncilFee };
+  return { getUserCouncilFeeInfo, registerCouncilFee, checkIsCurrentSemesterApplied };
 };

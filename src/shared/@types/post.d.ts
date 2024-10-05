@@ -27,6 +27,38 @@ declare namespace Post {
     formResponseDto: FormResponseDto | null;
     voteResponseDto: VoteResponseDto | null;
   }
+
+  export interface PostResponseDtoList {
+    content: PostResponseDto[];
+    pageable: Form.PageableObject;
+    totalElements: number;
+    totalPages: number;
+    last: boolean;
+    size: number;
+    number: number;
+    sort: Form.SortObject;
+    numberOfElements: number;
+    first: boolean;
+    empty: boolean;
+  }
+  export interface PostResponseDto {
+    id: string;
+    title: string;
+    content: string;
+    writerName: string;
+    writerAdmissionYear: number;
+    numComment: number;
+    numLike: number;
+    numFavorite: number;
+    isAnonymous: boolean;
+    isQuestion: boolean;
+    createdAt: string;
+    updatedAt: string;
+    isDeleted: boolean;
+    isPostVote: boolean;
+    isPostForm: boolean;
+  }
+
   export interface PostDeleteDto {
     id: string;
     title: string;

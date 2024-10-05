@@ -5,6 +5,7 @@ import {
   CommentCard,
   CommentInput,
   PostCard,
+  LoadingComponent
 } from "@/entities";
 import {
   ChildCommentRscService,
@@ -19,12 +20,14 @@ import {
   VoteRscService,
   useVoteStore,
 } from "@/shared";
-
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
   const router = useRouter();
+  const params = useParams();
+  const { boardId } = params;
+
   const { isVisible, message, showPopup } = usePopup(2000);
   const {
     isPopupVisible,
@@ -65,7 +68,7 @@ const PostDetailPage = (props: any) => {
     toggleChildCommentPopup,
   } = useChildCommentStore();
 
-  usePostDetail(postId);
+  const { loading } = usePostDetail(postId);
 
   const changeToPostComment = () => {
     setPostComment();
@@ -174,6 +177,7 @@ const PostDetailPage = (props: any) => {
         decrementComment();
       }
     }
+    changeToPostComment();
   };
 
   const togglePostPopupMenu = () => {
@@ -221,6 +225,10 @@ const PostDetailPage = (props: any) => {
     return <div>Loading...</div>;
   }
 
+  if(loading) {
+    return ( <LoadingComponent />);
+  }
+
   return (
     <div className="bottom-5 top-0 h-full w-full bg-boardPageBackground scrollbar-hide lg:relative">
       {isVisible && (
@@ -234,7 +242,9 @@ const PostDetailPage = (props: any) => {
         </div>
       )}
       <div className="h-16 w-full bg-[#F8F8F8]">
-        <PreviousButton />
+        <PreviousButton
+          routeCallback={() => router.replace(`/board/${boardId}`)}
+        />
       </div>
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
         <div className="sm:pl-3">

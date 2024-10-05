@@ -1,7 +1,22 @@
-import axios, { AxiosResponse } from "axios";
 import { BASEURL, setRscHeader } from "@/shared";
+import axios, { AxiosResponse } from "axios";
 
 export const BoardRscService = () => {
+  const getMainBoardList = async () => {
+    const URI = `${BASEURL}/api/v1/boards/main`;
+    try {
+      const headers = await setRscHeader();
+      const response = await fetch(URI, { headers: headers });
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      const res = await response.json();
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const createBoard = async (
     data: Board.CreateBoardDto,
   ): Promise<Board.BoardDto> => {
@@ -50,26 +65,6 @@ export const BoardRscService = () => {
     }
   };
 
-  const getBoardList = async (boardId: string | undefined, pageNum: number) => {
-    const URI = BASEURL + "/api/v1/posts";
-    try {
-      const headers = await setRscHeader();
-      const response = await fetch(
-        `${URI}?boardId=${boardId}&pageNum=${pageNum}`,
-        { headers: headers },
-      );
-
-      if (response.status !== 200) {
-        throw new Error(`${response.status} : ${response.statusText}`);
-      }
-      const boardList = await response.json();
-      return boardList;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
-
   const searchPost = async (
     boardId: string,
     keyword: string,
@@ -97,5 +92,10 @@ export const BoardRscService = () => {
     }
   };
 
-  return { createBoard, applyBoard, getBoardList, searchPost };
+  return {
+    getMainBoardList,
+    createBoard,
+    applyBoard,
+    searchPost,
+  };
 };

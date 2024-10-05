@@ -67,13 +67,7 @@ const SettingsPage = () => {
         link: `/setting/management/circle/${circleId}/apply`,
       },
     ],
-    동아리관리_관리자: [
-      { name: "동아리원 관리", link: "/setting/management/circle/member" },
-      {
-        name: "동아리 가입 신청 관리",
-        link: `/setting/management/circle/apply/`,
-      },
-    ],
+
     게시판관리: [
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
@@ -150,7 +144,6 @@ const SettingsPage = () => {
             />
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
             <MenuItem title="홈 화면 관리" items={menuItems.홈화면관리} />
-            <MenuItem title="동아리 관리" items={menuItems.동아리관리_관리자} />
             <MenuItem title="게시판 관리" items={menuItems.게시판관리} />
           </>
         )}

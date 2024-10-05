@@ -33,6 +33,10 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
       handleCommentLike();
     }
   }
+
+  const popMenuList = [
+    { message: "댓글 삭제", handleBtn: handleDeleteComment },
+  ];
   return (
     <div className={`relative flex flex-col ${overlayActive ? 'border-overlay-border' : 'border-black'} border-comment-bw rounded-comment-br pb-2 ${overlayActive ? 'bg-overlay-bg': 'bg-white'} mb-4 max-w-sm`}>
       <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10" onClick={handleCommentToggle}>
@@ -43,10 +47,7 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
           height={4}
         ></Image>
       </button>
-      {isPopupVisible ? <PopupMenu
-        message="댓글 삭제"
-        handleBtn={handleDeleteComment}
-      />:''}
+      {isPopupVisible ? <PopupMenu PopupMenuChildren={popMenuList}/>:''}
 
       <div className="flex flex-row items-center px-2 mb-1">
         <Image

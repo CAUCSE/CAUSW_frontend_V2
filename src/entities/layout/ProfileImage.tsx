@@ -3,13 +3,13 @@
 import { useUserStore } from "@/shared";
 
 export const ProfileImage = ({ src }: { src?: string }) => {
-  const profileImage = useUserStore((state) => state.profileImage);
-
   return (
-    <div className="w-24 h-24 shadow-2xl rounded-full overflow-hidden">
+    <div className="h-24 w-24 overflow-hidden rounded-full shadow-2xl">
       <div
-        className="w-24 h-24 bg-center bg-no-repeat bg-contain"
-        style={{ backgroundImage: `url(${src ? src : profileImage})` }}
+        className="h-24 w-24 bg-contain bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${src ? src : "/images/default_profile.png"})`,
+        }}
       />
     </div>
   );
