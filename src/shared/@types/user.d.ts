@@ -6,17 +6,19 @@ declare namespace User {
     email: string;
     id: string;
     name: string;
+    admissionYear: number;
     profileImageUrl: string;
     roles: Role[];
     state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP" | "AWAIT";
     nickname: string;
     studentId: string;
     academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
-    major: string | null;
+    major: string;
     currentCompletedSemester: number | null;
     graduationYear: string | null;
-    graduationType: "AUGUST" | "FEBRUARY" | null;
+    graduationType: string | null;
     phoneNumber: string | null;
+    createdAt: string;
   }
 
   export interface UserAdmissionCreateRequestDto {
@@ -158,7 +160,6 @@ declare namespace User {
     major: string;
     phoneNumber: string;
   }
-  
 
   export interface CreateUserAcademicRecordApplicationRequestDto {
     targetAcademicStatus:

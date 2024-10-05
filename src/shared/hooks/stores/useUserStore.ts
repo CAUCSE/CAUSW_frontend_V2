@@ -18,6 +18,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   graduationType: null,
   graduationYear: null,
   phoneNumber: "",
+  createdAt: "",
 
   setUserStore: (props: User.User) => {
     set(() => ({
@@ -41,6 +42,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
       graduationType: props.graduationType,
       graduationYear: props.graduationYear,
       phoneNumber: props.phoneNumber,
+      createdAt: props.createdAt,
     }));
   },
 
