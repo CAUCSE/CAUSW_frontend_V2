@@ -44,13 +44,13 @@ declare namespace Setting {
      * 바로 재학, 휴학, 졸업으로 들어옴
      */
     academicStatus: string;
-    currentCompletedSemester: number;
-    graduationYear: number;
+    currentCompletedSemester: number | null;
+    graduationYear: number | null;
     /**
      * parsed
      * 바로 "졸업예정" 과 같이 들어옴
      */
-    graduationType: string;
+    graduationType: string | null;
     phoneNumber: string;
     /**
      * parsed
