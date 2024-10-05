@@ -11,7 +11,6 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
     register,
     control,
     watch,
-    unregister,
     setValue,
     formState: { errors },
   } = useFormContext<Post.PostCreateWithFormRequestDto>();
@@ -100,9 +99,6 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
         <IconButton
           iconName={"remove"}
           callback={() => {
-            unregister(
-              `formCreateRequestDto.questionCreateRequestDtoList.${index}`,
-            );
             removeQuestion();
           }}
         />
