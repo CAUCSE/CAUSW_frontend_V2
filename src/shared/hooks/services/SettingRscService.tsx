@@ -149,6 +149,22 @@ export const SettingRscService = () => {
     return true;
   };
 
+  // 납부자 상세 조회
+  const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(
+      `${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`,
+      {
+        method: "GET",
+        headers: headers,
+      },
+    );
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
+  };
+
   return {
     getByState,
     getAllAdmissions,
@@ -159,5 +175,6 @@ export const SettingRscService = () => {
     acceptAdmission,
     getWaitingUsers,
     rejectAdmission,
+    getUserCouncilFeeInfo,
   };
 };
