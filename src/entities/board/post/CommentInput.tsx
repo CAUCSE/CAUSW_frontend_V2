@@ -15,13 +15,9 @@ const handleSubmit = () => {
 
   console.log("Content:", commentContent);
   console.log("Anonymous:", isAnonymous);
-
-  handleAddComment(commentContent, isAnonymous);
-
-  // setTimeout을 사용하여 댓글 입력 후 바로 지워지는 것을 방지
-  setTimeout(() => {
-    setCommentContent("");  // 일정 시간 뒤에 입력 필드 초기화
-  }, 10);  // 10ms 정도의 딜레이를 줍니다. 필요에 따라 값을 조정하세요.
+  const comment = commentContent;
+  setCommentContent("");
+  handleAddComment(comment, isAnonymous);
 };
 
 const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
