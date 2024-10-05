@@ -1,8 +1,6 @@
 "use client";
 
 import { Button, CircleService } from "@/shared";
-import { ManagementState } from "@/widget";
-import { uiEntities } from "./AdmissionManagementDetailEntities";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { useUserStore } from "@/shared";
@@ -93,7 +91,10 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
       <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
       <p className="font-bold text-md lg:text-xl mb-2">{name}이 추방되었습니다.</p>
           <Button
-            action={() => {setIsSuccessModal(false);}}
+            action={() => {
+              setIsSuccessModal(false);
+              router.push('../');
+            }}
             variant="GRAY"
             className="h-[45px] w-[125px] lg:w-[200px]"
           >

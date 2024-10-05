@@ -1,9 +1,5 @@
 import { SettingRscService } from "@/shared";
 import { convertDataToTableEntity, titleMapping } from "@/entities/home/setting/management/CouncilFeeManagementDetailEntities";
-import { UserRscService } from "@/shared";
-import { useEffect, useState } from "react";
-import { UserCouncilFeeService } from "@/shared";
-import { CircleManagementButtons } from "@/entities/home/setting/management/CircleManagementDetailButtons";
 import { CouncilFeeButtons } from "./CouncilFeeButton";
 import { ManagementDetailInfoTable } from "./ManagementDetailInfoTable";
 
@@ -20,7 +16,7 @@ export default async function CouncilFeeDetail({
     console.error(e);
   }
   const isRefunded = userCouncilFeeInfo?.isRefunded;
-  
+
   if (!userCouncilFeeInfo) return <div>가입 신청서 조회 실패</div>;
 
 return (

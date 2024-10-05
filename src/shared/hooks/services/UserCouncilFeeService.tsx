@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { API, useUserStore } from "@/shared";
+import { API } from "@/shared";
 
 export const UserCouncilFeeService = () => {
   const URI = "/api/v1/user-council-fee";
