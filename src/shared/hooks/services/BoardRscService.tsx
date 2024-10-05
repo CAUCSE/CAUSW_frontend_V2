@@ -20,7 +20,7 @@ export const BoardRscService = () => {
   const createBoard = async (
     data: Board.CreateBoardDto,
   ): Promise<Board.BoardDto> => {
-    const URI = `${BASEURL}/api/v1/boards/normal`;
+    const URI = `${BASEURL}/api/v1/boards/create`;
 
     try {
       const headers = await setRscHeader();
