@@ -15,6 +15,7 @@ import {
   useCreatePostStore,
   useCreateVoteStore,
   useFileUpload,
+  useUserStore,
 } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -24,6 +25,9 @@ const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
   const { createPost, createPostWithForm } = PostRscService();
   const { createVote } = VoteRscService();
+  const {roles, roleTxt} = useUserStore();
+  console.log(roles);
+  console.log(roleTxt)
   const {
     title,
     content,

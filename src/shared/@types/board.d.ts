@@ -33,8 +33,10 @@ declare namespace Board {
   export interface CreateBoardDto {
     boardName: string;
     description: string;
+    boardCategory: string;
     createRoleList: User.Role[];
     isAnonymousAllowed: boolean;
+    circleId: string | null;
   }
 
   export interface ApplyBoardDto {

@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { API, useUserStore } from "@/shared";
+import { API } from "@/shared";
 
 export const UserCouncilFeeService = () => {
   const URI = "/api/v1/user-council-fee";
@@ -45,8 +45,18 @@ export const UserCouncilFeeService = () => {
     }
   }
 
-
-
-
-  return { getUserCouncilFeeInfo, registerCouncilFee, checkIsCurrentSemesterApplied };
+  const deleteUserCouncilFeeInfo = async(userCouncilFeeId: string) => {
+    try{
+      const response = (await API.delete(`${URI}/delete`, {
+        headers: {
+          userCouncilFeeId: userCouncilFeeId,
+        },
+      }))
+      return response;
+    }
+  catch (error) {
+    throw error;
+  }
+}
+  return { getUserCouncilFeeInfo, registerCouncilFee, checkIsCurrentSemesterApplied, deleteUserCouncilFeeInfo };
 };

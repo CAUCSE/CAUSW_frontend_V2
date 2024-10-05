@@ -1,15 +1,13 @@
 import { create } from "zustand";
 
 interface PostListState {
-  isBoardFavorite: boolean;
   posts: Post.PostResponseDto[];
   boardName: string;
   page: number;
   initialLoading: boolean;
   scrollLoading: boolean;
   hasMore: boolean;
-
-  setIsBoardFavorite: (value: boolean) => void;
+  notification: boolean;
   setPosts: (
     post:
       | Post.PostResponseDto[]
@@ -20,19 +18,17 @@ interface PostListState {
   setInitialLoading: (loading: boolean) => void;
   setScrollLoading: (loading: boolean) => void;
   setHasMore: (value: boolean) => void;
+  setNotification: (value: boolean) => void;
 }
 
 export const usePostListStore = create<PostListState>((set) => ({
-  isBoardFavorite: false,
   posts: [],
   boardName: "",
   page: 0,
   initialLoading: true,
   scrollLoading: false,
   hasMore: false,
-
-  setIsBoardFavorite: (value: boolean) =>
-    set(() => ({ isBoardFavorite: value })),
+  notification: false,
   setPosts: (posts) =>
     set((state) => ({
       posts: typeof posts === "function" ? posts(state.posts) : posts,
@@ -50,4 +46,8 @@ export const usePostListStore = create<PostListState>((set) => ({
   setScrollLoading: (loading: boolean) =>
     set(() => ({ scrollLoading: loading })),
   setHasMore: (value: boolean) => set(() => ({ hasMore: value })),
+  setNotification: (value: boolean) =>
+    set(() => ({
+      notification: value,
+    })),
 }));

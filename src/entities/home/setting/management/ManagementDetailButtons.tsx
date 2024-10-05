@@ -19,6 +19,7 @@ export function AdmissionManagementDetailButtons({
         <Button
           key={name}
           action={() => action(admission)}
+          goBack
           variant={variant}
           className="h-[55px] w-[150px] lg:w-[300px]"
         >

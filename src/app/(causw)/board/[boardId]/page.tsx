@@ -1,7 +1,7 @@
 "use client";
 
+import { BoardRscService, PostRscService, usePostListStore } from "@/shared";
 import { LoadingComponent, PostList, PostListHeader } from "@/entities";
-import { PostRscService, usePostListStore } from "@/shared";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
@@ -12,19 +12,21 @@ const BoardPage = () => {
   const router = useRouter();
   const params = useParams();
   const { getPostList } = PostRscService();
+  const { getBoardNotificationInfo } = BoardRscService();
 
   const { boardId } = params;
 
   const {
     page,
     initialLoading,
-    setIsBoardFavorite,
+    notification,
     setPosts,
     setBoardName,
     setInitialLoading,
     setScrollLoading,
     setHasMore,
     setPage,
+    setNotification,
   } = usePostListStore();
 
   const [boardIdValidation, setBoardIdValidation] = useState(true);
@@ -43,14 +45,15 @@ const BoardPage = () => {
         setScrollLoading(true);
       }
       try {
-        const response: Board.BoardWithPostResponseDto = await getPostList(
-          boardId,
-          page,
-        );
-        setIsBoardFavorite(response.isFavorite);
-        setPosts((posts) => [...posts, ...response.post.content]);
-        setBoardName(response.boardName);
-        setHasMore(response.post.totalPages - 1 > page);
+        const [data1, data2]: [Board.BoardWithPostResponseDto, boolean] =
+          await Promise.all([
+            getPostList(boardId, page),
+            getBoardNotificationInfo(boardId),
+          ]);
+        setPosts((posts) => [...posts, ...data1.post.content]);
+        setBoardName(data1.boardName);
+        setHasMore(data1.post.totalPages - 1 > page);
+        setNotification(data2);
       } catch (error) {
         setBoardIdValidation(false);
       } finally {
@@ -68,15 +71,6 @@ const BoardPage = () => {
   if (!boardIdValidation) {
     router.push("/not-found");
   }
-
-  //TODO 게시판 즐겨찾기 api 추가되면 연동하기
-  // useEffect(() => {
-  //   const setBoardFavorite = async () => {
-  //     await toggleBoardFavorite(boardId, isBoardFavorite);
-  //   };
-  //   if (loading) return;
-  //   setBoardFavorite();
-  // }, [isBoardFavorite]);
 
   return (
     <div className="h-full w-full">

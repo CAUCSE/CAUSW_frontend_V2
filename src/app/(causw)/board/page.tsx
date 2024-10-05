@@ -1,23 +1,33 @@
 "use client";
 
+import { BoardRscService, useUserStore } from "@/shared";
 import { CustomBoard, DefaultBoard, LoadingComponent } from "@/entities";
 import { useEffect, useState } from "react";
 
-import { BoardRscService } from "@/shared";
 import Link from "next/link";
 
 const BoardPage = () => {
-  const { getMainBoardList } = BoardRscService();
+  const { roles } = useUserStore();
+  const { getMainBoardList, getBoardInfoList } = BoardRscService();
 
   const [boards, setBoards] = useState<Board.BoardResponseDto[]>([]);
+  const [boardInfoMap, setBoardInfos] = useState<Map<string, Board.BoardDto>>(
+    new Map(),
+  );
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await getMainBoardList();
-        setBoards(data);
+        const [data1, data2]: [Board.BoardResponseDto[], Board.BoardDto[]] =
+          await Promise.all([getMainBoardList(), getBoardInfoList()]);
+        setBoards(data1);
+        const map: Map<string, Board.BoardDto> = new Map();
+        data2.forEach((data) => {
+          map.set(data.id, data);
+        });
+        setBoardInfos(map);
       } catch (error) {
         console.error(error);
         throw error;
@@ -36,16 +46,36 @@ const BoardPage = () => {
         <>
           <div className="absolute h-full w-full py-3">
             <div className="flex flex-col items-center">
-              <DefaultBoard
-                boardInfos={boards.filter(
-                  (board: Board.BoardResponseDto) => board.isDefault,
-                )}
-              />
-              <CustomBoard
-                boardInfos={boards.filter(
-                  (board: Board.BoardResponseDto) => !board.isDefault,
-                )}
-              />
+              {roles.includes("ADMIN") ? (
+                <DefaultBoard
+                  boardInfos={boards.filter(
+                    (board: Board.BoardResponseDto) => board.isDefault,
+                  )}
+                />
+              ) : (
+                <DefaultBoard
+                  boardInfos={boards.filter(
+                    (board: Board.BoardResponseDto) =>
+                      board.isDefault &&
+                      !boardInfoMap.get(board.boardId)?.isDeleted,
+                  )}
+                />
+              )}
+              {roles.includes("ADMIN") ? (
+                <CustomBoard
+                  boardInfos={boards.filter(
+                    (board: Board.BoardResponseDto) => !board.isDefault,
+                  )}
+                />
+              ) : (
+                <CustomBoard
+                  boardInfos={boards.filter(
+                    (board: Board.BoardResponseDto) =>
+                      !board.isDefault &&
+                      !boardInfoMap.get(board.boardId)?.isDeleted,
+                  )}
+                />
+              )}
             </div>
           </div>
           <Link href={`/board/create`}>

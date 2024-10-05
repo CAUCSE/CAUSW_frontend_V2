@@ -15,9 +15,9 @@ export type InfoTableEntity = {
   joinedAt: string;
   numOfPaidSemester: string;
   restOfSemester: string;
-  isRefunded: boolean;
+  isRefunded: string;
   refundedAt?: string;
-  isJoinedService: boolean;
+  isJoinedService: string;
 };
 
 export const convertDataToTableEntity = (
@@ -55,16 +55,16 @@ export const convertDataToTableEntity = (
     nickname,
     admissionYear: admissionYear.toString(),
     academicStatus,
-    graduateYearMonth: graduationYear.toString(),
+    graduateYearMonth: graduationYear?.toString() || "",
     phoneNumber,
-    currentCompletedSemester: currentCompletedSemester.toString() + "차 학기",
+    currentCompletedSemester: currentCompletedSemester?.toString() + "차 학기",
     payedAt: paidAt.toString() + "차 학기",
     joinedAt,
     numOfPaidSemester: numOfPaidSemester.toString() + "차 학기 분",
     restOfSemester: restOfSemester.toString() + "차 학기",
-    isRefunded,
+    isRefunded: isRefunded ? "Yes" : "No",
     refundedAt: isRefunded ? refundedAt.toString() + "차 학기" : undefined,
-    isJoinedService,
+    isJoinedService: isJoinedService ? "Yes" : "No",
   };
 };
 

@@ -1,12 +1,13 @@
 "use client";
 
 import clsx from "clsx";
-import { HTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 type Variant = "BLUE" | "RED" | "GRAY";
 
-interface ButtonProp extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProp extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: Variant;
+  goBack?: boolean;
   action: () => void;
 }
 
@@ -16,11 +17,22 @@ const variantClass: Record<Variant, string> = {
   GRAY: "bg-[rgba(186,186,186,1)]",
 };
 
-export function Button({ variant, action, className, children }: ButtonProp) {
+export function Button({
+  variant,
+  action,
+  className,
+  goBack,
+  children,
+  ...props
+}: ButtonProp) {
   return (
     <button
       className={clsx(className, variantClass[variant], "rounded-[10px]")}
-      onClick={action}
+      onClick={() => {
+        action();
+        goBack && window.history.back();
+      }}
+      {...props}
     >
       {children}
     </button>

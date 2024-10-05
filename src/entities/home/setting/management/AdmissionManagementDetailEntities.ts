@@ -21,7 +21,9 @@ export const uiEntities: Record<
         variant: "BLUE",
         action: async (admission) => {
           const { acceptAdmission } = SettingRscService();
-          if (await acceptAdmission(admission.id)) return;
+          if (await acceptAdmission(admission.id)) {
+            alert("승인되었습니다");
+          }
           alert("승인에 실패했습니다. 관리자에게 문의하세요");
         },
       },
@@ -30,7 +32,9 @@ export const uiEntities: Record<
         variant: "GRAY",
         action: async (admission) => {
           const { rejectAdmission } = SettingRscService();
-          if (await rejectAdmission(admission.id)) return;
+          if (await rejectAdmission(admission.id)) {
+            alert("거부되었습니다");
+          }
           alert("거부에 실패했습니다. 관리자에게 문의하세요");
         },
       },
@@ -195,3 +199,6 @@ export const titleMappingForCircle = Object.keys(titleMapping)
     obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
     return obj;
   }, {} as Record<keyof InfoTableEntity, string>);
+
+// 학생회비 납부자 페이지용
+

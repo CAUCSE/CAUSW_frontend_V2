@@ -66,6 +66,10 @@ declare namespace Circle {
     isAllowedGraduation: boolean;
   }
 
+  export interface Apply {
+    replyResponseDtoPage: Form.ReplyQuestionResponseDto[];
+  }
+
   // Client
   // 기본, 신청완료, 대기중, 가입됨, 제한
   export type JoinStatus = "NONE" | "DONE" | "AWAIT" | "MEMBER" | "BLOCK";
@@ -91,4 +95,5 @@ declare namespace Circle {
     user: User.User;
   }[] &
     Error.ApiErrorResponse;
+  export type ApplyResponseDto = Apply[];
 }
