@@ -22,7 +22,7 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
     },
   });
 
-  const { getApplication, checkApplication } = CircleService();
+  const { getApplication, checkApplication, applyCircle } = CircleService();
   const [form, setForm] = useState<Post.FormResponseDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [canUserReply, setCanUserReply] = useState<boolean>(false);
@@ -45,7 +45,6 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
           checkApplication(id),
         ]);
 
-        console.log(data1);
         setForm(data1);
         setCanUserReply(data2);
       } finally {
@@ -129,8 +128,7 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
     );
 
     try {
-      //await submitFormReply(id, questionReplyDtoList);
-      console.log(questionReplyDtoList);
+      await applyCircle(id, questionReplyDtoList);
       setModalMessage("신청서 제출 완료");
     } catch (error) {
       setModalMessage("신청 대상이 아니거나 이미 제출한 신청서입니다.");
