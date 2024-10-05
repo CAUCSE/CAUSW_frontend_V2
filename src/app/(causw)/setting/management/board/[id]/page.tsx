@@ -77,7 +77,7 @@ const BoardDetailManagement = ({
           <span className="text-[20px]">익명 허용 여부</span>
         </div>
 
-        <div className="flex w-full justify-center gap-3">
+        <div className="flex w-full flex-col justify-center gap-3 md:flex-row">
           <button className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl">
             승인
           </button>
