@@ -21,8 +21,6 @@ export const SideBar = () => {
   const email = useUserStore((state) => state.email);
   const profileImage = useUserStore((state) => state.profileImageUrl);
 
-  console.log(profileImage);
-
   const handleNoRefresh = async () => {
     await signout();
     location.href = "/auth/signin";

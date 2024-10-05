@@ -1,6 +1,3 @@
-import { CustomBoard } from "@/entities";
-import { getTimeDifference } from "./board/postList/PostListUtil";
-
 export { ErrorMessage } from "./layout/ErrorMessage";
 export { LoadingComponent } from "./layout/LoadingComponent";
 export { NavigationBar } from "./layout/NavigationBar";
@@ -55,3 +52,6 @@ export { FormErrorMessage } from "./layout/FormErrorMessage";
 export { PostList } from "./board/postList/PostList";
 export { getTimeDifference } from "./board/postList/PostListUtil";
 export { PostListHeader } from "./board/postList/PostListHeader";
+
+export { CircleApplyQuestion } from "./board/form/CircleApplyQuestion";
+export { CircleApplyOption } from "./board/form/CircleApplyOption";

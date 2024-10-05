@@ -17,10 +17,8 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const [circle, setCircle] = useState<Circle.CircleRequestDto>();
   const [mainImg, setMainImg] = useState<File | undefined>();
 
-  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const admissionYear = useUserStore((state) => state.admissionYear);
   const profileImage = useUserStore((state) => state.profileImageUrl);
-  const isAdmin = useUserStore((state) => state.isAdmin);
 
   const router = useRouter();
 
@@ -32,7 +30,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
       const newCircle = { ...circle };
 
       newCircle[key] =
-        key === "joinedAt"
+        key === "recruitEndDate"
           ? ((event.target.value +
               "T23:59:59.999999") as Circle.CircleRequestDto[K])
           : (event.target.value as Circle.CircleRequestDto[K]);
@@ -43,9 +41,6 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   );
 
   useEffect(() => {
-    if (!isAdmin() && !circleIdIfLeader?.includes(id))
-      router.push("/no-permission");
-
     (async () => {
       const data = await getCircle(id);
       setCircle(data);
@@ -65,8 +60,8 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
             name: circle.name,
             description: circle.description,
             circleTax: circle.circleTax,
-            recruitMembers: circle.numMember,
-            recruitEndDate: circle.joinedAt,
+            recruitMembers: circle.recruitMembers,
+            recruitEndDate: circle.recruitEndDate,
             isRecruit: circle.isRecruit,
           }),
         ],
@@ -175,7 +170,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           <input
             type="date"
             className="rounded-md pl-4"
-            onChange={(event) => handleChange(event, "joinedAt")}
+            onChange={(event) => handleChange(event, "recruitEndDate")}
           ></input>
         </div>
 
