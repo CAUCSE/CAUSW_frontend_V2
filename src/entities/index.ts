@@ -22,6 +22,7 @@ export { SubHeader } from "./header/SubHeader";
 export { Line } from "./header/Line";
 
 export { CircleElement } from "./element/CircleElement";
+export { CircleApplyOnButton } from "./element/CircleApplyButton";
 
 export { ExcelExport } from "./export/ExcelExport";
 

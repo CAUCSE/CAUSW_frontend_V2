@@ -37,6 +37,7 @@ export const Option = ({
             <Icon iconName="remove" />
           </button>
         </div>
+        {/* TODO: build error 로 임시 배제
         {errors.formCreateRequestDto?.questionCreateRequestDtoList?.[
           questionIndex
         ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText && (
@@ -47,7 +48,7 @@ export const Option = ({
               ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText.message
             }
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );

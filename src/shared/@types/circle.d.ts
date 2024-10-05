@@ -22,6 +22,7 @@ declare namespace Circle {
     isDeleted: boolean;
     circleTax: number;
     recruitMembers: number;
+    isRecruit: boolean;
   }
 
   export interface Board {
@@ -43,6 +44,19 @@ declare namespace Circle {
   export interface FindBoards {
     circle: Model.Circle;
     boards: Model.CircleBoard[];
+  }
+
+  export interface Application {
+    title: string;
+    questionCreateRequestDtoList: Post.QuestionCreateRequestDto[];
+    isAllowedEnrolled: boolean;
+    allowAllEnrolledRegisteredSemester: boolean;
+    enrolledRegisteredSemesterList: SemesterType[];
+    isNeedCouncilFeePaid: boolean;
+    isAllowedLeaveOfAbsence: boolean;
+    allowAllLeaveOfAbsenceRegisteredSemester: boolean;
+    leaveOfAbsenceRegisteredSemesterList: SemesterType[];
+    isAllowedGraduation: boolean;
   }
 
   // Client

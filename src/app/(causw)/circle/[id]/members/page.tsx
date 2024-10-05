@@ -28,7 +28,7 @@ const CircleMembers = async ({
               key={element.user.id}
               className="flex h-44 w-36 flex-col items-center justify-center"
             >
-              <ProfileImage src={element.user.profileImage}></ProfileImage>
+              <ProfileImage src={element.user.profileImageUrl}></ProfileImage>
               <SubHeader bold>
                 {element.user.name} ({element.user.admissionYear % 100})
               </SubHeader>

@@ -165,6 +165,24 @@ export const SettingRscService = () => {
     return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
   };
 
+  //게시판 신청 목록 조회
+  const getApplyBoards = async () => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
+        headers: headers,
+      }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return {
     getByState,
     getAllAdmissions,
@@ -174,6 +192,7 @@ export const SettingRscService = () => {
     getPrivilegedUsers,
     acceptAdmission,
     getWaitingUsers,
+    getApplyBoards,
     rejectAdmission,
     getUserCouncilFeeInfo,
   };

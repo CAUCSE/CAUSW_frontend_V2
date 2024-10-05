@@ -2,17 +2,10 @@ import { SettingRscService } from "@/shared";
 
 import { Management } from "@/widget";
 
-const PayerManagement = async () => {
-  const { getByState, getAllAdmissions } = SettingRscService();
+const BoardManagement = async () => {
+  const { getApplyBoards } = SettingRscService();
 
-  /* const data = isAddmission
-    ? await getAllAdmissions(null, 0)
-    : await getByState(state.toUpperCase() as User.UserDto["state"], null, 0); */
-
-  const data = [
-    { userName: "강민규", studentId: "20203128", id: "1", router: "" },
-    { userName: "윤민규", studentId: "20203128", id: "2", router: "" },
-  ];
+  const data = (await getApplyBoards()) as Setting.BoardList;
 
   return (
     <>
@@ -22,12 +15,16 @@ const PayerManagement = async () => {
         firstNavigation={{
           name: "생성 신청 게시판",
           state: "",
-          router: "/setting/management/TODO",
+          router: "/setting/management/board",
         }}
-        data={data}
+        data={data.map((element) => ({
+          userName: element.boardName,
+          studentId: element.id,
+          id: element.id,
+        }))}
       />
     </>
   );
 };
 
-export default PayerManagement;
+export default BoardManagement;
