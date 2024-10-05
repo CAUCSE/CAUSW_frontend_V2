@@ -1,7 +1,14 @@
 "use client";
 
-import { IconButton, PreviousButton, usePostListStore } from "@/shared";
+import {
+  BoardRscService,
+  IconButton,
+  PreviousButton,
+  usePostListStore,
+} from "@/shared";
 import { useParams, useRouter } from "next/navigation";
+
+import { useEffect } from "react";
 
 export const PostListHeader = () => {
   const router = useRouter();
@@ -11,8 +18,21 @@ export const PostListHeader = () => {
     setPage(0);
     setPosts([]);
   };
-  const { boardName, isBoardFavorite, setIsBoardFavorite, setPage, setPosts } =
+  const { boardName, notification, setPage, setPosts, setNotification } =
     usePostListStore();
+  const { setBoardNotification } = BoardRscService();
+
+  useEffect(() => {
+    const toggleNotification = async () => {
+      try {
+        await setBoardNotification(boardId);
+      } catch (error) {
+        throw error;
+      }
+    };
+    toggleNotification();
+  }, [notification]);
+
   return (
     <div className="flex h-24 w-full items-end px-5 sm:px-10">
       <PreviousButton />
@@ -21,7 +41,6 @@ export const PostListHeader = () => {
           {boardName}
         </div>
         <div className="flex items-center gap-2 sm:gap-4">
-          {/* TODO 게시글 생성 페이지로 이동 */}
           <IconButton
             iconName={"add"}
             callback={() => {
@@ -29,10 +48,9 @@ export const PostListHeader = () => {
               router.push(`/board/${boardId}/create`);
             }}
           />
-          {/* TODO 게시판 알람 설정 */}
           <IconButton
-            iconName={isBoardFavorite ? "alarm_active" : "alarm_inactive"}
-            callback={() => setIsBoardFavorite(!isBoardFavorite)}
+            iconName={notification ? "alarm_active" : "alarm_inactive"}
+            callback={() => setNotification(!notification)}
           />
           <IconButton
             iconName={"search"}
