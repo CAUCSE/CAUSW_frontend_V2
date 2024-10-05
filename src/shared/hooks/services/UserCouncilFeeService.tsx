@@ -45,8 +45,18 @@ export const UserCouncilFeeService = () => {
     }
   }
 
-
-
-
-  return { getUserCouncilFeeInfo, registerCouncilFee, checkIsCurrentSemesterApplied };
+  const deleteUserCouncilFeeInfo = async(userCouncilFeeId: string) => {
+    try{
+      const response = (await API.delete(`${URI}/delete`, {
+        headers: {
+          userCouncilFeeId: userCouncilFeeId,
+        },
+      }))
+      return response;
+    }
+  catch (error) {
+    throw error;
+  }
+}
+  return { getUserCouncilFeeInfo, registerCouncilFee, checkIsCurrentSemesterApplied, deleteUserCouncilFeeInfo };
 };

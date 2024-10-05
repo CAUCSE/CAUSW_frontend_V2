@@ -195,3 +195,5 @@ export const titleMappingForCircle = Object.keys(titleMapping)
     obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
     return obj;
   }, {} as Record<keyof InfoTableEntity, string>);
+
+// 학생회비 납부자 페이지용
