@@ -14,6 +14,17 @@ export function CouncilFeeButtons({ params: { councilFeeId, isRefunded } }: {
     const [ isSuccessModalOpen, setIsSuccessModalOpen ] = useState(false);
     const [ isErrorModalOpen, setIsErrorModalOpen ] = useState(false);
     const [ isWarningModalOpen, setIsWarningModalOpen ] = useState(false);
+
+    const deleteAndNavigateAndReload = async () => {
+        try {
+          await router.push('./'); // 페이지 이동
+          window.location.reload(); // 페이지 새로고침
+        } catch (error) {
+          console.error('이동 중 오류 발생:', error);
+        }
+      };
+
+
     const deleteUser = async(councilFeeId: string) => {
         try{
             const response = deleteUserCouncilFeeInfo(councilFeeId);
@@ -41,7 +52,7 @@ export function CouncilFeeButtons({ params: { councilFeeId, isRefunded } }: {
 {isSuccessModalOpen &&(
     <Modal closeModal={() =>{
         setIsSuccessModalOpen(false)
-        router.push('./')}
+        deleteAndNavigateAndReload()}
         }> 
     <div>학생회비 납부자 목록에서 삭제되었습니다.</div></Modal>
 )}        

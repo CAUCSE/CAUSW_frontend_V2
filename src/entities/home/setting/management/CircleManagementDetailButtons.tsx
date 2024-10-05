@@ -14,6 +14,16 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
   const { dropMember }= CircleService();
   const router = useRouter();
   const myId = useUserStore((state) => state.id);
+
+  const deleteAndNavigateAndReload = async () => {
+    try {
+      await router.push('../'); // 페이지 이동
+      window.location.reload(); // 페이지 새로고침
+    } catch (error) {
+      console.error('이동 중 오류 발생:', error);
+    }
+  };
+
   const expelMember = async() => {
     try{
       const response = await dropMember(userId, circleId);
@@ -93,7 +103,7 @@ export function CircleManagementButtons({ params: { name, studentId, userId, cir
           <Button
             action={() => {
               setIsSuccessModal(false);
-              router.push('../');
+              deleteAndNavigateAndReload();
             }}
             variant="GRAY"
             className="h-[45px] w-[125px] lg:w-[200px]"
