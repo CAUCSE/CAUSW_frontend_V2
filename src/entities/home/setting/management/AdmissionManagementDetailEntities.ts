@@ -1,4 +1,5 @@
 import { SettingRscService } from "@/shared";
+import { useRouter } from "next/navigation";
 
 type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
 
@@ -21,7 +22,11 @@ export const uiEntities: Record<
         variant: "BLUE",
         action: async (admission) => {
           const { acceptAdmission } = SettingRscService();
-          if (await acceptAdmission(admission.id)) return;
+          const router = useRouter();
+          if (await acceptAdmission(admission.id)) {
+            alert("승인되었습니다");
+            router.back();
+          }
           alert("승인에 실패했습니다. 관리자에게 문의하세요");
         },
       },
@@ -30,7 +35,11 @@ export const uiEntities: Record<
         variant: "GRAY",
         action: async (admission) => {
           const { rejectAdmission } = SettingRscService();
-          if (await rejectAdmission(admission.id)) return;
+          const router = useRouter();
+          if (await rejectAdmission(admission.id)) {
+            alert("거부되었습니다");
+            router.back();
+          }
           alert("거부에 실패했습니다. 관리자에게 문의하세요");
         },
       },
