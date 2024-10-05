@@ -25,5 +25,42 @@ export const CircleService = () => {
     }
   };
 
-  return { editCircle, dropMember };
+  const getApplication = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${id}/apply/application`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  const checkApplication = async (id: string) => {
+    const { data } = (await API.get(
+      `/api/v1/circles/${id}/apply/application/is-exist`,
+    )) as AxiosResponse<any>;
+
+    return data;
+  };
+
+  const editCircleApplication = async (id: string, body: any) => {
+    const { data } = (await API.post(
+      `/api/v1/circles/${id}/apply/application`,
+      body,
+    )) as AxiosResponse<any>;
+  };
+
+  const applyCircle = async (id: string, body: any) => {
+    const { data } = (await API.post(
+      `/api/v1/circles/${id}/applications`,
+      body,
+    )) as AxiosResponse<any>;
+  };
+
+  return {
+    editCircle,
+    dropMember,
+    getApplication,
+    checkApplication,
+    editCircleApplication,
+    applyCircle,
+  };
 };

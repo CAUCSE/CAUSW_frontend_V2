@@ -2,26 +2,29 @@
 
 import { useFieldArray, useFormContext } from "react-hook-form";
 
+import { CircleApplyOption } from "./CircleApplyOption";
 import { IconButton } from "@/shared";
-import { Option } from "./Option";
 import { useEffect } from "react";
 
-export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
+export const CircleApplyQuestion = ({
+  index,
+  removeQuestion,
+}: Form.QuestionProps) => {
   const {
     register,
     control,
     watch,
     setValue,
     formState: { errors },
-  } = useFormContext<Post.PostCreateWithFormRequestDto>();
+  } = useFormContext<Circle.Application>();
 
   const questionType = watch(
-    `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
+    `questionCreateRequestDtoList.${index}.questionType`,
   );
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: `formCreateRequestDto.questionCreateRequestDtoList.${index}.optionCreateRequestDtoList`,
+    name: `questionCreateRequestDtoList.${index}.optionCreateRequestDtoList`,
   });
 
   const addOption = () => {
@@ -29,14 +32,15 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
   };
 
   useEffect(() => {
+    console.log("questionType : ", questionType);
     if (!questionType) {
       setValue(
-        `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
+        `questionCreateRequestDtoList.${index}.questionType`,
         "OBJECTIVE",
       );
       if (questionType === "SUBJECTIVE") {
         setValue(
-          `formCreateRequestDto.questionCreateRequestDtoList.${index}.optionCreateRequestDtoList`,
+          `questionCreateRequestDtoList.${index}.optionCreateRequestDtoList`,
           [],
         );
       }
@@ -60,7 +64,7 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
                 type="radio"
                 value="OBJECTIVE"
                 {...register(
-                  `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
+                  `questionCreateRequestDtoList.${index}.questionType`,
                   {
                     required: "객관식 또는 주관식을 선택해주세요",
                   },
@@ -75,7 +79,7 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
                 type="radio"
                 value="SUBJECTIVE"
                 {...register(
-                  `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
+                  `questionCreateRequestDtoList.${index}.questionType`,
                   {
                     required: "객관식 또는 주관식을 선택해주세요",
                   },
@@ -86,12 +90,11 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
               주관식
             </label>
           </div>
-          {errors.formCreateRequestDto?.questionCreateRequestDtoList?.[index]
-            ?.questionType && (
+          {errors.questionCreateRequestDtoList?.[index]?.questionType && (
             <p className="text-red-500">
               {
-                errors.formCreateRequestDto?.questionCreateRequestDtoList[index]
-                  ?.questionType?.message
+                errors.questionCreateRequestDtoList[index]?.questionType
+                  ?.message
               }
             </p>
           )}
@@ -107,21 +110,14 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
         <input
           type="text"
           placeholder="질문 내용"
-          {...register(
-            `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionText`,
-            {
-              required: "질문 내용을 입력해주세요",
-            },
-          )}
+          {...register(`questionCreateRequestDtoList.${index}.questionText`, {
+            required: "질문 내용을 입력해주세요",
+          })}
           className="w-3/4 border-b border-[#363434] bg-[#FCFCFC] placeholder:text-[#B4B1B1]"
         />
-        {errors.formCreateRequestDto?.questionCreateRequestDtoList?.[index]
-          ?.questionText && (
+        {errors.questionCreateRequestDtoList?.[index]?.questionText && (
           <p className="text-red-500">
-            {
-              errors.formCreateRequestDto?.questionCreateRequestDtoList[index]
-                ?.questionText?.message
-            }
+            {errors.questionCreateRequestDtoList[index]?.questionText?.message}
           </p>
         )}
       </div>
@@ -131,15 +127,13 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
-              {...register(
-                `formCreateRequestDto.questionCreateRequestDtoList.${index}.isMultiple`,
-              )}
+              {...register(`questionCreateRequestDtoList.${index}.isMultiple`)}
               className="ml-4 h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
             />
             복수 선택 가능
           </label>
           {fields.map((option, optionIdx) => (
-            <Option
+            <CircleApplyOption
               key={option.id}
               questionIndex={index}
               optionIndex={optionIdx}

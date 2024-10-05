@@ -1,10 +1,12 @@
 "use client";
 
+import { CircleApplyQuestion, CustomCheckBox, Question } from "@/entities";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import React, { useEffect, useRef, useState } from "react";
+
 import { useRouter } from "next/navigation";
 
-import { CustomCheckBox, Question } from "@/entities";
+import { CircleService } from "@/shared";
 
 const SemesterOptions = [
   { colSize: 1, name: "1-1 수료", value: "FIRST_SEMESTER" },
@@ -24,11 +26,25 @@ const CircleApplicationEdit = ({
   params: { id: string };
 }) => {
   const router = useRouter();
-  const [isViewPointLg, setIsViewPointLg] = useState(false);
+  const [isViewPointLg, setIsViewPointLg] = useState<boolean>(false);
+
+  const { editCircleApplication } = CircleService();
+
+  useEffect(() => {
+    const checkWidth = () => {
+      setIsViewPointLg(window.innerWidth >= 1024 ? true : false);
+    };
+
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => {
+      window.removeEventListener("resize", checkWidth);
+    };
+  }, []);
 
   const methods = useForm<Circle.Application>({
     defaultValues: {
-      title: "",
+      title: "동아리 신청서",
       questionCreateRequestDtoList: [
         {
           questionType: "OBJECTIVE",
@@ -48,7 +64,7 @@ const CircleApplicationEdit = ({
       leaveOfAbsenceRegisteredSemesterList: [],
       isAllowedGraduation: false,
 
-      //이하 확인 필요
+      //상관없음 여부 판단하는 변수 -> onSubmit할 때 delete함
       allowAllEnrolledRegisteredSemester: false,
       allowAllLeaveOfAbsenceRegisteredSemester: false,
     },
@@ -107,12 +123,9 @@ const CircleApplicationEdit = ({
         message: "신청 가능 학년을 하나 이상 지정해주세요",
       });
     }
-    const postCreateWithFormRequestDto = { ...data };
-    if (
-      postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllEnrolledRegisteredSemester
-    ) {
-      postCreateWithFormRequestDto.enrolledRegisteredSemesterList = [
+    const circleApplicationDto = { ...data };
+    if (circleApplicationDto.allowAllEnrolledRegisteredSemester) {
+      circleApplicationDto.enrolledRegisteredSemesterList = [
         "FIRST_SEMESTER",
         "SECOND_SEMESTER",
         "THIRD_SEMESTER",
@@ -123,15 +136,11 @@ const CircleApplicationEdit = ({
         "EIGHTH_SEMESTER",
         "ABOVE_NINTH_SEMESTER",
       ];
-      delete postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllEnrolledRegisteredSemester;
+      delete circleApplicationDto.allowAllEnrolledRegisteredSemester;
     }
 
-    if (
-      postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllLeaveOfAbsenceRegisteredSemester
-    ) {
-      postCreateWithFormRequestDto.leaveOfAbsenceRegisteredSemesterList = [
+    if (circleApplicationDto.allowAllLeaveOfAbsenceRegisteredSemester) {
+      circleApplicationDto.leaveOfAbsenceRegisteredSemesterList = [
         "FIRST_SEMESTER",
         "SECOND_SEMESTER",
         "THIRD_SEMESTER",
@@ -142,11 +151,10 @@ const CircleApplicationEdit = ({
         "EIGHTH_SEMESTER",
         "ABOVE_NINTH_SEMESTER",
       ];
-      delete postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllLeaveOfAbsenceRegisteredSemester;
+      delete circleApplicationDto.allowAllLeaveOfAbsenceRegisteredSemester;
     }
 
-    postCreateWithFormRequestDto.questionCreateRequestDtoList.forEach(
+    circleApplicationDto.questionCreateRequestDtoList.forEach(
       (question: Post.QuestionCreateRequestDto) => {
         if (question.questionType === "SUBJECTIVE") {
           question.optionCreateRequestDtoList.length = 0;
@@ -156,8 +164,9 @@ const CircleApplicationEdit = ({
     );
 
     try {
-      console.log(data);
-      router.back();
+      editCircleApplication(id, data).then(() => {
+        router.back();
+      });
     } catch (error) {
       console.log("신청서 수정 실패 : ", error);
     }
@@ -171,6 +180,130 @@ const CircleApplicationEdit = ({
       optionCreateRequestDtoList: [{ optionText: "" }],
     });
   };
+
+  const isAllowedEnrolled = watch("isAllowedEnrolled");
+  const isNeedCouncilFeePaid = watch("isNeedCouncilFeePaid");
+  const enrolledRegisteredSemesterList = watch(
+    "enrolledRegisteredSemesterList",
+  );
+  const allowAllEnrolledRegisteredSemester = watch(
+    "allowAllEnrolledRegisteredSemester",
+  );
+  const leaveOfAbsenceRegisteredSemesterList = watch(
+    "leaveOfAbsenceRegisteredSemesterList",
+  );
+  const isAllowedLeaveOfAbsence = watch("isAllowedLeaveOfAbsence");
+  const allowAllLeaveOfAbsenceRegisteredSemester = watch(
+    "allowAllLeaveOfAbsenceRegisteredSemester",
+  );
+
+  const usePrevious = (value: any) => {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    }, [value]);
+    return ref.current;
+  };
+
+  const prevIsAllowedEnrolled = usePrevious(isAllowedEnrolled);
+  const prevIsAllowedLeaveOfAbsence = usePrevious(isAllowedLeaveOfAbsence);
+
+  /**
+   * 재학생 체크가 풀린 경우 학생회비 및 수료 상태 체크 해제
+   */
+  useEffect(() => {
+    if (!isAllowedEnrolled) {
+      setValue("isNeedCouncilFeePaid", false);
+      if (enrolledRegisteredSemesterList.length > 0) {
+        setValue("enrolledRegisteredSemesterList", []);
+      }
+      if (allowAllEnrolledRegisteredSemester) {
+        setValue("allowAllEnrolledRegisteredSemester", false);
+      }
+    }
+  }, [isAllowedEnrolled, setValue]);
+
+  //학생회비 체크 시 -> 재학생 자동으로 체크
+  useEffect(() => {
+    if (isNeedCouncilFeePaid) {
+      setValue("isAllowedEnrolled", true);
+    }
+  }, [isNeedCouncilFeePaid, setValue]);
+
+  useEffect(() => {
+    // 상관없음 이외의 수료 상태 체크 시 -> 상관없음 체크 해제
+    if (enrolledRegisteredSemesterList.length > 0) {
+      setValue("allowAllEnrolledRegisteredSemester", false);
+      if (!isAllowedEnrolled && !prevIsAllowedEnrolled) {
+        setValue("isAllowedEnrolled", true);
+      }
+    }
+
+    // 상관없음 이외의 수료 상태 9개를 전부 체크 시 전부 체크 해제 후 상관없음 체크
+    if (enrolledRegisteredSemesterList.length === 9) {
+      setValue("allowAllEnrolledRegisteredSemester", true);
+      setValue("enrolledRegisteredSemesterList", []);
+    }
+  }, [enrolledRegisteredSemesterList, setValue]);
+
+  useEffect(() => {
+    //재학생 수료 상태 상관없음 체크 시 기존에 체크했던 상태들 전부 해제
+    if (allowAllEnrolledRegisteredSemester) {
+      setValue("enrolledRegisteredSemesterList", []);
+      setValue("allowAllEnrolledRegisteredSemester", true);
+
+      //만약 재학생에 체크가 안되었으면 재학생도 체크
+      if (!isAllowedEnrolled && !prevIsAllowedEnrolled) {
+        setValue("isAllowedEnrolled", true);
+      }
+    }
+  }, [allowAllEnrolledRegisteredSemester, setValue]);
+
+  useEffect(() => {
+    //휴학생 체크 해제 시 -> 휴학생 관련 수료 상태 전부 체크 해제
+    if (!isAllowedLeaveOfAbsence) {
+      if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
+        setValue("leaveOfAbsenceRegisteredSemesterList", []);
+      }
+      if (allowAllLeaveOfAbsenceRegisteredSemester) {
+        setValue("allowAllLeaveOfAbsenceRegisteredSemester", false);
+      }
+    }
+  }, [isAllowedLeaveOfAbsence, setValue]);
+
+  useEffect(() => {
+    //휴학생 수료 상태 체크 시 -> 상관없음 체크 해제
+    if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
+      setValue("allowAllLeaveOfAbsenceRegisteredSemester", false);
+      if (!isAllowedLeaveOfAbsence && !prevIsAllowedLeaveOfAbsence) {
+        setValue("isAllowedLeaveOfAbsence", true);
+      }
+    }
+
+    //휴학생 수료 상태를 전부(9개) 체크 시 상관없음 체크
+    if (leaveOfAbsenceRegisteredSemesterList.length === 9) {
+      setValue("allowAllLeaveOfAbsenceRegisteredSemester", true);
+      setValue("leaveOfAbsenceRegisteredSemesterList", []);
+    }
+  }, [leaveOfAbsenceRegisteredSemesterList, setValue]);
+
+  useEffect(() => {
+    //휴학생 수료 상태 상관없음 체크 시 기존 수료 상태들 체크 해제
+    if (allowAllLeaveOfAbsenceRegisteredSemester) {
+      setValue("leaveOfAbsenceRegisteredSemesterList", []);
+      setValue("allowAllLeaveOfAbsenceRegisteredSemester", true);
+      //휴학생이 체크되어 있지 않다면 자동으로 체크
+      if (!isAllowedLeaveOfAbsence && !prevIsAllowedLeaveOfAbsence) {
+        setValue("isAllowedLeaveOfAbsence", true);
+      }
+    }
+  }, [allowAllLeaveOfAbsenceRegisteredSemester, setValue]);
+
+  useEffect(() => {
+    if (fields.length === 0) {
+      addSurveyForm();
+    }
+  }, [fields, addSurveyForm]);
 
   return (
     <>
@@ -265,7 +398,7 @@ const CircleApplicationEdit = ({
               </div>
               {fields.map((field, idx) => {
                 return (
-                  <Question
+                  <CircleApplyQuestion
                     key={field.id}
                     index={idx}
                     removeQuestion={() => remove(idx)}

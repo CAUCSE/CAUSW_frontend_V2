@@ -37,6 +37,12 @@ declare namespace Circle {
     postWriterStudentId: string | null;
   }
 
+  export interface OptionResponseDto {
+    optionId: string;
+    optionNumber: number;
+    optionText: string;
+  }
+
   export interface FindBoardsDto {
     circle: FindByIdDto;
     boardList: Board[];
@@ -52,11 +58,11 @@ declare namespace Circle {
     questionCreateRequestDtoList: Post.QuestionCreateRequestDto[];
     isAllowedEnrolled: boolean;
     allowAllEnrolledRegisteredSemester: boolean;
-    enrolledRegisteredSemesterList: SemesterType[];
+    enrolledRegisteredSemesterList: Post.SemesterType[];
     isNeedCouncilFeePaid: boolean;
     isAllowedLeaveOfAbsence: boolean;
     allowAllLeaveOfAbsenceRegisteredSemester: boolean;
-    leaveOfAbsenceRegisteredSemesterList: SemesterType[];
+    leaveOfAbsenceRegisteredSemesterList: Post.SemesterType[];
     isAllowedGraduation: boolean;
   }
 
