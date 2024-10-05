@@ -43,9 +43,7 @@ export const AuthService = () => {
         router.push('/auth/authorization');
       }
       else{
-        const academicStatusResponse = await checkCurrentAcademicStatus();
-        console.log(academicStatusResponse);
-        if (academicStatusResponse.data == "UNDETERMINED")
+        if (AdmissionResponse.data.academicStatus == "UNDETERMINED")
         {
           router.push('/auth/authorization');
         }
