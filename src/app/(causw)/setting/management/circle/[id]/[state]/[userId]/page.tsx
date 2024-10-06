@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleService } from "@/shared";
+import { CircleRscService, CircleService } from "@/shared";
 import { useEffect, useRef, useState } from "react";
 
 import { LoadingComponent } from "@/entities";
@@ -17,25 +17,33 @@ const CircleApplyManagement = ({
     getApplication,
   } = CircleService();
 
+  const { getCircleUserByStateAndId } = CircleRscService();
+
   const [data, setData] = useState<Circle.Apply | null>(null);
   const [application, setApplication] = useState<Post.QuestionResponseDto[]>(
     [],
   );
+  const [applicationId, setApplicationId] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [data1, data2]: [Circle.Apply, Post.FormResponseDto] =
-          await Promise.all([
-            getApplicationById(id, userId),
-            getApplication(id),
-          ]);
+        const [data1, data2, data3]: [
+          Circle.Apply,
+          Post.FormResponseDto,
+          Circle.CircleUser,
+        ] = await Promise.all([
+          getApplicationById(id, userId),
+          getApplication(id),
+          getCircleUserByStateAndId(id, "AWAIT", userId),
+        ]);
         setData(data1);
         setApplication(
           data2.questionResponseDtoList.sort(
             (a, b) => a.questionNumber - b.questionNumber,
           ),
         );
+        setApplicationId(data3.id);
         console.log(id);
       } catch (error) {
         throw error;
@@ -108,7 +116,7 @@ const CircleApplyManagement = ({
           <button
             className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl"
             onClick={() => {
-              acceptApplyUser(id).then(() => {
+              acceptApplyUser(applicationId).then(() => {
                 window.location.href =
                   "/setting/management/circle" + id + "/apply";
               });
@@ -119,7 +127,7 @@ const CircleApplyManagement = ({
           <button
             className="flex h-10 w-80 items-center justify-center rounded-xl bg-gray-400 text-lg text-white md:h-16 lg:text-xl"
             onClick={() => {
-              rejectApplyUser(id).then(() => {
+              rejectApplyUser(applicationId).then(() => {
                 window.location.href =
                   "/setting/management/circle" + id + "/apply";
               });
