@@ -44,7 +44,6 @@ const CircleApplyManagement = ({
           ),
         );
         setApplicationId(data3.id);
-        console.log(id);
       } catch (error) {
         throw error;
       }
@@ -118,7 +117,7 @@ const CircleApplyManagement = ({
             onClick={() => {
               acceptApplyUser(applicationId).then(() => {
                 window.location.href =
-                  "/setting/management/circle" + id + "/apply";
+                  "/setting/management/circle/" + id + "/apply";
               });
             }}
           >
@@ -129,7 +128,7 @@ const CircleApplyManagement = ({
             onClick={() => {
               rejectApplyUser(applicationId).then(() => {
                 window.location.href =
-                  "/setting/management/circle" + id + "/apply";
+                  "/setting/management/circle/" + id + "/apply";
               });
             }}
           >
