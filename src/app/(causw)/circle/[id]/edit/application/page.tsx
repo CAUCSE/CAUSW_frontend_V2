@@ -164,7 +164,7 @@ const CircleApplicationEdit = ({
     );
 
     try {
-      editCircleApplication(id, data).then(() => {
+      editCircleApplication(id, circleApplicationDto).then(() => {
         router.back();
       });
     } catch (error) {

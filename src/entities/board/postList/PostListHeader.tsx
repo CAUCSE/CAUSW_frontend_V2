@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  BoardRscService,
-  IconButton,
-  PreviousButton,
-  usePostListStore,
-} from "@/shared";
+import { IconButton, PreviousButton, usePostListStore } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
-
-import { useEffect } from "react";
 
 export const PostListHeader = () => {
   const router = useRouter();
@@ -18,20 +11,7 @@ export const PostListHeader = () => {
     setPage(0);
     setPosts([]);
   };
-  const { boardName, notification, setPage, setPosts, setNotification } =
-    usePostListStore();
-  const { setBoardNotification } = BoardRscService();
-
-  useEffect(() => {
-    const toggleNotification = async () => {
-      try {
-        await setBoardNotification(boardId);
-      } catch (error) {
-        throw error;
-      }
-    };
-    toggleNotification();
-  }, [notification]);
+  const { boardName, setPage, setPosts } = usePostListStore();
 
   return (
     <div className="flex h-24 w-full items-end px-5 sm:px-10">
@@ -48,10 +28,11 @@ export const PostListHeader = () => {
               router.push(`/board/${boardId}/create`);
             }}
           />
+          {/* 게시판 알람 기능 추가 전까지 알람 설정 버튼 삭제
           <IconButton
             iconName={notification ? "alarm_active" : "alarm_inactive"}
             callback={() => setNotification(!notification)}
-          />
+          /> */}
           <IconButton
             iconName={"search"}
             callback={() => {
