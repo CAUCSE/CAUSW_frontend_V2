@@ -32,7 +32,6 @@ export const CircleApplyQuestion = ({
   };
 
   useEffect(() => {
-    console.log("questionType : ", questionType);
     if (!questionType) {
       setValue(
         `questionCreateRequestDtoList.${index}.questionType`,

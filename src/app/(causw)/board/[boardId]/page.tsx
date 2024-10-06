@@ -45,15 +45,13 @@ const BoardPage = () => {
         setScrollLoading(true);
       }
       try {
-        const [data1, data2]: [Board.BoardWithPostResponseDto, boolean] =
-          await Promise.all([
-            getPostList(boardId, page),
-            getBoardNotificationInfo(boardId),
-          ]);
+        const data1: Board.BoardWithPostResponseDto = await getPostList(
+          boardId,
+          page,
+        );
         setPosts((posts) => [...posts, ...data1.post.content]);
         setBoardName(data1.boardName);
         setHasMore(data1.post.totalPages - 1 > page);
-        setNotification(data2);
       } catch (error) {
         setBoardIdValidation(false);
       } finally {
