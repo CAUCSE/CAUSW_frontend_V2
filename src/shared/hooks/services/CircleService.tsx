@@ -1,7 +1,9 @@
 "use client";
 
-import { FORMAPI, API } from "@/shared";
+import { API, FORMAPI } from "@/shared";
+
 import { AxiosResponse } from "axios";
+
 //import { useRouter } from "next/navigation";
 
 export const CircleService = () => {
@@ -60,7 +62,7 @@ export const CircleService = () => {
       `/api/v1/forms/${userId}/${circleid}`,
     )) as AxiosResponse<Circle.ApplyResponseDto>;
 
-    return data[0];
+    return data[data.length - 1];
   };
 
   const rejectApplyUser = async (id: string) => {

@@ -67,7 +67,7 @@ declare namespace Circle {
   }
 
   export interface Apply {
-    replyResponseDtoPage: Form.ReplyQuestionResponseDto[];
+    replyQuestionResponseDtoList: Form.ReplyQuestionResponseDto[];
   }
 
   // Client
