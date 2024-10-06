@@ -86,31 +86,23 @@ export const PostCard = ({
     setIsPopupOpen(false);
     setPopupImage(null);
   };
-/* 
-  const handleDownload = (fileUrl: string) => {
-    console.log(fileUrl);
-    const decodedUrl = decodeURIComponent(fileUrl) ;
-    const fileNameWithUuid = decodedUrl. substring(decodedUrl.lastIndexOf('/') + 1);
-    const filename= fileNameWithUuid.split('_')[0];
-    
-    const encodedFileName = encodeURIComponent(filename);
-    console.log(encodedFileName);
-    //const link = document.createElement("a");
-    //link.href = fileUrl;
-    //link.download = extractFileName(fileUrl); // 파일명 설정
-    //link.click();
-  }; */
 
   const openFileLink = (url) => {
-    const fileName = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1)); // 파일명 추출 후 디코딩
-    const fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1); // 확장자 추출
+    const fileName = decodeURIComponent(
+      url.substring(url.lastIndexOf("/") + 1),
+    ); // 파일명 추출 후 디코딩
+    const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자 추출
 
-    if (fileExtension === "pdf" || fileExtension === "jpg" || fileExtension === "png") {
+    if (
+      fileExtension === "pdf" ||
+      fileExtension === "jpg" ||
+      fileExtension === "png"
+    ) {
       // PDF나 이미지 파일은 새 탭에서 열기
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     } else {
       // 그 외 파일은 다운로드
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
       link.download = fileName;
       document.body.appendChild(link);
@@ -120,10 +112,12 @@ export const PostCard = ({
   };
 
   const extractFileName = (url) => {
-    const decodeFile = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1));
-    const filename= decodeFile.split('_')[0];
-    const fileExtension = decodeFile.substring(decodeFile.lastIndexOf('.') + 1);
-    return (filename+"."+fileExtension);
+    const decodeFile = decodeURIComponent(
+      url.substring(url.lastIndexOf("/") + 1),
+    );
+    const filename = decodeFile.split("_")[0];
+    const fileExtension = decodeFile.substring(decodeFile.lastIndexOf(".") + 1);
+    return filename + "." + fileExtension;
   };
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
@@ -245,7 +239,7 @@ export const PostCard = ({
                   x
                 </button>
                 <button
-                  onClick={()=>openFileLink(popupImage)}
+                  onClick={() => openFileLink(popupImage)}
                   className="absolute right-[40px] top-1 z-50 flex h-10 w-10 items-center justify-center text-white"
                 >
                   ↓

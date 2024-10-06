@@ -76,8 +76,9 @@ const ACADEMIC_STATUS: { [key: string]: string } = {
   ENROLLED: "재학",
   LEAVE_OF_ABSENCE: "휴학",
   GRADUATED: "졸업",
-  DROPPED_OUT: "자퇴",
-  PROBATION: "학사 경고",
+  DROPPED_OUT: "중퇴",
+  SUSPEND: "정학",
+  EXPEL: "퇴학",
   PROFESSOR: "교수",
   UNDETERMINED: "미정",
 };

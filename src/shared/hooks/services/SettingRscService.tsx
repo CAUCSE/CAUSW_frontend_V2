@@ -103,7 +103,6 @@ export const SettingRscService = () => {
     });
 
     const data = (await response.json()) as Setting.GetAdmissionResponseDto;
-    console.log(data);
     if (!response.ok) throw new Error(response.statusText);
     return data;
   };

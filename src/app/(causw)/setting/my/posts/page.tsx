@@ -22,7 +22,6 @@ const MyPostsPage = () => {
   useEffect(() => {
     getMyPosts()
       .then((res) => {
-        console.log(res);
         setPosts(res);
       })
       .then(() => {

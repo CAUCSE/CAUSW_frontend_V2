@@ -26,14 +26,6 @@ const CreateBoardPage = (props: any) => {
   const isVicePresidents = useUserStore((state) => state.isVicePresidents);
   const isAdmin = useUserStore((state) => state.isAdmin);
   const hasAuth = isAdmin() || isPresidents() || isVicePresidents();
-  console.log("isAdmin");
-  console.log(isAdmin);
-  console.log("isPresidents");
-  console.log(isPresidents);
-  console.log("isVicePresidents");
-  console.log(isVicePresidents);
-  console.log("hasAuth");
-  console.log(hasAuth);
   const router = useRouter();
 
   const roles = {
@@ -56,7 +48,7 @@ const CreateBoardPage = (props: any) => {
       const boardReqeust: Board.CreateBoardDto = {
         boardName: boardName,
         description: boardDescription,
-        boardCategory:"APP_NOTICE",
+        boardCategory: "APP_NOTICE",
         createRoleList: selectedRoles as User.Role[],
         isAnonymousAllowed: allowAnonymous,
         circleId: null,
