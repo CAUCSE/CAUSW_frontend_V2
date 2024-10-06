@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   useVoteStore,
   usePostStore,
@@ -11,9 +11,10 @@ import {
 export const usePostDetail = (postId: string) => {
   const { setPost, setPostComment } = usePostStore();
   const { setComments } = useCommentStore();
-  const { setChildCommentLikes } = useChildCommentStore();
+  const { setChildComment } = useChildCommentStore();
   const { getPostById } = PostRscService();
   const { setVote } = useVoteStore();
+  const [loading, setLoading] = useState<boolean>(true);
   const getTimeDifference = (ISOtime: string) => {
     const createdTime = new Date(ISOtime);
     const now = new Date();
@@ -39,10 +40,10 @@ export const usePostDetail = (postId: string) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        setLoading(true);
         const postData = await getPostById(postId);
-        //console.log(`isOwner????// ${postData.isOwner}`)
         postData.updatedAt = getTimeDifference(postData.updatedAt);
-        setPost(postData); // post와 numLikes를 상태로 설정
+        setPost(postData);
         setPostComment();
         postData.commentList.content.forEach((comment: Comment.CommentDto) => {
           setComments(
@@ -54,7 +55,13 @@ export const usePostDetail = (postId: string) => {
             comment.numLike,
           );
           comment.childCommentList.forEach((childComment: any) => {
-            setChildCommentLikes(childComment.id, childComment.numLike); // 각 대댓글의 좋아요 수 설정
+            setChildComment(
+              childComment.id,
+              childComment.numLike,
+              false,
+              childComment.isOwner,
+              childComment.isDeleted,
+            ); // 각 대댓글의 좋아요 수 설정
           });
         });
         if (postData.isPostVote) {
@@ -62,6 +69,8 @@ export const usePostDetail = (postId: string) => {
         }
       } catch (error) {
         console.error("게시물 불러오기 실패: ", error);
+      } finally {
+        setLoading(false); // 데이터 가져온 후 로딩 끝
       }
     };
 
@@ -69,4 +78,6 @@ export const usePostDetail = (postId: string) => {
       fetchPost();
     }
   }, [postId, setPost, setComments, setVote]);
+
+  return { loading };
 };

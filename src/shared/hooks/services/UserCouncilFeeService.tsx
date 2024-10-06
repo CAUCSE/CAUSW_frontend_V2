@@ -1,58 +1,63 @@
 import { AxiosResponse } from "axios";
-import { API, useUserStore } from "@/shared";
+import { API } from "@/shared";
 
 export const UserCouncilFeeService = () => {
   const URI = "/api/v1/user-council-fee";
 
-
-  const getUserCouncilFeeInfo = async (studentId: string) => {
-    try
-{   const response = (await API.get(`${URI}/info/${studentId}`)) as AxiosResponse;
-    return response;
-}   
-    catch(error)
-    {
-        throw(error);
-    }
-  }
-
-  const getUserCouncilFeeId = async (studentId: string) => {
-    try
-    {
-        const response = (await API.get(`${URI}/getUserIdByStudentId`,
-            {
-                headers: {
-                    'studentId': studentId,
-                }
-            }
-         )) as AxiosResponse;
-        return response;
-    }
-    catch(error)
-    {
-        throw(error);
-    }
-  }
-
-  const getUserCouncilFeeList = async () =>
-  {
+  const getUserCouncilFeeInfo = async () => {
     try {
-        const response = (await API.get(`${URI}/list`, {
-            params: {
-                page: 0,
-                size: 20,
-                sort: ['name, asc'],
-            }
-        }))
-        console.log(response);
+      const response = (await API.get(
+        `${URI}/isCurrentSemesterApplied/self/info`,
+      )) as AxiosResponse;
+      return response;
+    } catch (error) {
+      throw error;
     }
-    catch (error)
-    {
-        throw error;
+  };
+
+  const registerCouncilFee = async (body: any) => {
+    try {
+      const response = (await API.post(
+        `${URI}/create-user`,
+        body,
+      )) as AxiosResponse;
+      return response;
+    } catch (error) {
+      throw error;
     }
-  }
+  };
 
+  const checkIsCurrentSemesterApplied = async (userId: string) => {
+    try {
+      const response =
+        (await API.get(`${URI}/isCurrentSemesterApplied`),
+        {
+          headers: {
+            params: userId,
+          },
+        });
+      return response;
+    } catch (error) {
+      return false;
+    }
+  };
 
-
-  return { getUserCouncilFeeInfo, getUserCouncilFeeId };
+  const deleteUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
+    try {
+      const response = await API.delete(`${URI}/delete`, {
+        headers: {
+          userCouncilFeeId: userCouncilFeeId,
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+  return {
+    getUserCouncilFeeInfo,
+    registerCouncilFee,
+    checkIsCurrentSemesterApplied,
+    deleteUserCouncilFeeInfo,
+  };
 };

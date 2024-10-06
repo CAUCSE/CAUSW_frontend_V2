@@ -261,8 +261,8 @@ const ApplyPage = () => {
                           ?.questionReply && (
                           <p className="text-sm text-red-500">
                             {
-                              errors.questionReplyRequestDtoList[questionIdx]
-                                .questionReply.message
+                              errors!.questionReplyRequestDtoList[questionIdx]!
+                                .questionReply!.message
                             }
                           </p>
                         )}
@@ -270,8 +270,8 @@ const ApplyPage = () => {
                           ?.selectedOptionList && (
                           <p className="text-sm text-red-500">
                             {
-                              errors.questionReplyRequestDtoList[questionIdx]
-                                .selectedOptionList.message
+                              errors!.questionReplyRequestDtoList[questionIdx]!
+                                .selectedOptionList!.message
                             }
                           </p>
                         )}

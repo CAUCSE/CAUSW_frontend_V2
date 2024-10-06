@@ -2,8 +2,30 @@ import { BASEURL, setRscHeader } from "@/shared";
 import axios, { AxiosResponse } from "axios";
 
 export const BoardRscService = () => {
+  /**
+   * @description 게시판 id와 최상위 게시물 3개를 반환하는 api
+   */
   const getMainBoardList = async () => {
     const URI = `${BASEURL}/api/v1/boards/main`;
+    try {
+      const headers = await setRscHeader();
+      const response = await fetch(URI, { headers: headers });
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      const res = await response.json();
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  /**
+   * @description 게시판 관련 boolean 변수들을 반환하는 api
+   * createRoleList, category, isDeleted, circleId 등
+   */
+  const getBoardInfoList = async () => {
+    const URI = `${BASEURL}/api/v1/boards`;
     try {
       const headers = await setRscHeader();
       const response = await fetch(URI, { headers: headers });
@@ -20,7 +42,7 @@ export const BoardRscService = () => {
   const createBoard = async (
     data: Board.CreateBoardDto,
   ): Promise<Board.BoardDto> => {
-    const URI = `${BASEURL}/api/v1/boards/normal`;
+    const URI = `${BASEURL}/api/v1/boards/create`;
 
     try {
       const headers = await setRscHeader();
@@ -66,7 +88,7 @@ export const BoardRscService = () => {
   };
 
   const searchPost = async (
-    boardId: string,
+    boardId: string | string[],
     keyword: string,
     pageNum: number,
   ) => {
@@ -83,8 +105,6 @@ export const BoardRscService = () => {
         throw new Error(`${response.status} : ${response.statusText}`);
       }
       const searchResult = await response.json();
-      console.log(searchResult);
-
       return searchResult;
     } catch (error) {
       console.error(error);
@@ -92,10 +112,41 @@ export const BoardRscService = () => {
     }
   };
 
+  const getBoardNotificationInfo = async (boardId: string | string[]) => {
+    const URI = `${BASEURL}/api/v1/notifications/${boardId}`;
+    try {
+      const headers = await setRscHeader();
+      const response = await fetch(URI, { headers: headers });
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      const res = await response.json();
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const setBoardNotification = async (boardId: string | string[]) => {
+    const URI = `${BASEURL}/api/v1/notifications/${boardId}`;
+    try {
+      const headers = await setRscHeader();
+      const response = await fetch(URI, { method: "PUT", headers: headers });
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     getMainBoardList,
+    getBoardInfoList,
     createBoard,
     applyBoard,
     searchPost,
+    getBoardNotificationInfo,
+    setBoardNotification,
   };
 };

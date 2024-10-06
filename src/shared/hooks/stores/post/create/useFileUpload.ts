@@ -1,4 +1,4 @@
-import { useFileUploadStore } from '@/shared'; 
+import { useFileUploadStore } from "@/shared";
 
 export const useFileUpload = () => {
   const { selectedFiles, addFile, setFiles, clearFiles } = useFileUploadStore();
@@ -6,12 +6,11 @@ export const useFileUpload = () => {
   const handleFileUpload = (file: File | null) => {
     if (file) {
       addFile(file);
-      console.log(file.type)
     }
   };
 
   const resetFiles = () => {
-    clearFiles(); 
+    clearFiles();
   };
 
   return {

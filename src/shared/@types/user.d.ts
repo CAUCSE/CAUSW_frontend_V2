@@ -6,10 +6,25 @@ declare namespace User {
     email: string;
     id: string;
     name: string;
-    profileImage: string;
+    admissionYear: number;
+    profileImageUrl: string;
     roles: Role[];
-    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP";
+    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP" | "AWAIT";
+    nickname: string;
     studentId: string;
+    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+    major: string;
+    currentCompletedSemester: number | null;
+    graduationYear: string | null;
+    graduationType: string | null;
+    phoneNumber: string | null;
+    createdAt: string;
+  }
+
+  export interface UserAdmissionCreateRequestDto {
+    email: string;
+    description: string;
+    images: FileList;
   }
 
   export type Role =
@@ -79,7 +94,7 @@ declare namespace User {
 
   export interface AdmissionCreateRequestDto {
     email: string;
-    attachImage: File | null;
+    attachImage: FileList | null;
     description: string;
   }
 
@@ -89,6 +104,12 @@ declare namespace User {
     name: string;
     profileImage: string | null;
     studentId: string;
+  }
+
+  export interface userUpdateDto {
+    nickname: string;
+    phoneNumber: string;
+    profileImage: File | null;
   }
 
   export interface PasswordUpdateRequestDto {
@@ -138,8 +159,6 @@ declare namespace User {
     nickname: string;
     major: string;
     phoneNumber: string;
-    profileImage: nullable;
-    files: FileList;
   }
 
   export interface CreateUserAcademicRecordApplicationRequestDto {
@@ -151,11 +170,11 @@ declare namespace User {
       | "PROBATION"
       | "PROFESSOR"
       | "UNDETERMINED";
-    targetCompletedSemester: number;
-    graduationYear: number;
-    graduationType: "FEBRUARY" | "AUGUST";
+    targetCompletedSemester: number | null;
+    graduationYear: number | null;
+    graduationType: "FEBRUARY" | "AUGUST" | null;
     note: string;
-    images: FileList;
+    images: FileList | null;
   }
 
   export interface FindPostsResponse {

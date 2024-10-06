@@ -13,35 +13,51 @@ export const UserService = () => {
     setUserStore(data);
   };
 
-  const getUserInfoRevised = async () => {
-    const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
-    return response;
-  }
-  
-  const updateUserInfo = async (data: any) => {
+  const getMyInfo = async () => {
+
     try{
-      const response = (await API.put(`${URI}`, data)) as AxiosResponse;
-      console.log(response);
-      return response;
+      const response = await API.get(`${URI}/me`);  // 서버로부터 유저 정보를 가져옴
+      return response;  
     }
-    catch(error)
-    {
+    catch(error){
       throw error;
     }
-    
+  }
+
+  const getUserInfo = async (userId: string) => {
+    try{
+      const response = await API.get(`${URI}/${userId}`);
+      return response;
+    }
+    catch(error) {
+      throw error;
+    }
+
+  }
+  
+  const getUserAdmissionInfo = async () => {
+    const response = await API.get(`${URI}/admissions/self`);
+    return response;
   }
 
   const updateUserAcademicInfo = async (data: any) => {
     try
-  {  const response = (await API.put(`${URI}/academic-record/update`, data)) as AxiosResponse;
+  {  const response = (await API.put(`${URI}/academic-record/application/update`, data)) as AxiosResponse;
     return response;
   } catch(error)
   {
     throw error;
   }  
   }
-
-  const checkCurrentAcademicRecord = async () => {
+  const checkCurrentAcademicStatus = async () => {
+    try {
+      const response = (await API.get(`${URI}/academic-record/current`)) as AxiosResponse;
+      return response;
+    } catch (error){
+      throw error;
+    }
+  }
+  const checkIsAcademicRecordSubmitted = async () => {
     try {
       const response = (await API.get(`${URI}/academic-record/current/not-accepted`)) as AxiosResponse;
       return response;
@@ -51,6 +67,17 @@ export const UserService = () => {
       throw error;
     }
   }
+  
+  const allowUser = async (param: string) => {
+    try {
+      const response = (await API.put(`${URI}/admissions/${param}/accept`)) as AxiosResponse;
+      return response;
+    }
+    catch(error)
+    {
+      throw error;
+    }
+  }
 
-  return { getMe, getUserInfoRevised, updateUserInfo, updateUserAcademicInfo, checkCurrentAcademicRecord };
+  return { getMe, getMyInfo, getUserInfo, getUserAdmissionInfo, updateUserAcademicInfo, checkCurrentAcademicStatus, checkIsAcademicRecordSubmitted, allowUser };
 };

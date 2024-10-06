@@ -11,21 +11,21 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import {
   PostRscService,
   PreviousButton,
+  VoteRscService,
   useCreatePostStore,
   useCreateVoteStore,
   useFileUpload,
+  useUserStore,
 } from "@/shared";
 import React, { useEffect, useRef, useState } from "react";
 
-import Image from "next/image";
-import { STATIC_STATUS_PAGE_GET_INITIAL_PROPS_ERROR } from "next/dist/lib/constants";
-import { all } from "axios";
 import { useRouter } from "next/navigation";
 
-// eslint-disable-next-line @next/next/no-async-client-component
 const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
-  const { createPost, createPostWithForm, createVote } = PostRscService();
+  const { createPost, createPostWithForm } = PostRscService();
+  const { createVote } = VoteRscService();
+  const { roles, roleTxt } = useUserStore();
 
   const {
     title,
@@ -56,6 +56,7 @@ const CreatePostPage = (props: any) => {
     removeVoteOption,
     toggleMultipleChoice,
     toggleAllowAnonymous,
+    clearVote,
   } = useCreateVoteStore();
   const { selectedFiles, resetFiles } = useFileUpload();
   const router = useRouter();
@@ -97,10 +98,8 @@ const CreatePostPage = (props: any) => {
     register,
     control,
     handleSubmit,
-    getValues,
     setValue,
     setError,
-    clearErrors,
     watch,
     formState: { errors },
   } = methods;
@@ -200,8 +199,6 @@ const CreatePostPage = (props: any) => {
       },
     );
 
-    console.log(JSON.stringify(postCreateWithFormRequestDto, null, 2));
-    console.log(JSON.stringify(data, null, 2));
     try {
       const response = await createPostWithForm(
         postCreateWithFormRequestDto,
@@ -272,6 +269,7 @@ const CreatePostPage = (props: any) => {
         };
         try {
           const createVoteResponse = await createVote(voteRequest);
+          clearVote();
           console.log("투표 생성 완!!!", createVoteResponse);
         } catch (error) {
           console.error("투표 생성 에러: ", error);
@@ -298,7 +296,6 @@ const CreatePostPage = (props: any) => {
   };
 
   useEffect(() => {
-    console.log(isAllowedEnrolled);
     if (!isAllowedEnrolled) {
       setValue("formCreateRequestDto.isNeedCouncilFeePaid", false);
       if (enrolledRegisteredSemesterList.length > 0) {

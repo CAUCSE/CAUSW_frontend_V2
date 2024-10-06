@@ -22,6 +22,8 @@ declare namespace Circle {
     isDeleted: boolean;
     circleTax: number;
     recruitMembers: number;
+    isRecruit: boolean;
+    recruitEndDate: string;
   }
 
   export interface Board {
@@ -35,6 +37,12 @@ declare namespace Circle {
     postWriterStudentId: string | null;
   }
 
+  export interface OptionResponseDto {
+    optionId: string;
+    optionNumber: number;
+    optionText: string;
+  }
+
   export interface FindBoardsDto {
     circle: FindByIdDto;
     boardList: Board[];
@@ -43,6 +51,23 @@ declare namespace Circle {
   export interface FindBoards {
     circle: Model.Circle;
     boards: Model.CircleBoard[];
+  }
+
+  export interface Application {
+    title: string;
+    questionCreateRequestDtoList: Post.QuestionCreateRequestDto[];
+    isAllowedEnrolled: boolean;
+    allowAllEnrolledRegisteredSemester: boolean;
+    enrolledRegisteredSemesterList: Post.SemesterType[];
+    isNeedCouncilFeePaid: boolean;
+    isAllowedLeaveOfAbsence: boolean;
+    allowAllLeaveOfAbsenceRegisteredSemester: boolean;
+    leaveOfAbsenceRegisteredSemesterList: Post.SemesterType[];
+    isAllowedGraduation: boolean;
+  }
+
+  export interface Apply {
+    replyResponseDtoPage: Form.ReplyQuestionResponseDto[];
   }
 
   // Client
@@ -62,4 +87,13 @@ declare namespace Circle {
   export type CirclesRequestDto = FindByIdDto[] & Error.ApiErrorResponse;
   export type CircleRequestDto = FindByIdDto & Error.ApiErrorResponse;
   export type GetUserListResponseDto = CircleUser[] & Error.ApiErrorResponse;
+  export type GetCircleBoardsResponseDto = {
+    boardList: Board[];
+  } & Error.ApiErrorResponse;
+  export type GetCircleMembersResponseDto = {
+    circle: { name: string };
+    user: User.User;
+  }[] &
+    Error.ApiErrorResponse;
+  export type ApplyResponseDto = Apply[];
 }

@@ -1,8 +1,15 @@
 "use server";
 
-import { Header, Line, SubHeader, ExcelExport } from "@/entities";
+import { ExcelExport, Header, Line } from "@/entities";
 
 import Link from "next/link";
+
+export type ManagementState =
+  | "admission"
+  | "drop"
+  | "active"
+  | "inactive_n_drop"
+  | "inactive";
 
 interface Prop {
   state: string | undefined;
@@ -10,14 +17,17 @@ interface Prop {
   firstNavigation: {
     name: string;
     state: string;
+    router: string;
     exportType?: Setting.ExportType;
   };
   navigation?: {
     name: string;
     state: string;
+    router: string;
     exportType?: Setting.ExportType;
   }[];
   data: { userName: string; studentId: string; id: string }[];
+  circleId?: string;
 }
 
 export const Management = ({
@@ -26,6 +36,7 @@ export const Management = ({
   firstNavigation,
   navigation,
   data,
+  circleId,
 }: Prop) => {
   const isFirstNavigation = !state
     ? true
@@ -39,11 +50,13 @@ export const Management = ({
 
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
-      <Link href={"/setting"} className="mb-7 flex items-center text-lg">
+      <Link href="/setting" className="mb-7 flex items-center text-lg">
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
-      {exportType ? <ExcelExport exportType={exportType} /> : null}
+      {exportType ? (
+        <ExcelExport exportType={exportType} id={circleId} />
+      ) : null}
       <Header bold big>
         {title}
       </Header>
@@ -73,9 +86,20 @@ export const Management = ({
       <Line />
       <div className="ml-2 mt-6 flex flex-col">
         {data.map((element) => (
-          <div className="text-lg" key={element.userName}>
+          <Link
+            href={
+              (isFirstNavigation
+                ? firstNavigation.router
+                : navigation!.find((element) => element.state === state)
+                    ?.router) +
+              "/" +
+              element.id
+            }
+            className="mb-3 text-lg"
+            key={element.userName}
+          >
             {element.userName}({element.studentId})
-          </div>
+          </Link>
         ))}
       </div>
     </div>

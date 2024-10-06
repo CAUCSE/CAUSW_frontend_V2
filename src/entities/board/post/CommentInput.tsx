@@ -9,13 +9,31 @@ interface CommentInputProps {
 export const CommentInput = ({handleAddComment}:CommentInputProps) => {
   const [commentContent, setCommentContent] = useState(""); 
   const [isAnonymous, setIsAnonymous] = useState(false); 
+  
+
 
   const handleSubmit = () => {
     if (commentContent.trim() === "") return;
-    console.log(commentContent);
-    console.log(isAnonymous);
+
+    console.log("Content:", commentContent);
+    console.log("Anonymous:", isAnonymous);
+    
+    setCommentContent("");
     handleAddComment(commentContent, isAnonymous);
-    setCommentContent(""); 
+
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if(e.nativeEvent.isComposing)
+        return;
+      handleSubmit()
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCommentContent(e.target.value);
   };
 
   return (
@@ -32,7 +50,8 @@ export const CommentInput = ({handleAddComment}:CommentInputProps) => {
           placeholder="댓글을 입력해주새요!"
           className="flex flex-grow bg-comment-input border-none outline-none text-black text-[16px] "
           value={commentContent}
-          onChange={(e) => setCommentContent(e.target.value)}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         
         <button className="flex items-end" onClick={handleSubmit}>

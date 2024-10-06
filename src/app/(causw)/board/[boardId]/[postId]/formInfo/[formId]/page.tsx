@@ -136,7 +136,11 @@ const FormInfoPage = () => {
         const [data1, data2, data3] = await Promise.all([
           getFormData(formId),
           getFormResultBySummary(formId),
-          getTotalFormResult(formId, numOfRequestDetailResult, 20),
+          getTotalFormResult(
+            formId,
+            numOfRequestDetailResult,
+            USER_INFO_PER_PAGE,
+          ),
         ]);
         setFormData(data1);
         setFormResultSummary(data2);
@@ -199,12 +203,20 @@ const FormInfoPage = () => {
       return;
     }
     const fetchData = async () => {
-      const response = await getTotalFormResult(
-        formId,
-        numOfRequestDetailResult,
-        USER_INFO_PER_PAGE,
-      );
-      setTotalFormResult(response);
+      setLoading(true);
+      try {
+        const response = await getTotalFormResult(
+          formId,
+          numOfRequestDetailResult,
+          USER_INFO_PER_PAGE,
+        );
+        setTotalFormResult(response);
+      } catch (error) {
+        console.error(error);
+        throw error;
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
   }, [numOfRequestDetailResult]);
@@ -436,7 +448,6 @@ const FormInfoPage = () => {
                     {hasMoreDetail && "+"}
                   </p>
                   <button
-                    // 추가 처리 필요
                     onClick={() => {
                       if (currentDetailPage + 1 <= totalDetailPage) {
                         setCurrentDetailPage((prev) => prev + 1);

@@ -1,50 +1,15 @@
 "use client";
 
 import { BoardRscService, Icon, Loading, PreviousButton } from "@/shared";
-import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-  useForm,
-} from "react-hook-form";
 import { LoadingComponent, getTimeDifference } from "@/entities";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useRef, useState } from "react";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 
 interface IFormInput {
   searchContent: string;
-}
-
-interface IContent {
-  createdAt: string;
-  id: string;
-  content: string;
-  isAnonymous: boolean;
-  isDeleted: boolean;
-  isQuestion: boolean;
-  numComment: number;
-  numFavorite: number;
-  numLike: number;
-  title: string;
-  updatedAt: Date;
-  writerAdmissionYear: number;
-  writerName: string;
-}
-
-interface IPost {
-  content: Array<IContent>;
-  totalPages: number;
-}
-
-interface IBoard {
-  boardId: "string";
-  boardName: "string";
-  isFavorite: "false";
-  post: IPost;
-  writeable: "true";
 }
 
 const SearchPost = () => {
@@ -54,9 +19,9 @@ const SearchPost = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const pathName = usePathname();
-  const path = pathName.split("/");
-  const boardId = path[path.length - 2];
+  const router = useRouter();
+  const params = useParams();
+  const { boardId } = params;
 
   const { searchPost } = BoardRscService();
 
@@ -88,7 +53,6 @@ const SearchPost = () => {
   }, [keyword]);
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    //TODO 검색 api 연동
     setIsSearch(true);
     setPosts([]);
     setPage(0);
@@ -132,7 +96,7 @@ const SearchPost = () => {
       }
     };
   }, [searchLoading, hasMore]);
-  //TODO 검색 결과 없는 페이지 추가
+
   return (
     <div className="bottom-0 top-0 h-full w-full bg-boardPageBackground p-5">
       <div className="flex h-full w-full flex-col items-center gap-[20px]">
@@ -160,7 +124,6 @@ const SearchPost = () => {
                       </div>
                     ) : (
                       <>
-                        {posts.length === 0}
                         <div className="flex flex-col gap-4 pb-4">
                           {posts
                             .filter((post) => !post.isDeleted)
@@ -176,6 +139,9 @@ const SearchPost = () => {
                                     : null
                                 }
                                 className="flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+                                onClick={() =>
+                                  router.push(`/board/${boardId}/${post.id}`)
+                                }
                               >
                                 <div className="flex w-full flex-col">
                                   <div className="flex w-full items-center justify-between">

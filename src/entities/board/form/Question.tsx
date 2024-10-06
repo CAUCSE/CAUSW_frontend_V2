@@ -11,10 +11,9 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
     register,
     control,
     watch,
-    unregister,
     setValue,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<Post.PostCreateWithFormRequestDto>();
 
   const questionType = watch(
     `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
@@ -32,7 +31,7 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
   useEffect(() => {
     if (!questionType) {
       setValue(
-        `formCreaetRequestDto.questionCreateRequestDtoList.${index}.questionType`,
+        `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
         "OBJECTIVE",
       );
       if (questionType === "SUBJECTIVE") {
@@ -100,9 +99,6 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
         <IconButton
           iconName={"remove"}
           callback={() => {
-            unregister(
-              `formCreateRequestDto.questionCreateRequestDtoList.${index}`,
-            );
             removeQuestion();
           }}
         />

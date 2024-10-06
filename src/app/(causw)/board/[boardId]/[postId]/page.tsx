@@ -5,6 +5,7 @@ import {
   CommentCard,
   CommentInput,
   PostCard,
+  LoadingComponent,
 } from "@/entities";
 import {
   ChildCommentRscService,
@@ -16,6 +17,8 @@ import {
   usePopup,
   usePostDetail,
   usePostStore,
+  VoteRscService,
+  useVoteStore,
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
@@ -58,12 +61,14 @@ const PostDetailPage = (props: any) => {
   } = useCommentStore();
   const {
     childComments,
-    setChildCommentLikes,
+    setChildComment,
     incrementChildCommentLike,
     decrementChildCommentLike,
+    deleteChildComment,
+    toggleChildCommentPopup,
   } = useChildCommentStore();
 
-  usePostDetail(postId);
+  const { loading } = usePostDetail(postId);
 
   const changeToPostComment = () => {
     setPostComment();
@@ -165,30 +170,25 @@ const PostDetailPage = (props: any) => {
           createCommentInfo.commentId!,
           createChildCommentResponse,
         );
-        setChildCommentLikes(createChildCommentResponse.id, 0);
+        setChildComment(createChildCommentResponse.id, 0, false, true, false);
         incrementComment();
       } catch (error) {
         console.error("게시물 대댓글 처리 에러: ", error);
         decrementComment();
       }
     }
+    changeToPostComment();
   };
 
   const togglePostPopupMenu = () => {
-    console.log(post?.isOwner);
     if (post?.isOwner) {
       togglePostPopup();
-      console.log(isPopupVisible);
     }
   };
 
   const toggleCommentPopupMenu = (commentId: string) => {
-    console.log(comments[commentId].isOwner);
-    console.log("comment popuyp");
-    console.log(comments[commentId].isCommentPopupVisible);
-    if (comments[commentId].isOwner) {
+    if (comments[commentId].isOwner && !comments[commentId].isDeleted) {
       toggleCommentPopup(commentId);
-      console.log(comments[commentId].isCommentPopupVisible);
     }
   };
 
@@ -197,15 +197,33 @@ const PostDetailPage = (props: any) => {
       const deleteCommentResponse =
         await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
-      toggleCommentPopup(commentId);
-      console.log("게시물 삭제 완료: ", deleteCommentResponse);
+      console.log("댓글 삭제 완료: ", deleteCommentResponse);
     } catch (error) {
-      console.error("게시글 삭제 처리 에러: ", error);
+      console.error("댓글 삭제 처리 에러: ", error);
     }
   };
 
-  if (!post) {
-    return <div>Loading...</div>;
+  const toggleChildCommentPopupMenu = (childCommentId: string) => {
+    if (
+      childComments[childCommentId].isOwner &&
+      !childComments[childCommentId].isDeleted
+    ) {
+      toggleChildCommentPopup(childCommentId);
+    }
+  };
+  const handleDeleteChildComment = async (childCommentId: string) => {
+    try {
+      const deleteChildCommentResponse =
+        await ChildCommentRscService().deleteChildComment(childCommentId);
+      deleteChildComment(childCommentId);
+      console.log("대댓글 삭제 완료: ", deleteChildCommentResponse);
+    } catch (error) {
+      console.error("대댓글 삭제 처리 에러: ", error);
+    }
+  };
+
+  if (loading || !post) {
+    return <LoadingComponent />;
   }
 
   return (
@@ -222,7 +240,9 @@ const PostDetailPage = (props: any) => {
       )}
       <div className="h-16 w-full bg-[#F8F8F8]">
         <PreviousButton
-          routeCallback={() => router.replace(`/board/${boardId}`)}
+          routeCallback={() =>
+            router.replace(boardId === "my" ? "/setting" : `/board/${boardId}`)
+          }
         />
       </div>
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
@@ -247,6 +267,7 @@ const PostDetailPage = (props: any) => {
             {commentList.map((comment) => {
               const commentData = comments[comment.id] || {
                 numLike: 0,
+                isCommentPopupVisible: false,
                 isOwner: false,
                 isDeleted: false,
                 overlayActive: false,
@@ -259,18 +280,30 @@ const PostDetailPage = (props: any) => {
                     numLike={commentData.numLike}
                     overlayActive={commentData.overlayActive}
                     isDeleted={commentData.isDeleted}
+                    isPopupVisible={commentData.isCommentPopupVisible}
                     handleCommentToggle={() =>
                       toggleCommentPopupMenu(comment.id)
                     }
                     handleCommentLike={() => handleCommentLike(comment.id)}
+                    handleDeleteComment={() => handleDeleteComment(comment.id)}
                   />
                   {commentData.childCommentList.map((childComment, idx) => (
                     <ChildCommentCard
                       key={childComment.id}
                       childComment={childComment}
                       numLike={childComments[childComment.id].numLike}
+                      isDeleted={childComments[childComment.id].isDeleted}
+                      isPopupVisible={
+                        childComments[childComment.id].isCommentPopupVisible
+                      }
                       handleChildCommentLike={() =>
                         handleChildCommentLike(childComment.id)
+                      }
+                      handleChildCommentToggle={() =>
+                        toggleChildCommentPopupMenu(childComment.id)
+                      }
+                      handleDeleteChildComment={() =>
+                        handleDeleteChildComment(childComment.id)
                       }
                     />
                   ))}

@@ -1,5 +1,6 @@
 "use client";
 
+import { BoardRscService, PostRscService, usePostListStore } from "@/shared";
 import { LoadingComponent, PostList, PostListHeader } from "@/entities";
 import { PostRscService, usePostListStore } from "@/shared";
 import { useEffect, useState } from "react";
@@ -9,20 +10,21 @@ const BoardPage = () => {
   const router = useRouter();
   const params = useParams();
   const { getPostList } = PostRscService();
+  const { getBoardNotificationInfo } = BoardRscService();
 
   const { boardId } = params;
 
   const {
-    posts,
     page,
     initialLoading,
-    setIsBoardFavorite,
+    notification,
     setPosts,
     setBoardName,
     setInitialLoading,
     setScrollLoading,
     setHasMore,
     setPage,
+    setNotification,
   } = usePostListStore();
 
   const [boardIdValidation, setBoardIdValidation] = useState(true);
@@ -41,14 +43,13 @@ const BoardPage = () => {
         setScrollLoading(true);
       }
       try {
-        const response: Board.BoardWithPostResponseDto = await getPostList(
+        const data1: Board.BoardWithPostResponseDto = await getPostList(
           boardId,
           page,
         );
-        setIsBoardFavorite(response.isFavorite);
-        setPosts((posts) => [...posts, ...response.post.content]);
-        setBoardName(response.boardName);
-        setHasMore(response.post.totalPages - 1 > page);
+        setPosts((posts) => [...posts, ...data1.post.content]);
+        setBoardName(data1.boardName);
+        setHasMore(data1.post.totalPages - 1 > page);
       } catch (error) {
         setBoardIdValidation(false);
       } finally {

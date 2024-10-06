@@ -18,11 +18,11 @@ declare namespace Home {
   };
 
   export type GetEventsResponseDto = {
-    counts: number;
+    count: number;
     events: Event[];
   };
 
-  type Calendar = {
+  export type Calendar = {
     id: string;
     year: number;
     month: number;

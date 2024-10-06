@@ -9,13 +9,12 @@ const useGetMethod = (endpoint: string) => {
     try {
       const headers = await setRscHeader();
 
-      const response = await fetch(`${BASEURL}/${endpoint}`, {
-        headers: headers,
-        body: JSON.stringify({
-          page: page,
-          size: size,
-        }),
-      }).then((res) => res.json());
+      const response = await fetch(
+        `${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`,
+        {
+          headers: headers,
+        },
+      ).then((res) => res.json());
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -96,6 +95,18 @@ export const SettingRscService = () => {
     }
   };
 
+  const getAdmission = async (userId: string) => {
+    const header = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${userId}`, {
+      method: "GET",
+      headers: header,
+    });
+
+    const data = (await response.json()) as Setting.GetAdmissionResponseDto;
+    if (!response.ok) throw new Error(response.statusText);
+    return data;
+  };
+
   //납부자 조회
   const getPayers = useGetMethod("user-council-fee/list") as (
     page?: number,
@@ -104,14 +115,109 @@ export const SettingRscService = () => {
 
   //학적 인증 전체 조회
   const getAllAttendanceUsers = useGetMethod(
-    "academic-recor/list/active-users",
+    "users/academic-record/list/active-users",
   ) as (page?: number, size?: number) => Promise<Setting.UserElement[]>;
 
   //학적 인증 요청 사용자 조회
-  const getWaitingUsers = useGetMethod("academic-recor/list/await") as (
+  const getWaitingUsers = useGetMethod("users/academic-record/list/await") as (
     page?: number,
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
 
-  return { getByState, getAllAdmissions, getPayers, getAllAttendanceUsers };
+  //가입 승인
+  const acceptAdmission = async (admissionId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${admissionId}/accept`, {
+      method: "PUT",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  //가입 거부
+  const rejectAdmission = async (admissionId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/admissions/${admissionId}/reject`, {
+      method: "PUT",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  // 납부자 상세 조회
+  const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(
+      `${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`,
+      {
+        method: "GET",
+        headers: headers,
+      },
+    );
+
+    if (!response.ok) throw new Error(response.statusText);
+
+    return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
+  };
+
+  //게시판 신청 목록 조회
+  const getApplyBoards = async () => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
+        headers: headers,
+      }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  const addPayer = async (
+    userId: string,
+    paidAt: number,
+    numOfPaidSemester: number,
+    isRefunded: boolean,
+    refundedAt?: number,
+  ) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${BASEURL}/api/v1/user-council-fee`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify({
+        userId,
+        paidAt,
+        numOfPaidSemester,
+        isRefunded,
+        refundedAt,
+      }),
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  return {
+    getByState,
+    getAllAdmissions,
+    getAdmission,
+    getPayers,
+    getAllAttendanceUsers,
+    getPrivilegedUsers,
+    acceptAdmission,
+    getWaitingUsers,
+    getApplyBoards,
+    rejectAdmission,
+    addPayer,
+    getUserCouncilFeeInfo,
+  };
 };

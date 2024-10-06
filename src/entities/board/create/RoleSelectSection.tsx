@@ -15,7 +15,7 @@ export const RoleSelectSection = ({ userRole, roles }: RoleSelectSectionPorps) =
       ? <div className="p-4 bg-notice-board-role rounded-2xl">
           <div className="flex items-center space-x-3 mb-2">
             <span onClick={toggleAnyRole}>
-              {selectedRoles.includes('NONE') ? 
+              {selectedRoles.includes('ALL') ? 
                 <Image
                   src="/images/board/role-checked.svg"
                   alt="Checked Checkbox Icon"

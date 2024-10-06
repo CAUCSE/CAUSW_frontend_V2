@@ -58,7 +58,6 @@ export const PostRscService = () => {
   ) => {
     const URI = `${BASEURL}/api/v1/posts/form`;
     try {
-      console.log(JSON.stringify(data, null, 2));
       const formData = new FormData();
       formData.append(
         "postCreateWithFormRequestDto",
@@ -108,34 +107,6 @@ export const PostRscService = () => {
       return response.data;
     } catch (error) {
       console.error("Error fetching post:", error);
-      throw error;
-    }
-  };
-
-  const createVote = async (
-    data: Post.CreateVoteDto,
-  ): Promise<Post.VoteResponseDto> => {
-    const URI = `${BASEURL}/api/v1/votes/create`;
-
-    try {
-      const headers = await setRscHeader();
-      const response: AxiosResponse<Post.VoteResponseDto> = await axios.post(
-        URI,
-        data,
-        {
-          headers: headers,
-        },
-      );
-
-      if (response.status !== 201) {
-        throw new Error(
-          `Failed to create comment. Response status: ${response.status}`,
-        );
-      }
-      console.log("투표 생성 완료!!!!!!!!");
-      return response.data;
-    } catch (error) {
-      console.error("Error creating comment:", error);
       throw error;
     }
   };
@@ -251,7 +222,6 @@ export const PostRscService = () => {
   return {
     createPost,
     createPostWithForm,
-    createVote,
     deletePost,
     getPostById,
     postLikeForPost,
