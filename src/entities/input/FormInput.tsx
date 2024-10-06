@@ -48,6 +48,7 @@ export const SignInInput = <T extends FieldValues>({
   <input
     {...register(name, rules)}
     {...rest}
+    id="specificInput"
     className="h-10 w-80 rounded-xl border-2 border-focus bg-black text-center text-sm text-white opacity-60 placeholder:text-center placeholder:text-sm"
   />
 );
