@@ -22,7 +22,6 @@ const MyCommentsPage = () => {
   useEffect(() => {
     getMyCommentPosts()
       .then((res) => {
-        console.log(res);
         setPosts(res);
       })
       .then(() => {
@@ -49,7 +48,7 @@ const MyCommentsPage = () => {
           <div className="absolute top-28 flex h-[calc(100%-7rem)] w-full flex-col gap-4 overflow-y-auto px-[5px] sm:top-28 sm:h-[calc(100%-8rem)]">
             {posts.length === 0 ? (
               <div className="flex h-full w-full items-center justify-center text-2xl">
-                작성하신 게시글이 없습니다.
+                작성하신 댓글이 없습니다.
               </div>
             ) : (
               <>

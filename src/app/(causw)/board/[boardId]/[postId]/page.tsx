@@ -5,7 +5,7 @@ import {
   CommentCard,
   CommentInput,
   PostCard,
-  LoadingComponent
+  LoadingComponent,
 } from "@/entities";
 import {
   ChildCommentRscService,
@@ -222,8 +222,8 @@ const PostDetailPage = (props: any) => {
     }
   };
 
-  if(loading || !post) {
-    return ( <LoadingComponent />);
+  if (loading || !post) {
+    return <LoadingComponent />;
   }
 
   return (
@@ -240,7 +240,9 @@ const PostDetailPage = (props: any) => {
       )}
       <div className="h-16 w-full bg-[#F8F8F8]">
         <PreviousButton
-          routeCallback={() => router.replace(`/board/${boardId}`)}
+          routeCallback={() =>
+            router.replace(boardId === "my" ? "/setting" : `/board/${boardId}`)
+          }
         />
       </div>
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">

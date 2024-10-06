@@ -157,8 +157,6 @@ const UpdataeAcademicRecordPage = () => {
         : await postAcademicRecord(data);
 
       // 서버에 전송하는 로직 작성 (axios 예시)
-      console.log(response);
-      console.log("성공");
       setIsSuccessModalOpen(true);
     } catch (error) {
       // 에러 처리

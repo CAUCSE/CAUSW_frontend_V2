@@ -14,7 +14,7 @@ export const usePostDetail = (postId: string) => {
   const { setChildComment } = useChildCommentStore();
   const { getPostById } = PostRscService();
   const { setVote } = useVoteStore();
-   const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const getTimeDifference = (ISOtime: string) => {
     const createdTime = new Date(ISOtime);
     const now = new Date();
@@ -66,7 +66,6 @@ export const usePostDetail = (postId: string) => {
         });
         if (postData.isPostVote) {
           setVote(postData.voteResponseDto!);
-          console.log(postData.voteResponseDto);
         }
       } catch (error) {
         console.error("게시물 불러오기 실패: ", error);
@@ -80,5 +79,5 @@ export const usePostDetail = (postId: string) => {
     }
   }, [postId, setPost, setComments, setVote]);
 
-  return {loading};
+  return { loading };
 };

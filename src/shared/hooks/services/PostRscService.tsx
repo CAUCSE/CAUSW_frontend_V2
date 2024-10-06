@@ -58,7 +58,6 @@ export const PostRscService = () => {
   ) => {
     const URI = `${BASEURL}/api/v1/posts/form`;
     try {
-      console.log(JSON.stringify(data, null, 2));
       const formData = new FormData();
       formData.append(
         "postCreateWithFormRequestDto",
