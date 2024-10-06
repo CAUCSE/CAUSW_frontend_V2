@@ -71,13 +71,13 @@ export const Management = ({
             {firstNavigation.name}
           </Link>
           {navigation
-            ? navigation.map((elemenent) => (
+            ? navigation.map((element) => (
                 <Link
-                  key={elemenent.state}
-                  href={elemenent.state}
-                  className={`${state === elemenent.state ? "border-b-4 border-b-focus" : ""} h-18 text-xl`}
+                  key={element.state}
+                  href={element.state}
+                  className={`${state === element.state ? "border-b-4 border-b-focus" : ""} h-18 text-xl`}
                 >
-                  {elemenent.name}
+                  {element.name}
                 </Link>
               ))
             : null}
