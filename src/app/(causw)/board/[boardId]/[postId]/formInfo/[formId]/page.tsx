@@ -3,14 +3,13 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import { FormRscService, PreviousButton, emailRegex } from "@/shared";
+import { FormRscService, PreviousButton } from "@/shared";
 import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
@@ -77,8 +76,9 @@ const ACADEMIC_STATUS: { [key: string]: string } = {
   ENROLLED: "재학",
   LEAVE_OF_ABSENCE: "휴학",
   GRADUATED: "졸업",
-  DROPPED_OUT: "자퇴",
-  PROBATION: "학사 경고",
+  DROPPED_OUT: "중퇴",
+  SUSPEND: "정학",
+  EXPEL: "퇴학",
   PROFESSOR: "교수",
   UNDETERMINED: "미정",
 };
@@ -133,7 +133,6 @@ const FormInfoPage = () => {
     setLoading(true);
     const fetchData = async () => {
       try {
-        //TODO totalResult API물어보기
         const [data1, data2, data3] = await Promise.all([
           getFormData(formId),
           getFormResultBySummary(formId),
@@ -537,7 +536,7 @@ const FormInfoPage = () => {
                             );
                           } else if (key === "isAppliedThisSemester") {
                             return (
-                              <li>
+                              <li key={key}>
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
@@ -579,7 +578,7 @@ const FormInfoPage = () => {
                             );
                           } else if (key === "isRefunded") {
                             return (
-                              <li>
+                              <li key={key}>
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
@@ -625,7 +624,10 @@ const FormInfoPage = () => {
                                     questionDto.questionId,
                                 )[0];
                               return (
-                                <div className="flex gap-2">
+                                <div
+                                  key={option.optionId}
+                                  className="flex gap-2"
+                                >
                                   {questionDto.isMultiple ? (
                                     <input
                                       type="checkbox"
