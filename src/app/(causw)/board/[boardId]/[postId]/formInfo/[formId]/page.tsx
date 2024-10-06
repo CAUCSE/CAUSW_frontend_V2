@@ -521,7 +521,7 @@ const FormInfoPage = () => {
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
-                                  ? `${responseUserInfos[currentDetailPage - 1].replyUserResponseDto[key]}년 ${responseUserInfos[currentDetailPage].replyUserResponseDto["graduationType"] === "FEBRUARY" ? "2월" : "8월"}`
+                                  ? `${responseUserInfos[currentDetailPage - 1].replyUserResponseDto[key]}년 ${responseUserInfos[currentDetailPage - 1].replyUserResponseDto["graduationType"] === "FEBRUARY" ? "2월" : "8월"}`
                                   : "없음"}
                               </li>
                             );
