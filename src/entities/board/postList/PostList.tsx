@@ -128,8 +128,16 @@ export const PostList = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2 pl-2 lg:pl-4">
-                      <Icon iconName="vote_inactive" />
-                      <Icon iconName="apply_inactive" />
+                      <Icon
+                        iconName={
+                          post.isPostVote ? "vote_active" : "vote_inactive"
+                        }
+                      />
+                      <Icon
+                        iconName={
+                          post.isPostForm ? "apply_active" : "apply_inactive"
+                        }
+                      />
                     </div>
                     <div className="sm:text-md flex items-center pl-2 text-center text-xs text-gray-300 lg:pl-4">
                       {getTimeDifference(post.createdAt)}
