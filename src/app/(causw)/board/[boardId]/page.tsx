@@ -1,6 +1,5 @@
 "use client";
 
-import { BoardRscService, PostRscService, usePostListStore } from "@/shared";
 import { LoadingComponent, PostList, PostListHeader } from "@/entities";
 import { PostRscService, usePostListStore } from "@/shared";
 import { useEffect, useState } from "react";
@@ -10,7 +9,6 @@ const BoardPage = () => {
   const router = useRouter();
   const params = useParams();
   const { getPostList } = PostRscService();
-  const { getBoardNotificationInfo } = BoardRscService();
 
   const { boardId } = params;
 
