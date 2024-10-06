@@ -8,7 +8,7 @@ interface FormData {
   verificationCode: string;
 }
 
-const EmailVerificationPage: React.FC = () => {
+const EmailVerificationPage = () => {
   const {
     register,
     handleSubmit,
@@ -16,13 +16,12 @@ const EmailVerificationPage: React.FC = () => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    // console.log(data);
     // 이메일 인증 번호 확인 로직 구현
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-4 sm:px-0">
-      {" "}
       {/* 반응형 디자인 추가 */}
       <form
         onSubmit={handleSubmit(onSubmit)}

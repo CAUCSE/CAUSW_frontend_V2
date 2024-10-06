@@ -22,7 +22,6 @@ const MyCommentsPage = () => {
   useEffect(() => {
     getMyCommentPosts()
       .then((res) => {
-        console.log(res);
         setPosts(res);
       })
       .then(() => {

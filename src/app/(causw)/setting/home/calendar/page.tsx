@@ -41,7 +41,6 @@ export default async function CalendarSettingPage() {
   let calendars: Home.Calendar[] = [];
   try {
     calendars = (await getCalendars(2024)).calendars;
-    console.log(calendars);
   } catch (e: any) {
     console.error(e.message);
   }

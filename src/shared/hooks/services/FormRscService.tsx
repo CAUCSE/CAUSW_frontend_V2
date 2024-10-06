@@ -82,7 +82,6 @@ export const FormRscService = () => {
 
       const blob = await response.blob();
       const downloadUrl = window.URL.createObjectURL(blob);
-      console.log(downloadUrl);
       const link = document.createElement("a");
       link.href = downloadUrl;
       link.download = `form-${formId}-result.xlsx`;
@@ -109,7 +108,6 @@ export const FormRscService = () => {
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }
-      console.log(response.status);
     } catch (error) {
       throw error;
     }
@@ -124,7 +122,6 @@ export const FormRscService = () => {
         throw new Error(`${response.status}`);
       }
       const res = await response.json();
-      console.log(res);
       return res;
     } catch (error) {
       throw error;

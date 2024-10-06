@@ -31,7 +31,6 @@ const MyFavoritePostsPage = () => {
   useEffect(() => {
     getMyFavoritePosts()
       .then((res) => {
-        console.log(res);
         setPosts(res);
       })
       .then(() => {

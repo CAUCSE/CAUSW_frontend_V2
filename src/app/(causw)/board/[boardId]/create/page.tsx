@@ -25,9 +25,8 @@ const CreatePostPage = (props: any) => {
   const boardId = props.params.boardId;
   const { createPost, createPostWithForm } = PostRscService();
   const { createVote } = VoteRscService();
-  const {roles, roleTxt} = useUserStore();
-  console.log(roles);
-  console.log(roleTxt)
+  const { roles, roleTxt } = useUserStore();
+
   const {
     title,
     content,
