@@ -17,19 +17,31 @@ const CircleApplyManagement = ({
     getApplication,
   } = CircleService();
 
-  const [data, setData] = useState<Circle.Apply>();
-  const [application, setApplication] = useState<any>();
+  const [data, setData] = useState<Circle.Apply | null>(null);
+  const [application, setApplication] = useState<Post.QuestionResponseDto[]>(
+    [],
+  );
 
   useEffect(() => {
-    getApplicationById(id, userId)
-      .then((res) => {
-        setData(res);
-      })
-      .then(() => {
-        getApplication(id).then((res) => {
-          setApplication(res);
-        });
-      });
+    const fetchData = async () => {
+      try {
+        const [data1, data2]: [Circle.Apply, Post.FormResponseDto] =
+          await Promise.all([
+            getApplicationById(id, userId),
+            getApplication(id),
+          ]);
+        setData(data1);
+        setApplication(
+          data2.questionResponseDtoList.sort(
+            (a, b) => a.questionNumber - b.questionNumber,
+          ),
+        );
+        console.log(id);
+      } catch (error) {
+        throw error;
+      }
+    };
+    fetchData();
   }, []);
 
   if (!data) return <LoadingComponent />;
@@ -37,10 +49,10 @@ const CircleApplyManagement = ({
   return (
     <>
       <div className="flex w-full flex-col items-center gap-8 overflow-y-auto">
-        {data.replyResponseDtoPage.map((element) => {
-          const question = application.questionResponseDtoList.find(
-            (element) => element.questionId === element.questionId,
-          );
+        {application.map((question: Post.QuestionResponseDto) => {
+          const userReply = data.replyQuestionResponseDtoList.filter(
+            (reply) => reply.questionId === question.questionId,
+          )[0];
           return (
             <div
               key={question.questionId}
@@ -49,7 +61,7 @@ const CircleApplyManagement = ({
               <div className="flex w-full items-center justify-between">
                 <div className="w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
                   <p className="truncate text-[14px] group-hover:block sm:text-xl">
-                    {element.questionAnswer}
+                    {question.questionText}
                   </p>
                 </div>
               </div>
@@ -63,7 +75,7 @@ const CircleApplyManagement = ({
                           {question.isMultiple ? (
                             <input
                               type="checkbox"
-                              checked={element.selectedOptionList.includes(
+                              checked={userReply.selectedOptionList.includes(
                                 option.optionNumber,
                               )}
                               disabled
@@ -71,7 +83,7 @@ const CircleApplyManagement = ({
                           ) : (
                             <input
                               type="radio"
-                              checked={element.selectedOptionList.includes(
+                              checked={userReply.selectedOptionList.includes(
                                 option.optionNumber,
                               )}
                               disabled
@@ -83,7 +95,7 @@ const CircleApplyManagement = ({
                     })
                 ) : (
                   <input
-                    value={element.questionAnswer}
+                    value={userReply.questionAnswer}
                     readOnly
                     className="flex h-10 w-full items-center bg-[#E8E8E8] pl-2 text-[#515151]"
                   />
@@ -97,7 +109,8 @@ const CircleApplyManagement = ({
             className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl"
             onClick={() => {
               acceptApplyUser(id).then(() => {
-                window.location.href = "/setting/management/circle" + id + "/apply";
+                window.location.href =
+                  "/setting/management/circle" + id + "/apply";
               });
             }}
           >
@@ -107,7 +120,8 @@ const CircleApplyManagement = ({
             className="flex h-10 w-80 items-center justify-center rounded-xl bg-gray-400 text-lg text-white md:h-16 lg:text-xl"
             onClick={() => {
               rejectApplyUser(id).then(() => {
-                window.location.href = "/setting/management/circle" + id + "/apply";
+                window.location.href =
+                  "/setting/management/circle" + id + "/apply";
               });
             }}
           >
