@@ -134,7 +134,7 @@ export type InfoTableEntity = {
   evidentImg: string;
 };
 
-export const convertDataToTableEntity = (
+export const convertAdmissionDataToTableEntity = (
   data: Setting.GetAdmissionResponseDto,
 ): InfoTableEntity => {
   const {
@@ -152,7 +152,7 @@ export const convertDataToTableEntity = (
   } = data.user;
   const { createdAt: requestedAt, attachImageUrlList } = data;
   const evidentImg = attachImageUrlList[0];
-
+  
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
     LEAVE_OF_ABSENCE: "휴학",
@@ -173,6 +173,49 @@ export const convertDataToTableEntity = (
     phoneNumber,
     requestedAt: requestedAt.split("T")[0].replaceAll("-", "."),
     evidentImg,
+  };
+};
+
+export const convertUserDataToTableEntity = (
+  data: any,
+): any => {
+  const {
+    email,
+    major,
+    name,
+    studentId,
+    currentCompletedSemester,
+    admissionYear,
+    nickname,
+    graduationYear,
+    graduationType,
+    academicStatus,
+    phoneNumber,
+  } = data;
+  const { createdAt: requestedAt, profileImageUrl } = data;
+  const evidentImg = profileImageUrl ? profileImageUrl[0] : "";
+  
+  const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
+    ENROLLED: "재학",
+    LEAVE_OF_ABSENCE: "휴학",
+    GRADUATED: "졸업",
+  };
+  const rejectionOrDropReason = data.rejectionOrDropReason || "";
+  return {
+    email,
+    major,
+    name,
+    studentId,
+    leftPayedSemester: `${8 - currentCompletedSemester}차 학기`,
+    admissionYear: admissionYear.toString(),
+    nickname,
+    graduateYearMonth: `${graduationYear}/${+graduationType < 10 ? "0" + graduationType : graduationType}`,
+    academicStatus: academicStatusMap[academicStatus],
+    enrolledSemester: `${currentCompletedSemester}차 학기`,
+    phoneNumber,
+    requestedAt: requestedAt.split("T")[0].replaceAll("-", "."),
+    evidentImg,
+    rejectionOrDropReason,
   };
 };
 
@@ -200,5 +243,9 @@ export const titleMappingForCircle = Object.keys(titleMapping)
     return obj;
   }, {} as Record<keyof InfoTableEntity, string>);
 
-// 학생회비 납부자 페이지용
+// 거절, 추방 회원에 대한 titlemapping
 
+export const titleMappingForRejected: Record<keyof any, string> = {
+  ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
+  rejectionOrDropReason: "거부/ 추방 사유", // 추가된 항목
+};

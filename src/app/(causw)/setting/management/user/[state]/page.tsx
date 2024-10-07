@@ -53,24 +53,26 @@ const UserManagement = async ({
         res.map((element) => ({ ...element, userName: element.name })),
       )
     : await getAllAdmissions(null, 0);
-
+    
   return (
-    <Management
-      state={state}
-      title="유저 관리"
-      firstNavigation={{
-        name: "가입 대기 유저",
-        state: "admission",
-        exportType: "ADMISSION_USERS",
-        router: "/setting/management/user/admission",
-      }}
-      navigation={navigation}
-      data={data.map((element) => ({
-        userName: element.userName,
-        studentId: element.studentId,
-        id: element.id,
-      }))}
-    />
+    <>
+      <Management
+        state={state}
+        title="유저 관리"
+        firstNavigation={{
+          name: "가입 대기 유저",
+          state: "admission",
+          exportType: "ADMISSION_USERS",
+          router: "/setting/management/user/admission",
+        }}
+        navigation={navigation}
+        data={data.map((element) => ({
+          userName: element.userName,
+          studentId: element.studentId,
+          id: element.id,
+        }))}
+      />
+    </>
   );
 };
 
