@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { ErrorMessage } from "@/entities";
 import { WindowSizeListener } from "@/shared";
+import PageTransition from "@/widget/PageTransition";
 
 export default function RootLayout({
   children,
