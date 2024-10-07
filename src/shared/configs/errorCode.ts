@@ -10,6 +10,8 @@ export const noRefreshTokenCode = [
   "4104",
   "4012",
   "4109",
+  "4100",
+  "4110",
 ];
 
 //Access Token 거부
