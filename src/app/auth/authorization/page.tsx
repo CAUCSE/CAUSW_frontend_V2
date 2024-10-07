@@ -137,8 +137,7 @@ const VerificationPage: React.FC = () => {
 
               {academicRecordApplicationStatus === "COMPLETED" && (
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
-                  재학 증빙 서류 제출됨 (승인이 완료되면 서비스를 이용할 수
-                  있습니다.)
+                  재학 증빙 서류 제출됨 (승인이 완료되면 서비스 사용가능)
                 </div>
               )}
 
