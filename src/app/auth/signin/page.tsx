@@ -11,6 +11,7 @@ import {
   ImageBackground,
   SignInInput,
   SignInSubmitButton,
+  LoadingComponent,
 } from "@/entities";
 
 const SignInPage = () => {
@@ -20,6 +21,8 @@ const SignInPage = () => {
   const { signin } = AuthService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
+
+  const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit } = useForm<User.SignInRequestDto>({
     defaultValues: {
@@ -41,8 +44,11 @@ const SignInPage = () => {
       return;
     }
 
+    setLoading(true);
     signin(data);
   };
+
+  if (loading) <LoadingComponent />;
 
   return (
     <>
