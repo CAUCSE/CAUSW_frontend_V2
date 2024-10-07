@@ -45,6 +45,7 @@ const SignInPage = () => {
     }
 
     setLoading(true);
+
     signin(data);
   };
 
@@ -59,8 +60,20 @@ const SignInPage = () => {
         darkBackground
       />
       <div className="absolute left-1/2 top-1/3 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
-        <div className="mb-4 text-xl text-white">함께라면 더 밝은 미래로</div>
-        <div className="mb-10 text-center text-3xl font-bold tracking-widest text-white sm:text-5xl">
+        <div
+          onClick={() => {
+            setEnterEmail(false);
+          }}
+          className="mb-4 text-xl text-white"
+        >
+          함께라면 더 밝은 미래로
+        </div>
+        <div
+          onClick={() => {
+            setEnterEmail(false);
+          }}
+          className="mb-10 text-center text-3xl font-bold tracking-widest text-white sm:text-5xl"
+        >
           우리들의 동문 네트워크
         </div>
         <form

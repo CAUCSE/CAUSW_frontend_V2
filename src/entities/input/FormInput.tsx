@@ -58,7 +58,7 @@ export const SignInSubmitButton = () => (
     type="submit"
     className="flex h-10 w-80 flex-row items-center justify-center rounded-xl border-2 border-focus bg-zinc-800 text-center text-sm text-focus"
   >
-    Enter
+    로그인하기
     <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>
   </button>
 );
