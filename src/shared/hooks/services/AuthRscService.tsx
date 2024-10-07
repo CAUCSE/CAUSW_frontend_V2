@@ -35,8 +35,7 @@ export const AuthRscService = () => {
 
       return response.accessToken;
     } catch (error) {
-      console.error(error);
-      throw error;
+      signout();
     }
   };
 
@@ -47,7 +46,6 @@ export const AuthRscService = () => {
     await removeRscAccess();
     await removeRscRefresh();
   };
-
 
   return { updateAccess, signout };
 };

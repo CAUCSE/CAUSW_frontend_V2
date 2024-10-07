@@ -22,8 +22,6 @@ const SignInPage = () => {
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
-  const [loading, setLoading] = useState(false);
-
   const { register, handleSubmit } = useForm<User.SignInRequestDto>({
     defaultValues: {
       email: "",
@@ -44,12 +42,8 @@ const SignInPage = () => {
       return;
     }
 
-    setLoading(true);
-
     signin(data);
   };
-
-  if (loading) <LoadingComponent />;
 
   return (
     <>

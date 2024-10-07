@@ -56,9 +56,9 @@ export const SignInInput = <T extends FieldValues>({
 export const SignInSubmitButton = () => (
   <button
     type="submit"
-    className="flex h-10 w-80 flex-row items-center justify-center rounded-xl border-2 border-focus bg-zinc-800 text-center text-sm text-focus"
+    className="text-mb flex h-10 w-80 flex-row items-center justify-center rounded-xl border-2 border-focus bg-zinc-800 text-center text-focus"
   >
-    로그인하기
+    로그인
     <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>
   </button>
 );

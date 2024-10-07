@@ -23,6 +23,8 @@ export const AuthService = () => {
 
   const signin = async (body: User.SignInRequestDto) => {
     try {
+      router.push("/loading");
+
       const {
         data: { accessToken, refreshToken },
       } = (await API.post(`${URI}/sign-in`, body)) as AxiosResponse<{
