@@ -32,21 +32,21 @@ export const SideBar = () => {
 
   return (
     <>
-      <div className="fixed right-0 top-0 flex h-28 w-full items-center justify-end space-y-4 pr-4 lg:h-screen lg:w-72 lg:flex-col lg:justify-center">
-        <div className="absolute left-2 top-3 flex flex-col items-center text-black lg:left-52 lg:top-11">
+      <div className="fixed right-0 top-0 flex h-28 w-full items-center justify-end space-y-4 pr-4 xl:h-screen xl:w-72 xl:flex-col xl:justify-center">
+        <div className="absolute left-2 top-3 flex flex-col items-center text-black xl:left-52 xl:top-11">
           <span
-            className="icon-[codicon--sign-out] text-2xl lg:text-4xl"
+            className="icon-[codicon--sign-out] text-2xl xl:text-4xl"
             onClick={() => {
               handleNoRefresh();
             }}
           ></span>
-          <span className="text-xs text-black underline lg:text-sm">
+          <span className="text-xs text-black underline xl:text-sm">
             로그아웃
           </span>
         </div>
 
         {sm || md ? null : <ProfileImage src={profileImage} />}
-        <div className="mr-2 flex flex-col items-end lg:mr-0 lg:items-center">
+        <div className="mr-2 flex flex-col items-end xl:mr-0 xl:items-center">
           <Header wide>{name}</Header>
           <SubHeader gray>{email}</SubHeader>
         </div>

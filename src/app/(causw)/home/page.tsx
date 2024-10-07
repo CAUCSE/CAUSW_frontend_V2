@@ -47,7 +47,7 @@ const HomePage = async () => {
 
   return (
     <>
-      <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 lg:h-full">
+      <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
           <Banner
             images={
@@ -59,13 +59,13 @@ const HomePage = async () => {
           />
         )}
 
-        <div className="grid w-full gap-[25px] lg:h-4/5 lg:grid-cols-[400px_3fr]">
-          <div className="h-full w-full max-lg:hidden">
+        <div className="grid w-full gap-[25px] 2xl:h-4/5 2xl:grid-cols-[400px_3fr]">
+          <div className="h-full w-full max-2xl:hidden">
             <Calendar />
           </div>
 
-          <div className="gap-[25px] lg:h-full">
-            <div className="w-full gap-3 max-md:hidden md:flex lg:hidden">
+          <div className="gap-[25px] 2xl:h-full">
+            <div className="w-full gap-3 max-md:hidden md:flex 2xl:hidden">
               <div className="mb-5 h-[600px] w-2/5">
                 <Calendar />
               </div>
@@ -83,8 +83,8 @@ const HomePage = async () => {
               </div>
             </div>
 
-            <div className="flex w-full overflow-auto bg-transparent scrollbar-hide md:hidden lg:flex lg:h-1/5">
-              <div className="flex w-full flex-col justify-between gap-[20px] bg-transparent pb-4 lg:grid lg:grid-cols-3 lg:flex-row">
+            <div className="flex w-full overflow-auto bg-transparent scrollbar-hide md:hidden 2xl:flex 2xl:h-1/5">
+              <div className="flex w-full flex-col justify-between gap-[20px] bg-transparent pb-4 2xl:grid 2xl:grid-cols-3 2xl:flex-row">
                 {cardsEntities.map((card, idx) => (
                   <HomeCard key={idx} {...card} />
                 ))}
@@ -95,7 +95,7 @@ const HomePage = async () => {
               <Calendar />
             </div>
 
-            <CardBox className="flex w-full flex-col items-center gap-[24px] p-[18px] lg:h-4/5">
+            <CardBox className="flex w-full flex-col items-center gap-[24px] p-[18px] 2xl:h-4/5">
               <p className="h-6 text-[24px] font-bold">빠른 공지 모아모아!!</p>
               <div className="flex h-[calc(100%-24px)] w-full justify-center">
                 <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
@@ -105,7 +105,7 @@ const HomePage = async () => {
                   <span>🏆️ 학생회 공지 게시판</span>
                 </div>
 
-                <div className="flex h-80 w-5/6 flex-col items-center justify-around text-lg font-bold md:text-xl lg:h-full lg:w-3/5">
+                <div className="flex h-80 w-5/6 flex-col items-center justify-around text-lg font-bold md:text-xl 2xl:h-full 2xl:w-3/5">
                   {serviceBoard?.posts.content[0] ? (
                     <Link
                       href={

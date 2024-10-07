@@ -28,7 +28,7 @@ export const HomeCard = ({
           </div>
 
           <div className="flex h-full flex-col items-center justify-center gap-[5px]">
-            <p className="text-[20px]">{title}</p>
+            <p className="text-[17px]">{title}</p>
             <p className="text-[12px] text-[rgba(186,186,186,1)]">{subtitle}</p>
           </div>
         </div>
