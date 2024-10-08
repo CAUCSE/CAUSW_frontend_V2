@@ -99,10 +99,7 @@ export const PostList = () => {
                     <div className="h-16 w-16 flex-shrink-0 sm:h-24 sm:w-24">
                       <Image
                         src={
-                          post.postAttachImage &&
-                          post.postAttachImage.match(
-                            /(.*?).(jpg|jpeg|png|gif|bmp)$/,
-                          )
+                          post.postAttachImage
                             ? post.postAttachImage
                             : "/images/post_default_thumbnail.png"
                         }
