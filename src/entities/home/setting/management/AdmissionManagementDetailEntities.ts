@@ -129,10 +129,10 @@ export const uiEntities: Record<
     titleSuffix: "정보",
     buttons: [
       {
-        name: "닫기",
+        name: "복구",
         variant: "BLUE",
-        action: () => {
-          ;
+        action: (admission) => {
+          restoreTarget(admission.id);
         },
       },
       {

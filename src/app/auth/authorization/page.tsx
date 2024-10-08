@@ -15,7 +15,7 @@ const VerificationPage: React.FC = () => {
   const [ userStatus, setUserStatus ] = useState('');
   const [emailValue, setEmailValue] = useState("");
 
-  // UNDONE, AWAIT, COMPLETED로 관리
+  // UNDONE, AWAIT, REJECT, COMPLETED로 관리
   const [admissionApplicationStatus, setAdmissionApplicationStatus] =
     useState("");
 
@@ -29,12 +29,16 @@ const VerificationPage: React.FC = () => {
         const response = await getMyInfo();
         // 상태 값들 가져오기
         const state = response.data.state;
+        setUserStatus(state);
 
         // 상태 업데이트
         setEmailValue(response.data.email);
         // 조건문 처리 (상태 값이 올바르게 설정된 후에 처리)
-        if (state === "AWAIT" || state ==="REJECT") {
-          setUserStatus(state);
+        if (state === "REJECT"){
+          setAdmissionApplicationStatus("REJECT");
+          setAcademicRecordApplicationStatus("BANNED");
+        }
+        else if (state === "AWAIT") {
           setAcademicRecordApplicationStatus("BANNED");
           checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
         }
@@ -92,6 +96,7 @@ const VerificationPage: React.FC = () => {
             setIsAdmissionModalOpen(false);
           }}
           emailValue={`${emailValue}`}
+          userStatus = {userStatus}
         />
       )}
       {!isAcademicRecordModalOpen && !isAdmissionModalOpen && (
@@ -119,6 +124,18 @@ const VerificationPage: React.FC = () => {
                   가입 신청서 제출 완료됨 (승인 완료)
                 </div>
               )}
+              {admissionApplicationStatus === "REJECT" && (
+                <button
+                onClick={() => {
+                  setIsAdmissionModalOpen(true);
+                }}
+                className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
+              >
+                가입 신청서 제출 거절됨 (다시 제출하기)
+              </button>
+              )
+
+              }
 
               {admissionApplicationStatus === "UNDONE" && (
                 <button
