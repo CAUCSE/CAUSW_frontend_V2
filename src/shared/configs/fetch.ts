@@ -28,9 +28,9 @@ export const setRscHeader = async (): Promise<{
     return {
       Authorization: `Bearer ${token}`,
     };
+  } else {
+    throw new Error("4105");
   }
-
-  return { Authorization: "" };
 };
 
 export const removeRscRefresh = async () => {

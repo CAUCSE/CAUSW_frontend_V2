@@ -28,17 +28,26 @@ const cardsEntities = [
 
 const HomePage = async () => {
   const { getHomePosts, getEvents } = HomeRscService();
-  let events, homePosts;
-  try {
-    events = await getEvents();
-    homePosts = await getHomePosts();
-  } catch (e: any) {
-    console.error(e.message);
-  }
+
+  const events = await getEvents();
+  const homePosts = await getHomePosts();
+
+  const coumcilBoard = homePosts.find((board) =>
+    board.board.name.includes("학생회 공지"),
+  );
+  const cauBoard = homePosts.find((board) =>
+    board.board.name.includes("학부 공지"),
+  );
+  const serviceBoard = homePosts.find((board) =>
+    board.board.name.includes("서비스 공지"),
+  );
+  const alumniBoard = homePosts.find((board) =>
+    board.board.name.includes("동문회 공지"),
+  );
 
   return (
     <>
-      <div className="flex min-h-screen w-full flex-col justify-center gap-[5vh] bg-[rgba(248,248,248,1)] px-4 py-[6vh]">
+      <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
           <Banner
             images={
@@ -49,42 +58,126 @@ const HomePage = async () => {
             loop={events.count > 0}
           />
         )}
-        <div className="grid h-full w-full gap-[25px] lg:grid-cols-[300px_3fr]">
-          <div className="w-full max-lg:hidden">
+
+        <div className="grid w-full gap-[25px] 2xl:h-4/5 2xl:grid-cols-[400px_3fr]">
+          <div className="h-full w-full max-2xl:hidden">
             <Calendar />
           </div>
-          <div className="grid grid-rows-[0.5fr_2fr] gap-[25px]">
-            <div className="flex h-fit w-full overflow-auto bg-transparent scrollbar-hide">
-              <div className="-mx-3 grid grid-cols-[repeat(3,75vw)] gap-[20px] bg-transparent px-3 py-4 lg:grid-cols-3">
+
+          <div className="gap-[25px] 2xl:h-full">
+            <div className="w-full gap-3 max-md:hidden md:flex 2xl:hidden">
+              <div className="mb-5 h-[600px] w-2/5">
+                <Calendar />
+              </div>
+              <div className="flex w-3/5 flex-col gap-3 bg-transparent">
+                {cardsEntities.map((card, idx) => (
+                  <HomeCard key={idx} {...card} />
+                ))}
+                <div className="flex h-80 w-full items-center justify-center">
+                  <img
+                    className="h-64 w-72"
+                    alt="logo"
+                    src="./images/signin-logo.png"
+                  ></img>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex w-full overflow-auto bg-transparent scrollbar-hide md:hidden 2xl:flex 2xl:h-1/5">
+              <div className="flex w-full flex-col justify-between gap-[20px] bg-transparent pb-4 2xl:grid 2xl:grid-cols-3 2xl:flex-row">
                 {cardsEntities.map((card, idx) => (
                   <HomeCard key={idx} {...card} />
                 ))}
               </div>
             </div>
-            <div className="w-[calc(100vw-60px)] lg:hidden">
+
+            <div className="mb-5 h-[600px] w-full md:hidden">
               <Calendar />
             </div>
-            <CardBox className="flex h-full w-full flex-col items-center gap-[24px] p-[18px]">
-              <p className="text-[24px] font-bold">빠른 공지 모아모아!!</p>
-              <div className="h-full w-full lg:grid lg:grid-cols-[1fr_1.2fr]">
-                <div className="flex w-full flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] max-lg:hidden">
-                  {/* TODO : href 연결 */}
-                  <Link href={""} className="underline">
-                    ❗️ 서비스 공지
-                  </Link>
-                  <Link href={""}>📖️ 소프트웨어학부 공지</Link>
-                  <Link href={""}>🌍️ 동문회 공지 게시판</Link>
-                  <Link href={""}>🏆️ 학생회 공지 게시판</Link>
+
+            <CardBox className="flex w-full flex-col items-center gap-[24px] p-[18px] 2xl:h-4/5">
+              <p className="h-6 text-[24px] font-bold">빠른 공지 모아모아!!</p>
+              <div className="flex h-[calc(100%-24px)] w-full justify-center">
+                <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
+                  <span>❗️ 서비스 공지</span>
+                  <span>📖️ 소프트웨어학부 공지</span>
+                  <span>🌍️ 동문회 공지 게시판</span>
+                  <span>🏆️ 학생회 공지 게시판</span>
                 </div>
-                <div className="pl-[20px]">
-                  {homePosts?.slice(3).map(({ board, posts }) => {
-                    // TODO : 손봐야댐
-                    return (
-                      <p key={board.id}>
-                        {board.name}: {posts.numberOfElements}개의 글
-                      </p>
-                    );
-                  })}
+
+                <div className="flex h-80 w-5/6 flex-col items-center justify-around text-lg font-bold md:text-xl 2xl:h-full 2xl:w-3/5">
+                  {serviceBoard?.posts.content[0] ? (
+                    <Link
+                      href={
+                        "/board/" +
+                        serviceBoard?.board.id +
+                        "/" +
+                        serviceBoard?.posts.content[0].id
+                      }
+                      className="flex flex-col items-center"
+                    >
+                      {serviceBoard?.posts.content[0].title}
+                      <div className="text-sm font-normal text-gray-400">
+                        {serviceBoard?.posts.content[0].updatedAt.split("T")[0]}
+                      </div>
+                    </Link>
+                  ) : (
+                    "최신 공지가 없습니다."
+                  )}
+                  {cauBoard?.posts.content[0] ? (
+                    <Link
+                      href={
+                        "/board/" +
+                        cauBoard?.board.id +
+                        "/" +
+                        cauBoard?.posts.content[0].id
+                      }
+                      className="flex flex-col items-center"
+                    >
+                      {cauBoard?.posts.content[0].title}
+                      <div className="text-sm font-normal text-gray-400">
+                        {cauBoard?.posts.content[0].updatedAt.split("T")[0]}
+                      </div>
+                    </Link>
+                  ) : (
+                    "최신 공지가 없습니다."
+                  )}
+                  {alumniBoard?.posts.content[0] ? (
+                    <Link
+                      href={
+                        "/board/" +
+                        alumniBoard?.board.id +
+                        "/" +
+                        alumniBoard?.posts.content[0].id
+                      }
+                      className="flex flex-col items-center"
+                    >
+                      {alumniBoard?.posts.content[0].title}
+                      <div className="text-sm font-normal text-gray-400">
+                        {alumniBoard?.posts.content[0].updatedAt.split("T")[0]}
+                      </div>
+                    </Link>
+                  ) : (
+                    "최신 공지가 없습니다."
+                  )}
+                  {coumcilBoard?.posts.content[0] ? (
+                    <Link
+                      href={
+                        "/board/" +
+                        coumcilBoard?.board.id +
+                        "/" +
+                        coumcilBoard?.posts.content[0].id
+                      }
+                      className="flex flex-col items-center"
+                    >
+                      {coumcilBoard?.posts.content[0].title}
+                      <div className="text-sm font-normal text-gray-400">
+                        {coumcilBoard?.posts.content[0].updatedAt.split("T")[0]}
+                      </div>
+                    </Link>
+                  ) : (
+                    "최신 공지가 없습니다."
+                  )}
                 </div>
               </div>
             </CardBox>

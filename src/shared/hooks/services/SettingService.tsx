@@ -44,6 +44,7 @@ export const SettingService = () => {
   };
 
   const useGetWaitingUser = (userId: string, applicationId: string) => {
+    console.log(applicationId);
     return useQuery({
       queryKey: ["waitingUser", userId, applicationId],
       queryFn: async () => {
@@ -53,7 +54,7 @@ export const SettingService = () => {
 
         return data;
       },
-      enabled: !!userId && !!applicationId,
+      enabled: !!userId,
     });
   };
 
@@ -97,6 +98,24 @@ export const SettingService = () => {
     await API.put(`/api/v1/boards/apply/${id}/accept`);
   };
 
+  const changeAttendanceUserState = async (
+    targetUserId: string,
+    applicationId: string,
+    targetAcademicRecordRequestStatus: string,
+    rejectMessage: string,
+  ) => {
+    await API.put(`/api/v1/users/academic-record/application/admin`, {
+      targetUserId,
+      applicationId,
+      targetAcademicRecordRequestStatus,
+      rejectMessage,
+    });
+  };
+
+  const updateAttendanceUserNote = async (id: string, note: string) => {
+    await API.put(`/api/v1/users/academic-record/record/${id}`, note);
+  };
+
   return {
     updateRole,
     useGetAttendanceUser,
@@ -108,5 +127,7 @@ export const SettingService = () => {
     getUserByName,
     rejectApplyBoards,
     acceptApplyBoards,
+    changeAttendanceUserState,
+    updateAttendanceUserNote,
   };
 };

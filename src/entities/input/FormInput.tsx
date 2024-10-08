@@ -48,16 +48,17 @@ export const SignInInput = <T extends FieldValues>({
   <input
     {...register(name, rules)}
     {...rest}
-    className="h-10 w-80 rounded-xl border-2 border-focus bg-black text-center text-sm text-white opacity-60 placeholder:text-center placeholder:text-sm"
+    id="specificInput"
+    className="mt-1 h-10 w-80 rounded-xl border-2 border-focus bg-black text-center text-sm text-white opacity-60 placeholder:text-center placeholder:text-sm"
   />
 );
 
 export const SignInSubmitButton = () => (
   <button
     type="submit"
-    className="flex h-10 w-80 flex-row items-center justify-center rounded-xl border-2 border-focus bg-zinc-800 text-center text-sm text-focus"
+    className="text-mb mt-3 flex h-10 w-80 flex-row items-center justify-center rounded-xl border-2 border-focus bg-zinc-800 text-center text-focus"
   >
-    Enter
+    로그인
     <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>
   </button>
 );

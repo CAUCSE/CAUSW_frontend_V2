@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserService, AcademicRecordRscService } from '@/shared';
+import { AcademicRecordRscService } from '@/shared';
 import { useRouter } from 'next/navigation';
 
 const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
@@ -10,12 +10,12 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { checkIsAcademicRecordSubmitted } = UserService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-  const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
-  const { updateAcademicRecord, postAcademicRecord } = AcademicRecordRscService();
+  const { postAcademicRecord } = AcademicRecordRscService();
 
   const handleCancel = () => {
     // 취소 버튼을 클릭했을 때 모달을 닫습니다.
@@ -32,57 +32,14 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   
   // 완료 모달
   const closeCompleteModal = () => {
-    if (isSuccessModalOpen) {
-      router.push('/setting');
-    } else {
-      setIsSuccessModalOpen(false);
+    if (academicStatus === "ENROLLED")
+{    handleCancel();}
+    else{
+      router.push('/auth/signin');
     }
-  };
+};
 
-    // 이미 증빙 서류를 제출한 경우
-    const [hasExistingRecord, setHasExistingRecord] = useState(false);
-    const [isRejectedRecord, setIsRejectedRecord] = useState(false);
-    const [rejectMessage, setRejectMessage] = useState('');
-  
-    const closeAcademicRecordModal = () => {
-      if (hasExistingRecord) {
-        setHasExistingRecord(false);
-      } else if (isRejectedRecord) {
-        setIsRejectedRecord(false);
-        setRejectMessage('');
-      }
-    }
-
-    // 증빙 서류 제출 여부 확인
-    useEffect(() => {
-      const fetchAcademicRecord = async () => {
-        try {
-          const response = await checkIsAcademicRecordSubmitted();
-          if (response.status === 200) {
-            const academicRecordInfo = response.data;
-            if (academicRecordInfo.isRejected === true) // 거절 당한 경우
-            {
-              setIsRejectedRecord(true);
-              setRejectMessage(academicRecordInfo.rejectMessage);
-            }
-            else{   // 승인 대기 중인 경우
-              setHasExistingRecord(true);
-              setValue('targetAcademicStatus', academicRecordInfo.targetAcademicStatus);
-              setValue('targetCompletedSemester', academicRecordInfo.targetCompletedSemester);
-              setValue('note', academicRecordInfo.userNote);
-            }
-            setIsAlreadySubmitted(true);
-          }
-        } catch (error: any) {
-          if (error.response?.status === 400) {
-          } else {
-            console.error('Error checking academic record:', error);
-          }
-        }
-      };
-  
-      fetchAcademicRecord();
-    }, []);
+ 
 
   const files = watch("images") as FileList;
   const selectedAcademicStatus = watch('targetAcademicStatus');
@@ -136,18 +93,14 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
           data.images = null
         }
       
-      const response = isAlreadySubmitted ? await updateAcademicRecord(data) : await postAcademicRecord(data);
+      const response = await postAcademicRecord(data);
 
       // 서버에 전송하는 로직 작성 (axios 예시)
-      console.log(response);
-      if (response.status === 200) {  // 성공한 경우
-        console.log('성공');
-        setIsSuccessModalOpen(true);
-      }
-    } catch (error) {
+      setIsSuccessModalOpen(true);
+    } catch (error: any) {
       // 에러 처리
-      console.log('실패');
-      console.log(error);
+      setErrorMessage(error.message ?? "알 수 없는 에러가 발생헀습니다.");
+      setIsErrorModalOpen(true);
     }
   };
 
@@ -366,47 +319,35 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
           </div>
         </div>
       )}
-            {/* 회원가입을 성공했을 때 표시되는 모달 */}
+            {/* 증빙서류 제출 성공했을 때 표시되는 모달 */}
             {isSuccessModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeCompleteModal}>
           <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
             <div className = "grid justify-items-center">
             <h2 className="text-xl font-bold mb-4">증빙 서류 제출 완료</h2>
-            <p>화면을 클릭하면 환경 설정 페이지로 이동합니다.</p>
+{academicStatus === "ENROLLED" && (            <p>화면을 클릭하면 환경 설정 페이지로 이동합니다.</p>
+)}
+{academicStatus !== "ENROLLED" && (            <p>화면을 클릭하면 로그인 페이지로 이동합니다.</p>
+)}
 
             </div>
           </div>
         </div>
       )}
-                  {/* 기존 작성중인 정보가 있을 때 표시되는 모달 */}
-                  {hasExistingRecord && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
-          
-        <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-          <div className = "grid justify-items-center">
+            {/* 증빙서류 제출 실패했을 때 표시되는 모달 */}
+            {isErrorModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={() =>{setIsErrorModalOpen(false)}}>
+          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
+            <div className = "grid justify-items-center">
+            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 실패</h2>
+            <p>{errorMessage}</p>
 
-          <h2 className="text-xl font-bold mb-4">이미 제출한 증빙 서류가 있습니다.  
-
-          </h2>
-          <div className = "flex lg:flex-row flex-col">
-          <button className="h-10 w-28 rounded bg-focus hover:bg-blue-500 mt-4 mr-4 ml-4 text-white" onClick = {closeAcademicRecordModal}>수정하기</button>
-          <button className="h-10 w-28 rounded bg-focus hover:bg-blue-500 mt-4 mr-4 ml-4 text-white" onClick = {() => router.back()}>돌아가기</button>
-          </div>
-
+            </div>
           </div>
         </div>
-      </div>)}
+      )}
 
-      {isRejectedRecord && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeAcademicRecordModal}>
-        <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-          <div className = "grid justify-items-center">
-          <h2 className="text-xl font-bold mb-4">증빙 서류 제출이 거절 당했습니다.</h2>
-          <p>거절 사유 : {rejectMessage}</p>
 
-          </div>
-        </div>
-      </div>)}
 
         <div className="mt-8 flex justify-center">
           <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
