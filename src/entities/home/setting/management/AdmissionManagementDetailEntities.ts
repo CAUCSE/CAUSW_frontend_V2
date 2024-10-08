@@ -6,6 +6,7 @@ const admitTarget = async(userId) => {
   const { acceptAdmission } = SettingRscService();
   if (await acceptAdmission(userId)) {
     alert("승인되었습니다");
+    window.history.back();
   }
   else
   {  
@@ -13,31 +14,11 @@ const admitTarget = async(userId) => {
   }
 }
 
-const rejectTarget = async (userId) => {
-  const { rejectAdmission } = SettingRscService();
-  if (await rejectAdmission(userId)) {
-    alert("거부되었습니다");
-  }
-  else
-{   alert("거부에 실패했습니다. 관리자에게 문의하세요");
-}
-}
-
-const expelTarget = async(userId) => {
-  const { expelUser } = SettingRscService();
-  if (await expelUser(userId)) {
-    alert("추방되었습니다.");
-  }
-  else
-  {  
-    alert("추방에 실패했습니다. 관리자에게 문의하세요");
-  }
-}
-
 const restoreTarget = async(userId) => {
   const { restoreUser } = SettingRscService();
   if (await restoreUser(userId)) {
     alert("사용자가 복구되었습니다.");
+    window.history.back();
   }
   else
   {  
@@ -45,16 +26,7 @@ const restoreTarget = async(userId) => {
   }
 }
 
-const deleteTarget = async(userId) => {
-  const { deleteUser } = SettingRscService();
-  if (await deleteUser(userId)) {
-    alert("사용자가 영구 삭제되었습니다.");
-  }
-  else
-  {  
-    alert("사용자 삭제에 실패했습니다. 관리자에게 문의하세요");
-  }
-}
+
 
 
 export const uiEntities: Record<
@@ -75,14 +47,14 @@ export const uiEntities: Record<
         name: "승인",
         variant: "BLUE",
         action: async (admission) => {
-          admitTarget(admission.id)
+          admitTarget(admission.id);
         },
       },
       {
         name: "거부",
         variant: "GRAY",
-        action: async (admission) => {
-          rejectTarget(admission.id)        
+        action: async () => {
+          ;  
         },
       },
     ],
@@ -94,14 +66,14 @@ export const uiEntities: Record<
         name: "재승인",
         variant: "BLUE",
         action: async (admission) => {
-          admitTarget(admission.id)
+          restoreTarget(admission.id);
       },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: async (admission) => {
-          deleteTarget(admission.id) 
+        action: async () => {
+          ; 
         },
       },
     ],
@@ -113,14 +85,14 @@ export const uiEntities: Record<
         name: "닫기",
         variant: "BLUE",
         action: () => {
-          ;
+          window.history.back();
         },
       },
       {
         name: "추방",
         variant: "RED",
-        action: async(admission) => {
-          expelTarget(admission.id);
+        action: async() => {
+        ;
         },
       },
     ],
@@ -138,8 +110,8 @@ export const uiEntities: Record<
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: async (admission) => {
-          deleteTarget(admission.id);
+        action: async () => {
+        ;
         },
       },
     ],
@@ -157,8 +129,8 @@ export const uiEntities: Record<
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: (admission) => {
-          deleteTarget(admission.id);
+        action: () => {
+          ;
         },
       },
     ],

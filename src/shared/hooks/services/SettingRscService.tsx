@@ -137,12 +137,12 @@ export const SettingRscService = () => {
   };
 
   //가입 거부
-  const rejectAdmission = async (userId: string) => {
+  const rejectAdmission = async (userId: string, rejectReason: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${userId}/reject`, {
       method: "PUT",
       headers: headers,
-      body: userId,
+      body: rejectReason,
     });
 
     if (!response.ok) throw new Error(response.statusText);
@@ -162,12 +162,12 @@ export const SettingRscService = () => {
   };
 
   // 사용자 추방
-  const expelUser = async (userId: string) => {
+  const expelUser = async (userId: string, expelReason: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/${userId}/drop`, {
       method: "PUT",
       headers: headers,
-      body: userId,
+      body: expelReason,
     });
 
     if (!response.ok) throw new Error(response.statusText);
