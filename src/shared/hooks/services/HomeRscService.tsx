@@ -1,5 +1,4 @@
 import { BASEURL, setRscHeader } from "@/shared";
-import { Axios } from "axios";
 
 export const HomeRscService = () => {
   const URI = BASEURL + "/api/v1/home";
