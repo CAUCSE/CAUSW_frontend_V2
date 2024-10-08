@@ -77,7 +77,6 @@ const Error = ({
         width={200}
         height={250}
       ></Image>
-      <span>{error.message} Error</span>
       <span>일시적으로 서비스를 이용할 수 없습니다.</span>
 
       <button

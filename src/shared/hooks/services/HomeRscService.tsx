@@ -6,15 +6,15 @@ export const HomeRscService = () => {
   const getHomePosts = async () => {
     try {
       const headers = await setRscHeader();
-      const response = await fetch(URI, {
+      const response = (await fetch(URI, {
         method: "GET",
         headers: headers,
-      });
-      if (!response.ok) throw new Error(response.statusText);
+      }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
+        Error.ApiErrorResponse;
 
-      const data = (await response.json()) as Home.GetHomePostsResponseDto;
+      if (response.errorCode) throw new Error(response.errorCode);
 
-      return data;
+      return response as Home.GetHomePostsResponseDto;
     } catch (error) {
       console.error(error);
       throw error;
