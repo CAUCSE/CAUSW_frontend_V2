@@ -23,8 +23,8 @@ export const uiEntities: Record<
           const { acceptAdmission } = SettingRscService();
           if (await acceptAdmission(admission.id)) {
             alert("승인되었습니다");
-          }
-          alert("승인에 실패했습니다. 관리자에게 문의하세요");
+            window.location.href = "/setting/management/user/admission";
+          } else alert("승인에 실패했습니다. 관리자에게 문의하세요");
         },
       },
       {
@@ -34,8 +34,8 @@ export const uiEntities: Record<
           const { rejectAdmission } = SettingRscService();
           if (await rejectAdmission(admission.id)) {
             alert("거부되었습니다");
-          }
-          alert("거부에 실패했습니다. 관리자에게 문의하세요");
+            window.location.href = "/setting/management/user/admission";
+          } else alert("거부에 실패했습니다. 관리자에게 문의하세요");
         },
       },
     ],
@@ -194,11 +194,14 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
 
 // 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)
 export const titleMappingForCircle = Object.keys(titleMapping)
-  .filter((key) => !['requestedAt', 'leftPayedSemester'].includes(key))
-  .reduce((obj, key) => {
-    obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
-    return obj;
-  }, {} as Record<keyof InfoTableEntity, string>);
+  .filter((key) => !["requestedAt", "leftPayedSemester"].includes(key))
+  .reduce(
+    (obj, key) => {
+      obj[key as keyof InfoTableEntity] =
+        titleMapping[key as keyof InfoTableEntity];
+      return obj;
+    },
+    {} as Record<keyof InfoTableEntity, string>,
+  );
 
 // 학생회비 납부자 페이지용
-

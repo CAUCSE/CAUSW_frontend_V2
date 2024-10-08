@@ -26,13 +26,17 @@ export function Banner({ images, loop }: BannerProps) {
             key={idx}
             className="flex items-center justify-center text-center"
           >
-            <Image
+            {/* <Image
               src={image}
               alt={image}
               width={700}
               height={500}
               className="h-auto w-full bg-white object-scale-down object-top"
-            />
+            /> */}
+            <div
+              className="h-full w-full bg-contain bg-cover bg-center"
+              style={{ backgroundImage: `url(${image})` }}
+            ></div>
           </SwiperSlide>
         ))}
       </Swiper>

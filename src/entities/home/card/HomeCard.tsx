@@ -20,7 +20,7 @@ export const HomeCard = ({
   return (
     <CardBox>
       <Link href={href}>
-        <div className="flex h-full justify-between gap-2 p-[14px]">
+        <div className="flex h-full items-center justify-evenly gap-2 p-[14px]">
           <div
             className={`h-[54px] min-w-[55.07px] ${bgColor} flex items-center justify-center rounded-full`}
           >
@@ -28,8 +28,8 @@ export const HomeCard = ({
           </div>
 
           <div className="flex h-full flex-col items-center justify-center gap-[5px]">
-            <p className="text-[12px]">{title}</p>
-            <p className="text-[9px] text-[rgba(186,186,186,1)]">{subtitle}</p>
+            <p className="text-[17px]">{title}</p>
+            <p className="text-[12px] text-[rgba(186,186,186,1)]">{subtitle}</p>
           </div>
         </div>
       </Link>

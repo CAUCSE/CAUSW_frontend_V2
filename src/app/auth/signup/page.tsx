@@ -246,267 +246,262 @@ const SignUpPage = () => {
 
   return (
     <div className="bg-white-100 flex min-h-screen w-full items-center justify-center">
-      <div></div>
       <form
         onSubmit={handleSubmit(onSubmit, onInvalid)}
-        className="w-80 lg:w-96"
+        className="flex w-80 flex-col items-center md:w-[580px] lg:w-[580px]"
       >
-        <div className="justify-left items-left sticky left-4 top-0 z-10 mb-4 mt-8 flex w-full bg-white py-2 lg:hidden">
+        <div className="sticky left-4 top-0 z-10 mb-4 mt-8 flex w-full items-center bg-white py-2 text-lg">
           <button
             onClick={handleBack}
             className="text-black-500 items-left flex hover:text-gray-500"
           >
-            {/* SVG 화살표 아이콘 */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mr-2 h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
+            <span className="icon-[weui--back-filled] mr-3 mt-[2px] text-2xl font-bold"></span>
             <span>이전</span>
           </button>
         </div>
-        <h1 className="mb-6 mt-8 text-center text-2xl font-bold sm:text-3xl">
+        <h1 className="mb-6 mt-3 text-center text-2xl font-bold sm:text-3xl">
           회원가입
         </h1>
 
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            아이디
-          </label>
-          <input
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            type="text"
-            placeholder="아이디를 입력해주세요"
-            {...register("email", {
-              required: "아이디를 입력해주세요",
-            })}
-            onBlur={handleEmailBlur}
-          />
-          {errors.email && <p>{errors.email.message}</p>}
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            비밀번호
-          </label>
-          <div className="flex w-full">
-            <input
-              className="mr-4 w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-              type={showPassword ? "text" : "password"}
-              placeholder="8자리 이상, 영어/숫자/특수 문자 조합"
-              {...register("password", {
-                required: "비밀번호를 입력해주세요",
-                minLength: {
-                  value: 8,
-                  message: "8글자 이상 입력해주세요",
-                },
-                pattern: {
-                  value:
-                    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-                  message:
-                    "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
-                },
-              })}
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className=""
-            >
-              {" "}
-              {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
-            </button>
-          </div>
-          <p>{errors?.password?.message}</p>
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            비밀번호 확인
-          </label>
-          <div className="flex w-full">
-            <input
-              className="mr-4 w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-              type={showPasswordConfirm ? "text" : "password"}
-              placeholder="8자리 이상, 영어/숫자/특수 문자 조합"
-              {...register("pwConfirm", {
-                required: "비밀번호를 입력해주세요",
-                minLength: {
-                  value: 8,
-                  message: "8글자 이상 입력해주세요",
-                },
-                pattern: {
-                  value:
-                    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-                  message:
-                    "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
-                },
-                validate: {
-                  check: (val) => {
-                    if (getValues("password") !== val) {
-                      return "비밀번호가 일치하지 않습니다.";
-                    }
-                  },
-                },
-              })}
-            />
-            <button
-              type="button"
-              onClick={togglePasswordConfirmVisibility}
-              className=""
-            >
-              {" "}
-              {showPasswordConfirm ? (
-                <FaEye></FaEye>
-              ) : (
-                <FaEyeSlash></FaEyeSlash>
+        <div className="flex w-full flex-col sm:w-[600px] sm:flex-row">
+          <div className="sm:w-1/2">
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                아이디
+              </label>
+              <input
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                {...register("email", {
+                  required: "아이디를 입력해주세요",
+                })}
+                onBlur={handleEmailBlur}
+              />
+              {errors.email && (
+                <p className="text-error">{errors.email.message}</p>
               )}
-            </button>
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                비밀번호
+              </label>
+              <div className="flex w-full">
+                <input
+                  className="mr-4 w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="8자리 이상, 영어/숫자/특수 문자 조합"
+                  {...register("password", {
+                    required: "비밀번호를 입력해주세요",
+                    minLength: {
+                      value: 8,
+                      message: "8글자 이상 입력해주세요",
+                    },
+                    pattern: {
+                      value:
+                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                      message:
+                        "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
+                    },
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className=""
+                >
+                  {" "}
+                  {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                </button>
+              </div>
+              <p className="text-error">{errors?.password?.message}</p>
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                비밀번호 확인
+              </label>
+              <div className="flex w-full">
+                <input
+                  className="mr-4 w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                  type={showPasswordConfirm ? "text" : "password"}
+                  placeholder="8자리 이상, 영어/숫자/특수 문자 조합"
+                  {...register("pwConfirm", {
+                    required: "비밀번호를 입력해주세요",
+                    minLength: {
+                      value: 8,
+                      message: "8글자 이상 입력해주세요",
+                    },
+                    pattern: {
+                      value:
+                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                      message:
+                        "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
+                    },
+                    validate: {
+                      check: (val) => {
+                        if (getValues("password") !== val) {
+                          return "비밀번호가 일치하지 않습니다.";
+                        }
+                      },
+                    },
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordConfirmVisibility}
+                  className=""
+                >
+                  {" "}
+                  {showPasswordConfirm ? (
+                    <FaEye></FaEye>
+                  ) : (
+                    <FaEyeSlash></FaEyeSlash>
+                  )}
+                </button>
+              </div>
+
+              <p className="text-error">{errors?.pwConfirm?.message}</p>
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                이름
+              </label>
+              <input
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                type="text"
+                placeholder="이름을 입력해주세요"
+                {...register("name", {
+                  required: "이름을 입력해주세요",
+                })}
+              />
+              <p className="text-error">{errors?.name?.message}</p>
+            </div>
           </div>
 
-          <p>{errors?.pwConfirm?.message}</p>
+          <div className="sm:w-1/2">
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                닉네임
+              </label>
+              <input
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                type="text"
+                placeholder="닉네임을 입력해주세요"
+                {...register("nickname", {
+                  required: "닉네임을 입력해주세요",
+                })}
+                onBlur={handleNicknameBlur}
+              />
+              {errors.nickname && (
+                <p className="text-error">{errors.nickname.message}</p>
+              )}
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                입학년도
+              </label>
+              <select
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                {...register("admissionYearString", {
+                  required: "입학 년도를 선택해주세요",
+                })}
+              >
+                <option value="">-선택해주세요-</option>
+                {yearOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <p className="text-error">
+                {errors?.admissionYearString?.message}
+              </p>
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                학번
+              </label>
+              <input
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                type="number"
+                placeholder="학번 8자리를 입력해주세요"
+                {...register("studentId", {
+                  required: "학번을 입력해주세요",
+                })}
+                onBlur={handleStudentIdBlur}
+              />
+              <p className="text-error">{errors?.studentId?.message}</p>
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                학부/학과
+              </label>
+              <input
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                type="text"
+                placeholder="ex) 소프트웨어학부, 컴퓨터공학부"
+                {...register("major", {
+                  required: "학부/학과를 입력해주세요",
+                })}
+              />
+              <p className="text-error">{errors?.major?.message}</p>
+            </div>
+
+            <div className="mb-6 ml-4 mr-4">
+              <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+                연락처
+              </label>
+              <input
+                className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
+                type="text"
+                placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234"
+                {...register("phoneNumberHyphen", {
+                  required: "연락처를 입력해주세요",
+                  pattern: {
+                    value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
+                    message: "전화번호 형식이 아닙니다.",
+                  },
+                })}
+              />
+              <p className="text-error">{errors?.phoneNumberHyphen?.message}</p>
+            </div>
+          </div>
         </div>
 
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            이름
-          </label>
-          <input
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            type="text"
-            placeholder="이름을 입력해주세요"
-            {...register("name", {
-              required: "이름을 입력해주세요",
-            })}
-          />
-          <p>{errors?.name?.message}</p>
-        </div>
+        <div className="mb-8 flex w-[calc(100%-30px)] flex-col sm:w-[565px]">
+          <div className="-ml-2 flex items-center pl-2">
+            <input
+              type="checkbox"
+              className="mr-2"
+              {...register("agreeToTerms", {
+                required: "약관에 동의해주세요",
+                onChange: (e) => handleCheckboxChange(e.target.checked),
+              })}
+            />
 
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            닉네임
-          </label>
-          <input
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            type="text"
-            placeholder="닉네임을 입력해주세요"
-            {...register("nickname", {
-              required: "닉네임을 입력해주세요",
-            })}
-            onBlur={handleNicknameBlur}
-          />
-          {errors.nickname && <p>{errors.nickname.message}</p>}
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            입학년도
-          </label>
-          <select
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            {...register("admissionYearString", {
-              required: "입학 년도를 선택해주세요",
-            })}
-          >
-            <option value="">-선택해주세요-</option>
-            {yearOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <p>{errors?.admissionYearString?.message}</p>
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            학번
-          </label>
-          <input
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            type="number"
-            placeholder="학번 8자리를 입력해주세요"
-            {...register("studentId", {
-              required: "학번을 입력해주세요",
-            })}
-            onBlur={handleStudentIdBlur}
-          />
-          <p>{errors?.studentId?.message}</p>
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            학부/학과
-          </label>
-          <input
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            type="text"
-            placeholder="ex) 소프트웨어학부, 컴퓨터공학부"
-            {...register("major", {
-              required: "학부/학과를 입력해주세요",
-            })}
-          />
-          <p>{errors?.major?.message}</p>
-        </div>
-
-        <div className="mb-6 ml-4 mr-4">
-          <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
-            연락처
-          </label>
-          <input
-            className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
-            type="text"
-            placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234"
-            {...register("phoneNumberHyphen", {
-              required: "연락처를 입력해주세요",
-              pattern: {
-                value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
-                message: "전화번호 형식이 아닙니다.",
-              },
-            })}
-          />
-          <p>{errors?.phoneNumberHyphen?.message}</p>
-        </div>
-
-        <div className="ml-4 flex items-center">
-          <input
-            type="checkbox"
-            className="mr-2"
-            {...register("agreeToTerms", {
-              required: "(약관에 동의해주세요)",
-              onChange: (e) => handleCheckboxChange(e.target.checked),
-            })}
-          />
-          <label htmlFor="terms">
-            <label
-              className="cursor-pointer text-lg text-gray-700 underline sm:text-xl"
-              onClick={openModal}
-            >
-              약관 읽고 동의하기!!!
+            <label htmlFor="terms">
+              <label
+                className="cursor-pointer text-lg text-gray-700"
+                onClick={openModal}
+              >
+                약관 읽고 동의하기
+              </label>
             </label>
-          </label>
-        </div>
-        <div className="mb-4 ml-4">
-          {errors.agreeToTerms && (
-            <p className="mt-2 text-lg font-bold text-gray-700 sm:text-xl">
-              {errors.agreeToTerms.message}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-8 flex justify-center">
+          </div>
+          <div className="mb-2 ml-5">
+            {errors.agreeToTerms && (
+              <p className="text-error">{errors.agreeToTerms.message}</p>
+            )}
+          </div>
           <button
             type="submit"
-            className="w-full max-w-xs rounded-lg bg-focus p-2 text-black transition-colors duration-300 hover:bg-blue-400"
+            className="w-full rounded-lg bg-focus p-2 text-lg text-white transition-colors duration-300 hover:bg-blue-400"
           >
             생성하기
           </button>
@@ -584,9 +579,9 @@ const SignUpPage = () => {
                     제1조(목적)
                     <br />
                     이 약관은 중앙대학교 소프트웨어학부 특별기구 ICT위원회 (이하
-                    위원회 라고 합니다)가 제공하는 제반 서비스의 이용과
-                    관련하여 위원회와 회원과의 권리, 의무 및 책임사항, 기타
-                    필요한 사항을 규정함을 목적으로 합니다.
+                    위원회 라고 합니다)가 제공하는 제반 서비스의 이용과 관련하여
+                    위원회와 회원과의 권리, 의무 및 책임사항, 기타 필요한 사항을
+                    규정함을 목적으로 합니다.
                     <br />
                     <br />
                     제2조(정의)
@@ -594,8 +589,8 @@ const SignUpPage = () => {
                     이 약관에서 사용하는 주요 용어의 정의는 다음과 같습니다.
                     <br />
                     1. 서비스라 함은 구현되는 단말기(PC, TV, 휴대형단말기 등의
-                    각종 유무선 장치를 포함)와 상관없이 이용자가 이용할 수
-                    있는 위원회가 제공하는 제반 서비스를 의미합니다.
+                    각종 유무선 장치를 포함)와 상관없이 이용자가 이용할 수 있는
+                    위원회가 제공하는 제반 서비스를 의미합니다.
                     <br />
                     2. 이용자란 이 약관에 따라 위원회가 제공하는 서비스를 받는
                     개인회원 , 기업회원 및 비회원을 말합니다.
@@ -638,26 +633,26 @@ const SignUpPage = () => {
                     1. 이 약관은 중앙대학교 소프트웨어학부 특별기구
                     ICT위원회(이)가 제공하는 모든 인터넷서비스에 게시하여
                     공시합니다. 위원회는 전자상거래등에서의 소비자보호에 관한
-                    법률(이하 전자상거래법이라 함), 약관의 규제에 관한
-                    법률(이하 약관규제법이라 함), 정보통신망 이용촉진 및
-                    정보보호 등에 관한 법률(이하 정보통신망법이라 함) 등 본
-                    서비스와 관련된 법령에 위배되지 않는 범위에서 이 약관을
-                    변경할 수 있으며, 위원회는 약관이 변경되는 경우에 변경된
-                    약관의 내용과 시행일을 정하여, 그 시행일로부터 최소 7일
-                    (이용자에게 불리하거나 중대한 사항의 변경은 30일) 이전부터
-                    시행일 후 상당한 기간 동안 공지하고, 기존 이용자에게는
-                    변경된 약관, 적용일자 및 변경사유(변경될 내용 중 중요사항에
-                    대한 설명을 포함)를 별도의 전자적 수단(전자우편, 문자메시지,
-                    서비스 내 전자쪽지발송, 알림 메시지를 띄우는 등의 방법)으로
-                    개별 통지합니다. 변경된 약관은 공지하거나 통지한
-                    시행일로부터 효력이 발생합니다.
+                    법률(이하 전자상거래법이라 함), 약관의 규제에 관한 법률(이하
+                    약관규제법이라 함), 정보통신망 이용촉진 및 정보보호 등에
+                    관한 법률(이하 정보통신망법이라 함) 등 본 서비스와 관련된
+                    법령에 위배되지 않는 범위에서 이 약관을 변경할 수 있으며,
+                    위원회는 약관이 변경되는 경우에 변경된 약관의 내용과
+                    시행일을 정하여, 그 시행일로부터 최소 7일 (이용자에게
+                    불리하거나 중대한 사항의 변경은 30일) 이전부터 시행일 후
+                    상당한 기간 동안 공지하고, 기존 이용자에게는 변경된 약관,
+                    적용일자 및 변경사유(변경될 내용 중 중요사항에 대한 설명을
+                    포함)를 별도의 전자적 수단(전자우편, 문자메시지, 서비스 내
+                    전자쪽지발송, 알림 메시지를 띄우는 등의 방법)으로 개별
+                    통지합니다. 변경된 약관은 공지하거나 통지한 시행일로부터
+                    효력이 발생합니다.
                     <br />
                     2. 위원회가 제1항에 따라 개정약관을 공지 또는 통지하는 경우
-                    변경에 동의하지 아니한 경우 공지일 또는 통지를 받은
-                    날로부터 7일(이용자에게 불리하거나 중대한 사항의 변경인
-                    경우에는 30일) 내에 계약을 해지할 수 있으며, 계약해지의
-                    의사표시를 하지 아니한 경우에는 변경에 동의한 것으로 본다.
-                    라는 취지의 내용을 함께 통지합니다.
+                    변경에 동의하지 아니한 경우 공지일 또는 통지를 받은 날로부터
+                    7일(이용자에게 불리하거나 중대한 사항의 변경인 경우에는
+                    30일) 내에 계약을 해지할 수 있으며, 계약해지의 의사표시를
+                    하지 아니한 경우에는 변경에 동의한 것으로 본다. 라는 취지의
+                    내용을 함께 통지합니다.
                     <br />
                     3. 이용자가 제2항의 공지일 또는 통지를 받은 날로부터
                     7일(또는 이용자에게 불리하거나 중대한 사항의 변경인 경우에는
@@ -754,8 +749,8 @@ const SignUpPage = () => {
                     이용시간, 이용횟수, 서비스 메뉴 등을 세분하여 이용에 차등을
                     둘 수 있습니다.
                     <br />
-                    8. 위원회는 회원에 대하여 영화및비디오물의진흥에관한법률
-                    및 청소년보호법 등에 따른 등급 및 연령 준수를 위하여
+                    8. 위원회는 회원에 대하여 영화및비디오물의진흥에관한법률 및
+                    청소년보호법 등에 따른 등급 및 연령 준수를 위하여
                     이용제한이나 등급별 제한을 둘 수 있습니다.
                     <br />
                     <br />
@@ -1101,11 +1096,11 @@ const SignUpPage = () => {
                     <br />
                     개인정보처리동의서
                     <br />
-                    중앙대학교 소프트웨어학부 특별기구 ICT위원회(이하
-                    위원회라고 합니다)는 개인정보보호법 등 관련 법령상의
-                    개인정보보호 규정을 준수하며 귀하의 개인정보보호에 최선을
-                    다하고 있습니다. 위원회는 개인정보보호법에 근거하여 다음과
-                    같은 내용으로 개인정보를 수집 및 처리하고자 합니다.
+                    중앙대학교 소프트웨어학부 특별기구 ICT위원회(이하 위원회라고
+                    합니다)는 개인정보보호법 등 관련 법령상의 개인정보보호
+                    규정을 준수하며 귀하의 개인정보보호에 최선을 다하고
+                    있습니다. 위원회는 개인정보보호법에 근거하여 다음과 같은
+                    내용으로 개인정보를 수집 및 처리하고자 합니다.
                     <br />
                     <br />
                     다음의 내용을 자세히 읽어보시고 모든 내용을 이해하신 후에
