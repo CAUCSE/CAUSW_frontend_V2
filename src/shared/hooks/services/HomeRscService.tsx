@@ -4,54 +4,40 @@ export const HomeRscService = () => {
   const URI = BASEURL + "/api/v1/home";
 
   const getHomePosts = async () => {
-    try {
-      const headers = await setRscHeader();
-      const response = (await fetch(URI, {
-        method: "GET",
-        headers: headers,
-      }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
-        Error.ApiErrorResponse;
+    const headers = await setRscHeader();
 
-      if (response.errorCode) throw new Error(response.errorCode);
+    const response = (await fetch(URI, {
+      method: "GET",
+      headers: headers,
+    }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
+      Error.ApiErrorResponse;
 
-      return response as Home.GetHomePostsResponseDto;
-    } catch {
-      throw new Error("4000");
-    }
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response as Home.GetHomePostsResponseDto;
   };
 
   const getEvents = async () => {
-    try {
-      const headers = await setRscHeader();
-      const response = (await fetch(`${BASEURL}/api/v1/events`, {
-        method: "GET",
-        headers: headers,
-      }).then((res) => res.json())) as Home.GetEventsResponseDto;
+    const headers = await setRscHeader();
+    const response = (await fetch(`${BASEURL}/api/v1/events`, {
+      method: "GET",
+      headers: headers,
+    }).then((res) => res.json())) as Home.GetEventsResponseDto;
 
-      if (response.errorCode) throw new Error(response.errorCode);
+    if (response.errorCode) throw new Error(response.errorCode);
 
-      return response as Home.GetEventsResponseDto;
-    } catch {
-      throw new Error("4000");
-    }
+    return response as Home.GetEventsResponseDto;
   };
 
   const getCalendars = async (year: number) => {
-    try {
-      const headers = await setRscHeader();
-      const response = (await fetch(
-        `${BASEURL}/api/v1/calendars?year=${year}`,
-        {
-          method: "GET",
-          headers: headers,
-        },
-      ).then((res) => res.json())) as Home.GetCalendarsResponseDto;
+    const headers = await setRscHeader();
+    const response = (await fetch(`${BASEURL}/api/v1/calendars?year=${year}`, {
+      method: "GET",
+      headers: headers,
+    }).then((res) => res.json())) as Home.GetCalendarsResponseDto;
 
-      if (response.errorCode) throw new Error(response.errorCode);
-      return response as Home.GetCalendarsResponseDto;
-    } catch {
-      throw new Error("4000");
-    }
+    if (response.errorCode) throw new Error(response.errorCode);
+    return response as Home.GetCalendarsResponseDto;
   };
 
   const getCalendar = async (id: string) => {
