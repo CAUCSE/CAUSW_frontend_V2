@@ -15,33 +15,43 @@ export const HomeRscService = () => {
       if (response.errorCode) throw new Error(response.errorCode);
 
       return response as Home.GetHomePostsResponseDto;
-    } catch (error) {
-      console.error(error);
-      throw error;
+    } catch {
+      throw new Error("4000");
     }
   };
 
   const getEvents = async () => {
-    const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}/api/v1/events`, {
-      method: "GET",
-      headers: headers,
-    }).then((res) => res.json())) as Home.GetEventsResponseDto;
+    try {
+      const headers = await setRscHeader();
+      const response = (await fetch(`${BASEURL}/api/v1/events`, {
+        method: "GET",
+        headers: headers,
+      }).then((res) => res.json())) as Home.GetEventsResponseDto;
 
-    if (response.errorCode) throw new Error(response.errorCode);
+      if (response.errorCode) throw new Error(response.errorCode);
 
-    return response as Home.GetEventsResponseDto;
+      return response as Home.GetEventsResponseDto;
+    } catch {
+      throw new Error("4000");
+    }
   };
 
   const getCalendars = async (year: number) => {
-    const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}/api/v1/calendars?year=${year}`, {
-      method: "GET",
-      headers: headers,
-    }).then((res) => res.json())) as Home.GetCalendarsResponseDto;
+    try {
+      const headers = await setRscHeader();
+      const response = (await fetch(
+        `${BASEURL}/api/v1/calendars?year=${year}`,
+        {
+          method: "GET",
+          headers: headers,
+        },
+      ).then((res) => res.json())) as Home.GetCalendarsResponseDto;
 
-    if (response.errorCode) throw new Error(response.errorCode);
-    return response as Home.GetCalendarsResponseDto;
+      if (response.errorCode) throw new Error(response.errorCode);
+      return response as Home.GetCalendarsResponseDto;
+    } catch {
+      throw new Error("4000");
+    }
   };
 
   const getCalendar = async (id: string) => {

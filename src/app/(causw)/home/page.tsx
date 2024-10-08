@@ -29,15 +29,8 @@ const cardsEntities = [
 const HomePage = async () => {
   const { getHomePosts, getEvents } = HomeRscService();
 
-  let events: Home.GetEventsResponseDto;
-  let homePosts: Home.GetHomePostsResponseDto;
-
-  try {
-    events = await getEvents();
-    homePosts = await getHomePosts();
-  } catch {
-    throw new Error("4000");
-  }
+  const events = await getEvents();
+  const homePosts = await getHomePosts();
 
   const coumcilBoard = homePosts!.find((board) =>
     board.board.name.includes("학생회 공지"),
