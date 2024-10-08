@@ -29,33 +29,40 @@ const cardsEntities = [
 const HomePage = async () => {
   const { getHomePosts, getEvents } = HomeRscService();
 
-  const events = await getEvents();
-  const homePosts = await getHomePosts();
+  let events: Home.GetEventsResponseDto;
+  let homePosts: Home.GetHomePostsResponseDto;
 
-  const coumcilBoard = homePosts.find((board) =>
+  try {
+    events = await getEvents();
+    homePosts = await getHomePosts();
+  } catch {
+    throw new Error("4000");
+  }
+
+  const coumcilBoard = homePosts!.find((board) =>
     board.board.name.includes("학생회 공지"),
   );
-  const cauBoard = homePosts.find((board) =>
+  const cauBoard = homePosts!.find((board) =>
     board.board.name.includes("학부 공지"),
   );
-  const serviceBoard = homePosts.find((board) =>
+  const serviceBoard = homePosts!.find((board) =>
     board.board.name.includes("서비스 공지"),
   );
-  const alumniBoard = homePosts.find((board) =>
+  const alumniBoard = homePosts!.find((board) =>
     board.board.name.includes("동문회 공지"),
   );
 
   return (
     <>
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
-        {events && (
+        {events! && (
           <Banner
             images={
-              events.count > 0
-                ? events.events.map((e) => e.image)
+              events!.count > 0
+                ? events!.events!.map((e) => e.image)
                 : ["/images/puang-proud.png"]
             }
-            loop={events.count > 0}
+            loop={events!.count > 0}
           />
         )}
 
