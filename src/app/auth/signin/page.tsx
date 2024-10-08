@@ -1,11 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { useLayoutStore, AuthService, emailRegex } from "@/shared";
+import {
+  useLayoutStore,
+  AuthService,
+  emailRegex,
+  getRscRefresh,
+} from "@/shared";
 import {
   VideoBackground,
   ImageBackground,
@@ -44,6 +49,12 @@ const SignInPage = () => {
 
     signin(data);
   };
+
+  useEffect(() => {
+    getRscRefresh().then((res) => {
+      if (res) router.push("/home");
+    });
+  }, []);
 
   return (
     <>
