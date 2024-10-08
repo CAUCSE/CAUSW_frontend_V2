@@ -137,9 +137,47 @@ export const SettingRscService = () => {
   };
 
   //가입 거부
-  const rejectAdmission = async (admissionId: string) => {
+  const rejectAdmission = async (userId: string) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${URI}/admissions/${admissionId}/reject`, {
+    const response = await fetch(`${URI}/admissions/${userId}/reject`, {
+      method: "PUT",
+      headers: headers,
+      body: userId,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+  
+    //사용자 영구 삭제
+  const deleteUser = async (userId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/${userId}/delete`, {
+      method: "DELETE",
+      headers: headers,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  };
+
+  // 사용자 추방
+  const expelUser = async (userId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/${userId}/drop`, {
+      method: "PUT",
+      headers: headers,
+      body: userId,
+    });
+
+    if (!response.ok) throw new Error(response.statusText);
+    return true;
+  }
+
+  // 사용자 복구
+  const restoreUser = async (userId: string) => {
+    const headers = await setRscHeader();
+    const response = await fetch(`${URI}/restore/${userId}`, {
       method: "PUT",
       headers: headers,
     });
@@ -217,6 +255,9 @@ export const SettingRscService = () => {
     getWaitingUsers,
     getApplyBoards,
     rejectAdmission,
+    deleteUser,
+    expelUser,
+    restoreUser,
     addPayer,
     getUserCouncilFeeInfo,
   };

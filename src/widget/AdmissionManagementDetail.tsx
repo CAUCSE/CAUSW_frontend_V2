@@ -28,7 +28,7 @@ export async function ManagementDetail({
   const { getUser } = UserRscService();
   let admission;
 
-  if (state === "admission")
+  if (state === "admission" || state === "reject")
     {
       try {
         admission = await getAdmission(admissionId);
@@ -45,9 +45,7 @@ export async function ManagementDetail({
   catch(error){
     console.log('유저 정보 조회 실패',error);
   }
-  if (state === "admission"){
 
-  }
   let name;
   let studentId;
   // 가입 신청서 조회도 안되고 유저 정보 조회도 안 될 경우에
@@ -64,23 +62,26 @@ export async function ManagementDetail({
   return (
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-4">
       <p className="text-[18px] font-semibold lg:text-[40px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
-{admission && (      <ManagementDetailInfoTable
+{admission && (<><ManagementDetailInfoTable
         data={convertAdmissionDataToTableEntity(admission)}
         titleMapping={titleMapping}
-      />)}
-{(userInfo  && (state === "drop" || state === "inactive_n_drop")) && (<div>
+      />
+      <ManagementDetailButtons state={state} admission={admission} />
+      </>)}
+{(userInfo  && (state === "drop" || state === "inactive")) && (<>
    <ManagementDetailInfoTable
         data={convertUserDataToTableEntity(userInfo)}
         titleMapping={titleMappingForRejected}
       />
-   </div> )}
-   {(userInfo  && (state === "active" || state === "inactive")) &&(<div>
+    <ManagementDetailButtons state={state} admission={userInfo} />
+   </> )}
+   {(userInfo  && (state === "active" || state === "reject")) &&(<div>
    <ManagementDetailInfoTable
         data={convertUserDataToTableEntity(userInfo)}
         titleMapping={titleMapping}
       />
+    <ManagementDetailButtons state={state} admission={userInfo} />
    </div> )}
-      <ManagementDetailButtons state={state} admission={admission} />
     </div>
   );
 }

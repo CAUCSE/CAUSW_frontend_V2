@@ -9,7 +9,8 @@ declare namespace Setting {
     | "INACTIVE_N_DROP_USERS"
     | "INACTIVE_USERS"
     | "ADMISSION_USERS"
-    | "PAYERS";
+    | "PAYERS"
+    | "REJECT_USERS";
 
   export interface AdmissionUser {
     admissionYear: number;

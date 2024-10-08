@@ -1,6 +1,61 @@
 import { SettingRscService } from "@/shared";
 
-type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
+type state = "admission" | "reject" | "active" | "drop" | "inactive";
+
+const admitTarget = async(userId) => {
+  const { acceptAdmission } = SettingRscService();
+  if (await acceptAdmission(userId)) {
+    alert("승인되었습니다");
+  }
+  else
+  {  
+    alert("승인에 실패했습니다. 관리자에게 문의하세요");
+  }
+}
+
+const rejectTarget = async (userId) => {
+  const { rejectAdmission } = SettingRscService();
+  if (await rejectAdmission(userId)) {
+    alert("거부되었습니다");
+  }
+  else
+{   alert("거부에 실패했습니다. 관리자에게 문의하세요");
+}
+}
+
+const expelTarget = async(userId) => {
+  const { expelUser } = SettingRscService();
+  if (await expelUser(userId)) {
+    alert("추방되었습니다.");
+  }
+  else
+  {  
+    alert("추방에 실패했습니다. 관리자에게 문의하세요");
+  }
+}
+
+const restoreTarget = async(userId) => {
+  const { restoreUser } = SettingRscService();
+  if (await restoreUser(userId)) {
+    alert("사용자가 복구되었습니다.");
+  }
+  else
+  {  
+    alert("복구에 실패했습니다. 관리자에게 문의하세요");
+  }
+}
+
+const deleteTarget = async(userId) => {
+  const { deleteUser } = SettingRscService();
+  if (await deleteUser(userId)) {
+    alert("사용자가 영구 삭제되었습니다.");
+  }
+  else
+  {  
+    alert("사용자 삭제에 실패했습니다. 관리자에게 문의하세요");
+  }
+}
+
 
 export const uiEntities: Record<
   state,
@@ -20,41 +75,33 @@ export const uiEntities: Record<
         name: "승인",
         variant: "BLUE",
         action: async (admission) => {
-          const { acceptAdmission } = SettingRscService();
-          if (await acceptAdmission(admission.id)) {
-            alert("승인되었습니다");
-          }
-          alert("승인에 실패했습니다. 관리자에게 문의하세요");
+          admitTarget(admission.id)
         },
       },
       {
         name: "거부",
         variant: "GRAY",
         action: async (admission) => {
-          const { rejectAdmission } = SettingRscService();
-          if (await rejectAdmission(admission.id)) {
-            alert("거부되었습니다");
-          }
-          alert("거부에 실패했습니다. 관리자에게 문의하세요");
+          rejectTarget(admission.id)        
         },
       },
     ],
   },
-  drop: {
+  reject: {
     titleSuffix: "가입 신청서 내용",
     buttons: [
       {
         name: "재승인",
         variant: "BLUE",
-        action: () => {
-          console.log("재승인");
-        },
+        action: async (admission) => {
+          admitTarget(admission.id)
+      },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          console.log("목록에서 삭제");
+        action: async (admission) => {
+          deleteTarget(admission.id) 
         },
       },
     ],
@@ -66,33 +113,33 @@ export const uiEntities: Record<
         name: "닫기",
         variant: "BLUE",
         action: () => {
-          console.log("닫기");
+          ;
         },
       },
       {
         name: "추방",
         variant: "RED",
-        action: () => {
-          console.log("추방");
+        action: async(admission) => {
+          expelTarget(admission.id);
         },
       },
     ],
   },
-  inactive_n_drop: {
+  drop: {
     titleSuffix: "정보",
     buttons: [
       {
         name: "닫기",
         variant: "BLUE",
         action: () => {
-          console.log("닫기");
+          ;
         },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          console.log("목록에서 삭제");
+        action: async (admission) => {
+          deleteTarget(admission.id);
         },
       },
     ],
@@ -103,15 +150,15 @@ export const uiEntities: Record<
       {
         name: "탈퇴 복구",
         variant: "BLUE",
-        action: () => {
-          console.log("탈퇴 복구");
+        action: (admission) => {
+          restoreTarget(admission.id);
         },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          console.log("목록에서 삭제");
+        action: (admission) => {
+          deleteTarget(admission.id);
         },
       },
     ],

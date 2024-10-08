@@ -60,13 +60,7 @@ export const AuthService = () => {
           },
         },
       );
-      /*
-          const response = await API.post(`${URI}/sign-up`, selectedData, {
-          headers: {
-            'Content-Type': 'application/json',
-        },
-      });
-   */
+
       return response.data; // 서버에서 받은 데이터를 리턴
     } catch (error) {
       if (axios.isAxiosError(error)) {
