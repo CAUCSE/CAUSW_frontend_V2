@@ -47,13 +47,14 @@ export const HomeRscService = () => {
 
   const getCalendar = async (id: string) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
+    const response = (await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
       method: "GET",
       headers: headers,
-    });
-    if (!response.ok) throw new Error(response.statusText);
+    }).then((res) => res.json())) as Home.Calendar & Error.ApiErrorResponse;
 
-    return (await response.json()) as Home.Calendar;
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response as Home.Calendar;
   };
 
   const createEvent = async (bannerImg: File, url: string) => {

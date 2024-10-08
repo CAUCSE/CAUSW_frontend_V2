@@ -22,6 +22,7 @@ import {
 } from "@/shared";
 
 import { LoadingComponent } from "@/entities";
+import Link from "next/link";
 
 const Error = ({
   error,
@@ -77,15 +78,23 @@ const Error = ({
         height={250}
       ></Image>
       <span>일시적으로 서비스를 이용할 수 없습니다.</span>
+
       <button
-        className="mt-3 h-12 w-40 rounded-xl bg-focus text-center text-lg text-white"
+        className="mt-3 h-12 w-60 rounded-xl bg-focus text-center text-lg text-white"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try Again...
+        다시 시도하기
       </button>
+
+      <Link
+        className="mt-3 flex h-12 w-60 items-center justify-center rounded-xl bg-error text-lg text-white"
+        href={"/auth/signin"}
+      >
+        로그인 페이지로 이동하기
+      </Link>
     </div>
   );
 };
