@@ -61,7 +61,7 @@ export const Calendar = () => {
   };
 
   return (
-    <CardBox className="flex h-full w-full flex-col items-center gap-[25px] p-[30px]">
+    <CardBox className="flex h-full w-full flex-col items-center justify-center gap-[25px] p-[30px]">
       <div className="flex h-[25px] w-full items-center justify-center gap-[40px]">
         <button onClick={handlePrevMonth}>
           <i className="icon-[material-symbols--chevron-left] h-[25px] w-[25px] text-gray-400" />
@@ -75,7 +75,7 @@ export const Calendar = () => {
           <i className="icon-[material-symbols--chevron-right] h-[25px] w-[25px] text-gray-400" />
         </button>
       </div>
-      <Image
+      {/* <Image
         src={
           calendars
             ? (calendars.find(
@@ -87,7 +87,23 @@ export const Calendar = () => {
         height={2070}
         className="h-full w-full border-b-[1px] object-cover"
         alt="캘린더"
-      />
+      /> */}
+      <div
+        className="h-2/3 w-full bg-contain bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${
+            calendars
+              ? (calendars.find(
+                  (c) => c.year === selectedYear && c.month === selectedMonth,
+                )?.image as string)
+                ? (calendars.find(
+                    (c) => c.year === selectedYear && c.month === selectedMonth,
+                  )?.image as string)
+                : "/images/puang-proud.png"
+              : "/images/puang-proud.png"
+          })`,
+        }}
+      ></div>
       <hr className="w-full border-[1px] border-[#E0E0E0]" />
       <Link
         // TODO : href 연결
