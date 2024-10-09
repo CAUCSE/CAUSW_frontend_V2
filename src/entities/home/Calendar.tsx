@@ -94,10 +94,12 @@ export const Calendar = () => {
           backgroundImage: `url(${
             calendars
               ? (calendars.find(
-                  (c) => c.year === selectedYear && c.month === selectedMonth,
+                  (c) =>
+                    c.year === selectedYear && c.month === selectedMonth + 1,
                 )?.image as string)
                 ? (calendars.find(
-                    (c) => c.year === selectedYear && c.month === selectedMonth,
+                    (c) =>
+                      c.year === selectedYear && c.month === selectedMonth + 1,
                   )?.image as string)
                 : "/images/puang-proud.png"
               : "/images/puang-proud.png"

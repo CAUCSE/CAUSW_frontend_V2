@@ -8,10 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 interface BannerProps {
   images: string[];
+  urls: string[];
   loop: boolean;
 }
 
-export function Banner({ images, loop }: BannerProps) {
+export function Banner({ images, urls, loop }: BannerProps) {
   return (
     <div className="h-[17vh] w-full overflow-hidden rounded-lg shadow-md">
       <Swiper
@@ -36,6 +37,9 @@ export function Banner({ images, loop }: BannerProps) {
             <div
               className="h-full w-full bg-contain bg-cover bg-center"
               style={{ backgroundImage: `url(${image})` }}
+              onClick={() => {
+                window.location.href = urls[idx];
+              }}
             ></div>
           </SwiperSlide>
         ))}
