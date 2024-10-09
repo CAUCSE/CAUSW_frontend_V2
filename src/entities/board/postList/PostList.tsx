@@ -98,11 +98,15 @@ export const PostList = () => {
                     </div>
                     <div className="h-16 w-16 flex-shrink-0 sm:h-24 sm:w-24">
                       <Image
-                        src="/images/post_default_thumbnail.png"
-                        alt="default_thumbnail"
+                        src={
+                          post.postAttachImage
+                            ? post.postAttachImage
+                            : "/images/post_default_thumbnail.png"
+                        }
+                        alt="post_thumbnail"
                         width={100}
                         height={100}
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                   </div>

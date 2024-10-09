@@ -1,25 +1,20 @@
 import { BASEURL, setRscHeader } from "@/shared";
-import { Axios } from "axios";
 
 export const HomeRscService = () => {
   const URI = BASEURL + "/api/v1/home";
 
   const getHomePosts = async () => {
-    try {
-      const headers = await setRscHeader();
-      const response = await fetch(URI, {
-        method: "GET",
-        headers: headers,
-      });
-      if (!response.ok) throw new Error(response.statusText);
+    const headers = await setRscHeader();
 
-      const data = (await response.json()) as Home.GetHomePostsResponseDto;
+    const response = (await fetch(URI, {
+      method: "GET",
+      headers: headers,
+    }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
+      Error.ApiErrorResponse;
 
-      return data;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response as Home.GetHomePostsResponseDto;
   };
 
   const getEvents = async () => {
@@ -47,13 +42,14 @@ export const HomeRscService = () => {
 
   const getCalendar = async (id: string) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
+    const response = (await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
       method: "GET",
       headers: headers,
-    });
-    if (!response.ok) throw new Error(response.statusText);
+    }).then((res) => res.json())) as Home.Calendar & Error.ApiErrorResponse;
 
-    return (await response.json()) as Home.Calendar;
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response as Home.Calendar;
   };
 
   const createEvent = async (bannerImg: File, url: string) => {

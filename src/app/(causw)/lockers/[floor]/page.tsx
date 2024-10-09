@@ -46,6 +46,7 @@ const LockerSelectionPage = () => {
   const [modalMessage, setModalMessage] = useState<string | null>(null); // 모달 메시지 상태 추가
   const [modalTitle, setModalTitle] = useState<string | null>(null); // 모달 제목 상태 추가
   const [hasMyLocker, setHasMyLocker] = useState<boolean>(false); // 이미 신청된 사물함 여부 체크
+  const [myLocker, setMyLocker] = useState<Locker | null>(null); // 내 사물함 저장
   const [isMobile, setIsMobile] = useState<boolean>(false); // 모바일 여부 체크
 
   const locationIdMap: { [key: string]: string } = {
@@ -80,10 +81,9 @@ const LockerSelectionPage = () => {
       setLockers(lockerList);  // 서버에서 받아온 사물함 데이터를 상태로 저장
 
       // 이미 신청된 사물함이 있는지 확인
-      const myLockerExists = lockerList.some((locker: Locker) => locker.isMine);
-      setHasMyLocker(myLockerExists);
-
-      console.log('Received lockers:', lockerList);
+      const myLockerExists = lockerList.find((locker: Locker) => locker.isMine);
+      setHasMyLocker(!!myLockerExists);
+      setMyLocker(myLockerExists || null); // 내 사물함을 저장
 
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -105,26 +105,64 @@ const LockerSelectionPage = () => {
     setSelectedLocker((prev) => (prev === id ? null : id)); // 클릭된 사물함 색상 변경
   };
 
+  // 기존 사물함 반납 처리 API 호출 함수
+  const returnMyLocker = async () => {
+    try {
+      if (myLocker) {
+        const accessToken = await getRccAccess();
+        if (!accessToken) {
+          throw new Error('AccessToken이 존재하지 않습니다.');
+        }
+
+        await axios.put(`${BASEURL}/api/v1/lockers/${myLocker.id}`, {
+          action: 'RETURN',
+          message: '기존 사물함 반납',
+        }, {
+          headers: {
+            Authorization: accessToken,
+            "Content-Type": "application/json",
+          },
+        });
+
+        setModalTitle('사물함 반납 완료');
+        setModalMessage(`기존 사물함이 반납되었습니다.\n반납된 사물함 번호: ${myLocker.lockerNumber}`);
+        setErrorMessage(null);
+        setMyLocker(null); // 기존 사물함 반납 후 초기화
+      }
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.status === 400) {
+        setErrorMessage('사물함 반납 중 오류가 발생했습니다: ' + error.response.data.message);
+      } else {
+        setErrorMessage('사물함 반납 중 예상치 못한 오류가 발생했습니다.');
+      }
+    }
+  };
+
   // 사물함 액션 처리 함수 (신청, 반납, 연장)
   const handleLockerAction = async (actionType: string, actionMessage: string) => {
     if (!selectedLocker) return;
 
     const locker = lockers.find(l => l.id === selectedLocker);
 
-    console.log('Selected Locker ID:', selectedLocker);
+    if (actionType === 'REGISTER') {
+      if (!locker?.isActive) {
+        setErrorMessage('이 사물함은 신청할 수 없습니다.');
+        return;
+      }
 
-    if (actionType === 'REGISTER' && !locker?.isActive) {
-      setErrorMessage('이 사물함은 신청할 수 없습니다.');
-      return;
+      // 기존 사물함이 있을 경우 반납 처리
+      if (myLocker) {
+        await returnMyLocker();
+      }
     }
 
     try {
       const accessToken = await getRccAccess();
-      console.log(`Authorization header: ${accessToken}`);
       if (!accessToken) {
         throw new Error('AccessToken이 존재하지 않습니다.');
       }
 
+      // 새로운 사물함 신청
       await axios.put(`${BASEURL}/api/v1/lockers/${selectedLocker}`, {
         action: actionType,
         message: actionMessage,
@@ -238,85 +276,93 @@ const LockerSelectionPage = () => {
           <span>내 사물함</span>
         </div>
 
+        {/* 정보 패널 */}
         {selectedLocker && (
           <div className="mt-4">
             <p className="mb-2">선택된 사물함 번호: {lockers.find(l => l.id === selectedLocker)?.lockerNumber}</p>
 
+            {/* 이미 내 사물함이 있는 경우 */}
+            {hasMyLocker && (
+              <>
+                {myLocker?.id === selectedLocker ? (
+                  <>
+                    {/* 내 사물함을 선택한 경우 */}
+                    <button
+                      className="bg-red-500 text-white p-2 w-full rounded mb-2"
+                      onClick={() => handleLockerAction('RETURN', '사물함 반납')}
+                    >
+                      반납하기
+                    </button>
+
+                    <button
+                      className="bg-yellow-500 text-white p-2 w-full rounded"
+                      onClick={() => handleLockerAction('EXTEND', '사물함 연장')}
+                    >
+                      연장하기
+                    </button>
+                  </>
+                ) : (
+                  /* 비어있는 사물함을 선택한 경우 */
+                  <button
+                    className="bg-blue-500 text-white p-2 w-full rounded"
+                    onClick={() => handleLockerAction('REGISTER', '사물함 신청')}
+                    disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isActive}
+                  >
+                    신청하기
+                  </button>
+                )}
+              </>
+            )}
+
+            {/* 내 사물함이 없는 경우 */}
             {!hasMyLocker && (
               <button
-                className="bg-blue-500 text-white p-2 w-full rounded mb-2"
+                className="bg-blue-500 text-white p-2 w-full rounded"
                 onClick={() => handleLockerAction('REGISTER', '사물함 신청')}
                 disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isActive}
               >
                 신청하기
               </button>
             )}
-
-            {hasMyLocker && (
-              <>
-                <button
-                  className={`p-2 w-full rounded mb-2 ${
-                    lockers.find((locker) => locker.id === selectedLocker)?.isMine ? 'bg-red-500 text-white' : 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                  }`}
-                  onClick={() => handleLockerAction('RETURN', '사물함 반납')}
-                  disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isMine}
-                >
-                  반납하기
-                </button>
-
-                <button
-                  className={`p-2 w-full rounded ${
-                    lockers.find((locker) => locker.id === selectedLocker)?.isMine ? 'bg-yellow-500 text-white' : 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                  }`}
-                  onClick={() => handleLockerAction('EXTEND', '사물함 연장')}
-                  disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isMine}
-                >
-                  연장하기
-                </button>
-              </>
-            )}
           </div>
         )}
       </div>
 
       {/* 모바일 화면에서 보일 UI */}
-{isMobile && selectedLocker && (  // selectedLocker가 있을 때만 UI 표시
-  <div className="fixed bottom-32 left-0 right-0 p-2 bg-white rounded-lg shadow-md z-10 flex justify-center">
-    <div className="text-center w-3/4">
-      <p className="mb-1 text-sm">사물함 번호: {lockers.find(l => l.id === selectedLocker)?.lockerNumber}</p>
+      {isMobile && selectedLocker && (  // selectedLocker가 있을 때만 UI 표시
+        <div className="fixed bottom-32 left-0 right-0 p-2 bg-white rounded-lg shadow-md z-10 flex justify-center">
+          <div className="text-center w-3/4">
+            <p className="mb-1 text-sm">사물함 번호: {lockers.find(l => l.id === selectedLocker)?.lockerNumber}</p>
 
-      {!hasMyLocker && (
-        <button
-          className="bg-blue-500 text-white p-1 w-full rounded" // 너비를 100%로 설정
-          onClick={() => handleLockerAction('REGISTER', '사물함 신청')}
-          disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isActive}
-        >
-          신청하기
-        </button>
-      )}
+            {/* 새로운 사물함을 클릭한 경우 */}
+            {!hasMyLocker || myLocker?.id !== selectedLocker ? (
+              <button
+                className="bg-blue-500 text-white p-1 w-full rounded"
+                onClick={() => handleLockerAction('REGISTER', '사물함 신청')}
+                disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isActive}
+              >
+                신청하기
+              </button>
+            ) : (
+              <div className="flex justify-between mt-1">
+                <button
+                  className="bg-red-500 text-white p-1 w-1/2 rounded mr-1 text-sm"
+                  onClick={() => handleLockerAction('RETURN', '사물함 반납')}
+                >
+                  반납하기
+                </button>
 
-      {hasMyLocker && (
-        <div className="flex justify-between mt-1">
-          <button
-            className="bg-red-500 text-white p-1 w-1/2 rounded mr-1 text-sm"
-            onClick={() => handleLockerAction('RETURN', '사물함 반납')}
-            disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isMine}
-          >
-            반납하기
-          </button>
-
-          <button
-            className="bg-yellow-500 text-white p-1 w-1/2 rounded ml-1 text-sm"
-            onClick={() => handleLockerAction('EXTEND', '사물함 연장')}
-            disabled={!lockers.find((locker) => locker.id === selectedLocker)?.isMine}
-          >
-            연장하기
-          </button>
+                <button
+                  className="bg-yellow-500 text-white p-1 w-1/2 rounded ml-1 text-sm"
+                  onClick={() => handleLockerAction('EXTEND', '사물함 연장')}
+                >
+                  연장하기
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
-    </div>
-  </div>
-)}
 
 
       {/* 모달 창 */}

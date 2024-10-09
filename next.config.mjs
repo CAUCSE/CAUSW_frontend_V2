@@ -11,12 +11,12 @@ const nextConfig = {
       {
         source: "/redirectRoute",
         permanent: false,
-        destination: "/home",
+        destination: "/auth/signin",
       },
     ];
   },
   images: {
-    domains: ['caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com'], // S3 버킷 도메인 허용
+    domains: ["caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com"], // S3 버킷 도메인 허용
   },
 };
 

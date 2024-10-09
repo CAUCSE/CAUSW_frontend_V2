@@ -1,11 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { useLayoutStore, AuthService, emailRegex } from "@/shared";
+import {
+  useLayoutStore,
+  AuthService,
+  AuthRscService,
+  emailRegex,
+  getRscRefresh,
+} from "@/shared";
 import {
   VideoBackground,
   ImageBackground,
@@ -19,8 +25,11 @@ const SignInPage = () => {
 
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const { signin } = AuthService();
+  const { updateAccess } = AuthRscService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
+
+  const [loading, onLoading] = useState(true);
 
   const { register, handleSubmit } = useForm<User.SignInRequestDto>({
     defaultValues: {
@@ -45,8 +54,23 @@ const SignInPage = () => {
     signin(data);
   };
 
+  useEffect(() => {
+    getRscRefresh().then((res) => {
+      if (res) {
+        try {
+          updateAccess(res).then(() => {
+            router.push("/home");
+          });
+        } catch {
+          onLoading(false);
+        }
+      } else onLoading(false);
+    });
+  }, []);
+
   return (
     <>
+      {loading ? <LoadingComponent /> : null}
       <VideoBackground src="/videos/signin-background.mp4" />
       <ImageBackground
         src="/images/signin-logo.png"

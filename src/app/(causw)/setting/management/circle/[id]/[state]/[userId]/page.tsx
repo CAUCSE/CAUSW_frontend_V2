@@ -2,8 +2,9 @@
 
 import { CircleRscService, CircleService } from "@/shared";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
-import { LoadingComponent } from "@/entities";
+import { Header, LoadingComponent } from "@/entities";
 
 const CircleApplyManagement = ({
   params: { state, id, userId },
@@ -24,6 +25,7 @@ const CircleApplyManagement = ({
     [],
   );
   const [applicationId, setApplicationId] = useState<string>("");
+  const [user, setUser] = useState<Circle.CircleUser>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +46,7 @@ const CircleApplyManagement = ({
           ),
         );
         setApplicationId(data3.id);
+        setUser(data3);
       } catch (error) {
         throw error;
       }
@@ -55,6 +58,18 @@ const CircleApplyManagement = ({
 
   return (
     <>
+      <div className="relative left-1/2 mb-10 mt-10 flex w-3/4 min-w-[280px] -translate-x-1/2 transform flex-col gap-3 sm:min-w-[530px]">
+        <Link
+          href={"/setting/management/circle/" + id + "/apply"}
+          className="flex items-center text-lg"
+        >
+          <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
+          이전
+        </Link>
+        <Header bold big>
+          {user?.user.name}({user?.user.studentId})의 동아리 신청서
+        </Header>
+      </div>
       <div className="flex w-full flex-col items-center gap-8 overflow-y-auto">
         {application.map((question: Post.QuestionResponseDto) => {
           const userReply = data.replyQuestionResponseDtoList.filter(

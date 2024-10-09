@@ -3,15 +3,15 @@ import { Management } from "@/widget";
 
 const navigation: {
   name: string;
-  state: "drop" | "active" | "inactive_n_drop" | "inactive";
+  state: "reject" | "active" | "drop" | "inactive";
   router: string;
   exportType?: Setting.ExportType;
 }[] = [
   {
     name: "가입 거부 유저",
-    state: "drop",
-    exportType: "DROP_USERS",
-    router: "/setting/management/user/drop",
+    state: "reject",
+    exportType: "REJECT_USERS",
+    router: "/setting/management/user/reject",
   },
   {
     name: "활성 유저",
@@ -21,9 +21,9 @@ const navigation: {
   },
   {
     name: "추방 유저",
-    state: "inactive_n_drop",
-    exportType: "INACTIVE_N_DROP_USERS",
-    router: "/setting/management/user/inactive_n_drop",
+    state: "drop",
+    exportType: "DROP_USERS",
+    router: "/setting/management/user/drop",
   },
   {
     name: "탈퇴 유저",
@@ -53,24 +53,26 @@ const UserManagement = async ({
         res.map((element) => ({ ...element, userName: element.name })),
       )
     : await getAllAdmissions(null, 0);
-
+    
   return (
-    <Management
-      state={state}
-      title="유저 관리"
-      firstNavigation={{
-        name: "가입 대기 유저",
-        state: "admission",
-        exportType: "ADMISSION_USERS",
-        router: "/setting/management/user/admission",
-      }}
-      navigation={navigation}
-      data={data.map((element) => ({
-        userName: element.userName,
-        studentId: element.studentId,
-        id: element.id,
-      }))}
-    />
+    <>
+      <Management
+        state={state}
+        title="유저 관리"
+        firstNavigation={{
+          name: "가입 대기 유저",
+          state: "admission",
+          exportType: "ADMISSION_USERS",
+          router: "/setting/management/user/admission",
+        }}
+        navigation={navigation}
+        data={data.map((element) => ({
+          userName: element.userName,
+          studentId: element.studentId,
+          id: element.id,
+        }))}
+      />
+    </>
   );
 };
 

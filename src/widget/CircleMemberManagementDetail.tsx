@@ -1,8 +1,6 @@
 "use client";
 import { ManagementDetailInfoTable } from "@/entities/home/setting/management";
 import {
-  convertDataToTableEntity,
-  titleMapping,
   titleMappingForCircle,
 } from "@/entities/home/setting/management/AdmissionManagementDetailEntities";
 import { UserRscService } from "@/shared";

@@ -12,10 +12,10 @@ const VerificationPage: React.FC = () => {
     UserService();
   const [isAcademicRecordModalOpen, setIsAcademicModalOpen] = useState(false);
   const [isAdmissionModalOpen, setIsAdmissionModalOpen] = useState(false);
-
+  const [ userStatus, setUserStatus ] = useState('');
   const [emailValue, setEmailValue] = useState("");
 
-  // UNDONE, AWAIT, COMPLETED로 관리
+  // UNDONE, AWAIT, REJECT, COMPLETED로 관리
   const [admissionApplicationStatus, setAdmissionApplicationStatus] =
     useState("");
 
@@ -29,20 +29,25 @@ const VerificationPage: React.FC = () => {
         const response = await getMyInfo();
         // 상태 값들 가져오기
         const state = response.data.state;
-        const academicStatus = response.data.academicStatus;
+        setUserStatus(state);
 
         // 상태 업데이트
         setEmailValue(response.data.email);
         // 조건문 처리 (상태 값이 올바르게 설정된 후에 처리)
-        if (state === "AWAIT") {
-          console.log("await 인 상태");
+        if (state === "REJECT"){
+          setAdmissionApplicationStatus("REJECT");
+          setAcademicRecordApplicationStatus("BANNED");
+        }
+        else if (state === "AWAIT") {
           setAcademicRecordApplicationStatus("BANNED");
           checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
-        } else if (state === "ACTIVE") {
+        }
+        else if (state === "ACTIVE") {
           console.log("await가 아닌 상태");
           setAdmissionApplicationStatus("COMPLETED");
           checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
         }
+        
       } catch (error) {
         console.log(error);
       }
@@ -91,6 +96,7 @@ const VerificationPage: React.FC = () => {
             setIsAdmissionModalOpen(false);
           }}
           emailValue={`${emailValue}`}
+          userStatus = {userStatus}
         />
       )}
       {!isAcademicRecordModalOpen && !isAdmissionModalOpen && (
@@ -108,7 +114,8 @@ const VerificationPage: React.FC = () => {
             <div className="mt-6 space-y-4">
               {admissionApplicationStatus === "AWAIT" && (
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
-                  가입 신청서 제출 완료됨 (승인 대기중)
+                  {userStatus === "REJECT" && <>가입 신청서 승인 거절됨</>}
+                  {userStatus === "AWAIT" && <>가입 신청서 제출됨</>}
                 </div>
               )}
 
@@ -116,6 +123,23 @@ const VerificationPage: React.FC = () => {
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
                   가입 신청서 제출 완료됨 (승인 완료)
                 </div>
+              )}
+              {/* {admissionApplicationStatus === "REJECT" && (
+                <button
+                onClick={() => {
+                  setIsAdmissionModalOpen(true);
+                }}
+                className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
+              >
+                가입 신청서 제출 거절됨 (다시 제출하기)
+              </button>
+              )} */}
+              {admissionApplicationStatus === "REJECT" && (
+                <div
+                className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400"
+              >
+                가입 신청서 제출 거절됨
+              </div>
               )}
 
               {admissionApplicationStatus === "UNDONE" && (
