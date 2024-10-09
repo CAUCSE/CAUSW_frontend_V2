@@ -27,6 +27,8 @@ const SignInPage = () => {
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
+  const [loading, onLoading] = useState(true);
+
   const { register, handleSubmit } = useForm<User.SignInRequestDto>({
     defaultValues: {
       email: "",
@@ -53,8 +55,11 @@ const SignInPage = () => {
   useEffect(() => {
     getRscRefresh().then((res) => {
       if (res) router.push("/home");
+      else onLoading(false);
     });
   }, []);
+
+  if (loading) <LoadingComponent />;
 
   return (
     <>
