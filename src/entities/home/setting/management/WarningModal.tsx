@@ -3,8 +3,9 @@ import { useState } from "react";
 import { SettingRscService } from "@/shared";
 
 export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boolean, onClose: () => void, admission: any, type: string }) {
-  if (!isOpen) return null;
-  const [reason, setReason] = useState("");
+    const [reason, setReason] = useState("");
+
+    if (!isOpen) return null;
 
 
   const rejectOrExpelTarget = async (userId: string, type: string, reason: string) => {
