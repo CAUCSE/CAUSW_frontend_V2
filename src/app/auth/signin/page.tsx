@@ -68,10 +68,9 @@ const SignInPage = () => {
     });
   }, []);
 
-  if (loading) <LoadingComponent />;
-
   return (
     <>
+      {loading ? <LoadingComponent /> : null}
       <VideoBackground src="/videos/signin-background.mp4" />
       <ImageBackground
         src="/images/signin-logo.png"
