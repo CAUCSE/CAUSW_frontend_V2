@@ -55,3 +55,5 @@ export { PostListHeader } from "./board/postList/PostListHeader";
 
 export { CircleApplyQuestion } from "./board/form/CircleApplyQuestion";
 export { CircleApplyOption } from "./board/form/CircleApplyOption";
+
+export { VTwoForm } from "./layout/VTwoForm";

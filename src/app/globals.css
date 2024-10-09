@@ -23,14 +23,6 @@ input {
   outline: none;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-text-fill-color: black; /* 텍스트 색상을 검은색으로 변경 */
-  transition: background-color 5000s ease-in-out 0s; /* 배경색 전환 애니메이션 방지 */
-}
-
 #specificInput:-webkit-autofill,
 #specificInput:-webkit-autofill:hover,
 #specificInput:-webkit-autofill:focus,
@@ -39,6 +31,12 @@ input:-webkit-autofill:active {
   -webkit-transition: background-color 9999s ease-out;
   -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
   -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
+#specificInput {
+  color: #fff !important;
+  transition:
+    background-color 9999s ease-out,
+    color 9999s ease-out !important;
 }
 
 @layer base {
