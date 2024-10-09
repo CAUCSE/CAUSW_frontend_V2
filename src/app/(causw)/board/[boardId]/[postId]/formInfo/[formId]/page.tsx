@@ -76,8 +76,9 @@ const ACADEMIC_STATUS: { [key: string]: string } = {
   ENROLLED: "재학",
   LEAVE_OF_ABSENCE: "휴학",
   GRADUATED: "졸업",
-  DROPPED_OUT: "자퇴",
-  PROBATION: "학사 경고",
+  DROPPED_OUT: "중퇴",
+  SUSPEND: "정학",
+  EXPEL: "퇴학",
   PROFESSOR: "교수",
   UNDETERMINED: "미정",
 };
@@ -520,7 +521,7 @@ const FormInfoPage = () => {
                                 {detailUseInfoRightKeyValue[idx]}:{" "}
                                 {responseUserInfos[currentDetailPage - 1]
                                   .replyUserResponseDto[key]
-                                  ? `${responseUserInfos[currentDetailPage - 1].replyUserResponseDto[key]}년 ${responseUserInfos[currentDetailPage].replyUserResponseDto["graduationType"] === "FEBRUARY" ? "2월" : "8월"}`
+                                  ? `${responseUserInfos[currentDetailPage - 1].replyUserResponseDto[key]}년 ${responseUserInfos[currentDetailPage - 1].replyUserResponseDto["graduationType"] === "FEBRUARY" ? "2월" : "8월"}`
                                   : "없음"}
                               </li>
                             );

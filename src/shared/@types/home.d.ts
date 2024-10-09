@@ -20,7 +20,7 @@ declare namespace Home {
   export type GetEventsResponseDto = {
     count: number;
     events: Event[];
-  };
+  } & Error.ApiErrorResponse;
 
   export type Calendar = {
     id: string;
@@ -34,7 +34,7 @@ declare namespace Home {
   export type GetCalendarsResponseDto = {
     counts: number;
     calendars: Calendar[];
-  };
+  } & Error.ApiErrorResponse;
 
   /* export type GetHomePageResponse = {
     board: Model.Board;

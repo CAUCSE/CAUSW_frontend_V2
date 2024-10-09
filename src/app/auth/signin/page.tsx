@@ -1,16 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { useLayoutStore, AuthService, emailRegex } from "@/shared";
+import {
+  useLayoutStore,
+  AuthService,
+  emailRegex,
+  getRscRefresh,
+} from "@/shared";
 import {
   VideoBackground,
   ImageBackground,
   SignInInput,
   SignInSubmitButton,
+  LoadingComponent,
 } from "@/entities";
 
 const SignInPage = () => {
@@ -20,6 +26,8 @@ const SignInPage = () => {
   const { signin } = AuthService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
+
+  const [loading, onLoading] = useState(true);
 
   const { register, handleSubmit } = useForm<User.SignInRequestDto>({
     defaultValues: {
@@ -44,6 +52,15 @@ const SignInPage = () => {
     signin(data);
   };
 
+  useEffect(() => {
+    getRscRefresh().then((res) => {
+      if (res) router.push("/home");
+      else onLoading(false);
+    });
+  }, []);
+
+  if (loading) <LoadingComponent />;
+
   return (
     <>
       <VideoBackground src="/videos/signin-background.mp4" />
@@ -52,14 +69,26 @@ const SignInPage = () => {
         alt="sign in page background img"
         darkBackground
       />
-      <div className="absolute left-1/2 top-1/3 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
-        <div className="mb-4 text-xl text-white">함께라면 더 밝은 미래로</div>
-        <div className="mb-10 text-center text-3xl font-bold tracking-widest text-white sm:text-5xl">
+      <div className="absolute left-1/2 top-[35%] flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
+        <div
+          onClick={() => {
+            setEnterEmail(false);
+          }}
+          className="mb-3 text-2xl text-white"
+        >
+          함께라면 더 밝은 미래로
+        </div>
+        <div
+          onClick={() => {
+            setEnterEmail(false);
+          }}
+          className="mb-8 text-center text-3xl font-bold tracking-widest text-white sm:text-5xl"
+        >
           우리들의 동문 네트워크
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center justify-center space-y-4"
+          className="mb-1 flex flex-col items-center justify-center gap-1"
         >
           <SignInInput
             register={register}
@@ -81,16 +110,14 @@ const SignInPage = () => {
             <>
               <div className="flex flex-row items-center">
                 <input type="checkbox" id="auto" {...register("auto")} />
-                <label
-                  htmlFor="auto"
-                  className="ml-1 text-sm font-thin text-white"
-                >
+                <label htmlFor="auto" className="ml-1 font-thin text-white">
                   자동 로그인
                 </label>
               </div>
             </>
           )}
         </form>
+
         {!enterEmail &&
           routes.map((route) => (
             <div
@@ -98,15 +125,16 @@ const SignInPage = () => {
               onClick={() => {
                 router.push(route.route);
               }}
-              className="mt-2 text-sm font-thin text-white underline md:mt-1"
+              className="border-b-2-white font-boerder mt-2 border-b text-white md:mt-1"
             >
               {route.name}
             </div>
           ))}
       </div>
+
       <div className="absolute bottom-10 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
-        <span className="mt-2 text-lg font-bold text-white md:mr-7">
-          문의하기
+        <span className="mt-2 text-end text-lg font-bold text-white md:mr-7">
+          중앙대학교 소프트웨어학부 ICT 위원회
         </span>
         <div className="mt-2 flex w-32 flex-row justify-between md:mr-4">
           <Image
