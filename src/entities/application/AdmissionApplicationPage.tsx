@@ -5,13 +5,13 @@ import { useForm } from 'react-hook-form';
 import { UserRscService } from '@/shared';
 
 
-const SubmitApplicationModal = ( {onClose, emailValue}: {onClose: () => void; emailValue: string}) => {
+const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: () => void; emailValue: string; userStatus: string}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.AdmissionCreateRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const { submitAdmissionsApplication } = UserRscService();
+  const { submitAdmissionsApplication, modifyAdmissionApplication } = UserRscService();
 
 
 
@@ -58,8 +58,7 @@ const SubmitApplicationModal = ( {onClose, emailValue}: {onClose: () => void; em
 
   const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
-
-      const response = submitAdmissionsApplication(data);
+      userStatus === "AWAIT" ? submitAdmissionsApplication(data) : modifyAdmissionApplication(data);
       setIsSuccessModalOpen(true);
     } catch (error) {
       // 에러 처리
@@ -110,7 +109,7 @@ const SubmitApplicationModal = ( {onClose, emailValue}: {onClose: () => void; em
       <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="grid grid-cols-1 gap-8">
         {/* 이메일 */}
         <div className="flex flex-col">
-          <label className="text-lg font-semibold mb-2">이메일{emailValue}</label>
+          <label className="text-lg font-semibold mb-2">이메일</label>
           <input
             {...register("email", { required: "학적 상태는 필수 항목입니다." })}
             className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"

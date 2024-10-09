@@ -1,6 +1,33 @@
 import { SettingRscService } from "@/shared";
 
-type state = "admission" | "drop" | "active" | "inactive_n_drop" | "inactive";
+type state = "admission" | "reject" | "active" | "drop" | "inactive";
+
+const admitTarget = async(userId) => {
+  const { acceptAdmission } = SettingRscService();
+  if (await acceptAdmission(userId)) {
+    alert("승인되었습니다");
+    window.history.back();
+  }
+  else
+  {  
+    alert("승인에 실패했습니다. 관리자에게 문의하세요");
+  }
+}
+
+const restoreTarget = async(userId) => {
+  const { restoreUser } = SettingRscService();
+  if (await restoreUser(userId)) {
+    alert("사용자가 복구되었습니다.");
+    window.history.back();
+  }
+  else
+  {  
+    alert("복구에 실패했습니다. 관리자에게 문의하세요");
+  }
+}
+
+
+
 
 export const uiEntities: Record<
   state,
@@ -20,41 +47,33 @@ export const uiEntities: Record<
         name: "승인",
         variant: "BLUE",
         action: async (admission) => {
-          const { acceptAdmission } = SettingRscService();
-          if (await acceptAdmission(admission.id)) {
-            alert("승인되었습니다");
-            window.location.href = "/setting/management/user/admission";
-          } else alert("승인에 실패했습니다. 관리자에게 문의하세요");
+          admitTarget(admission.id);
         },
       },
       {
         name: "거부",
         variant: "GRAY",
-        action: async (admission) => {
-          const { rejectAdmission } = SettingRscService();
-          if (await rejectAdmission(admission.id)) {
-            alert("거부되었습니다");
-            window.location.href = "/setting/management/user/admission";
-          } else alert("거부에 실패했습니다. 관리자에게 문의하세요");
+        action: async () => {
+          ;  
         },
       },
     ],
   },
-  drop: {
+  reject: {
     titleSuffix: "가입 신청서 내용",
     buttons: [
       {
         name: "재승인",
         variant: "BLUE",
-        action: () => {
-          console.log("재승인");
-        },
+        action: async (admission) => {
+          restoreTarget(admission.id);
+      },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          console.log("목록에서 삭제");
+        action: async () => {
+          ; 
         },
       },
     ],
@@ -66,33 +85,33 @@ export const uiEntities: Record<
         name: "닫기",
         variant: "BLUE",
         action: () => {
-          console.log("닫기");
+          window.history.back();
         },
       },
       {
         name: "추방",
         variant: "RED",
-        action: () => {
-          console.log("추방");
+        action: async() => {
+        ;
         },
       },
     ],
   },
-  inactive_n_drop: {
+  drop: {
     titleSuffix: "정보",
     buttons: [
       {
-        name: "닫기",
+        name: "복구",
         variant: "BLUE",
-        action: () => {
-          console.log("닫기");
+        action: (admission) => {
+          restoreTarget(admission.id);
         },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          console.log("목록에서 삭제");
+        action: async () => {
+        ;
         },
       },
     ],
@@ -103,15 +122,15 @@ export const uiEntities: Record<
       {
         name: "탈퇴 복구",
         variant: "BLUE",
-        action: () => {
-          console.log("탈퇴 복구");
+        action: (admission) => {
+          restoreTarget(admission.id);
         },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
         action: () => {
-          console.log("목록에서 삭제");
+          ;
         },
       },
     ],
@@ -134,7 +153,7 @@ export type InfoTableEntity = {
   evidentImg: string;
 };
 
-export const convertDataToTableEntity = (
+export const convertAdmissionDataToTableEntity = (
   data: Setting.GetAdmissionResponseDto,
 ): InfoTableEntity => {
   const {
@@ -152,7 +171,7 @@ export const convertDataToTableEntity = (
   } = data.user;
   const { createdAt: requestedAt, attachImageUrlList } = data;
   const evidentImg = attachImageUrlList[0];
-
+  
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
     LEAVE_OF_ABSENCE: "휴학",
@@ -173,6 +192,49 @@ export const convertDataToTableEntity = (
     phoneNumber,
     requestedAt: requestedAt.split("T")[0].replaceAll("-", "."),
     evidentImg,
+  };
+};
+
+export const convertUserDataToTableEntity = (
+  data: any,
+): any => {
+  const {
+    email,
+    major,
+    name,
+    studentId,
+    currentCompletedSemester,
+    admissionYear,
+    nickname,
+    graduationYear,
+    graduationType,
+    academicStatus,
+    phoneNumber,
+  } = data;
+  const { createdAt: requestedAt, profileImageUrl } = data;
+  const evidentImg = profileImageUrl ? profileImageUrl[0] : "";
+  
+  const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
+    ENROLLED: "재학",
+    LEAVE_OF_ABSENCE: "휴학",
+    GRADUATED: "졸업",
+  };
+  const rejectionOrDropReason = data.rejectionOrDropReason || "";
+  return {
+    email,
+    major,
+    name,
+    studentId,
+    leftPayedSemester: `${8 - currentCompletedSemester}차 학기`,
+    admissionYear: admissionYear.toString(),
+    nickname,
+    graduateYearMonth: `${graduationYear}/${+graduationType < 10 ? "0" + graduationType : graduationType}`,
+    academicStatus: academicStatusMap[academicStatus],
+    enrolledSemester: `${currentCompletedSemester}차 학기`,
+    phoneNumber,
+    requestedAt: requestedAt.split("T")[0].replaceAll("-", "."),
+    evidentImg,
+    rejectionOrDropReason,
   };
 };
 
@@ -204,4 +266,9 @@ export const titleMappingForCircle = Object.keys(titleMapping)
     {} as Record<keyof InfoTableEntity, string>,
   );
 
-// 학생회비 납부자 페이지용
+// 거절, 추방 회원에 대한 titlemapping
+
+export const titleMappingForRejected: Record<keyof any, string> = {
+  ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
+  rejectionOrDropReason: "거부/ 추방 사유", // 추가된 항목
+};

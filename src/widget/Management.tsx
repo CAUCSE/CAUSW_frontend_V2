@@ -6,9 +6,9 @@ import Link from "next/link";
 
 export type ManagementState =
   | "admission"
-  | "drop"
+  | "reject"
   | "active"
-  | "inactive_n_drop"
+  | "drop"
   | "inactive";
 
 interface Prop {

@@ -2,7 +2,6 @@
 
 import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
-
 type Variant = "BLUE" | "RED" | "GRAY";
 
 interface ButtonProp extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -30,7 +29,8 @@ export function Button({
       className={clsx(className, variantClass[variant], "rounded-[10px]")}
       onClick={() => {
         action();
-        goBack && window.history.back();
+        // goBack && window.history.back();
+        // window.location.reload();
       }}
       {...props}
     >

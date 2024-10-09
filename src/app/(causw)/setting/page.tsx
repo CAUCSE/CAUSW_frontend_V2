@@ -2,8 +2,8 @@
 
 import { userRoleCodes, useUserStore } from "@/shared";
 import Link from "next/link";
-import React from "react";
-
+import React, { useState } from "react";
+import { UseTerms } from "@/entities/home/useTerms";
 const SettingsPage = () => {
   const {
     roles,
@@ -31,7 +31,7 @@ const SettingsPage = () => {
 
   const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
-
+  const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
   const roleItems: {
     name: string;
     link: string;
@@ -58,7 +58,7 @@ const SettingsPage = () => {
       { name: "개인정보 관리", link: "/setting/personal-info" },
       { name: "비밀번호 변경", link: "/setting/resetpassword" },
       { name: "로그아웃", link: "/auth/signin" },
-      { name: "이용약관", link: "/" },
+      { name: "이용약관", link: "/setting/useterms", },
     ],
     기록: [
       { name: "내가 쓴 글", link: "/setting/my/posts" },
@@ -179,6 +179,9 @@ const SettingsPage = () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {renderMenuItems()}
         </div>
+        {isUseTermsOpen && (
+          <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>
+          )}
       </div>
     </div>
   );
