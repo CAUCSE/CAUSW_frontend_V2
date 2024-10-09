@@ -55,6 +55,9 @@ const HomePage = async () => {
                 ? events.events.map((e) => e.image)
                 : ["/images/puang-proud.png"]
             }
+            urls={
+              events.count > 0 ? events.events.map((e) => e.url) : ["/home"]
+            }
             loop={events.count > 0}
           />
         )}
