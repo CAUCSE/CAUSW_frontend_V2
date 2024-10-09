@@ -19,8 +19,9 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   graduationYear: null,
   phoneNumber: "",
   createdAt: "",
+  checkVTwo: true,
 
-  setUserStore: (props: User.User) => {
+  setUserStore: (props) => {
     set(() => ({
       id: props.id,
       email: props.email,
@@ -43,6 +44,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
       graduationYear: props.graduationYear,
       phoneNumber: props.phoneNumber,
       createdAt: props.createdAt,
+      checkVTwo: props.isV2,
     }));
   },
 

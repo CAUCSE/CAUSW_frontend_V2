@@ -8,7 +8,9 @@ export const UserService = () => {
   const setUserStore = useUserStore((state) => state.setUserStore);
 
   const getMe = async () => {
-    const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<User.User>;
+    const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<
+      User.User & { isV2: boolean }
+    >;
 
     setUserStore(data);
   };
@@ -20,6 +22,10 @@ export const UserService = () => {
     } catch (error) {
       throw error;
     }
+  };
+
+  const updateVTwo = async () => {
+    await API.put(`${URI}/update/isV2`);
   };
 
   const getUserInfo = async (userId: string) => {
@@ -83,6 +89,7 @@ export const UserService = () => {
     getMe,
     getMyInfo,
     getUserInfo,
+    updateVTwo,
     getUserAdmissionInfo,
     updateUserAcademicInfo,
     checkCurrentAcademicStatus,

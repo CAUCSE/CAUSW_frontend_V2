@@ -299,8 +299,7 @@ const SignUpPage = () => {
                       message: "8글자 이상 입력해주세요",
                     },
                     pattern: {
-                      value:
-                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                      value: /^([0-9]{10,11})$/,
                       message:
                         "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
@@ -334,8 +333,7 @@ const SignUpPage = () => {
                       message: "8글자 이상 입력해주세요",
                     },
                     pattern: {
-                      value:
-                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
+                      value: /^([0-9]{10,11})$/,
                       message:
                         "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
@@ -562,7 +560,11 @@ const SignUpPage = () => {
 
       {/* 이용약관 모달 */}
       {isModalOpen && (
-        <UseTerms closeModal= {() => {setIsModalOpen(false)}}></UseTerms>
+        <UseTerms
+          closeModal={() => {
+            setIsModalOpen(false);
+          }}
+        ></UseTerms>
       )}
     </div>
   );
