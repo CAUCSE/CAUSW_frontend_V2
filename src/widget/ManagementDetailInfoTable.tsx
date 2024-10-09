@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ReactNode } from "react";
-
+import { PreviousButton } from "@/shared";
 const TableUnit = ({ title, data }: { title: string; data: string }) => {
   return (
     <div className="flex flex-col text-[14px] lg:text-[20px]">
@@ -24,7 +24,8 @@ export function ManagementDetailInfoTable({
   additionalUnit?: ReactNode;
 }) {
   return (
-    <div className="grid h-full w-full grid-cols-2 justify-around gap-y-[27px]">
+    <div className="grid h-full w-full font-semibold grid-cols-2 justify-around gap-y-[27px]">
+      <PreviousButton></PreviousButton>
       {Object.keys(data).map((k) => {
         const key = k as keyof typeof data;
         return <TableUnit key={key} title={titleMapping[k]} data={data[key]} />;

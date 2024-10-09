@@ -61,7 +61,7 @@ export async function ManagementDetail({
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-4">
-      <p className="text-[18px] font-semibold lg:text-[40px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
+      <p className="text-[18px] font-semibold lg:text-[40px] mt-8 mb-8">{`${name}(${studentId})의 ${titleSuffix}`}</p>
 {admission && (<><ManagementDetailInfoTable
         data={convertAdmissionDataToTableEntity(admission)}
         titleMapping={titleMapping}
