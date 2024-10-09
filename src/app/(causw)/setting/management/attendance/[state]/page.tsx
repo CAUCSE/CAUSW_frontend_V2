@@ -11,7 +11,13 @@ const AttendanceManagement = async ({
 
   const data =
     state === "waiting"
-      ? await getWaitingUsers()
+      ? await getWaitingUsers().then((data) =>
+          data.map((element) => ({
+            userName: element.userName,
+            studentId: element.studentId,
+            userId: `${element.userId}&&&${element.userAcademicRecordApplicationId}`,
+          })),
+        )
       : await getAllAttendanceUsers();
 
   return (

@@ -20,6 +20,7 @@ export const AuthService = () => {
   const setUserStore = useUserStore((state) => state.setUserStore);
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const state = useUserStore((state) => state.state);
+
   const signin = async (body: User.SignInRequestDto) => {
     try {
       const {

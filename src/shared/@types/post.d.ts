@@ -57,6 +57,7 @@ declare namespace Post {
     isDeleted: boolean;
     isPostVote: boolean;
     isPostForm: boolean;
+    postAttachImage: "string" | null;
   }
 
   export interface PostDeleteDto {
