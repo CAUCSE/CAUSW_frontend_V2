@@ -34,7 +34,7 @@ export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boo
 
   return (
     <div className="fixed w-full h-full inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
-{(type === "REJECT" || type === "EXPEL") &&( <div className="flex flex-col items-center bg-white w-2/3 h-5/6 rounded-lg p-6 relative">
+{(type === "REJECT" || type === "EXPEL") &&( <div className="flex flex-col items-center bg-white w-1/3 h-2/3 rounded-lg p-6 relative">
         <button
           className="absolute top-3 right-3 text-xl"
           onClick={onClose} 
@@ -62,7 +62,7 @@ export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boo
         </button>
         </>
       </div>)}
-{type === "DELETE" &&(<div className="flex justify-center items-center h-screen flex-col bg-white w-1/2 h-1/3 rounded-lg p-6 relative">
+{type === "DELETE" &&(<div className="flex justify-center items-center flex-col bg-white w-1/2 h-1/2 lg:h-1/3 rounded-lg p-6 relative">
         <button
           className="absolute top-3 right-3 text-xl"
           onClick={onClose} 
@@ -79,14 +79,14 @@ export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boo
         </label>
         <div className="flex flex-col lg:flex-row items-center justify-center w-full">
         <button
-          className= "bg-red-500 hover:bg-red-600 text-white w-2/3 py-2 rounded-lg mr-2 mb-2"
+          className= "bg-red-500 hover:bg-red-600 text-white w-2/3 py-2 rounded-lg mr-2 mb-4"
           onClick={() => {
             deleteTarget(admission.id ?? admission.user.id);
           }}
         >목록에서 삭제
         </button>
         <button
-          className= "bg-gray-300 hover:bg-gray-400 text-white w-2/3 py-2 rounded-lg mr-2"
+          className= "bg-gray-300 hover:bg-gray-400 text-white w-2/3 py-2 rounded-lg mr-2 mb-4"
           onClick={() => {
             onClose();
           }}
