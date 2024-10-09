@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import {
   useLayoutStore,
   AuthService,
+  AuthRscService,
   emailRegex,
   getRscRefresh,
 } from "@/shared";
@@ -24,6 +25,7 @@ const SignInPage = () => {
 
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const { signin } = AuthService();
+  const { updateAccess } = AuthRscService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
@@ -54,8 +56,15 @@ const SignInPage = () => {
 
   useEffect(() => {
     getRscRefresh().then((res) => {
-      if (res) router.push("/home");
-      else onLoading(false);
+      if (res) {
+        try {
+          updateAccess(res).then(() => {
+            router.push("/home");
+          });
+        } catch {
+          onLoading(false);
+        }
+      } else onLoading(false);
     });
   }, []);
 
