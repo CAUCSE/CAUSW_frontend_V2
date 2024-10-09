@@ -25,20 +25,20 @@ export const Board = ({
           {contents.length === 0 ? (
             <EmptyContent />
           ) : (
-            <ul className="divide-y-2">
+            <div className="divide-y-2">
               {contents.map((content, idx) => (
-                <li className="truncate py-2" key={content.contentId}>
+                <div key={content.contentId}>
                   <Link href={`/board/${boardId}/${content.contentId}`}>
-                    {content.title}{" "}
+                    <div className="truncate py-2">{content.title} </div>
                   </Link>
-                </li>
+                </div>
               ))}
               {emptyContents.map((_, idx) => (
-                <li className="py-2" key={idx}>
+                <div className="py-2" key={idx}>
                   　
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </Link>
       </div>
