@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 
 import "./globals.css";
 
-const WindowSizeListener = dynamic(
-  () => import("@/shared").then((module) => module.WindowSizeListener),
-  { ssr: false },
-);
-
-const ErrorMessage = dynamic(
-  () => import("@/entities").then((module) => module.ErrorMessage),
-  { ssr: false },
-);
+import { ErrorMessage } from "@/entities";
+import { WindowSizeListener } from "@/shared";
 
 export default function RootLayout({
   children,

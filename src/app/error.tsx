@@ -62,7 +62,7 @@ const Error = ({
       handleNoAccesss();
     } else if (noPermissionCode.includes(error.message))
       router.push("/no-permission");
-    else if (noRefreshTokenCode.includes(error.message)) {
+    else {
       handleNoRefresh();
     }
   }, [error]);
