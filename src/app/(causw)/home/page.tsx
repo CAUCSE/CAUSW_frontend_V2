@@ -32,18 +32,12 @@ const HomePage = async () => {
   const events = await getEvents();
   const homePosts = await getHomePosts();
 
-  const coumcilBoard = homePosts.find((board) =>
-    board.board.name.includes("학생회 공지"),
-  );
-  const cauBoard = homePosts.find((board) =>
-    board.board.name.includes("학부 공지"),
-  );
-  const serviceBoard = homePosts.find((board) =>
-    board.board.name.includes("서비스 공지"),
-  );
-  const alumniBoard = homePosts.find((board) =>
-    board.board.name.includes("동문회 공지"),
-  );
+  const mainBoards = [
+    homePosts.find((board) => board.board.name.includes("서비스 공지")),
+    homePosts.find((board) => board.board.name.includes("학부 공지")),
+    homePosts.find((board) => board.board.name.includes("동문회 공지")),
+    homePosts.find((board) => board.board.name.includes("학생회 공지")),
+  ];
 
   return (
     <>
@@ -99,7 +93,9 @@ const HomePage = async () => {
             </div>
 
             <CardBox className="flex w-full flex-col items-center gap-[24px] p-[18px] 2xl:h-4/5">
-              <p className="h-6 text-[24px] font-bold">빠른 공지 모아모아!!</p>
+              <p className="h-6 text-[24px] font-bold">
+                🌟 빠른 공지 모아모아 🌟
+              </p>
               <div className="flex h-[calc(100%-24px)] w-full justify-center">
                 <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
                   <span>❗️ 서비스 공지</span>
@@ -109,77 +105,32 @@ const HomePage = async () => {
                 </div>
 
                 <div className="flex h-80 w-5/6 flex-col items-center justify-around text-lg font-bold md:text-xl 2xl:h-full 2xl:w-3/5">
-                  {serviceBoard?.posts.content[0] ? (
-                    <Link
-                      href={
-                        "/board/" +
-                        serviceBoard?.board.id +
-                        "/" +
-                        serviceBoard?.posts.content[0].id
-                      }
-                      className="flex flex-col items-center"
-                    >
-                      {serviceBoard?.posts.content[0].title}
-                      <div className="text-sm font-normal text-gray-400">
-                        {serviceBoard?.posts.content[0].updatedAt.split("T")[0]}
+                  {mainBoards.map((mainBoard) =>
+                    mainBoard?.posts.content[0] ? (
+                      <Link
+                        href={
+                          "/board/" +
+                          mainBoard?.board.id +
+                          "/" +
+                          mainBoard?.posts.content[0].id
+                        }
+                        className="flex h-28 w-[80%] flex-col items-center justify-center border-b border-t"
+                      >
+                        <span
+                          className="block w-full whitespace-normal text-center"
+                          style={{ wordBreak: "keep-all" }}
+                        >
+                          {mainBoard?.posts.content[0].title}
+                        </span>
+                        <div className="text-sm font-normal text-gray-400">
+                          {mainBoard?.posts.content[0].updatedAt.split("T")[0]}
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="flex h-28 w-[80%] items-center justify-center border-b border-t">
+                        최신 공지가 없습니다.
                       </div>
-                    </Link>
-                  ) : (
-                    "최신 공지가 없습니다."
-                  )}
-                  {cauBoard?.posts.content[0] ? (
-                    <Link
-                      href={
-                        "/board/" +
-                        cauBoard?.board.id +
-                        "/" +
-                        cauBoard?.posts.content[0].id
-                      }
-                      className="flex flex-col items-center"
-                    >
-                      {cauBoard?.posts.content[0].title}
-                      <div className="text-sm font-normal text-gray-400">
-                        {cauBoard?.posts.content[0].updatedAt.split("T")[0]}
-                      </div>
-                    </Link>
-                  ) : (
-                    "최신 공지가 없습니다."
-                  )}
-                  {alumniBoard?.posts.content[0] ? (
-                    <Link
-                      href={
-                        "/board/" +
-                        alumniBoard?.board.id +
-                        "/" +
-                        alumniBoard?.posts.content[0].id
-                      }
-                      className="flex flex-col items-center"
-                    >
-                      {alumniBoard?.posts.content[0].title}
-                      <div className="text-sm font-normal text-gray-400">
-                        {alumniBoard?.posts.content[0].updatedAt.split("T")[0]}
-                      </div>
-                    </Link>
-                  ) : (
-                    "최신 공지가 없습니다."
-                  )}
-                  {coumcilBoard?.posts.content[0] ? (
-                    <Link
-                      href={
-                        "/board/" +
-                        coumcilBoard?.board.id +
-                        "/" +
-                        coumcilBoard?.posts.content[0].id
-                      }
-                      className="flex flex-col items-center"
-                    >
-                      {coumcilBoard?.posts.content[0].title}
-                      <div className="text-sm font-normal text-gray-400">
-                        {coumcilBoard?.posts.content[0].updatedAt.split("T")[0]}
-                      </div>
-                    </Link>
-                  ) : (
-                    "최신 공지가 없습니다."
+                    ),
                   )}
                 </div>
               </div>
