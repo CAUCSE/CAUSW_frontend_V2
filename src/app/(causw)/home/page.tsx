@@ -114,6 +114,7 @@ const HomePage = async () => {
                           "/" +
                           mainBoard?.posts.content[0].id
                         }
+                        key={mainBoard?.posts.content[0].id}
                         className="flex h-28 w-[80%] flex-col items-center justify-center border-b border-t"
                       >
                         <span
