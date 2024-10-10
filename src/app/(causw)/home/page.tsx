@@ -1,3 +1,4 @@
+import { LoadingComponent } from "@/entities";
 import { Banner, Calendar, CardBox, HomeCard } from "@/entities/home";
 import { HomeRscService } from "@/shared";
 import Link from "next/link";
@@ -38,6 +39,8 @@ const HomePage = async () => {
     homePosts.find((board) => board.board.name.includes("동문회 공지")),
     homePosts.find((board) => board.board.name.includes("학생회 공지")),
   ];
+
+  if (!events || !homePosts) return <LoadingComponent />;
 
   return (
     <>
