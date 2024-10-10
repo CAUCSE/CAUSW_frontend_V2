@@ -6,8 +6,19 @@
 
 **최신 기술을 적용하고, 디자인과 서비스 플로우를 업데이트하여 UI/UX를 개선한 두 번째 버전입니다.**
 
-# Dev Stack
+# Developer
 
- <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"> <br/> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
+| **Name** | **Dev Part** | **Github Nick** | 
+| --- | --- | --- |
+| **강민규** | 팀장 / 로그인 / 동아리&상세설정 / 홈 | selfishAltruism |
+| **김영현** | 회원가입 / 기본설정 / 유저 상세 | kyh0726 |
+| **백성현** | 아이디&비밀번호찾기 / 사물함 | ces0135-hub |
+| **이영재** | 게시판 / 설문&신청서 생성&작성&시각화 | lee0jae330 |
+| **이은화** | 게시글 / 댓글&대댓글 / 투표 생성&작성&시각화 | Ontheway-01 |
+| **오명진** | 홈 / 홈설정 / 유저 상세 | omjinLTS |
+
+# Develop Stack
+
+  <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <br/> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
 
 <div>
