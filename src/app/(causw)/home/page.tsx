@@ -105,7 +105,7 @@ const HomePage = async () => {
                 </div>
 
                 <div className="flex h-80 w-5/6 flex-col items-center justify-around font-bold xl:text-lg 2xl:h-full 2xl:w-3/5">
-                  {mainBoards.map((mainBoard) =>
+                  {mainBoards.map((mainBoard, index) =>
                     mainBoard?.posts.content[0] ? (
                       <Link
                         href={
@@ -128,7 +128,10 @@ const HomePage = async () => {
                         </div>
                       </Link>
                     ) : (
-                      <div className="flex h-28 w-[80%] items-center justify-center border-b border-t">
+                      <div
+                        key={index}
+                        className="flex h-28 w-[80%] items-center justify-center border-b border-t"
+                      >
                         최신 공지가 없습니다.
                       </div>
                     ),
