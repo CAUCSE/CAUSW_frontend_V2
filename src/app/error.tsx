@@ -67,36 +67,7 @@ const Error = ({
     }
   }, [error]);
 
-  if (allErrorCode.includes(error.message)) return <LoadingComponent />;
-
-  return (
-    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
-      <Image
-        src="/images/puang-proud.png"
-        alt="404"
-        width={200}
-        height={250}
-      ></Image>
-      <span>일시적으로 서비스를 이용할 수 없습니다.</span>
-
-      <button
-        className="mt-3 h-12 w-60 rounded-xl bg-focus text-center text-lg text-white"
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        다시 시도하기
-      </button>
-
-      <Link
-        className="mt-3 flex h-12 w-60 items-center justify-center rounded-xl bg-error text-lg text-white"
-        href={"/auth/signin"}
-      >
-        로그인 페이지로 이동하기
-      </Link>
-    </div>
-  );
+  return <LoadingComponent />;
 };
 
 export default Error;
