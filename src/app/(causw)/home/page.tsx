@@ -1,7 +1,27 @@
-import { LoadingComponent } from "@/entities";
-import { Banner, Calendar, CardBox, HomeCard } from "@/entities/home";
-import { HomeRscService } from "@/shared";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+import { HomeRscService } from "@/shared";
+
+const Banner = dynamic(
+  () => import("@/entities/home").then((module) => module.Banner),
+  { ssr: false },
+);
+
+const Calendar = dynamic(
+  () => import("@/entities/home").then((module) => module.Calendar),
+  { ssr: false },
+);
+
+const CardBox = dynamic(
+  () => import("@/entities/home").then((module) => module.CardBox),
+  { ssr: false },
+);
+
+const HomeCard = dynamic(
+  () => import("@/entities/home").then((module) => module.HomeCard),
+  { ssr: false },
+);
 
 const cardsEntities = [
   {
@@ -39,8 +59,6 @@ const HomePage = async () => {
     homePosts.find((board) => board.board.name.includes("동문회 공지")),
     homePosts.find((board) => board.board.name.includes("학생회 공지")),
   ];
-
-  if (!events || !homePosts) return <LoadingComponent />;
 
   return (
     <>
