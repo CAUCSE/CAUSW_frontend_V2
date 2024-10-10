@@ -6,10 +6,10 @@ import { CircleService } from "@/shared";
 
 export const CircleApplyOnButton = ({
   circle,
-  md,
+  xl,
 }: {
   circle: Circle.CircleRequestDto;
-  md: boolean;
+  xl: boolean;
 }) => {
   const { editCircle } = CircleService();
 
@@ -38,12 +38,12 @@ export const CircleApplyOnButton = ({
 
   return (
     <>
-      {md ? (
+      {xl ? (
         <div
           onClick={() => {
             submitHandler();
           }}
-          className="hidden h-16 w-48 items-center justify-center rounded-xl border-2 border-black text-lg md:flex"
+          className="hidden h-16 w-48 items-center justify-center rounded-md border-2 border-black text-lg xl:flex"
         >
           {!circle.isRecruit ? "가입 신청 활성화" : "가입 신청 비활성화"}
         </div>
@@ -52,7 +52,7 @@ export const CircleApplyOnButton = ({
           onClick={() => {
             submitHandler();
           }}
-          className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-xl border-2 border-black text-lg md:hidden md:h-16"
+          className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-md border-2 border-black text-lg xl:hidden xl:h-16"
         >
           {!circle.isRecruit ? "가입 신청 활성화" : "가입 신청 비활성화"}
         </div>
