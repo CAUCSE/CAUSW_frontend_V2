@@ -104,7 +104,7 @@ const HomePage = async () => {
                   <span>🏆️ 학생회 공지 게시판</span>
                 </div>
 
-                <div className="flex h-80 w-5/6 flex-col items-center justify-around font-bold 2xl:h-full 2xl:w-3/5">
+                <div className="flex h-80 w-5/6 flex-col items-center justify-around font-bold xl:text-lg 2xl:h-full 2xl:w-3/5">
                   {mainBoards.map((mainBoard) =>
                     mainBoard?.posts.content[0] ? (
                       <Link
