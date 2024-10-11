@@ -299,7 +299,8 @@ const SignUpPage = () => {
                       message: "8글자 이상 입력해주세요",
                     },
                     pattern: {
-                      value: /^([0-9]{10,11})$/,
+                      value:
+                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
                       message:
                         "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
@@ -333,7 +334,8 @@ const SignUpPage = () => {
                       message: "8글자 이상 입력해주세요",
                     },
                     pattern: {
-                      value: /^([0-9]{10,11})$/,
+                      value:
+                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
                       message:
                         "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
@@ -458,11 +460,11 @@ const SignUpPage = () => {
               <input
                 className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
                 type="text"
-                placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234"
+                placeholder="- 없이 작성해주세요. ex) 01012341234"
                 {...register("phoneNumberHyphen", {
                   required: "연락처를 입력해주세요",
                   pattern: {
-                    value: /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/,
+                    value: /^([0-9]{10,11})$/,
                     message: "전화번호 형식이 아닙니다.",
                   },
                 })}

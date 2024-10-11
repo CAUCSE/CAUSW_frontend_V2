@@ -11,7 +11,7 @@ const nextConfig = {
       {
         source: "/redirectRoute",
         permanent: false,
-        destination: "/auth/signin",
+        destination: "/home",
       },
     ];
   },
