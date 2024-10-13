@@ -280,7 +280,7 @@ const SignUpPage = () => {
               <input
                 className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
                 type="text"
-                placeholder="아이디를 입력해주세요"
+                placeholder="이메일 형식으로 입력해주세요"
                 {...register("email", {
                   required: "아이디를 입력해주세요",
                 })}
@@ -504,7 +504,7 @@ const SignUpPage = () => {
 
             <label htmlFor="terms">
               <label
-                className="cursor-pointer text-lg text-gray-700"
+                className="cursor-pointer text-lg text-gray-700 underline"
                 onClick={openModal}
               >
                 약관 읽고 동의하기
