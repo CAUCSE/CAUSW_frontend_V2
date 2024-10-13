@@ -26,6 +26,14 @@ const SignUpPage = () => {
     checkStudentIdDuplicate,
   } = AuthService();
 
+
+    // 엔터키를 누를 때 기본 동작을 방지하는 함수
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); // 엔터키의 기본 동작 방지
+      }
+    };
+
   // 이메일 중복 및 형식 검사
   const handleEmailBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
     const email = e.target.value;
@@ -277,6 +285,7 @@ const SignUpPage = () => {
                   required: "아이디를 입력해주세요",
                 })}
                 onBlur={handleEmailBlur}
+                onKeyDown={handleKeyDown}
               />
               {errors.email && (
                 <p className="text-error">{errors.email.message}</p>
@@ -305,6 +314,7 @@ const SignUpPage = () => {
                         "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
                   })}
+                  onKeyDown={handleKeyDown}
                 />
                 <button
                   type="button"
@@ -347,6 +357,7 @@ const SignUpPage = () => {
                       },
                     },
                   })}
+                  onKeyDown={handleKeyDown}
                 />
                 <button
                   type="button"
@@ -376,6 +387,7 @@ const SignUpPage = () => {
                 {...register("name", {
                   required: "이름을 입력해주세요",
                 })}
+                onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.name?.message}</p>
             </div>
@@ -394,6 +406,7 @@ const SignUpPage = () => {
                   required: "닉네임을 입력해주세요",
                 })}
                 onBlur={handleNicknameBlur}
+                onKeyDown={handleKeyDown}
               />
               {errors.nickname && (
                 <p className="text-error">{errors.nickname.message}</p>
@@ -409,6 +422,7 @@ const SignUpPage = () => {
                 {...register("admissionYearString", {
                   required: "입학 년도를 선택해주세요",
                 })}
+                onKeyDown={handleKeyDown}
               >
                 <option value="">-선택해주세요-</option>
                 {yearOptions.map((option) => (
@@ -434,6 +448,7 @@ const SignUpPage = () => {
                   required: "학번을 입력해주세요",
                 })}
                 onBlur={handleStudentIdBlur}
+                onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.studentId?.message}</p>
             </div>
@@ -449,6 +464,7 @@ const SignUpPage = () => {
                 {...register("major", {
                   required: "학부/학과를 입력해주세요",
                 })}
+                onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.major?.message}</p>
             </div>
@@ -468,6 +484,7 @@ const SignUpPage = () => {
                     message: "전화번호 형식이 아닙니다.",
                   },
                 })}
+                onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.phoneNumberHyphen?.message}</p>
             </div>
