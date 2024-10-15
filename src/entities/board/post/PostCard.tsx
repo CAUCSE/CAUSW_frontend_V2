@@ -167,7 +167,7 @@ export const PostCard = ({
         <div className="flex flex-col items-start">
           <div className="flex items-center text-[16px] font-bold">
             {" "}
-            {postData.isAnonymous ? "익명" : postData.writerName}
+            {postData.isAnonymous ? "익명" : postData.writerNickname}
           </div>
           <div className="text-[14px] text-gray-500">{postData.updatedAt}</div>
         </div>
