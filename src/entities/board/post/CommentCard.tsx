@@ -57,7 +57,7 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
           height={50}
           className="m-2 bg-center bg-no-repeat bg-contain"
         />
-        <div className="font-bold text-[16px]">{comment.isAnonymous ? "익명" : comment.writerName}</div>
+        <div className="font-bold text-[16px]">{comment.isAnonymous ? "익명" : comment.writerNickname}</div>
       </div>
 
       <div className="mb-1 px-8 text-[16px]">{isDeleted ? "삭제된 댓글입니다.":comment.content}</div>

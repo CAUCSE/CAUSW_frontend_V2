@@ -9,6 +9,7 @@ declare namespace Comment {
     writerName: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
+    writerNickname: string;
     updatable: boolean;
     deletable: boolean;
     isAnonymous: boolean;

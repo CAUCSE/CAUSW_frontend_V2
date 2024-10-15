@@ -53,7 +53,7 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
             height={50}
             className="m-2 bg-center bg-no-repeat bg-contain"
           />
-          <div className="font-bold text-[16px]">{childComment.isAnonymous ? "익명" : childComment.writerName}</div>
+          <div className="font-bold text-[16px]">{childComment.isAnonymous ? "익명" : childComment.writerNickname}</div>
         </div>
 
         <div className="mb-1 px-8 text-[14px]">{isDeleted ? "삭제된 댓글입니다.":childComment.content}</div>

@@ -82,7 +82,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({ onVote/* , isMultiple,  i
         <div className="text-red-500 w-max-[300px] w-full bg-vote-title px-4 py-3 text-[14px] font-semibold text-center mx-2">{vote.title}</div>
         <span>
           <div className="text-gray-500 w-[80px] text-[14px] text-center">{isAnonymous ? '익명':''}</div>
-          <div className="text-gray-500 w-[80px] text-[14px] text-center">{isAnonymous ? '복수':''}</div>
+          <div className="text-gray-500 w-[80px] text-[14px] text-center">{isMultiple ? '복수':''}</div>
         </span>
       </div>
       

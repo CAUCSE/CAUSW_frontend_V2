@@ -7,6 +7,7 @@ declare namespace Post {
     writerName: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
+    writerNickname: string;
     fileUrlList: string[];
     numComment: number;
     numLike: number;
@@ -47,6 +48,8 @@ declare namespace Post {
     content: string;
     writerName: string;
     writerAdmissionYear: number;
+    writerNickname: string;
+    writerProfileImage: string | null;
     numComment: number;
     numLike: number;
     numFavorite: number;
@@ -57,7 +60,7 @@ declare namespace Post {
     isDeleted: boolean;
     isPostVote: boolean;
     isPostForm: boolean;
-    postAttachImage: "string" | null;
+    postAttachImage: string | null;
   }
 
   export interface PostDeleteDto {
@@ -67,6 +70,7 @@ declare namespace Post {
     isDeleted: boolean;
     writerName: string;
     writerAdmissionYear: number;
+    writerNickname: string;
     writerProfileImage: string | null;
     fileUrlList: string[];
     numComment: number;
