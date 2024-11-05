@@ -20,7 +20,10 @@ interface CommentCardProps {
 export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, isDeleted, handleCommentToggle, handleCommentLike,handleDeleteComment }: CommentCardProps) => {
   const { toggleCommentOverlay} = useCommentStore();
   const { setCommentInfo: setChildComment} = usePostStore();
-  const writerProfileImage = comment.writerProfileImage ?? "/images/default_profile.png";
+  const isAnon = comment.isAnonymous;
+  const writerProfileImage = comment.isAnonymous ? "/images/default_profile.png" : comment.writerProfileImage;
+  console.log(isAnon);
+  console.log(writerProfileImage);
   const handleOverlayToggle = () => {
     if(!isDeleted){
       setChildComment(comment.id);
@@ -51,7 +54,7 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
 
       <div className="flex flex-row items-center px-2 mb-1">
         <Image
-          src = {writerProfileImage}
+          src = {writerProfileImage ?? "/images/default_profile.png"}
           alt = "Comment Profil"
           width={50}
           height={50}

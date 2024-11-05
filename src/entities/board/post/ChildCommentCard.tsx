@@ -16,7 +16,10 @@ interface ChildCommentCardProps {
 }
 
 export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisible, handleChildCommentLike,handleChildCommentToggle, handleDeleteChildComment }: ChildCommentCardProps) => {
-  const writerProfileImage = childComment.writerProfileImage ?? "/images/default_profile.png";
+  const isAnon = childComment.isAnonymous;
+  const writerProfileImage = childComment.isAnonymous ? "/images/default_profile.png" : childComment.writerProfileImage;
+  console.log(isAnon);
+  console.log(writerProfileImage);
   const handleLike = () => {
     if(!isDeleted){
       handleChildCommentLike();
@@ -47,7 +50,7 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
         {isPopupVisible ? <PopupMenu PopupMenuChildren={popMenuList}/>:''}
         <div className="flex flex-row items-center px-2 mb-1">
           <Image
-            src = {writerProfileImage}
+            src = {writerProfileImage ?? "/images/default_profile.png"}
             alt = "Comment Profil"
             width={50}
             height={50}
