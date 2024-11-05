@@ -25,6 +25,27 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
       handleChildCommentLike();
     }
   }
+  const getTimeDifference = (ISOtime: string) => {
+    const createdTime = new Date(ISOtime);
+    const now = new Date();
+    const diffMSec = now.getTime() - createdTime.getTime();
+    const diffMin = Math.round(diffMSec / (60 * 1000));
+    if (diffMin === 0) {
+      return `방금 전`;
+    } else if (diffMin < 60) {
+      return `${diffMin}분 전`;
+    } else if (
+      now.getFullYear() === createdTime.getFullYear() &&
+      now.getMonth() === createdTime.getMonth() &&
+      now.getDate() === createdTime.getDate()
+    ) {
+      return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
+    } else if (now.getFullYear() === createdTime.getFullYear()) {
+      return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
+    } else {
+      return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
+    }
+  };
   const popMenuList = [
     { message: "댓글 삭제", handleBtn: handleDeleteChildComment },
   ];
@@ -56,7 +77,13 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
             height={50}
             className="m-2 bg-center bg-no-repeat bg-contain"
           />
-          <div className="font-bold text-[16px]">{childComment.isAnonymous ? "익명" : childComment.writerName}</div>
+          <div className="flex flex-col items-start">
+            <div className="flex items-center text-[16px] font-bold">
+              {" "}
+              {childComment.isAnonymous ? "익명" : childComment.writerName}
+            </div>
+            <div className="text-[14px] text-gray-500">{getTimeDifference(childComment.createdAt)}</div>
+          </div>
         </div>
 
         <div className="mb-1 px-8 text-[14px]">{isDeleted ? "삭제된 댓글입니다.":childComment.content}</div>

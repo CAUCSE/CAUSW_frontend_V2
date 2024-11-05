@@ -36,6 +36,28 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
       handleCommentLike();
     }
   }
+  const getTimeDifference = (ISOtime: string) => {
+    const createdTime = new Date(ISOtime);
+    const now = new Date();
+    const diffMSec = now.getTime() - createdTime.getTime();
+    const diffMin = Math.round(diffMSec / (60 * 1000));
+    if (diffMin === 0) {
+      return `방금 전`;
+    } else if (diffMin < 60) {
+      return `${diffMin}분 전`;
+    } else if (
+      now.getFullYear() === createdTime.getFullYear() &&
+      now.getMonth() === createdTime.getMonth() &&
+      now.getDate() === createdTime.getDate()
+    ) {
+      return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
+    } else if (now.getFullYear() === createdTime.getFullYear()) {
+      return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
+    } else {
+      return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
+    }
+  };
+
 
   const popMenuList = [
     { message: "댓글 삭제", handleBtn: handleDeleteComment },
@@ -60,7 +82,13 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
           height={50}
           className="m-2 bg-center bg-no-repeat bg-contain"
         />
-        <div className="font-bold text-[16px]">{comment.isAnonymous ? "익명" : comment.writerName}</div>
+        <div className="flex flex-col items-start">
+          <div className="flex items-center text-[16px] font-bold">
+            {" "}
+            {comment.isAnonymous ? "익명" : comment.writerName}
+          </div>
+          <div className="text-[14px] text-gray-500">{getTimeDifference(comment.createdAt)}</div>
+        </div>
       </div>
 
       <div className="mb-1 px-8 text-[16px]">{isDeleted ? "삭제된 댓글입니다.":comment.content}</div>
