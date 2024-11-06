@@ -339,16 +339,6 @@ const SignUpPage = () => {
                   placeholder="8자리 이상, 영어/숫자/특수 문자 조합"
                   {...register("pwConfirm", {
                     required: "비밀번호를 입력해주세요",
-                    minLength: {
-                      value: 8,
-                      message: "8글자 이상 입력해주세요",
-                    },
-                    pattern: {
-                      value:
-                        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-                      message:
-                        "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ",
-                    },
                     validate: {
                       check: (val) => {
                         if (getValues("password") !== val) {
