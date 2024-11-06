@@ -19,6 +19,7 @@ import {
   usePostStore,
   VoteRscService,
   useVoteStore,
+  useUserStore,
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
@@ -68,6 +69,10 @@ const PostDetailPage = (props: any) => {
     toggleChildCommentPopup,
   } = useChildCommentStore();
 
+  const isPresidents = useUserStore((state) => state.isPresidents);
+  const isVicePresidents = useUserStore((state) => state.isVicePresidents);
+  const isAdmin = useUserStore((state) => state.isAdmin);
+  
   const { loading } = usePostDetail(postId);
 
   const getTimeDifference = (ISOtime: string) => {
@@ -203,7 +208,7 @@ const PostDetailPage = (props: any) => {
   };
 
   const togglePostPopupMenu = () => {
-    if (post?.isOwner) {
+    if (post?.isOwner || isAdmin() || isPresidents() || isVicePresidents()) {
       togglePostPopup();
     }
   };

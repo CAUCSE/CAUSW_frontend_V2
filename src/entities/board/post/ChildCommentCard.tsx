@@ -80,7 +80,7 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
           <div className="flex flex-col items-start">
             <div className="flex items-center text-[16px] font-bold">
               {" "}
-              {childComment.isAnonymous ? "익명" : childComment.writerName}
+              {childComment.isAnonymous ? "익명" : childComment.writerNickname}
             </div>
             <div className="text-[14px] text-gray-500">{getTimeDifference(childComment.createdAt)}</div>
           </div>

@@ -42,6 +42,7 @@ export const usePostDetail = (postId: string) => {
       try {
         setLoading(true);
         const postData = await getPostById(postId);
+        console.log(postData);
         postData.updatedAt = getTimeDifference(postData.updatedAt);
         setPost(postData);
         setPostComment();

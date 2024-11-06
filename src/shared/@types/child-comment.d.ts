@@ -6,6 +6,7 @@ declare namespace ChildComment {
     updatedAt: string;
     isDeleted: boolean;
     writerName: string;
+    writerNickname: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
     updatable: boolean;

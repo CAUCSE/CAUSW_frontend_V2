@@ -85,7 +85,7 @@ export const CommentCard = ({ comment, numLike, overlayActive,isPopupVisible, is
         <div className="flex flex-col items-start">
           <div className="flex items-center text-[16px] font-bold">
             {" "}
-            {comment.isAnonymous ? "익명" : comment.writerName}
+            {comment.isAnonymous ? "익명" : comment.writerNickname}
           </div>
           <div className="text-[14px] text-gray-500">{getTimeDifference(comment.createdAt)}</div>
         </div>
