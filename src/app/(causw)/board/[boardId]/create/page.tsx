@@ -457,11 +457,17 @@ const CreatePostPage = (props: any) => {
     if (!isApply) setValue("isQuestion", isQuestion);
   }, [isQuestion, setValue]);
 
+  const handleBack = () => {
+    clearPost();
+    clearVote();
+    resetFiles();
+    router.back();
+  };
   return (
     <>
       <div className="bottom-5 top-0 h-full w-full lg:relative lg:bottom-28">
         <div className="w-full flex-col items-center">
-          <PreviousButton />
+          <PreviousButton routeCallback={handleBack} />
         </div>
         {/* 게시글 공통 부분 - 제목 / 내용 */}
         <div className="flex h-full flex-col p-4 pt-10 lg:px-5 lg:py-10">
