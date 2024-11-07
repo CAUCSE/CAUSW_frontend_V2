@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { useFileUploadStore } from '@/shared';
+import React from 'react';
 
-export const FilePreview = () => {
+export const FilePreview = React.memo(() => {
   const { selectedFiles, removeFile } = useFileUploadStore(); // 업로드된 파일 상태와 파일 제거 함수
 
   const isImageFile = (fileName: string) => {
@@ -39,4 +40,4 @@ export const FilePreview = () => {
       ))}
     </div>
   );
-};
+});
