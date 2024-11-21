@@ -12,7 +12,7 @@ const VerificationPage: React.FC = () => {
     UserService();
   const [isAcademicRecordModalOpen, setIsAcademicModalOpen] = useState(false);
   const [isAdmissionModalOpen, setIsAdmissionModalOpen] = useState(false);
-  const [ userStatus, setUserStatus ] = useState('');
+  const [userStatus, setUserStatus ] = useState('');
   const [emailValue, setEmailValue] = useState("");
 
   // UNDONE, AWAIT, REJECT, COMPLETED로 관리
@@ -22,6 +22,9 @@ const VerificationPage: React.FC = () => {
   // BANNED, UNDONE, COMPLETED로 관리
   const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] =
     useState("");
+
+  // 거절 사유 출력 부분 
+  const [rejectMessage, setRejectMessage] = useState("");
 
   useEffect(() => {
     const getInfo = async () => {
@@ -71,8 +74,14 @@ const VerificationPage: React.FC = () => {
 
   const checkAcademicRecordApplication = async () => {
     try {
-      const response = await checkIsAcademicRecordSubmitted();
-      setAcademicRecordApplicationStatus("COMPLETED");
+      const { isRejected, rejectMessage } = (await checkIsAcademicRecordSubmitted()).data;
+      if (isRejected) {
+        setAcademicRecordApplicationStatus("MODIFY");
+        setRejectMessage(rejectMessage);
+      }
+      else {
+        setAcademicRecordApplicationStatus("COMPLETED");
+      }
     } catch (error) {
       setAcademicRecordApplicationStatus("UNDONE");
       console.log(error);
@@ -163,6 +172,17 @@ const VerificationPage: React.FC = () => {
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
                   재학 증빙 서류 제출됨 (승인이 완료되면 서비스 사용가능)
                 </div>
+              )}
+
+              {academicRecordApplicationStatus === "MODIFY" && (
+                <button
+                  onClick={() => {
+                    setIsAcademicModalOpen(true);
+                  }}
+                  className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
+                >
+                  재학 증빙 서류 수정 (거절 사유 : {rejectMessage})
+                  </button>
               )}
 
               {academicRecordApplicationStatus === "UNDONE" && (

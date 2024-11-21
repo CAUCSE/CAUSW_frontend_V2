@@ -11,7 +11,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const { submitAdmissionsApplication, modifyAdmissionApplication } = UserRscService();
+  const { submitAdmissionsApplication } = UserRscService();
 
 
 
