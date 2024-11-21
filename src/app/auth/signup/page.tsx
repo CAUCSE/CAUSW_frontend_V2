@@ -10,14 +10,16 @@ const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     getValues,
     setValue,
     setError,
     clearErrors,
-  } = useForm<User.SignUpForm>({ mode: "onBlur" });
+    watch,
+    trigger
+  } = useForm<User.SignUpForm>({ mode: "onBlur", reValidateMode: "onBlur" });
   const router = useRouter(); // useRouter 초기화
+  const admissionYear = watch("admissionYearString");
 
   const {
     signup,
@@ -107,20 +109,40 @@ const SignUpPage = () => {
         message: "학번은 8자리로 입력해주세요.",
       });
       return;
-    } else {
-      clearErrors("studentId");
-    }
+    } 
 
     // 학번 중복 검사
     const isDuplicate = await checkStudentIdDuplicate(studentId);
+    let isValidStudentId;
+
+    if (studentId?.length === 8) {
+      const studentYear = studentId.slice(0, 4);
+      if (admissionYear && studentYear !== admissionYear) {
+        isValidStudentId = false;
+      } else {
+        isValidStudentId = true;
+        // 유효성 통과 시 에러 해제
+      }
+    }
+
+
     if (isDuplicate) {
       setError("studentId", {
         type: "duplicate",
         message: "이미 사용 중인 학번입니다.",
       });
-    } else {
+    } else if (!isValidStudentId){
+      setError("studentId", {
+        type: "manual",
+        message: `입학년도(${admissionYear})와 학번(${studentId.slice(0, 4)})이 일치하지 않습니다.`,
+      });
+    }
+    else {
       clearErrors("studentId");
     }
+
+
+
   };
 
   // 뒤로가기 버튼
@@ -246,8 +268,14 @@ const SignUpPage = () => {
   const closeInCompleteModal = () => {
     setIsIncompleteModalOpen(false);
   };
-  const onInvalid = (errors: any) => {
-    // 모든 필드를 입력하지 않았을 경우에 대한 로직
+
+  const onInvalid = async(errors: any) => {
+  // 모든 필드를 입력하지 않았을 경우에 대한 로직
+
+    await trigger();
+    // onBlur로 설정된 에러를 복구
+
+
     console.error("Form Errors:", errors);
     setIsIncompleteModalOpen(true); // 모든 필드를 입력하지 않았을 때 모달을 띄움
   };
@@ -437,7 +465,9 @@ const SignUpPage = () => {
                 {...register("studentId", {
                   required: "학번을 입력해주세요",
                 })}
-                onBlur={handleStudentIdBlur}
+                onBlur={
+                  handleStudentIdBlur
+                }
                 onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.studentId?.message}</p>
