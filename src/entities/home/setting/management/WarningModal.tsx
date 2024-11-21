@@ -12,7 +12,9 @@ export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boo
     const { rejectAdmission, expelUser } = SettingRscService();
     if (await (type === "REJECT" ? rejectAdmission(userId, reason) : expelUser(userId, reason))) {
       alert(`${type === "REJECT" ? "가입 신청서가 거부되었습니다": "사용자가 추방되었습니다."}`);
-      window.history.back();
+      let path;
+      (type === "REJECT" ? path = "reject" : path = "active")
+      window.location.assign(`/setting/management/user/${path}`);
     }
     else
   {   alert("오류가 발생했습니다. 관리자에게 문의하세요");
@@ -24,7 +26,7 @@ export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boo
     const { deleteUser } = SettingRscService();
     if (await deleteUser(userId)) {
       alert("사용자가 영구 삭제되었습니다.");
-      window.history.back();
+      window.location.assign("/setting/management/user/admission");
     }
     else
     {  

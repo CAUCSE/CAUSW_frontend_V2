@@ -6,7 +6,6 @@ const admitTarget = async(userId) => {
   const { acceptAdmission } = SettingRscService();
   if (await acceptAdmission(userId)) {
     alert("승인되었습니다");
-    window.history.back();
   }
   else
   {  
@@ -18,7 +17,6 @@ const restoreTarget = async(userId) => {
   const { restoreUser } = SettingRscService();
   if (await restoreUser(userId)) {
     alert("사용자가 복구되었습니다.");
-    window.history.back();
   }
   else
   {  
@@ -47,7 +45,8 @@ export const uiEntities: Record<
         name: "승인",
         variant: "BLUE",
         action: async (admission) => {
-          admitTarget(admission.id);
+          await admitTarget(admission.id);
+          window.location.assign(`/setting/management/user/admission`);
         },
       },
       {
@@ -66,7 +65,8 @@ export const uiEntities: Record<
         name: "재승인",
         variant: "BLUE",
         action: async (admission) => {
-          restoreTarget(admission.id);
+          await restoreTarget(admission.id);
+          window.location.assign(`/setting/management/user/reject`);
       },
       },
       {
@@ -103,8 +103,9 @@ export const uiEntities: Record<
       {
         name: "복구",
         variant: "BLUE",
-        action: (admission) => {
-          restoreTarget(admission.id);
+        action: async(admission) => {
+          await restoreTarget(admission.id);
+          window.location.assign(`/setting/management/user/drop`);
         },
       },
       {
@@ -122,8 +123,9 @@ export const uiEntities: Record<
       {
         name: "탈퇴 복구",
         variant: "BLUE",
-        action: (admission) => {
-          restoreTarget(admission.id);
+        action: async(admission) => {
+          await restoreTarget(admission.id);
+          window.location.assign(`/setting/management/user/inactive`);
         },
       },
       {
