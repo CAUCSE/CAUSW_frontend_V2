@@ -124,7 +124,7 @@ const VerificationPage: React.FC = () => {
                   가입 신청서 제출 완료됨 (승인 완료)
                 </div>
               )}
-              {/* {admissionApplicationStatus === "REJECT" && (
+              {admissionApplicationStatus === "REJECT" && (
                 <button
                 onClick={() => {
                   setIsAdmissionModalOpen(true);
@@ -133,14 +133,14 @@ const VerificationPage: React.FC = () => {
               >
                 가입 신청서 제출 거절됨 (다시 제출하기)
               </button>
-              )} */}
-              {admissionApplicationStatus === "REJECT" && (
+              )}
+              {/* {admissionApplicationStatus === "REJECT" && (
                 <div
                 className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400"
               >
                 가입 신청서 제출 거절됨
               </div>
-              )}
+              )} */}
 
               {admissionApplicationStatus === "UNDONE" && (
                 <button

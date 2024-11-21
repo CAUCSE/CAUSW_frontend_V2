@@ -58,7 +58,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
 
   const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
-      userStatus === "AWAIT" ? submitAdmissionsApplication(data) : modifyAdmissionApplication(data);
+      submitAdmissionsApplication(data);
       setIsSuccessModalOpen(true);
     } catch (error) {
       // 에러 처리
