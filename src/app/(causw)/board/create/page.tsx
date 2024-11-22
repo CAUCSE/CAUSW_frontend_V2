@@ -92,7 +92,7 @@ const CreateBoardPage = (props: any) => {
 
       <button
         onClick={handleSubmit}
-        className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-confirm-btn px-6 py-3 font-bold text-white lg:bottom-6"
+        className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-confirm-btn px-6 py-3 font-bold text-white xl:bottom-6"
       >
         {hasAuth ? "게시판 생성" : "게시판 생성 신청"}
       </button>
