@@ -212,7 +212,7 @@ export const convertUserDataToTableEntity = (
     phoneNumber,
   } = data;
   const { createdAt: requestedAt, profileImageUrl } = data;
-  const evidentImg = profileImageUrl ? profileImageUrl[0] : "";
+  const evidentImg = profileImageUrl ? profileImageUrl : "";
   
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
@@ -251,7 +251,7 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
   enrolledSemester: "등록 완료 학기",
   phoneNumber: "연락처",
   requestedAt: "가입 요청 일시",
-  evidentImg: "학부 재적/졸업 증빙 자료",
+  evidentImg: "가입 신청서 첨부 이미지",
 };
 
 // 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)
