@@ -31,7 +31,7 @@ const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
       </div>
       <Link href={`/board/create`}>
-        <button className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10">
+        <button className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white xl:bottom-10">
           게시판 생성
         </button>
       </Link>
