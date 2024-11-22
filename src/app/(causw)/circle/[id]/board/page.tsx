@@ -21,7 +21,6 @@ const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {
       else commonBoards.push(element);
     }
   });
-
   return (
     <>
       <div className="absolute h-full w-full py-3">
@@ -30,7 +29,7 @@ const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {
           <CustomBoard boardInfos={commonBoards} />
         </div>
       </div>
-      <Link href={`/board/create`}>
+      <Link href={`/circle/${id}/board/create`}>
         <button className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white xl:bottom-10">
           게시판 생성
         </button>
