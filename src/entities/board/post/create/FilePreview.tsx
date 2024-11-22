@@ -41,3 +41,7 @@ export const FilePreview = React.memo(() => {
     </div>
   );
 });
+
+FilePreview.displayName = 'FilePreview';
+
+export default FilePreview;
