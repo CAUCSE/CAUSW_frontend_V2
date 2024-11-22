@@ -24,7 +24,8 @@ const VerificationPage: React.FC = () => {
     useState("");
 
   // 거절 사유 출력 부분 
-  const [rejectMessage, setRejectMessage] = useState("");
+  const [admissionRejectMessage, setAdmissionRejectMessage] = useState("");
+  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState("");
 
   useEffect(() => {
     const getInfo = async () => {
@@ -64,10 +65,9 @@ const VerificationPage: React.FC = () => {
   const checkAdmissionApplication = async () => {
     try {
       const response = await getUserAdmissionInfo();
-      console.log("가입 신청서 제출 정보", response);
+      setAdmissionRejectMessage(response.data.rejectMessage);
       setAdmissionApplicationStatus("AWAIT");
     } catch (error) {
-      console.log("가입 신청서 조회 에러 ", error);
       setAdmissionApplicationStatus("UNDONE");
     }
   };
@@ -77,14 +77,13 @@ const VerificationPage: React.FC = () => {
       const { isRejected, rejectMessage } = (await checkIsAcademicRecordSubmitted()).data;
       if (isRejected) {
         setAcademicRecordApplicationStatus("MODIFY");
-        setRejectMessage(rejectMessage);
+        setAcademicRecordRejectMessage(rejectMessage);
       }
       else {
         setAcademicRecordApplicationStatus("COMPLETED");
       }
     } catch (error) {
       setAcademicRecordApplicationStatus("UNDONE");
-      console.log(error);
     }
   };
 
@@ -97,6 +96,7 @@ const VerificationPage: React.FC = () => {
           onClose={() => {
             setIsAcademicModalOpen(false);
           }}
+          rejectMessage={academicRecordRejectMessage}
         />
       )}
       {isAdmissionModalOpen && (
@@ -105,7 +105,7 @@ const VerificationPage: React.FC = () => {
             setIsAdmissionModalOpen(false);
           }}
           emailValue={`${emailValue}`}
-          userStatus = {userStatus}
+          rejectMessage={admissionRejectMessage}
         />
       )}
       {!isAcademicRecordModalOpen && !isAdmissionModalOpen && (
@@ -123,7 +123,6 @@ const VerificationPage: React.FC = () => {
             <div className="mt-6 space-y-4">
               {admissionApplicationStatus === "AWAIT" && (
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
-                  {userStatus === "REJECT" && <>가입 신청서 승인 거절됨</>}
                   {userStatus === "AWAIT" && <>가입 신청서 제출됨</>}
                 </div>
               )}
@@ -181,7 +180,7 @@ const VerificationPage: React.FC = () => {
                   }}
                   className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
                 >
-                  재학 증빙 서류 수정 (거절 사유 : {rejectMessage})
+                  재학 증빙 서류 거절됨 (다시 제출하기)
                   </button>
               )}
 

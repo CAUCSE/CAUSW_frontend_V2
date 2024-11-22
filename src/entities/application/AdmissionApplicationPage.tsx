@@ -2,18 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserRscService } from '@/shared';
+import { UserRscService, NoButtonModal } from '@/shared';
 
-
-const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: () => void; emailValue: string; userStatus: string}) => {
+const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose: () => void; emailValue: string; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.AdmissionCreateRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const { submitAdmissionsApplication } = UserRscService();
-
-
+  const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
 
 
@@ -33,6 +31,12 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
       setFileList(newFiles); // 파일 업데이트
     }
   }, [files]);
+
+  useEffect(() => {
+    if (rejectMessage){
+      setRejectMessageModal(true);
+    }
+  }, []);
 
   const handleImageClick = (src: string) => {
     setSelectedImage(src);
@@ -215,6 +219,15 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
           </div>
         </div>
       )}
+            {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
+        {rejectMessageModal && (
+          <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
+            <h1 className='font-bold mb-8'>다음과 같은 이유로 가입 신청서 제출이 거절되었습니다.</h1>
+            <h1 >거절 사유 : {rejectMessage}</h1>
+          </NoButtonModal>
+        )
+
+        }
 
         <div className="mt-8 flex justify-center">
           <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">

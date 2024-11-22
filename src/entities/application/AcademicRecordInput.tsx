@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { AcademicRecordRscService } from '@/shared';
+import { AcademicRecordRscService, NoButtonModal } from '@/shared';
 import { useRouter } from 'next/navigation';
 
-const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
+const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -16,6 +16,7 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
   const { postAcademicRecord } = AcademicRecordRscService();
+  const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
   const handleCancel = () => {
     // 취소 버튼을 클릭했을 때 모달을 닫습니다.
@@ -39,7 +40,11 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
     }
 };
 
- 
+useEffect(() => {
+  if (rejectMessage){
+    setRejectMessageModal(true);
+  }
+}, []);
 
   const files = watch("images") as FileList;
   const selectedAcademicStatus = watch('targetAcademicStatus');
@@ -119,7 +124,7 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   return (
     <div className="p-6">
               {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
+              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
           <button
             onClick={handleCancel}
             className="text-black-500 hover:text-gray-500 flex items-center"
@@ -347,6 +352,15 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
         </div>
       )}
 
+            {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
+            {rejectMessageModal && (
+          <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
+            <h1 className='font-bold mb-8'>다음과 같은 이유로 재학 증빙 서류 제출이 거절되었습니다.</h1>
+            <h1 >거절 사유 : {rejectMessage}</h1>
+          </NoButtonModal>
+        )
+
+        }
 
 
         <div className="mt-8 flex justify-center">
