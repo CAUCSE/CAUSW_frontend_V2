@@ -371,6 +371,7 @@ const UpdataeAcademicRecordPage = () => {
                     type="file"
                     multiple
                     className="hidden"
+                    accept='image/*'
                     {...register("images", {
                       required: "파일을 첨부해 주세요",
                     })}

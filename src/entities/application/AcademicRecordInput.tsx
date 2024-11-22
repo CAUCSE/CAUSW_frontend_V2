@@ -257,7 +257,7 @@ useEffect(() => {
         <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        <input id="file-upload" type="file" multiple className="hidden" {...register('images', { required: '파일을 첨부해 주세요', validate: (files) => {
+        <input id="file-upload" type="file" multiple className="hidden" accept='image/*'{...register('images', { required: '파일을 첨부해 주세요', validate: (files) => {
             if (files && files.length > 0) {
               const fileArray = Array.from(files)
               for (const file of fileArray) {
