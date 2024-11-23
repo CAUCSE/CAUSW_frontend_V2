@@ -28,8 +28,8 @@ export const CreatePostFooter = ({
     }
   };
   return (
-    <div className="fixed bottom-[100px] flex w-full justify-center lg:bottom-0 lg:left-10 lg:space-x-24">
-      <div className="flex flex-grow grid-cols-4 justify-center gap-2 lg:space-x-4">
+    <div className="fixed bottom-[100px] flex w-full justify-center xl:bottom-0 xl:left-10 xl:space-x-24">
+      <div className="flex flex-grow grid-cols-4 justify-center gap-2 xl:space-x-4">
         <input
           type="file"
           ref={fileInputRef}
@@ -72,7 +72,7 @@ export const CreatePostFooter = ({
         </button>
         <button
           onClick={handleSubmit}
-          className="rounded-full bg-confirm-btn px-6 py-2 text-[20px] text-white shadow-md hover:bg-orange-600 focus:outline-none lg:ml-20 lg:px-8 lg:text-[20px]"
+          className="rounded-full bg-confirm-btn px-6 py-2 text-[20px] text-white shadow-md hover:bg-orange-600 focus:outline-none xl:ml-20 xl:px-8 xl:text-[20px]"
         >
           글작성
         </button>

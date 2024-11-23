@@ -19,6 +19,7 @@ import {
   usePostStore,
   VoteRscService,
   useVoteStore,
+  useUserStore,
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
@@ -68,7 +69,33 @@ const PostDetailPage = (props: any) => {
     toggleChildCommentPopup,
   } = useChildCommentStore();
 
+  const isPresidents = useUserStore((state) => state.isPresidents);
+  const isVicePresidents = useUserStore((state) => state.isVicePresidents);
+  const isAdmin = useUserStore((state) => state.isAdmin);
+  
   const { loading } = usePostDetail(postId);
+
+  const getTimeDifference = (ISOtime: string) => {
+    const createdTime = new Date(ISOtime);
+    const now = new Date();
+    const diffMSec = now.getTime() - createdTime.getTime();
+    const diffMin = Math.round(diffMSec / (60 * 1000));
+    if (diffMin === 0) {
+      return `방금 전`;
+    } else if (diffMin < 60) {
+      return `${diffMin}분 전`;
+    } else if (
+      now.getFullYear() === createdTime.getFullYear() &&
+      now.getMonth() === createdTime.getMonth() &&
+      now.getDate() === createdTime.getDate()
+    ) {
+      return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
+    } else if (now.getFullYear() === createdTime.getFullYear()) {
+      return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
+    } else {
+      return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
+    }
+  };
 
   const changeToPostComment = () => {
     setPostComment();
@@ -150,7 +177,7 @@ const PostDetailPage = (props: any) => {
           await CommentRscService().createComment(createComment);
         console.log("게시물 댓글 완료: ", createCommentResponse);
         addComment(createCommentResponse);
-        setComments(createCommentResponse.id, false, true, false, [], 0);
+        setComments(createCommentResponse.id, false, true, false, [], 0, getTimeDifference(Date()));
         incrementComment();
       } catch (error) {
         console.error("게시물 댓글 처리 에러: ", error);
@@ -170,7 +197,7 @@ const PostDetailPage = (props: any) => {
           createCommentInfo.commentId!,
           createChildCommentResponse,
         );
-        setChildComment(createChildCommentResponse.id, 0, false, true, false);
+        setChildComment(createChildCommentResponse.id, 0, false, true, false, getTimeDifference(Date()));
         incrementComment();
       } catch (error) {
         console.error("게시물 대댓글 처리 에러: ", error);
@@ -181,7 +208,7 @@ const PostDetailPage = (props: any) => {
   };
 
   const togglePostPopupMenu = () => {
-    if (post?.isOwner) {
+    if (post?.isOwner || isAdmin() || isPresidents() || isVicePresidents()) {
       togglePostPopup();
     }
   };

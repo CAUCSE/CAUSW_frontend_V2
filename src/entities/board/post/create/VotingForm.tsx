@@ -1,3 +1,8 @@
+"use client";
+
+import { useCreateVoteStore } from "@/shared";
+import { useState } from "react";
+
 interface VotingFormProps {
   voteTitle: string;
   options: string[];
@@ -12,6 +17,31 @@ interface VotingFormProps {
 }
 
 export const VotingForm = ({ voteTitle, options, isMultipleChoice, allowAnonymous, onVoteTitleChange, onChangeOption, onAddOption, onRemoveOption, onSelectMultiple, onAllowAnonymous }: VotingFormProps) => {
+  const [duplicateError, setDuplicateError] = useState<string | null>(null);
+
+  const handleOptionChange = (index: number, value: string) => {
+    const isDuplicate = options.some((option, i) => option === value && i !== index);
+
+    if (isDuplicate) {
+      setDuplicateError(`"${value}"는 이미 추가된 항목입니다.`);
+    } else {
+      setDuplicateError(null);
+    }
+
+    onChangeOption(index, value);
+  };
+
+  const handleRemoveOption = (index: number) => {
+    onRemoveOption(index);
+    console.log(options);
+
+    const { options: updatedOptions } = useCreateVoteStore.getState();
+    console.log(updatedOptions);
+    const uniqueOptions = new Set(updatedOptions);
+    setDuplicateError(uniqueOptions.size !== options.length ? null : duplicateError);
+    console.log(duplicateError);
+  };
+
   return (
     <div className="h-full flex flex-col w-full">
       <div className="flex items-center justify-between mb-6">
@@ -37,7 +67,7 @@ export const VotingForm = ({ voteTitle, options, isMultipleChoice, allowAnonymou
           </div>
         </div>
       </div>
-
+      {duplicateError && <div className="text-red-500 text-sm">{duplicateError}</div>}
       <div className="grid grid-cols-2 gap-4 pt-2 pr-2 mb-4 max-h-80 overflow-y-scroll overflow-x-hidden">
         {options.map((option, index) => (
           <div key={index} className="relative">
@@ -46,10 +76,10 @@ export const VotingForm = ({ voteTitle, options, isMultipleChoice, allowAnonymou
               placeholder="항목 입력"
               className="h-14 pl-3 border-2 border-gray-300 rounded w-full focus:outline-none focus:border-gray-600"
               value={option}
-              onChange={(e) => onChangeOption(index, e.target.value)}
+              onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <button
-              onClick={() => onRemoveOption(index)}
+              onClick={() => handleRemoveOption(index)}
               className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white rounded-full w-5 h-5"
             >
               -
