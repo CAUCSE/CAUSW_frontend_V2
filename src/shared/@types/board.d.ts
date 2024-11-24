@@ -43,5 +43,6 @@ declare namespace Board {
     boardName: string;
     description: string;
     isAnonymousAllowed: boolean;
+    circleId?: string;
   }
 }

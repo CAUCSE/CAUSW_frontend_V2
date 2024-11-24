@@ -6,13 +6,12 @@ import {
   RoleSelectSection,
 } from "@/entities";
 import { BoardRscService, useBoardStore, useUserStore } from "@/shared";
+import { useParams, useRouter } from "next/navigation";
 
 import { PreviousButton } from "@/shared/ui/previousButton";
 import React from "react";
-import { useRouter } from "next/navigation";
 
-// eslint-disable-next-line @next/next/no-async-client-component
-const CreateBoardPage = (props: any) => {
+const CreateCircleBoardPage = () => {
   const {
     clearBoardInfo,
     boardName,
@@ -27,7 +26,8 @@ const CreateBoardPage = (props: any) => {
   const isAdmin = useUserStore((state) => state.isAdmin);
   const hasAuth = isAdmin() || isPresidents() || isVicePresidents();
   const router = useRouter();
-
+  const params = useParams();
+  const circleId = params.id;
   const roles = {
     학생회장: ["PRESIDENT"],
     부학생회장: ["VICE_PRESIDENT"],
@@ -51,11 +51,10 @@ const CreateBoardPage = (props: any) => {
         boardCategory: "APP_NOTICE",
         createRoleList: selectedRoles as User.Role[],
         isAnonymousAllowed: allowAnonymous,
-        circleId: null,
+        circleId: circleId as string,
       };
       try {
-        const createBoardResponse = await createBoard(boardRequest);
-        console.log("게시판 생성 완료: ", createBoardResponse);
+        await createBoard(boardRequest);
         router.back();
         clearBoardInfo();
       } catch (error) {
@@ -66,6 +65,7 @@ const CreateBoardPage = (props: any) => {
         boardName: boardName,
         description: boardDescription,
         isAnonymousAllowed: allowAnonymous,
+        circleId: circleId as string,
       };
       try {
         await applyBoard(boardRequest);
@@ -84,7 +84,6 @@ const CreateBoardPage = (props: any) => {
       <div className="flex h-full flex-col p-2 pt-10 lg:p-10">
         <BoardDetailForm />
         <RoleSelectSection roles={roles} />
-
         <AllowAnonymousToggle />
       </div>
 
@@ -98,4 +97,4 @@ const CreateBoardPage = (props: any) => {
   );
 };
 
-export default CreateBoardPage;
+export default CreateCircleBoardPage;

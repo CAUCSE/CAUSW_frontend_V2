@@ -1,64 +1,85 @@
-import Image from 'next/image';
-import { useBoardStore } from '@/shared';
+"use client";
 
-interface RoleSelectSectionPorps {
-  userRole: boolean,
+import { UserRscService, useBoardStore } from "@/shared";
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
+
+interface RoleSelectSectionProps {
   roles: { [key: string]: string[] };
 }
-export const RoleSelectSection = ({ userRole, roles }: RoleSelectSectionPorps) => {
+export const RoleSelectSection = ({ roles }: RoleSelectSectionProps) => {
   const { selectedRoles, toggleRole, toggleAnyRole } = useBoardStore();
+  const [hasAuth, setHasAuth] = useState(false);
+
+  useEffect(() => {
+    const fetchAuth = async () => {
+      const user = await UserRscService().getMe();
+      if (
+        user.roles.includes("ADMIN") ||
+        user.roles.includes("PRESIDENT") ||
+        user.roles.includes("VICE_PRESIDENT")
+      ) {
+        setHasAuth(true);
+      }
+    };
+    fetchAuth();
+  });
 
   return (
     <div className="mb-2">
-      <div className="text-[28px] mb-2lg:mb-4">게시글 작성 권한 명단</div>
-      {userRole 
-      ? <div className="p-4 bg-notice-board-role rounded-2xl">
-          <div className="flex items-center space-x-3 mb-2">
+      <div className="mb-2lg:mb-4 text-[28px]">게시글 작성 권한 명단</div>
+      {hasAuth ? (
+        <div className="rounded-2xl bg-notice-board-role p-4">
+          <div className="mb-2 flex items-center space-x-3">
             <span onClick={toggleAnyRole}>
-              {selectedRoles.includes('ALL') ? 
+              {selectedRoles.includes("ALL") ? (
                 <Image
                   src="/images/board/role-checked.svg"
                   alt="Checked Checkbox Icon"
                   width={18}
                   height={18}
-                ></Image> :
+                ></Image>
+              ) : (
                 <Image
                   src="/images/board/role-non-checked.svg"
                   alt="Non Checked Checkbox Icon"
                   width={18}
                   height={18}
                 ></Image>
-              }
+              )}
             </span>
             <span>상관없음</span>
           </div>
-          
+
           <div className="grid grid-cols-3 gap-2">
             {Object.entries(roles).map(([roleLabel, roleEnums]) => (
               <div key={roleLabel} className="flex items-center space-x-3">
                 <span onClick={() => toggleRole(roleEnums)}>
-                  {selectedRoles.includes(roleEnums[0]) ? 
+                  {selectedRoles.includes(roleEnums[0]) ? (
                     <Image
                       src="/images/board/role-checked.svg"
                       alt="Checked Checkbox Icon"
                       width={18}
                       height={18}
-                    ></Image> :
+                    ></Image>
+                  ) : (
                     <Image
                       src="/images/board/role-non-checked.svg"
                       alt="Non Checked Checkbox Icon"
                       width={18}
                       height={18}
                     ></Image>
-                  }
+                  )}
                 </span>
                 <span>{roleLabel}</span>
               </div>
             ))}
           </div>
         </div>
-      : <div className="p-4 bg-normal-board-role rounded-2xl">
-          <div className="flex items-center space-x-3 mb-2">
+      ) : (
+        <div className="rounded-2xl bg-normal-board-role p-4">
+          <div className="mb-2 flex items-center space-x-3">
             <span>
               <Image
                 src="/images/board/normal-role-checked.svg"
@@ -69,7 +90,7 @@ export const RoleSelectSection = ({ userRole, roles }: RoleSelectSectionPorps) =
             </span>
             <span>상관없음</span>
           </div>
-          
+
           <div className="grid grid-cols-3 gap-2">
             {Object.entries(roles).map(([roleLabel, roleEnums]) => (
               <div key={roleLabel} className="flex items-center space-x-3">
@@ -85,10 +106,8 @@ export const RoleSelectSection = ({ userRole, roles }: RoleSelectSectionPorps) =
               </div>
             ))}
           </div>
-          
         </div>
-    }
+      )}
     </div>
   );
 };
-
