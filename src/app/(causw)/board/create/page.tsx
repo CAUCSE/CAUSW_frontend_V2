@@ -35,7 +35,7 @@ const CreateBoardPage = (props: any) => {
     동문회장: ["LEADER_ALUMNI"],
     교수: ["PROFESSOR"],
     학년대표: ["LEADER_1", "LEADER_2", "LEADER_3", "LEADER_4"],
-    학생회: [],
+    학생회: ["COUNCIL"],
     "일반 사용자": ["COMMON"],
   };
 
@@ -45,7 +45,7 @@ const CreateBoardPage = (props: any) => {
       return;
     }
     if (hasAuth) {
-      const boardReqeust: Board.CreateBoardDto = {
+      const boardRequest: Board.CreateBoardDto = {
         boardName: boardName,
         description: boardDescription,
         boardCategory: "APP_NOTICE",
@@ -53,9 +53,8 @@ const CreateBoardPage = (props: any) => {
         isAnonymousAllowed: allowAnonymous,
         circleId: null,
       };
-      console.log(boardReqeust);
       try {
-        const createBoardResponse = await createBoard(boardReqeust);
+        const createBoardResponse = await createBoard(boardRequest);
         console.log("게시판 생성 완료: ", createBoardResponse);
         router.back();
         clearBoardInfo();
@@ -63,14 +62,13 @@ const CreateBoardPage = (props: any) => {
         console.error("게시물 생성 에러: ", error);
       }
     } else {
-      const boardReqeust: Board.ApplyBoardDto = {
+      const boardRequest: Board.ApplyBoardDto = {
         boardName: boardName,
         description: boardDescription,
         isAnonymousAllowed: allowAnonymous,
       };
       try {
-        await applyBoard(boardReqeust);
-        console.log("게시판 apply 완료: ");
+        await applyBoard(boardRequest);
         router.back();
         clearBoardInfo();
       } catch (error) {
@@ -85,7 +83,7 @@ const CreateBoardPage = (props: any) => {
       </div>
       <div className="flex h-full flex-col p-2 pt-10 lg:p-10">
         <BoardDetailForm />
-        <RoleSelectSection userRole={hasAuth} roles={roles} />
+        <RoleSelectSection roles={roles} />
 
         <AllowAnonymousToggle />
       </div>
