@@ -20,75 +20,38 @@ const LockerList = () => {
 
   const fetchLockerData = async () => {
     try {
-      const locationIdMap: { [key: string]: string } = {
-        "2층": "5aa6099b8e13e49e018e13ef62d20001",
-        "3층": "5aa6099b8e13e49e018e13ef72370002",
-        "4층": "5aa6099b8e13e49e018e13ef84ff0003",
-      };
-
       // getRccAccess로 AccessToken을 가져와 헤더에 포함
       const accessToken = await getRccAccess();
       if (!accessToken) {
         throw new Error("AccessToken이 존재하지 않습니다.");
       }
 
-      const responses = await Promise.all([
-        axios.get(
-          `${BASEURL}/api/v1/lockers/locations/${locationIdMap["2층"]}`,
-          {
-            headers: {
-              Authorization: accessToken,
-              "Content-Type": "application/json",
-            },
-          },
-        ),
-        axios.get(
-          `${BASEURL}/api/v1/lockers/locations/${locationIdMap["3층"]}`,
-          {
-            headers: {
-              Authorization: accessToken,
-              "Content-Type": "application/json",
-            },
-          },
-        ),
-        axios.get(
-          `${BASEURL}/api/v1/lockers/locations/${locationIdMap["4층"]}`,
-          {
-            headers: {
-              Authorization: accessToken,
-              "Content-Type": "application/json",
-            },
-          },
-        ),
-      ]);
+      const formattedAccessToken = accessToken.startsWith("Bearer ")
+        ? accessToken
+        : `Bearer ${accessToken}`;
+
+      const response = await axios.get(`${BASEURL}/api/v1/lockers/locations`, {
+        headers: {
+          Authorization: formattedAccessToken,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const { lockerLocations } = response.data; // 응답에서 lockerLocations 추출
+
+      if (!Array.isArray(lockerLocations)) {
+        throw new Error("API 응답이 올바른 배열 형식이 아닙니다.");
+      }
 
       // 각 층의 사용 가능한 사물함과 전체 사물함 수를 계산
-      const updatedLockers: LockerFloor[] = [
-        {
-          id: locationIdMap["2층"],
-          name: "2층",
-          available: responses[0].data.lockerList.filter(
-            (locker: any) => locker.isActive === true,
-          ).length,
-          total: responses[0].data.lockerList.length,
-        },
-        {
-          id: locationIdMap["3층"],
-          name: "3층",
-          available: responses[1].data.lockerList.filter(
-            (locker: any) => locker.isActive === true,
-          ).length,
-          total: responses[1].data.lockerList.length,
-        },
-        {
-          id: locationIdMap["4층"],
-          name: "4층",
-          available: responses[2].data.lockerList.filter(
-            (locker: any) => locker.isActive === true,
-          ).length,
-          total: responses[2].data.lockerList.length,
-        },
-      ];
+      const updatedLockers: LockerFloor[] = lockerLocations.map(
+        (location: any) => ({
+          id: location.id,
+          name: location.name,
+          available: location.enableLockerCount, // 사용 가능한 사물함 개수
+          total: location.totalLockerCount, // 전체 사물함 개수
+        })
+      );
 
       setLockers(updatedLockers); // 상태 업데이트
       setLoading(false); // 로딩 상태 종료
@@ -97,7 +60,7 @@ const LockerList = () => {
         // AxiosError로 타입을 좁혀서 처리
         console.error(
           "사물함 데이터를 불러오는 중 오류가 발생했습니다:",
-          error.response?.data || error.message,
+          error.response?.data || error.message
         );
       } else {
         // 일반적인 에러 처리
