@@ -35,7 +35,7 @@ const CreateCircleBoardPage = () => {
     동문회장: ["LEADER_ALUMNI"],
     교수: ["PROFESSOR"],
     학년대표: ["LEADER_1", "LEADER_2", "LEADER_3", "LEADER_4"],
-    학생회: [],
+    학생회: ["COUNCIL"],
     "일반 사용자": ["COMMON"],
   };
 
@@ -53,10 +53,8 @@ const CreateCircleBoardPage = () => {
         isAnonymousAllowed: allowAnonymous,
         circleId: circleId as string,
       };
-      console.log(boardRequest);
       try {
-        const createBoardResponse = await createBoard(boardRequest);
-        console.log("게시판 생성 완료: ", createBoardResponse);
+        await createBoard(boardRequest);
         router.back();
         clearBoardInfo();
       } catch (error) {
@@ -67,11 +65,10 @@ const CreateCircleBoardPage = () => {
         boardName: boardName,
         description: boardDescription,
         isAnonymousAllowed: allowAnonymous,
+        circleId: circleId as string,
       };
-      // TODO : request body 변경되면 바로 circleId도 포함시키기
       try {
         await applyBoard(boardRequest);
-        console.log("게시판 apply 완료: ");
         router.back();
         clearBoardInfo();
       } catch (error) {
@@ -86,7 +83,7 @@ const CreateCircleBoardPage = () => {
       </div>
       <div className="flex h-full flex-col p-2 pt-10 lg:p-10">
         <BoardDetailForm />
-        <RoleSelectSection userRole={hasAuth} roles={roles} />
+        <RoleSelectSection roles={roles} />
         <AllowAnonymousToggle />
       </div>
 
