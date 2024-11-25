@@ -62,12 +62,12 @@ export const uiEntities: Record<
     titleSuffix: "가입 신청서 내용",
     buttons: [
       {
-        name: "재승인",
+        name: "닫기",
         variant: "BLUE",
-        action: async (admission) => {
-          await restoreTarget(admission.id);
-          window.location.assign(`/setting/management/user/reject`);
-      },
+        action: () => {
+          window.history.back();
+        }
+      ,
       },
       {
         name: "목록에서 삭제",
