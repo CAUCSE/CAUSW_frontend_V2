@@ -14,23 +14,34 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
 
-
-  const files = watch("attachImage") as FileList;
-
   useEffect(() => {
     if (emailValue) {
       setValue("email", emailValue); // emailValue 값으로 input 값 설정
     }
   }, [emailValue, setValue]);
   
-  useEffect(() => {
-    if (files && files.length > 0) {
-      const newFiles = Array.from(files);
-      const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
-      setImagePreviews(prevPreviews => [...newImagePreviews.reverse(), ...prevPreviews]);
-      setFileList(newFiles); // 파일 업데이트
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFiles = Array.from(event.target.files); // 새로운 파일 배열로 변환
+
+      // 기존 파일들과 병합
+      const updatedFileList = [...newFiles, ...fileList.reverse()];
+      setFileList(updatedFileList);
+
+      // 이미지 미리보기 URL 생성 및 추가
+      const newImagePreviews = newFiles.map((file) =>
+        URL.createObjectURL(file)
+      );  
+      setImagePreviews((prevPreviews) => [...newImagePreviews, ...prevPreviews.reverse()]);
+      
+      const dataTransfer = new DataTransfer();
+      updatedFileList.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+
+      setValue('attachImage', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정        
+      
+      // Reset the input value to allow re-uploading the same file if needed
     }
-  }, [files]);
+  };
 
   useEffect(() => {
     if (rejectMessage){
@@ -55,14 +66,15 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
 
     // useForm에서 관리하는 files 상태도 함께 업데이트
     const dataTransfer = new DataTransfer();
-    updatedFiles.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransfer 구성
-    setValue('attachImage', dataTransfer.files); // useForm에 새로운 파일 목록 설정
+    updatedFiles.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+    setValue('attachImage', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정
+
   };
 
 
   const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
-      submitAdmissionsApplication(data);
+      await submitAdmissionsApplication(data);
       setIsSuccessModalOpen(true);
     } catch (error) {
       // 에러 처리
@@ -150,7 +162,10 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
         <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        <input id="file-upload" type="file" multiple className="hidden" accept='image/*'{...register('attachImage', { required: '파일을 첨부해 주세요' })} />
+        <input id="file-upload" type="file" multiple className="hidden" accept='image/*'{...register('attachImage', { validate: {validateFileCount: (files: FileList | null) =>
+        files && files.length > 0 && files.length <= 5 || 
+        "파일은 최소 1개, 최대 5개까지 업로드 가능합니다.",
+    } })} onChange={handleFileChange}/>
         </label>
     </div>
 
@@ -160,14 +175,14 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
             <div key={index} className="relative w-32 h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 aspect-square">
             <img
                 src={preview}
-                alt={`Preview ${index + 1}`}
+                alt={`Preview ${imagePreviews.length - (index + 1)}`}
                 className="object-cover w-full h-full cursor-pointer"
                 onClick={() => handleImageClick(preview)}
             />
           <button
             type="button"
             className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
-            onClick={() => handleImageDelete(index)}
+            onClick={() => {handleImageDelete(index); console.log(index);}}
           >
             <svg
               className="w-4 h-4"
