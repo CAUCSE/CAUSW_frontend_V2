@@ -98,7 +98,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
   return (
     <div className="p-6">
               {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
+              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
           <button
             onClick={() => {onClose()}}
             className="text-black-500 hover:text-gray-500 flex items-center"
