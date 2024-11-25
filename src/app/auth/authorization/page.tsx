@@ -7,7 +7,6 @@ import SubmitAcademicRecordModal from "@/entities/application/AcademicRecordInpu
 import SubmitApplicationModal from "@/entities/application/AdmissionApplicationPage";
 
 const VerificationPage: React.FC = () => {
-  const router = useRouter();
   const { getUserAdmissionInfo, getMyInfo, checkIsAcademicRecordSubmitted } =
     UserService();
   const [isAcademicRecordModalOpen, setIsAcademicModalOpen] = useState(false);
@@ -15,32 +14,34 @@ const VerificationPage: React.FC = () => {
   const [userStatus, setUserStatus ] = useState('');
   const [emailValue, setEmailValue] = useState("");
 
-  // UNDONE, AWAIT, REJECT, COMPLETED로 관리
+  // UNDONE, AWAIT, REJECT, COMPLETE로 관리
   const [admissionApplicationStatus, setAdmissionApplicationStatus] =
     useState("");
 
-  // BANNED, UNDONE, COMPLETED로 관리
+  // BANNED, UNDONE, COMPLETE로 관리
   const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] =
     useState("");
 
   // 거절 사유 출력 부분 
-  const [admissionRejectMessage, setAdmissionRejectMessage] = useState("");
-  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState("");
+  const [admissionRejectMessage, setAdmissionRejectMessage] = useState <"UNDONE" | "AWAIT" | "COMPLETE" | "REJECT" | ""> ("");
+  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState <"BANNED" | "UNDONE" | "COMPLETE" | "REJECT" | ""> ("");
 
   useEffect(() => {
     const getInfo = async () => {
       try {
         const response = await getMyInfo();
         // 상태 값들 가져오기
-        const state = response.data.state;
+        const { state, rejectionOrDropReason, email } = response.data;
+        
         setUserStatus(state);
-
+        
         // 상태 업데이트
-        setEmailValue(response.data.email);
+        setEmailValue(email);
         // 조건문 처리 (상태 값이 올바르게 설정된 후에 처리)
         if (state === "REJECT"){
           setAdmissionApplicationStatus("REJECT");
           setAcademicRecordApplicationStatus("BANNED");
+          setAdmissionRejectMessage(rejectionOrDropReason);
         }
         else if (state === "AWAIT") {
           setAcademicRecordApplicationStatus("BANNED");
@@ -48,7 +49,7 @@ const VerificationPage: React.FC = () => {
         }
         else if (state === "ACTIVE") {
           console.log("await가 아닌 상태");
-          setAdmissionApplicationStatus("COMPLETED");
+          setAdmissionApplicationStatus("COMPLETE");
           checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
         }
         
@@ -64,10 +65,10 @@ const VerificationPage: React.FC = () => {
 
   const checkAdmissionApplication = async () => {
     try {
-      const response = await getUserAdmissionInfo();
-      setAdmissionRejectMessage(response.data.rejectMessage);
+      await getUserAdmissionInfo();
       setAdmissionApplicationStatus("AWAIT");
     } catch (error) {
+      console.log(error);
       setAdmissionApplicationStatus("UNDONE");
     }
   };
@@ -76,11 +77,11 @@ const VerificationPage: React.FC = () => {
     try {
       const { isRejected, rejectMessage } = (await checkIsAcademicRecordSubmitted()).data;
       if (isRejected) {
-        setAcademicRecordApplicationStatus("MODIFY");
+        setAcademicRecordApplicationStatus("REJECT");
         setAcademicRecordRejectMessage(rejectMessage);
       }
       else {
-        setAcademicRecordApplicationStatus("COMPLETED");
+        setAcademicRecordApplicationStatus("COMPLETE");
       }
     } catch (error) {
       setAcademicRecordApplicationStatus("UNDONE");
@@ -127,7 +128,7 @@ const VerificationPage: React.FC = () => {
                 </div>
               )}
 
-              {admissionApplicationStatus === "COMPLETED" && (
+              {admissionApplicationStatus === "COMPLETE" && (
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
                   가입 신청서 제출 완료됨 (승인 완료)
                 </div>
@@ -142,13 +143,6 @@ const VerificationPage: React.FC = () => {
                 가입 신청서 제출 거절됨 (다시 제출하기)
               </button>
               )}
-              {/* {admissionApplicationStatus === "REJECT" && (
-                <div
-                className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400"
-              >
-                가입 신청서 제출 거절됨
-              </div>
-              )} */}
 
               {admissionApplicationStatus === "UNDONE" && (
                 <button
@@ -167,13 +161,13 @@ const VerificationPage: React.FC = () => {
                 </div>
               )}
 
-              {academicRecordApplicationStatus === "COMPLETED" && (
+              {academicRecordApplicationStatus === "COMPLETE" && (
                 <div className="w-full rounded-lg bg-gray-300 py-3 text-white transition hover:bg-gray-400">
                   재학 증빙 서류 제출됨 (승인이 완료되면 서비스 사용가능)
                 </div>
               )}
 
-              {academicRecordApplicationStatus === "MODIFY" && (
+              {academicRecordApplicationStatus === "REJECT" && (
                 <button
                   onClick={() => {
                     setIsAcademicModalOpen(true);
