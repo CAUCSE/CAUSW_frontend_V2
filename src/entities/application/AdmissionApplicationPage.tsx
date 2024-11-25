@@ -165,6 +165,14 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
         <input id="file-upload" type="file" multiple className="hidden" accept='image/*'{...register('attachImage', { validate: {validateFileCount: (files: FileList | null) =>
         files && files.length > 0 && files.length <= 5 || 
         "파일은 최소 1개, 최대 5개까지 업로드 가능합니다.",
+           allImages: (files: FileList | null) => {
+        // 모든 파일이 이미지 형식인지 확인
+        if (!files) return true;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (!file.type.startsWith("image/")) {
+            return "이미지 파일만 업로드 가능합니다.";
+          }}}   
     } })} onChange={handleFileChange}/>
         </label>
     </div>
