@@ -457,11 +457,17 @@ const CreatePostPage = (props: any) => {
     if (!isApply) setValue("isQuestion", isQuestion);
   }, [isQuestion, setValue]);
 
+  const handleBack = () => {
+    clearPost();
+    clearVote();
+    resetFiles();
+    router.back();
+  };
   return (
     <>
       <div className="bottom-5 top-0 h-full w-full lg:relative lg:bottom-28">
         <div className="w-full flex-col items-center">
-          <PreviousButton />
+          <PreviousButton routeCallback={handleBack} />
         </div>
         {/* 게시글 공통 부분 - 제목 / 내용 */}
         <div className="flex h-full flex-col p-4 pt-10 lg:px-5 lg:py-10">
@@ -475,14 +481,14 @@ const CreatePostPage = (props: any) => {
                   >
                     <div className="mt-4 flex w-full items-center justify-between">
                       <div className="flex w-full items-center space-x-2 lg:space-x-4">
-                        <div className="mt-2 w-full">
+                        <div className="w-full">
                           <input
                             type="text"
                             placeholder="제목"
                             {...register("title", {
                               required: true,
                             })}
-                            className="mb-2 w-full border-b-post-title-input border-black bg-transparent pb-2 text-lg placeholder:text-[#B7B7B7] focus:outline-none lg:p-2"
+                            className="mb-2 w-full border-b border-black bg-transparent pb-2 text-[24px] placeholder:text-[#B7B7B7] focus:outline-none lg:p-2"
                           />
                         </div>
                         <div className="flex w-[85px] items-center gap-2">
@@ -492,7 +498,7 @@ const CreatePostPage = (props: any) => {
                             className={`h-[12px] w-[12px] cursor-pointer appearance-none border-[2px] border-solid border-[#A0A0A0] bg-[#D9D9D9] bg-[length:100%_100%] checked:border-[#FF0000] checked:bg-[#FF0000] sm:h-[18px] sm:w-[18px]`}
                           />
                           <p
-                            className={`sm:text-md text-sm ${watch("isQuestion") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
+                            className={`text-[16px] ${watch("isQuestion") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
                           >
                             질문
                           </p>
@@ -504,7 +510,7 @@ const CreatePostPage = (props: any) => {
                             className={`h-[12px] w-[12px] cursor-pointer appearance-none border-[2px] border-solid border-[#A0A0A0] bg-[#D9D9D9] bg-[length:100%_100%] checked:border-[#FF0000] checked:bg-[#FF0000] sm:h-[18px] sm:w-[18px]`}
                           />
                           <p
-                            className={`sm:text-md text-sm ${watch("isAnonymous") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
+                            className={`text-[16px] ${watch("isAnonymous") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
                           >
                             익명
                           </p>
@@ -518,7 +524,7 @@ const CreatePostPage = (props: any) => {
                           required: "게시글 내용을 입력해주세요.",
                         })}
                         placeholder="내용을 입력하세요!"
-                        className="h-full w-full bg-[#F8F8F8] outline-none placeholder:text-xl"
+                        className="h-full w-full bg-[#F8F8F8] px-2 text-[24px] outline-none placeholder:text-[#b7b7b7]"
                       ></textarea>
                     </div>
                     {selectedFiles.length === 0 ? "" : <FilePreview />}

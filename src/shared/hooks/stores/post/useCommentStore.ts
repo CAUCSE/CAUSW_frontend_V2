@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface CommentState {
-  comments: { [id: string]: {numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean, childCommentList: Array<ChildComment.ChildCommentDto>, overlayActive: boolean}};
-  setComments:(id:string, isOwner: boolean, isCommentPopupVisible:boolean, isDeleted:boolean, childCommentList: Array<ChildComment.ChildCommentDto>, numLike: number) => void;
+  comments: { [id: string]: {numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean, childCommentList: Array<ChildComment.ChildCommentDto>, overlayActive: boolean, createdAt: string}};
+  setComments:(id:string, isOwner: boolean, isCommentPopupVisible:boolean, isDeleted:boolean, childCommentList: Array<ChildComment.ChildCommentDto>, numLike: number, createdAt: string) => void;
   incrementCommentLike: (id: string) => void;
   decrementCommentLike: (id: string) => void;
   addChildComment: (id:string, newChildComment:ChildComment.ChildCommentDto) => void;
@@ -15,11 +15,11 @@ interface CommentState {
 export const useCommentStore = create<CommentState>((set)=>({
   comments: {},
   childCommentList: [],
-  setComments: (id,isCommentPopupVisible, isOwner, isDeleted, childCommentList, numLike) =>
+  setComments: (id,isCommentPopupVisible, isOwner, isDeleted, childCommentList, numLike, createdAt) =>
     set((state) => ({
       comments: {
         ...state.comments,
-        [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted, childCommentList, overlayActive: false },
+        [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted, childCommentList, overlayActive: false, createdAt },
       },
     })),
   addChildComment: (id, newChildComment) => 
@@ -33,6 +33,7 @@ export const useCommentStore = create<CommentState>((set)=>({
           isDeleted: false,
           childCommentList: [...state.comments[id].childCommentList, newChildComment],
           overlayActive: state.comments[id].overlayActive,
+          createdAt: state.comments[id].createdAt
         }
       }
     })),
@@ -47,6 +48,7 @@ export const useCommentStore = create<CommentState>((set)=>({
           isDeleted: state.comments[id].isDeleted,
           childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
+          createdAt: state.comments[id].createdAt
         }
       }
     })),
@@ -61,6 +63,7 @@ export const useCommentStore = create<CommentState>((set)=>({
           isDeleted: state.comments[id].isDeleted,
           childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
+          createdAt: state.comments[id].createdAt
         }
       }
     })),
@@ -99,6 +102,7 @@ export const useCommentStore = create<CommentState>((set)=>({
           isDeleted: true,
           childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
+          createdAt: state.comments[id].createdAt
         }
       }
     })),
@@ -113,6 +117,7 @@ export const useCommentStore = create<CommentState>((set)=>({
           isDeleted: state.comments[id].isDeleted,
           childCommentList: state.comments[id].childCommentList,
           overlayActive: state.comments[id].overlayActive,
+          createdAt: state.comments[id].createdAt
         }
       }
     })),

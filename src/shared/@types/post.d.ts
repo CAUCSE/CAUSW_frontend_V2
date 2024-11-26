@@ -5,6 +5,7 @@ declare namespace Post {
     content: string;
     isDeleted: boolean;
     writerName: string;
+    writerNickname: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
     writerNickname: string;

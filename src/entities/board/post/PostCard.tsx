@@ -30,10 +30,6 @@ const isImageFile = (fileName: string) => {
   return /\.(jpg|jpeg|png|gif|bmp)$/.test(fileName);
 };
 
-const extractFileName = (url: string) => {
-  return url.substring(url.lastIndexOf("/") + 1);
-};
-
 export const PostCard = ({
   postData,
   numLike,
@@ -49,7 +45,7 @@ export const PostCard = ({
   isPopupVisible,
 }: PostCardProps) => {
   const userImage =
-    postData.writerProfileImage ?? "/images/default_profile.png";
+    postData.isAnonymous ? "/images/default_profile.png" : postData.writerProfileImage;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupImage, setPopupImage] = useState<string | null>(null);
 
@@ -158,7 +154,7 @@ export const PostCard = ({
       </button>
       <div className="flex flex-row items-center p-2">
         <Image
-          src={userImage}
+          src={userImage ?? "/images/default_profile.png"}
           alt="Comment Profil"
           width={80}
           height={80}
