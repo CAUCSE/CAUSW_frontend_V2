@@ -132,9 +132,12 @@ const LockerSelectionPage = () => {
 
   // 신청/연장 시 처리
   const handleLockerAction = async (actionType: string, actionMessage: string) => {
-    if (!selectedLocker) return;
+    if (!selectedLocker && actionType !== "EXTEND") return; // EXTEND는 selectedLocker 필요 없음
   
-    const locker = lockers.find((l) => l.id === selectedLocker);
+    const locker =
+      actionType === "EXTEND"
+        ? myLocker // EXTEND일 경우 내 사물함 사용
+        : lockers.find((l) => l.id === selectedLocker); // REGISTER일 경우 선택된 사물함 사용
   
     if (actionType === "REGISTER" && (!locker || !locker.isActive)) {
       setErrorMessage("이 사물함은 신청할 수 없습니다.");
@@ -151,15 +154,11 @@ const LockerSelectionPage = () => {
         throw new Error("AccessToken이 설정되지 않았습니다.");
       }
   
-      // 반납 또는 연장 작업에 필요한 expireAt 설정
-      const expireAt = locker?.expireAt || new Date().toISOString();
-  
       await API.put(
-        `/api/v1/lockers/${selectedLocker}`,
+        `/api/v1/lockers/${locker?.id}`, // EXTEND 시 내 사물함 ID, REGISTER 시 선택된 사물함 ID
         {
           action: actionType,
           message: actionMessage,
-          expireAt, // 작업에 필요한 만료 시간 포함
         },
         {
           headers: {
@@ -169,15 +168,19 @@ const LockerSelectionPage = () => {
       );
   
       setModalTitle(`사물함 ${actionType} 완료`);
-      setModalMessage(`${locker?.lockerNumber}번 사물함 ${actionMessage}가 완료되었습니다.`);
+      setModalMessage(
+        `${
+          locker?.lockerNumber || "알 수 없는"
+        }번 사물함 ${actionMessage}가 완료되었습니다.`
+      );
       fetchLockers(); // 업데이트 후 데이터 새로고침
     } catch (error: any) {
       setErrorMessage(
-        error.response?.data?.message || `사물함 ${actionMessage} 중 오류가 발생했습니다.`
+        error.response?.data?.message ||
+          `사물함 ${actionMessage} 중 오류가 발생했습니다.`
       );
     }
-  };
-  
+  };  
 
   useEffect(() => {
     if (floor) {
