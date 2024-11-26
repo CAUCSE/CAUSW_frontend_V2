@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
 import { useParams } from "next/navigation";
-import { BASEURL, getRccAccess } from "@/shared";
+import { API, getRccAccess } from "@/shared";
 
 // 모달 컴포넌트
-const Modal = ({ title, message, onClose }: { title: string, message: string, onClose: () => void }) => {
+const Modal = ({ title, message, onClose }: { title: string; message: string; onClose: () => void }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-80">
@@ -35,6 +34,7 @@ interface Locker {
   lockerNumber: number;
   isActive: boolean;
   isMine: boolean;
+  expireAt?: string;
 }
 
 const LockerSelectionPage = () => {
@@ -49,57 +49,53 @@ const LockerSelectionPage = () => {
   const [myLocker, setMyLocker] = useState<Locker | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  // 사물함 데이터를 서버에서 가져오는 함수
   const fetchLockers = async () => {
     try {
-      const accessToken = await getRccAccess();
-      console.log("AccessToken 확인:", accessToken); // 디버깅
+      // AccessToken 가져오기
+      const accessToken = getRccAccess();
       if (!accessToken) {
-        throw new Error("AccessToken이 존재하지 않습니다.");
+        throw new Error("AccessToken이 설정되지 않았습니다.");
       }
-  
-      const formattedAccessToken = accessToken.startsWith("Bearer ")
-        ? accessToken
-        : `Bearer ${accessToken}`;
-  
-      const response = await axios.get(`${BASEURL}/api/v1/lockers/locations`, {
-        headers: {
-          Authorization: formattedAccessToken,
-          "Content-Type": "application/json",
-        },
-      });
-  
-      const lockerLocations = response.data.lockerLocations;
-  
+
+      // API 호출: 위치 정보 가져오기
+      const locationsResponse = await API.get("/api/v1/lockers/locations");
+
+      const lockerLocations = locationsResponse.data.lockerLocations;
+
       if (!Array.isArray(lockerLocations)) {
         throw new Error("API 응답이 올바르지 않습니다.");
       }
-  
+
+      // 층 이름으로 위치 ID 찾기
       const selectedLocation = lockerLocations.find(
         (location: any) => location.name === decodedFloor
       );
-  
+
       if (!selectedLocation) {
         setErrorMessage("해당 층에 대한 사물함 정보를 찾을 수 없습니다.");
         return;
       }
-  
-      setLockers(selectedLocation.lockerList || []);
-  
-      const myLockerExists = selectedLocation.lockerList.find(
-        (locker: Locker) => locker.isMine
+
+      const locationId = selectedLocation.id;
+
+      // 위치 ID로 사물함 데이터 가져오기
+      const lockersResponse = await API.get(
+        `/api/v1/lockers/locations/${locationId}`
       );
+
+      const lockerList = lockersResponse.data.lockerList || [];
+      setLockers(lockerList);
+
+      // 내 사물함 확인
+      const myLockerExists = lockerList.find((locker: Locker) => locker.isMine);
       setHasMyLocker(!!myLockerExists);
       setMyLocker(myLockerExists || null);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setErrorMessage(error.response?.data?.message || "사물함 데이터를 불러오는 중 오류가 발생했습니다.");
-      } else {
-        setErrorMessage("예상하지 못한 오류가 발생했습니다.");
-      }
+    } catch (error: any) {
+      setErrorMessage(
+        error.response?.data?.message || "사물함 데이터를 불러오는 중 오류가 발생했습니다."
+      );
     }
   };
-  
 
   const closeModal = () => {
     setModalMessage(null);
@@ -113,33 +109,26 @@ const LockerSelectionPage = () => {
   const returnMyLocker = async () => {
     try {
       if (myLocker) {
-        const accessToken = await getRccAccess();
+        const accessToken = getRccAccess();
         if (!accessToken) {
-          throw new Error("AccessToken이 존재하지 않습니다.");
+          throw new Error("AccessToken이 설정되지 않았습니다.");
         }
 
-        await axios.put(
-          `${BASEURL}/api/v1/lockers/${myLocker.id}`,
-          { action: "RETURN", message: "기존 사물함 반납" },
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const expireAt = myLocker.expireAt || new Date().toISOString();
+
+        await API.put(`/api/v1/lockers/${myLocker.id}`, {
+          action: "RETURN",
+          message: "기존 사물함 반납",
+          expireAt,
+        });
 
         setModalTitle("사물함 반납 완료");
         setModalMessage(`기존 사물함이 반납되었습니다.\n반납된 사물함 번호: ${myLocker.lockerNumber}`);
         setErrorMessage(null);
         setMyLocker(null);
       }
-    } catch (error) {
-      if (error instanceof AxiosError && error.response?.status === 400) {
-        setErrorMessage("사물함 반납 중 오류가 발생했습니다: " + error.response.data.message);
-      } else {
-        setErrorMessage("사물함 반납 중 예상치 못한 오류가 발생했습니다.");
-      }
+    } catch (error: any) {
+      setErrorMessage("사물함 반납 중 오류가 발생했습니다.");
     }
   };
 
@@ -158,39 +147,20 @@ const LockerSelectionPage = () => {
     }
 
     try {
-      const accessToken = await getRccAccess();
+      const accessToken = getRccAccess();
       if (!accessToken) {
-        throw new Error("AccessToken이 존재하지 않습니다.");
+        throw new Error("AccessToken이 설정되지 않았습니다.");
       }
 
-      await axios.put(
-        `${BASEURL}/api/v1/lockers/${selectedLocker}`,
-        { action: actionType, message: actionMessage },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await API.put(`/api/v1/lockers/${selectedLocker}`, {
+        action: actionType,
+        message: actionMessage,
+      });
 
       setModalTitle(`사물함 ${actionType} 완료`);
-      const lockerLocation = `${decodedFloor} ${locker?.lockerNumber}번`;
-      const message =
-        actionType === "REGISTER"
-          ? `선택하신 사물함이 신청되었습니다.\n내 사물함 위치: ${lockerLocation}`
-          : actionType === "RETURN"
-          ? `선택하신 사물함이 반납되었습니다.\n반납된 사물함 위치: ${lockerLocation}`
-          : `선택하신 사물함이 연장되었습니다.\n내 사물함 위치: ${lockerLocation}`;
-      setModalMessage(message);
-      setErrorMessage(null);
       fetchLockers();
-    } catch (error) {
-      if (error instanceof AxiosError && error.response?.status === 400) {
-        setErrorMessage(`사물함 ${actionType} 중 오류가 발생했습니다: ` + error.response.data.message);
-      } else {
-        setErrorMessage(`사물함 ${actionType} 중 예상치 못한 오류가 발생했습니다.`);
-      }
+    } catch (error: any) {
+      setErrorMessage(`사물함 ${actionType} 중 오류가 발생했습니다.`);
     }
   };
 
@@ -213,8 +183,6 @@ const LockerSelectionPage = () => {
 
   return (
     <div className="flex flex-col md:flex-row items-start justify-center min-h-screen bg-gray-100">
-      {/* 기존 코드 유지 */}
-      {/* 신청/반납/연장 관련 UI 및 모달 유지 */}
       {/* 사물함 선택 영역 */}
       <div className="w-full md:w-2/3 mt-8 flex flex-col">
         <div className="flex items-center justify-between">
