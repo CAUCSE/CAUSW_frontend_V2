@@ -125,14 +125,14 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         ) : (
           <Link
             href={"/circle/" + id + "/board"}
-            className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-md bg-barkblue text-lg text-white xl:col-span-2 xl:row-span-2 xl:h-16 xl:text-xl"
+            className="col-span-3 row-span-1 mt-60 flex h-10 items-center justify-center rounded-md bg-barkblue text-lg text-white xl:col-span-2 xl:row-span-2 xl:h-16 xl:text-xl"
           >
             동아리 게시판
           </Link>
         )}
         <Link
           href={"/circle/" + id + "/members"}
-          className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-md bg-default text-lg text-white xl:col-span-1 xl:row-span-2 xl:h-16 xl:text-xl"
+          className="col-span-3 row-span-1 mt-60 flex h-10 items-center justify-center rounded-md bg-default text-lg text-white xl:col-span-1 xl:row-span-2 xl:h-16 xl:text-xl"
         >
           부원 명단 보기
         </Link>
