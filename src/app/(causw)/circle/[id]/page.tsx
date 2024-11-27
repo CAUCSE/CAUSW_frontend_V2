@@ -101,7 +101,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
             }
           ></ProfileImage>
           <SubHeader bold>
-            회장 {circle.leaderName} ({leader!.admissionYear % 100})
+            회장 {circle.leaderName} ({leader && leader!.admissionYear % 100})
           </SubHeader>
         </div>
 
