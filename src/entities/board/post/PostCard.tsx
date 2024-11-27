@@ -174,7 +174,7 @@ export const PostCard = ({
           <div className="mb-2 px-1 text-[24px] font-medium">
             {postData.title}
           </div>
-          <div className="mb-2 px-1 pb-2 text-[16px]">{postData.content}</div>
+          <div className="mb-2 px-1 pb-2 whitespace-pre-wrap text-[16px]">{postData.content}</div>
 
           {/* 나중에 투표 api 생기면 연결 */}
           {postData.isPostVote ? (
