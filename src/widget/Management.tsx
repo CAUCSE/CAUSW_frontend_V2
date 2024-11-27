@@ -62,7 +62,7 @@ export const Management = ({
       </Header>
       <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
         <div
-          className={`mt-8 flex ${navigation && navigation.length > 2 ? "mb-1 w-[600px] justify-between" : "mb-5 w-full justify-evenly"} flex-row md:mb-1 md:w-full md:justify-evenly`}
+          className={`mt-8 flex ${navigation && navigation.length > 5 ? "mb-1 w-[1000px] justify-between" : navigation && navigation.length > 2 ? "mb-1 w-[600px] justify-between" : "mb-5 w-full justify-evenly"} flex-row md:mb-1 md:w-full md:justify-evenly`}
         >
           <Link
             href={firstNavigation.state}

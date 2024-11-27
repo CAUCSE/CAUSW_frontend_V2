@@ -9,7 +9,26 @@ const navigation = [
     router: "/setting/mandate/vice_president",
   },
   { name: "학생회", state: "council", router: "/setting/mandate/council" },
-  { name: "학년대표", state: "leader", router: "/setting/mandate/leader" },
+  {
+    name: "1학년 대표",
+    state: "leader_1",
+    router: "/setting/mandate/leader_1",
+  },
+  {
+    name: "2학년 대표",
+    state: "leader_2",
+    router: "/setting/mandate/leader_2",
+  },
+  {
+    name: "3학년 대표",
+    state: "leader_3",
+    router: "/setting/mandate/leader_3",
+  },
+  {
+    name: "4학년 대표",
+    state: "leader_4",
+    router: "/setting/mandate/leader_4",
+  },
   {
     name: "동아리장",
     state: "circleleader",
@@ -37,8 +56,13 @@ const RoleManagement = async ({
       ? allRoles.vicePresidentUser
       : state === "council"
         ? allRoles.councilUsers
-        : state === "leader"
-          ? allRoles.leaderGradeUsers
+        : state === "leader_1" ||
+            state === "leader_2" ||
+            state === "leader_3" ||
+            state === "leader_4"
+          ? allRoles.leaderGradeUsers.filter((element) =>
+              element.roles.includes(state.toUpperCase() as User.Role),
+            )
           : state === "circleleader"
             ? allRoles.leaderCircleUsers
             : state === "alumunileader"
