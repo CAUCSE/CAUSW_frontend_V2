@@ -53,7 +53,9 @@ const UserManagement = async ({
         res.map((element) => ({ ...element, userName: element.name })),
       )
     : await getAllAdmissions(null, 0);
-    
+
+  console.log(data);
+
   return (
     <>
       <Management
