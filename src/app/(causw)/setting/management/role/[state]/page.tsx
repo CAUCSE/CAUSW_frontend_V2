@@ -37,7 +37,7 @@ const navigation = [
   {
     name: "동문회장",
     state: "alumunileader",
-    router: "/setting/mandate/president/leader_alumni",
+    router: "/setting/mandate/leader_alumni",
   },
 ];
 
