@@ -38,7 +38,7 @@ export function ManagementDetailInfoTable({
   additionalUnit?: ReactNode;
 }) {
   return (
-    <div className="grid h-full w-full grid-cols-2 justify-around gap-y-[27px] font-semibold">
+    <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-12 font-semibold md:w-[700px]">
       <PreviousButton></PreviousButton>
       {Object.keys(data).map((k) => {
         const key = k as keyof typeof data;
