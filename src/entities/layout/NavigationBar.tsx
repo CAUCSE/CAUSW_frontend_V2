@@ -36,9 +36,10 @@ export const NavigationBar = () => {
   );
 };
 
+//TODO: 동아리 제외
 const icons = [
   { href: "/home", icon: "icon-[iconamoon--home]" },
   { href: "/board", icon: "icon-[material-symbols--post-add-rounded]" },
-  { href: "/circle", icon: "icon-[bi--people]" },
+  //{ href: "/circle", icon: "icon-[bi--people]" },
   { href: "/setting", icon: "icon-[ep--setting]" },
 ];
