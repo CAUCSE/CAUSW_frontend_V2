@@ -37,6 +37,8 @@ const RoleMandate = ({
 
   const [selectId, setSelectId] = useState<string>();
 
+  console.log(state);
+
   return (
     <>
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
@@ -118,7 +120,7 @@ const RoleMandate = ({
             router.back();
           });
         }}
-        className="absolute bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10"
       >
         권한 위임
       </button>

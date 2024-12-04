@@ -34,7 +34,7 @@ export default function AddPayerPage({
   if (!user) return null;
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-3 py-5">
+    <div className="flex h-full flex-col items-center gap-3 py-5">
       <ManagementDetailInfoTable
         data={convertDataToTableEntity(user)}
         titleMapping={titleMapping}
