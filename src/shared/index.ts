@@ -1,5 +1,3 @@
-import { noButtonModal } from "./ui/noButtonModal";
-
 export { Loading } from "./ui/Loading";
 export { IconButton } from "./ui/IconButton";
 
@@ -81,4 +79,4 @@ export { Icon } from "./ui/icon";
 export { Modal } from "./ui/modal";
 export { PreviousButton } from "./ui/previousButton";
 export { RedirectModal } from "./ui/redirectModal";
-export { noButtonModal } from "./ui/noButtonModal"
+export { NoButtonModal } from "./ui/noButtonModal"

@@ -2,22 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserRscService } from '@/shared';
+import { UserRscService, NoButtonModal } from '@/shared';
 
-
-const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: () => void; emailValue: string; userStatus: string}) => {
+const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose: () => void; emailValue: string; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.AdmissionCreateRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const { submitAdmissionsApplication, modifyAdmissionApplication } = UserRscService();
+  const { submitAdmissionsApplication } = UserRscService();
+  const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
-
-
-
-
-  const files = watch("attachImage") as FileList;
 
   useEffect(() => {
     if (emailValue) {
@@ -25,14 +20,34 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
     }
   }, [emailValue, setValue]);
   
-  useEffect(() => {
-    if (files && files.length > 0) {
-      const newFiles = Array.from(files);
-      const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
-      setImagePreviews(prevPreviews => [...newImagePreviews.reverse(), ...prevPreviews]);
-      setFileList(newFiles); // 파일 업데이트
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFiles = Array.from(event.target.files); // 새로운 파일 배열로 변환
+
+      // 기존 파일들과 병합
+      const updatedFileList = [...newFiles, ...fileList.reverse()];
+      setFileList(updatedFileList);
+
+      // 이미지 미리보기 URL 생성 및 추가
+      const newImagePreviews = newFiles.map((file) =>
+        URL.createObjectURL(file)
+      );  
+      setImagePreviews((prevPreviews) => [...newImagePreviews, ...prevPreviews.reverse()]);
+      
+      const dataTransfer = new DataTransfer();
+      updatedFileList.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+
+      setValue('attachImage', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정        
+      
+      // Reset the input value to allow re-uploading the same file if needed
     }
-  }, [files]);
+  };
+
+  useEffect(() => {
+    if (rejectMessage){
+      setRejectMessageModal(true);
+    }
+  }, []);
 
   const handleImageClick = (src: string) => {
     setSelectedImage(src);
@@ -51,14 +66,15 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
 
     // useForm에서 관리하는 files 상태도 함께 업데이트
     const dataTransfer = new DataTransfer();
-    updatedFiles.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransfer 구성
-    setValue('attachImage', dataTransfer.files); // useForm에 새로운 파일 목록 설정
+    updatedFiles.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+    setValue('attachImage', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정
+
   };
 
 
   const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
-      submitAdmissionsApplication(data);
+      await submitAdmissionsApplication(data);
       setIsSuccessModalOpen(true);
     } catch (error) {
       // 에러 처리
@@ -82,7 +98,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
   return (
     <div className="p-6">
               {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
+              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
           <button
             onClick={() => {onClose()}}
             className="text-black-500 hover:text-gray-500 flex items-center"
@@ -146,7 +162,18 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
         <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        <input id="file-upload" type="file" multiple className="hidden" {...register('attachImage', { required: '파일을 첨부해 주세요' })} />
+        <input id="file-upload" type="file" multiple className="hidden" accept='image/*'{...register('attachImage', { validate: {validateFileCount: (files: FileList | null) =>
+        files && files.length > 0 && files.length <= 5 || 
+        "파일은 최소 1개, 최대 5개까지 업로드 가능합니다.",
+           allImages: (files: FileList | null) => {
+        // 모든 파일이 이미지 형식인지 확인
+        if (!files) return true;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (!file.type.startsWith("image/")) {
+            return "이미지 파일만 업로드 가능합니다.";
+          }}}   
+    } })} onChange={handleFileChange}/>
         </label>
     </div>
 
@@ -156,14 +183,14 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
             <div key={index} className="relative w-32 h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 aspect-square">
             <img
                 src={preview}
-                alt={`Preview ${index + 1}`}
+                alt={`Preview ${imagePreviews.length - (index + 1)}`}
                 className="object-cover w-full h-full cursor-pointer"
                 onClick={() => handleImageClick(preview)}
             />
           <button
             type="button"
             className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
-            onClick={() => handleImageDelete(index)}
+            onClick={() => {handleImageDelete(index); console.log(index);}}
           >
             <svg
               className="w-4 h-4"
@@ -215,6 +242,15 @@ const SubmitApplicationModal = ( {onClose, emailValue, userStatus}: {onClose: ()
           </div>
         </div>
       )}
+            {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
+        {rejectMessageModal && (
+          <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
+            <h1 className='font-bold mb-8'>다음과 같은 이유로 가입 신청서 제출이 거절되었습니다.</h1>
+            <h1 >거절 사유 : {rejectMessage}</h1>
+          </NoButtonModal>
+        )
+
+        }
 
         <div className="mt-8 flex justify-center">
           <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">

@@ -5,11 +5,6 @@ import { ManagementState } from "@/widget";
 import { uiEntities } from "./AdmissionManagementDetailEntities";
 import { useState } from "react";
 import { WarningModal } from "./WarningModal";
-import { Modal } from "@/shared";
-
-
-
-
 
 
 export function AdmissionManagementDetailButtons({
@@ -21,15 +16,6 @@ export function AdmissionManagementDetailButtons({
 }) {
   const buttons = uiEntities[state].buttons;
   const [ isModalOpen, setIsModalOpen ] = useState('');
-  const showWarningModal = (name: string) => {
-
-    if (name === "목록에서 삭제"){
-      setIsModalOpen("DELETE");
-    }
-    if (name === "추방"){
-      setIsModalOpen("EXPEL");
-    }
-  }
 
   return (
     <div className="flex gap-[20px] lg:gap-[50px]">

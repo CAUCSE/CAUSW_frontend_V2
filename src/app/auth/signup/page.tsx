@@ -10,14 +10,19 @@ const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     getValues,
     setValue,
     setError,
     clearErrors,
-  } = useForm<User.SignUpForm>({ mode: "onBlur" });
+    watch,
+    trigger
+  } = useForm<User.SignUpForm>({ mode: "onBlur", reValidateMode: "onBlur" });
   const router = useRouter(); // useRouter 초기화
+  const admissionYear = watch("admissionYearString");
+  const nickname = watch("nickname");
+  const email = watch("email");
+  const studentId = watch("studentId");
 
   const {
     signup,
@@ -35,48 +40,32 @@ const SignUpPage = () => {
     };
 
   // 이메일 중복 및 형식 검사
-  const handleEmailBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
-    const email = e.target.value;
+  const handleEmailBlur = async () => {
 
     if (!email) return; // 빈 값일 경우 무시
 
     // 이메일 형식 검사
     const emailPattern = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     if (!emailPattern.test(email)) {
-      setError("email", {
-        type: "pattern",
-        message: "이메일 형식으로 입력해주세요.",
-      });
-      return;
-    } else {
-      clearErrors("email");
+      return "이메일 형식으로 입력해주세요.";
     }
-
     // 이메일 중복 검사
     const isDuplicate = await checkEmailDuplicate(email);
     if (isDuplicate) {
-      setError("email", {
-        type: "duplicate",
-        message: "이미 사용 중인 이메일입니다.",
-      });
+      return "이미 사용 중인 이메일입니다."
     } else {
-      clearErrors("email");
+      return true;
     }
   };
 
   // 닉네임 중복 검사 및 형식 검사
-  const handleNicknameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
-    const nickname = e.target.value;
+  const handleNicknameBlur = async () => {
 
-    if (!nickname) return; // 빈 값일 경우 무시
+    if (!nickname) return true; // 빈 값일 경우 무시
 
     // 닉네임 길이 및 형식 검사
     if (nickname.length < 1 || nickname.length > 16) {
-      setError("nickname", {
-        type: "length",
-        message: "닉네임은 1글자 이상 16글자 이내로 입력해주세요.",
-      });
-      return;
+      return "닉네임은 1글자 이상 16글자 이내로 입력해주세요.";
     } else {
       clearErrors("nickname");
     }
@@ -84,43 +73,50 @@ const SignUpPage = () => {
     // 닉네임 중복 검사
     const isDuplicate = await checkNicknameDuplicate(nickname);
     if (isDuplicate) {
-      setError("nickname", {
-        type: "duplicate",
-        message: "이미 사용 중인 닉네임입니다.",
-      });
+      return "이미 사용 중인 닉네임입니다."
     } else {
-      clearErrors("nickname");
+      return true;
     }
   };
 
   // 학번 중복 및 형식 검사
-  const handleStudentIdBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
-    const studentId = e.target.value;
+  const handleStudentIdBlur = async () => {
 
-    if (!studentId) return; // 빈 값일 경우 무시
+    if (!studentId) return true; // 빈 값일 경우 무시
 
-    // 학번 형식 검사
+    // 학번 자릿 수 검사
     const studentIdPattern = /^\d{8}$/;
     if (!studentIdPattern.test(studentId)) {
-      setError("studentId", {
-        type: "pattern",
-        message: "학번은 8자리로 입력해주세요.",
-      });
-      return;
-    } else {
-      clearErrors("studentId");
-    }
+      return "학번은 8자리로 입력해주세요."; 
+    } 
 
     // 학번 중복 검사
     const isDuplicate = await checkStudentIdDuplicate(studentId);
-    if (isDuplicate) {
-      setError("studentId", {
-        type: "duplicate",
-        message: "이미 사용 중인 학번입니다.",
-      });
-    } else {
-      clearErrors("studentId");
+    let isValidStudentId;
+
+    // 학번, 입학년도 일치 여부 검사
+    if (studentId?.length === 8) {
+      const studentYear = studentId.slice(0, 4);
+      if (admissionYear && studentYear !== admissionYear) {
+        isValidStudentId = false;
+      } else {
+        isValidStudentId = true;
+        // 유효성 통과 시 에러 해제
+      }
     }
+
+    
+    if (isDuplicate) {
+      return "이미 사용 중인 학번입니다.";
+    } else if (!isValidStudentId){
+      return `입학년도(${admissionYear})와 학번(${studentId.slice(0, 4)})이 일치하지 않습니다.`;
+    }
+    else {
+      return true;
+    }
+
+
+
   };
 
   // 뒤로가기 버튼
@@ -246,8 +242,14 @@ const SignUpPage = () => {
   const closeInCompleteModal = () => {
     setIsIncompleteModalOpen(false);
   };
-  const onInvalid = (errors: any) => {
-    // 모든 필드를 입력하지 않았을 경우에 대한 로직
+
+  const onInvalid = async(errors: any) => {
+  // 모든 필드를 입력하지 않았을 경우에 대한 로직
+
+    await trigger();
+    // onBlur로 설정된 에러를 복구
+
+
     console.error("Form Errors:", errors);
     setIsIncompleteModalOpen(true); // 모든 필드를 입력하지 않았을 때 모달을 띄움
   };
@@ -283,8 +285,8 @@ const SignUpPage = () => {
                 placeholder="이메일 형식으로 입력해주세요"
                 {...register("email", {
                   required: "아이디를 입력해주세요",
+                  validate: handleEmailBlur
                 })}
-                onBlur={handleEmailBlur}
                 onKeyDown={handleKeyDown}
               />
               {errors.email && (
@@ -394,8 +396,9 @@ const SignUpPage = () => {
                 placeholder="닉네임을 입력해주세요"
                 {...register("nickname", {
                   required: "닉네임을 입력해주세요",
+                  validate: handleNicknameBlur
                 })}
-                onBlur={handleNicknameBlur}
+                
                 onKeyDown={handleKeyDown}
               />
               {errors.nickname && (
@@ -436,9 +439,9 @@ const SignUpPage = () => {
                 placeholder="학번 8자리를 입력해주세요"
                 {...register("studentId", {
                   required: "학번을 입력해주세요",
+                  validate: handleStudentIdBlur
                 })}
-                onBlur={handleStudentIdBlur}
-                onKeyDown={handleKeyDown}
+                  onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.studentId?.message}</p>
             </div>

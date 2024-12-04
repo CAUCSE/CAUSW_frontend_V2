@@ -98,7 +98,7 @@ export const Management = ({
             className="mb-3 text-lg"
             key={element.userName}
           >
-            {element.userName}({element.studentId})
+            {(state === "admission" || state === "reject") ? (<>{element.userName}</>) : (<>{element.userName}({element.studentId})</>)}
           </Link>
         ))}
       </div>

@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { AcademicRecordRscService } from '@/shared';
+import { AcademicRecordRscService, NoButtonModal } from '@/shared';
 import { useRouter } from 'next/navigation';
 
-const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
+const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -16,6 +16,7 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
   const { postAcademicRecord } = AcademicRecordRscService();
+  const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
   const handleCancel = () => {
     // 취소 버튼을 클릭했을 때 모달을 닫습니다.
@@ -39,20 +40,38 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
     }
 };
 
- 
+useEffect(() => {
+  if (rejectMessage){
+    setRejectMessageModal(true);
+  }
+}, []);
 
   const files = watch("images") as FileList;
   const selectedAcademicStatus = watch('targetAcademicStatus');
 
   
-  useEffect(() => {
-    if (files && files.length > 0) {
-      const newFiles = Array.from(files);
-      const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
-      setImagePreviews(prevPreviews => [...newImagePreviews.reverse(), ...prevPreviews]);
-      setFileList(newFiles); // 파일 업데이트
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFiles = Array.from(event.target.files); // 새로운 파일 배열로 변환
+
+      // 기존 파일들과 병합
+      const updatedFileList = [...newFiles, ...fileList.reverse()];
+      setFileList(updatedFileList);
+
+      // 이미지 미리보기 URL 생성 및 추가
+      const newImagePreviews = newFiles.map((file) =>
+        URL.createObjectURL(file)
+      );  
+      setImagePreviews((prevPreviews) => [...newImagePreviews, ...prevPreviews.reverse()]);
+      
+      const dataTransfer = new DataTransfer();
+      updatedFileList.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+
+      setValue('images', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정        
+      
+      // Reset the input value to allow re-uploading the same file if needed
     }
-  }, [files]);
+  };
 
   useEffect(() => {
     setAcademicStatus(selectedAcademicStatus); // 학적 상태 변경 시 UI 갱신
@@ -119,7 +138,7 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
   return (
     <div className="p-6">
               {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-10 w-full flex justify-left items-center py-2 mb-4">
+              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
           <button
             onClick={handleCancel}
             className="text-black-500 hover:text-gray-500 flex items-center"
@@ -252,17 +271,21 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
         <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        <input id="file-upload" type="file" multiple className="hidden" {...register('images', { required: '파일을 첨부해 주세요', validate: (files) => {
-            if (files && files.length > 0) {
-              const fileArray = Array.from(files)
-              for (const file of fileArray) {
-                if (file.size > 5 * 1024 * 1024) {
-                  return '파일 사이즈는 5MB를 초과할 수 없습니다.';
-                }
-              }
-            }
-            return true;
-          } })} />
+        <input id="file-upload" type="file" multiple className="hidden" accept='image/*'{...register('images', { 
+          validate: 
+          {
+            validateFileCount: (files: FileList | null) =>
+        files && files.length > 0 && files.length <= 5 || 
+        "파일은 최소 1개, 최대 5개까지 업로드 가능합니다.", 
+            allImages: (files: FileList | null) => {
+          // 모든 파일이 이미지 형식인지 확인
+          if (!files) return true;
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.startsWith("image/")) {
+              return "이미지 파일만 업로드 가능합니다.";
+            }}}}})}
+         onChange={handleFileChange}/>
         </label>
     </div>
 
@@ -347,6 +370,15 @@ const SubmitAcademicRecordPage = ({onClose}: {onClose: () => void;}) => {
         </div>
       )}
 
+            {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
+            {rejectMessageModal && (
+          <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
+            <h1 className='font-bold mb-8'>다음과 같은 이유로 재학 증빙 서류 제출이 거절되었습니다.</h1>
+            <h1 >거절 사유 : {rejectMessage}</h1>
+          </NoButtonModal>
+        )
+
+        }
 
 
         <div className="mt-8 flex justify-center">
