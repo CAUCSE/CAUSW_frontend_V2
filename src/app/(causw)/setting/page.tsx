@@ -58,7 +58,7 @@ const SettingsPage = () => {
       { name: "개인정보 관리", link: "/setting/personal-info" },
       { name: "비밀번호 변경", link: "/setting/resetpassword" },
       { name: "로그아웃", link: "/auth/signin" },
-      { name: "이용약관", link: "/setting/useterms", },
+      { name: "이용약관", link: "/setting/useterms" },
     ],
     기록: [
       { name: "내가 쓴 글", link: "/setting/my/posts" },
@@ -132,8 +132,8 @@ const SettingsPage = () => {
             </>
           ))}
 
-        {/* 동아리 대표인 경우 */}
-        {isCircleLeader() && (
+        {/* 동아리 대표인 경우: 동아리 비활성화 */}
+        {/* {isCircleLeader() && (
           <>
             <MenuItem title="권한 위임" items={menuItems.권한위임} />
             {circleNameIfLeader?.map((circleName, idx) => (
@@ -146,7 +146,7 @@ const SettingsPage = () => {
               ></MenuItem>
             ))}
           </>
-        )}
+        )} */}
 
         {/* 동문회장 */}
         {isAlumniLeader() && (
@@ -181,7 +181,7 @@ const SettingsPage = () => {
         </div>
         {isUseTermsOpen && (
           <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>
-          )}
+        )}
       </div>
     </div>
   );
