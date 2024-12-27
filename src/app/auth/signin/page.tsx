@@ -59,7 +59,7 @@ const SignInPage = () => {
           onClick={() => {
             setEnterEmail(false);
           }}
-          className="mb-3 text-2xl text-white"
+          className="text-md text-white sm:mb-3 sm:text-2xl"
         >
           함께라면 더 밝은 미래로
         </div>
@@ -67,7 +67,7 @@ const SignInPage = () => {
           onClick={() => {
             setEnterEmail(false);
           }}
-          className="mb-8 text-center text-3xl font-bold tracking-widest text-white sm:text-5xl"
+          className="mb-3 text-center text-2xl font-bold tracking-widest text-white sm:mb-8 sm:text-5xl"
         >
           우리들의 동문 네트워크
         </div>
@@ -93,11 +93,29 @@ const SignInPage = () => {
             </>
           ) : (
             <>
-              <div className="flex flex-row items-center">
-                <input type="checkbox" id="auto" {...register("auto")} />
-                <label htmlFor="auto" className="ml-1 font-thin text-white">
-                  자동 로그인
-                </label>
+              <div className="mt-1 flex w-full items-start justify-between pl-1 pr-1">
+                <div className="flex items-center">
+                  <input type="checkbox" id="auto" {...register("auto")} />
+                  <label
+                    htmlFor="auto"
+                    className="ml-1 text-xs font-thin text-white sm:text-[16px]"
+                  >
+                    자동 로그인
+                  </label>
+                </div>
+                <div className="flex flex-col items-end">
+                  {routes.map((route) => (
+                    <div
+                      key={route.name}
+                      onClick={() => {
+                        router.push(route.route);
+                      }}
+                      className="border-b-2-white font-boerder mb-2 border-b text-xs text-white sm:text-[16px] md:mt-1 md:hidden"
+                    >
+                      {route.name}
+                    </div>
+                  ))}
+                </div>
               </div>
             </>
           )}
@@ -110,15 +128,15 @@ const SignInPage = () => {
               onClick={() => {
                 router.push(route.route);
               }}
-              className="border-b-2-white font-boerder mt-2 border-b text-white md:mt-1"
+              className="border-b-2-white font-boerder mt-2 hidden border-b text-white md:mt-1 md:block"
             >
               {route.name}
             </div>
           ))}
       </div>
 
-      <div className="absolute bottom-10 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
-        <span className="mt-2 text-end text-lg font-bold text-white md:mr-7">
+      <div className="absolute bottom-8 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
+        <span className="mt-2 text-end text-sm font-bold text-white sm:text-lg md:mr-7">
           중앙대학교 소프트웨어학부 ICT 위원회
         </span>
         <div className="mt-2 flex w-32 flex-row justify-between md:mr-4">
