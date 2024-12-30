@@ -33,7 +33,7 @@ input {
   -webkit-text-fill-color: rgb(255, 255, 255) !important;
 }
 #specificInput {
-  color: #fff !important;
+  color: rgba(255, 255, 255, 0) !important;
   transition:
     background-color 9999s ease-out,
     color 9999s ease-out !important;

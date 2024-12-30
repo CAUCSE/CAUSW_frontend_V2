@@ -88,7 +88,7 @@ const SignInPage = () => {
                 name="password"
                 type="password"
                 placeholder="비밀번호를 입력해주세요"
-              ></SignInInput>
+              />
               <SignInSubmitButton />
             </>
           ) : (
@@ -135,7 +135,7 @@ const SignInPage = () => {
           ))}
       </div>
 
-      <div className="absolute bottom-8 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
+      <div className="absolute bottom-3 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
         <span className="mt-2 text-end text-sm font-bold text-white sm:text-lg md:mr-7">
           중앙대학교 소프트웨어학부 ICT 위원회
         </span>
@@ -148,6 +148,7 @@ const SignInPage = () => {
             alt="kakao"
             width={50}
             height={50}
+            className="h-10 w-10 md:h-[50px] md:w-[50px]"
           ></Image>
           <Image
             onClick={() => {
@@ -158,6 +159,7 @@ const SignInPage = () => {
             alt="instagram"
             width={50}
             height={50}
+            className="h-10 w-10 md:h-[50px] md:w-[50px]"
           ></Image>
         </div>
       </div>
