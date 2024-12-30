@@ -1,12 +1,10 @@
 "use client";
 
-import { useUserStore } from "@/shared";
-
 export const ProfileImage = ({ src }: { src?: string }) => {
   return (
-    <div className="h-24 w-24 overflow-hidden rounded-full shadow-2xl">
+    <div className="h-[45px] w-[45px] overflow-hidden rounded-full shadow-2xl xl:h-24 xl:w-24">
       <div
-        className="h-24 w-24 bg-contain bg-center bg-no-repeat"
+        className="h-[45px] w-[45px] bg-contain bg-center bg-no-repeat xl:h-24 xl:w-24"
         style={{
           backgroundImage: `url(${src ? src : "/images/default_profile.png"})`,
         }}
