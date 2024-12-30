@@ -135,11 +135,11 @@ const SignInPage = () => {
           ))}
       </div>
 
-      <div className="absolute bottom-3 flex w-full flex-col items-center md:bottom-5 md:flex-row md:justify-end">
-        <span className="mt-2 text-end text-sm font-bold text-white sm:text-lg md:mr-7">
-          중앙대학교 소프트웨어학부 ICT 위원회
+      <div className="absolute bottom-3 flex w-full flex-row items-center justify-end md:bottom-5">
+        <span className="mr-1 mt-2 text-end text-sm font-bold text-white sm:text-lg">
+          중앙대학교 소프트웨어학부 <br /> ICT 위원회
         </span>
-        <div className="mt-2 flex w-32 flex-row justify-between md:mr-4">
+        <div className="mr-3 mt-2 flex flex-row justify-between md:mr-4">
           <Image
             onClick={() => {
               window.location.href = "https://pf.kakao.com/_HYxjFj";
@@ -148,7 +148,7 @@ const SignInPage = () => {
             alt="kakao"
             width={50}
             height={50}
-            className="h-10 w-10 md:h-[50px] md:w-[50px]"
+            className="mr-1 h-10 w-10 md:h-[50px] md:w-[50px]"
           ></Image>
           <Image
             onClick={() => {
