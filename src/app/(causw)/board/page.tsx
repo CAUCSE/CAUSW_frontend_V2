@@ -79,7 +79,7 @@ const BoardPage = () => {
             </div>
           </div>
           <Link href={`/board/create`}>
-            <button className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white xl:bottom-10">
+            <button className="fixed bottom-[70px] right-[9px] w-32 transform rounded-xl bg-red-500 px-6 py-3 font-bold text-white shadow-lg xl:bottom-10 xl:left-1/2 xl:-translate-x-1/2">
               게시판 생성
             </button>
           </Link>

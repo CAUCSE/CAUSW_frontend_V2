@@ -32,7 +32,7 @@ export const SideBar = () => {
 
   return (
     <>
-      <div className="fixed -top-2 right-0 flex h-28 w-full items-center justify-end space-y-4 pr-4 xl:h-screen xl:w-72 xl:flex-col xl:justify-center">
+      <div className="fixed -top-1 right-0 flex h-[55px] w-full items-center justify-end space-y-4 pr-4 xl:h-screen xl:w-72 xl:flex-col xl:justify-center">
         <div className="absolute left-3 top-4 flex flex-col items-center text-black xl:left-52 xl:top-11">
           <span
             className="icon-[codicon--sign-out] text-2xl xl:text-4xl"
@@ -46,10 +46,10 @@ export const SideBar = () => {
         </div>
 
         <div className="max-xl:hidden">
-          <ProfileImage src={profileImage}></ProfileImage>
+          <ProfileImage src={profileImage} />
         </div>
         <div className="mr-2 flex flex-col items-end xl:mr-0 xl:items-center">
-          <Header wide>{name}</Header>
+          <SubHeader big>{name}</SubHeader>
           <SubHeader gray>{email}</SubHeader>
         </div>
         <div className="xl:hidden">
