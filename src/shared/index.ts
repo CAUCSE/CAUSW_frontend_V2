@@ -52,7 +52,10 @@ export { SettingService } from "./hooks/services/SettingService";
 export { UserCouncilFeeService } from "./hooks/services/UserCouncilFeeService";
 export { UserService } from "./hooks/services/UserService";
 
+export { LockerService } from "./hooks/services/LockerService";
+
 export { AcademicRecordRscService } from "./hooks/services/AcademicRecordRscService";
+
 //Store
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
@@ -79,4 +82,4 @@ export { Icon } from "./ui/icon";
 export { Modal } from "./ui/modal";
 export { PreviousButton } from "./ui/previousButton";
 export { RedirectModal } from "./ui/redirectModal";
-export { NoButtonModal } from "./ui/noButtonModal"
+export { NoButtonModal } from "./ui/noButtonModal";
