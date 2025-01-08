@@ -104,12 +104,12 @@ const PostDetailPage = (props: any) => {
 
   const handlePostLike = async () => {
     try {
-      incrementLike();
       const createPostResponse = await PostRscService().postLikeForPost(postId);
       console.log("게시물 좋아요 완료: ", createPostResponse);
+      incrementLike();
     } catch (error) {
       console.error("좋아요 처리 에러: ", error);
-      decrementLike();
+      //decrementLike();
       showPopup("이미 좋아요를 누른 게시글입니다.");
     }
   };
@@ -126,38 +126,38 @@ const PostDetailPage = (props: any) => {
 
   const handleCommentLike = async (commentId: string) => {
     try {
-      incrementCommentLike(commentId);
       const PostCommentLikeResponse =
         await CommentRscService().postLikeForComment(commentId);
       console.log("댓글 좋앙 완료:", PostCommentLikeResponse);
+      incrementCommentLike(commentId);
     } catch (error) {
       console.error("댓글 좋아요 처리 에러: ", error);
-      decrementCommentLike(commentId);
+      //decrementCommentLike(commentId);
       showPopup("이미 좋아요를 누른 댓글입니다.");
     }
   };
 
   const handleChildCommentLike = async (childCommentId: string) => {
     try {
-      incrementChildCommentLike(childCommentId);
       const PostChildCommentLikeResponse =
         await ChildCommentRscService().postLikeForChildComment(childCommentId);
       console.log("대댓글 좋앙 완료:", PostChildCommentLikeResponse);
+      incrementChildCommentLike(childCommentId);
     } catch (error) {
       console.error("대댓글 좋아요 처리 에러: ", error);
-      decrementChildCommentLike(childCommentId);
+      //decrementChildCommentLike(childCommentId);
       showPopup("이미 좋아요를 누른 댓글입니다.");
     }
   };
 
   const handlePostFavorite = async () => {
     try {
-      incrementFavorite();
       const createPostResponse = await PostRscService().postFavorite(postId);
       console.log("게시물 즐겨찾기 완료: ", createPostResponse);
+      incrementFavorite();
     } catch (error) {
       console.error("즐겨찾기 처리 에러: ", error);
-      decrementFavorite();
+      //decrementFavorite();
       showPopup("이미 즐겨찾기를 누른 게시글입니다.");
     }
   };
