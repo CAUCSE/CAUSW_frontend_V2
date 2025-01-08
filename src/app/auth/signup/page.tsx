@@ -13,7 +13,6 @@ const SignUpPage = () => {
     formState: { errors },
     getValues,
     setValue,
-    setError,
     clearErrors,
     watch,
     trigger
@@ -162,7 +161,6 @@ const SignUpPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   // 회원가입 성공, 혹은 실패 시 모달
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
@@ -572,11 +570,13 @@ const SignUpPage = () => {
 
       {/* 이용약관 모달 */}
       {isModalOpen && (
+        <div>
         <UseTerms
           closeModal={() => {
             setIsModalOpen(false);
           }}
         ></UseTerms>
+        </div>
       )}
     </div>
   );
