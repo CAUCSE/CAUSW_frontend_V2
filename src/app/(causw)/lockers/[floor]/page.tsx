@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { API, getRccAccess } from "@/shared";
+import { LockerService } from "@/shared/hooks/services/LockerService";
 
 interface Locker {
   id: string;
@@ -24,168 +24,72 @@ const LockerSelectionPage = () => {
   const [myLocker, setMyLocker] = useState<Locker | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  // 사물함 정보를 서버에서 가져오는 함수
   const fetchLockers = async () => {
     try {
-      const accessToken = getRccAccess();
-      if (!accessToken) {
-        throw new Error("AccessToken이 설정되지 않았습니다.");
-      }
+      const lockerLocations = await LockerService.fetchLocations();
+      const location = lockerLocations.find((loc) => loc.name === decodedFloor);
 
-      const locationsResponse = await API.get("/api/v1/lockers/locations", {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-
-      const lockerLocations = locationsResponse.data.lockerLocations;
-
-      if (!Array.isArray(lockerLocations)) {
-        throw new Error("API 응답이 올바르지 않습니다.");
-      }
-
-      // 층 이름으로 위치 ID 찾기
-      const selectedLocation = lockerLocations.find(
-        (location: any) => location.name === decodedFloor
-      );
-
-      if (!selectedLocation) {
-        setErrorMessage("해당 층에 대한 사물함 정보를 찾을 수 없습니다.");
+      if (!location) {
+        setErrorMessage("해당 층의 사물함 정보를 찾을 수 없습니다.");
         return;
       }
 
-      const locationId = selectedLocation.id;
-
-      // 위치 ID로 사물함 데이터 가져오기
-      const lockersResponse = await API.get(
-        `/api/v1/lockers/locations/${locationId}`,
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        }
-      );
-
-      const lockerList = lockersResponse.data.lockerList || [];
+      const lockerList = await LockerService.fetchLockers(location.id);
       setLockers(lockerList);
 
-      // 내 사물함 확인
       const myLockerExists = lockerList.find((locker: Locker) => locker.isMine);
       setHasMyLocker(!!myLockerExists);
       setMyLocker(myLockerExists || null);
     } catch (error: any) {
-      setErrorMessage(
-        error.response?.data?.message || "사물함 데이터를 불러오는 중 오류가 발생했습니다."
-      );
+      setErrorMessage(error.message || "사물함 정보를 불러오는 중 오류가 발생했습니다.");
     }
   };
 
-  // 모달 닫기 함수
-  const closeModal = () => {
-    setModalMessage(null);
-    setModalTitle(null);
-  };
-
-  // 사물함 클릭 시 색깔 토글
   const handleLockerClick = (id: string) => {
     setSelectedLocker((prev) => (prev === id ? null : id));
   };
 
-  // 사물함 반납
   const returnMyLocker = async () => {
     try {
       if (myLocker) {
-        const accessToken = getRccAccess();
-        if (!accessToken) {
-          throw new Error("AccessToken이 설정되지 않았습니다.");
-        }
-  
-        // 반납 시간 설정 (기존 expireAt 또는 현재 시간 사용)
         const expireAt = myLocker.expireAt || new Date().toISOString();
-  
-        await API.put(
-          `/api/v1/lockers/${myLocker.id}`,
-          {
-            action: "RETURN",
-            message: "기존 사물함 반납",
-            expireAt, // 반납 시간 포함
-          },
-          {
-            headers: {
-              Authorization: accessToken,
-            },
-          }
-        );
-  
+        await LockerService.updateLocker(myLocker.id, "RETURN", "기존 사물함 반납", expireAt);
         setModalTitle("사물함 반납 완료");
         setModalMessage(`기존 사물함이 반납되었습니다.\n반납된 사물함 번호: ${myLocker.lockerNumber}`);
         setErrorMessage(null);
-        setMyLocker(null); // 기존 사물함 정보 초기화
+        setMyLocker(null);
+        fetchLockers();
       }
     } catch (error: any) {
-      setErrorMessage(
-        error.response?.data?.message || "사물함 반납 중 오류가 발생했습니다."
-      );
+      setErrorMessage(error.message || "사물함 반납 중 오류가 발생했습니다.");
     }
   };
-  
 
-  // 신청/연장 시 처리
   const handleLockerAction = async (actionType: string, actionMessage: string) => {
-    if (!selectedLocker && actionType !== "EXTEND") return; // EXTEND는 selectedLocker 필요 없음
-  
-    const locker =
-      actionType === "EXTEND"
-        ? myLocker // EXTEND일 경우 내 사물함 사용
-        : lockers.find((l) => l.id === selectedLocker); // REGISTER일 경우 선택된 사물함 사용
-  
-    if (actionType === "REGISTER" && (!locker || !locker.isActive)) {
+    const locker = actionType === "EXTEND" ? myLocker : lockers.find((l) => l.id === selectedLocker);
+
+    if (!locker) {
+      setErrorMessage("올바른 사물함을 선택해주세요.");
+      return;
+    }
+
+    if (actionType === "REGISTER" && !locker.isActive) {
       setErrorMessage("이 사물함은 신청할 수 없습니다.");
       return;
     }
-  
-    if (actionType === "REGISTER" && myLocker) {
-      await returnMyLocker(); // 기존 사물함 반납
-    }
-  
+
     try {
-      const accessToken = getRccAccess();
-      if (!accessToken) {
-        throw new Error("AccessToken이 설정되지 않았습니다.");
-      }
-  
-      await API.put(
-        `/api/v1/lockers/${locker?.id}`, // EXTEND 시 내 사물함 ID, REGISTER 시 선택된 사물함 ID
-        {
-          action: actionType,
-          message: actionMessage,
-        },
-        {
-          headers: {
-            Authorization: accessToken,
-          },
-        }
-      );
-  
-      setModalTitle(`사물함 ${actionType} 완료`);
-      setModalMessage(
-        `${
-          locker?.lockerNumber || "알 수 없는"
-        }번 사물함 ${actionMessage}가 완료되었습니다.`
-      );
-      fetchLockers(); // 업데이트 후 데이터 새로고침
+      await LockerService.updateLocker(locker.id, actionType, actionMessage, locker.expireAt);
+      setModalTitle(`${locker.lockerNumber}번 사물함 ${actionMessage} 완료`);
+      setModalMessage(`${locker.lockerNumber}번 사물함 ${actionMessage}가 완료되었습니다.`);
+      fetchLockers();
     } catch (error: any) {
-      setErrorMessage(
-        error.response?.data?.message ||
-          `사물함 ${actionMessage} 중 오류가 발생했습니다.`
-      );
+      setErrorMessage(error.message || `사물함 ${actionMessage} 중 오류가 발생했습니다.`);
     }
-  };  
+  };
 
   useEffect(() => {
-    if (floor) {
-      fetchLockers();
-    }
+    fetchLockers();
 
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -362,7 +266,6 @@ const LockerSelectionPage = () => {
       </div>
     )}
   </div>
-);
 
     </div>
   );
