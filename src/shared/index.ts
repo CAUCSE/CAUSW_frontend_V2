@@ -52,7 +52,10 @@ export { SettingService } from "./hooks/services/SettingService";
 export { UserCouncilFeeService } from "./hooks/services/UserCouncilFeeService";
 export { UserService } from "./hooks/services/UserService";
 
+export { LockerService } from "./hooks/services/LockerService";
+
 export { AcademicRecordRscService } from "./hooks/services/AcademicRecordRscService";
+
 //Store
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
