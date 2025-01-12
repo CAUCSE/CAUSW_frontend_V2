@@ -86,7 +86,7 @@ export const SettingRscService = () => {
             headers: headers,
           }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
-      if (response.errorCode) throw new Error(response.errorCode);
+      if (response.errorCode) throw new Error(response.message);
 
       return response.content;
     } catch (error) {

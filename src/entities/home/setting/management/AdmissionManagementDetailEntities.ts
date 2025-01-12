@@ -2,30 +2,23 @@ import { SettingRscService } from "@/shared";
 
 type state = "admission" | "reject" | "active" | "drop" | "inactive";
 
-const admitTarget = async(userId) => {
+const admitTarget = async (userId) => {
   const { acceptAdmission } = SettingRscService();
   if (await acceptAdmission(userId)) {
     alert("승인되었습니다");
-  }
-  else
-  {  
+  } else {
     alert("승인에 실패했습니다. 관리자에게 문의하세요");
   }
-}
+};
 
-const restoreTarget = async(userId) => {
+const restoreTarget = async (userId) => {
   const { restoreUser } = SettingRscService();
   if (await restoreUser(userId)) {
     alert("사용자가 복구되었습니다.");
-  }
-  else
-  {  
+  } else {
     alert("복구에 실패했습니다. 관리자에게 문의하세요");
   }
-}
-
-
-
+};
 
 export const uiEntities: Record<
   state,
@@ -52,9 +45,7 @@ export const uiEntities: Record<
       {
         name: "거부",
         variant: "GRAY",
-        action: async () => {
-          ;  
-        },
+        action: async () => {},
       },
     ],
   },
@@ -66,15 +57,12 @@ export const uiEntities: Record<
         variant: "BLUE",
         action: () => {
           window.history.back();
-        }
-      ,
+        },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: async () => {
-          ; 
-        },
+        action: async () => {},
       },
     ],
   },
@@ -91,9 +79,7 @@ export const uiEntities: Record<
       {
         name: "추방",
         variant: "RED",
-        action: async() => {
-        ;
-        },
+        action: async () => {},
       },
     ],
   },
@@ -103,7 +89,7 @@ export const uiEntities: Record<
       {
         name: "복구",
         variant: "BLUE",
-        action: async(admission) => {
+        action: async (admission) => {
           await restoreTarget(admission.id);
           window.location.assign(`/setting/management/user/drop`);
         },
@@ -111,9 +97,7 @@ export const uiEntities: Record<
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: async () => {
-        ;
-        },
+        action: async () => {},
       },
     ],
   },
@@ -123,7 +107,7 @@ export const uiEntities: Record<
       {
         name: "탈퇴 복구",
         variant: "BLUE",
-        action: async(admission) => {
+        action: async (admission) => {
           await restoreTarget(admission.id);
           window.location.assign(`/setting/management/user/inactive`);
         },
@@ -131,9 +115,7 @@ export const uiEntities: Record<
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          ;
-        },
+        action: () => {},
       },
     ],
   },
@@ -173,7 +155,7 @@ export const convertAdmissionDataToTableEntity = (
   } = data.user;
   const { createdAt: requestedAt, attachImageUrlList } = data;
   const evidentImg = attachImageUrlList[0];
-  
+
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
     LEAVE_OF_ABSENCE: "휴학",
@@ -197,9 +179,7 @@ export const convertAdmissionDataToTableEntity = (
   };
 };
 
-export const convertUserDataToTableEntity = (
-  data: any,
-): any => {
+export const convertUserDataToTableEntity = (data: any): any => {
   const {
     email,
     major,
@@ -215,7 +195,7 @@ export const convertUserDataToTableEntity = (
   } = data;
   const { createdAt: requestedAt, profileImageUrl } = data;
   const evidentImg = profileImageUrl ? profileImageUrl : "";
-  
+
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
     LEAVE_OF_ABSENCE: "휴학",
