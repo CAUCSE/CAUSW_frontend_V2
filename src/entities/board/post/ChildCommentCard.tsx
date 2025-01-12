@@ -59,7 +59,7 @@ export const ChildCommentCard = ({ childComment, numLike, isDeleted, isPopupVisi
           height={25}
         ></Image>
       </div>
-      <div className="relative flex flex-col w-full border-black border-comment-bw rounded-comment-br bg-white pb-2 mb-4 flex flex-grow max-w-sm">
+      <div className="relative flex flex-col w-full border shadow-post-sh rounded-post-br bg-white pb-2 mb-4 flex flex-grow max-w-sm">
         <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10" onClick={handleChildCommentToggle}>
           <Image
             src="/images/post/comment-menu.svg"
