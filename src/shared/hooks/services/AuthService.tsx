@@ -36,7 +36,6 @@ export const AuthService = () => {
       const AdmissionResponse = await getMyInfo();
 
       if (AdmissionResponse.data.state === "AWAIT") {
-        console.log("check");
         router.push("/auth/authorization");
       } else {
         if (AdmissionResponse.data.academicStatus == "UNDETERMINED") {

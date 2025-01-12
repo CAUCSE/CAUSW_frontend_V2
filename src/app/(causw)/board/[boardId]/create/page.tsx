@@ -256,7 +256,6 @@ const CreatePostPage = (props: any) => {
     };
     try {
       const createPostResponse = await createPost(postRequest, selectedFiles);
-      console.log("게시물 생성 완료: ", createPostResponse);
       clearPost();
       resetFiles();
       if (isVote) {
@@ -270,7 +269,6 @@ const CreatePostPage = (props: any) => {
         try {
           const createVoteResponse = await createVote(voteRequest);
           clearVote();
-          console.log("투표 생성 완!!!", createVoteResponse);
         } catch (error) {
           console.error("투표 생성 에러: ", error);
         }

@@ -72,7 +72,7 @@ const PostDetailPage = (props: any) => {
   const isPresidents = useUserStore((state) => state.isPresidents);
   const isVicePresidents = useUserStore((state) => state.isVicePresidents);
   const isAdmin = useUserStore((state) => state.isAdmin);
-  
+
   const { loading } = usePostDetail(postId);
 
   const getTimeDifference = (ISOtime: string) => {
@@ -105,7 +105,6 @@ const PostDetailPage = (props: any) => {
   const handlePostLike = async () => {
     try {
       const createPostResponse = await PostRscService().postLikeForPost(postId);
-      console.log("게시물 좋아요 완료: ", createPostResponse);
       incrementLike();
     } catch (error) {
       console.error("좋아요 처리 에러: ", error);
@@ -118,7 +117,6 @@ const PostDetailPage = (props: any) => {
     try {
       const deletePostResponse = await PostRscService().deletePost(postId);
       router.back();
-      console.log("게시물 삭제 완료: ", deletePostResponse);
     } catch (error) {
       console.error("게시글 삭제 처리 에러: ", error);
     }
@@ -128,7 +126,6 @@ const PostDetailPage = (props: any) => {
     try {
       const PostCommentLikeResponse =
         await CommentRscService().postLikeForComment(commentId);
-      console.log("댓글 좋앙 완료:", PostCommentLikeResponse);
       incrementCommentLike(commentId);
     } catch (error) {
       console.error("댓글 좋아요 처리 에러: ", error);
@@ -141,7 +138,6 @@ const PostDetailPage = (props: any) => {
     try {
       const PostChildCommentLikeResponse =
         await ChildCommentRscService().postLikeForChildComment(childCommentId);
-      console.log("대댓글 좋앙 완료:", PostChildCommentLikeResponse);
       incrementChildCommentLike(childCommentId);
     } catch (error) {
       console.error("대댓글 좋아요 처리 에러: ", error);
@@ -153,7 +149,6 @@ const PostDetailPage = (props: any) => {
   const handlePostFavorite = async () => {
     try {
       const createPostResponse = await PostRscService().postFavorite(postId);
-      console.log("게시물 즐겨찾기 완료: ", createPostResponse);
       incrementFavorite();
     } catch (error) {
       console.error("즐겨찾기 처리 에러: ", error);
@@ -175,9 +170,16 @@ const PostDetailPage = (props: any) => {
       try {
         const createCommentResponse =
           await CommentRscService().createComment(createComment);
-        console.log("게시물 댓글 완료: ", createCommentResponse);
         addComment(createCommentResponse);
-        setComments(createCommentResponse.id, false, true, false, [], 0, getTimeDifference(Date()));
+        setComments(
+          createCommentResponse.id,
+          false,
+          true,
+          false,
+          [],
+          0,
+          getTimeDifference(Date()),
+        );
         incrementComment();
       } catch (error) {
         console.error("게시물 댓글 처리 에러: ", error);
@@ -192,12 +194,18 @@ const PostDetailPage = (props: any) => {
       try {
         const createChildCommentResponse =
           await ChildCommentRscService().createChildComment(createChildComment);
-        console.log("대댓글 완료: ", createChildCommentResponse);
         addChildComment(
           createCommentInfo.commentId!,
           createChildCommentResponse,
         );
-        setChildComment(createChildCommentResponse.id, 0, false, true, false, getTimeDifference(Date()));
+        setChildComment(
+          createChildCommentResponse.id,
+          0,
+          false,
+          true,
+          false,
+          getTimeDifference(Date()),
+        );
         incrementComment();
       } catch (error) {
         console.error("게시물 대댓글 처리 에러: ", error);
@@ -224,7 +232,6 @@ const PostDetailPage = (props: any) => {
       const deleteCommentResponse =
         await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
-      console.log("댓글 삭제 완료: ", deleteCommentResponse);
     } catch (error) {
       console.error("댓글 삭제 처리 에러: ", error);
     }
@@ -243,7 +250,6 @@ const PostDetailPage = (props: any) => {
       const deleteChildCommentResponse =
         await ChildCommentRscService().deleteChildComment(childCommentId);
       deleteChildComment(childCommentId);
-      console.log("대댓글 삭제 완료: ", deleteChildCommentResponse);
     } catch (error) {
       console.error("대댓글 삭제 처리 에러: ", error);
     }

@@ -44,8 +44,6 @@ export const AcademicRecordRscService = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      console.log("게시글 생성 완료:", response.data);
       return response;
     } catch (error) {
       console.error("Error creating post:", error);
@@ -94,8 +92,6 @@ export const AcademicRecordRscService = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      console.log("재학 증빙 서류 작성 완료:", response.data);
       return response;
     } catch (error) {
       console.error("Error creating post:", error);

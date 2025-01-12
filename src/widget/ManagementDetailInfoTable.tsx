@@ -2,7 +2,6 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import { PreviousButton } from "@/shared";
 const TableUnit = ({ title, data }: { title: string; data: string }) => {
-  console.log(title, data);
   return (
     <div className="flex flex-col text-[14px] lg:text-[20px]">
       <p>{title}</p>
@@ -38,7 +37,7 @@ export function ManagementDetailInfoTable({
   additionalUnit?: ReactNode;
 }) {
   return (
-    <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-4 font-semibold lg:pt-8 lg:w-[700px]">
+    <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-4 font-semibold lg:w-[700px] lg:pt-8">
       <PreviousButton></PreviousButton>
       {Object.keys(data).map((k) => {
         const key = k as keyof typeof data;

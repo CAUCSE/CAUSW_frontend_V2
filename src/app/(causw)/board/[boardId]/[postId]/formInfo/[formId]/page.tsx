@@ -222,10 +222,6 @@ const FormInfoPage = () => {
   }, [numOfRequestDetailResult]);
 
   useEffect(() => {
-    console.log(responseUserInfos);
-  }, [responseUserInfos]);
-
-  useEffect(() => {
     if (!formResultSummary) return;
     const objectiveQuestions = formResultSummary.filter(
       (result) => result.questionType === "OBJECTIVE",

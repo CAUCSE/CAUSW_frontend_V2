@@ -44,8 +44,9 @@ export const PostCard = ({
   toggleMenu,
   isPopupVisible,
 }: PostCardProps) => {
-  const userImage =
-    postData.isAnonymous ? "/images/default_profile.png" : postData.writerProfileImage;
+  const userImage = postData.isAnonymous
+    ? "/images/default_profile.png"
+    : postData.writerProfileImage;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupImage, setPopupImage] = useState<string | null>(null);
 
@@ -66,7 +67,6 @@ export const PostCard = ({
       };
       const castVoteResponse = await VoteRscService().castVote(options);
       castVote(selectedOptions);
-      console.log("투표완료: ", castVoteResponse);
     } catch (error) {
       cancelVote(selectedOptions);
       console.error("투표 처리 에러: ", error);
@@ -174,7 +174,9 @@ export const PostCard = ({
           <div className="mb-2 px-1 text-[24px] font-medium">
             {postData.title}
           </div>
-          <div className="mb-2 px-1 pb-2 whitespace-pre-wrap text-[16px]">{postData.content}</div>
+          <div className="mb-2 whitespace-pre-wrap px-1 pb-2 text-[16px]">
+            {postData.content}
+          </div>
 
           {/* 나중에 투표 api 생기면 연결 */}
           {postData.isPostVote ? (
