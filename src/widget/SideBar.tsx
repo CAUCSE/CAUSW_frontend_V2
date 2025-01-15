@@ -100,18 +100,16 @@ export const SideBar = () => {
       </Link>
         </div>
         <div className="space-y-3">
-          {notifications.map((notification, index) => (
-            <div className="space-y-3">
-            <Link href='/occasion' className="">
-            <NotificationItem
-              key={index}
-              title={notification.title}
-              timeInfo={notification.timeInfo}
-            />
-            </Link>
-            </div>
-          ))}
-        </div>
+      {notifications.map((notification, index) => (
+      <Link href="/occasion" key={index} className="block">
+        <NotificationItem
+        title={notification.title}
+        timeInfo={notification.timeInfo}
+        />
+      </Link>
+  ))}
+</div>
+
       </div>  
     </div>
 
