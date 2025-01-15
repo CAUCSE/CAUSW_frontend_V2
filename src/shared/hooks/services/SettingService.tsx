@@ -44,7 +44,6 @@ export const SettingService = () => {
   };
 
   const useGetWaitingUser = (userId: string, applicationId: string) => {
-    console.log(applicationId);
     return useQuery({
       queryKey: ["waitingUser", userId, applicationId],
       queryFn: async () => {

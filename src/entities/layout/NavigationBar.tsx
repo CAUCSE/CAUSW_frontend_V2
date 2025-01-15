@@ -21,14 +21,14 @@ export const NavigationBar = () => {
         <Link
           key={iconClass.href}
           href={iconClass.href}
-          className={`h-[55px] w-[55px] ${
+          className={`h-[65px] w-[200px] ${
             firstRouter === iconClass.href ? "bg-[#F8F8F8]" : "bg-default"
-          } flex flex-col items-center justify-center rounded-xl xl:mb-0 xl:h-24 xl:w-11/12 xl:rounded-l-2xl xl:rounded-r-none`}
+          } flex flex-col items-center justify-center rounded-xl border-[5px] border-default xl:mb-0 xl:h-24 xl:w-11/12 xl:rounded-l-2xl xl:rounded-r-none xl:border-0`}
         >
           <span
             className={`${iconClass.icon} ${
               firstRouter === iconClass.href ? "text-default" : "bg-[#F8F8F8]"
-            } text-4xl xl:mr-3 xl:text-6xl`}
+            } text-3xl xl:mr-3 xl:text-6xl`}
           ></span>
         </Link>
       ))}

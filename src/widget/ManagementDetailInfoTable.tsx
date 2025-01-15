@@ -1,8 +1,20 @@
+"use client";
+
 import Image from "next/image";
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { PreviousButton } from "@/shared";
-const TableUnit = ({ title, data }: { title: string; data: string }) => {
-  console.log(title, data);
+
+import { Modal } from "@/entities";
+
+const TableUnit = ({
+  title,
+  data,
+  setModalOn,
+}: {
+  title: string;
+  data: string;
+  setModalOn: Dispatch<SetStateAction<false | JSX.Element>>;
+}) => {
   return (
     <div className="flex flex-col text-[14px] lg:text-[20px]">
       <p>{title}</p>
@@ -10,11 +22,22 @@ const TableUnit = ({ title, data }: { title: string; data: string }) => {
       title === "가입 신청서 첨부 이미지" ? (
         data ? (
           <Image
-            className={data == "" ? "invisible" : ""}
+            className={data === "" ? "invisible rounded-md" : "rounded-md"}
             src={data}
             alt={title}
             width={200}
             height={200}
+            onClick={() =>
+              setModalOn(
+                <Image
+                  className={data == "" ? "invisible rounded-md" : "rounded-md"}
+                  src={data}
+                  alt={title}
+                  width={1000}
+                  height={1000}
+                />,
+              )
+            }
           />
         ) : (
           <p className="h-[200px] text-[rgba(180,177,177,1)] max-lg:text-[14px]">
@@ -37,14 +60,28 @@ export function ManagementDetailInfoTable({
   titleMapping: { [key: string]: string };
   additionalUnit?: ReactNode;
 }) {
+  const [isModalOn, setModalOn] = useState<JSX.Element | false>(false);
+
   return (
-    <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-4 font-semibold lg:pt-8 lg:w-[700px]">
-      <PreviousButton></PreviousButton>
-      {Object.keys(data).map((k) => {
-        const key = k as keyof typeof data;
-        return <TableUnit key={key} title={titleMapping[k]} data={data[key]} />;
-      })}
-      {additionalUnit}
-    </div>
+    <>
+      {isModalOn && (
+        <Modal onClose={() => setModalOn(false)}>{isModalOn}</Modal>
+      )}
+      <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-4 font-semibold lg:w-[700px] lg:pt-8">
+        <PreviousButton></PreviousButton>
+        {Object.keys(data).map((k) => {
+          const key = k as keyof typeof data;
+          return (
+            <TableUnit
+              key={key}
+              title={titleMapping[k]}
+              data={data[key]}
+              setModalOn={setModalOn}
+            />
+          );
+        })}
+        {additionalUnit}
+      </div>
+    </>
   );
 }

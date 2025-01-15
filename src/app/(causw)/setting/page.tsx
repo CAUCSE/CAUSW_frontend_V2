@@ -157,7 +157,7 @@ const SettingsPage = () => {
         )}
 
         {/* 관리자, 학생회장, 부학생회장 */}
-        {(isAdmin() ?? isPresidents() ?? isVicePresidents()) && (
+        {(isAdmin() || isPresidents() || isVicePresidents()) && (
           <>
             <MenuItem
               title="관리"

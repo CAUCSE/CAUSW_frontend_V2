@@ -11,7 +11,7 @@ const VerificationPage: React.FC = () => {
     UserService();
   const [isAcademicRecordModalOpen, setIsAcademicModalOpen] = useState(false);
   const [isAdmissionModalOpen, setIsAdmissionModalOpen] = useState(false);
-  const [userStatus, setUserStatus ] = useState('');
+  const [userStatus, setUserStatus] = useState("");
   const [emailValue, setEmailValue] = useState("");
 
   // UNDONE, AWAIT, REJECT, COMPLETE로 관리
@@ -22,9 +22,12 @@ const VerificationPage: React.FC = () => {
   const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] =
     useState("");
 
-  // 거절 사유 출력 부분 
-  const [admissionRejectMessage, setAdmissionRejectMessage] = useState <"UNDONE" | "AWAIT" | "COMPLETE" | "REJECT" | ""> ("");
-  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState <"BANNED" | "UNDONE" | "COMPLETE" | "REJECT" | ""> ("");
+  // 거절 사유 출력 부분
+  const [admissionRejectMessage, setAdmissionRejectMessage] = useState<
+    "UNDONE" | "AWAIT" | "COMPLETE" | "REJECT" | ""
+  >("");
+  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] =
+    useState<"BANNED" | "UNDONE" | "COMPLETE" | "REJECT" | "">("");
 
   useEffect(() => {
     const getInfo = async () => {
@@ -32,27 +35,23 @@ const VerificationPage: React.FC = () => {
         const response = await getMyInfo();
         // 상태 값들 가져오기
         const { state, rejectionOrDropReason, email } = response.data;
-        
+
         setUserStatus(state);
-        
+
         // 상태 업데이트
         setEmailValue(email);
         // 조건문 처리 (상태 값이 올바르게 설정된 후에 처리)
-        if (state === "REJECT"){
+        if (state === "REJECT") {
           setAdmissionApplicationStatus("REJECT");
           setAcademicRecordApplicationStatus("BANNED");
           setAdmissionRejectMessage(rejectionOrDropReason);
-        }
-        else if (state === "AWAIT") {
+        } else if (state === "AWAIT") {
           setAcademicRecordApplicationStatus("BANNED");
           checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
-        }
-        else if (state === "ACTIVE") {
-          console.log("await가 아닌 상태");
+        } else if (state === "ACTIVE") {
           setAdmissionApplicationStatus("COMPLETE");
           checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
         }
-        
       } catch (error) {
         console.log(error);
       }
@@ -75,12 +74,13 @@ const VerificationPage: React.FC = () => {
 
   const checkAcademicRecordApplication = async () => {
     try {
-      const { isRejected, rejectMessage } = (await checkIsAcademicRecordSubmitted()).data;
+      const { isRejected, rejectMessage } = (
+        await checkIsAcademicRecordSubmitted()
+      ).data;
       if (isRejected) {
         setAcademicRecordApplicationStatus("REJECT");
         setAcademicRecordRejectMessage(rejectMessage);
-      }
-      else {
+      } else {
         setAcademicRecordApplicationStatus("COMPLETE");
       }
     } catch (error) {
@@ -135,13 +135,13 @@ const VerificationPage: React.FC = () => {
               )}
               {admissionApplicationStatus === "REJECT" && (
                 <button
-                onClick={() => {
-                  setIsAdmissionModalOpen(true);
-                }}
-                className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
-              >
-                가입 신청서 제출 거절됨 (다시 제출하기)
-              </button>
+                  onClick={() => {
+                    setIsAdmissionModalOpen(true);
+                  }}
+                  className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
+                >
+                  가입 신청서 제출 거절됨 (다시 제출하기)
+                </button>
               )}
 
               {admissionApplicationStatus === "UNDONE" && (
@@ -175,7 +175,7 @@ const VerificationPage: React.FC = () => {
                   className="w-full rounded-lg bg-focus py-3 text-white transition hover:bg-blue-500"
                 >
                   재학 증빙 서류 거절됨 (다시 제출하기)
-                  </button>
+                </button>
               )}
 
               {academicRecordApplicationStatus === "UNDONE" && (
