@@ -68,9 +68,16 @@ export const SideBar = () => {
               handleNoRefresh();
             }}
           ></span>
-          <span className="text-xs text-black underline xl:text-sm">
+          <span className="text-xs text-black underline xl:text-sm hidden xl:block">
             로그아웃
           </span>
+
+          
+        </div>
+        <div className="absolute left-12 top-0 flex flex-col items-center text-black xl:hidden">
+          <Link href="/occasion">
+            <span className="icon-[codicon--bell] text-2xl text-black-400"></span>
+          </Link>
         </div>
 
         <div className="max-xl:hidden">
