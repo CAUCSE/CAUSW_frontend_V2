@@ -195,7 +195,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           onClick={() => {
             submitHandler();
           }}
-          className="col-span-3 row-span-3 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
+          className="col-span-3 row-span-3 mt-60 flex h-10 items-center justify-center rounded-xl bg-red-500 text-lg text-white md:col-span-3 md:row-span-2 md:h-16 lg:text-xl"
         >
           수정 완료
         </div>

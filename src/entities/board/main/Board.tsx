@@ -21,26 +21,26 @@ export const Board = ({
       </h1>
 
       <div className="mt-4 rounded-2xl border border-black bg-white px-4 text-center shadow-lg">
-        <Link href={`/board/${boardId}`}>
-          {contents.length === 0 ? (
+        {contents.length === 0 ? (
+          <Link href={`/board/${boardId}`}>
             <EmptyContent />
-          ) : (
-            <div className="divide-y-2">
-              {contents.map((content, idx) => (
-                <div key={content.contentId}>
-                  <Link href={`/board/${boardId}/${content.contentId}`}>
-                    <div className="truncate py-2">{content.title} </div>
-                  </Link>
-                </div>
-              ))}
-              {emptyContents.map((_, idx) => (
-                <div className="py-2" key={idx}>
-                  　
-                </div>
-              ))}
-            </div>
-          )}
-        </Link>
+          </Link>
+        ) : (
+          <div className="divide-y-2">
+            {contents.map((content, idx) => (
+              <div key={content.contentId}>
+                <Link href={`/board/${boardId}/${content.contentId}`}>
+                  <div className="truncate py-2">{content.title} </div>
+                </Link>
+              </div>
+            ))}
+            {emptyContents.map((_, idx) => (
+              <div className="py-2" key={idx}>
+                　
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -2,32 +2,23 @@ import { SettingRscService } from "@/shared";
 
 type state = "admission" | "reject" | "active" | "drop" | "inactive";
 
-const admitTarget = async(userId) => {
+const admitTarget = async (userId) => {
   const { acceptAdmission } = SettingRscService();
   if (await acceptAdmission(userId)) {
     alert("승인되었습니다");
-    window.history.back();
-  }
-  else
-  {  
+  } else {
     alert("승인에 실패했습니다. 관리자에게 문의하세요");
   }
-}
+};
 
-const restoreTarget = async(userId) => {
+const restoreTarget = async (userId) => {
   const { restoreUser } = SettingRscService();
   if (await restoreUser(userId)) {
     alert("사용자가 복구되었습니다.");
-    window.history.back();
-  }
-  else
-  {  
+  } else {
     alert("복구에 실패했습니다. 관리자에게 문의하세요");
   }
-}
-
-
-
+};
 
 export const uiEntities: Record<
   state,
@@ -47,15 +38,14 @@ export const uiEntities: Record<
         name: "승인",
         variant: "BLUE",
         action: async (admission) => {
-          admitTarget(admission.id);
+          await admitTarget(admission.id);
+          window.location.assign(`/setting/management/user/admission`);
         },
       },
       {
         name: "거부",
         variant: "GRAY",
-        action: async () => {
-          ;  
-        },
+        action: async () => {},
       },
     ],
   },
@@ -63,18 +53,16 @@ export const uiEntities: Record<
     titleSuffix: "가입 신청서 내용",
     buttons: [
       {
-        name: "재승인",
+        name: "닫기",
         variant: "BLUE",
-        action: async (admission) => {
-          restoreTarget(admission.id);
-      },
+        action: () => {
+          window.history.back();
+        },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: async () => {
-          ; 
-        },
+        action: async () => {},
       },
     ],
   },
@@ -91,9 +79,7 @@ export const uiEntities: Record<
       {
         name: "추방",
         variant: "RED",
-        action: async() => {
-        ;
-        },
+        action: async () => {},
       },
     ],
   },
@@ -103,16 +89,15 @@ export const uiEntities: Record<
       {
         name: "복구",
         variant: "BLUE",
-        action: (admission) => {
-          restoreTarget(admission.id);
+        action: async (admission) => {
+          await restoreTarget(admission.id);
+          window.location.assign(`/setting/management/user/drop`);
         },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: async () => {
-        ;
-        },
+        action: async () => {},
       },
     ],
   },
@@ -122,16 +107,15 @@ export const uiEntities: Record<
       {
         name: "탈퇴 복구",
         variant: "BLUE",
-        action: (admission) => {
-          restoreTarget(admission.id);
+        action: async (admission) => {
+          await restoreTarget(admission.id);
+          window.location.assign(`/setting/management/user/inactive`);
         },
       },
       {
         name: "목록에서 삭제",
         variant: "RED",
-        action: () => {
-          ;
-        },
+        action: () => {},
       },
     ],
   },
@@ -171,7 +155,7 @@ export const convertAdmissionDataToTableEntity = (
   } = data.user;
   const { createdAt: requestedAt, attachImageUrlList } = data;
   const evidentImg = attachImageUrlList[0];
-  
+
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
     LEAVE_OF_ABSENCE: "휴학",
@@ -195,9 +179,7 @@ export const convertAdmissionDataToTableEntity = (
   };
 };
 
-export const convertUserDataToTableEntity = (
-  data: any,
-): any => {
+export const convertUserDataToTableEntity = (data: any): any => {
   const {
     email,
     major,
@@ -212,8 +194,8 @@ export const convertUserDataToTableEntity = (
     phoneNumber,
   } = data;
   const { createdAt: requestedAt, profileImageUrl } = data;
-  const evidentImg = profileImageUrl ? profileImageUrl[0] : "";
-  
+  const evidentImg = profileImageUrl ? profileImageUrl : "";
+
   const academicStatusMap: Record<Setting.AdmissionAcademicStatus, string> = {
     ENROLLED: "재학",
     LEAVE_OF_ABSENCE: "휴학",
@@ -251,7 +233,7 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
   enrolledSemester: "등록 완료 학기",
   phoneNumber: "연락처",
   requestedAt: "가입 요청 일시",
-  evidentImg: "학부 재적/졸업 증빙 자료",
+  evidentImg: "가입 신청서 첨부 이미지",
 };
 
 // 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)

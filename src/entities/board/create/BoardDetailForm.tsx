@@ -1,36 +1,46 @@
-import { useBoardStore } from '@/shared';
+import { useBoardStore } from "@/shared";
 
 export const BoardDetailForm = () => {
-  const { boardName, isNameValid, boardDescription, setBoardName, setIsNameValid,setBoardDescription } = useBoardStore();
+  const {
+    boardName,
+    isNameValid,
+    boardDescription,
+    setBoardName,
+    setIsNameValid,
+    setBoardDescription,
+  } = useBoardStore();
 
   return (
     <>
-      <div className="text-[35px] mb-2 lg:mt-2 lg:mb-6">게시판 생성</div>
-      <div className="relative mb-2 lg:mb-6">
-        <div className="text-[28px] mb-2">게시판 이름</div>
+      <div className="mb-2 pt-2 text-2xl xl:mb-6 xl:text-3xl">게시판 생성</div>
+      <div className="mb-2 xl:mb-6">
+        <div className="mb-2 text-xl xl:text-2xl">게시판 이름</div>
         <input
           type="text"
-          className="w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none"
+          className="text-md w-full border-b-post-title-input border-black bg-transparent text-black focus:outline-none xl:text-lg"
           value={boardName}
           onChange={(e) => {
             setBoardName(e.target.value);
             setIsNameValid(true);
           }}
+          placeholder="게시판 이름을 입력해주세요."
         />
         {!isNameValid && (
-          <div className="absolute text-red-500 mt-1 right-0">게시판 이름은 필수입니다.</div>
+          <div className="absolute right-0 mt-1 pr-4 text-sm text-red-500">
+            게시판 이름은 필수입니다.
+          </div>
         )}
       </div>
 
       <div className="mb-6">
-        <div className="text-[28px] mb-2">게시판 설명</div>
+        <div className="py-2 text-xl xl:text-2xl">게시판 설명</div>
         <textarea
-          className="w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none"
+          className="text-md w-full border-b-post-title-input border-black bg-transparent text-black focus:outline-none xl:text-lg"
           value={boardDescription}
           onChange={(e) => setBoardDescription(e.target.value)}
+          placeholder="게시판 설명을 입력해주세요."
         />
       </div>
     </>
   );
-  
 };

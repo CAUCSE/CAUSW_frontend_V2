@@ -37,7 +37,7 @@ export const CommentInput = ({handleAddComment}:CommentInputProps) => {
   };
 
   return (
-    <div className="fixed flex items-center justify-center bottom-[100px] w-full px-3 lg:bottom-2 lg:left-40 lg:right-72 lg:mr-4 lg:w-auto">
+    <div className="fixed flex items-center justify-center bottom-[70px] w-full px-3 xl:bottom-2 xl:left-40 xl:right-72 xl:mr-4 xl:w-auto">
       <div className="flex flex-grow items-center justify-between p-4 bg-comment-input rounded-comment-input-br">
         <div className="flex items-center space-x-2 pr-3">
           <input type="checkbox" className="form-checkbox h-6 w-6 border-gray-300 border-2" checked={isAnonymous} onChange={(e) => setIsAnonymous(e.target.checked)} />

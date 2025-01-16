@@ -1,5 +1,5 @@
 "use client";
-
+// 에러 수정 완료
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";

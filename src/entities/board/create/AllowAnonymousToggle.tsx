@@ -23,7 +23,7 @@ export const AllowAnonymousToggle = () => {
           ></Image>
         )}
       </span>
-      <span className="text-[20px]">익명 허용 여부</span>
+      <span className="text-xl">익명 허용 여부</span>
     </div>
   );
 };

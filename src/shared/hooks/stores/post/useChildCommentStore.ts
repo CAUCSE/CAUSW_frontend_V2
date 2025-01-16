@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface ChildCommentStore {
-  childComments: { [id: string]: { numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean } };  // 대댓글 ID별로 좋아요 수 관리
-  setChildComment: (id: string, numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean) => void;
+  childComments: { [id: string]: { numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean, createdAt: string } };  // 대댓글 ID별로 좋아요 수 관리
+  setChildComment: (id: string, numLike: number, isCommentPopupVisible:boolean, isOwner: boolean, isDeleted: boolean, createdAt: string) => void;
   incrementChildCommentLike: (id: string) => void;
   decrementChildCommentLike: (id: string) => void;
   toggleChildCommentPopup: (id:string)=>void;
@@ -12,11 +12,11 @@ interface ChildCommentStore {
 export const useChildCommentStore = create<ChildCommentStore>((set) => ({
   childComments: {},
 
-  setChildComment: (id, numLike, isCommentPopupVisible, isOwner, isDeleted) =>
+  setChildComment: (id, numLike, isCommentPopupVisible, isOwner, isDeleted, createdAt) =>
     set((state) => ({
       childComments: {
         ...state.childComments,
-        [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted },
+        [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted, createdAt },
       },
     })),
   incrementChildCommentLike: (id) =>
@@ -27,7 +27,8 @@ export const useChildCommentStore = create<ChildCommentStore>((set) => ({
           numLike: state.childComments[id].numLike + 1 || 1,
           isCommentPopupVisible: state.childComments[id].isCommentPopupVisible,
           isOwner: state.childComments[id].isOwner,
-          isDeleted: state.childComments[id].isDeleted
+          isDeleted: state.childComments[id].isDeleted,
+          createdAt: state.childComments[id].createdAt
         },
       },
     })),
@@ -39,7 +40,8 @@ export const useChildCommentStore = create<ChildCommentStore>((set) => ({
           numLike: state.childComments[id].numLike - 1 || 1,
           isCommentPopupVisible: state.childComments[id].isCommentPopupVisible,
           isOwner: state.childComments[id].isOwner,
-          isDeleted: state.childComments[id].isDeleted
+          isDeleted: state.childComments[id].isDeleted,
+          createdAt: state.childComments[id].createdAt
         },
       },
     })),
@@ -51,7 +53,8 @@ export const useChildCommentStore = create<ChildCommentStore>((set) => ({
           numLike: state.childComments[id].numLike,
           isCommentPopupVisible: !state.childComments[id].isCommentPopupVisible,
           isOwner: state.childComments[id].isOwner,
-          isDeleted: state.childComments[id].isDeleted
+          isDeleted: state.childComments[id].isDeleted,
+          createdAt: state.childComments[id].createdAt
         },
       },
     })),
@@ -63,7 +66,8 @@ export const useChildCommentStore = create<ChildCommentStore>((set) => ({
           numLike: state.childComments[id].numLike,
           isCommentPopupVisible: false,
           isOwner: state.childComments[id].isOwner,
-          isDeleted: true
+          isDeleted: true,
+          createdAt: state.childComments[id].createdAt
         },
       },
     })),

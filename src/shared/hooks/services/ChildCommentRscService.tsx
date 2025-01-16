@@ -13,10 +13,10 @@ export const ChildCommentRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(`Failed to like post with id ${childCommentId}. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to like post with id ${childCommentId}. Response status: ${response.status}`,
+        );
       }
-
-      console.log("Post liked successfully");
     } catch (error) {
       console.error(`Error liking post with id ${childCommentId}:`, error);
       throw error;
@@ -28,42 +28,51 @@ export const ChildCommentRscService = () => {
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<Comment.CommentDto> = await axios.delete(URI, {
-        headers: headers,
-      });
+      const response: AxiosResponse<Comment.CommentDto> = await axios.delete(
+        URI,
+        {
+          headers: headers,
+        },
+      );
 
       if (response.status !== 200) {
-        throw new Error(`Failed to delete child comment with id ${childCommentId}. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to delete child comment with id ${childCommentId}. Response status: ${response.status}`,
+        );
       }
-
-      console.log("Child comment deleted successfully");
     } catch (error) {
-      console.error(`Error deleting child comment with id ${childCommentId}:`, error);
+      console.error(
+        `Error deleting child comment with id ${childCommentId}:`,
+        error,
+      );
       throw error;
     }
   };
 
   const createChildComment = async (
-    data: ChildComment.CreateChildCommentDto
+    data: ChildComment.CreateChildCommentDto,
   ): Promise<ChildComment.ChildCommentDto> => {
     const URI = `${BASEURL}/api/v1/child-comments`;
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<ChildComment.ChildCommentDto> = await axios.post(URI, data, {
-        headers: headers,
-      });
+      const response: AxiosResponse<ChildComment.ChildCommentDto> =
+        await axios.post(URI, data, {
+          headers: headers,
+        });
 
       if (response.status !== 201) {
-        throw new Error(`Failed to create comment. Response status: ${response.status}`);
+        throw new Error(
+          `Failed to create comment. Response status: ${response.status}`,
+        );
       }
 
       return response.data;
     } catch (error) {
-      console.error('Error creating comment:', error);
+      console.error("Error creating comment:", error);
       throw error;
     }
   };
 
-  return { postLikeForChildComment, deleteChildComment, createChildComment};
+  return { postLikeForChildComment, deleteChildComment, createChildComment };
 };

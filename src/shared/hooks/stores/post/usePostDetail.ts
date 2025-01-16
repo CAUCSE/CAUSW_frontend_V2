@@ -53,6 +53,7 @@ export const usePostDetail = (postId: string) => {
             comment.isDeleted,
             comment.childCommentList,
             comment.numLike,
+            getTimeDifference(comment.createdAt),
           );
           comment.childCommentList.forEach((childComment: any) => {
             setChildComment(
@@ -61,6 +62,7 @@ export const usePostDetail = (postId: string) => {
               false,
               childComment.isOwner,
               childComment.isDeleted,
+              getTimeDifference(childComment.createdAt),
             ); // 각 대댓글의 좋아요 수 설정
           });
         });

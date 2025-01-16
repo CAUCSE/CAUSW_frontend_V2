@@ -62,7 +62,7 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
         onChange={(event) => {
           note.current = event.target.value;
         }}
-        className="h-24 min-h-24 w-full rounded-md border-2 p-3"
+        className="h-24 min-h-24 w-full rounded-md border-2 p-3 placeholder:text-stone-500"
         placeholder={data?.note ? data?.note : "특이사항을 입력해주세요"}
       ></textarea>
 

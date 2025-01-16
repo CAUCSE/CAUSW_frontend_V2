@@ -100,20 +100,29 @@ const UpdataeAcademicRecordPage = () => {
   }, []);
 
   // useEffect 이용한 상태 관리
-  const files = watch("images") as FileList;
-  useEffect(() => {
-    if (files && files.length > 0) {
-      const newFiles = Array.from(files);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFiles = Array.from(event.target.files); // 새로운 파일 배열로 변환
+
+      // 기존 파일들과 병합
+      const updatedFileList = [...newFiles, ...fileList.reverse()];
+      setFileList(updatedFileList);
+
+      // 이미지 미리보기 URL 생성 및 추가
       const newImagePreviews = newFiles.map((file) =>
-        URL.createObjectURL(file),
-      );
-      setImagePreviews((prevPreviews) => [
-        ...newImagePreviews.reverse(),
-        ...prevPreviews,
-      ]);
-      setFileList(newFiles); // 파일 업데이트
+        URL.createObjectURL(file)
+      );  
+      setImagePreviews((prevPreviews) => [...newImagePreviews, ...prevPreviews.reverse()]);
+      
+      const dataTransfer = new DataTransfer();
+      updatedFileList.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+
+      setValue('images', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정        
+      
+      // Reset the input value to allow re-uploading the same file if needed
     }
-  }, [files]);
+  };
+
 
   // 이미지 관련
   const handleImageClick = (src: string) => {
@@ -371,10 +380,23 @@ const UpdataeAcademicRecordPage = () => {
                     type="file"
                     multiple
                     className="hidden"
+                    accept='image/*'
                     {...register("images", {
-                      required: "파일을 첨부해 주세요",
+                      validate: 
+                      {
+                        validateFileCount: (files: FileList | null) =>
+                    files && files.length > 0 && files.length <= 5 || 
+                    "파일은 최소 1개, 최대 5개까지 업로드 가능합니다.", 
+                        allImages: (files: FileList | null) => {
+                      // 모든 파일이 이미지 형식인지 확인
+                      if (!files) return true;
+                      for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        if (!file.type.startsWith("image/")) {
+                          return "이미지 파일만 업로드 가능합니다.";
+                        }}}}
                     })}
-                  />
+                    onChange={handleFileChange}/>
                 </label>
               </div>
               {imagePreviews.length > 0 && (

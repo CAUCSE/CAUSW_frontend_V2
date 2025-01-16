@@ -86,7 +86,7 @@ export const SettingRscService = () => {
             headers: headers,
           }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
-      if (response.errorCode) throw new Error(response.errorCode);
+      if (response.errorCode) throw new Error(response.message);
 
       return response.content;
     } catch (error) {
@@ -148,8 +148,8 @@ export const SettingRscService = () => {
     if (!response.ok) throw new Error(response.statusText);
     return true;
   };
-  
-    //사용자 영구 삭제
+
+  //사용자 영구 삭제
   const deleteUser = async (userId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/${userId}/delete`, {
@@ -172,7 +172,7 @@ export const SettingRscService = () => {
 
     if (!response.ok) throw new Error(response.statusText);
     return true;
-  }
+  };
 
   // 사용자 복구
   const restoreUser = async (userId: string) => {
@@ -228,17 +228,20 @@ export const SettingRscService = () => {
     refundedAt?: number,
   ) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/user-council-fee`, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify({
-        userId,
-        paidAt,
-        numOfPaidSemester,
-        isRefunded,
-        refundedAt,
-      }),
-    });
+    const response = await fetch(
+      `${BASEURL}/api/v1/user-council-fee/create-user`,
+      {
+        method: "POST",
+        headers: { ...headers, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          paidAt,
+          numOfPaidSemester,
+          isRefunded,
+          refundedAt,
+        }),
+      },
+    );
 
     if (!response.ok) throw new Error(response.statusText);
     return true;

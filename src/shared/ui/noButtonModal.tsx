@@ -6,7 +6,7 @@ interface IModalProps {
   children: React.ReactNode;
 }
 
-export const noButtonModal = ({ closeModal, children }: IModalProps) => {
+export const NoButtonModal = ({ closeModal, children }: IModalProps) => {
   return (
     <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
       <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">

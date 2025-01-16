@@ -74,12 +74,9 @@ const PersonalInfoPage = () => {
         setValue("nickname", user.nickname);
         setValue("phoneNumber", user.phoneNumber ?? "");
 
-        console.log(user.nickname, user.phoneNumber, user.profileImage);
-
         //  학생회비 납부 정보 받아오기
         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
         const userCouncilFeeData = responseUserCouncilFeeData.data;
-        console.log(userCouncilFeeData);
 
         setStudentCouncilFeeStatus(
           userCouncilFeeData.isAppliedThisSemester === true ? "O" : "X",

@@ -8,7 +8,7 @@ export const UseTerms = ({ closeModal }: UseTermsProps) => {
           className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50"
           onClick={closeModal}
         >
-          <div className="h-4/6 w-full max-w-3xl overflow-y-auto rounded-lg bg-white p-8">
+          <div className="h-5/6 w-5/6 max-w-3xl overflow-y-auto rounded-lg bg-white p-8">
             <div>
               <>
                 <div title="이용 약관" />

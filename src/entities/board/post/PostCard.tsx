@@ -30,10 +30,6 @@ const isImageFile = (fileName: string) => {
   return /\.(jpg|jpeg|png|gif|bmp)$/.test(fileName);
 };
 
-const extractFileName = (url: string) => {
-  return url.substring(url.lastIndexOf("/") + 1);
-};
-
 export const PostCard = ({
   postData,
   numLike,
@@ -48,8 +44,9 @@ export const PostCard = ({
   toggleMenu,
   isPopupVisible,
 }: PostCardProps) => {
-  const userImage =
-    postData.writerProfileImage ?? "/images/default_profile.png";
+  const userImage = postData.isAnonymous
+    ? "/images/default_profile.png"
+    : postData.writerProfileImage;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupImage, setPopupImage] = useState<string | null>(null);
 
@@ -70,7 +67,6 @@ export const PostCard = ({
       };
       const castVoteResponse = await VoteRscService().castVote(options);
       castVote(selectedOptions);
-      console.log("투표완료: ", castVoteResponse);
     } catch (error) {
       cancelVote(selectedOptions);
       console.error("투표 처리 에러: ", error);
@@ -158,7 +154,7 @@ export const PostCard = ({
       </button>
       <div className="flex flex-row items-center p-2">
         <Image
-          src={userImage}
+          src={userImage ?? "/images/default_profile.png"}
           alt="Comment Profil"
           width={80}
           height={80}
@@ -167,7 +163,7 @@ export const PostCard = ({
         <div className="flex flex-col items-start">
           <div className="flex items-center text-[16px] font-bold">
             {" "}
-            {postData.isAnonymous ? "익명" : postData.writerName}
+            {postData.isAnonymous ? "익명" : postData.writerNickname}
           </div>
           <div className="text-[14px] text-gray-500">{postData.updatedAt}</div>
         </div>
@@ -178,7 +174,9 @@ export const PostCard = ({
           <div className="mb-2 px-1 text-[24px] font-medium">
             {postData.title}
           </div>
-          <div className="mb-2 px-1 pb-2 text-[16px]">{postData.content}</div>
+          <div className="mb-2 whitespace-pre-wrap px-1 pb-2 text-[16px]">
+            {postData.content}
+          </div>
 
           {/* 나중에 투표 api 생기면 연결 */}
           {postData.isPostVote ? (

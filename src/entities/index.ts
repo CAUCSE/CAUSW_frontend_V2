@@ -57,3 +57,5 @@ export { CircleApplyQuestion } from "./board/form/CircleApplyQuestion";
 export { CircleApplyOption } from "./board/form/CircleApplyOption";
 
 export { VTwoForm } from "./layout/VTwoForm";
+
+export * from "./modal/Modal";
