@@ -36,8 +36,8 @@ const Error = ({
   const { updateAccess } = AuthRscService();
 
   const handleNoRefresh = async () => {
-    //await signout();
-    //location.href = "/auth/signin";
+    await signout();
+    location.href = "/auth/signin";
   };
 
   const handleNoAccesss = async () => {
