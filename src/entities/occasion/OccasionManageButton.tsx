@@ -16,7 +16,7 @@ export const OccasionManageButton = ({
 }: OccasionManageButtonProp) => {
   return (
     <button
-      className={`rounded-lg px-16 py-1 text-xl font-bold ${buttonColor[color]}`}
+      className={`rounded-lg px-10 py-1 text-lg font-bold md:px-16 md:text-xl ${buttonColor[color]}`}
       onClick={onClick}
     >
       {text}
