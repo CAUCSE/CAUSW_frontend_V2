@@ -14,16 +14,16 @@ const navigation: {
 }[] = [];
 
 type TOccasion = {
-  occassionTitle: string;
-  occassionId: string;
+  occasionTitle: string;
+  occasionId: string;
 };
 
 const Occasion = ({ params: { state } }: { params: { state: string } }) => {
   // TODO 경조사 가져오는 로직 연동 필요
   const data: TOccasion[] = [
     {
-      occassionTitle: "테스트 경조사",
-      occassionId: "1",
+      occasionTitle: "테스트 경조사",
+      occasionId: "1",
     },
   ];
   let isFirstNavigation;
