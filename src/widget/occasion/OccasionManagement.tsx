@@ -1,4 +1,5 @@
 import { Header, Line } from "@/entities";
+
 import Link from "next/link";
 
 interface OccasionManagementProps {
@@ -14,7 +15,7 @@ interface OccasionManagementProps {
     state: string;
     router: string;
   }[];
-  data: { occassionTitle: string; occassionId: string }[];
+  data: { occasionTitle: string; occasionId: string }[];
 }
 
 export const OccasionManagement = ({
@@ -42,7 +43,7 @@ export const OccasionManagement = ({
         이전
       </Link>
       <Header bold big>
-        경조사 등록 신청 관리
+        {title}
       </Header>
       <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
         <div
@@ -66,12 +67,12 @@ export const OccasionManagement = ({
                 : navigation!.find((element) => element.state === state)
                     ?.router) +
               "/" +
-              element.occassionId
+              element.occasionId
             }
             className="mb-3 text-lg"
-            key={element.occassionId}
+            key={element.occasionId}
           >
-            {element.occassionTitle}
+            {element.occasionTitle}
           </Link>
         ))}
       </div>
