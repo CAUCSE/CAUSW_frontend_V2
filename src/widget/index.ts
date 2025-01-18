@@ -4,3 +4,4 @@ export { SideBar } from "./SideBar";
 export { CircleMemberManagementDetail } from "./CircleMemberManagementDetail";
 export { BoardList } from "./board/BoardList";
 export { BoardCreationForm } from "./board/BoardCreationForm";
+export { OccasionManagement } from "./occasion/OccasionManagement";
