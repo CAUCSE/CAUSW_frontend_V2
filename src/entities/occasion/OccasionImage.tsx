@@ -18,7 +18,7 @@ export const OccasionImage = ({ imageList }: OccasionImageProp) => {
                 width={200}
                 height={200}
                 layout="fixed"
-                className="h-[200px] w-[200px] rounded-2xl border border-black object-contain"
+                className="h-36 w-36 rounded-2xl border border-black object-contain sm:h-48 sm:w-48"
               />
             </div>
           );
