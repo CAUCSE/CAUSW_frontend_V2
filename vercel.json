@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/.well-known/assetlinks.json",
+      "destination": "/.well-known/assetlinks.json",
+      "permanent": false
+    },
+    {
+      "source": "https://causw.co.kr/:path*",
+      "destination": "https://www.causw.co.kr/:path*",
+      "permanent": true
+    }
+  ]
+}
