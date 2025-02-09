@@ -21,6 +21,8 @@ async function getPushSubscription(): Promise<PushSubscription | null> {
       applicationServerKey: process.env.NEXT_PUBLIC_FB_VAPID_KEY,
     });
 
+    console.log(subscription);
+
     return subscription;
   } catch (e) {
     console.error("PushSubscription을 가져오는 동안 오류가 발생했습니다: ", e);
@@ -49,6 +51,7 @@ export async function onClickAlert() {
     "PushManager" in window
   ) {
     Notification.requestPermission().then(async (result) => {
+      console.log(result);
       if (result === "granted") {
         const subscription = await getPushSubscription();
         // await savePushSubscription(subscription);
