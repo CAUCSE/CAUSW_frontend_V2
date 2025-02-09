@@ -56,7 +56,7 @@ const SignInPage = () => {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register("/service-worker.js")
+        .register("/firebase-message-sw.js")
         .then((registration) => {
           console.log(
             "Service Worker registration successful with scope: ",
