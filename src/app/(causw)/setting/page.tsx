@@ -76,7 +76,7 @@ const SettingsPage = () => {
       { name: "캘린더 편집", link: "/setting/home/calendar" },
     ],
 
-    clubManagement: (circleId: string) => [
+    /* clubManagement: (circleId: string) => [
       {
         name: "동아리원 관리",
         link: `/setting/management/circle/${circleId}/member`,
@@ -85,16 +85,13 @@ const SettingsPage = () => {
         name: "동아리 가입 신청 관리",
         link: `/setting/management/circle/${circleId}/apply`,
       },
-    ],
+    ], */
 
     boardManagement: [
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
 
-    occasionManagement: [
-      { name: "경조사 관리", link: "/setting/occasion"}
-    ]
-
+    occasionManagement: [{ name: "경조사 관리", link: "/setting/occasion" }],
   };
 
   const MenuItem: React.FC<{
@@ -154,7 +151,10 @@ const SettingsPage = () => {
         {/* 동문회장 */}
         {isAlumniLeader() && (
           <>
-            <MenuItem title="관리" items={menuItems.managementAlumniPresident} />
+            <MenuItem
+              title="관리"
+              items={menuItems.managementAlumniPresident}
+            />
             <MenuItem title="권한 위임" items={menuItems.delegation} />
           </>
         )}
@@ -162,14 +162,14 @@ const SettingsPage = () => {
         {/* 관리자, 학생회장, 부학생회장 */}
         {(isAdmin() || isPresidents() || isVicePresidents()) && (
           <>
-            <MenuItem
-              title="관리"
-              items={menuItems.managementAdmin}
-            />
+            <MenuItem title="관리" items={menuItems.managementAdmin} />
             <MenuItem title="권한 위임" items={menuItems.delegation} />
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagement} />
             <MenuItem title="게시판 관리" items={menuItems.boardManagement} />
-            <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
+            <MenuItem
+              title="경조사 관리"
+              items={menuItems.occasionManagement}
+            />
           </>
         )}
       </>
