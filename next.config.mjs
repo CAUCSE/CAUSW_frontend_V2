@@ -4,11 +4,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/.well-known/assetlinks.json",
-        has: [],
-        destination: null,
-      },
-      {
         source: "/",
         permanent: false,
         destination: "/redirectRoute",
@@ -20,8 +15,16 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/.well-known/assetlinks.json",
+        destination: "/public/.well-known/assetlinks.json",
+      },
+    ];
+  },
   images: {
-    domains: ["caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com"], // S3 버킷 도메인 허용
+    domains: ["caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com"],
   },
 };
 
