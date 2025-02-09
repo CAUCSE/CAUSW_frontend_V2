@@ -5,8 +5,8 @@ const nextConfig = {
     return [
       {
         source: "/.well-known/assetlinks.json",
-        permanent: false,
-        destination: "/.well-known/assetlinks.json", // 안드로이드 배포 검토
+        has: [],
+        destination: null,
       },
       {
         source: "/",
