@@ -4,6 +4,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/.well-known/assetlinks.json",
+        permanent: false,
+        destination: "/.well-known/assetlinks.json", // 안드로이드 배포 검토
+      },
+      {
         source: "/",
         permanent: false,
         destination: "/redirectRoute",
