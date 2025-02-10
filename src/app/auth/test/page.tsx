@@ -30,7 +30,13 @@ const Page = () => {
         // ...
       });
   }, []);
-  return <>{token}</>;
+  return (
+    <>
+      <div className="w-full">
+        <span className="block w-full break-all">{token}</span>
+      </div>
+    </>
+  );
 };
 
 export default Page;
