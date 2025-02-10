@@ -15,6 +15,8 @@ import {
   LoadingComponent,
 } from "@/entities";
 
+import "@/firebase-messaging-sw";
+
 const routes = [
   { name: "회원가입하기", route: "/auth/signup" },
   { name: "아이디 찾기", route: "/auth/findemail" },
@@ -152,7 +154,7 @@ const SignInPage = () => {
               key={route.name}
               onClick={() => {
                 if (route.handler) route.handler();
-                else router.push(route.route);
+                router.push(route.route);
               }}
               className="border-b-2-white font-boerder mt-2 hidden border-b text-white md:mt-1 md:block"
             >
