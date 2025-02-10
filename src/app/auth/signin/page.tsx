@@ -19,7 +19,7 @@ const routes = [
   { name: "회원가입하기", route: "/auth/signup" },
   { name: "아이디 찾기", route: "/auth/findemail" },
   { name: "비밀번호 찾기", route: "/auth/findpassword" },
-  { name: "알림 허용하기", route: "/", handler: onClickAlert },
+  { name: "알림 허용하기", route: "/auth/test", handler: onClickAlert },
 ];
 
 const SignInPage = () => {
@@ -133,7 +133,7 @@ const SignInPage = () => {
                       key={route.name}
                       onClick={() => {
                         if (route.handler) route.handler();
-                        else router.push(route.route);
+                        router.push(route.route);
                       }}
                       className="border-b-2-white font-boerder mb-2 border-b text-xs text-white sm:text-[16px] md:mt-1 md:hidden"
                     >
