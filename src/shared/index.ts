@@ -30,6 +30,10 @@ export {
 export { breakpoint } from "./configs/layout";
 export { emailRegex, numberMatch } from "./configs/regex";
 
+export { lockerQueryKey } from "./configs/query-key/lockerQueryKey";
+export { postQueryKey } from "./configs/query-key/postQueryKey";
+export { boardQueryKey } from "./configs/query-key/boardQueryKey";
+
 //Service
 export { AuthRscService } from "./hooks/services/AuthRscService";
 
@@ -55,13 +59,14 @@ export { UserService } from "./hooks/services/UserService";
 export { LockerService } from "./hooks/services/LockerService";
 
 export { AcademicRecordRscService } from "./hooks/services/AcademicRecordRscService";
+export { PostService } from "./hooks/services/PostService";
+export { BoardService } from "./hooks/services/BoardService";
 
 //Store
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
 export { useUserStore, userRoleCodes } from "./hooks/stores/useUserStore";
 
 export { useBoardStore } from "./hooks/stores/board/useBoardStore";
-export { usePostListStore } from "./hooks/stores/post/usePostListStore";
 export { useChildCommentStore } from "./hooks/stores/post/useChildCommentStore";
 export { useCommentStore } from "./hooks/stores/post/useCommentStore";
 export { usePopup } from "./hooks/stores/post/usePopup";
@@ -88,3 +93,7 @@ export { NoButtonModal } from "./ui/noButtonModal";
 
 export { useGetBoardList } from "./hooks/boards/useGetBoardList";
 export { useCreateBoard } from "./hooks/boards/useCreateBoard";
+
+//Custom Hooks
+
+export { useInfiniteScroll } from "./hooks/useInfiniteScroll";
