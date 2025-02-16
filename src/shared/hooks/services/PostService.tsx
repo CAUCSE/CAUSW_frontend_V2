@@ -7,7 +7,6 @@ export const PostService = () => {
     return useInfiniteQuery({
       queryKey: postQueryKey.list(boardId),
       queryFn: async ({ pageParam }) => {
-        console.log(`pageParam`, pageParam);
         const { data }: { data: Board.BoardWithPostResponseDto } =
           await API.get(
             `/api/v1/posts?boardId=${boardId}&pageNum=${pageParam}`,
