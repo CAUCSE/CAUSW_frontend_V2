@@ -1,7 +1,7 @@
 "use client";
 
-import { API } from "@/shared";
-import { lockerQueryKey } from "@/shared/configs/lockerQueryKey";
+import { API, lockerQueryKey } from "@/shared";
+
 import { useQuery } from "@tanstack/react-query";
 
 export const LockerService = () => {
