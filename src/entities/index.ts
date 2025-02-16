@@ -49,9 +49,10 @@ export { FilePreview } from "./board/post/create/FilePreview";
 
 export { FormErrorMessage } from "./layout/FormErrorMessage";
 
-export { PostList } from "./board/postList/PostList";
 export { getTimeDifference } from "./board/postList/PostListUtil";
-export { PostListHeader } from "./board/postList/PostListHeader";
+export { PostItem } from "./board/postList/PostItem";
+export { PostItemStatusBar } from "./board/postList/PostItemStatusBar";
+export { PostItemContent } from "./board/postList/PostItemContent";
 
 export { CircleApplyQuestion } from "./board/form/CircleApplyQuestion";
 export { CircleApplyOption } from "./board/form/CircleApplyOption";
