@@ -4,22 +4,22 @@ import {
   ChildCommentCard,
   CommentCard,
   CommentInput,
-  PostCard,
   LoadingComponent,
+  PostCard,
 } from "@/entities";
 import {
   ChildCommentRscService,
   CommentRscService,
   PostRscService,
   PreviousButton,
+  VoteRscService,
   useChildCommentStore,
   useCommentStore,
   usePopup,
   usePostDetail,
   usePostStore,
-  VoteRscService,
-  useVoteStore,
   useUserStore,
+  useVoteStore,
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
@@ -274,7 +274,7 @@ const PostDetailPage = (props: any) => {
       <div className="h-16 w-full bg-[#F8F8F8]">
         <PreviousButton
           routeCallback={() =>
-            router.replace(boardId === "my" ? "/setting" : `/board/${boardId}`)
+            boardId === "my" ? router.replace("/setting") : router.back()
           }
         />
       </div>
