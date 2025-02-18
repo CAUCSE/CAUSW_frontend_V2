@@ -37,6 +37,7 @@ export { CommentCard } from "./board/post/CommentCard";
 export { ChildCommentCard } from "./board/post/ChildCommentCard";
 export { PopupMenu } from "./board/post/PopupMenu";
 export { CommentInput } from "./board/post/CommentInput";
+export { PostSkeleton } from "./board/post/PostSkeleton";
 
 export { AllowAnonymousToggle } from "./board/create/AllowAnonymousToggle";
 export { RoleSelectSection } from "./board/create/RoleSelectSection";
@@ -53,9 +54,13 @@ export { getTimeDifference } from "./board/postList/PostListUtil";
 export { PostItem } from "./board/postList/PostItem";
 export { PostItemStatusBar } from "./board/postList/PostItemStatusBar";
 export { PostItemContent } from "./board/postList/PostItemContent";
+export { PostSkeletonList } from "./board/postList/PostSkeletonList";
 
 export { CircleApplyQuestion } from "./board/form/CircleApplyQuestion";
 export { CircleApplyOption } from "./board/form/CircleApplyOption";
+
+export { PostSearchIntro } from "./board/search/PostSearchIntro";
+export { PostSearchNotFound } from "./board/search/PostSearchNotFound";
 
 export { VTwoForm } from "./layout/VTwoForm";
 

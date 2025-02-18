@@ -97,3 +97,6 @@ export { useCreateBoard } from "./hooks/boards/useCreateBoard";
 //Custom Hooks
 
 export { useInfiniteScroll } from "./hooks/useInfiniteScroll";
+
+//Posts
+export { useSearchPost } from "./hooks/posts/useSearchPost";

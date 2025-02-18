@@ -23,7 +23,7 @@ export const PostItem = ({ post, boardId }: PostItemProps) => {
       <div className="flex w-full flex-col">
         <div className="flex w-full items-center justify-between">
           <PostItemContent post={post} />
-          <div className="h-16 w-16 flex-shrink-0 sm:h-24 sm:w-24">
+          <div className="h-16 w-16 flex-shrink-0 overflow-hidden sm:h-24 sm:w-24">
             <Image
               src={
                 post.postAttachImage
@@ -33,7 +33,7 @@ export const PostItem = ({ post, boardId }: PostItemProps) => {
               alt="post_thumbnail"
               width={100}
               height={100}
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         </div>
