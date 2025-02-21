@@ -1,15 +1,12 @@
 "use client";
 
 import {
-  PostRscService,
-  VoteRscService,
+  PostService,
   useCreatePostStore,
   useCreateVoteStore,
   useFileUploadStore,
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
-
-import toast from "react-hot-toast";
 
 export const usePostForm = () => {
   const router = useRouter();
@@ -17,13 +14,13 @@ export const usePostForm = () => {
   const boardId = params.boardId;
   const { title, content, isAnonymous, isQuestion, isVote, clearPost } =
     useCreatePostStore();
-  const { voteTitle, options, isMultipleChoice, allowAnonymous, clearVote } =
-    useCreateVoteStore();
+  const clearVote = useCreateVoteStore((state) => state.clearVote);
 
   const { clearFiles, selectedFiles } = useFileUploadStore();
 
-  const { createPost } = PostRscService();
-  const { createVote } = VoteRscService();
+  const { useCreatePost, useCreatePostWithVote } = PostService();
+  const { mutate: createPost } = useCreatePost();
+  const { mutate: createPostWithVote } = useCreatePostWithVote();
 
   const handlePostSubmit = async () => {
     const postRequest: Post.CreatePostDto = {
@@ -33,29 +30,18 @@ export const usePostForm = () => {
       isAnonymous,
       isQuestion,
     };
-    try {
-      const createPostResponse = await createPost(postRequest, selectedFiles);
-      clearPost();
-      clearFiles();
-      if (isVote) {
-        const voteRequest: Post.CreateVoteDto = {
-          title: voteTitle,
-          allowAnonymous: allowAnonymous,
-          allowMultiple: isMultipleChoice,
-          options: options,
-          postId: createPostResponse,
-        };
-        try {
-          await createVote(voteRequest);
-          clearVote();
-        } catch (error) {
-          toast.error("투표 생성에 실패했습니다.");
-        }
-      }
-      router.back();
-    } catch (error) {
-      toast.error("게시글 생성에 실패했습니다.");
+
+    if (isVote) {
+      createPostWithVote({
+        postData: postRequest,
+        attachImageList: selectedFiles,
+      });
+      return;
     }
+    createPost({
+      postData: postRequest,
+      attachImageList: selectedFiles,
+    });
   };
 
   const handleBack = () => {

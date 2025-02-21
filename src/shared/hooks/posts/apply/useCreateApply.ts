@@ -1,19 +1,19 @@
 "use client";
 
+import {
+  PostService,
+  useCreatePostStore,
+  useFileUploadStore,
+  usePreviousValue,
+} from "@/shared";
 import { useCallback, useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useParams, useRouter } from "next/navigation";
 
-import { PostRscService } from "@/shared/hooks/services/PostRscService";
-import toast from "react-hot-toast";
-import { useCreatePostStore } from "@/shared/hooks/stores/post/create/useCreatePostStore";
-import { useFileUploadStore } from "@/shared/hooks/stores/post/create/useFileUploadStore";
-import { usePreviousValue } from "@/shared";
+import { useParams } from "next/navigation";
 
 export const useCreateApply = () => {
   const params = useParams();
   const { boardId } = params;
-  const router = useRouter();
 
   const isApply = useCreatePostStore((state) => state.isApply);
 
@@ -65,7 +65,7 @@ export const useCreateApply = () => {
     name: "formCreateRequestDto.questionCreateRequestDtoList",
   });
 
-  const { selectedFiles, clearFiles } = useFileUploadStore();
+  const selectedFiles = useFileUploadStore((state) => state.selectedFiles);
 
   const {
     title,
@@ -76,10 +76,10 @@ export const useCreateApply = () => {
     setTitle,
     setIsAnonymous,
     setIsQuestion,
-    clearPost,
   } = useCreatePostStore();
 
-  const { createPostWithForm } = PostRscService();
+  const { useCreatePostWithForm } = PostService();
+  const { mutate } = useCreatePostWithForm();
 
   const ALL_SEMESTER = [
     "FIRST_SEMESTER",
@@ -163,14 +163,10 @@ export const useCreateApply = () => {
       },
     );
 
-    try {
-      await createPostWithForm(postCreateWithFormRequestDto, selectedFiles);
-      clearPost();
-      clearFiles();
-      router.back();
-    } catch (error) {
-      toast.error("게시물 생성 실패");
-    }
+    mutate({
+      postWithFormData: postCreateWithFormRequestDto,
+      attachImageList: selectedFiles,
+    });
   };
 
   const addSurveyForm = useCallback(() => {
