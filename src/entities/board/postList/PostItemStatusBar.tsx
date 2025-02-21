@@ -1,5 +1,5 @@
 import { Icon } from "@/shared";
-import { getTimeDifference } from "@/entities";
+import { getTimeDifference } from "@/utils/format";
 
 interface PostItemStatusBarProps {
   post: Post.PostResponseDto;

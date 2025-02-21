@@ -50,7 +50,6 @@ export { FilePreview } from "./board/post/create/FilePreview";
 
 export { FormErrorMessage } from "./layout/FormErrorMessage";
 
-export { getTimeDifference } from "./board/postList/PostListUtil";
 export { PostItem } from "./board/postList/PostItem";
 export { PostItemStatusBar } from "./board/postList/PostItemStatusBar";
 export { PostItemContent } from "./board/postList/PostItemContent";
