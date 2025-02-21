@@ -8,16 +8,19 @@ import { useRouter } from "next/navigation";
 interface PostItemProps {
   post: Post.PostResponseDto;
   boardId: string;
+  targetUrl?: string;
 }
 
-export const PostItem = ({ post, boardId }: PostItemProps) => {
+export const PostItem = ({ post, boardId, targetUrl }: PostItemProps) => {
   const router = useRouter();
 
   return (
     <div
       className="flex w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
       onClick={() => {
-        router.push(`/board/${boardId}/${post.id}`);
+        targetUrl
+          ? router.push(targetUrl)
+          : router.push(`/board/${boardId}/${post.id}`);
       }}
     >
       <div className="flex w-full flex-col">

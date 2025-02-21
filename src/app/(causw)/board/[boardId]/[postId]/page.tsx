@@ -255,6 +255,16 @@ const PostDetailPage = (props: any) => {
     }
   };
 
+  const routerCallback = () => {
+    if (boardId === "my") {
+      router.replace("/setting");
+    } else if (boardId === "search") {
+      router.back();
+    } else {
+      router.replace(`/board/${boardId}`);
+    }
+  };
+
   if (loading || !post) {
     return <LoadingComponent />;
   }
@@ -272,11 +282,7 @@ const PostDetailPage = (props: any) => {
         </div>
       )}
       <div className="h-16 w-full bg-[#F8F8F8]">
-        <PreviousButton
-          routeCallback={() =>
-            boardId === "my" ? router.replace("/setting") : router.back()
-          }
-        />
+        <PreviousButton routeCallback={routerCallback} />
       </div>
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
         <div className="sm:pl-3">

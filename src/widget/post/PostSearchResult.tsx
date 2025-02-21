@@ -18,7 +18,12 @@ export const PostSearchResult = ({
           {postList!
             .filter((post) => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
-              <PostItem key={post.id} post={post} boardId={boardId as string} />
+              <PostItem
+                key={post.id}
+                post={post}
+                boardId={boardId as string}
+                targetUrl={`/board/search/${post.id}`}
+              />
             ))}
         </div>
       )}
