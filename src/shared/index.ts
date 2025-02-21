@@ -103,6 +103,7 @@ export { useIsWindowLg } from "./hooks/useIsWindowLg";
 
 //Posts
 export { useSearchPost } from "./hooks/posts/useSearchPost";
+export { usePostForm } from "./hooks/posts/usePostForm";
 
 //Apply
 export { useCreateApply } from "./hooks/posts/apply/useCreateApply";

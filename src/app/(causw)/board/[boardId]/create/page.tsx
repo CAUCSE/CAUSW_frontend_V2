@@ -7,26 +7,19 @@ import {
   VotingForm,
 } from "@/entities";
 import {
-  PostRscService,
   PreviousButton,
-  VoteRscService,
   useCreateApply,
   useCreatePostStore,
   useCreateVoteStore,
   useFileUpload,
+  usePostForm,
 } from "@/shared";
 
 import { ApplyCreationForm } from "@/widget";
 import React from "react";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
-const CreatePostPage = (props: any) => {
-  const boardId = props.params.boardId;
-  const { createPost } = PostRscService();
-  const { createVote } = VoteRscService();
+const CreatePostPage = () => {
   // const { roles, roleTxt } = useUserStore();
-  const router = useRouter();
 
   const {
     title,
@@ -37,7 +30,6 @@ const CreatePostPage = (props: any) => {
     setTitle,
     toggleAnonymous,
     toggleQuestion,
-    clearPost,
   } = useCreatePostStore();
 
   const {
@@ -55,10 +47,9 @@ const CreatePostPage = (props: any) => {
     removeVoteOption,
     toggleMultipleChoice,
     toggleAllowAnonymous,
-    clearVote,
   } = useCreateVoteStore();
 
-  const { selectedFiles, resetFiles } = useFileUpload();
+  const { selectedFiles } = useFileUpload();
 
   const {
     methods,
@@ -72,45 +63,7 @@ const CreatePostPage = (props: any) => {
     onSubmit,
   } = useCreateApply(isApply);
 
-  const handlePostSubmit = async () => {
-    const postRequest: Post.CreatePostDto = {
-      title,
-      content,
-      boardId,
-      isAnonymous,
-      isQuestion,
-    };
-    try {
-      const createPostResponse = await createPost(postRequest, selectedFiles);
-      clearPost();
-      resetFiles();
-      if (isVote) {
-        const voteRequest: Post.CreateVoteDto = {
-          title: voteTitle,
-          allowAnonymous: allowAnonymous,
-          allowMultiple: isMultipleChoice,
-          options: options,
-          postId: createPostResponse,
-        };
-        try {
-          await createVote(voteRequest);
-          clearVote();
-        } catch (error) {
-          toast.error("투표 생성에 실패했습니다.");
-        }
-      }
-      router.back();
-    } catch (error) {
-      toast.error("게시글 생성에 실패했습니다.");
-    }
-  };
-
-  const handleBack = () => {
-    clearPost();
-    clearVote();
-    resetFiles();
-    router.back();
-  };
+  const { handlePostSubmit, handleBack } = usePostForm();
 
   return (
     <>
