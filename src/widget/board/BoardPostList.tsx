@@ -2,16 +2,21 @@
 
 import { Loading, PostService, useInfiniteScroll } from "@/shared";
 import { LoadingComponent, PostItem } from "@/entities";
-
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 
 export const BoardPostList = () => {
   const param = useParams();
   const { boardId } = param;
 
   const { useGetPostList } = PostService();
-  const { fetchNextPage, data, isFetchingNextPage, isLoading, hasNextPage } =
-    useGetPostList(boardId);
+  const {
+    fetchNextPage,
+    data,
+    isFetchingNextPage,
+    isLoading,
+    hasNextPage,
+    isError,
+  } = useGetPostList(boardId);
 
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
     entries.forEach((entry) => {
@@ -27,6 +32,10 @@ export const BoardPostList = () => {
 
   if (isLoading) {
     return <LoadingComponent />;
+  }
+
+  if (isError) {
+    notFound();
   }
 
   return (
