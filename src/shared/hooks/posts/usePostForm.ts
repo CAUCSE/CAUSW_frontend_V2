@@ -15,16 +15,10 @@ export const usePostForm = () => {
   const router = useRouter();
   const params = useParams();
   const boardId = params.boardId;
-  const { title, content, isAnonymous, isQuestion, clearPost } =
+  const { title, content, isAnonymous, isQuestion, isVote, clearPost } =
     useCreatePostStore();
-  const {
-    isVote,
-    voteTitle,
-    options,
-    isMultipleChoice,
-    allowAnonymous,
-    clearVote,
-  } = useCreateVoteStore();
+  const { voteTitle, options, isMultipleChoice, allowAnonymous, clearVote } =
+    useCreateVoteStore();
 
   const { clearFiles, selectedFiles } = useFileUploadStore();
 

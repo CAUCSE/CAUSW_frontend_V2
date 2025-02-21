@@ -19,28 +19,26 @@ import { ApplyCreationForm } from "@/widget";
 import React from "react";
 
 const CreatePostPage = () => {
-  // const { roles, roleTxt } = useUserStore();
-
   const {
     title,
     content,
     isAnonymous,
     isQuestion,
+    isVote,
+    isApply,
     setContent,
     setTitle,
     toggleAnonymous,
     toggleQuestion,
+    toggleApply,
+    toggleVote,
   } = useCreatePostStore();
 
   const {
-    isVote,
-    isApply,
     voteTitle,
     options,
     isMultipleChoice,
     allowAnonymous,
-    toggleVote,
-    toggleApply,
     setVoteTitle,
     setVoteOption,
     addVoteOption,
@@ -61,7 +59,7 @@ const CreatePostPage = () => {
     handleSubmit,
     addSurveyForm,
     onSubmit,
-  } = useCreateApply(isApply);
+  } = useCreateApply();
 
   const { handlePostSubmit, handleBack } = usePostForm();
 
@@ -71,7 +69,6 @@ const CreatePostPage = () => {
         <div className="w-full flex-col items-center">
           <PreviousButton routeCallback={handleBack} />
         </div>
-        {/* 게시글 공통 부분 - 제목 / 내용 */}
         <div className="flex h-full flex-col p-4 pt-10 lg:px-5 lg:py-10">
           {isApply ? (
             <ApplyCreationForm

@@ -10,10 +10,12 @@ import { useCreatePostStore } from "@/shared/hooks/stores/post/create/useCreateP
 import { useFileUploadStore } from "@/shared/hooks/stores/post/create/useFileUploadStore";
 import { usePreviousValue } from "@/shared";
 
-export const useCreateApply = (isApply: boolean) => {
+export const useCreateApply = () => {
   const params = useParams();
   const { boardId } = params;
   const router = useRouter();
+
+  const isApply = useCreatePostStore((state) => state.isApply);
 
   const methods = useForm<Post.PostCreateWithFormRequestDto>({
     defaultValues: {
