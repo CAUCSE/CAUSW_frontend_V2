@@ -13,10 +13,6 @@ export const Option = ({
     formState: { errors },
   } = useFormContext<Post.PostCreateWithFormRequestDto>();
 
-  const fieldName = `formCreateRequestDto?.questionCreateRequestDtoList?.
-      ${questionIndex}
-    .optionCreateRequestDtoList.${optionIndex}.optionText`;
-
   return (
     <div className="flex flex-col gap-2">
       <div className="ml-4 flex flex-col gap-2">
@@ -42,8 +38,16 @@ export const Option = ({
             <Icon iconName="remove" />
           </button>
         </div>
-        {errors[fieldName]?.message && (
-          <p className="text-red-500">{errors[fieldName]?.message}</p>
+        {errors?.formCreateRequestDto?.questionCreateRequestDtoList?.[
+          questionIndex
+        ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText?.message && (
+          <p className="text-red-500">
+            {
+              errors?.formCreateRequestDto.questionCreateRequestDtoList[
+                questionIndex
+              ]?.optionCreateRequestDtoList[optionIndex]?.optionText?.message
+            }
+          </p>
         )}
       </div>
     </div>
