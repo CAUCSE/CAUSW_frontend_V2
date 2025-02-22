@@ -4,7 +4,7 @@ import {
   PostService,
   useCreatePostStore,
   useCreateVoteStore,
-  useFileUploadStore,
+  useFileUpload,
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
@@ -16,7 +16,7 @@ export const usePostForm = () => {
     useCreatePostStore();
   const clearVote = useCreateVoteStore((state) => state.clearVote);
 
-  const { clearFiles, selectedFiles } = useFileUploadStore();
+  const { selectedFiles, resetFiles } = useFileUpload();
 
   const { useCreatePost, useCreatePostWithVote } = PostService();
   const { mutate: createPost } = useCreatePost();
@@ -47,7 +47,7 @@ export const usePostForm = () => {
   const handleBack = () => {
     clearPost();
     clearVote();
-    clearFiles();
+    resetFiles();
     router.back();
   };
 
