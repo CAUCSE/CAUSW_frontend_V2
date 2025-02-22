@@ -26,6 +26,8 @@ export { ExcelExport } from "./export/ExcelExport";
 export { CustomCheckBox } from "./board/form/CustomCheckBox";
 export { Option } from "./board/form/Option";
 export { Question } from "./board/form/Question";
+export { ObjectiveOption } from "./board/form/ObjectiveOption";
+export { SubjectiveOption } from "./board/form/SubjectiveOption";
 
 export { Board } from "./board/main/Board";
 export { DefaultBoard } from "./board/main/DefaultBoard";
