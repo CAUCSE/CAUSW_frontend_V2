@@ -105,9 +105,9 @@ export const PostService = () => {
       },
 
       onSuccess: () => {
+        router.back();
         clearPost();
         clearFiles();
-        router.back();
       },
       onError: () => {
         toast.error("게시글 생성에 실패했습니다.");
@@ -147,9 +147,9 @@ export const PostService = () => {
         return data;
       },
       onSuccess: () => {
+        router.back();
         clearPost();
         clearFiles();
-        router.back();
       },
       onError: () => {
         toast.error("게시글 생성에 실패했습니다.");
@@ -213,10 +213,10 @@ export const PostService = () => {
         await API.post("/api/v1/votes/create", voteRequest);
       },
       onSuccess: () => {
+        router.back();
         clearPost();
         clearFiles();
         clearVote();
-        router.back();
       },
       onError: () => {
         toast.error("게시글 생성에 실패했습니다.");
