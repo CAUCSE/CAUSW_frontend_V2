@@ -3,12 +3,13 @@
 import {
   PostService,
   useCreatePostStore,
-  useFileUploadStore,
+  useFileUpload,
   usePreviousValue,
 } from "@/shared";
 import { useCallback, useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
+import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
 
 export const useCreateApply = () => {
@@ -65,8 +66,7 @@ export const useCreateApply = () => {
     name: "formCreateRequestDto.questionCreateRequestDtoList",
   });
 
-  const selectedFiles = useFileUploadStore((state) => state.selectedFiles);
-
+  const { selectedFiles } = useFileUpload();
   const {
     title,
     content,
@@ -107,6 +107,7 @@ export const useCreateApply = () => {
         type: "manual",
         message: "신청 가능 대상을 하나 이상 지정해주세요",
       });
+      toast.error("신청 가능 대상을 하나 이상 지정해주세요");
       return;
     }
 
@@ -119,6 +120,7 @@ export const useCreateApply = () => {
         type: "manual",
         message: "신청 가능 학년을 하나 이상 지정해주세요 ",
       });
+      toast.error("신청 가능 학년을 하나 이상 지정해주세요");
       return;
     }
 
@@ -132,6 +134,8 @@ export const useCreateApply = () => {
         type: "manual",
         message: "신청 가능 학년을 하나 이상 지정해주세요",
       });
+      toast.error("신청 가능 학년을 하나 이상 지정해주세요");
+      return;
     }
     const postCreateWithFormRequestDto = { ...data };
     if (
