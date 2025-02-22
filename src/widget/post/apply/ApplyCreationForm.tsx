@@ -69,15 +69,22 @@ export const ApplyCreationForm = ({
           >
             <div className="mt-4 flex w-full items-center justify-between">
               <div className="flex w-full items-center space-x-2 lg:space-x-4">
-                <div className="w-full">
-                  <input
-                    type="text"
-                    placeholder="제목"
-                    {...register("title", {
-                      required: true,
-                    })}
-                    className="mb-2 w-full border-b border-black bg-transparent pb-2 text-[24px] placeholder:text-[#B7B7B7] focus:outline-none lg:p-2"
-                  />
+                <div className="w-full flex-col">
+                  <div className="w-full">
+                    <input
+                      type="text"
+                      placeholder="제목"
+                      {...register("title", {
+                        required: true,
+                      })}
+                      className="mb-2 w-full border-b border-black bg-transparent pb-2 text-[24px] placeholder:text-[#B7B7B7] focus:outline-none lg:p-2"
+                    />
+                  </div>
+                  {errors.title && (
+                    <p className="md:text-md flex-shrink-0 text-xs text-red-500">
+                      게시글 제목을 입력해주세요
+                    </p>
+                  )}
                 </div>
                 <div className="flex w-[85px] items-center gap-2">
                   <input
@@ -91,6 +98,7 @@ export const ApplyCreationForm = ({
                     질문
                   </p>
                 </div>
+
                 <div className="flex w-[85px] items-center gap-2">
                   <input
                     type="checkbox"
@@ -105,7 +113,7 @@ export const ApplyCreationForm = ({
                 </div>
               </div>
             </div>
-            <div className="h-60 w-full">
+            <div className="relative h-64 w-full">
               <textarea
                 id="content"
                 {...register("content", {
@@ -114,6 +122,11 @@ export const ApplyCreationForm = ({
                 placeholder="내용을 입력하세요!"
                 className="h-full w-full bg-[#F8F8F8] px-2 text-[24px] outline-none placeholder:text-[#b7b7b7]"
               ></textarea>
+              {errors.content && (
+                <p className="absolute bottom-4 text-sm text-red-500">
+                  {errors.content.message}
+                </p>
+              )}
             </div>
             {selectedFiles.length === 0 ? "" : <FilePreview />}
             <hr className="w-3/4 min-w-[260px] border-dashed border-black lg:min-w-[490px]" />
