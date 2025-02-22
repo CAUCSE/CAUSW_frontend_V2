@@ -43,9 +43,9 @@ export const Option = ({
         ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText?.message && (
           <p className="text-red-500">
             {
-              errors?.formCreateRequestDto.questionCreateRequestDtoList[
+              errors?.formCreateRequestDto?.questionCreateRequestDtoList?.[
                 questionIndex
-              ]?.optionCreateRequestDtoList[optionIndex]?.optionText?.message
+              ]?.optionCreateRequestDtoList?.[optionIndex]?.optionText?.message
             }
           </p>
         )}
