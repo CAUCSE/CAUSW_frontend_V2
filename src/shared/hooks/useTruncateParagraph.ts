@@ -2,16 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { useResponseFormStore } from "@/shared";
-
-export const useTruncateQuestion = () => {
-  const form = useResponseFormStore((state) => state.form);
+export const useTruncateParagraph = <T>(data?: T[]) => {
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [isTruncated, setIsTruncated] = useState<boolean[]>([]);
 
   const checkTruncate = () => {
-    if (form) {
-      const truncateStatus = form.questionResponseDtoList.map((_, idx) => {
+    if (data) {
+      const truncateStatus = data.map((_, idx) => {
         const element = textRefs.current[idx];
         if (element) {
           return element.scrollWidth > element.clientWidth;
@@ -28,7 +25,7 @@ export const useTruncateQuestion = () => {
     return () => {
       window.removeEventListener("resize", checkTruncate);
     };
-  }, [form]);
+  }, [data]);
 
   return { textRefs, isTruncated };
 };
