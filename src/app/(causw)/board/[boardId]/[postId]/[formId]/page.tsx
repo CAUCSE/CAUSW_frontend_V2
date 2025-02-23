@@ -25,8 +25,8 @@ const ApplyPage = () => {
   const form = useResponseFormStore((state) => state.form);
 
   const { setError } = methods;
-  const { useGetFormInfo } = FormService();
-  const { data, isPending, isError } = useGetFormInfo(formId as string);
+  const { useGetFormResponseInfo } = FormService();
+  const { data, isPending, isError } = useGetFormResponseInfo(formId as string);
   const { onSubmit, closeModal, modalMessage, modalOpen } =
     useHandleApplySubmit({ setError });
 
