@@ -1,9 +1,10 @@
 "use client";
 
+import { useResponseFormStore, useTruncateParagraph } from "@/shared";
+
 import { ObjectiveOptionList } from "@/widget";
 import { SubjectiveOption } from "@/entities";
 import { useFormContext } from "react-hook-form";
-import { useTruncateQuestion } from "@/shared";
 
 interface ResponseQuestionProps {
   question: Post.QuestionResponseDto;
@@ -19,7 +20,12 @@ export const ResponseQuestion = ({
     formState: { errors },
   } = useFormContext();
 
-  const { textRefs, isTruncated } = useTruncateQuestion();
+  const form = useResponseFormStore((state) => state.form);
+  form?.questionResponseDtoList;
+  const { textRefs, isTruncated } =
+    useTruncateParagraph<Post.QuestionResponseDto>(
+      form?.questionResponseDtoList,
+    );
 
   return (
     <div key={question.questionId} className="w-3/4">

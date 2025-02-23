@@ -41,7 +41,6 @@ export { HomeRscService } from "./hooks/services/HomeRscService";
 export { CircleRscService } from "./hooks/services/CircleRscSevice";
 export { UserRscService } from "./hooks/services/UserRscService";
 export { SettingRscService } from "./hooks/services/SettingRscService";
-export { FormRscService } from "./hooks/services/FormRscService";
 export { VoteRscService } from "./hooks/services/VoteRscService";
 export { PostRscService } from "./hooks/services/PostRscService";
 export { AuthService } from "./hooks/services/AuthService";
@@ -74,7 +73,9 @@ export { useCreateVoteStore } from "./hooks/stores/post/create/useCreateVoteStor
 export { useFileUpload } from "./hooks/stores/post/create/useFileUpload";
 export { useFileUploadStore } from "./hooks/stores/post/create/useFileUploadStore";
 export { useResponseFormStore } from "./hooks/stores/post/form/useResponseFormStore";
+export { useFormResultStore } from "./hooks/stores/post/form/useFormResultStore";
 
+//Listener
 export { WindowSizeListener } from "./listener/WindowSizeListener";
 
 //Ui
@@ -96,6 +97,7 @@ export { useCreateBoard } from "./hooks/boards/useCreateBoard";
 export { useInfiniteScroll } from "./hooks/useInfiniteScroll";
 export { usePreviousValue } from "./hooks/usePreviousValue";
 export { useIsWindowLg } from "./hooks/useIsWindowLg";
+export { useTruncateParagraph } from "./hooks/useTruncateParagraph";
 
 //Posts
 export { useSearchPost } from "./hooks/posts/useSearchPost";
@@ -103,7 +105,8 @@ export { usePostForm } from "./hooks/posts/usePostForm";
 export { usePostInteraction } from "./hooks/posts/usePostInteraction";
 export { useCommentInteraction } from "./hooks/posts/comment/useCommentInteraction";
 
-//Apply
-export { useCreateApply } from "./hooks/posts/apply/useCreateApply";
-export { useTruncateQuestion } from "./hooks/posts/apply/useTruncateQuestion";
-export { useHandleApplySubmit } from "./hooks/posts/apply/useHandleApplySubmit";
+//Form
+export { useCreateApply } from "./hooks/posts/form/useCreateApply";
+export { useHandleApplySubmit } from "./hooks/posts/form/useHandleApplySubmit";
+export { useFormResultPagination } from "./hooks/posts/form/useFormResultPagination";
+export { useFormDetailResult } from "./hooks/posts/form/useFormDetailResult";
