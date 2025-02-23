@@ -3,32 +3,12 @@ export { IconButton } from "./ui/IconButton";
 
 export { BASEURL } from "./configs/url";
 
-export {
-  API,
-  FORMAPI,
-  getRccAccess,
-  getRccRefresh,
-  removeRccAccess,
-  removeRccRefresh,
-  setRccToken,
-} from "./configs/axios";
-export {
-  allErrorCode,
-  noAccessTokenCode,
-  noPermissionCode,
-  noRefreshTokenCode,
-  noUserInfoCode,
-} from "./configs/errorCode";
-export {
-  getRscAccess,
-  getRscRefresh,
-  removeRscAccess,
-  removeRscRefresh,
-  setRscHeader,
-  setRscToken,
-} from "./configs/fetch";
-export { breakpoint } from "./configs/layout";
-export { emailRegex, numberMatch } from "./configs/regex";
+export * from "./configs/axios";
+export * from "./configs/errorCode";
+export * from "./configs/fetch";
+export * from "./configs/layout";
+export * from "./configs/regex";
+export * from "./configs/permission";
 
 //Service
 export { AuthRscService } from "./hooks/services/AuthRscService";
