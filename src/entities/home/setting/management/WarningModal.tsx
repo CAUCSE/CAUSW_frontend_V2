@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SettingRscService } from "@/shared";
-
+import toast from "react-hot-toast";
 export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boolean, onClose: () => void, admission: any, type: string }) {
     const [reason, setReason] = useState("");
 
@@ -10,27 +10,35 @@ export function WarningModal({ isOpen, onClose, admission, type }: { isOpen: boo
 
   const rejectOrExpelTarget = async (userId: string, type: string, reason: string) => {
     const { rejectAdmission, expelUser } = SettingRscService();
-    if (await (type === "REJECT" ? rejectAdmission(userId, reason) : expelUser(userId, reason))) {
-      alert(`${type === "REJECT" ? "가입 신청서가 거부되었습니다": "사용자가 추방되었습니다."}`);
+    try {
+      await (type === "REJECT" ? rejectAdmission(userId, reason) : expelUser(userId, reason));
+      toast.success(`${type === "REJECT" ? "가입 신청서가 거부되었습니다": "사용자가 추방되었습니다."}`);
+
       let path;
-      (type === "REJECT" ? path = "reject" : path = "active")
-      window.location.assign(`/setting/management/user/${path}`);
+      (type === "REJECT" ? path = "reject" : path = "active");
+      setTimeout(() => {
+        window.location.assign(`/setting/management/user/${path}`);
+      }, 500);
     }
-    else
-  {   alert("오류가 발생했습니다. 관리자에게 문의하세요");
-  }
+    catch
+    {   
+      toast.error("오류가 발생했습니다. 관리자에게 문의하세요");
+    }
   }
   
   
   const deleteTarget = async(userId) => {
     const { deleteUser } = SettingRscService();
-    if (await deleteUser(userId)) {
-      alert("사용자가 영구 삭제되었습니다.");
-      window.location.assign("/setting/management/user/admission");
+    try {
+      await deleteUser(userId);
+      toast.success("사용자가 영구 삭제되었습니다.");
+      setTimeout(() => {
+        window.location.assign("/setting/management/user/admission");
+      }, 500);
     }
-    else
+    catch
     {  
-      alert("사용자 삭제에 실패했습니다. 관리자에게 문의하세요");
+      toast.error("사용자 삭제에 실패했습니다. 관리자에게 문의하세요");
     }
   }
 
