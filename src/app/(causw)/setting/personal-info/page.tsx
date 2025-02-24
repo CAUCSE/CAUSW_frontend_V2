@@ -11,6 +11,7 @@ import {
   Modal,
   AuthService,
 } from "@/shared";
+import toast from "react-hot-toast";
 
 const PersonalInfoPage = () => {
   const {
@@ -42,7 +43,6 @@ const PersonalInfoPage = () => {
   const { checkNicknameDuplicate } = AuthService();
 
   // 제출 시 모달
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isFailModalOpen, setIsFailModalOpen] = useState(false);
 
   const user = useUserStore((state) => ({
@@ -135,16 +135,14 @@ const PersonalInfoPage = () => {
   // 개인정보 수정한 내용 제출하는 함수
   const onSubmit = async (data: User.userUpdateDto) => {
     try {
-      const response = await updateInfo(data);
-      setIsSuccessModalOpen(true);
+      await updateInfo(data);
+      toast.success("변경 사항이 저장되었습니다.")
     } catch (error: any) {
-      setIsFailModalOpen(true);
       if (error.status === 400) {
-        setErrorMessage("중복된 닉네임입니다.");
+        toast.error("중복된 닉네임입니다.")
       } else {
-        setErrorMessage("알 수 없는 에러가 발생했습니다.");
+        toast.error("알 수 없는 에러가 발생했습니다.");
       }
-      console.log(error);
     }
   };
 
@@ -317,19 +315,6 @@ const PersonalInfoPage = () => {
           </div>
         </div>
 
-        {/* 성공 시 모달 */}
-        {isSuccessModalOpen && (
-          <Modal
-            closeModal={() => {
-              setIsSuccessModalOpen(false);
-              window.location.reload();
-            }}
-          >
-            <div className="p-2 lg:p-4">
-              <div>변경 사항이 저장되었습니다.</div>
-            </div>
-          </Modal>
-        )}
         {/* 오류 발생 시 모달 */}
         {isFailModalOpen && (
           <Modal closeModal={() => setIsFailModalOpen(false)}>
