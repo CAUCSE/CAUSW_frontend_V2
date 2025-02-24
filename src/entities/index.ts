@@ -87,3 +87,5 @@ export { OccasionImageUploader } from "./occasion/registration/OccasionImageUplo
 export { OccasionSubmitButton } from "./occasion/registration/OccasionSubmitButton";
 export { OccasionTextArea } from "./occasion/registration/OccasionTextArea";
 export { OccasionTypeDropdown } from "./occasion/registration/OccasionTypeDropdown";
+
+export { UserInfoContainer } from "./home/setting/personal-info/UserInfoContainer"
