@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   UserService,
   UserRscService,
@@ -10,8 +10,8 @@ import {
   AuthService,
 } from "@/shared";
 import toast from "react-hot-toast";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { LoadingComponent } from "@/entities";
+import { useQuery } from "@tanstack/react-query";
+import { LoadingComponent, UserInfoContainer } from "@/entities";
 
 
 const PersonalInfoPage = () => {
@@ -142,6 +142,7 @@ const PersonalInfoPage = () => {
   };
 
 
+  
 
 
 if (isLoading) return <LoadingComponent />;
@@ -242,79 +243,12 @@ if (error) return <p>에러 발생!</p>;
               </div>
             </div>
           </div>
-
-          {/* 오른쪽: 이메일, 이름, 학번 등 */}
-          <div className="grid grid-cols-2 gap-4 lg:flex lg:justify-between">
-            <div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  이름
-                </label>
-                <p className="text-gray-700">{userData.name}</p>
-              </div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  이메일
-                </label>
-                <p className="text-gray-700">{userData.email}</p>
-              </div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  학번
-                </label>
-                <p className="text-gray-700">{userData.studentId}</p>
-              </div>
-
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  입학 년도
-                </label>
-                <p className="text-gray-700">{userData.admissionYear}</p>
-              </div>
-
-              {userData.academicStatus === "GRADUATED" && (
-                <div className="mb-4">
-                  <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                    졸업 년도
-                  </label>
-                  <p className="text-gray-700">{userData.graduationYear}</p>
-                </div>
-              )}
-            </div>
-
-            <div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  등록 완료 학기
-                </label>
-                <p className="text-gray-700">{userData.currentCompletedSemester}</p>
-              </div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  학부(학과)
-                </label>
-                <p className="text-gray-700">{userData.major}</p>
-              </div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  본 학기 학생회비 적용 여부
-                </label>
-                <p className="text-gray-700">{studentCouncilFeeStatus}</p>
-              </div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  납부한 학생회비 학기 차수
-                </label>
-                <p className="text-gray-700">{paidFeeSemesters}</p>
-              </div>
-              <div className="mb-4">
-                <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
-                  남은 학생회비 차수
-                </label>
-                <p className="text-gray-700">{remainingFeeSemesters}</p>
-              </div>
-            </div>
-          </div>
+        
+        <UserInfoContainer
+          userData={userData}
+          studentCouncilFeeStatus={studentCouncilFeeStatus}
+          paidFeeSemesters={paidFeeSemesters}
+          remainingFeeSemesters={remainingFeeSemesters}/>
         </div>
 
 
