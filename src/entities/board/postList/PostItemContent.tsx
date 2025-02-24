@@ -19,7 +19,11 @@ export const PostItemContent = ({ post }: PostItemContentProps) => {
               if (idx === 1 && post.content.split("\n").length > 2) {
                 return <p key={idx}>{str}...</p>;
               }
-              return <p key={idx}>{str}</p>;
+              return (
+                <p key={idx} className="truncate">
+                  {str}
+                </p>
+              );
             })
         ) : (
           <p></p>
