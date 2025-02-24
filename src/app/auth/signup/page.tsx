@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation"; // useRouter import
 import { AuthService } from "@/shared";
 import { UseTerms } from "@/entities/home/useTerms";
+import toast from "react-hot-toast";
 const SignUpPage = () => {
   const {
     register,
@@ -104,7 +105,6 @@ const SignUpPage = () => {
       }
     }
 
-    
     if (isDuplicate) {
       return "이미 사용 중인 학번입니다.";
     } else if (!isValidStudentId){
@@ -113,9 +113,6 @@ const SignUpPage = () => {
     else {
       return true;
     }
-
-
-
   };
 
   // 뒤로가기 버튼
@@ -160,24 +157,6 @@ const SignUpPage = () => {
   // 이용 약관 모달 창
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-
-  // 회원가입 성공, 혹은 실패 시 모달
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
-
-  const [countdown, setCountdown] = useState(0);
-
-  const closeCompleteModal = () => {
-    if (isSuccessModalOpen) {
-      router.push("/auth/signin");
-    } else {
-      setIsSuccessModalOpen(false);
-      setIsErrorModalOpen(false);
-    }
-  };
-
   // 제출
   const onSubmit = async (data: User.SignUpForm) => {
     try {
@@ -209,29 +188,13 @@ const SignUpPage = () => {
         phoneNumber,
       };
 
-      const response = await signup(selectedData); // signup 함수 호출
+      await signup(selectedData); // signup 함수 호출
+      toast.success("회원가입이 완료되었습니다.")
+      router.push("/auth/signin");
 
-      if (response) {
-        // 성공한 경우
-        setIsSuccessModalOpen(true);
-        setCountdown(5);
-
-        const interval = setInterval(() => {
-          setCountdown((prev) => {
-            if (prev <= 1) {
-              clearInterval(interval);
-              setIsSuccessModalOpen(false);
-              router.push("/auth/signin"); // 성공 시 리다이렉션
-            }
-            return prev - 1;
-          });
-        }, 1000);
-      }
     } catch (error: any) {
       // 에러 발생 시 처리
-      console.error("SignUp error:", error);
-      setIsErrorModalOpen(true);
-      setServerError(error.message || "회원가입 중 문제가 발생했습니다."); // 에러 메시지 처리
+      toast.error(error.message || "회원가입 중 문제가 발생했습니다."); // 에러 메시지 처리
     }
   };
 
@@ -243,13 +206,9 @@ const SignUpPage = () => {
 
   const onInvalid = async(errors: any) => {
   // 모든 필드를 입력하지 않았을 경우에 대한 로직
-
+    toast.error("모든 항목을 조건에 맞게 입력해주세요.")
     await trigger();
     // onBlur로 설정된 에러를 복구
-
-
-    console.error("Form Errors:", errors);
-    setIsIncompleteModalOpen(true); // 모든 필드를 입력하지 않았을 때 모달을 띄움
   };
 
   return (
@@ -496,7 +455,7 @@ const SignUpPage = () => {
             <label htmlFor="terms">
               <label
                 className="cursor-pointer text-lg text-gray-700 underline"
-                onClick={openModal}
+                onClick={() => setIsModalOpen(true)}
               >
                 약관 읽고 동의하기
               </label>
@@ -531,42 +490,6 @@ const SignUpPage = () => {
         </div>
       )}
 
-      {/* 회원가입을 성공했을 때 표시되는 모달 */}
-      {isSuccessModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50">
-          <div className="items-center justify-center overflow-y-auto rounded-lg bg-white p-8">
-            <div className="grid justify-items-center">
-              <h2 className="mb-4 text-xl font-bold">회원가입 완료</h2>
-              <p>회원가입이 성공적으로 완료되었습니다!</p>
-              <button
-                onClick={closeCompleteModal}
-                className="mt-6 w-2/3 rounded-lg bg-focus p-2 p-4 text-sm text-white hover:bg-blue-500"
-              >
-                로그인 창으로 바로 이동
-              </button>
-              <p className="mt-4 text-gray-500">
-                {" "}
-                ({countdown}초 후에 로그인 창으로 이동합니다.)
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 회원가입 도중 에러 발생했을 때 표시되는 모달 */}
-      {isErrorModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50"
-          onClick={closeCompleteModal}
-        >
-          <div className="ml-4 mr-4 w-full max-w-xs rounded-lg bg-white p-6">
-            <div className="grid justify-items-center">
-              <h2 className="mb-4 text-xl font-bold">회원가입 실패</h2>
-              <p>{serverError}</p>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* 이용약관 모달 */}
       {isModalOpen && (
