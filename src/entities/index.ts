@@ -74,3 +74,9 @@ export { PostSearchNotFound } from "./board/search/PostSearchNotFound";
 export { VTwoForm } from "./layout/VTwoForm";
 
 export * from "./modal/Modal";
+
+export { LockerInfoByFloor } from "./locker/LockerInfoByFloor";
+export { LockerSelect } from "./locker/LockerSelect";
+export { LockerRegisterBtn } from "./locker/LockerRegisterBtn";
+export { LockerReturnBtn } from "./locker/LockerReturnBtn";
+export { LockerExtendBtn } from "./locker/LockerExtendBtn";
