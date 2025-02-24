@@ -8,6 +8,16 @@ import { useGetBoardList } from "@/shared";
 export const BoardList = () => {
   const { boards, boardInfoMap, loading, roles } = useGetBoardList();
 
+  const defaultBoardForAdmin = boards.filter((board) => board.isDefault);
+  const defaultBoardForCommon = boards.filter(
+    (board) => board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
+  );
+
+  const customBoardForAdmin = boards.filter((board) => !board.isDefault);
+  const customBoardForCommon = boards.filter(
+    (board) => !board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
+  );
+
   return (
     <>
       {loading ? (
@@ -18,34 +28,14 @@ export const BoardList = () => {
             <div className="flex flex-col items-center">
               {boards.filter((board) => board.isDefault).length > 0 &&
                 (roles.includes("ADMIN") ? (
-                  <DefaultBoard
-                    boardInfos={boards.filter(
-                      (board: Board.BoardResponseDto) => board.isDefault,
-                    )}
-                  />
+                  <DefaultBoard boardInfos={defaultBoardForAdmin} />
                 ) : (
-                  <DefaultBoard
-                    boardInfos={boards.filter(
-                      (board: Board.BoardResponseDto) =>
-                        board.isDefault &&
-                        !boardInfoMap.get(board.boardId)?.isDeleted,
-                    )}
-                  />
+                  <DefaultBoard boardInfos={defaultBoardForCommon} />
                 ))}
               {roles.includes("ADMIN") ? (
-                <CustomBoard
-                  boardInfos={boards.filter(
-                    (board: Board.BoardResponseDto) => !board.isDefault,
-                  )}
-                />
+                <CustomBoard boardInfos={customBoardForAdmin} />
               ) : (
-                <CustomBoard
-                  boardInfos={boards.filter(
-                    (board: Board.BoardResponseDto) =>
-                      !board.isDefault &&
-                      !boardInfoMap.get(board.boardId)?.isDeleted,
-                  )}
-                />
+                <CustomBoard boardInfos={customBoardForCommon} />
               )}
             </div>
           </div>
