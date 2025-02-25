@@ -1,9 +1,10 @@
 "use client";
 
-import { API, lockerQueryKey } from "@/shared";
+import { API, lockerQueryKey, useLockerSelectionStore } from "@/shared";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
+import { useShallow } from "zustand/react/shallow";
 
 export const LockerService = () => {
   const useGetLockerLocations = () => {
@@ -30,6 +31,10 @@ export const LockerService = () => {
   };
 
   const useRegisterLocker = () => {
+    const setClickedLockerStatus = useLockerSelectionStore(
+      (state) => state.setClickedLockerStatus,
+    );
+
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: async (lockerId: string) => {
@@ -40,6 +45,7 @@ export const LockerService = () => {
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: lockerQueryKey.all });
+        setClickedLockerStatus("isMine");
         toast.success("사물함 등록이 완료되었습니다.");
       },
       onError: () => {
@@ -49,6 +55,14 @@ export const LockerService = () => {
   };
 
   const useReturnLocker = () => {
+    const { setClickedLockerId, setClickedLockerStatus } =
+      useLockerSelectionStore(
+        useShallow((state) => ({
+          setClickedLockerId: state.setClickedLockerId,
+          setClickedLockerStatus: state.setClickedLockerStatus,
+        })),
+      );
+
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: async (lockerId: string) => {
@@ -59,6 +73,8 @@ export const LockerService = () => {
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: lockerQueryKey.all });
+        setClickedLockerId(null);
+        setClickedLockerStatus(null);
         toast.success("사물함 반납이 완료되었습니다.");
       },
       onError: () => {

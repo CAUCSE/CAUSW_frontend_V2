@@ -5,9 +5,9 @@ interface LockerSelectionStore {
   clickedLockerId: string | null;
 
   setClickedLockerStatus: (
-    status: "isMine" | "isActive" | "isNotActive",
+    status: "isMine" | "isActive" | "isNotActive" | null,
   ) => void;
-  setClickedLockerId: (id: string) => void;
+  setClickedLockerId: (id: string | null) => void;
 }
 
 export const useLockerSelectionStore = create<LockerSelectionStore>((set) => ({
