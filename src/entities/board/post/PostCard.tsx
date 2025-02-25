@@ -1,12 +1,14 @@
 "use client";
 
-import { usePostStore, useVoteStore, VoteRscService } from "@/shared";
+import { VoteRscService, usePostStore, useVoteStore } from "@/shared";
+import { useParams, useRouter } from "next/navigation";
+
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from "./VotingSection";
-import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
+
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
 interface PostCardProps {
@@ -155,7 +157,7 @@ export const PostCard = ({
       <div className="flex flex-row items-center p-2">
         <Image
           src={userImage ?? "/images/default_profile.png"}
-          alt="Comment Profil"
+          alt="Comment Profile"
           width={80}
           height={80}
           className="m-2 bg-contain bg-center bg-no-repeat"
@@ -171,10 +173,10 @@ export const PostCard = ({
 
       <div className="flex w-full flex-col items-start px-3">
         <div className="w-full">
-          <div className="mb-2 px-1 text-[24px] font-medium">
+          <div className="mb-2 select-text px-1 text-[24px] font-medium">
             {postData.title}
           </div>
-          <div className="mb-2 whitespace-pre-wrap px-1 pb-2 text-[16px]">
+          <div className="mb-2 select-text whitespace-pre-line break-words px-1 pb-2 text-[16px]">
             {postData.content}
           </div>
 

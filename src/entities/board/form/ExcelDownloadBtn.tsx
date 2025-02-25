@@ -1,0 +1,21 @@
+"use client";
+
+import { FormService } from "@/shared";
+import { useParams } from "next/navigation";
+
+export const ExcelDownloadBtn = () => {
+  const params = useParams();
+  const { formId } = params;
+  const { useExportExcelFile } = FormService();
+
+  const { mutate: downloadExcelFile } = useExportExcelFile();
+
+  return (
+    <button
+      className={`flex h-7 w-24 items-center justify-center rounded-3xl border border-black bg-[##76C6D1] sm:h-10 sm:w-32`}
+      onClick={() => downloadExcelFile({ formId: formId as string })}
+    >
+      <p className="text-[12px] font-bold sm:text-[16px]">Excel export</p>
+    </button>
+  );
+};

@@ -1,5 +1,3 @@
-"use client";
-
 import { BoardCreationForm } from "@/widget";
 
 const CreateBoardPage = () => {

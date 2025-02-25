@@ -27,7 +27,7 @@ export const Board = ({
           </Link>
         ) : (
           <div className="divide-y-2">
-            {contents.map((content, idx) => (
+            {contents.map((content) => (
               <div key={content.contentId}>
                 <Link href={`/board/${boardId}/${content.contentId}`}>
                   <div className="truncate py-2">{content.title} </div>

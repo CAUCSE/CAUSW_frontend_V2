@@ -1,14 +1,10 @@
 "use client";
 
-import {
-  useUserStore,
-  useCommentStore,
-  usePostStore,
-  CommentRscService,
-} from "@/shared";
+import { useCommentStore, usePostStore } from "@/shared";
+
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
-import { useState } from "react";
+import { getTimeDifference } from "@/utils/format";
 
 // 여기도 좋아요 싫어요 디자인 문의하기
 interface CommentCardProps {
@@ -34,7 +30,6 @@ export const CommentCard = ({
 }: CommentCardProps) => {
   const { toggleCommentOverlay } = useCommentStore();
   const { setCommentInfo: setChildComment } = usePostStore();
-  const isAnon = comment.isAnonymous;
   const writerProfileImage = comment.isAnonymous
     ? "/images/default_profile.png"
     : comment.writerProfileImage;
@@ -48,27 +43,6 @@ export const CommentCard = ({
   const handleLike = () => {
     if (!isDeleted) {
       handleCommentLike();
-    }
-  };
-  const getTimeDifference = (ISOtime: string) => {
-    const createdTime = new Date(ISOtime);
-    const now = new Date();
-    const diffMSec = now.getTime() - createdTime.getTime();
-    const diffMin = Math.round(diffMSec / (60 * 1000));
-    if (diffMin === 0) {
-      return `방금 전`;
-    } else if (diffMin < 60) {
-      return `${diffMin}분 전`;
-    } else if (
-      now.getFullYear() === createdTime.getFullYear() &&
-      now.getMonth() === createdTime.getMonth() &&
-      now.getDate() === createdTime.getDate()
-    ) {
-      return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
-    } else if (now.getFullYear() === createdTime.getFullYear()) {
-      return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
-    } else {
-      return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
     }
   };
 
@@ -95,7 +69,7 @@ export const CommentCard = ({
       <div className="mb-1 flex flex-row items-center px-2">
         <Image
           src={writerProfileImage ?? "/images/default_profile.png"}
-          alt="Comment Profil"
+          alt="Comment Profile"
           width={50}
           height={50}
           className="m-2 bg-contain bg-center bg-no-repeat"
