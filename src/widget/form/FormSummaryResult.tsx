@@ -44,7 +44,7 @@ export const FormSummaryResult = () => {
   return sortedQuestionIdList?.map((questionId, resultIdx: number) => {
     const result = summaryFormResultMap.get(questionId);
     if (!result) {
-      return <div></div>;
+      return <div key={resultIdx}>질문 조회 실패</div>;
     }
 
     const objectiveQuestion = {
