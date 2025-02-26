@@ -23,8 +23,8 @@ paidFeeSemesters,
 remainingFeeSemesters,
 }) => {
 return (
-    <div className="grid grid-cols-2 gap-1 lg:flex lg:justify-between">
-    <div>
+    <div className="grid grid-cols-2 gap-4 lg:flex">
+    <div className="lg:mr-32">
     <UserInfo title="이름" content={userData.name} />
     <UserInfo title="이메일" content={userData.email} />
     <UserInfo title="학번" content={userData.studentId} />
