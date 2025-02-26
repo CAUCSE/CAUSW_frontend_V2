@@ -1,5 +1,12 @@
 import UserInfo from "./UserInfo";
 
+interface FeeInfoProps {
+    studentCouncilFeeStatus: string;
+    paidFeeSemesters: string;
+    remainingFeeSemesters: string;
+  }
+  
+
 interface UserInfoContainerProps {
 userData: {
     name: string;
@@ -11,16 +18,12 @@ userData: {
     currentCompletedSemester: string;
     major: string;
 };
-studentCouncilFeeStatus: string;
-paidFeeSemesters: string;
-remainingFeeSemesters: string;    
+feeInfo: FeeInfoProps;
 }
 
 export const UserInfoContainer: React.FC<UserInfoContainerProps> = ({
 userData,
-studentCouncilFeeStatus,
-paidFeeSemesters,
-remainingFeeSemesters,
+feeInfo
 }) => {
 return (
     <div className="grid grid-cols-2 gap-4 lg:flex">
@@ -36,9 +39,9 @@ return (
     <div>
     <UserInfo title="등록 완료 학기" content={userData.currentCompletedSemester} />
     <UserInfo title="학부(학과)" content={userData.major} />
-    <UserInfo title="본 학기 학생회비 적용 여부" content={studentCouncilFeeStatus} />
-    <UserInfo title="납부한 학생회비 학기 차수" content={paidFeeSemesters} />
-    <UserInfo title="남은 학생회비 차수" content={remainingFeeSemesters} />
+    <UserInfo title="본 학기 학생회비 적용 여부" content={feeInfo.studentCouncilFeeStatus} />
+    <UserInfo title="납부한 학생회비 학기 차수" content={feeInfo.paidFeeSemesters} />
+    <UserInfo title="남은 학생회비 차수" content={feeInfo.remainingFeeSemesters} />
     </div>
 </div>
 );
