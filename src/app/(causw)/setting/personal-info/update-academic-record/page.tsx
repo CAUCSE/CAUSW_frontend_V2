@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserService, AcademicRecordRscService, Modal } from "@/shared";
+import { UserService, AcademicRecordRscService, Modal, PreviousButton } from "@/shared";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -183,28 +183,8 @@ const UpdataeAcademicRecordPage = () => {
 
   return (
     <div className="p-6">
-      {/* 이전 버튼 */}
-      <div className="justify-left sticky top-0 z-10 mb-4 flex w-full items-center bg-[#F8F8F8] py-2">
-        <button
-          onClick={() => router.push("/setting/personal-info")}
-          className="text-black-500 flex items-center hover:text-gray-500"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="mr-2 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          이전
-        </button>
+      <div className="h-12 mb-2">
+        <PreviousButton />
       </div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
