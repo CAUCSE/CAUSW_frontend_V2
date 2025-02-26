@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { UserService, UserCouncilFeeService } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingComponent } from "@/entities";
@@ -15,7 +14,6 @@ const PersonalInfoPage = () => {
     remainingFeeSemesters: "",
   });
 
-  const router = useRouter();
   const { getUserCouncilFeeInfo } = UserCouncilFeeService();
   const { getMyInfo } = UserService();
 
@@ -30,6 +28,7 @@ const PersonalInfoPage = () => {
   });
 
   useEffect(() => {
+    
     const fetchUserData = async () => {
       try {
         const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
@@ -48,8 +47,8 @@ const PersonalInfoPage = () => {
           remainingFeeSemesters: "0학기",
         });
       }
-      fetchUserData();
-    }});
+    }
+    fetchUserData()}, []);
 
   if (isLoading) return <LoadingComponent />;
   if (error) return <p>에러 발생</p>;
