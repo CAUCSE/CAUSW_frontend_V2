@@ -116,9 +116,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
 
         <UserInfoContainer
           userData={userData}
-          studentCouncilFeeStatus={feeInfo.studentCouncilFeeStatus}
-          paidFeeSemesters={feeInfo.paidFeeSemesters}
-          remainingFeeSemesters={feeInfo.remainingFeeSemesters}
+          feeInfo={feeInfo}
         />
       </div>
 
