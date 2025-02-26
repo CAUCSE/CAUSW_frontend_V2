@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { UserRscService, AuthService } from "@/shared";
-import { ProfileSection } from "@/entities/home/setting/personal-info/ProfileEditForm";
+import { ProfileEditForm } from "@/entities/home/setting/personal-info/ProfileEditForm";
 import { Header, UserInfoContainer } from "@/entities";
 import { PreviousButton } from "@/shared";
 
@@ -105,7 +105,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
       <Header big bold>개인정보 관리</Header>
 
       <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
-        <ProfileSection
+        <ProfileEditForm
           profileImagePreview={profileImagePreview}
           register={register}
           handleProfileImageChange={handleProfileImageChange}
