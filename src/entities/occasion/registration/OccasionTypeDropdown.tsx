@@ -6,6 +6,12 @@ interface OccasionDropdownProps {
   onChange: (value: string) => void;
 }
 
+const keyMapping = {
+  "MARRIAGE": "결혼",
+  "FUNERAL": "장례식",
+  "ETC": "기타"
+};
+
 export const OccasionTypeDropdown = ({ options, placeholder, onChange }: OccasionDropdownProps) => (
   <select
     onChange={(e) => onChange(e.target.value)}
@@ -14,7 +20,7 @@ export const OccasionTypeDropdown = ({ options, placeholder, onChange }: Occasio
     <option value="">{placeholder}</option>
     {options.map((option, index) => (
       <option key={index} value={option}>
-        {option}
+        {keyMapping[option]}
       </option>
     ))}
   </select>
