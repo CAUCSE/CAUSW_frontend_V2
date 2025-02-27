@@ -53,3 +53,8 @@ export async function formatUrlToFile(
   const file = new File([blob], fileName, { type: mimeType });
   return file;
 }
+
+export const getTodayDate = (): string => {
+  const today = new Date();
+  return today.toISOString().split("T")[0]; // YYYY-MM-DD 형식 반환
+};
