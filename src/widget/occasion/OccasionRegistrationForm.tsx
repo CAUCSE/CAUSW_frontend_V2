@@ -6,16 +6,41 @@ import
   OccasionTextArea,
   OccasionImageUploader,
   OccasionSubmitButton } from "@/entities";
+import { OccasionService } from "@/shared/hooks/services/OccasionService";
+import { getTodayDate, isPastDate, isStartDateBeforeEndDate, isValidDate } from "@/utils";
+import toast from "react-hot-toast";
+
+
 
 export const OccasionRegistrationForm = () => {
-  const [field, setField] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>("2025-12-21");
-  const [endDate, setEndDate] = useState<string>("2025-12-21");
-  const [content, setContent] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [startDate, setStartDate] = useState<string>(getTodayDate());
+  const [endDate, setEndDate] = useState<string>(getTodayDate());
+  const [description, setDescription] = useState<string>("");
+
+
   const [images, setImages] = useState<File[]>([]);
 
+  const { registerOccasion } = OccasionService();
+
   const handleSubmit = () => {
-    console.log({ field, startDate, endDate, content, images });
+    console.log({ category, startDate, endDate, description, images });
+
+    
+    if (!isValidDate(startDate) || !isValidDate(endDate)) {
+      toast.error("유효한 날짜 형식이 아닙니다. (YYYY-MM-DD 형식으로 입력해주세요)");
+      return;
+    }
+    if (isPastDate(startDate) || isPastDate(endDate)) {
+      toast.error("이전 날짜는 선택할 수 없습니다.");
+      return;
+    }
+    if (!isStartDateBeforeEndDate(startDate, endDate)) {
+      toast.error("종료 날짜는 시작 날짜보다 이후여야 합니다.");
+      return;
+    }
+
+
     // TODO: API 연결
   };
 
@@ -24,9 +49,9 @@ export const OccasionRegistrationForm = () => {
       <h1 className="mb-6 text-2xl font-bold text-center">경조사 등록 신청</h1>
       <label className="font-medium"> 분류 </label>
       <OccasionTypeDropdown
-        options={["결혼", "돌잔치", "장례식"]}
+        options={["MARRIAGE", "FUNERAL", "ETC"]}
         placeholder="분류를 선택하세요."
-        onChange={setField}
+        onChange={setCategory}
       />
       <div className="mt-8">
         <OccasionDateInput title="시작 날짜" initialDate={startDate} onDateChange={setStartDate} />
@@ -38,8 +63,8 @@ export const OccasionRegistrationForm = () => {
         <p className="mb-4 font-medium">내용</p>
         <OccasionTextArea
           placeholder="경조사 내용 입력"
-          value={content}
-          onChange={setContent}
+          value={description}
+          onChange={setDescription}
         />
       </div>
       <div className="mt-4">
