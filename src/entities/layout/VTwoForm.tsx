@@ -92,7 +92,7 @@ export const VTwoForm = () => {
             <input
               className="w-full rounded-lg border-2 border-gray-300 p-2"
               type="text"
-              placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234"
+              placeholder="-를 제외하고 작성해주세요. ex) 01012341234"
               {...register("phoneNumberHyphen", {
                 required: "연락처를 입력해주세요",
                 pattern: {
