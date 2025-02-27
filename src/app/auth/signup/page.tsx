@@ -426,12 +426,12 @@ const SignUpPage = () => {
               <input
                 className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
                 type="text"
-                placeholder="- 없이 작성해주세요. ex) 01012341234"
+                placeholder="-을 포함해서 작성해주세요. ex) 010-1234-1234"
                 {...register("phoneNumberHyphen", {
                   required: "연락처를 입력해주세요",
                   pattern: {
-                    value: /^([0-9]{10,11})$/,
-                    message: "전화번호 형식이 아닙니다.",
+                    value: /^(01[016789]-?\d{3,4}-?\d{4})$/,
+                    message: "올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)",
                   },
                 })}
                 onKeyDown={handleKeyDown}
@@ -440,6 +440,7 @@ const SignUpPage = () => {
             </div>
           </div>
         </div>
+
 
         <div className="mb-8 flex w-[calc(100%-30px)] flex-col sm:w-[565px]">
           <div className="-ml-2 flex items-center pl-2">
@@ -474,21 +475,6 @@ const SignUpPage = () => {
           </button>
         </div>
       </form>
-
-      {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
-      {isIncompleteModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          onClick={closeInCompleteModal}
-        >
-          <div className="ml-4 mr-4 grid w-full max-w-xs justify-items-center rounded-lg bg-white p-6">
-            <h2 className="mb-4 text-xl font-bold">
-              입력되지 않은 항목이 있습니다
-            </h2>
-            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
-          </div>
-        </div>
-      )}
 
 
       {/* 이용약관 모달 */}
