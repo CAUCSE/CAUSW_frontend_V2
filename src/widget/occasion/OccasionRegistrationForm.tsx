@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 
 
 export const OccasionRegistrationForm = () => {
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<"MARRIAGE"| "FUNERAL" | "ETC">("MARRIAGE");
   const [startDate, setStartDate] = useState<string>(getTodayDate());
   const [endDate, setEndDate] = useState<string>(getTodayDate());
   const [description, setDescription] = useState<string>("");
@@ -23,23 +23,34 @@ export const OccasionRegistrationForm = () => {
 
   const { registerOccasion } = OccasionService();
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     console.log({ category, startDate, endDate, description, images });
-
+    const data: Occasion.CreateCeremonyRequestDto = {
+      category: category,
+      startDate: startDate,
+      endDate: endDate,
+      description: description
+    }
     
     if (!isValidDate(startDate) || !isValidDate(endDate)) {
-      toast.error("유효한 날짜 형식이 아닙니다. (YYYY-MM-DD 형식으로 입력해주세요)");
+      toast.error(`유효한 날짜 형식이 아닙니다. \n ex) ${getTodayDate()} 과 같이 입력해주세요!`);
       return;
     }
     if (isPastDate(startDate) || isPastDate(endDate)) {
-      toast.error("이전 날짜는 선택할 수 없습니다.");
+      toast.error("과거 날짜는 선택할 수 없습니다.");
       return;
     }
     if (!isStartDateBeforeEndDate(startDate, endDate)) {
       toast.error("종료 날짜는 시작 날짜보다 이후여야 합니다.");
       return;
     }
-
+    try {
+      const response = await registerOccasion(data, images);
+      console.log(response);
+    }
+    catch(e) {
+      console.log(e);
+    }
 
     // TODO: API 연결
   };
