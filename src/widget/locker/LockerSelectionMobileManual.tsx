@@ -1,4 +1,10 @@
-export const LockerSelectionMobileManual = () => {
+interface LockerSelectionMobileManualProps {
+  lockerPeriod: Locker.TLockerPeriod;
+}
+
+export const LockerSelectionMobileManual = ({
+  lockerPeriod,
+}: LockerSelectionMobileManualProps) => {
   const lockerExample = [
     {
       color: "bg-[#D9D9D9]",
@@ -14,11 +20,20 @@ export const LockerSelectionMobileManual = () => {
     },
   ];
 
+  let lockerPeriodMessage = "사물함 신청 기간이 아닙니다.";
+  if (lockerPeriod === "LOCKER_ACCESS") {
+    lockerPeriodMessage = "사물함 신청 기간입니다.";
+  } else if (lockerPeriod === "LOCKER_EXTEND") {
+    lockerPeriodMessage = "사물함 연장 기간입니다.";
+  }
+
   return (
     <div className="flex w-full flex-col items-center gap-6 md:hidden">
       <div className="flex flex-col items-center gap-4">
         <h1 className="text-2xl font-bold">사물함을 선택해주세요!</h1>
-        <p className="text-xl">사물함 신청 기간입니다.</p>
+        <p className={`text-xl ${lockerPeriod === "NULL" && "text-red-500"}`}>
+          {lockerPeriodMessage}
+        </p>
       </div>
       <div className="flex w-full flex-col gap-2">
         <hr className="w-full border border-[#BABABA]" />

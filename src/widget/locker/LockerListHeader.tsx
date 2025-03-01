@@ -14,6 +14,12 @@ export const LockerListHeader = ({
     totalLockerCount += lockerLocation.totalLockerCount;
   });
 
+  const floor: { [key: string]: string } = {
+    SECOND: "2층",
+    THIRD: "3층",
+    FOURTH: "4층",
+  };
+
   return (
     <header>
       <div className="flex items-start justify-between">
@@ -24,10 +30,9 @@ export const LockerListHeader = ({
         <div className="hidden items-center gap-4 md:flex">
           <p>현재 사물함</p>
           <div className="ml-2 rounded-2xl border border-black px-8 py-1">
-            {/* TODO 사물함 층 수도 표시하기 */}
             <p>
               {lockerLocations.myLocker
-                ? `${lockerLocations.myLocker.lockerNumber}번`
+                ? `${floor[lockerLocations.myLocker.lockerNumber.split(" ")[0]]} ${lockerLocations.myLocker.lockerNumber.split(" ")[1]}번`
                 : "없음"}
             </p>
           </div>
@@ -40,10 +45,9 @@ export const LockerListHeader = ({
         <div className="flex items-center gap-4 text-nowrap md:hidden">
           <p className="">현재 사물함</p>
           <div className="ml-2 rounded-2xl border border-black px-4 py-1 md:px-8">
-            {/* TODO 사물함 층 수도 표시하기 */}
             <p className="text-sm md:text-base">
               {lockerLocations.myLocker
-                ? `${lockerLocations.myLocker.lockerNumber}번`
+                ? `${floor[lockerLocations.myLocker.lockerNumber.split(" ")[0]]} ${lockerLocations.myLocker.lockerNumber.split(" ")[1]}번`
                 : "없음"}
             </p>
           </div>
