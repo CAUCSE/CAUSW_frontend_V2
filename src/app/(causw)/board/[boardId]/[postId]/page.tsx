@@ -4,32 +4,26 @@ import {
   ChildCommentCard,
   CommentCard,
   CommentInput,
-  PostCard,
   LoadingComponent,
+  PostCard,
 } from "@/entities";
 import {
-  ChildCommentRscService,
-  CommentRscService,
-  PostRscService,
   PreviousButton,
   useChildCommentStore,
+  useCommentInteraction,
   useCommentStore,
-  usePopup,
   usePostDetail,
+  usePostInteraction,
   usePostStore,
-  VoteRscService,
-  useVoteStore,
   useUserStore,
 } from "@/shared";
-import { useParams, useRouter } from "next/navigation";
+
+import { notFound } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
-  const router = useRouter();
-  const params = useParams();
-  const { boardId } = params;
 
-  const { isVisible, message, showPopup } = usePopup(2000);
   const {
     isPopupVisible,
     post,
@@ -39,249 +33,60 @@ const PostDetailPage = (props: any) => {
     isPostForm,
     formId,
     commentList,
-    createCommentInfo,
-    incrementComment,
-    decrementComment,
-    addComment,
-    setPostComment,
-    incrementLike,
-    decrementLike,
-    incrementFavorite,
-    decrementFavorite,
-    togglePostPopup,
-  } = usePostStore();
-  const {
-    comments,
-    incrementCommentLike,
-    decrementCommentLike,
-    clearAllOverlays,
-    addChildComment,
-    setComments,
-    deleteComment,
-    toggleCommentPopup,
-  } = useCommentStore();
-  const {
-    childComments,
-    setChildComment,
-    incrementChildCommentLike,
-    decrementChildCommentLike,
-    deleteChildComment,
-    toggleChildCommentPopup,
-  } = useChildCommentStore();
+  } = usePostStore(
+    useShallow((state) => ({
+      isPopupVisible: state.isPopupVisible,
+      post: state.post,
+      numLike: state.numLike,
+      numFavorite: state.numFavorite,
+      numComment: state.numComment,
+      isPostForm: state.isPostForm,
+      formId: state.formId,
+      commentList: state.commentList,
+    })),
+  );
 
-  const isPresidents = useUserStore((state) => state.isPresidents);
-  const isVicePresidents = useUserStore((state) => state.isVicePresidents);
-  const isAdmin = useUserStore((state) => state.isAdmin);
+  const comments = useCommentStore((state) => state.comments);
+  const childComments = useChildCommentStore((state) => state.childComments);
 
   const { loading } = usePostDetail(postId);
 
-  const getTimeDifference = (ISOtime: string) => {
-    const createdTime = new Date(ISOtime);
-    const now = new Date();
-    const diffMSec = now.getTime() - createdTime.getTime();
-    const diffMin = Math.round(diffMSec / (60 * 1000));
-    if (diffMin === 0) {
-      return `방금 전`;
-    } else if (diffMin < 60) {
-      return `${diffMin}분 전`;
-    } else if (
-      now.getFullYear() === createdTime.getFullYear() &&
-      now.getMonth() === createdTime.getMonth() &&
-      now.getDate() === createdTime.getDate()
-    ) {
-      return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
-    } else if (now.getFullYear() === createdTime.getFullYear()) {
-      return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
-    } else {
-      return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
-    }
-  };
+  const {
+    handlePostLike,
+    handleDeletePost,
+    handlePostFavorite,
+    togglePostPopupMenu,
+    routerCallback,
+  } = usePostInteraction();
 
-  const changeToPostComment = () => {
-    setPostComment();
-    clearAllOverlays();
-  };
+  const {
+    handleCommentLike,
+    handleChildCommentLike,
+    handleAddComment,
+    handleDeleteComment,
+    handleDeleteChildComment,
+    toggleCommentPopupMenu,
+    toggleChildCommentPopupMenu,
+    changeToPostComment,
+  } = useCommentInteraction();
 
-  const handlePostLike = async () => {
-    try {
-      const createPostResponse = await PostRscService().postLikeForPost(postId);
-      incrementLike();
-    } catch (error) {
-      console.error("좋아요 처리 에러: ", error);
-      //decrementLike();
-      showPopup("이미 좋아요를 누른 게시글입니다.");
-    }
-  };
-
-  const handleDeletePost = async () => {
-    try {
-      const deletePostResponse = await PostRscService().deletePost(postId);
-      router.back();
-    } catch (error) {
-      console.error("게시글 삭제 처리 에러: ", error);
-    }
-  };
-
-  const handleCommentLike = async (commentId: string) => {
-    try {
-      const PostCommentLikeResponse =
-        await CommentRscService().postLikeForComment(commentId);
-      incrementCommentLike(commentId);
-    } catch (error) {
-      console.error("댓글 좋아요 처리 에러: ", error);
-      //decrementCommentLike(commentId);
-      showPopup("이미 좋아요를 누른 댓글입니다.");
-    }
-  };
-
-  const handleChildCommentLike = async (childCommentId: string) => {
-    try {
-      const PostChildCommentLikeResponse =
-        await ChildCommentRscService().postLikeForChildComment(childCommentId);
-      incrementChildCommentLike(childCommentId);
-    } catch (error) {
-      console.error("대댓글 좋아요 처리 에러: ", error);
-      //decrementChildCommentLike(childCommentId);
-      showPopup("이미 좋아요를 누른 댓글입니다.");
-    }
-  };
-
-  const handlePostFavorite = async () => {
-    try {
-      const createPostResponse = await PostRscService().postFavorite(postId);
-      incrementFavorite();
-    } catch (error) {
-      console.error("즐겨찾기 처리 에러: ", error);
-      //decrementFavorite();
-      showPopup("이미 즐겨찾기를 누른 게시글입니다.");
-    }
-  };
-
-  const handleAddComment = async (
-    newComentContent: string,
-    isAnonymous: boolean,
-  ) => {
-    if (!createCommentInfo.isChildComment) {
-      const createComment: Comment.CreateCommentDto = {
-        content: newComentContent,
-        postId: postId,
-        isAnonymous: isAnonymous,
-      };
-      try {
-        const createCommentResponse =
-          await CommentRscService().createComment(createComment);
-        addComment(createCommentResponse);
-        setComments(
-          createCommentResponse.id,
-          false,
-          true,
-          false,
-          [],
-          0,
-          getTimeDifference(Date()),
-        );
-        incrementComment();
-      } catch (error) {
-        console.error("게시물 댓글 처리 에러: ", error);
-        decrementComment();
-      }
-    } else {
-      const createChildComment: ChildComment.CreateChildCommentDto = {
-        content: newComentContent,
-        isAnonymous: isAnonymous,
-        parentCommentId: createCommentInfo.commentId!,
-      };
-      try {
-        const createChildCommentResponse =
-          await ChildCommentRscService().createChildComment(createChildComment);
-        addChildComment(
-          createCommentInfo.commentId!,
-          createChildCommentResponse,
-        );
-        setChildComment(
-          createChildCommentResponse.id,
-          0,
-          false,
-          true,
-          false,
-          getTimeDifference(Date()),
-        );
-        incrementComment();
-      } catch (error) {
-        console.error("게시물 대댓글 처리 에러: ", error);
-        decrementComment();
-      }
-    }
-    changeToPostComment();
-  };
-
-  const togglePostPopupMenu = () => {
-    if (post?.isOwner || isAdmin() || isPresidents() || isVicePresidents()) {
-      togglePostPopup();
-    }
-  };
-
-  const toggleCommentPopupMenu = (commentId: string) => {
-    if (comments[commentId].isOwner && !comments[commentId].isDeleted) {
-      toggleCommentPopup(commentId);
-    }
-  };
-
-  const handleDeleteComment = async (commentId: string) => {
-    try {
-      const deleteCommentResponse =
-        await CommentRscService().deleteCommentById(commentId);
-      deleteComment(commentId);
-    } catch (error) {
-      console.error("댓글 삭제 처리 에러: ", error);
-    }
-  };
-
-  const toggleChildCommentPopupMenu = (childCommentId: string) => {
-    if (
-      childComments[childCommentId].isOwner &&
-      !childComments[childCommentId].isDeleted
-    ) {
-      toggleChildCommentPopup(childCommentId);
-    }
-  };
-  const handleDeleteChildComment = async (childCommentId: string) => {
-    try {
-      const deleteChildCommentResponse =
-        await ChildCommentRscService().deleteChildComment(childCommentId);
-      deleteChildComment(childCommentId);
-    } catch (error) {
-      console.error("대댓글 삭제 처리 에러: ", error);
-    }
-  };
-
-  if (loading || !post) {
+  if (loading) {
     return <LoadingComponent />;
+  }
+
+  if (!post) {
+    return notFound();
   }
 
   return (
     <div className="bottom-5 top-0 h-full w-full bg-boardPageBackground scrollbar-hide lg:relative">
-      {isVisible && (
-        <div
-          className={`duration-2000 fixed left-1/2 top-20 -translate-x-1/2 transform rounded-lg bg-red-600 p-4 text-white shadow-lg transition-opacity ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ zIndex: 9999 }}
-        >
-          {message}
-        </div>
-      )}
       <div className="h-16 w-full bg-[#F8F8F8]">
-        <PreviousButton
-          routeCallback={() =>
-            router.replace(boardId === "my" ? "/setting" : `/board/${boardId}`)
-          }
-        />
+        <PreviousButton routeCallback={routerCallback} />
       </div>
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
         <div className="sm:pl-3">
           <PostCard
-            postData={post}
+            postData={post!}
             numComment={numComment}
             numFavorite={numFavorite}
             numLike={numLike}

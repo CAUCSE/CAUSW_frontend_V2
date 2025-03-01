@@ -119,4 +119,6 @@ declare namespace Form {
     | "UNDETERMINED";
 
   type GraduationYearType = "FEBRUARY" | "AUGUST";
+
+  export type TResultView = "summary" | "detail";
 }
