@@ -147,7 +147,7 @@ declare namespace User {
     major: string;
     agreeToTerms: boolean;
     agreeToPopup: boolean;
-    phoneNumber: string;
+    phoneNumberHyphen: string;
   }
 
   export interface SignUpFormPost {
