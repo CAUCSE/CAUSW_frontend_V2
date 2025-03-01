@@ -15,11 +15,6 @@ export { postQueryKey } from "./configs/query-key/postQueryKey";
 export { boardQueryKey } from "./configs/query-key/boardQueryKey";
 export { formQueryKey } from "./configs/query-key/formQueryKey";
 
-export { lockerQueryKey } from "./configs/query-key/lockerQueryKey";
-export { postQueryKey } from "./configs/query-key/postQueryKey";
-export { boardQueryKey } from "./configs/query-key/boardQueryKey";
-export { formQueryKey } from "./configs/query-key/formQueryKey";
-
 //Service
 export { AuthRscService } from "./hooks/services/AuthRscService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
