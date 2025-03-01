@@ -168,11 +168,8 @@ const SignUpPage = () => {
         admissionYearString,
         nickname,
         major,
-        phoneNumberHyphen,
+        phoneNumber,
       } = data;
-
-      // phoneNumber에서 하이픈 빼서 저장
-      const phoneNumber = phoneNumberHyphen.replace(/-/g, "");
 
       // admissionYear 숫자 값으로 저장
       const admissionYear = Number(admissionYearString);
@@ -196,12 +193,6 @@ const SignUpPage = () => {
       // 에러 발생 시 처리
       toast.error(error.message || "회원가입 중 문제가 발생했습니다."); // 에러 메시지 처리
     }
-  };
-
-  // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
-  const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
-  const closeInCompleteModal = () => {
-    setIsIncompleteModalOpen(false);
   };
 
   const onInvalid = async(errors: any) => {
@@ -427,7 +418,7 @@ const SignUpPage = () => {
                 className="w-full max-w-md rounded-lg border-2 border-gray-300 p-2"
                 type="text"
                 placeholder="-을 포함해서 작성해주세요. ex) 010-1234-1234"
-                {...register("phoneNumberHyphen", {
+                {...register("phoneNumber", {
                   required: "연락처를 입력해주세요",
                   pattern: {
                     value: /^(01[016789]-?\d{3,4}-?\d{4})$/,
@@ -436,7 +427,7 @@ const SignUpPage = () => {
                 })}
                 onKeyDown={handleKeyDown}
               />
-              <p className="text-error">{errors?.phoneNumberHyphen?.message}</p>
+              <p className="text-error">{errors?.phoneNumber?.message}</p>
             </div>
           </div>
         </div>
