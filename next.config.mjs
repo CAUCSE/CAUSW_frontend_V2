@@ -16,7 +16,7 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ["caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com"], // S3 버킷 도메인 허용
+    domains: ["caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com", "caucse-s3-bucket-prod.s3.ap-northeast-2.amazonaws.com"], // S3 버킷 도메인 허용
   },
 };
 
