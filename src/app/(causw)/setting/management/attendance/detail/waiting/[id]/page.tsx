@@ -1,6 +1,6 @@
 "use client";
 
-import { SettingService, Modal } from "@/shared";
+import { SettingService, Modal, ImageModal } from "@/shared";
 import { Line, LoadingComponent, Header, SubHeader } from "@/entities";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -16,6 +16,8 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useGetWaitingUser(userId, applicationId);
 
   const [onModal, setModal] = useState(false);
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const rejectMessage = useRef("");
 
@@ -98,6 +100,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
           {data?.attachedImageUrlList.map((element) => (
             <div key={element} className="h-32 min-w-32 overflow-hidden">
               <div
+                onClick={() => setSelectedImage(element)}
                 className="h-32 w-32 bg-contain bg-cover bg-center"
                 style={{ backgroundImage: `url(${element})` }}
               />
@@ -130,6 +133,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             거부하기
           </div>
         </div>
+        {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
       </main>
     </>
   );
