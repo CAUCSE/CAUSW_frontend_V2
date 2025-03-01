@@ -19,8 +19,6 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const rejectMessage = useRef("");
 
   const closeModal = () => {
