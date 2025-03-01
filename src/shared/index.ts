@@ -67,6 +67,7 @@ export { PreviousButton } from "./ui/previousButton";
 export { RedirectModal } from "./ui/redirectModal";
 export { NoButtonModal } from "./ui/noButtonModal";
 export { ToastWithMax } from "./ui/ToastWithMax";
+export { ImageModal } from "./ui/ImageModal";
 
 //Boards
 

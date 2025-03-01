@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserService, AcademicRecordRscService, Modal } from "@/shared";
+import { UserService, AcademicRecordRscService, Modal, PreviousButton } from "@/shared";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const UpdataeAcademicRecordPage = () => {
   const {
@@ -165,51 +166,25 @@ const UpdataeAcademicRecordPage = () => {
         ? await updateAcademicRecord(data)
         : await postAcademicRecord(data);
 
-      // 서버에 전송하는 로직 작성 (axios 예시)
-      setIsSuccessModalOpen(true);
+      
+      router.push("/setting/personal-info");        
+      toast.success("학적 상태 변경이 완료되었습니다.");
     } catch (error) {
       // 에러 처리
-      console.log("실패");
-      console.log(error);
+      toast.error('학적 상태 변경이 실패했습니다. 관리자에게 문의해주세요.');
     }
   };
 
-  // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
-  const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
-  const closeInCompleteModal = () => {
-    setIsIncompleteModalOpen(false);
-  };
+
 
   const onInvalid = (errors: any) => {
-    // 모든 필드를 입력하지 않았을 경우에 대한 로직
-    console.error("Form Errors:", errors);
-    setIsIncompleteModalOpen(true); // 모든 필드를 입력하지 않았을 때 모달을 띄움
+    toast.error("입력되지 않은 항목이 있습니다.")
   };
 
   return (
     <div className="p-6">
-      {/* 이전 버튼 */}
-      <div className="justify-left sticky top-0 z-10 mb-4 flex w-full items-center bg-[#F8F8F8] py-2">
-        <button
-          onClick={() => router.back()}
-          className="text-black-500 flex items-center hover:text-gray-500"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="mr-2 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          이전
-        </button>
+      <div className="h-12 mb-2">
+        <PreviousButton />
       </div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
@@ -459,20 +434,6 @@ const UpdataeAcademicRecordPage = () => {
           </div>
         )}
 
-        {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
-        {isIncompleteModalOpen && (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-            onClick={closeInCompleteModal}
-          >
-            <div className="ml-4 mr-4 grid w-full max-w-xs justify-items-center rounded-lg bg-white p-6">
-              <h2 className="mb-4 text-xl font-bold">
-                입력되지 않은 항목이 있습니다
-              </h2>
-              <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
-            </div>
-          </div>
-        )}
         {/* 회원가입을 성공했을 때 표시되는 모달 */}
         {isSuccessModalOpen && (
           <div

@@ -75,6 +75,20 @@ export { VTwoForm } from "./layout/VTwoForm";
 
 export * from "./modal/Modal";
 
+export { OccasionDetail } from "./occasion/OccasionDetail";
+export { OccasionContent } from "./occasion/OccasionContent";
+export { OccasionDate } from "./occasion/OccasionDate";
+export { OccasionImage } from "./occasion/OccasionImage";
+export { OccasionManageButton } from "./occasion/OccasionManageButton";
+export { OccasionApproveModal } from "./occasion/OccasionApproveModal";
+
+export { OccasionDateInput } from "./occasion/registration/OccasionDateInput";
+export { OccasionImageUploader } from "./occasion/registration/OccasionImageUploader";
+export { OccasionSubmitButton } from "./occasion/registration/OccasionSubmitButton";
+export { OccasionTextArea } from "./occasion/registration/OccasionTextArea";
+export { OccasionTypeDropdown } from "./occasion/registration/OccasionTypeDropdown";
+
+export { UserInfoContainer } from "./home/setting/personal-info/UserInfoContainer"
 export { LockerInfoByFloor } from "./locker/LockerInfoByFloor";
 export { LockerSelect } from "./locker/LockerSelect";
 export { LockerRegisterBtn } from "./locker/LockerRegisterBtn";

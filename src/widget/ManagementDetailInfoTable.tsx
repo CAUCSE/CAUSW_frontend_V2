@@ -2,18 +2,18 @@
 
 import Image from "next/image";
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
-import { PreviousButton } from "@/shared";
+import { ImageModal, PreviousButton } from "@/shared";
 
 import { Modal } from "@/entities";
 
 const TableUnit = ({
   title,
   data,
-  setModalOn,
+  setSelectedImage,
 }: {
   title: string;
   data: string;
-  setModalOn: Dispatch<SetStateAction<false | JSX.Element>>;
+  setSelectedImage: Dispatch<SetStateAction<string | null>>;
 }) => {
   return (
     <div className="flex flex-col text-[14px] lg:text-[20px]">
@@ -28,15 +28,7 @@ const TableUnit = ({
             width={200}
             height={200}
             onClick={() =>
-              setModalOn(
-                <Image
-                  className={data == "" ? "invisible rounded-md" : "rounded-md"}
-                  src={data}
-                  alt={title}
-                  width={1000}
-                  height={1000}
-                />,
-              )
+              setSelectedImage(data)
             }
           />
         ) : (
@@ -60,13 +52,11 @@ export function ManagementDetailInfoTable({
   titleMapping: { [key: string]: string };
   additionalUnit?: ReactNode;
 }) {
-  const [isModalOn, setModalOn] = useState<JSX.Element | false>(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <>
-      {isModalOn && (
-        <Modal onClose={() => setModalOn(false)}>{isModalOn}</Modal>
-      )}
+        {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
       <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-4 font-semibold lg:w-[700px] lg:pt-8">
         <PreviousButton></PreviousButton>
         {Object.keys(data).map((k) => {
@@ -76,7 +66,7 @@ export function ManagementDetailInfoTable({
               key={key}
               title={titleMapping[k]}
               data={data[key]}
-              setModalOn={setModalOn}
+              setSelectedImage={setSelectedImage}
             />
           );
         })}
