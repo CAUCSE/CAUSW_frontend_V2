@@ -27,17 +27,15 @@ export const PostItem = ({ post, boardId, targetUrl }: PostItemProps) => {
         <div className="flex w-full items-center justify-between">
           <PostItemContent post={post} />
           <div className="h-16 w-16 flex-shrink-0 overflow-hidden sm:h-24 sm:w-24">
-            <Image
+          {post.postAttachImage && <Image
               src={
                 post.postAttachImage
-                  ? post.postAttachImage
-                  : "/images/post_default_thumbnail.png"
               }
               alt="post_thumbnail"
               width={100}
               height={100}
               className="object-cover"
-            />
+            />}
           </div>
         </div>
         <PostItemStatusBar post={post} />
