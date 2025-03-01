@@ -89,3 +89,8 @@ export { OccasionTextArea } from "./occasion/registration/OccasionTextArea";
 export { OccasionTypeDropdown } from "./occasion/registration/OccasionTypeDropdown";
 
 export { UserInfoContainer } from "./home/setting/personal-info/UserInfoContainer"
+export { LockerInfoByFloor } from "./locker/LockerInfoByFloor";
+export { LockerSelect } from "./locker/LockerSelect";
+export { LockerRegisterBtn } from "./locker/LockerRegisterBtn";
+export { LockerReturnBtn } from "./locker/LockerReturnBtn";
+export { LockerExtendBtn } from "./locker/LockerExtendBtn";

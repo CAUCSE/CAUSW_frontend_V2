@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import {
   API,
+  BASEURL,
   setRccToken,
   setRscToken,
   useLayoutStore,
@@ -52,8 +53,10 @@ export const AuthService = () => {
   const signup = async (selectedData: User.SignUpFormPost) => {
     try {
       // axios POST 요청
+      console.log(`${BASEURL}${URI}/sign-up`)
+      console.log(selectedData)
       const response = await axios.post(
-        `https://13.209.181.162.nip.io:8081/api/v1/users/sign-up`,
+        `${BASEURL}${URI}/sign-up`,
         selectedData,
         {
           headers: {
@@ -67,6 +70,7 @@ export const AuthService = () => {
       if (axios.isAxiosError(error)) {
         // Axios 에러 처리
         const errorMessage = error.response?.data?.message;
+        console.log(error)
         throw new Error(errorMessage); // 에러 메시지를 던져서 onSubmit에서 처리할 수 있게 함
       } else {
         console.error("General error:", error);

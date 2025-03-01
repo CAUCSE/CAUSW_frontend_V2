@@ -19,4 +19,12 @@ declare namespace Locker {
     lockerLocations: LockerLocationResponseDto[];
     myLocker: LockerResponseDto | null;
   }
+
+  export interface LockersResponseDto {
+    locationName: string;
+    lockerPeriod: TLockerPeriod;
+    lockerList: LockerResponseDto[];
+  }
+
+  export type TLockerPeriod = "LOCKER_ACCESS" | "LOCKER_EXTEND" | "NULL";
 }
