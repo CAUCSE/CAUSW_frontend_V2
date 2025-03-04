@@ -7,11 +7,13 @@ import { BASEURL, getRccAccess } from "@/shared";
 const EventNotificationSettings = () => {
     const [studentId, setStudentId] = useState<string>('');
     const [subscribedIds, setSubscribedIds] = useState<number[]>([]);
-    const [removedIds, setRemovedIds] = useState<number[]>([]); // 삭제된 학번들 추적
+    const [removedIds, setRemovedIds] = useState<number[]>([]);
     const [subscribeAll, setSubscribeAll] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [saving, setSaving] = useState<boolean>(false);
+    const [settingsExist, setSettingsExist] = useState<boolean>(false); // 알림 설정이 존재하는지 여부
+    const currentYear = new Date().getFullYear(); // 현재 연도
 
     // 초기 설정 불러오기
     const fetchSettings = async () => {
@@ -34,17 +36,18 @@ const EventNotificationSettings = () => {
             // API 응답 로깅 (디버깅용)
             console.log('불러온 설정 데이터:', JSON.stringify(response.data, null, 2));
 
+            // 설정이 이미 존재하는지 확인 (응답이 있으면 설정 존재)
+            setSettingsExist(true);
+
             // 설정 데이터로 상태 업데이트
             if (response.data.setAll) {
                 setSubscribeAll(true);
-                setSubscribedIds([]);
             } else {
                 setSubscribeAll(false);
-
-                // 활성화된 학번만 표시 (notificationActive가 true인 학번)
-                // subscribedIds 배열에는 활성화된 학번만 포함
-                setSubscribedIds(response.data.subscribedAdmissionYears || []);
             }
+            
+            // 활성화된 학번 설정 (setAll 여부와 관계없이 항상 저장)
+            setSubscribedIds(response.data.subscribedAdmissionYears || []);
 
             // 삭제된 학번 목록 초기화
             setRemovedIds([]);
@@ -52,7 +55,13 @@ const EventNotificationSettings = () => {
         } catch (error) {
             console.error('설정 불러오기 오류:', error);
 
-            if (error instanceof AxiosError) {
+            if (error instanceof AxiosError && error.response?.status === 404) {
+                // 404 에러는 설정이 아직 없다는 의미로 처리
+                setSettingsExist(false);
+                setSubscribedIds([]);
+                setSubscribeAll(false);
+                setError(null);
+            } else if (error instanceof AxiosError) {
                 setError(error.response?.data?.message || "경조사 알림 설정을 불러오는 중 오류가 발생했습니다.");
             } else {
                 setError("예상하지 못한 오류가 발생했습니다.");
@@ -76,6 +85,12 @@ const EventNotificationSettings = () => {
         }
 
         const numericId = Number(studentId);
+
+        // 현재 연도보다 큰 학번은 입력할 수 없음
+        if (numericId > currentYear) {
+            setError(`${currentYear}학번까지만 입력 가능합니다.`);
+            return;
+        }
 
         // 이미 등록된 학번인지 확인
         if (subscribedIds.includes(numericId)) {
@@ -120,9 +135,12 @@ const EventNotificationSettings = () => {
     };
 
     const handleSubscribeAllChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSubscribeAll(e.target.checked);
-        if (e.target.checked) {
-            setSubscribedIds([]);
+        const isAllEnabled = e.target.checked;
+        setSubscribeAll(isAllEnabled);
+        
+        if (isAllEnabled) {
+            // setAll을 true로 변경할 때는 기존 학번 데이터를 유지
+            // UI에서는 보이지 않지만 데이터는 유지됨
             setStudentId('');
             setError(null);
         }
@@ -138,33 +156,60 @@ const EventNotificationSettings = () => {
                 throw new Error("AccessToken이 존재하지 않습니다.");
             }
 
-            // 하나의 요청만 보냅니다 - 화면에 표시된 학번만 활성화
-            const requestData = {
-                subscribedAdmissionYears: subscribeAll ? [] : subscribedIds,
-                setAll: subscribeAll,
-                notificationActive: true
-            };
+            // 요청 데이터 준비
+            let requestData;
+            
+            if (settingsExist) {
+                // 기존 설정이 있는 경우 (PUT 요청)
+                requestData = {
+                    subscribedAdmissionYears: subscribeAll ? subscribedIds : subscribedIds,
+                    setAll: subscribeAll,
+                    notificationActive: true
+                };
+            } else {
+                // 신규 설정 생성 (POST 요청)
+                requestData = {
+                    subscribedAdmissionYears: subscribeAll ? [0] : subscribedIds,
+                    setAll: subscribeAll,
+                    notificationActive: true
+                };
+            }
 
             console.log('저장할 데이터:', requestData);
 
-            // API 호출
-            const response = await axios.put(`${BASEURL}/api/v1/ceremony/notification-setting`, requestData, {
-                headers: {
-                    Authorization: accessToken,
-                    "Content-Type": "application/json",
-                    "accept": "*/*"
-                },
-            });
-
-            console.log('API 응답:', response.data);
+            // 설정이 이미 존재하는지에 따라 POST 또는 PUT 요청 사용
+            let response;
+            if (settingsExist) {
+                // PUT 요청 - 기존 설정 업데이트
+                response = await axios.put(`${BASEURL}/api/v1/ceremony/notification-setting`, requestData, {
+                    headers: {
+                        Authorization: accessToken,
+                        "Content-Type": "application/json",
+                        "accept": "*/*"
+                    },
+                });
+                console.log('PUT 응답:', response.data);
+            } else {
+                // POST 요청 - 새 설정 생성
+                response = await axios.post(`${BASEURL}/api/v1/ceremony/notification-setting`, requestData, {
+                    headers: {
+                        Authorization: accessToken,
+                        "Content-Type": "application/json",
+                        "accept": "*/*"
+                    },
+                });
+                console.log('POST 응답:', response.data);
+                
+                // 이제 설정이 존재함을 표시
+                setSettingsExist(true);
+            }
 
             // 성공 처리
             alert('경조사 알림 설정이 저장되었습니다.');
             setError(null);
 
-            // 화면 상태 업데이트 - 서버에서 다시 불러오지 않고 현재 상태 유지
-            // 이미 화면에는 사용자가 원하는 상태가 표시되고 있음
-            setRemovedIds([]); // 삭제 목록 초기화
+            // 삭제 목록 초기화
+            setRemovedIds([]);
         } catch (error) {
             console.error('저장 오류:', error);
 
@@ -190,7 +235,7 @@ const EventNotificationSettings = () => {
 
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-            <div className="w-[900px] bg-white p-8 rounded shadow-md">
+            <div className="w-[600px] bg-white p-8 rounded shadow-md">
                 <h1 className="text-xl font-semibold text-center mb-8">경조사 알림 설정</h1>
                 <h2 className="text-lg font-normal mb-6">경조사 알림을 받을 학번 설정</h2>
 
@@ -200,29 +245,36 @@ const EventNotificationSettings = () => {
                     </div>
                 )}
 
-                <div className="mb-6 flex gap-12">
-                    {/* 왼쪽: 입력 부분 */}
-                    <div className="w-[320px]">
+                <div className="mb-6 flex flex-col">
+                    {/* 입력 부분 */}
+                    <div className="w-full mb-6">
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-3">
-                                <input
-                                    type="text"
-                                    value={studentId}
-                                    onChange={handleInputChange}
-                                    onKeyPress={handleKeyPress}
-                                    placeholder="학번 입력"
-                                    maxLength={4}
-                                    disabled={subscribeAll}
-                                    className="w-32 h-10 border rounded px-3 disabled:bg-gray-100"
-                                />
-                                <span className="whitespace-nowrap">학번</span>
-                                <button
-                                    onClick={validateAndAddStudentId}
-                                    disabled={subscribeAll}
-                                    className="px-6 h-10 bg-blue-400 text-white rounded text-sm hover:bg-blue-500 disabled:bg-gray-200 whitespace-nowrap"
-                                >
-                                    추가
-                                </button>
+                                <div className="flex items-center">
+                                    <input
+                                        type="text"
+                                        value={studentId}
+                                        onChange={handleInputChange}
+                                        onKeyPress={handleKeyPress}
+                                        placeholder="학번 입력"
+                                        maxLength={4}
+                                        disabled={subscribeAll}
+                                        className="w-32 h-10 border rounded px-3 disabled:bg-gray-100"
+                                    />
+                                    <span className="whitespace-nowrap mx-2">학번</span>
+                                    <button
+                                        onClick={validateAndAddStudentId}
+                                        disabled={subscribeAll}
+                                        className="px-6 h-10 bg-blue-400 text-white rounded text-sm hover:bg-blue-500 disabled:bg-gray-200 whitespace-nowrap"
+                                    >
+                                        추가
+                                    </button>
+                                </div>
+                                {!subscribeAll && (
+                                    <div className="text-xs text-gray-500 mt-1">
+                                        * {currentYear}학번까지 입력 가능합니다.
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -239,11 +291,11 @@ const EventNotificationSettings = () => {
                         </div>
                     </div>
 
-                    {/* 오른쪽: 학번 리스트 */}
-                    <div className="w-[500px]">
+                    {/* 학번 리스트 */}
+                    <div className="w-full">
                         <div className={`border rounded ${subscribeAll ? 'bg-gray-50' : 'bg-white'}`}>
                             <div className="h-48 overflow-y-auto p-4">
-                                {subscribedIds.length > 0 ? (
+                                {!subscribeAll && subscribedIds.length > 0 ? (
                                     subscribedIds.map((id) => (
                                         <div key={id} className="flex items-center justify-between py-1">
                                             <span className="text-sm">{id}학번</span>
