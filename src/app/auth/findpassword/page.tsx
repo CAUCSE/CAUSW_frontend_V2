@@ -1,51 +1,59 @@
 "use client";
 
-import React, { useState } from "react";
+import { AuthService, useFindAccountStore } from "@/shared";
+import { FormErrorMessage, FormInput, FormSubmitButton } from "@/entities";
+
 import { useForm } from "react-hook-form";
-import { FormInput, FormSubmitButton, FormErrorMessage } from "@/entities";
-import axios from "axios";
-import { BASEURL } from "@/shared";
+import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 
 interface FormData {
   name: string;
   studentId: string;
-  phoneNumber: string; // contact -> phoneNumber로 변경
+  phoneNumber: string;
   email: string;
 }
 
-const FindPasswordPage: React.FC = () => {
+const FindPasswordPage = () => {
+  const router = useRouter();
+  const { studentId, name, phoneNumber, email, resetFindAccountStore } =
+    useFindAccountStore(
+      useShallow((state) => ({
+        studentId: state.studentId,
+        name: state.name,
+        phoneNumber: state.phoneNumber,
+        email: state.email,
+        resetFindAccountStore: state.resetFindAccountStore,
+      })),
+    );
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  } = useForm<FormData>({
+    defaultValues: {
+      studentId,
+      name,
+      phoneNumber,
+      email,
+    },
+  });
+
+  const { useFindPassword } = AuthService();
+  const { isSuccess, mutate: findpassword } = useFindPassword();
 
   const onSubmit = async (data: FormData) => {
-    try {
-      const response = await axios.put(
-        `${BASEURL}/api/v1/users/password/find`,
-        {
-          name: data.name,
-          studentId: data.studentId,
-          phoneNumber: data.phoneNumber, // 필드명 변경
-          email: data.email,
-        },
-      );
+    findpassword({
+      name: data.name,
+      studentId: data.studentId,
+      phoneNumber: data.phoneNumber,
+      email: data.email,
+    });
+  };
 
-      if (response.status === 200) {
-        setSuccessMessage("비밀번호 재설정 이메일이 전송되었습니다.");
-        setErrorMessage(null);
-      } else {
-        setErrorMessage("비밀번호 찾기에 실패했습니다.");
-        setSuccessMessage(null);
-      }
-    } catch (error) {
-      console.error("Error: ", error);
-      setErrorMessage("서버와 통신하는 도중 오류가 발생했습니다.");
-      setSuccessMessage(null);
-    }
+  const handleRouterToSignIn = () => {
+    router.push("/auth/signin");
+    resetFindAccountStore();
   };
 
   return (
@@ -70,17 +78,29 @@ const FindPasswordPage: React.FC = () => {
           type="text"
           placeholder="학번 8자리를 입력해주세요."
           register={register}
-          rules={{ required: "학번을 입력해주세요." }}
+          rules={{
+            required: "학번을 입력해주세요.",
+            pattern: {
+              value: /^\d{8}$/,
+              message: "학번은 8자리 숫자여야 합니다.",
+            },
+          }}
         />
         <FormErrorMessage message={errors.studentId?.message} />
 
         <h2 className="mb-4 mt-4 text-xl font-semibold">연락처</h2>
         <FormInput
-          name="phoneNumber" // contact -> phoneNumber로 변경
+          name="phoneNumber"
           type="text"
           placeholder="연락처를 입력해주세요"
           register={register}
-          rules={{ required: "연락처를 입력해주세요." }}
+          rules={{
+            required: "연락처를 입력해주세요.",
+            pattern: {
+              value: /^010-[0-9]{4}-[0-9]{4}$/,
+              message: "010-0000-0000 형식으로 입력해주세요.",
+            },
+          }}
         />
         <FormErrorMessage message={errors.phoneNumber?.message} />
 
@@ -94,10 +114,16 @@ const FindPasswordPage: React.FC = () => {
         />
         <FormErrorMessage message={errors.email?.message} />
 
-        {errorMessage && <FormErrorMessage message={errorMessage} />}
-        {successMessage && <p className="text-green-500">{successMessage}</p>}
-
-        <FormSubmitButton />
+        {isSuccess ? (
+          <button
+            className="flex h-10 w-full items-center justify-center rounded-lg bg-blue-500 text-sm font-semibold text-white hover:bg-blue-700"
+            onClick={handleRouterToSignIn}
+          >
+            로그인 하기
+          </button>
+        ) : (
+          <FormSubmitButton />
+        )}
       </form>
     </div>
   );

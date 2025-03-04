@@ -1,17 +1,21 @@
 "use client";
 
-import axios, { AxiosResponse } from "axios";
-import { useRouter } from "next/navigation";
-
 import {
   API,
   BASEURL,
+  UserService,
   setRccToken,
   setRscToken,
+  useFindAccountStore,
   useLayoutStore,
-  UserService,
   useUserStore,
 } from "@/shared";
+import axios, { AxiosResponse } from "axios";
+
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 
 export const AuthService = () => {
   const URI = "/api/v1/users";
@@ -53,8 +57,8 @@ export const AuthService = () => {
   const signup = async (selectedData: User.SignUpFormPost) => {
     try {
       // axios POST 요청
-      console.log(`${BASEURL}${URI}/sign-up`)
-      console.log(selectedData)
+      console.log(`${BASEURL}${URI}/sign-up`);
+      console.log(selectedData);
       const response = await axios.post(
         `${BASEURL}${URI}/sign-up`,
         selectedData,
@@ -70,7 +74,7 @@ export const AuthService = () => {
       if (axios.isAxiosError(error)) {
         // Axios 에러 처리
         const errorMessage = error.response?.data?.message;
-        console.log(error)
+        console.log(error);
         throw new Error(errorMessage); // 에러 메시지를 던져서 onSubmit에서 처리할 수 있게 함
       } else {
         console.error("General error:", error);
@@ -139,11 +143,81 @@ export const AuthService = () => {
     }
   };
 
+  const useFindId = () => {
+    const { setEmail, resetFindAccountStore } = useFindAccountStore(
+      useShallow((state) => ({
+        setEmail: state.setEmail,
+        resetFindAccountStore: state.resetFindAccountStore,
+      })),
+    );
+    return useMutation({
+      mutationFn: async ({
+        studentId,
+        name,
+        phoneNumber,
+      }: {
+        studentId: string;
+        name: string;
+        phoneNumber: string;
+      }) => {
+        const { data }: { data: { email: string } } = await API.post(
+          `/api/v1/users/user-id/find`,
+          {
+            studentId,
+            name,
+            phoneNumber,
+          },
+        );
+        return data.email;
+      },
+      onSuccess: (data) => {
+        setEmail(data);
+      },
+      onError: () => {
+        toast.error("사용자를 찾을 수 없습니다.");
+        resetFindAccountStore();
+      },
+    });
+  };
+
+  const useFindPassword = () => {
+    return useMutation({
+      mutationFn: async ({
+        name,
+        studentId,
+        phoneNumber,
+        email,
+      }: {
+        name: string;
+        studentId: string;
+        phoneNumber: string;
+        email: string;
+      }) => {
+        await API.put("/api/v1/users/password/find", {
+          name,
+          studentId,
+          phoneNumber,
+          email,
+        });
+      },
+      onMutate: () => {
+        toast.loading("비밀번호 찾는 중...");
+      },
+      onSuccess: () => {
+        toast.success("비밀번호 재설정 이메일이 전송되었습니다.");
+      },
+      onError: () => {
+        toast.error("사용자를 찾을 수 없습니다.");
+      },
+    });
+  };
   return {
     signin,
     signup,
     checkEmailDuplicate,
     checkNicknameDuplicate,
     checkStudentIdDuplicate,
+    useFindId,
+    useFindPassword,
   };
 };
