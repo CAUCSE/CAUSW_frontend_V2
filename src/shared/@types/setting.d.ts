@@ -92,12 +92,14 @@ declare namespace Setting {
   // getByState
   export type GetByStateResponseDto = {
     content: User.User[];
+    totalPages: number;
     last: boolean;
   } & Error.ApiErrorResponse;
 
   // getAllAdmissions
   export type GetAllAdmissionsResponseDto = {
     content: AdmissionUser[];
+    totalPages: number;
     last: boolean;
   } & Error.ApiErrorResponse;
 
