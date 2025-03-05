@@ -28,6 +28,8 @@ interface Prop {
   }[];
   data: { userName: string; studentId: string; id: string }[];
   circleId?: string;
+  totalPages: number;
+  currentPage: number;
 }
 
 export const Management = ({
@@ -37,6 +39,8 @@ export const Management = ({
   navigation,
   data,
   circleId,
+  totalPages,
+  currentPage
 }: Prop) => {
   const isFirstNavigation = !state
     ? true
