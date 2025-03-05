@@ -30,8 +30,8 @@ interface Prop {
   }[];
   data: { userName: string; studentId: string; id: string }[];
   circleId?: string;
-  totalPages: number;
-  currentPage: number;
+  totalPages?: number;
+  currentPage?: number;
 }
 
 export const Management = ({
@@ -108,9 +108,9 @@ export const Management = ({
           </Link>
         ))}
       </div>
-      <div key = {currentPage}>
-      <PaginationButtons totalPages={totalPages} currentPage={currentPage} baseUrl={`/setting/management/user/${state}`} />
-      </div>
+      {!!totalPages && !!currentPage && totalPages > 0 && currentPage > 0 && (
+      <PaginationButtons key = {currentPage} totalPages={totalPages} currentPage={currentPage} baseUrl={`/setting/management/user/${state}`} />
+      )}
     </div>
   );
 };
