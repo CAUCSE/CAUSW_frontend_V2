@@ -48,7 +48,7 @@ export const SettingRscService = () => {
 
       if (response.errorCode) throw new Error(response.errorCode);
 
-      return response.content;
+      return response;
     } catch (error) {
       console.error(error);
       throw error;
@@ -88,7 +88,7 @@ export const SettingRscService = () => {
 
       if (response.errorCode) throw new Error(response.message);
 
-      return response.content;
+      return response;
     } catch (error) {
       console.error(error);
       throw error;
