@@ -8,6 +8,7 @@ import {
   convertUserDataToTableEntity,
   titleMapping,
   titleMappingForRejected,
+  titleMappingForUser,
 } from "@/entities/home/setting/management/AdmissionManagementDetailEntities";
 import { SettingRscService } from "@/shared";
 import { ManagementState } from "./Management";
@@ -25,7 +26,7 @@ export async function ManagementDetail({
   const entities = managementDetailEntities[state];
   const { titleSuffix } = entities;
   const { getAdmission } = SettingRscService();
-  const { getUser } = UserRscService();
+  const { getUser, getUserAcademicRecord } = UserRscService();
   let admission;
 
   if (state === "admission" || state === "reject") {
@@ -41,6 +42,12 @@ export async function ManagementDetail({
     userInfo = await getUser(admissionId);
   } catch (error) {
     console.log("유저 정보 조회 실패", error);
+  }
+  try {
+  const response = await getUserAcademicRecord(admissionId);
+  userInfo.profileImageUrl = response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0]; }
+  catch {
+    console.log("정보 조회 실패")
   }
 
   let name;
@@ -80,7 +87,7 @@ export async function ManagementDetail({
         <div>
           <ManagementDetailInfoTable
             data={convertUserDataToTableEntity(userInfo)}
-            titleMapping={titleMapping}
+            titleMapping={titleMappingForUser}
           />
           <ManagementDetailButtons state={state} admission={userInfo} />
         </div>

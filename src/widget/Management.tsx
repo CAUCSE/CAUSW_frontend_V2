@@ -1,7 +1,7 @@
 "use server";
 
 import { ExcelExport, Header, Line } from "@/entities";
-
+import { PaginationButtons } from "@/shared";
 import Link from "next/link";
 
 export type ManagementState =
@@ -28,6 +28,8 @@ interface Prop {
   }[];
   data: { userName: string; studentId: string; id: string }[];
   circleId?: string;
+  totalPages?: number;
+  currentPage?: number;
 }
 
 export const Management = ({
@@ -37,6 +39,8 @@ export const Management = ({
   navigation,
   data,
   circleId,
+  totalPages,
+  currentPage
 }: Prop) => {
   const isFirstNavigation = !state
     ? true
@@ -102,6 +106,9 @@ export const Management = ({
           </Link>
         ))}
       </div>
+      {!!totalPages && !!currentPage && totalPages > 0 && currentPage > 0 && (
+      <PaginationButtons key = {currentPage} totalPages={totalPages} currentPage={currentPage} baseUrl={`/setting/management/user/${state}`} />
+      )}
     </div>
   );
 };

@@ -35,25 +35,39 @@ const navigation: {
 
 const UserManagement = async ({
   params: { state },
+  searchParams,
 }: {
   params: { state: string };
+  searchParams: { page?: string };
 }) => {
   const { getByState, getAllAdmissions } = SettingRscService();
 
   const nowNavigation = navigation.find((element) => element.state === state);
+  let data;
+  
+  const currentPage = Number(searchParams.page) || 1;
 
-  const data = nowNavigation
+
+  nowNavigation
     ? await getByState(
         nowNavigation
           .exportType!.replace("_USERS", "")
           .trim() as User.UserDto["state"],
         null,
-        0,
-      ).then((res) =>
-        res.map((element) => ({ ...element, userName: element.name })),
-      )
-    : await getAllAdmissions(null, 0);
-
+        currentPage - 1,
+      ).then((res) => {
+        data = {
+          content: res.content.map((element) => ({ ...element, userName: element.name })),
+          totalPages: res.totalPages
+        };
+      })
+    : await getAllAdmissions(null, currentPage - 1)
+    .then((res) => {
+      data = {
+        content: res.content.map((element) => ({ ...element})),
+        totalPages: res.totalPages
+    }});
+  
   console.log(data);
 
   return (
@@ -65,10 +79,12 @@ const UserManagement = async ({
           name: "가입 대기 유저",
           state: "admission",
           exportType: "ADMISSION_USERS",
-          router: "/setting/management/user/admission",
+          router: "/setting/management/user/admission/",
         }}
+        totalPages = {data.totalPages}
+        currentPage= {currentPage}
         navigation={navigation}
-        data={data.map((element) => ({
+        data={data.content.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.id,
