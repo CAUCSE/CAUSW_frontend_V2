@@ -2,9 +2,7 @@
 
 import { ExcelExport, Header, Line } from "@/entities";
 import { PaginationButtons } from "@/shared";
-
 import Link from "next/link";
-import { Pagination } from "swiper/modules";
 
 export type ManagementState =
   | "admission"
