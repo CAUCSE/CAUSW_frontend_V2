@@ -1,4 +1,3 @@
-import Circle from "@/app/(causw)/circle/[id]/page";
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const CircleRscService = () => {
