@@ -1,8 +1,10 @@
 "use server";
 
 import { ExcelExport, Header, Line } from "@/entities";
+import { PaginationButtons } from "@/shared";
 
 import Link from "next/link";
+import { Pagination } from "swiper/modules";
 
 export type ManagementState =
   | "admission"
@@ -105,6 +107,9 @@ export const Management = ({
             {(state === "admission" || state === "reject") ? (<>{element.userName}</>) : (<>{element.userName}({element.studentId})</>)}
           </Link>
         ))}
+      </div>
+      <div key = {currentPage}>
+      <PaginationButtons totalPages={totalPages} currentPage={currentPage} baseUrl={`/setting/management/user/${state}`} />
       </div>
     </div>
   );
