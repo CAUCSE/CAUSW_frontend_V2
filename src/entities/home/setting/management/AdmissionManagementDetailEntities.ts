@@ -264,5 +264,11 @@ export const titleMappingForCircle = Object.keys(titleMapping)
 
 export const titleMappingForRejected: Record<keyof any, string> = {
   ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
+  evidentImg: "학부 재적/졸업 증빙 자료",
   rejectionOrDropReason: "거부/ 추방 사유", // 추가된 항목
+};
+
+export const titleMappingForUser: Record<keyof any, string> = {
+  ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
+  evidentImg: "학부 재적/졸업 증빙 자료",
 };
