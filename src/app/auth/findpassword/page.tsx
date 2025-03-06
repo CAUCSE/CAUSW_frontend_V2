@@ -92,7 +92,7 @@ const FindPasswordPage = () => {
         <FormInput
           name="phoneNumber"
           type="text"
-          placeholder="연락처를 입력해주세요"
+          placeholder="'-'을 포함해서 입력해주세요 ex) 010-1234-5678"
           register={register}
           rules={{
             required: "연락처를 입력해주세요.",
