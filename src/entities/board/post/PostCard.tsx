@@ -50,7 +50,7 @@ export const PostCard = ({
     ? "/images/default_profile.png"
     : postData.writerProfileImage;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [popupImage, setPopupImage] = useState<string | null>(null);
+  const [popupIndex, setPopupIndex] = useState<number | null>(null);
 
   const {
     vote,
@@ -75,15 +75,32 @@ export const PostCard = ({
     }
   };
 
-  const handleImageClick = (imageUrl: string) => {
-    setPopupImage(imageUrl);
+  const handleImageClick = (index: number) => {
+    setPopupIndex(index);
     setIsPopupOpen(true);
   };
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-    setPopupImage(null);
+    setPopupIndex(null);
   };
+
+    // 이전 이미지로 이동
+    const handlePrevImage = () => {
+      if (popupIndex !== null && popupIndex > 0) {
+        setPopupIndex((prevIndex) => (prevIndex !== null ? prevIndex - 1 : null));
+      }
+    };
+  
+    // 다음 이미지로 이동
+    const handleNextImage = () => {
+      if (popupIndex !== null && popupIndex < postData.fileUrlList.length - 1) {
+        setPopupIndex((prevIndex) =>
+          prevIndex !== null ? prevIndex + 1 : null
+        );
+      }
+    };
+
 
   const openFileLink = (url) => {
     const fileName = decodeURIComponent(
@@ -191,14 +208,15 @@ export const PostCard = ({
         </div>
 
         <div className="relative">
-          <div className="grid w-full auto-cols-max grid-flow-col gap-2 overflow-x-auto pb-3 scrollbar-hide">
+          <div className="grid w-full grid-cols-5 gap-2 overflow-x-auto pb-3 scrollbar-hide">
+
             {postData.fileUrlList.map((attachment, index) =>
               isImageFile(attachment) ? (
                 <div
                   key={index}
                   className="w-min-20 h-min-20 h-20 w-20 border border-black bg-cover bg-center"
                   style={{ backgroundImage: `url(${attachment})` }}
-                  onClick={() => handleImageClick(attachment)}
+                  onClick={() => handleImageClick(index)}
                 />
               ) : (
                 <div
@@ -219,12 +237,22 @@ export const PostCard = ({
               ),
             )}
           </div>
-          {isPopupOpen && popupImage && (
+          {isPopupOpen && popupIndex !== null && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
               <div className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center">
+
+                {/* 이전 버튼 */}
+                {popupIndex > 0 && (
+                  <button
+                    className="absolute left-2 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition duration-300 hover:bg-black/70"
+                    onClick={handlePrevImage}
+                  >
+                    {"<"}
+                  </button>
+                )}
                 <div className="relative h-auto w-auto bg-black">
                   <Image
-                    src={popupImage}
+                    src={postData.fileUrlList[popupIndex]}
                     alt="Preview Image"
                     width={300} // 기본 너비를 지정합니다. 필요시 조정
                     height={300} // 기본 높이를 지정합니다. 필요시 조정
@@ -232,6 +260,16 @@ export const PostCard = ({
                     unoptimized
                   />
                 </div>
+                  {/* 다음 버튼 */}
+                  {popupIndex < postData.fileUrlList.length - 1 && (
+                    <button
+                      className="absolute right-2 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition duration-300 hover:bg-black/70"
+                      onClick={handleNextImage}
+                    >
+                    {">"}
+                    </button>
+                  )}
+
                 <button
                   onClick={handleClosePopup}
                   className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center text-white hover:bg-gray-700"
@@ -239,7 +277,7 @@ export const PostCard = ({
                   x
                 </button>
                 <button
-                  onClick={() => openFileLink(popupImage)}
+                  onClick={() => openFileLink(postData.fileUrlList[popupIndex])}
                   className="absolute right-[40px] top-1 z-50 flex h-10 w-10 items-center justify-center text-white"
                 >
                   ↓
