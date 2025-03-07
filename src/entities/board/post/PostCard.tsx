@@ -150,7 +150,7 @@ export const PostCard = ({
         </div>
 
         <div className="relative">
-        <ImageList images={postData.fileUrlList} imageSize={100} />
+        <ImageList images={postData.fileUrlList} imageSize={90} />
 
         </div>
       </div>
