@@ -16,12 +16,11 @@ interface FormData {
 
 const FindPasswordPage = () => {
   const router = useRouter();
-  const { studentId, name, phoneNumber, email, resetFindAccountStore } =
+  const { studentId, name, email, resetFindAccountStore } =
     useFindAccountStore(
       useShallow((state) => ({
         studentId: state.studentId,
         name: state.name,
-        phoneNumber: state.phoneNumber,
         email: state.email,
         resetFindAccountStore: state.resetFindAccountStore,
       })),
@@ -34,7 +33,6 @@ const FindPasswordPage = () => {
     defaultValues: {
       studentId,
       name,
-      phoneNumber,
       email,
     },
   });
@@ -46,7 +44,6 @@ const FindPasswordPage = () => {
     findpassword({
       name: data.name,
       studentId: data.studentId,
-      phoneNumber: data.phoneNumber,
       email: data.email,
     });
   };
@@ -88,21 +85,6 @@ const FindPasswordPage = () => {
         />
         <FormErrorMessage message={errors.studentId?.message} />
 
-        <h2 className="mb-4 mt-4 text-xl font-semibold">연락처</h2>
-        <FormInput
-          name="phoneNumber"
-          type="text"
-          placeholder="'-'을 포함해서 입력해주세요 ex) 010-1234-5678"
-          register={register}
-          rules={{
-            required: "연락처를 입력해주세요.",
-            pattern: {
-              value: /^010-[0-9]{4}-[0-9]{4}$/,
-              message: "010-0000-0000 형식으로 입력해주세요.",
-            },
-          }}
-        />
-        <FormErrorMessage message={errors.phoneNumber?.message} />
 
         <h2 className="mb-4 mt-4 text-xl font-semibold">아이디 (이메일)</h2>
         <FormInput
