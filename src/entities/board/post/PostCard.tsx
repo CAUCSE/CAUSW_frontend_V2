@@ -8,6 +8,7 @@ import { PopupMenu } from "./PopupMenu";
 import VotingSection from "./VotingSection";
 import { useEffect } from "react";
 import { useState } from "react";
+import { ImageList } from "@/shared/ui/ImageList";
 
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
@@ -75,65 +76,6 @@ export const PostCard = ({
     }
   };
 
-  const handleImageClick = (index: number) => {
-    setPopupIndex(index);
-    setIsPopupOpen(true);
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-    setPopupIndex(null);
-  };
-
-    // 이전 이미지로 이동
-    const handlePrevImage = () => {
-      if (popupIndex !== null && popupIndex > 0) {
-        setPopupIndex((prevIndex) => (prevIndex !== null ? prevIndex - 1 : null));
-      }
-    };
-  
-    // 다음 이미지로 이동
-    const handleNextImage = () => {
-      if (popupIndex !== null && popupIndex < postData.fileUrlList.length - 1) {
-        setPopupIndex((prevIndex) =>
-          prevIndex !== null ? prevIndex + 1 : null
-        );
-      }
-    };
-
-
-  const openFileLink = (url) => {
-    const fileName = decodeURIComponent(
-      url.substring(url.lastIndexOf("/") + 1),
-    ); // 파일명 추출 후 디코딩
-    const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자 추출
-
-    if (
-      fileExtension === "pdf" ||
-      fileExtension === "jpg" ||
-      fileExtension === "png"
-    ) {
-      // PDF나 이미지 파일은 새 탭에서 열기
-      window.open(url, "_blank");
-    } else {
-      // 그 외 파일은 다운로드
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  };
-
-  const extractFileName = (url) => {
-    const decodeFile = decodeURIComponent(
-      url.substring(url.lastIndexOf("/") + 1),
-    );
-    const filename = decodeFile.split("_")[0];
-    const fileExtension = decodeFile.substring(decodeFile.lastIndexOf(".") + 1);
-    return filename + "." + fileExtension;
-  };
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
   const params = useParams();
@@ -208,87 +150,8 @@ export const PostCard = ({
         </div>
 
         <div className="relative">
-          <div className="grid w-full grid-cols-5 gap-2 overflow-x-auto pb-3 scrollbar-hide">
+        <ImageList images={postData.fileUrlList} imageSize={100} />
 
-            {postData.fileUrlList.map((attachment, index) =>
-              isImageFile(attachment) ? (
-                <div
-                  key={index}
-                  className="w-min-20 h-min-20 h-20 w-20 border border-black bg-cover bg-center"
-                  style={{ backgroundImage: `url(${attachment})` }}
-                  onClick={() => handleImageClick(index)}
-                />
-              ) : (
-                <div
-                  key={index}
-                  className="w-min-20 h-min-20 flex h-20 w-20 flex-col items-center justify-center space-y-2 border border-black p-2"
-                  onClick={() => openFileLink(attachment)}
-                >
-                  <Image
-                    src="/images/post/file-icon.svg"
-                    alt={extractFileName(attachment)}
-                    width={30}
-                    height={30}
-                  />
-                  <span className="text-[10px]">
-                    {extractFileName(attachment)}
-                  </span>
-                </div>
-              ),
-            )}
-          </div>
-          {isPopupOpen && popupIndex !== null && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-              <div className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center">
-
-                {/* 이전 버튼 */}
-                {popupIndex > 0 && (
-                  <button
-                    className="absolute left-2 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition duration-300 hover:bg-black/70"
-                    onClick={handlePrevImage}
-                  >
-                    {"<"}
-                  </button>
-                )}
-                <div className="relative h-auto w-auto bg-black">
-                  <Image
-                    src={postData.fileUrlList[popupIndex]}
-                    alt="Preview Image"
-                    width={300} // 기본 너비를 지정합니다. 필요시 조정
-                    height={300} // 기본 높이를 지정합니다. 필요시 조정
-                    objectFit="contain" // 원본 비율 유지
-                    unoptimized
-                  />
-                </div>
-                  {/* 다음 버튼 */}
-                  {popupIndex < postData.fileUrlList.length - 1 && (
-                    <button
-                      className="absolute right-2 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition duration-300 hover:bg-black/70"
-                      onClick={handleNextImage}
-                    >
-                    {">"}
-                    </button>
-                  )}
-
-                <button
-                  onClick={handleClosePopup}
-                  className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center text-white hover:bg-gray-700"
-                >
-                  x
-                </button>
-                <button
-                  onClick={() => openFileLink(postData.fileUrlList[popupIndex])}
-                  className="absolute right-[40px] top-1 z-50 flex h-10 w-10 items-center justify-center text-white"
-                >
-                  ↓
-                </button>
-              </div>
-              <div
-                className="fixed inset-0 z-40 bg-transparent"
-                onClick={handleClosePopup}
-              ></div>
-            </div>
-          )}
         </div>
       </div>
 
