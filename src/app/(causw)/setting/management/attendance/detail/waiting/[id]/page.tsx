@@ -5,6 +5,7 @@ import { Line, LoadingComponent, Header, SubHeader } from "@/entities";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { ImageList } from "@/shared/ui/ImageList";
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const idArray = id.split("%26%26%26");
@@ -96,16 +97,8 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         <SubHeader bold big>
           증빙 서류
         </SubHeader>
-        <div className="flex h-1/2 gap-1 lg:h-2/3">
-          {data?.attachedImageUrlList.map((element) => (
-            <div key={element} className="h-32 min-w-32 overflow-hidden">
-              <div
-                onClick={() => setSelectedImage(element)}
-                className="h-32 w-32 bg-contain bg-cover bg-center"
-                style={{ backgroundImage: `url(${element})` }}
-              />
-            </div>
-          ))}
+        <div className="flex h-1/2 gap-1 lg:h-2/3">        
+        {data?.attachedImageUrlList && <ImageList images={data.attachedImageUrlList} imageSize={125} />}
         </div>
 
         <div className="flex w-full justify-between">
