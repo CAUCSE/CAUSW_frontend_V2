@@ -154,18 +154,15 @@ export const AuthService = () => {
       mutationFn: async ({
         studentId,
         name,
-        phoneNumber,
       }: {
         studentId: string;
         name: string;
-        phoneNumber: string;
       }) => {
         const { data }: { data: { email: string } } = await API.post(
           `/api/v1/users/user-id/find`,
           {
             studentId,
             name,
-            phoneNumber,
           },
         );
         return data.email;
@@ -185,18 +182,15 @@ export const AuthService = () => {
       mutationFn: async ({
         name,
         studentId,
-        phoneNumber,
         email,
       }: {
         name: string;
         studentId: string;
-        phoneNumber: string;
         email: string;
       }) => {
         await API.put("/api/v1/users/password/find", {
           name,
           studentId,
-          phoneNumber,
           email,
         });
       },

@@ -26,14 +26,12 @@ const FindEmailPage = () => {
     email,
     setName,
     setStudentId,
-    setPhoneNumber,
     resetFindAccountStore,
   } = useFindAccountStore(
     useShallow((state) => ({
       email: state.email,
       setName: state.setName,
       setStudentId: state.setStudentId,
-      setPhoneNumber: state.setPhoneNumber,
       resetFindAccountStore: state.resetFindAccountStore,
     })),
   );
@@ -43,12 +41,10 @@ const FindEmailPage = () => {
   const onSubmit = async (data: FormData) => {
     setStudentId(data.studentId);
     setName(data.name);
-    setPhoneNumber(data.phoneNumber);
 
     findId({
       studentId: data.studentId,
       name: data.name,
-      phoneNumber: data.phoneNumber,
     });
   };
 
@@ -129,23 +125,6 @@ const FindEmailPage = () => {
           />
           <FormErrorMessage message={errors.name?.message} />
 
-          <h2 className="mb-4 mt-4 text-xl font-semibold">
-            전화번호를 입력해주세요.
-          </h2>
-          <FormInput
-            name="phoneNumber"
-            type="text"
-            placeholder="'-'을 포함해서 입력해주세요 ex) 010-1234-5678"
-            register={register}
-            rules={{
-              required: "연락처를 입력해주세요.",
-              pattern: {
-                value: /^010-[0-9]{4}-[0-9]{4}$/,
-                message: "010-0000-0000 형식으로 입력해주세요.",
-              },
-            }}
-          />
-          <FormErrorMessage message={errors.phoneNumber?.message} />
           <FormSubmitButton />
         </form>
       )}
