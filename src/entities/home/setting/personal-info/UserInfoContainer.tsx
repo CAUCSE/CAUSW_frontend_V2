@@ -26,7 +26,7 @@ userData,
 feeInfo
 }) => {
 return (
-    <div className="grid grid-cols-2 gap-4 lg:flex">
+    <div className="grid grid-cols-2 gap-4 lg:gap-2 lg:flex">
     <div className="lg:mr-32">
     <UserInfo title="이름" content={userData.name} />
     <UserInfo title="이메일" content={userData.email} />
