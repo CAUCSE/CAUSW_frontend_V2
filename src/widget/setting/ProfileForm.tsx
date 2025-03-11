@@ -15,11 +15,14 @@ interface FeeInfoProps {
 interface ProfileFormProps {
   userData: any;
   feeInfo: FeeInfoProps;
+  refetch: () => void;
 }
+
 
 const ProfileForm: React.FC<ProfileFormProps> = ({
   userData,
-  feeInfo
+  feeInfo,
+  refetch
 }) => {
   const {
     register,
