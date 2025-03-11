@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { UserService, UserCouncilFeeService } from "@/shared";
+import { UserService, UserCouncilFeeService, useUserStore } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { LoadingComponent } from "@/entities";
 import ProfileForm from "@/widget/setting/ProfileForm";
@@ -18,14 +18,15 @@ const PersonalInfoPage = () => {
   const { getMyInfo } = UserService();
 
   // 유저 정보 가져오기
-  const { data: userData, isLoading, error } = useQuery({
+  const { data: userData, isLoading, error, refetch } = useQuery({
     queryKey: ["userInfo"],
     queryFn: async () => {
       const response = await getMyInfo();
+      console.log(response.data)
       return response.data;
     },
-    staleTime: 1000 * 60 * 5,
   });
+
 
   useEffect(() => {
     
@@ -58,6 +59,7 @@ const PersonalInfoPage = () => {
       <ProfileForm
         userData={userData}
         feeInfo = {feeInfo}
+        refetch={refetch}
       />
     </div>
   );
