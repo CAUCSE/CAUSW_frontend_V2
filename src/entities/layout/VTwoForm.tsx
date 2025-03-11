@@ -96,12 +96,21 @@ export const VTwoForm = () => {
               {...register("phoneNumberHyphen", {
                 required: "연락처를 입력해주세요",
                 pattern: {
-                  value: /^(01[016789]-?\d{3,4}-?\d{4})$/,
-                  message: "올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)",
+                  value: /^(01[016789]-\d{3,4}-\d{4})$/,
+                  message: `올바른 전화번호 형식이 아닙니다.\n예) 010-1234-5678`,
                 },
               })}
             />
-            <p className="text-error">{errors?.phoneNumberHyphen?.message}</p>
+            <p className="text-error">
+              {errors?.phoneNumberHyphen?.message?.split("\n").map((line, index) => (
+                <div key={index} className="text-center">
+                  {line}
+                  <br />
+                </div>
+              ))}
+            </p>
+
+
           </div>
 
           <div className="flex w-full flex-col items-center sm:w-1/2">
