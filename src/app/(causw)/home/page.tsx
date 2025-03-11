@@ -6,7 +6,7 @@ import { HomeRscService } from "@/shared";
 const cardsEntities = [
   {
     title: "Team Project Room",
-    subtitle: "틸플룸 예약하기",
+    subtitle: "팀플룸 예약하기",
     icon: "/homeIcons/teamProj.png",
     href: "https://cse.cau.ac.kr/sub05/sub0504_cal.php",
     bgColor: "bg-[rgba(255,235,133,1)]",
