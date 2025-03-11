@@ -75,7 +75,7 @@ export const VTwoForm = () => {
       <div className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50"></div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="fixed left-1/2 top-1/2 z-50 flex h-3/5 w-screen max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-lg bg-white"
+        className="fixed left-1/2 top-1/2 z-50 flex h-4/5 w-screen max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-lg bg-white"
       >
         <Header bold>CAUSW 동문 네트워크 V2</Header>
         <SubHeader big>두번째 이야기에 오신것을 환영합니다.</SubHeader>
