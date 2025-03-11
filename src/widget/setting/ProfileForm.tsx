@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { UserRscService, AuthService } from "@/shared";
+import { UserRscService, AuthService, useUserStore } from "@/shared";
 import { ProfileEditForm } from "@/entities/home/setting/personal-info/ProfileEditForm";
 import { Header, UserInfoContainer } from "@/entities";
 import { PreviousButton } from "@/shared";
@@ -31,10 +31,9 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
   } = useForm<User.userUpdateDto>();
 
   
-
+  const { setUserStore } = useUserStore(); // ✅ Zustand에서 setUserStore 가져오기
   const { updateInfo } = UserRscService();
   const { checkNicknameDuplicate } = AuthService();
-
   // 프로필 이미지 변경
   const [profileImagePreview, setProfileImagePreview] = React.useState(userData.profileImageUrl ??
     "/images/default_profile.png"
@@ -76,6 +75,13 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     }
   };
 
+  const refreshSideBar = (profileImageUrl: File) => {
+    setUserStore({
+      ...userData, // 기존 데이터 유지  
+      profileImageUrl: URL.createObjectURL(profileImageUrl)
+    });
+  }
+
   // 제출 핸들러
   const onSubmit = async (data: User.userUpdateDto, event: any) => {
     console.log(data);
@@ -83,6 +89,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
       event.preventDefault();
       await updateInfo(data);
       toast.success("변경 사항이 저장되었습니다.");
+      await refetch();
+      if (data.profileImage){
+        refreshSideBar(data.profileImage);  
+      }
     } catch (error: any) {
       if (error.status === 400) {
         toast.error("중복된 닉네임입니다.");
