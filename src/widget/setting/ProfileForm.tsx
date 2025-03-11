@@ -136,7 +136,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
       <div className="mt-8 flex justify-center">
         <button
           type="submit"
-          className="w-32 rounded-3xl bg-focus p-3 text-white hover:bg-blue-600 lg:w-80"
+          className="w-32 rounded-3xl bg-focus p-3 text-white hover:bg-blue-400 lg:w-80"
         >
           변경 사항 저장
         </button>
