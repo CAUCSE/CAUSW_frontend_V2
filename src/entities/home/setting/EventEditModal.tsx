@@ -22,7 +22,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
       onClick={routeBack}
     >
       <div
-        className="relative flex flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
+        className="relative m-4 flex w-full flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px] xl:w-[1200px]"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={routeBack} className="absolute left-[14px] top-[10px]">
@@ -31,7 +31,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
         <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
           이벤트 공지 배너 {bannerId ? "수정" : "추가"}
         </p>
-        <div className="relative flex h-[150px] w-[1100px] flex-col">
+        <div className="relative flex h-[150px] w-full flex-col lg:w-[1100px]">
           <input
             className="hidden"
             id="file"
