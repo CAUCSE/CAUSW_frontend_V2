@@ -104,3 +104,6 @@ export { useSelectLocker } from "./hooks/lockers/useSelectLocker";
 export { useRegisterLocker } from "./hooks/lockers/useRegisterLocker";
 export { useReturnLocker } from "./hooks/lockers/useReturnLocker";
 export { useExtendLocker } from "./hooks/lockers/useExtendLocker";
+
+//Events
+export { useEditEvent } from "./hooks/events/useEditEvent";

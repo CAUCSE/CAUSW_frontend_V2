@@ -52,83 +52,6 @@ export const HomeRscService = () => {
     return response as Home.Calendar;
   };
 
-  const createEvent = async (bannerImg: File, url: string) => {
-    const formData = new FormData();
-    formData.append(
-      "eventCreateRequestDto",
-      new Blob(
-        [
-          JSON.stringify({
-            url,
-          }),
-        ],
-        { type: "application/json" },
-      ),
-    );
-    formData.append(
-      "eventImage",
-      // bannerImg,
-      new Blob([bannerImg], { type: bannerImg.type }),
-      bannerImg.name,
-    );
-
-    const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/events`, {
-      method: "POST",
-      headers: headers,
-      body: formData,
-    });
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return true;
-  };
-
-  const updateEvent = async (
-    id: string,
-    bannerImg: File | null,
-    url: string,
-  ) => {
-    const formData = new FormData();
-    formData.append(
-      "eventUpdateRequestDto",
-      new Blob(
-        [
-          JSON.stringify({
-            url,
-          }),
-        ],
-        { type: "application/json" },
-      ),
-    );
-    bannerImg &&
-      formData.append(
-        "eventImage",
-        // bannerImg,
-        new Blob([bannerImg], { type: bannerImg.type }),
-        bannerImg.name,
-      );
-
-    const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/events/${id}`, {
-      method: "PUT",
-      headers: headers,
-      body: formData,
-    });
-    if (!response.ok) throw new Error(response.statusText);
-    return true;
-  };
-
-  const deleteEvent = async (id: string) => {
-    const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/events/${id}`, {
-      method: "DELETE",
-      headers: headers,
-    });
-    if (!response.ok) throw new Error(response.statusText);
-    return true;
-  };
-
   const createCalendar = async (
     calendarImg: File,
     year: number,
@@ -168,9 +91,6 @@ export const HomeRscService = () => {
     getEvents,
     getCalendars,
     getCalendar,
-    createEvent,
-    deleteEvent,
-    updateEvent,
     createCalendar,
   };
 };
