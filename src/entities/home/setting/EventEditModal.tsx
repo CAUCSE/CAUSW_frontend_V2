@@ -1,75 +1,31 @@
 "use client";
 
-import { eventQueryKey, HomeRscService, useEventStore } from "@/shared";
-import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { useEditEvent } from "@/shared";
+import { useRouter } from "next/navigation";
 
 export function EventEditModal({ bannerId }: { bannerId?: string }) {
-  const searchParams = useSearchParams();
-  const bannerImg = searchParams.get("bannerImg");
-  const _url = searchParams.get("url");
-  const [currImg, setCurrImg] = useState<File | null>();
-  const [url, setUrl] = useState(_url ? _url : "");
-
-  const { createEvent, updateEvent } = HomeRscService();
-
   const router = useRouter();
+  const {
+    bannerImg,
+    currImg,
+    url,
+    handleSubmit,
+    handleUploadImage,
+    handleEditEventUrl,
+  } = useEditEvent({ bannerId });
 
-  const queryClient = useQueryClient();
-  const eventList = queryClient.getQueryData<Home.Event[]>(
-    eventQueryKey.list(),
-  );
-  console.log(eventList);
-
-  const handleSubmit = async () => {
-    if (!bannerId) {
-      if (!currImg || !url) {
-        alert("사진과 url을 입력해주세요.");
-        return;
-      }
-
-      if (eventList && eventList.length >= 10) {
-        toast.error("이벤트 공지는 최대 10개까지 등록 가능합니다.");
-        return;
-      }
-
-      try {
-        await createEvent(currImg, url);
-        alert("저장되었습니다.");
-      } catch (error) {
-        alert("저장에 실패했습니다. 관리자에게 문의하세요");
-      }
-    } else {
-      // updateEvent
-      if (!url) {
-        alert("url을 입력해주세요.");
-        return;
-      }
-      const done = currImg
-        ? await updateEvent(bannerId, currImg, url)
-        : await updateEvent(bannerId, null, url);
-      if (!done) alert("수정에 실패했습니다. 관리자에게 문의하세요");
-    }
-
-    window.location.href = "/setting/home/event";
-  };
-
+  const routeBack = () => router.back();
   return (
     <div
       className="fixed left-0 top-0 z-30 flex h-screen w-screen items-center justify-center bg-black bg-opacity-20 backdrop-blur-lg"
-      onClick={() => router.back()}
+      onClick={routeBack}
     >
       <div
         className="relative flex flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={() => router.back()}
-          className="absolute left-[14px] top-[10px]"
-        >
+        <button onClick={routeBack} className="absolute left-[14px] top-[10px]">
           <i className="icon-[ep--close-bold]" />
         </button>
         <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
@@ -81,13 +37,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
             id="file"
             type="file"
             accept="image/gif, image/jpeg, image/png"
-            onChange={(e) => {
-              if (!e.target.files) return;
-              const file = e.target.files[0];
-              if (file) {
-                setCurrImg(file);
-              }
-            }}
+            onChange={handleUploadImage}
           />
           <label
             htmlFor="file"
@@ -130,7 +80,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
           className="h-[120px] w-full rounded-2xl border border-black p-[20px] text-[14px] lg:text-[20px]"
           placeholder="이벤트 공지 URL을 입력해주세요."
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={handleEditEventUrl}
         ></input>
         <button
           className="mt-[40px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] max-lg:w-[150px] lg:mt-[80px] lg:text-[24px] lg:font-semibold"
