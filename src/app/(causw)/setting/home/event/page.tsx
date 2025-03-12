@@ -19,10 +19,10 @@ const EventSetting = () => {
   return (
     <div className="flex h-full w-full flex-col gap-10 p-8">
       <div className="flex justify-between">
-        <Link href=".." className="flex items-center">
+        <Lin href=".." className="flex items-center">
           <i className="icon-[ooui--next-rtl]" />
           이전
-        </Link>
+        </Lin
         <Link
           href="./event/new"
           className="rounded-full border border-black bg-white px-5 py-2 max-lg:text-[13px] lg:px-8 lg:py-3"
