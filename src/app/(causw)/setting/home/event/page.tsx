@@ -1,28 +1,23 @@
 "use client";
 
-import { LoadingComponent } from "@/entities";
 import { BannerCard } from "@/entities/home";
-import { eventQueryKey, HomeService } from "@/shared";
-import { useQueryClient } from "@tanstack/react-query";
+import { HomeService } from "@/shared";
 import Link from "next/link";
+import { LoadingComponent } from "@/entities";
 
 const EventSetting = () => {
   const { useGetEventList } = HomeService();
   const { data: events, isLoading } = useGetEventList();
-  const queryClient = useQueryClient();
   if (isLoading) {
     return <LoadingComponent />;
   }
-
-  console.log(queryClient.getQueryData(eventQueryKey.list()));
-
   return (
     <div className="flex h-full w-full flex-col gap-10 p-8">
       <div className="flex justify-between">
-        <Lin href=".." className="flex items-center">
+        <Link href=".." className="flex items-center">
           <i className="icon-[ooui--next-rtl]" />
           이전
-        </Lin
+        </Link>
         <Link
           href="./event/new"
           className="rounded-full border border-black bg-white px-5 py-2 max-lg:text-[13px] lg:px-8 lg:py-3"
