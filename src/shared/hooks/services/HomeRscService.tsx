@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from "@/shared";
+import { BASEURL, setRscHeader, useEventStore } from "@/shared";
 
 export const HomeRscService = () => {
   const URI = BASEURL + "/api/v1/home";
@@ -78,7 +78,9 @@ export const HomeRscService = () => {
       headers: headers,
       body: formData,
     });
-    if (!response.ok) throw new Error(response.statusText);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
     return true;
   };
 

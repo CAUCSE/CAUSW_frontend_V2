@@ -1,16 +1,20 @@
+"use client";
+
+import { LoadingComponent } from "@/entities";
 import { BannerCard } from "@/entities/home";
-import { HomeRscService } from "@/shared";
+import { eventQueryKey, HomeService } from "@/shared";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
-export default async function EventSetting() {
-  const { getEvents } = HomeRscService();
-
-  let events;
-  try {
-    events = (await getEvents()).events;
-  } catch (e: any) {
-    console.error(e.message);
+const EventSetting = () => {
+  const { useGetEventList } = HomeService();
+  const { data: events, isLoading } = useGetEventList();
+  const queryClient = useQueryClient();
+  if (isLoading) {
+    return <LoadingComponent />;
   }
+
+  console.log(queryClient.getQueryData(eventQueryKey.list()));
 
   return (
     <div className="flex h-full w-full flex-col gap-10 p-8">
@@ -26,7 +30,7 @@ export default async function EventSetting() {
           배너 추가
         </Link>
       </div>
-      <div className="flex max-lg:flex-col lg:items-end">
+      <div className="flex gap-4 max-lg:flex-col lg:items-end">
         <p className="text-[21px] font-medium lg:text-[40px]">
           이벤트 배너 공지 편집
         </p>
@@ -46,4 +50,6 @@ export default async function EventSetting() {
         ))}
     </div>
   );
-}
+};
+
+export default EventSetting;

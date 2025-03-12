@@ -1,9 +1,11 @@
 "use client";
 
-import { HomeRscService } from "@/shared";
+import { eventQueryKey, HomeRscService, useEventStore } from "@/shared";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export function EventEditModal({ bannerId }: { bannerId?: string }) {
   const searchParams = useSearchParams();
@@ -16,15 +18,30 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
 
   const router = useRouter();
 
+  const queryClient = useQueryClient();
+  const eventList = queryClient.getQueryData<Home.Event[]>(
+    eventQueryKey.list(),
+  );
+  console.log(eventList);
+
   const handleSubmit = async () => {
     if (!bannerId) {
       if (!currImg || !url) {
         alert("사진과 url을 입력해주세요.");
         return;
       }
-      const done = await createEvent(currImg, url);
-      if (!done) alert("저장에 실패했습니다. 관리자에게 문의하세요");
-      alert("저장되었습니다.");
+
+      if (eventList && eventList.length >= 10) {
+        toast.error("이벤트 공지는 최대 10개까지 등록 가능합니다.");
+        return;
+      }
+
+      try {
+        await createEvent(currImg, url);
+        alert("저장되었습니다.");
+      } catch (error) {
+        alert("저장에 실패했습니다. 관리자에게 문의하세요");
+      }
     } else {
       // updateEvent
       if (!url) {
