@@ -40,7 +40,7 @@ export const Management = ({
   data,
   circleId,
   totalPages,
-  currentPage
+  currentPage,
 }: Prop) => {
   const isFirstNavigation = !state
     ? true
@@ -102,12 +102,23 @@ export const Management = ({
             className="mb-3 text-lg"
             key={element.userName}
           >
-            {(state === "admission" || state === "reject") ? (<>{element.userName}</>) : (<>{element.userName}({element.studentId})</>)}
+            {state === "admission" || state === "reject" ? (
+              <>{element.userName}</>
+            ) : (
+              <>
+                {element.userName}({element.studentId})
+              </>
+            )}
           </Link>
         ))}
       </div>
       {!!totalPages && !!currentPage && totalPages > 0 && currentPage > 0 && (
-      <PaginationButtons key = {currentPage} totalPages={totalPages} currentPage={currentPage} baseUrl={`/setting/management/user/${state}`} />
+        <PaginationButtons
+          key={currentPage}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          baseUrl={`/setting/management/user/${state}`}
+        />
       )}
     </div>
   );
