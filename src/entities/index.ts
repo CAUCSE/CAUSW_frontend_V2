@@ -94,3 +94,5 @@ export { LockerSelect } from "./locker/LockerSelect";
 export { LockerRegisterBtn } from "./locker/LockerRegisterBtn";
 export { LockerReturnBtn } from "./locker/LockerReturnBtn";
 export { LockerExtendBtn } from "./locker/LockerExtendBtn";
+
+export { StatusButton } from "./application/StatusButton";
