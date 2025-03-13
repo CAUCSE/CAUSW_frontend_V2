@@ -39,3 +39,5 @@ export { LockerSelectionGrid } from "./locker/LockerSelectGrid";
 export { LockerSelectionDesktopManual } from "./locker/LockerSelectionDesktopManual";
 export { LockerMobileActionBtn } from "./locker/LockerMobileActionBtn";
 export { LockerDesktopActionBtn } from "./locker/LockerDesktopActionBtn";
+
+export { VerificationStatus } from "./application/VerificationStatus";
