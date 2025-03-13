@@ -241,9 +241,12 @@ export const SettingRscService = () => {
           refundedAt,
         }),
       },
-    );
+    ).then((res) => res.json());
 
-    if (!response.ok) throw new Error(response.statusText);
+    console.log(response);
+
+    if (response.message)
+      throw new Error((response as Error.ApiErrorResponse).message);
     return true;
   };
 

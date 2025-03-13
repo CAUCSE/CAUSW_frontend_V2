@@ -22,7 +22,6 @@ import {
 } from "@/shared";
 
 import { LoadingComponent } from "@/entities";
-import Link from "next/link";
 
 const Error = ({
   error,
