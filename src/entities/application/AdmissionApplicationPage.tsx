@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserRscService, NoButtonModal } from '@/shared';
+import toast from 'react-hot-toast';
 
 const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose: () => void; emailValue: string; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.AdmissionCreateRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const { submitAdmissionsApplication } = UserRscService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
@@ -75,24 +75,18 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
   const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
       await submitAdmissionsApplication(data);
-      setIsSuccessModalOpen(true);
-    } catch (error) {
+      toast.success("가입 신청서 제출이 완료되었습니다.");
+      setTimeout(() => {
+        onClose()}, 500);
+    } catch (error: any) {
       // 에러 처리
-      console.log('실패');
-      console.log(error);
+      toast.error(error.message || "가입 신청서 제출에 실패했습니다.");
     }
   };
 
-    // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
-    const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
-    const closeInCompleteModal = () => {
-      setIsIncompleteModalOpen(false);
-    }
-
     const onInvalid = (errors: any) => {
       // 모든 필드를 입력하지 않았을 경우에 대한 로직
-      console.error('Form Errors:', errors);
-      setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
+      toast.error("모든 항목을 조건에 맞게 입력해주세요.");
     };
 
   return (
@@ -221,27 +215,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
           </div>
         )}
 
-        {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
-              {isIncompleteModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={closeInCompleteModal}>
-          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">입력되지 않은 항목이 있습니다</h2>
-            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
-          </div>
-        </div>
-      )}
-            {/* 회원가입을 성공했을 때 표시되는 모달 */}
-            {isSuccessModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={() => {onClose()}}>
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-            <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">가입 신청서 제출 완료</h2>
-            <p>화면을 클릭하면 창이 닫힙니다.</p>
 
-            </div>
-          </div>
-        </div>
-      )}
             {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
         {rejectMessageModal && (
           <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
