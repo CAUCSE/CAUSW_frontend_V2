@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserRscService, NoButtonModal } from '@/shared';
+import { UserRscService, NoButtonModal, PreviousButton } from '@/shared';
 import toast from 'react-hot-toast';
 
 const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose: () => void; emailValue: string; rejectMessage: string | null}) => {
@@ -90,27 +90,10 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
     };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-boardPageBackground">
+      <PreviousButton routeCallback={() => onClose()}></PreviousButton>
               {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
-          <button
-            onClick={() => {onClose()}}
-            className="text-black-500 hover:text-gray-500 flex items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            이전
-          </button>
-        </div>
-      <div className="mb-6">
+      <div className="mb-6 mt-8">
         
         <h1 className="text-2xl font-bold">승인 신청서 작성</h1>
 
@@ -139,7 +122,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
               required: "자기소개 글을 작성해주세요."
              })}
             placeholder="자기소개 글을 작성해주세요. ( 250자 이내 )"
-            className="p-2 border border-gray-300 rounded-md w-full mb-1"
+            className="p-2 border border-gray-300 rounded-md w-full sm:w-2/3 mb-1"
           />
           {errors.description && <span className="text-red-500">{errors.description.message}</span>}
         </div>
@@ -227,7 +210,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
         }
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
+          <button type="submit" className="bg-focus text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-400">
             변경 사항 저장
           </button>
         </div>

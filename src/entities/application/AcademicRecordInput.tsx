@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { AcademicRecordRscService, NoButtonModal } from '@/shared';
+import { AcademicRecordRscService, NoButtonModal, PreviousButton } from '@/shared';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -118,7 +118,7 @@ useEffect(() => {
       
     } catch (error: any) {
       // 에러 처리
-      toast.error(error.response?.data?.message || "가입 신청서 제출에 실패했습니다.");    }
+  toast.error(error.response?.data?.message || "가입 신청서 제출에 실패했습니다.");    }
   };
 
 
@@ -128,27 +128,9 @@ useEffect(() => {
     };
 
   return (
-    <div className="p-6">
-              {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
-          <button
-            onClick={handleCancel}
-            className="text-black-500 hover:text-gray-500 flex items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            이전
-          </button>
-        </div>
-      <div className="mb-6">
+    <div className="p-6 bg-boardPageBackground h-screen">
+      <PreviousButton routeCallback={() => handleCancel()}></PreviousButton>
+      <div className="mt-8 mb-6">
         
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
         <p className="text-gray-600 hidden lg:block">
@@ -337,7 +319,7 @@ useEffect(() => {
 
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
+          <button type="submit" className="bg-focus text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-400">
             변경 사항 저장
           </button>
         </div>
