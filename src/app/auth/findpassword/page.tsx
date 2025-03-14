@@ -100,6 +100,7 @@ const FindPasswordPage = () => {
           <button
             className="flex h-10 w-full items-center justify-center rounded-lg bg-blue-500 text-sm font-semibold text-white hover:bg-blue-700"
             onClick={handleRouterToSignIn}
+            type = "button"
           >
             로그인 하기
           </button>
