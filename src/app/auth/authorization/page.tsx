@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { UserService } from "@/shared";
+import { PreviousButton, UserService } from "@/shared";
 import SubmitAcademicRecordModal from "@/entities/application/AcademicRecordInput";
 import SubmitApplicationModal from "@/entities/application/AdmissionApplicationPage";
 import { VerificationStatus } from "@/widget";
@@ -106,11 +106,14 @@ const VerificationPage: React.FC = () => {
         />
       )}
       {!isAcademicRecordModalOpen && !isAdmissionModalOpen && (
+        <>
+        <PreviousButton/>
         <VerificationStatus
         admissionApplicationStatus = {admissionApplicationStatus}
         academicRecordApplicationStatus = {academicRecordApplicationStatus}
         onAdmissionClick = {() => setIsAdmissionModalOpen(true)}
         onAcademicRecordClick = {() => setIsAcademicModalOpen(true)}/>      
+        </>
         )}
     </div>
   );
