@@ -40,6 +40,8 @@ const HomePage = async () => {
     homePosts.find((board) => board.board.name.includes("학생회 공지")),
   ];
 
+  const deliveredId = homePosts.find((board) => board.board.name.includes("딜리버드"))?.board.id;
+
   return (
     <>
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
@@ -59,13 +61,13 @@ const HomePage = async () => {
 
         <div className="grid w-full gap-[25px] 2xl:h-4/5 2xl:grid-cols-[400px_3fr]">
           <div className="h-full w-full max-2xl:hidden">
-            <Calendar />
+            <Calendar deliveredId = {deliveredId}/>
           </div>
 
           <div className="gap-[25px] 2xl:h-full">
             <div className="w-full gap-3 max-md:hidden md:flex 2xl:hidden">
               <div className="mb-5 h-[600px] w-2/5">
-                <Calendar />
+                <Calendar deliveredId = {deliveredId}/>
               </div>
               <div className="flex w-3/5 flex-col gap-3 bg-transparent">
                 {cardsEntities.map((card, idx) => (
@@ -90,7 +92,7 @@ const HomePage = async () => {
             </div>
 
             <div className="mb-5 h-[600px] w-full md:hidden">
-              <Calendar />
+              <Calendar deliveredId = {deliveredId}/>
             </div>
 
             <CardBox className="flex w-full flex-col items-center gap-[24px] p-[18px] 2xl:h-4/5">
