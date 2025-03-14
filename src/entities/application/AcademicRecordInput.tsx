@@ -4,15 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AcademicRecordRscService, NoButtonModal } from '@/shared';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
   const { postAcademicRecord } = AcademicRecordRscService();
@@ -112,27 +111,28 @@ useEffect(() => {
           data.images = null
         }
       
-      const response = await postAcademicRecord(data);
+      await postAcademicRecord(data);
 
       // 서버에 전송하는 로직 작성 (axios 예시)
-      setIsSuccessModalOpen(true);
+      toast.success("학적 증빙 서류 제출이 완료되었습니다.")
+      if (academicStatus == "ENROLLED") {
+        setTimeout(() =>     {onClose();}
+        , 500)}
+      else {
+        setTimeout(() => {
+          router.push("/auth/signin");
+        }, 500)}
+      
     } catch (error: any) {
       // 에러 처리
-      setErrorMessage(error.message ?? "알 수 없는 에러가 발생헀습니다.");
-      setIsErrorModalOpen(true);
+      toast.error(error.message ?? "알 수 없는 에러가 발생헀습니다.");
     }
   };
 
-    // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
-    const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
-    const closeInCompleteModal = () => {
-      setIsIncompleteModalOpen(false);
-    }
 
     const onInvalid = (errors: any) => {
       // 모든 필드를 입력하지 않았을 경우에 대한 로직
-      console.error('Form Errors:', errors);
-      setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
+      toast.error("모든 항목을 조건에 맞게 입력해주세요.");
     };
 
   return (
@@ -332,43 +332,6 @@ useEffect(() => {
             </div>
           </div>
         )}
-
-        {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
-              {isIncompleteModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={closeInCompleteModal}>
-          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">입력되지 않은 항목이 있습니다</h2>
-            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
-          </div>
-        </div>
-      )}
-            {/* 증빙서류 제출 성공했을 때 표시되는 모달 */}
-            {isSuccessModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeCompleteModal}>
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-            <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 완료</h2>
-{academicStatus === "ENROLLED" && (            <p>화면을 클릭하면 환경 설정 페이지로 이동합니다.</p>
-)}
-{academicStatus !== "ENROLLED" && (            <p>화면을 클릭하면 로그인 페이지로 이동합니다.</p>
-)}
-
-            </div>
-          </div>
-        </div>
-      )}
-            {/* 증빙서류 제출 실패했을 때 표시되는 모달 */}
-            {isErrorModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={() =>{setIsErrorModalOpen(false)}}>
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-            <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 실패</h2>
-            <p>{errorMessage}</p>
-
-            </div>
-          </div>
-        </div>
-      )}
 
             {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
             {rejectMessageModal && (
