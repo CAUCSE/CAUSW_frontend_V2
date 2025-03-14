@@ -30,14 +30,7 @@ const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void
     yearOptions.push(year);
   }
   
-  // 완료 모달
-  const closeCompleteModal = () => {
-    if (academicStatus === "ENROLLED")
-{    handleCancel();}
-    else{
-      router.push('/auth/signin');
-    }
-};
+
 
 useEffect(() => {
   if (rejectMessage){
@@ -125,8 +118,7 @@ useEffect(() => {
       
     } catch (error: any) {
       // 에러 처리
-      toast.error(error.message ?? "알 수 없는 에러가 발생헀습니다.");
-    }
+      toast.error(error.response?.data?.message || "가입 신청서 제출에 실패했습니다.");    }
   };
 
 

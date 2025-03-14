@@ -80,7 +80,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
         onClose()}, 500);
     } catch (error: any) {
       // 에러 처리
-      toast.error(error.message || "가입 신청서 제출에 실패했습니다.");
+      toast.error(error.response?.data?.message || "가입 신청서 제출에 실패했습니다.");
     }
   };
 
