@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { PreviousButton, UserService } from "@/shared";
-import SubmitAcademicRecordModal from "@/entities/application/AcademicRecordInput";
-import SubmitApplicationModal from "@/entities/application/AdmissionApplicationPage";
+import SubmitAcademicRecordModal from "@/entities/auth/AcademicRecordInput";
+import SubmitApplicationModal from "@/entities/auth/AdmissionApplicationPage";
 import { VerificationStatus } from "@/widget";
 
 
