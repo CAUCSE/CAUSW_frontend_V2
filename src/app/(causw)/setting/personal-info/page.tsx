@@ -18,7 +18,7 @@ const PersonalInfoPage = () => {
   const { getMyInfo } = UserService();
 
   // 유저 정보 가져오기
-  const { data: userData, isLoading, error, refetch } = useQuery({
+  const { data: userData, isLoading, error } = useQuery({
     queryKey: userQueryKey.all,
     queryFn: async () => {
       const response = await getMyInfo();
@@ -58,7 +58,6 @@ const PersonalInfoPage = () => {
       <ProfileForm
         userData={userData}
         feeInfo = {feeInfo}
-        refetch={refetch}
       />
     </div>
   );
