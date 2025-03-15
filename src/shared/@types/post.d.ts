@@ -239,14 +239,4 @@ declare namespace Post {
     | "SEVENTH_SEMESTER"
     | "EIGHTH_SEMESTER"
     | "ABOVE_NINTH_SEMESTER";
-
-  export interface PostUserWriteDto {
-    id: string;
-    email: string;
-    name: string;
-    studentId: string;
-    admissionYear: number;
-    profileImageUrl: string;
-    posts: PostResponseDtoList;
-  }
 }
