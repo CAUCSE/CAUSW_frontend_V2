@@ -33,7 +33,6 @@ const VerificationPage: React.FC = () => {
         const response = await getMyInfo();
         // 상태 값들 가져오기
         const { state, rejectionOrDropReason, email } = response.data;
-
         // 상태 업데이트
         setEmailValue(email);
         // 조건문 처리 (상태 값이 올바르게 설정된 후에 처리)
@@ -41,15 +40,19 @@ const VerificationPage: React.FC = () => {
           setAdmissionApplicationStatus("REJECTED");
           setAcademicRecordApplicationStatus("BANNED");
           setAdmissionRejectMessage(rejectionOrDropReason);
-        } else if (state === "AWAIT") {
+          return;
+        }
+
+        if (state === "AWAIT") {
           setAcademicRecordApplicationStatus("BANNED");
-          checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
-        } else if (state === "ACTIVE") {
+          return checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
+        } 
+        
+        if (state === "ACTIVE") {
           setAdmissionApplicationStatus("COMPLETE");
-          checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
+          return checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
         }
       } catch (error) {
-        console.log(error);
       }
     };
 
