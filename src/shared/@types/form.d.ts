@@ -1,4 +1,3 @@
-import { PageableObject } from "./form.d";
 declare namespace Form {
   export interface ICustomCheckBox {
     colSize: 1 | 2 | 3 | 4 | 5;
