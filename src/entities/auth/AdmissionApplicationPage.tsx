@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserRscService, NoButtonModal, PreviousButton } from '@/shared';
+import { NoButtonModal, PreviousButton, UserService } from '@/shared';
 import toast from 'react-hot-toast';
 
 const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose: () => void; emailValue: string; rejectMessage: string | null}) => {
@@ -10,7 +10,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { submitAdmissionsApplication } = UserRscService();
+  const { submitAdmissionsApplication } = UserService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
 
