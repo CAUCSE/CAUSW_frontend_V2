@@ -34,7 +34,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
   } = useForm<User.userUpdateDto>();
 
   
-  const { setUserStore } = useUserStore(); // ✅ Zustand에서 setUserStore 가져오기
+  const setUserStore = useUserStore((state) => state.setUserStore);
   const { updateInfo } = UserRscService();
   const { checkNicknameDuplicate } = AuthService();
   // 프로필 이미지 변경
