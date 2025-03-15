@@ -5,17 +5,18 @@ import { useForm } from 'react-hook-form';
 import { AcademicRecordRscService, NoButtonModal, PreviousButton } from '@/shared';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useSubmitAcademicRecord } from '@/shared/hooks/auth/useSubmitApplication';
 
 const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
   const { postAcademicRecord } = AcademicRecordRscService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
+  const { mutate: submitAcademicRecord } = useSubmitAcademicRecord(onClose, academicStatus);
 
   const handleCancel = () => {
     // 취소 버튼을 클릭했을 때 모달을 닫습니다.
@@ -38,7 +39,6 @@ useEffect(() => {
   }
 }, []);
 
-  const files = watch("images") as FileList;
   const selectedAcademicStatus = watch('targetAcademicStatus');
 
   
@@ -91,36 +91,9 @@ useEffect(() => {
   };
 
 
-  const onSubmit = async (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
-    try {
-
-      if (data.targetAcademicStatus !== "GRADUATED")
-        {
-          data.graduationType = null
-          data.graduationYear = null
-        }
-        if (data.targetAcademicStatus !== "ENROLLED")
-        {
-          data.images = null
-        }
-      
-      await postAcademicRecord(data);
-
-      // 서버에 전송하는 로직 작성 (axios 예시)
-      toast.success("학적 증빙 서류 제출이 완료되었습니다.")
-      if (academicStatus == "ENROLLED") {
-        setTimeout(() =>     {onClose();}
-        , 500)}
-      else {
-        setTimeout(() => {
-          router.push("/auth/signin");
-        }, 500)}
-      
-    } catch (error: any) {
-      // 에러 처리
-  toast.error(error.response?.data?.message || "가입 신청서 제출에 실패했습니다.");    }
+  const onSubmit = (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
+    submitAcademicRecord(data);
   };
-
 
     const onInvalid = (errors: any) => {
       // 모든 필드를 입력하지 않았을 경우에 대한 로직
