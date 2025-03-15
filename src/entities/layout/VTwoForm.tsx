@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Header, Line, SubHeader } from "@/entities";
 import {
   AuthService,
-  UserRscService,
   useUserStore,
   UserService,
 } from "@/shared";
@@ -14,8 +13,7 @@ export const VTwoForm = () => {
   const checkVTwo = useUserStore((state) => state.checkVTwo);
 
   const { checkNicknameDuplicate } = AuthService();
-  const { updateInfo } = UserRscService();
-  const { updateVTwo } = UserService();
+  const { updateVTwo, updateInfo } = UserService();
   const {
     register,
     handleSubmit,
