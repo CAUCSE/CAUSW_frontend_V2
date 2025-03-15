@@ -1,6 +1,5 @@
 export { Loading } from "./ui/Loading";
 export { IconButton } from "./ui/IconButton";
-
 export { BASEURL } from "./configs/url";
 
 export * from "./configs/axios";
@@ -10,6 +9,8 @@ export * from "./configs/layout";
 export * from "./configs/regex";
 export * from "./configs/permission";
 
+//Query Key
+export { userQueryKey } from "./configs/query-key/userQueryKey";
 export { lockerQueryKey } from "./configs/query-key/lockerQueryKey";
 export { postQueryKey } from "./configs/query-key/postQueryKey";
 export { boardQueryKey } from "./configs/query-key/boardQueryKey";
