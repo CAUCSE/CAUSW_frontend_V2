@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { AcademicRecordRscService, NoButtonModal, PreviousButton } from '@/shared';
-import { useRouter } from 'next/navigation';
+import { NoButtonModal, PreviousButton } from '@/shared';
 import toast from 'react-hot-toast';
 import { useSubmitAcademicRecord } from '@/shared/hooks/auth/useSubmitApplication';
 
@@ -12,9 +11,7 @@ const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-  const { postAcademicRecord } = AcademicRecordRscService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
   const { mutate: submitAcademicRecord } = useSubmitAcademicRecord(onClose, academicStatus);
 
