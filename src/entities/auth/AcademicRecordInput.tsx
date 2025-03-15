@@ -101,7 +101,7 @@ useEffect(() => {
     };
 
   return (
-    <div className="p-6 bg-boardPageBackground h-screen">
+    <div className="p-6 bg-boardPageBackground min-h-screen">
       <PreviousButton routeCallback={() => handleCancel()}></PreviousButton>
       <div className="mt-8 mb-6">
         
