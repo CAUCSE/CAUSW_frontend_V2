@@ -1,3 +1,4 @@
+import { PageableObject } from "./form.d";
 declare namespace Form {
   export interface ICustomCheckBox {
     colSize: 1 | 2 | 3 | 4 | 5;
@@ -49,31 +50,8 @@ declare namespace Form {
     replyResponseDtoPage: ReplyResponseDtoPage;
   }
 
-  export interface ReplyResponseDtoPage {
-    totalElements: number;
-    size: number;
+  export interface ReplyResponseDtoPage extends Pagination.PageableObject {
     content: ReplyResponseDto[];
-    number: number;
-    sort: SortObject;
-    numberOfElements: number;
-    pageable: PageableObject;
-    first: boolean;
-    last: boolean;
-    empty: boolean;
-  }
-
-  export interface PageableObject {
-    offset: number;
-    sort: SortObject;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
-  }
-  export interface SortObject {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
   }
 
   export interface ReplyResponseDto {

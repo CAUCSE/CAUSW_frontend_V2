@@ -30,18 +30,8 @@ declare namespace Post {
     voteResponseDto: VoteResponseDto | null;
   }
 
-  export interface PostResponseDtoList {
+  export interface PostResponseDtoList extends Pagination.PageableObject {
     content: PostResponseDto[];
-    pageable: Form.PageableObject;
-    totalElements: number;
-    totalPages: number;
-    last: boolean;
-    size: number;
-    number: number;
-    sort: Form.SortObject;
-    numberOfElements: number;
-    first: boolean;
-    empty: boolean;
   }
   export interface PostResponseDto {
     id: string;
@@ -205,34 +195,9 @@ declare namespace Post {
     isDeleted: boolean;
   };
 
-  export type Posts = {
-    totalPages: number;
-    totalElements: number;
-    last: boolean;
-    first: boolean;
-    size: number;
+  export interface Posts extends Pagination.PageableObject {
     content: Content[];
-    number: number;
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    };
-    numberOfElements: number;
-    pageable: {
-      offset: number;
-      sort: {
-        empty: boolean;
-        sorted: boolean;
-        unsorted: boolean;
-      };
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      unpaged: boolean;
-    };
-    empty: boolean;
-  };
+  }
 
   export interface PostCreateWithFormRequestDto extends CreatePostDto {
     formCreateRequestDto: FormCreateRequestDto;
@@ -274,4 +239,14 @@ declare namespace Post {
     | "SEVENTH_SEMESTER"
     | "EIGHTH_SEMESTER"
     | "ABOVE_NINTH_SEMESTER";
+
+  export interface PostUserWriteDto {
+    id: string;
+    email: string;
+    name: string;
+    studentId: string;
+    admissionYear: number;
+    profileImageUrl: string;
+    posts: PostResponseDtoList;
+  }
 }
