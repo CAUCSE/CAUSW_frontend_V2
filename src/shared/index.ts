@@ -11,11 +11,7 @@ export * from "./configs/regex";
 export * from "./configs/permission";
 
 //Query Key
-export { lockerQueryKey } from "./configs/query-key/lockerQueryKey";
-export { postQueryKey } from "./configs/query-key/postQueryKey";
-export { boardQueryKey } from "./configs/query-key/boardQueryKey";
-export { formQueryKey } from "./configs/query-key/formQueryKey";
-export { eventQueryKey } from "./configs/query-key/eventQueryKey";
+export * from "./configs/query-key";
 
 //Service
 export { AuthRscService } from "./hooks/services/AuthRscService";
