@@ -27,7 +27,7 @@ export { EmptyResponseResult } from "./form/EmptyResponseResult";
 
 export { OccasionManagement } from "./occasion/OccasionManagement";
 export { OccasionManagementDetail } from "./occasion/OccasionManagementDetail";
-export { OccasionRegistrationForm } from "./occasion/OccasionRegistrationForm"
+export { OccasionRegistrationForm } from "./occasion/OccasionRegistrationForm";
 export { OccasionNotification } from "./notification/OccasionNotification";
 export { OccasionNotificationDetail } from "./notification/OccasionNotificationDetail";
 
@@ -39,3 +39,5 @@ export { LockerSelectionGrid } from "./locker/LockerSelectGrid";
 export { LockerSelectionDesktopManual } from "./locker/LockerSelectionDesktopManual";
 export { LockerMobileActionBtn } from "./locker/LockerMobileActionBtn";
 export { LockerDesktopActionBtn } from "./locker/LockerDesktopActionBtn";
+
+export * from "./setting";
