@@ -1,10 +1,33 @@
-export const VideoBackground = ({ src }: { src: string }) => (
-  <div className="w-full h-screen fixed top-0 left-0 overflow-y-hidden z-[-1]">
-    <div className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <video className="w-full h-full object-cover" autoPlay loop muted>
-        <source src={src} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+"use client";
+
+import { useEffect, useRef } from "react";
+
+export const VideoBackground = ({ src }: { src: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        console.log("Autoplay prevented. User interaction required.");
+      });
+    }
+  }, []);
+
+  return (
+    <div className="fixed left-0 top-0 z-[-1] h-screen w-full overflow-y-hidden">
+      <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 transform">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover"
+          loop
+          muted
+          playsInline
+        >
+          <source src={src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
-  </div>
-);
+  );
+};
