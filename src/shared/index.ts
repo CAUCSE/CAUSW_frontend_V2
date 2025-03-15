@@ -33,10 +33,11 @@ export { SettingService } from "./hooks/services/SettingService";
 export { UserCouncilFeeService } from "./hooks/services/UserCouncilFeeService";
 export { UserService } from "./hooks/services/UserService";
 export { LockerService } from "./hooks/services/LockerService";
-export { AcademicRecordRscService } from "./hooks/services/AcademicRecordRscService";
 export { PostService } from "./hooks/services/PostService";
 export { BoardService } from "./hooks/services/BoardService";
 export { FormService } from "./hooks/services/FormService";
+export { AcademicRecordService } from "./hooks/services/AcademicRecordService";
+
 
 //Store
 export { useLayoutStore } from "./hooks/stores/useLayoutStore";
