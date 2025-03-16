@@ -31,7 +31,7 @@ export { EmptyResponseResult } from "./form/EmptyResponseResult";
 // Occasion
 export { OccasionManagement } from "./occasion/OccasionManagement";
 export { OccasionManagementDetail } from "./occasion/OccasionManagementDetail";
-export { OccasionRegistrationForm } from "./occasion/OccasionRegistrationForm"
+export { OccasionRegistrationForm } from "./occasion/OccasionRegistrationForm";
 export { OccasionNotification } from "./notification/OccasionNotification";
 export { OccasionNotificationDetail } from "./notification/OccasionNotificationDetail";
 
@@ -47,3 +47,4 @@ export { LockerDesktopActionBtn } from "./locker/LockerDesktopActionBtn";
 
 // Application
 export { VerificationStatus } from "./application/VerificationStatus";
+export * from "./setting";

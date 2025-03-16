@@ -69,7 +69,7 @@ const CreatePostPage = () => {
         <div className="w-full flex-col items-center">
           <PreviousButton routeCallback={handleBack} />
         </div>
-        <div className="flex h-full flex-col p-4 pt-10 lg:px-5 lg:py-10">
+        <div className="flex h-full flex-col p-2 pt-10 lg:px-5 lg:py-10">
           {isApply ? (
             <ApplyCreationForm
               methods={methods}

@@ -298,4 +298,14 @@ declare namespace User {
 
   //DTO
   export type UserDto = User & Error.ApiErrorResponse;
+
+  export interface UserPostsResponseDto {
+    id: string;
+    email: string;
+    name: string;
+    studentId: string;
+    admissionYear: number;
+    profileImageUrl: string;
+    posts: Post.PostResponseDtoList;
+  }
 }

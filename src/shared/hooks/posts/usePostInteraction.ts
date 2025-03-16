@@ -60,13 +60,11 @@ export const usePostInteraction = () => {
   };
 
   const routerCallback = () => {
-    if (boardId === "my") {
+    if (boardId === "my" || boardId === "search") {
       router.back();
-    } else if (boardId === "search") {
-      router.back();
-    } else {
-      router.replace(`/board/${boardId}`);
+      return;
     }
+    router.replace(`/board/${boardId}`);
   };
 
   return {
