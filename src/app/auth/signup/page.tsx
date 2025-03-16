@@ -187,8 +187,9 @@ const SignUpPage = () => {
 
       await signup(selectedData); // signup 함수 호출
       toast.success("회원가입이 완료되었습니다.")
-      router.push("/auth/signin");
-
+      setTimeout(() => {
+        router.push("/auth/signin");
+      }, 500)
     } catch (error: any) {
       // 에러 발생 시 처리
       toast.error(error.message || "회원가입 중 문제가 발생했습니다."); // 에러 메시지 처리

@@ -8,7 +8,7 @@ export const NavigationBar = () => {
   const firstRouter = `/${usePathname().split("/")[1]}`;
 
   return (
-    <div className="fixed bottom-0 left-0 flex h-16 w-full items-center justify-evenly space-x-3 rounded-t-2xl bg-default xl:top-0 xl:h-screen xl:w-40 xl:flex-col xl:items-end xl:space-y-10 xl:rounded-r-3xl xl:rounded-tl-none">
+    <div className="fixed bottom-0 left-0 flex h-16 w-full items-start justify-evenly space-x-3 rounded-t-2xl bg-default pt-[3px] xl:top-0 xl:h-screen xl:w-40 xl:flex-col xl:items-end xl:space-y-10 xl:rounded-r-3xl xl:rounded-tl-none">
       <Image
         src="/images/cau-logo.png"
         alt="cau logo"
@@ -21,7 +21,7 @@ export const NavigationBar = () => {
         <Link
           key={iconClass.href}
           href={iconClass.href}
-          className={`h-[65px] w-[200px] ${
+          className={`h-[50px] w-[210px] ${
             firstRouter === iconClass.href ? "bg-[#F8F8F8]" : "bg-default"
           } flex flex-col items-center justify-center rounded-xl border-[5px] border-default xl:mb-0 xl:h-24 xl:w-11/12 xl:rounded-l-2xl xl:rounded-r-none xl:border-0`}
         >
@@ -29,7 +29,7 @@ export const NavigationBar = () => {
             className={`${iconClass.icon} ${
               firstRouter === iconClass.href ? "text-default" : "bg-[#F8F8F8]"
             } text-3xl xl:mr-3 xl:text-6xl`}
-          ></span>
+          />
         </Link>
       ))}
     </div>

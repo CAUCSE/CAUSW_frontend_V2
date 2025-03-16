@@ -8,7 +8,7 @@ import { useGetBoardList } from "@/shared";
 export const BoardList = () => {
   const { boards, boardInfoMap, loading, roles } = useGetBoardList();
 
-  const priorityOrder = ["서비스 공지", "학생회 공지", "소프트웨어학부 학부 공지", "동문회 공지"];
+  const priorityOrder = ["서비스 공지", "학생회 공지", "소프트웨어학부 학부 공지", "동문회 공지", "딜리버드"];
 
   // 우선순위 보드를 맨 앞에 배치하고 나머지는 기존 순서 유지
   const sortedBoards = [

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { UserService, AcademicRecordRscService, Modal, PreviousButton } from "@/shared";
+import { UserService, AcademicRecordService, Modal, PreviousButton } from "@/shared";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -20,7 +20,7 @@ const UpdataeAcademicRecordPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { checkIsAcademicRecordSubmitted } = UserService();
   const { updateAcademicRecord, postAcademicRecord } =
-    AcademicRecordRscService();
+  AcademicRecordService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const router = useRouter(); // useRouter 초기화
   const [isAlreadySubmitted, setIsAlreadySubmitted] = useState(false);
@@ -163,7 +163,7 @@ const UpdataeAcademicRecordPage = () => {
       }
 
       const response = isAlreadySubmitted
-        ? await updateAcademicRecord(data)
+        ? await postAcademicRecord(data)
         : await postAcademicRecord(data);
 
       

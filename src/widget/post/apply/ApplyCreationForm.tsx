@@ -93,7 +93,7 @@ export const ApplyCreationForm = ({
                     className={`h-[12px] w-[12px] cursor-pointer appearance-none border-[2px] border-solid border-[#A0A0A0] bg-[#D9D9D9] bg-[length:100%_100%] checked:border-[#FF0000] checked:bg-[#FF0000] sm:h-[18px] sm:w-[18px]`}
                   />
                   <p
-                    className={`text-[16px] ${watch("isQuestion") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
+                    className={`text-[16px] ${watch("isQuestion") ? "text-[#FF0000]" : "text-[#8C8C8C]"} text-nowrap`}
                   >
                     질문
                   </p>
@@ -106,7 +106,7 @@ export const ApplyCreationForm = ({
                     className={`h-[12px] w-[12px] cursor-pointer appearance-none border-[2px] border-solid border-[#A0A0A0] bg-[#D9D9D9] bg-[length:100%_100%] checked:border-[#FF0000] checked:bg-[#FF0000] sm:h-[18px] sm:w-[18px]`}
                   />
                   <p
-                    className={`text-[16px] ${watch("isAnonymous") ? "text-[#FF0000]" : "text-[#8C8C8C]"}`}
+                    className={`text-[16px] ${watch("isAnonymous") ? "text-[#FF0000]" : "text-[#8C8C8C]"} text-nowrap`}
                   >
                     익명
                   </p>

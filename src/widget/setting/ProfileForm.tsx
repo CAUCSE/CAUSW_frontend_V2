@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { UserRscService, AuthService } from "@/shared";
+import { AuthService, useUserStore, userQueryKey, UserService } from "@/shared";
 import { ProfileEditForm } from "@/entities/home/setting/personal-info/ProfileEditForm";
 import { Header, UserInfoContainer } from "@/entities";
 import { PreviousButton } from "@/shared";
+import { useQueryClient } from "@tanstack/react-query";
+
 
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;
@@ -17,9 +19,10 @@ interface ProfileFormProps {
   feeInfo: FeeInfoProps;
 }
 
+
 const ProfileForm: React.FC<ProfileFormProps> = ({
   userData,
-  feeInfo
+  feeInfo,
 }) => {
   const {
     register,
@@ -30,11 +33,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     clearErrors,
   } = useForm<User.userUpdateDto>();
 
-  
-
-  const { updateInfo } = UserRscService();
+  const queryClient = useQueryClient();
+  const setUserStore = useUserStore((state) => state.setUserStore);
+  const { updateInfo } = UserService();
   const { checkNicknameDuplicate } = AuthService();
-
   // 프로필 이미지 변경
   const [profileImagePreview, setProfileImagePreview] = React.useState(userData.profileImageUrl ??
     "/images/default_profile.png"
@@ -76,6 +78,13 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     }
   };
 
+  const refreshSideBar = (profileImageUrl: File) => {
+    setUserStore({
+      ...userData, // 기존 데이터 유지  
+      profileImageUrl: URL.createObjectURL(profileImageUrl)
+    });
+  }
+
   // 제출 핸들러
   const onSubmit = async (data: User.userUpdateDto, event: any) => {
     console.log(data);
@@ -83,6 +92,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
       event.preventDefault();
       await updateInfo(data);
       toast.success("변경 사항이 저장되었습니다.");
+      queryClient.invalidateQueries({queryKey: userQueryKey.all});
+      if (data.profileImage){
+        refreshSideBar(data.profileImage);  
+      }
     } catch (error: any) {
       if (error.status === 400) {
         toast.error("중복된 닉네임입니다.");
@@ -123,7 +136,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
       <div className="mt-8 flex justify-center">
         <button
           type="submit"
-          className="w-32 rounded-3xl bg-focus p-3 text-white hover:bg-blue-600 lg:w-80"
+          className="w-32 rounded-3xl bg-focus p-3 text-white hover:bg-blue-400 lg:w-80"
         >
           변경 사항 저장
         </button>
