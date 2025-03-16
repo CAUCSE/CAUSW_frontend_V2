@@ -10,8 +10,6 @@ export * from "./configs/regex";
 export * from "./configs/permission";
 
 //Query Key
-export { userQueryKey } from "./configs/query-key/userQueryKey";
-
 export * from "./configs/query-key";
 
 //Service

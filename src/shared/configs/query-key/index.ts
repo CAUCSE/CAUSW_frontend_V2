@@ -4,6 +4,7 @@ import { formQueryKey } from "./formQueryKey";
 import { lockerQueryKey } from "./lockerQueryKey";
 import { postQueryKey } from "./postQueryKey";
 import { settingQueryKey } from "./settingQueryKey";
+import { userQueryKey } from "./userQueryKey";
 
 export {
   boardQueryKey,
@@ -12,4 +13,5 @@ export {
   lockerQueryKey,
   postQueryKey,
   settingQueryKey,
+  userQueryKey,
 };
