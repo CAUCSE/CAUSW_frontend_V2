@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { UserRscService, NoButtonModal } from '@/shared';
+import { NoButtonModal, PreviousButton, UserService } from '@/shared';
+import toast from 'react-hot-toast';
 
 const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose: () => void; emailValue: string; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.AdmissionCreateRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const { submitAdmissionsApplication } = UserRscService();
+  const { submitAdmissionsApplication } = UserService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
 
@@ -75,48 +75,25 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
   const onSubmit = async (data:User.AdmissionCreateRequestDto) => {
     try {
       await submitAdmissionsApplication(data);
-      setIsSuccessModalOpen(true);
-    } catch (error) {
+      toast.success("가입 신청서 제출이 완료되었습니다.");
+      setTimeout(() => {
+        onClose()}, 500);
+    } catch (error: any) {
       // 에러 처리
-      console.log('실패');
-      console.log(error);
+      toast.error(error.response?.data?.message || "가입 신청서 제출에 실패했습니다.");
     }
   };
 
-    // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
-    const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
-    const closeInCompleteModal = () => {
-      setIsIncompleteModalOpen(false);
-    }
-
     const onInvalid = (errors: any) => {
       // 모든 필드를 입력하지 않았을 경우에 대한 로직
-      console.error('Form Errors:', errors);
-      setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
+      toast.error("모든 항목을 조건에 맞게 입력해주세요.");
     };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-boardPageBackground">
+      <PreviousButton routeCallback={() => onClose()}></PreviousButton>
               {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
-          <button
-            onClick={() => {onClose()}}
-            className="text-black-500 hover:text-gray-500 flex items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            이전
-          </button>
-        </div>
-      <div className="mb-6">
+      <div className="mb-6 mt-8">
         
         <h1 className="text-2xl font-bold">승인 신청서 작성</h1>
 
@@ -145,7 +122,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
               required: "자기소개 글을 작성해주세요."
              })}
             placeholder="자기소개 글을 작성해주세요. ( 250자 이내 )"
-            className="p-2 border border-gray-300 rounded-md w-full mb-1"
+            className="p-2 border border-gray-300 rounded-md w-full sm:w-2/3 mb-1"
           />
           {errors.description && <span className="text-red-500">{errors.description.message}</span>}
         </div>
@@ -221,27 +198,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
           </div>
         )}
 
-        {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
-              {isIncompleteModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={closeInCompleteModal}>
-          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">입력되지 않은 항목이 있습니다</h2>
-            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
-          </div>
-        </div>
-      )}
-            {/* 회원가입을 성공했을 때 표시되는 모달 */}
-            {isSuccessModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={() => {onClose()}}>
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-            <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">가입 신청서 제출 완료</h2>
-            <p>화면을 클릭하면 창이 닫힙니다.</p>
 
-            </div>
-          </div>
-        </div>
-      )}
             {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
         {rejectMessageModal && (
           <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
@@ -253,7 +210,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
         }
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
+          <button type="submit" className="bg-focus text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-400">
             변경 사항 저장
           </button>
         </div>

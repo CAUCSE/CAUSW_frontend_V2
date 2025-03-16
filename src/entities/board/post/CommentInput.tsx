@@ -47,7 +47,7 @@ export const CommentInput = ({handleAddComment}:CommentInputProps) => {
         </div>
         <input
           type="text"
-          placeholder="댓글을 입력해주새요!"
+          placeholder="댓글을 입력해주세요!"
           className="flex flex-grow bg-comment-input border-none outline-none text-black text-[16px] "
           value={commentContent}
           onChange={handleChange}

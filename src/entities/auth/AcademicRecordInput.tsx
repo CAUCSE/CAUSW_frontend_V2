@@ -2,21 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { AcademicRecordRscService, NoButtonModal } from '@/shared';
-import { useRouter } from 'next/navigation';
+import { NoButtonModal, PreviousButton } from '@/shared';
+import toast from 'react-hot-toast';
+import { useSubmitAcademicRecord } from '@/shared/hooks/auth/useSubmitApplication';
 
 const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void; rejectMessage: string | null}) => {
   const { register, handleSubmit, setValue, watch, formState: { errors }, setError } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>();
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter(); // useRouter 초기화
   const [academicStatus, setAcademicStatus] = useState<string>(''); // 학적 상태를 저장할 상태
-  const { postAcademicRecord } = AcademicRecordRscService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
+  const { mutate: submitAcademicRecord } = useSubmitAcademicRecord(onClose, academicStatus);
 
   const handleCancel = () => {
     // 취소 버튼을 클릭했을 때 모달을 닫습니다.
@@ -31,14 +28,7 @@ const SubmitAcademicRecordPage = ({onClose, rejectMessage}: {onClose: () => void
     yearOptions.push(year);
   }
   
-  // 완료 모달
-  const closeCompleteModal = () => {
-    if (academicStatus === "ENROLLED")
-{    handleCancel();}
-    else{
-      router.push('/auth/signin');
-    }
-};
+
 
 useEffect(() => {
   if (rejectMessage){
@@ -46,7 +36,6 @@ useEffect(() => {
   }
 }, []);
 
-  const files = watch("images") as FileList;
   const selectedAcademicStatus = watch('targetAcademicStatus');
 
   
@@ -99,64 +88,19 @@ useEffect(() => {
   };
 
 
-  const onSubmit = async (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
-    try {
-
-      if (data.targetAcademicStatus !== "GRADUATED")
-        {
-          data.graduationType = null
-          data.graduationYear = null
-        }
-        if (data.targetAcademicStatus !== "ENROLLED")
-        {
-          data.images = null
-        }
-      
-      const response = await postAcademicRecord(data);
-
-      // 서버에 전송하는 로직 작성 (axios 예시)
-      setIsSuccessModalOpen(true);
-    } catch (error: any) {
-      // 에러 처리
-      setErrorMessage(error.message ?? "알 수 없는 에러가 발생헀습니다.");
-      setIsErrorModalOpen(true);
-    }
+  const onSubmit = (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
+    submitAcademicRecord(data);
   };
-
-    // 필수 항목을 입력하지 않고, 또는 잘못 입력한 상태로 제출했을 경우
-    const [isIncompleteModalOpen, setIsIncompleteModalOpen] = useState(false);
-    const closeInCompleteModal = () => {
-      setIsIncompleteModalOpen(false);
-    }
 
     const onInvalid = (errors: any) => {
       // 모든 필드를 입력하지 않았을 경우에 대한 로직
-      console.error('Form Errors:', errors);
-      setIsIncompleteModalOpen(true);  // 모든 필드를 입력하지 않았을 때 모달을 띄움
+      toast.error("모든 항목을 조건에 맞게 입력해주세요.");
     };
 
   return (
-    <div className="p-6">
-              {/* 이전 버튼 */}
-              <div className="sticky top-0 bg-white z-1 w-full flex justify-left items-center py-2 mb-4">
-          <button
-            onClick={handleCancel}
-            className="text-black-500 hover:text-gray-500 flex items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            이전
-          </button>
-        </div>
-      <div className="mb-6">
+    <div className="p-6 bg-boardPageBackground min-h-screen">
+      <PreviousButton routeCallback={() => handleCancel()}></PreviousButton>
+      <div className="mt-8 mb-6">
         
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
         <p className="text-gray-600 hidden lg:block">
@@ -333,43 +277,6 @@ useEffect(() => {
           </div>
         )}
 
-        {/* 모든 필드를 입력하지 않았을 때 표시되는 모달 */}
-              {isIncompleteModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onClick={closeInCompleteModal}>
-          <div className="bg-white ml-4 mr-4 p-6 rounded-lg max-w-xs w-full grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">입력되지 않은 항목이 있습니다</h2>
-            <p className="mb-4">모든 항목을 조건에 맞게 입력해주세요.</p>
-          </div>
-        </div>
-      )}
-            {/* 증빙서류 제출 성공했을 때 표시되는 모달 */}
-            {isSuccessModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={closeCompleteModal}>
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-            <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 완료</h2>
-{academicStatus === "ENROLLED" && (            <p>화면을 클릭하면 환경 설정 페이지로 이동합니다.</p>
-)}
-{academicStatus !== "ENROLLED" && (            <p>화면을 클릭하면 로그인 페이지로 이동합니다.</p>
-)}
-
-            </div>
-          </div>
-        </div>
-      )}
-            {/* 증빙서류 제출 실패했을 때 표시되는 모달 */}
-            {isErrorModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto" onClick={() =>{setIsErrorModalOpen(false)}}>
-          <div className="bg-white p-8 rounded-lg w-xs h-xs justify-center items-center overflow-y-auto">
-            <div className = "grid justify-items-center">
-            <h2 className="text-xl font-bold mb-4">증빙 서류 제출 실패</h2>
-            <p>{errorMessage}</p>
-
-            </div>
-          </div>
-        </div>
-      )}
-
             {/* 지난 제출 때 거절당했을 때 표시되는 모달 */ }
             {rejectMessageModal && (
           <NoButtonModal closeModal = {() => setRejectMessageModal(false)}>
@@ -382,7 +289,7 @@ useEffect(() => {
 
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="bg-blue-500 text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-600">
+          <button type="submit" className="bg-focus text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-400">
             변경 사항 저장
           </button>
         </div>

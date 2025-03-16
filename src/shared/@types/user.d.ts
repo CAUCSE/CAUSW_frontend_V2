@@ -177,6 +177,14 @@ declare namespace User {
     images: FileList | null;
   }
 
+  interface StatusButtonProps {
+    status: StatusType;
+    messages: Record<StatusType, string>;
+    onClick?: () => void;
+  }
+
+  type StatusType = 'AWAIT' | 'COMPLETE' | 'REJECTED' | 'UNDONE' | 'BANNED';
+
   export interface FindPostsResponse {
     posts: Model.HistoryPost[];
     last: boolean;

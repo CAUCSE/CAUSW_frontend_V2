@@ -4,11 +4,11 @@ content?: string;
 }
 
 const UserInfo: React.FC<UserInfoProps> = ({ title, content }) => {
-return (<div className="mb-4">
-    <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
+return (<div className="mb-4 max-w-40">
+    <label className="mb-1 block text-sm font-semibold lg:text-lg">
     {title}
     </label>
-    <p className="text-gray-700">{content || <>&nbsp;</>}</p>
+    <p className="text-gray-700 break-words overflow-hidden">{content || <>&nbsp;</>}</p>
 </div>)
 }
 
