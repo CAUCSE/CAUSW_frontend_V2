@@ -1,8 +1,8 @@
 "use client";
 
-import { useUserStore } from "@/shared";
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
+import { getTimeDifference } from "@/utils/format";
 
 // 여기도 좋아요 싫어요 디자인 문의하기
 interface ChildCommentCardProps {
@@ -33,27 +33,7 @@ export const ChildCommentCard = ({
       handleChildCommentLike();
     }
   };
-  const getTimeDifference = (ISOtime: string) => {
-    const createdTime = new Date(ISOtime);
-    const now = new Date();
-    const diffMSec = now.getTime() - createdTime.getTime();
-    const diffMin = Math.round(diffMSec / (60 * 1000));
-    if (diffMin === 0) {
-      return `방금 전`;
-    } else if (diffMin < 60) {
-      return `${diffMin}분 전`;
-    } else if (
-      now.getFullYear() === createdTime.getFullYear() &&
-      now.getMonth() === createdTime.getMonth() &&
-      now.getDate() === createdTime.getDate()
-    ) {
-      return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
-    } else if (now.getFullYear() === createdTime.getFullYear()) {
-      return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
-    } else {
-      return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
-    }
-  };
+
   const popMenuList = [
     { message: "댓글 삭제", handleBtn: handleDeleteChildComment },
   ];

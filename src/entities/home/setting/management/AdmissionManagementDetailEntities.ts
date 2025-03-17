@@ -1,22 +1,36 @@
 import { SettingRscService } from "@/shared";
-
+import toast from "react-hot-toast";
 type state = "admission" | "reject" | "active" | "drop" | "inactive";
 
 const admitTarget = async (userId) => {
   const { acceptAdmission } = SettingRscService();
-  if (await acceptAdmission(userId)) {
-    alert("승인되었습니다");
-  } else {
-    alert("승인에 실패했습니다. 관리자에게 문의하세요");
+
+  try {
+    await acceptAdmission(userId)
+    toast.success("승인이 완료되었습니다.")
+    setTimeout(() => {
+      window.location.assign(`/setting/management/user/admission`);
+    }, 500);
   }
+  catch {
+    toast.error("승인에 실패했습니다. 관리자에게 문의하세요");
+  }
+
 };
 
 const restoreTarget = async (userId) => {
   const { restoreUser } = SettingRscService();
-  if (await restoreUser(userId)) {
-    alert("사용자가 복구되었습니다.");
-  } else {
-    alert("복구에 실패했습니다. 관리자에게 문의하세요");
+  
+  try {
+    await restoreUser(userId);
+    toast.success("사용자가 복구되었습니다다.")
+    setTimeout(() => {
+      window.location.assign(`/setting/management/user/active`);
+    }, 500);
+
+
+  } catch(error) {
+    toast.error("복구에 실패했습니다. 관리자에게 문의하세요");
   }
 };
 
@@ -39,7 +53,6 @@ export const uiEntities: Record<
         variant: "BLUE",
         action: async (admission) => {
           await admitTarget(admission.id);
-          window.location.assign(`/setting/management/user/admission`);
         },
       },
       {
@@ -91,7 +104,6 @@ export const uiEntities: Record<
         variant: "BLUE",
         action: async (admission) => {
           await restoreTarget(admission.id);
-          window.location.assign(`/setting/management/user/drop`);
         },
       },
       {
@@ -252,5 +264,11 @@ export const titleMappingForCircle = Object.keys(titleMapping)
 
 export const titleMappingForRejected: Record<keyof any, string> = {
   ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
+  evidentImg: "학부 재적/졸업 증빙 자료",
   rejectionOrDropReason: "거부/ 추방 사유", // 추가된 항목
+};
+
+export const titleMappingForUser: Record<keyof any, string> = {
+  ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
+  evidentImg: "학부 재적/졸업 증빙 자료",
 };

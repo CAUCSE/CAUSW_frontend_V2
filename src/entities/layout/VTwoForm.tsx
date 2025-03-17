@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Header, Line, SubHeader } from "@/entities";
 import {
   AuthService,
-  UserRscService,
   useUserStore,
   UserService,
 } from "@/shared";
@@ -14,8 +13,7 @@ export const VTwoForm = () => {
   const checkVTwo = useUserStore((state) => state.checkVTwo);
 
   const { checkNicknameDuplicate } = AuthService();
-  const { updateInfo } = UserRscService();
-  const { updateVTwo } = UserService();
+  const { updateVTwo, updateInfo } = UserService();
   const {
     register,
     handleSubmit,
@@ -75,7 +73,7 @@ export const VTwoForm = () => {
       <div className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50"></div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="fixed left-1/2 top-1/2 z-50 flex h-3/5 w-screen max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-lg bg-white"
+        className="fixed left-1/2 top-1/2 z-50 flex h-4/5 w-screen max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-lg bg-white"
       >
         <Header bold>CAUSW 동문 네트워크 V2</Header>
         <SubHeader big>두번째 이야기에 오신것을 환영합니다.</SubHeader>
@@ -92,16 +90,25 @@ export const VTwoForm = () => {
             <input
               className="w-full rounded-lg border-2 border-gray-300 p-2"
               type="text"
-              placeholder="-를 넣어 작성해주세요. ex) 010-1234-1234"
+              placeholder="-을 포함해서 작성해주세요. ex) 010-1234-1234"
               {...register("phoneNumberHyphen", {
                 required: "연락처를 입력해주세요",
                 pattern: {
-                  value: /^([0-9]{10,11})$/,
-                  message: "전화번호 형식이 아닙니다.",
+                  value: /^(01[016789]-\d{3,4}-\d{4})$/,
+                  message: `올바른 전화번호 형식이 아닙니다.\n예) 010-1234-5678`,
                 },
               })}
             />
-            <p className="text-error">{errors?.phoneNumberHyphen?.message}</p>
+            <p className="text-error">
+              {errors?.phoneNumberHyphen?.message?.split("\n").map((line, index) => (
+                <div key={index} className="text-center">
+                  {line}
+                  <br />
+                </div>
+              ))}
+            </p>
+
+
           </div>
 
           <div className="flex w-full flex-col items-center sm:w-1/2">

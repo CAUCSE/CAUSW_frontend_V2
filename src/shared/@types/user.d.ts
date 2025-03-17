@@ -147,7 +147,7 @@ declare namespace User {
     major: string;
     agreeToTerms: boolean;
     agreeToPopup: boolean;
-    phoneNumberHyphen: string;
+    phoneNumber: string;
   }
 
   export interface SignUpFormPost {
@@ -176,6 +176,14 @@ declare namespace User {
     note: string;
     images: FileList | null;
   }
+
+  interface StatusButtonProps {
+    status: StatusType;
+    messages: Record<StatusType, string>;
+    onClick?: () => void;
+  }
+
+  type StatusType = 'AWAIT' | 'COMPLETE' | 'REJECTED' | 'UNDONE' | 'BANNED';
 
   export interface FindPostsResponse {
     posts: Model.HistoryPost[];
@@ -271,7 +279,7 @@ declare namespace User {
   export interface UseUserStore extends User {
     setUserStore: (props: User.User & { isV2: boolean }) => void;
 
-    checkVTwo: boolaen;
+    checkVTwo: boolean;
 
     roleTxt: () => string;
     nameWithAdmission: () => string;
@@ -290,4 +298,14 @@ declare namespace User {
 
   //DTO
   export type UserDto = User & Error.ApiErrorResponse;
+
+  export interface UserPostsResponseDto {
+    id: string;
+    email: string;
+    name: string;
+    studentId: string;
+    admissionYear: number;
+    profileImageUrl: string;
+    posts: Post.PostResponseDtoList;
+  }
 }

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { onClickAlert } from "@/shared";
+//import { onClickAlert } from "@/shared";
 
 import { useLayoutStore, AuthService, emailRegex } from "@/shared";
 import {
@@ -21,7 +21,7 @@ const routes = [
   { name: "회원가입하기", route: "/auth/signup" },
   { name: "아이디 찾기", route: "/auth/findemail" },
   { name: "비밀번호 찾기", route: "/auth/findpassword" },
-  { name: "알림 허용하기", route: "/auth/test", handler: onClickAlert },
+  //{ name: "알림 허용하기", route: "/auth/test", handler: onClickAlert },
 ];
 
 const SignInPage = () => {
@@ -134,7 +134,7 @@ const SignInPage = () => {
                     <div
                       key={route.name}
                       onClick={() => {
-                        if (route.handler) route.handler();
+                        //if (route.handler) route.handler();
                         router.push(route.route);
                       }}
                       className="border-b-2-white font-boerder mb-2 border-b text-xs text-white sm:text-[16px] md:mt-1 md:hidden"
@@ -153,7 +153,7 @@ const SignInPage = () => {
             <div
               key={route.name}
               onClick={() => {
-                if (route.handler) route.handler();
+                //if (route.handler) route.handler();
                 router.push(route.route);
               }}
               className="border-b-2-white font-boerder mt-2 hidden border-b text-white md:mt-1 md:block"

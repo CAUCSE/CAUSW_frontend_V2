@@ -1,14 +1,12 @@
 "use client";
 
+import { API, settingQueryKey } from "@/shared";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+
 import { AxiosResponse } from "axios";
-import { useRouter } from "next/navigation";
-import { API } from "@/shared";
-import { useQuery } from "@tanstack/react-query";
 
 export const SettingService = () => {
   const URI = "/api/v1/users";
-
-  const router = useRouter();
 
   const getUserByName = async (name: string) => {
     const { data } = (await API.get(`${URI}/name/${name}`)) as AxiosResponse<
@@ -57,28 +55,61 @@ export const SettingService = () => {
     });
   };
 
-  const getMyPosts = async () => {
-    const { data } = (await API.get(
-      `${URI}/posts/written`,
-    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
-
-    return data.posts.content;
+  const useGetMyPosts = () => {
+    return useInfiniteQuery({
+      queryKey: settingQueryKey.myPost(),
+      queryFn: async ({ pageParam }) => {
+        const { data }: { data: User.UserPostsResponseDto } = await API.get(
+          `${URI}/posts/written?pageNum=${pageParam}`,
+        );
+        return data;
+      },
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => {
+        return lastPage.posts.last ? null : lastPage.posts.number + 1;
+      },
+      select: (data) => {
+        return data.pages.flatMap((page) => page.posts.content);
+      },
+    });
   };
 
-  const getMyCommentPosts = async () => {
-    const { data } = (await API.get(
-      `${URI}/comments/written`,
-    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
-
-    return data.posts.content;
+  const useGetMyCommentPosts = () => {
+    return useInfiniteQuery({
+      queryKey: settingQueryKey.myCommentPost(),
+      queryFn: async ({ pageParam }) => {
+        const { data }: { data: User.UserPostsResponseDto } = await API.get(
+          `${URI}/comments/written?pageNum=${pageParam}`,
+        );
+        return data;
+      },
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => {
+        return lastPage.posts.last ? null : lastPage.posts.number + 1;
+      },
+      select: (data) => {
+        return data.pages.flatMap((page) => page.posts.content);
+      },
+    });
   };
 
-  const getMyFavoritePosts = async () => {
-    const { data } = (await API.get(
-      `${URI}/posts/favorite`,
-    )) as AxiosResponse<Setting.GetMyPostsResponseDto>;
-
-    return data.posts.content;
+  const useGetMyFavoritePosts = () => {
+    return useInfiniteQuery({
+      queryKey: settingQueryKey.myFavoritePost(),
+      queryFn: async ({ pageParam }) => {
+        const { data }: { data: User.UserPostsResponseDto } = await API.get(
+          `${URI}/posts/favorite?pageNum=${pageParam}`,
+        );
+        return data;
+      },
+      initialPageParam: 0,
+      getNextPageParam: (lastPage) => {
+        return lastPage.posts.last ? null : lastPage.posts.number + 1;
+      },
+      select: (data) => {
+        return data.pages.flatMap((page) => page.posts.content);
+      },
+    });
   };
 
   const getApplyBoards = async (id: string) => {
@@ -119,9 +150,9 @@ export const SettingService = () => {
     updateRole,
     useGetAttendanceUser,
     useGetWaitingUser,
-    getMyPosts,
-    getMyCommentPosts,
-    getMyFavoritePosts,
+    useGetMyPosts,
+    useGetMyCommentPosts,
+    useGetMyFavoritePosts,
     getApplyBoards,
     getUserByName,
     rejectApplyBoards,

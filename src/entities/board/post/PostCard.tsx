@@ -1,12 +1,15 @@
 "use client";
 
-import { usePostStore, useVoteStore, VoteRscService } from "@/shared";
+import { VoteRscService, usePostStore, useVoteStore } from "@/shared";
+import { useParams, useRouter } from "next/navigation";
+
 import Image from "next/image";
 import { PopupMenu } from "./PopupMenu";
 import VotingSection from "./VotingSection";
-import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
+import { ImageList } from "@/shared/ui/ImageList";
+
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
 interface PostCardProps {
@@ -48,7 +51,7 @@ export const PostCard = ({
     ? "/images/default_profile.png"
     : postData.writerProfileImage;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [popupImage, setPopupImage] = useState<string | null>(null);
+  const [popupIndex, setPopupIndex] = useState<number | null>(null);
 
   const {
     vote,
@@ -73,48 +76,6 @@ export const PostCard = ({
     }
   };
 
-  const handleImageClick = (imageUrl: string) => {
-    setPopupImage(imageUrl);
-    setIsPopupOpen(true);
-  };
-
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
-    setPopupImage(null);
-  };
-
-  const openFileLink = (url) => {
-    const fileName = decodeURIComponent(
-      url.substring(url.lastIndexOf("/") + 1),
-    ); // 파일명 추출 후 디코딩
-    const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자 추출
-
-    if (
-      fileExtension === "pdf" ||
-      fileExtension === "jpg" ||
-      fileExtension === "png"
-    ) {
-      // PDF나 이미지 파일은 새 탭에서 열기
-      window.open(url, "_blank");
-    } else {
-      // 그 외 파일은 다운로드
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  };
-
-  const extractFileName = (url) => {
-    const decodeFile = decodeURIComponent(
-      url.substring(url.lastIndexOf("/") + 1),
-    );
-    const filename = decodeFile.split("_")[0];
-    const fileExtension = decodeFile.substring(decodeFile.lastIndexOf(".") + 1);
-    return filename + "." + fileExtension;
-  };
   //const {isPopupVisible} = usePostStore();
   const router = useRouter();
   const params = useParams();
@@ -155,7 +116,7 @@ export const PostCard = ({
       <div className="flex flex-row items-center p-2">
         <Image
           src={userImage ?? "/images/default_profile.png"}
-          alt="Comment Profil"
+          alt="Comment Profile"
           width={80}
           height={80}
           className="m-2 bg-contain bg-center bg-no-repeat"
@@ -171,10 +132,10 @@ export const PostCard = ({
 
       <div className="flex w-full flex-col items-start px-3">
         <div className="w-full">
-          <div className="mb-2 px-1 text-[24px] font-medium">
+          <div className="mb-2 select-text px-1 text-[24px] font-medium">
             {postData.title}
           </div>
-          <div className="mb-2 whitespace-pre-wrap px-1 pb-2 text-[16px]">
+          <div className="mb-2 select-text whitespace-pre-line break-words px-1 pb-2 text-[16px]">
             {postData.content}
           </div>
 
@@ -189,66 +150,8 @@ export const PostCard = ({
         </div>
 
         <div className="relative">
-          <div className="grid w-full auto-cols-max grid-flow-col gap-2 overflow-x-auto pb-3 scrollbar-hide">
-            {postData.fileUrlList.map((attachment, index) =>
-              isImageFile(attachment) ? (
-                <div
-                  key={index}
-                  className="w-min-20 h-min-20 h-20 w-20 border border-black bg-cover bg-center"
-                  style={{ backgroundImage: `url(${attachment})` }}
-                  onClick={() => handleImageClick(attachment)}
-                />
-              ) : (
-                <div
-                  key={index}
-                  className="w-min-20 h-min-20 flex h-20 w-20 flex-col items-center justify-center space-y-2 border border-black p-2"
-                  onClick={() => openFileLink(attachment)}
-                >
-                  <Image
-                    src="/images/post/file-icon.svg"
-                    alt={extractFileName(attachment)}
-                    width={30}
-                    height={30}
-                  />
-                  <span className="text-[10px]">
-                    {extractFileName(attachment)}
-                  </span>
-                </div>
-              ),
-            )}
-          </div>
-          {isPopupOpen && popupImage && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-              <div className="relative flex max-h-[90vh] max-w-[90vw] items-center justify-center">
-                <div className="relative h-auto w-auto bg-black">
-                  <Image
-                    src={popupImage}
-                    alt="Preview Image"
-                    width={300} // 기본 너비를 지정합니다. 필요시 조정
-                    height={300} // 기본 높이를 지정합니다. 필요시 조정
-                    objectFit="contain" // 원본 비율 유지
-                    unoptimized
-                  />
-                </div>
-                <button
-                  onClick={handleClosePopup}
-                  className="absolute right-1 top-1 flex h-10 w-10 items-center justify-center text-white hover:bg-gray-700"
-                >
-                  x
-                </button>
-                <button
-                  onClick={() => openFileLink(popupImage)}
-                  className="absolute right-[40px] top-1 z-50 flex h-10 w-10 items-center justify-center text-white"
-                >
-                  ↓
-                </button>
-              </div>
-              <div
-                className="fixed inset-0 z-40 bg-transparent"
-                onClick={handleClosePopup}
-              ></div>
-            </div>
-          )}
+        <ImageList images={postData.fileUrlList} imageSize={90} />
+
         </div>
       </div>
 
