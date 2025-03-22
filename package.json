@@ -31,6 +31,7 @@
   "devDependencies": {
     "@iconify/json": "^2.2.226",
     "@iconify/tailwind": "^1.1.1",
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-csv": "^1.1.10",
