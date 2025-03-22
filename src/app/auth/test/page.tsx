@@ -5,43 +5,40 @@ import { useEffect, useState } from "react";
 
 import "@/firebase-messaging-sw";
 
-const getDeviceType = () => {
-  const userAgent = navigator.userAgent || navigator.vendor;
+export const getDeviceType = (): "android" | "ios" | "ipad" | "desktop" => {
+  const ua = navigator.userAgent.toLowerCase();
 
-  if (/android/i.test(userAgent)) {
-    return "Android";
-  }
+  const forced = process.env.NEXT_PUBLIC_FORCE_DEVICE_TYPE; 
+  // Android
+  if (/android/.test(ua)) return "android";
 
-  if (/iPad/i.test(userAgent)) {
-    return "iPadOS";
-  }
+  // iPhone, iPod
+  if (/iphone|ipod/.test(ua)) return "ios";
 
-  if (/iPhone|iPod/i.test(userAgent) && !(window as any).MSStream) {
-    return "iOS";
-  }
+  // iPad (modern iPadOS가 userAgent에 Mac처럼 보이는 경우도 커버)
+  const isIpad = /ipad/.test(ua) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (isIpad) return "ipad";
 
-  if (/Win/i.test(userAgent)) {
-    return "Windows";
-  }
-
-  if (/Macintosh/i.test(userAgent)) {
-    return "Mac";
-  }
-
-  return "Web";
+  return "desktop";
 };
 
+const requestPushPermission = async () => {
+  if (Notification.permission === "granted") {
+    alert("알림 이미 허용됨 ✅");
+  } else if (Notification.permission === "denied") {
+    alert("알림 차단됨 ❌");
+  } else {
+    alert("알림 권한 요청 필요 🔔");
+  }
+  Notification.requestPermission().then((permission) => {
+    alert(`새 권한 상태:, ${permission}`);
+  });
+};
 
 const Page = () => {
   const [token, setToken] = useState("NaN");
   const [deviceType, setDeviceType] = useState("Unknown");
-
-  const requestPushPermission = async () => {
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      alert("알림 권한이 허용되지 않았습니다. 😢");
-      return;
-  }}
 
   useEffect(() => {
     const messaging = getMessaging();
