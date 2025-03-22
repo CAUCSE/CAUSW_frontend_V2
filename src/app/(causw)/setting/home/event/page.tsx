@@ -13,9 +13,9 @@ const EventSetting = () => {
   }
   return (
     <div className="flex h-full w-full flex-col gap-10 p-8">
-      <div className="flex justify-between">
-        <Link href=".." className="flex items-center">
-          <i className="icon-[ooui--next-rtl]" />
+      <div className="flex items-center justify-between">
+        <Link href=".." className="flex items-center text-lg">
+          <span className="icon-[weui--back-filled] mr-6 text-xl font-bold md:text-3xl"></span>
           이전
         </Link>
         <Link
