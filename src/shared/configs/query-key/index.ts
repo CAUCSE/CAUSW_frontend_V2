@@ -1,4 +1,5 @@
 import { boardQueryKey } from "./boardQueryKey";
+import { calendarQueryKey } from "./calendarQueryKey";
 import { eventQueryKey } from "./eventQueryKey";
 import { formQueryKey } from "./formQueryKey";
 import { lockerQueryKey } from "./lockerQueryKey";
@@ -14,4 +15,5 @@ export {
   postQueryKey,
   settingQueryKey,
   userQueryKey,
+  calendarQueryKey,
 };
