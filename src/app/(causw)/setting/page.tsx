@@ -1,9 +1,11 @@
 "use client";
 
-import { userRoleCodes, useUserStore } from "@/shared";
-import Link from "next/link";
 import React, { useState } from "react";
+import { useUserStore, userRoleCodes } from "@/shared";
+
+import Link from "next/link";
 import { UseTerms } from "@/entities/home/useTerms";
+
 const SettingsPage = () => {
   const {
     roles,
@@ -73,7 +75,7 @@ const SettingsPage = () => {
     delegation: [...roleItems, ...circleLeaderItems],
     homeManagement: [
       { name: "이벤트 배너 공지 편집", link: "/setting/home/event" },
-      { name: "캘린더 편집", link: "/setting/home/calendar" },
+      { name: "캘린더 관리", link: "/setting/home/calendar" },
     ],
 
     /* clubManagement: (circleId: string) => [

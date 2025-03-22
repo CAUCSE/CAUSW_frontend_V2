@@ -1,83 +1,65 @@
-import { CardBox } from "@/entities/home";
-import { HomeRscService } from "@/shared";
-import Image from "next/image";
+"use client";
+
+import { CalendarCard, LoadingComponent } from "@/entities";
+import { CalendarService, CustomYearSelect, EmptyComponent } from "@/shared";
+
+import AddIcon from "../../../../../../public/icons/add_icon.svg";
 import Link from "next/link";
+import { useState } from "react";
 
-const CalendarCard = ({
-  imgSrc,
-  year,
-  month,
-  editDate,
-}: {
-  imgSrc: string;
-  year: number;
-  month: number;
-  editDate: string;
-}) => {
-  return (
-    <CardBox className="flex h-fit w-full justify-between gap-[17px] rounded-2xl p-[14px]">
-      <div className="flex flex-col justify-between">
-        <p className="text-[16px] lg:text-[32px]">
-          {year}년 {month}월
-        </p>
-
-        <p className="text-[10px] text-[#B4B1B1] lg:text-[15px]">
-          최종 수정일: {editDate}
-        </p>
-      </div>
-      <Image
-        src={imgSrc}
-        alt="banner"
-        width={145}
-        height={145}
-        className="h-[145px] w-[145px] object-cover"
-      />
-    </CardBox>
+const CalendarSettingPage = () => {
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear(),
   );
-};
-
-export default async function CalendarSettingPage() {
-  const { getCalendars } = HomeRscService();
-  let calendars: Home.Calendar[] = [];
-  try {
-    calendars = (await getCalendars(2024)).calendars;
-  } catch (e: any) {
-    console.error(e.message);
+  const { useGetCalendarList } = CalendarService();
+  const { data, isLoading } = useGetCalendarList({ year: selectedYear });
+  const calendars = data?.calendars;
+  if (isLoading) {
+    return <LoadingComponent />;
   }
 
   return (
-    <div className="flex h-full w-full flex-col gap-5 p-3 lg:gap-10 lg:p-8">
-      <div className="flex justify-between">
-        <Link href=".." className="flex items-center">
-          <i className="icon-[ooui--next-rtl]" />
+    <div className="flex h-full w-full flex-col lg:p-8">
+      <header className="my-4 flex w-full flex-col gap-4">
+        <Link href=".." className="mb-7 flex items-center text-lg">
+          <span className="icon-[weui--back-filled] mr-6 text-xl font-bold md:text-3xl"></span>
           이전
         </Link>
-        <Link
-          href="./calendar/new"
-          className="rounded-full border border-black bg-white px-5 py-2 max-lg:text-[13px] lg:px-8 lg:py-3"
-        >
-          캘린더 추가
-        </Link>
-      </div>
-      <p className="text-[21px] font-medium lg:text-[40px]">캘린더 편집</p>
-      {/* <CalendarCard
-        imgSrc="/images/calendar-dummy.png"
-        year={2021}
-        month={10}
-        editDate="2021.10.10"
-      /> */}
-      {calendars &&
-        calendars.map(({ image, year, month, updatedAt }) => (
-          <CalendarCard
-            key={year + month}
-            imgSrc={image}
-            year={year}
-            month={month}
-            editDate={updatedAt}
-          />
-        ))}
+        <div className="flex items-center gap-4">
+          <p className="text-xl font-medium lg:text-3xl">캘린더 관리</p>
+          <button className="flex h-6 w-6 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF]">
+            <Link
+              href="./calendar/new"
+              className="flex items-center justify-center"
+            >
+              <AddIcon />
+            </Link>
+          </button>
+        </div>
+        <CustomYearSelect
+          initialValue={selectedYear}
+          setSelectValue={setSelectedYear}
+        />
+      </header>
 
+      {calendars?.length === 0 ? (
+        <EmptyComponent message="등록된 캘린더가 없습니다." />
+      ) : (
+        <div className="grid w-full grid-cols-1 place-items-center gap-x-4 gap-y-8 overflow-y-auto px-2 pb-4 sm:grid-cols-2 lg:grid-cols-3">
+          {calendars!.map(({ image, year, month, updatedAt }) => (
+            <CalendarCard
+              key={year + month}
+              imgSrc={image}
+              year={year}
+              month={month}
+              editDate={updatedAt}
+            />
+          ))}
+        </div>
+      )}
       {/* {events && <p>이벤트 목록</p>} */}
     </div>
   );
-}
+};
+
+export default CalendarSettingPage;

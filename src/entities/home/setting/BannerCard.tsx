@@ -28,7 +28,7 @@ export const BannerCard = ({
 
   return (
     <Link href={`./event/${bannerId}?bannerImg=${imgSrc}&url=${url}`}>
-      <CardBox className="flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
+      <CardBox className="relative flex h-[240px] w-full flex-col gap-[17px] rounded-2xl p-[14px]">
         <Image
           src={imgSrc}
           alt="banner"
@@ -36,14 +36,9 @@ export const BannerCard = ({
           width={1100}
           className="h-[150px] w-[1100px] object-cover"
         />
-        <div className="flex justify-between">
-          <p>{url}</p>
-          <div className="flex items-end gap-[18px]">
-            <p className="text-[15px] text-[#B4B1B1]">{date}</p>
-            <button onClick={handleDeleteEvent} className="z-10">
-              <i className="icon-[fa6-regular--trash-can] h-[50px] w-[50px]" />
-            </button>
-          </div>
+        <div className="flex flex-col text-sm md:text-base">
+          <p className="">{url}</p>
+          <p className="text-[#B4B1B1]">{date}</p>
         </div>
       </CardBox>
     </Link>
