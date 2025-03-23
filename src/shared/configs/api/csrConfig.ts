@@ -1,13 +1,13 @@
 import axios from "axios";
 
 import {
-  BASEURL,
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
-  AuthService,
   AuthRscService,
 } from "@/shared";
+
+import { BASEURL } from "./url";
 
 export const API = axios.create({
   baseURL: BASEURL,
