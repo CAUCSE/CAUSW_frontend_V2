@@ -1,7 +1,7 @@
 "use client";
 
 import { SettingService } from "@/shared";
-import { LoadingComponent, Header, SubHeader } from "@/entities";
+import { LoadingComponent, Header, SubHeader } from "@/_deprecated/entities";
 import Link from "next/link";
 import { useRef } from "react";
 

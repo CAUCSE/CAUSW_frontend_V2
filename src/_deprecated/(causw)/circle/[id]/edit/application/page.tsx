@@ -1,6 +1,10 @@
 "use client";
 
-import { CircleApplyQuestion, CustomCheckBox, Question } from "@/entities";
+import {
+  CircleApplyQuestion,
+  CustomCheckBox,
+  Question,
+} from "@/_deprecated/entities";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import React, { useEffect, useRef, useState } from "react";
 

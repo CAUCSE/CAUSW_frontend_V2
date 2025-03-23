@@ -1,6 +1,6 @@
 import { CircleRscService } from "@/shared";
 
-import { Management } from "@/widget";
+import { Management } from "@/_deprecated/widget";
 
 const CircleManagement = async ({
   params: { state, id },

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { SettingRscService } from "@/shared";
-import { Management } from "@/widget";
+import { Management } from "@/_deprecated/widget";
 
 const PayerManagement = async () => {
   const { getPayers } = SettingRscService();

@@ -1,4 +1,4 @@
-import { OccasionRegistrationForm } from "@/widget";
+import { OccasionRegistrationForm } from "@/_deprecated/widget";
 
 const RegisterPage = () => {
   return (

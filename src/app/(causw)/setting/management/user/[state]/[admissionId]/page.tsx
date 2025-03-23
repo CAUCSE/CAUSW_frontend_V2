@@ -1,11 +1,11 @@
-import { ManagementDetail, ManagementState } from "@/widget";
+import { ManagementDetail, ManagementState } from "@/_deprecated/widget";
 const UserManagementDetail = async ({
   params,
 }: {
   params: { state: string; admissionId: string };
 }) => {
   const { state, admissionId } = params;
-  
+
   return (
     <ManagementDetail
       state={state as ManagementState}

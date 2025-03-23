@@ -6,9 +6,9 @@ import {
   LockerSelectionGrid,
   LockerSelectionHeader,
   LockerSelectionMobileManual,
-} from "@/widget";
+} from "@/_deprecated/widget";
 
-import { LoadingComponent } from "@/entities";
+import { LoadingComponent } from "@/_deprecated/entities";
 import { LockerService } from "@/shared";
 import { useParams } from "next/navigation";
 

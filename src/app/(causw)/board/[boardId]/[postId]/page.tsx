@@ -6,7 +6,7 @@ import {
   CommentInput,
   LoadingComponent,
   PostCard,
-} from "@/entities";
+} from "@/_deprecated/entities";
 import {
   PreviousButton,
   useChildCommentStore,

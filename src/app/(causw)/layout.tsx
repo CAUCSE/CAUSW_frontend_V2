@@ -1,5 +1,5 @@
-import { NavigationBar, VTwoForm } from "@/entities";
-import { SideBar } from "@/widget";
+import { NavigationBar, VTwoForm } from "@/_deprecated/entities";
+import { SideBar } from "@/_deprecated/widget";
 
 export default function HomeLayout({
   children,

@@ -5,7 +5,7 @@ import {
   FilePreview,
   PostForm,
   VotingForm,
-} from "@/entities";
+} from "@/_deprecated/entities";
 import {
   PreviousButton,
   useCreateApply,
@@ -15,7 +15,7 @@ import {
   usePostForm,
 } from "@/shared";
 
-import { ApplyCreationForm } from "@/widget";
+import { ApplyCreationForm } from "@/_deprecated/widget";
 import React from "react";
 
 const CreatePostPage = () => {

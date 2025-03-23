@@ -1,6 +1,6 @@
 "use client";
 
-import { MyPageHeader, MyPostList } from "@/widget";
+import { MyPageHeader, MyPostList } from "@/_deprecated/widget";
 
 import { SettingService } from "@/shared";
 

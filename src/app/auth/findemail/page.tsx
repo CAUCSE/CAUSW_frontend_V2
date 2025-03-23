@@ -1,7 +1,11 @@
 "use client";
 
 import { AuthService, useFindAccountStore } from "@/shared";
-import { FormErrorMessage, FormInput, FormSubmitButton } from "@/entities";
+import {
+  FormErrorMessage,
+  FormInput,
+  FormSubmitButton,
+} from "@/_deprecated/entities";
 import React, { useCallback } from "react";
 
 import { useForm } from "react-hook-form";
@@ -22,19 +26,15 @@ const FindEmailPage = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const {
-    email,
-    setName,
-    setStudentId,
-    resetFindAccountStore,
-  } = useFindAccountStore(
-    useShallow((state) => ({
-      email: state.email,
-      setName: state.setName,
-      setStudentId: state.setStudentId,
-      resetFindAccountStore: state.resetFindAccountStore,
-    })),
-  );
+  const { email, setName, setStudentId, resetFindAccountStore } =
+    useFindAccountStore(
+      useShallow((state) => ({
+        email: state.email,
+        setName: state.setName,
+        setStudentId: state.setStudentId,
+        resetFindAccountStore: state.resetFindAccountStore,
+      })),
+    );
 
   const { useFindId } = AuthService();
   const { mutate: findId } = useFindId();

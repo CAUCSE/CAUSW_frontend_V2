@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { RoleSelectSection } from "@/entities";
+import { RoleSelectSection } from "@/_deprecated/entities";
 import { SettingService } from "@/shared";
-import { LoadingComponent } from "@/entities";
+import { LoadingComponent } from "@/_deprecated/entities";
 
 const BoardDetailManagement = ({
   params: { id },

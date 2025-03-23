@@ -1,7 +1,11 @@
 "use client";
 
 import { AuthService, useFindAccountStore } from "@/shared";
-import { FormErrorMessage, FormInput, FormSubmitButton } from "@/entities";
+import {
+  FormErrorMessage,
+  FormInput,
+  FormSubmitButton,
+} from "@/_deprecated/entities";
 
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -16,15 +20,14 @@ interface FormData {
 
 const FindPasswordPage = () => {
   const router = useRouter();
-  const { studentId, name, email, resetFindAccountStore } =
-    useFindAccountStore(
-      useShallow((state) => ({
-        studentId: state.studentId,
-        name: state.name,
-        email: state.email,
-        resetFindAccountStore: state.resetFindAccountStore,
-      })),
-    );
+  const { studentId, name, email, resetFindAccountStore } = useFindAccountStore(
+    useShallow((state) => ({
+      studentId: state.studentId,
+      name: state.name,
+      email: state.email,
+      resetFindAccountStore: state.resetFindAccountStore,
+    })),
+  );
   const {
     register,
     handleSubmit,
@@ -85,7 +88,6 @@ const FindPasswordPage = () => {
         />
         <FormErrorMessage message={errors.studentId?.message} />
 
-
         <h2 className="mb-4 mt-4 text-xl font-semibold">아이디 (이메일)</h2>
         <FormInput
           name="email"
@@ -100,7 +102,7 @@ const FindPasswordPage = () => {
           <button
             className="flex h-10 w-full items-center justify-center rounded-lg bg-blue-500 text-sm font-semibold text-white hover:bg-blue-700"
             onClick={handleRouterToSignIn}
-            type = "button"
+            type="button"
           >
             로그인 하기
           </button>

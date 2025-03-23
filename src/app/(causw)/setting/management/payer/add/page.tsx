@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { Header, Line } from "@/entities";
+import { Header, Line } from "@/_deprecated/entities";
 import { SettingService } from "@/shared";
 import { useState } from "react";
 

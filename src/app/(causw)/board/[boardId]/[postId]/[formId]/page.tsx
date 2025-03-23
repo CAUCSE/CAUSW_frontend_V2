@@ -1,6 +1,10 @@
 "use client";
 
-import { ExpiredForm, NoPermissionForm, ResponseForm } from "@/widget";
+import {
+  ExpiredForm,
+  NoPermissionForm,
+  ResponseForm,
+} from "@/_deprecated/widget";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   FormService,
@@ -11,7 +15,7 @@ import {
 } from "@/shared";
 import { notFound, useParams } from "next/navigation";
 
-import { LoadingComponent } from "@/entities";
+import { LoadingComponent } from "@/_deprecated/entities";
 
 const ApplyPage = () => {
   const params = useParams();

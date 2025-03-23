@@ -1,4 +1,4 @@
-import { BoardCreationForm } from "@/widget";
+import { BoardCreationForm } from "@/_deprecated/widget";
 
 const CreateBoardPage = () => {
   return <BoardCreationForm />;

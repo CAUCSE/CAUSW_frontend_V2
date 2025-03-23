@@ -3,7 +3,7 @@ import {
   Header,
   SubHeader,
   CircleApplyOnButton,
-} from "@/entities";
+} from "@/_deprecated/entities";
 import { CircleRscService, UserRscService } from "@/shared";
 import { formatDateString } from "@/utils";
 

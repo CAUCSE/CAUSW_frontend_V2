@@ -1,4 +1,4 @@
-import { OccasionManagement } from "@/widget";
+import { OccasionManagement } from "@/_deprecated/widget";
 
 const firstNavigation = {
   name: "등록 신청 경조사",

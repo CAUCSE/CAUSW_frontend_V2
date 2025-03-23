@@ -1,4 +1,4 @@
-import { CircleElement } from "@/entities";
+import { CircleElement } from "@/_deprecated/entities";
 import { CircleRscService, UserRscService } from "@/shared";
 
 const CirclePage = async () => {

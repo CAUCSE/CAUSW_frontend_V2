@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { BASEURL, useLayoutStore, getRccAccess } from "@/shared";
-import { FormInput, FormSubmitButton, FormErrorMessage } from "@/entities";
+import {
+  FormInput,
+  FormSubmitButton,
+  FormErrorMessage,
+} from "@/_deprecated/entities";
 
 interface PasswordResetData {
   originPassword: string;

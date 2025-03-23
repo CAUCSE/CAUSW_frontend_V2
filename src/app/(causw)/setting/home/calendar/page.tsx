@@ -1,4 +1,4 @@
-import { CardBox } from "@/entities/home";
+import { CardBox } from "@/_deprecated/entities/home";
 import { HomeRscService } from "@/shared";
 import Image from "next/image";
 import Link from "next/link";

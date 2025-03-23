@@ -1,8 +1,8 @@
 "use client";
 
-import { LockerInfoByFloorList, LockerListHeader } from "@/widget";
+import { LockerInfoByFloorList, LockerListHeader } from "@/_deprecated/widget";
 
-import { LoadingComponent } from "@/entities";
+import { LoadingComponent } from "@/_deprecated/entities";
 import { LockerService } from "@/shared";
 
 const LockerList = () => {

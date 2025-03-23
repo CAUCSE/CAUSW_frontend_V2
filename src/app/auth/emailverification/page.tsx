@@ -2,7 +2,11 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { FormInput, FormSubmitButton, FormErrorMessage } from "@/entities";
+import {
+  FormInput,
+  FormSubmitButton,
+  FormErrorMessage,
+} from "@/_deprecated/entities";
 
 interface FormData {
   verificationCode: string;

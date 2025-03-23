@@ -1,4 +1,4 @@
-import { BoardList } from "@/widget";
+import { BoardList } from "@/_deprecated/widget";
 
 const BoardPage = () => {
   return <BoardList />;

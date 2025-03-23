@@ -4,7 +4,7 @@ import {
   AllowAnonymousToggle,
   BoardDetailForm,
   RoleSelectSection,
-} from "@/entities";
+} from "@/_deprecated/entities";
 import { BoardRscService, useBoardStore, useUserStore } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
