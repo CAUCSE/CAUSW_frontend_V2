@@ -9,7 +9,6 @@ interface CalendarCardProps {
   imgSrc: string;
   year: number;
   month: number;
-  editDate: string;
 }
 
 export const CalendarCard = ({
@@ -17,7 +16,6 @@ export const CalendarCard = ({
   imgSrc,
   year,
   month,
-  editDate,
 }: CalendarCardProps) => {
   const { openModal, setCalendarId, setCalendarYear, setCalendarMonth } =
     useCalendarStore(
@@ -50,14 +48,9 @@ export const CalendarCard = ({
       >
         <DeleteIcon />
       </button>
-      <div className="flex flex-col justify-between px-4 py-2">
-        <p className="text-base lg:text-lg">
-          {year}년 {month}월
-        </p>
-        <p className="text-xs text-[#B4B1B1] lg:text-sm">
-          최종 수정일: {editDate}
-        </p>
-      </div>
+      <p className="px-4 py-2 text-base lg:text-lg">
+        {year}년 {month}월
+      </p>
     </CardBox>
   );
 };

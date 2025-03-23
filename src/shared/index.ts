@@ -105,3 +105,6 @@ export { useExtendLocker } from "./hooks/lockers/useExtendLocker";
 
 //Events
 export { useEditEvent } from "./hooks/events/useEditEvent";
+
+//Calendar
+export { useDeleteCalendarModal } from "./hooks/calendar/useDeleteCalendarModal";

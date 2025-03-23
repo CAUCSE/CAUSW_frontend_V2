@@ -1,10 +1,21 @@
 "use client";
 
-import { CalendarCard, LoadingComponent } from "@/entities";
+import {
+  CalendarCard,
+  CalendarDeleteModal,
+  LoadingComponent,
+} from "@/entities";
 import { CalendarService, EmptyComponent, useCalendarStore } from "@/shared";
 
+import { useShallow } from "zustand/react/shallow";
+
 export const CalendarList = () => {
-  const calendarYear = useCalendarStore((state) => state.calendarYear);
+  const { calendarYear, isModalOpen } = useCalendarStore(
+    useShallow((state) => ({
+      calendarYear: state.calendarYear,
+      isModalOpen: state.isModalOpen,
+    })),
+  );
   const { useGetCalendarList } = CalendarService();
   const { data, isLoading } = useGetCalendarList({ year: calendarYear });
   const calendars = data?.calendars;
@@ -24,11 +35,11 @@ export const CalendarList = () => {
               imgSrc={calendar.image}
               year={calendar.year}
               month={calendar.month}
-              editDate={calendar.updatedAt}
             />
           ))}
         </div>
       )}
+      {isModalOpen && <CalendarDeleteModal />}
     </>
   );
 };

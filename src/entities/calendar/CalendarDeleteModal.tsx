@@ -1,34 +1,17 @@
 "use client";
 
-import { CalendarService, useCalendarStore } from "@/shared";
-import React from "react";
 import { createPortal } from "react-dom";
-import { useShallow } from "zustand/react/shallow";
+import { useDeleteCalendarModal } from "@/shared";
 
+// TODO: focus 스트랩 적용, 재사용 가능한 모달 컴포넌트로 변경
 export const CalendarDeleteModal = () => {
-  const { calendarId, calendarMonth, calendarYear, closeModal } =
-    useCalendarStore(
-      useShallow((state) => ({
-        calendarId: state.calendarId,
-        calendarYear: state.calendarYear,
-        calendarMonth: state.calendarMonth,
-        closeModal: state.closeModal,
-      })),
-    );
-  const { useDeleteCalendar } = CalendarService();
-  const { mutate } = useDeleteCalendar();
-  const clickOutSide = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    closeModal();
-  };
-
-  const cancel = () => {
-    closeModal();
-  };
-
-  const deleteCalendar = () => {
-    mutate({ calendarId, calendarYear });
-  };
+  const {
+    clickOutSide,
+    calendarYear,
+    calendarMonth,
+    cancelDelete,
+    deleteCalendar,
+  } = useDeleteCalendarModal();
 
   return createPortal(
     <div
@@ -45,7 +28,7 @@ export const CalendarDeleteModal = () => {
         <div className="flex gap-4">
           <button
             className="rounded-lg bg-gray-300 px-8 py-2 hover:bg-gray-400"
-            onClick={cancel}
+            onClick={cancelDelete}
           >
             취소
           </button>

@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import AddIcon from "../../../public/icons/add_icon.svg";
 import { CustomYearSelect, useCalendarStore } from "@/shared";
+
+import AddIcon from "../../../public/icons/add_icon.svg";
+import Link from "next/link";
 import { useShallow } from "zustand/react/shallow";
 
 export const CalendarListHeader = () => {
@@ -19,7 +20,7 @@ export const CalendarListHeader = () => {
         <span className="icon-[weui--back-filled] mr-6 text-xl font-bold md:text-3xl"></span>
         이전
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4 md:justify-normal">
         <p className="text-xl font-medium lg:text-3xl">캘린더 관리</p>
         <button className="flex h-6 w-6 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF]">
           <Link
