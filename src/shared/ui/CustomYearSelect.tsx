@@ -54,7 +54,7 @@ DropdownItemList.displayName = "DropdownItemList";
 
 interface CustomSelectProps {
   initialValue: number;
-  setSelectValue: React.Dispatch<React.SetStateAction<number>>;
+  setSelectValue: (year: number) => void;
 }
 
 export const CustomYearSelect = ({

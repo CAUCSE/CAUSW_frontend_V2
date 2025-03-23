@@ -98,3 +98,4 @@ export { LockerExtendBtn } from "./locker/LockerExtendBtn";
 export { StatusButton } from "./auth/StatusButton";
 
 export { CalendarCard } from "./calendar/CalendarCard";
+export { CalendarDeleteModal } from "./calendar/CalendarDeleteModal";
