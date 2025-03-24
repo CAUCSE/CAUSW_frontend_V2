@@ -1,4 +1,4 @@
-import { NewCalendarModal } from "@/_deprecated/entities/home";
+import { NewCalendarModal } from "@/entities/home";
 
 export default function NewCalendarModalPage() {
   return <NewCalendarModal />;

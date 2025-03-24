@@ -1,7 +1,7 @@
 "use client";
 import { PreviousButton, useVoteStore } from "@/shared";
 import { useVoteDetail } from "@/shared/hooks/stores/post/useVoteDetail";
-import { LoadingComponent } from "@/_deprecated/entities";
+import { LoadingComponent } from "@/entities";
 
 const VoteStatusPage = () => {
   const { vote } = useVoteStore();

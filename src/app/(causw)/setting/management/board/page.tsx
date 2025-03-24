@@ -1,6 +1,6 @@
 import { SettingRscService } from "@/shared";
 
-import { Management } from "@/_deprecated/widget";
+import { Management } from "@/widget";
 
 const BoardManagement = async () => {
   const { getApplyBoards } = SettingRscService();

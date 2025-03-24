@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import Image from "next/image";
-import { LoadingComponent } from "@/_deprecated/entities";
+import { LoadingComponent } from "@/entities";
 import { useForm } from "react-hook-form";
 
 const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {

@@ -4,7 +4,7 @@ import { CircleRscService, CircleService } from "@/shared";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
-import { Header, LoadingComponent } from "@/_deprecated/entities";
+import { Header, LoadingComponent } from "@/entities";
 
 const CircleApplyManagement = ({
   params: { state, id, userId },

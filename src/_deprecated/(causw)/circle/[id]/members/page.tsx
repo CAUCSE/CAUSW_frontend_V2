@@ -1,4 +1,4 @@
-import { ProfileImage, Header, SubHeader } from "@/_deprecated/entities";
+import { ProfileImage, Header, SubHeader } from "@/entities";
 import { CircleRscService, UserRscService } from "@/shared";
 import { formatDateString } from "@/utils";
 

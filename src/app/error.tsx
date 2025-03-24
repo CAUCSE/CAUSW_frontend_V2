@@ -21,7 +21,7 @@ import {
   setRscHeader,
 } from "@/shared";
 
-import { LoadingComponent } from "@/_deprecated/entities";
+import { LoadingComponent } from "@/entities";
 
 const Error = ({
   error,

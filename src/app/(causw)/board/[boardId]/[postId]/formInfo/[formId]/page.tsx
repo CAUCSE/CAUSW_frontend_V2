@@ -4,7 +4,7 @@ import {
   FormDetailResult,
   FormResultHeader,
   FormSummaryResult,
-} from "@/_deprecated/widget";
+} from "@/widget";
 import { PreviousButton, useFormResultStore } from "@/shared";
 
 const FormInfoPage = () => {

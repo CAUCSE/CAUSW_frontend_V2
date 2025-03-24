@@ -1,5 +1,5 @@
 "use client";
-import { CircleMemberManagementDetail } from "@/_deprecated/widget";
+import { CircleMemberManagementDetail } from "@/widget";
 
 //TODO: 영현님
 

@@ -1,12 +1,7 @@
 "use client";
 
 import { SettingService, Modal, ImageModal } from "@/shared";
-import {
-  Line,
-  LoadingComponent,
-  Header,
-  SubHeader,
-} from "@/_deprecated/entities";
+import { Line, LoadingComponent, Header, SubHeader } from "@/entities";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import Image from "next/image";

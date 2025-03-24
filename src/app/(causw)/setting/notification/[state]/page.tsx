@@ -1,4 +1,4 @@
-import { OccasionNotification } from "@/_deprecated/widget";
+import { OccasionNotification } from "@/widget";
 
 const firstNavigation = {
   name: "경조사 목록",

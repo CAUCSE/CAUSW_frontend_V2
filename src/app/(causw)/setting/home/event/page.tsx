@@ -1,9 +1,9 @@
 "use client";
 
-import { BannerCard } from "@/_deprecated/entities/home";
+import { BannerCard } from "@/entities/home";
 import { HomeService } from "@/shared";
 import Link from "next/link";
-import { LoadingComponent } from "@/_deprecated/entities";
+import { LoadingComponent } from "@/entities";
 
 const EventSetting = () => {
   const { useGetEventList } = HomeService();

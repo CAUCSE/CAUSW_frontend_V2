@@ -1,4 +1,4 @@
-import { ManagementDetail, ManagementState } from "@/_deprecated/widget";
+import { ManagementDetail, ManagementState } from "@/widget";
 const UserManagementDetail = async ({
   params,
 }: {

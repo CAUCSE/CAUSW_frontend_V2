@@ -1,4 +1,4 @@
-import { EventEditModal } from "@/_deprecated/entities/home";
+import { EventEditModal } from "@/entities/home";
 
 export default function BannerEditModal({
   params,

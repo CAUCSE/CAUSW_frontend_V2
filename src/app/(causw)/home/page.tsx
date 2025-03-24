@@ -1,11 +1,6 @@
 import Link from "next/link";
 
-import {
-  Banner,
-  Calendar,
-  CardBox,
-  HomeCard,
-} from "@/_deprecated/entities/home";
+import { Banner, Calendar, CardBox, HomeCard } from "@/entities/home";
 import { HomeRscService } from "@/shared";
 
 const cardsEntities = [

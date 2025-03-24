@@ -8,12 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { debounce } from "@/utils";
-import {
-  LoadingComponent,
-  Header,
-  SubHeader,
-  ProfileImage,
-} from "@/_deprecated/entities";
+import { LoadingComponent, Header, SubHeader, ProfileImage } from "@/entities";
 
 const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const { getCircle } = CircleRscService();

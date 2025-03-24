@@ -1,5 +1,5 @@
 "use client";
-import { UseTerms } from "@/_deprecated/entities/home/useTerms";
+import { UseTerms } from "@/entities/home/useTerms";
 import { useRouter } from "next/navigation";
 
 const useTermsPage = () => {

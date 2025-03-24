@@ -1,6 +1,6 @@
 import { BoardRscService, CircleRscService } from "@/shared";
 
-import { CustomBoard } from "@/_deprecated/entities";
+import { CustomBoard } from "@/entities";
 import Link from "next/link";
 
 const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {

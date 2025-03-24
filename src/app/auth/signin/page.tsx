@@ -13,7 +13,7 @@ import {
   SignInInput,
   SignInSubmitButton,
   LoadingComponent,
-} from "@/_deprecated/entities";
+} from "@/entities";
 
 import "@/firebase-messaging-sw";
 

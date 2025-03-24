@@ -1,11 +1,7 @@
 "use client";
 
 import { AuthService, useFindAccountStore } from "@/shared";
-import {
-  FormErrorMessage,
-  FormInput,
-  FormSubmitButton,
-} from "@/_deprecated/entities";
+import { FormErrorMessage, FormInput, FormSubmitButton } from "@/entities";
 import React, { useCallback } from "react";
 
 import { useForm } from "react-hook-form";

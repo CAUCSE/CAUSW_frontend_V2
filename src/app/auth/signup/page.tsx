@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation"; // useRouter import
 import { AuthService } from "@/shared";
-import { UseTerms } from "@/_deprecated/entities/home/useTerms";
+import { UseTerms } from "@/entities/home/useTerms";
 import toast from "react-hot-toast";
 const SignUpPage = () => {
   const {
