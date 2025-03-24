@@ -15,10 +15,9 @@ export default async function CouncilFeeDetailPage({
     console.error(e);
   }
 
-return (
-  
-    <div className = "mb-4">
-      <CouncilFeeDetail councilFeeId ={councilFeeId}></CouncilFeeDetail>
+  return (
+    <div className="mb-4">
+      <CouncilFeeDetail councilFeeId={councilFeeId}></CouncilFeeDetail>
       <></>
     </div>
   );
