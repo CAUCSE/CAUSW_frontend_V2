@@ -17,10 +17,10 @@ export const CalendarCard = ({
   year,
   month,
 }: CalendarCardProps) => {
-  const { openModal, setCalendarId, setCalendarYear, setCalendarMonth } =
+  const { openDeleteModal, setCalendarId, setCalendarYear, setCalendarMonth } =
     useCalendarStore(
       useShallow((state) => ({
-        openModal: state.openModal,
+        openDeleteModal: state.openDeleteModal,
         setCalendarId: state.setCalendarId,
         setCalendarYear: state.setCalendarYear,
         setCalendarMonth: state.setCalendarMonth,
@@ -31,7 +31,7 @@ export const CalendarCard = ({
     setCalendarId(id);
     setCalendarYear(year);
     setCalendarMonth(month);
-    openModal();
+    openDeleteModal();
   };
   return (
     <CardBox className="relative flex h-full w-full flex-col justify-between rounded-2xl">

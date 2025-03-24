@@ -1,6 +1,7 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { API } from "@/shared/configs/axios";
 import { calendarQueryKey } from "@/shared/configs/query-key";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useCalendarStore } from "../stores/calendar/useCalendarStore";
 
@@ -19,7 +20,9 @@ export const CalendarService = () => {
   };
 
   const useDeleteCalendar = () => {
-    const closeModal = useCalendarStore((state) => state.closeModal);
+    const closeDeleteModal = useCalendarStore(
+      (state) => state.closeDeleteModal,
+    );
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: async ({
@@ -42,7 +45,7 @@ export const CalendarService = () => {
         toast.error("캘린더 삭제를 실패했습니다.");
       },
       onSettled: () => {
-        closeModal();
+        closeDeleteModal();
       },
     });
   };
