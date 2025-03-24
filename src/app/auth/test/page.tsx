@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import "@/firebase-messaging-sw";
 
-export const getDeviceType = (): "android" | "ios" | "ipad" | "desktop" => {
+const getDeviceType = (): "android" | "ios" | "ipad" | "desktop" => {
   const ua = navigator.userAgent.toLowerCase();
 
   const forced = process.env.NEXT_PUBLIC_FORCE_DEVICE_TYPE; 
