@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { UserService, UserCouncilFeeService, userQueryKey } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
-import { LoadingComponent } from "@/_deprecated/entities";
-import ProfileForm from "@/_deprecated/widget/setting/ProfileForm";
+import { LoadingComponent } from "@/entities";
+import ProfileForm from "@/widget/setting/ProfileForm";
 
 const PersonalInfoPage = () => {
   const [feeInfo, setFeeInfo] = useState({

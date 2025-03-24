@@ -1,7 +1,7 @@
 "use client";
 
-import { Header } from "@/_deprecated/entities";
-import { OccasionNotificationDetail } from "@/_deprecated/widget";
+import { Header } from "@/entities";
+import { OccasionNotificationDetail } from "@/widget";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 

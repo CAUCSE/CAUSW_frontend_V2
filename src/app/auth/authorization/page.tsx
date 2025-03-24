@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { PreviousButton, UserService } from "@/shared";
-import SubmitAcademicRecordModal from "@/_deprecated/entities/auth/AcademicRecordInput";
-import SubmitApplicationModal from "@/_deprecated/entities/auth/AdmissionApplicationPage";
-import { VerificationStatus } from "@/_deprecated/widget";
+import SubmitAcademicRecordModal from "@/entities/auth/AcademicRecordInput";
+import SubmitApplicationModal from "@/entities/auth/AdmissionApplicationPage";
+import { VerificationStatus } from "@/widget";
 
 const VerificationPage: React.FC = () => {
   const { getUserAdmissionInfo, getMyInfo, checkIsAcademicRecordSubmitted } =

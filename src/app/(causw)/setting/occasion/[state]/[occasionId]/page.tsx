@@ -1,8 +1,8 @@
 "use client";
 
-import { Header } from "@/_deprecated/entities";
+import { Header } from "@/entities";
 import Link from "next/link";
-import { OccasionManagementDetail } from "@/_deprecated/widget";
+import { OccasionManagementDetail } from "@/widget";
 import { useParams } from "next/navigation";
 
 const OccasionRequestDetailPage = () => {

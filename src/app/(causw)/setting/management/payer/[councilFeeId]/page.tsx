@@ -1,6 +1,6 @@
 import { SettingRscService } from "@/shared";
-import { convertDataToTableEntity } from "@/_deprecated/entities/home/setting/management/CouncilFeeManagementDetailEntities";
-import CouncilFeeDetail from "@/_deprecated/widget/CouncilFeeManagementDetail";
+import { convertDataToTableEntity } from "@/entities/home/setting/management/CouncilFeeManagementDetailEntities";
+import CouncilFeeDetail from "@/widget/CouncilFeeManagementDetail";
 export default async function CouncilFeeDetailPage({
   params,
 }: {

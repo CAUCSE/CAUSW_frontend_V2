@@ -6,9 +6,9 @@ import toast from "react-hot-toast";
 import {
   convertDataToTableEntity,
   titleMapping,
-} from "@/_deprecated/entities/home/setting/management/AddPayerEntities";
+} from "@/entities/home/setting/management/AddPayerEntities";
 import { Button, SettingRscService, UserRscService } from "@/shared";
-import { ManagementDetailInfoTable } from "@/_deprecated/widget/ManagementDetailInfoTable";
+import { ManagementDetailInfoTable } from "@/widget/ManagementDetailInfoTable";
 
 export default function AddPayerPage({
   params: { userId },
