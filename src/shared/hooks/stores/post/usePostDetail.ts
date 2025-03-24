@@ -52,7 +52,7 @@ export const usePostDetail = (postId: string) => {
           setVote(postData.voteResponseDto!);
         }
       } catch (error) {
-        console.error("게시물 불러오기 실패: ", error);
+        ;
       } finally {
         setLoading(false); // 데이터 가져온 후 로딩 끝
       }

@@ -57,8 +57,6 @@ export const AuthService = () => {
   const signup = async (selectedData: User.SignUpFormPost) => {
     try {
       // axios POST 요청
-      console.log(`${BASEURL}${URI}/sign-up`);
-      console.log(selectedData);
       const response = await axios.post(
         `${BASEURL}${URI}/sign-up`,
         selectedData,
@@ -74,10 +72,8 @@ export const AuthService = () => {
       if (axios.isAxiosError(error)) {
         // Axios 에러 처리
         const errorMessage = error.response?.data?.message;
-        console.log(error);
         throw new Error(errorMessage); // 에러 메시지를 던져서 onSubmit에서 처리할 수 있게 함
       } else {
-        console.error("General error:", error);
         throw new Error("알 수 없는 오류가 발생했습니다.");
       }
     }
