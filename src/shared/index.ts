@@ -1,3 +1,5 @@
+import { PortalModal } from "./ui/PortalModal";
+
 export { Loading } from "./ui/Loading";
 export { IconButton } from "./ui/IconButton";
 export { BASEURL } from "./configs/url";
@@ -70,8 +72,9 @@ export { NoButtonModal } from "./ui/noButtonModal";
 export { ToastWithMax } from "./ui/ToastWithMax";
 export { ImageModal } from "./ui/ImageModal";
 export { PaginationButtons } from "./ui/PaginationButtons";
-export { CustomYearSelect } from "./ui/CustomYearSelect";
+export { CustomSelect } from "./ui/CustomSelect";
 export { EmptyComponent } from "./ui/EmptyComponent";
+export { PortalModal } from "./ui/PortalModal";
 
 //Boards
 
