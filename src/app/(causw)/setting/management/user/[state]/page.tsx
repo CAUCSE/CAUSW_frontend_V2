@@ -44,9 +44,8 @@ const UserManagement = async ({
 
   const nowNavigation = navigation.find((element) => element.state === state);
   let data;
-  
-  const currentPage = Number(searchParams.page) || 1;
 
+  const currentPage = Number(searchParams.page) || 1;
 
   nowNavigation
     ? await getByState(
@@ -57,8 +56,11 @@ const UserManagement = async ({
         currentPage - 1,
       ).then((res) => {
         data = {
-          content: res.content.map((element) => ({ ...element, userName: element.name })),
-          totalPages: res.totalPages
+          content: res.content.map((element) => ({
+            ...element,
+            userName: element.name,
+          })),
+          totalPages: res.totalPages,
         };
       })
     : await getAllAdmissions(null, currentPage - 1)
@@ -80,8 +82,8 @@ const UserManagement = async ({
           exportType: "ADMISSION_USERS",
           router: "/setting/management/user/admission/",
         }}
-        totalPages = {data.totalPages}
-        currentPage= {currentPage}
+        totalPages={data.totalPages}
+        currentPage={currentPage}
         navigation={navigation}
         data={data.content.map((element) => ({
           userName: element.userName,

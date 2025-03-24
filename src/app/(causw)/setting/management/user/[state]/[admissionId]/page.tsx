@@ -5,7 +5,7 @@ const UserManagementDetail = async ({
   params: { state: string; admissionId: string };
 }) => {
   const { state, admissionId } = params;
-  
+
   return (
     <ManagementDetail
       state={state as ManagementState}

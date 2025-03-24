@@ -1,0 +1,8 @@
+diff a/src/shared/hooks/services/AuthService.tsx b/src/shared/hooks/services/AuthService.tsx	(rejected hunks)
+@@ -1,6 +1,5 @@
+ "use client";
+ 
+-import { AxiosResponse } from "axios";
+ import axios, { AxiosResponse } from "axios";
+ import { useRouter } from "next/navigation";
+ 

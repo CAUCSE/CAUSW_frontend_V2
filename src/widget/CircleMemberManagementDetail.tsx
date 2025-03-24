@@ -1,8 +1,6 @@
 "use client";
 import { ManagementDetailInfoTable } from "@/entities/home/setting/management";
-import {
-  titleMappingForCircle,
-} from "@/entities/home/setting/management/AdmissionManagementDetailEntities";
+import { titleMappingForCircle } from "@/entities/home/setting/management/AdmissionManagementDetailEntities";
 import { UserRscService } from "@/shared";
 import { useEffect, useState } from "react";
 import { UserCouncilFeeService } from "@/shared";

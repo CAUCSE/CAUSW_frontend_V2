@@ -3,11 +3,7 @@
 import { useForm } from "react-hook-form";
 
 import { Header, Line, SubHeader } from "@/entities";
-import {
-  AuthService,
-  useUserStore,
-  UserService,
-} from "@/shared";
+import { AuthService, useUserStore, UserService } from "@/shared";
 
 export const VTwoForm = () => {
   const checkVTwo = useUserStore((state) => state.checkVTwo);
@@ -100,15 +96,15 @@ export const VTwoForm = () => {
               })}
             />
             <p className="text-error">
-              {errors?.phoneNumberHyphen?.message?.split("\n").map((line, index) => (
-                <div key={index} className="text-center">
-                  {line}
-                  <br />
-                </div>
-              ))}
+              {errors?.phoneNumberHyphen?.message
+                ?.split("\n")
+                .map((line, index) => (
+                  <div key={index} className="text-center">
+                    {line}
+                    <br />
+                  </div>
+                ))}
             </p>
-
-
           </div>
 
           <div className="flex w-full flex-col items-center sm:w-1/2">

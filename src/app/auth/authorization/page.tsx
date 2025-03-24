@@ -6,8 +6,6 @@ import SubmitAcademicRecordModal from "@/entities/auth/AcademicRecordInput";
 import SubmitApplicationModal from "@/entities/auth/AdmissionApplicationPage";
 import { VerificationStatus } from "@/widget";
 
-
-
 const VerificationPage: React.FC = () => {
   const { getUserAdmissionInfo, getMyInfo, checkIsAcademicRecordSubmitted } =
     UserService();
@@ -25,7 +23,8 @@ const VerificationPage: React.FC = () => {
 
   // 거절 사유 출력 부분
   const [admissionRejectMessage, setAdmissionRejectMessage] = useState("");
-  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState("");
+  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] =
+    useState("");
 
   useEffect(() => {
     const getInfo = async () => {
@@ -46,14 +45,13 @@ const VerificationPage: React.FC = () => {
         if (state === "AWAIT") {
           setAcademicRecordApplicationStatus("BANNED");
           return checkAdmissionApplication(); // AWAIT인 경우 학적 상태 증빙 서류 제출 못하니까 admissionapplication 체크
-        } 
-        
+        }
+
         if (state === "ACTIVE") {
           setAdmissionApplicationStatus("COMPLETE");
           return checkAcademicRecordApplication(); // AWAIT가 아닌 경우 학적 상태 증빙 서류 제출 필요 academicrecordapplication 체크
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     if (!isAcademicRecordModalOpen && !isAdmissionModalOpen) {
@@ -86,8 +84,6 @@ const VerificationPage: React.FC = () => {
     }
   };
 
-  
-
   return (
     <div>
       {isAcademicRecordModalOpen && (
@@ -109,14 +105,15 @@ const VerificationPage: React.FC = () => {
       )}
       {!isAcademicRecordModalOpen && !isAdmissionModalOpen && (
         <>
-        <PreviousButton/>
-        <VerificationStatus
-        admissionApplicationStatus = {admissionApplicationStatus}
-        academicRecordApplicationStatus = {academicRecordApplicationStatus}
-        onAdmissionClick = {() => setIsAdmissionModalOpen(true)}
-        onAcademicRecordClick = {() => setIsAcademicModalOpen(true)}/>      
+          <PreviousButton />
+          <VerificationStatus
+            admissionApplicationStatus={admissionApplicationStatus}
+            academicRecordApplicationStatus={academicRecordApplicationStatus}
+            onAdmissionClick={() => setIsAdmissionModalOpen(true)}
+            onAcademicRecordClick={() => setIsAcademicModalOpen(true)}
+          />
         </>
-        )}
+      )}
     </div>
   );
 };
