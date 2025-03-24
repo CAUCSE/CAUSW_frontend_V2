@@ -40,7 +40,7 @@ const PersonalInfoPage = () => {
           remainingFeeSemesters: `${userCouncilFeeData.restOfSemester}학기`,
         });
       } catch (error: any) {
-        console.error("Failed to fetch user info:", error?.message);
+        ;
         setFeeInfo({
           studentCouncilFeeStatus: "X",
           paidFeeSemesters: "0학기",

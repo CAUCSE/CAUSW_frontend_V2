@@ -20,7 +20,7 @@ export function CouncilFeeButtons({ params: { councilFeeId, isRefunded } }: {
           await router.push('./'); // 페이지 이동
           window.location.reload(); // 페이지 새로고침
         } catch (error) {
-          console.error('이동 중 오류 발생:', error);
+          ;
         }
       };
 

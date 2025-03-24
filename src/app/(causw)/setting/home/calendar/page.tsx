@@ -42,7 +42,7 @@ export default async function CalendarSettingPage() {
   try {
     calendars = (await getCalendars(2024)).calendars;
   } catch (e: any) {
-    console.error(e.message);
+    ;
   }
 
   return (

@@ -72,7 +72,6 @@ export const PostCard = ({
       castVote(selectedOptions);
     } catch (error) {
       cancelVote(selectedOptions);
-      console.error("투표 처리 에러: ", error);
     }
   };
 

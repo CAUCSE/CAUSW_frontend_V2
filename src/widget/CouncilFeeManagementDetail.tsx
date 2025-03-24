@@ -13,7 +13,7 @@ export default async function CouncilFeeDetail({
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);
   } catch (e) {
-    console.error(e);
+    ;
   }
   const isRefunded = userCouncilFeeInfo?.isRefunded;
 

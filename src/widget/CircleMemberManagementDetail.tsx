@@ -64,7 +64,7 @@ export function CircleMemberManagementDetail({
           evidentImg: response.profileImageUrl || "",
         });
       } catch (error) {
-        console.log(error);
+        ;
       }
     };
     fetchData();

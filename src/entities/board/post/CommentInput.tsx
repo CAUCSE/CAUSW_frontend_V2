@@ -15,9 +15,6 @@ export const CommentInput = ({handleAddComment}:CommentInputProps) => {
   const handleSubmit = () => {
     if (commentContent.trim() === "") return;
 
-    console.log("Content:", commentContent);
-    console.log("Anonymous:", isAnonymous);
-    
     setCommentContent("");
     handleAddComment(commentContent, isAnonymous);
 

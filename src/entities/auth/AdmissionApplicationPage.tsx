@@ -167,7 +167,7 @@ const SubmitApplicationModal = ( {onClose, emailValue, rejectMessage}: {onClose:
           <button
             type="button"
             className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
-            onClick={() => {handleImageDelete(index); console.log(index);}}
+            onClick={() => {handleImageDelete(index);}}
           >
             <svg
               className="w-4 h-4"

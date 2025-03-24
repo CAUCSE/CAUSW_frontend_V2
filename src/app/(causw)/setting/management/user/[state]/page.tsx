@@ -68,7 +68,6 @@ const UserManagement = async ({
         totalPages: res.totalPages
     }});
   
-  console.log(data);
 
   return (
     <>
