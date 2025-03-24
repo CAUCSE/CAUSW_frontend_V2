@@ -10,10 +10,10 @@ import { CalendarService, EmptyComponent, useCalendarStore } from "@/shared";
 import { useShallow } from "zustand/react/shallow";
 
 export const CalendarList = () => {
-  const { calendarYear, isModalOpen } = useCalendarStore(
+  const { calendarYear, isDeleteModalOpen } = useCalendarStore(
     useShallow((state) => ({
       calendarYear: state.calendarYear,
-      isModalOpen: state.isModalOpen,
+      isDeleteModalOpen: state.isDeleteModalOpen,
     })),
   );
   const { useGetCalendarList } = CalendarService();
@@ -39,7 +39,7 @@ export const CalendarList = () => {
           ))}
         </div>
       )}
-      {isModalOpen && <CalendarDeleteModal />}
+      {isDeleteModalOpen && <CalendarDeleteModal />}
     </>
   );
 };

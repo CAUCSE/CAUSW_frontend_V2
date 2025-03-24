@@ -99,3 +99,4 @@ export { StatusButton } from "./auth/StatusButton";
 
 export { CalendarCard } from "./calendar/CalendarCard";
 export { CalendarDeleteModal } from "./calendar/CalendarDeleteModal";
+export { CalendarAddModal } from "./calendar/CalendarAddModal";
