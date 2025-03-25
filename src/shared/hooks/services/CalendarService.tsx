@@ -87,7 +87,6 @@ export const CalendarService = () => {
         closeAddModal();
       },
       onError: (error) => {
-        console.log(error.name);
         if (error.message.includes("code 400")) {
           toast.error("해당 년도와 월의 캘린더가 이미 존재합니다.");
           return;
