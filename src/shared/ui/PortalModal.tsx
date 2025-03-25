@@ -37,17 +37,10 @@ export const PortalModal = ({
 
   return createPortal(
     <div
-      className="absolute inset-0 h-screen w-screen bg-black bg-opacity-50"
+      className="z-1 fixed inset-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
       onClick={clickOutSide}
     >
-      <div
-        className={clsx(
-          "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform",
-          className,
-        )}
-      >
-        {children}
-      </div>
+      <div className={clsx("", className)}>{children}</div>
     </div>,
     document.body,
   );
