@@ -1,40 +1,60 @@
 "use client";
 
-import { CustomSelect, PortalModal, useCalendarStore } from "@/shared";
+import {
+  CustomSelect,
+  PortalModal,
+  useAddCalendarModal,
+  useCalendarStore,
+} from "@/shared";
 
+import Image from "next/image";
 import ImageIcon from "../../../public/icons/image_icon.svg";
-import { useState } from "react";
 
-export const CalendarAddModal = () => {
-  const closeAddModal = useCalendarStore((state) => state.closeAddModal);
-  const [selectedYear, setSelectedYear] = useState<number>(
-    new Date().getFullYear(),
-  );
-  const [selectedMonth, setSelectedMonth] = useState<number>(1);
-  // TODO 상수화 진행
-  const yearList: number[] = [];
-  for (let i = new Date().getFullYear(); i >= 1972; i--) {
-    yearList.push(i);
-  }
+interface AddModalBodyProps {
+  clickUploadBtn: () => void;
+  clearSelectedImage: () => void;
+  selectedImage: File | null;
+}
 
-  const monthList: number[] = [];
-  for (let i = 1; i <= 12; i++) {
-    monthList.push(i);
-  }
-
+const ImageSelectionModalBody = ({
+  clickUploadBtn,
+  clearSelectedImage,
+  selectedImage,
+}: AddModalBodyProps) => {
   return (
-    <PortalModal
-      className="flex flex-col items-center gap-5 rounded-lg bg-[#F8F9FA] px-10 py-8 md:px-40"
-      closeModal={closeAddModal}
-    >
-      <PortalModal.Header>
-        <h1 className="text-lg md:text-2xl">캘린더 추가</h1>
-      </PortalModal.Header>
-      <PortalModal.Body className="flex flex-col items-center justify-center gap-5">
-        <div className="flex h-[280px] w-[280px] flex-col items-center justify-center bg-[#E9ECEF]">
+    <>
+      {selectedImage ? (
+        <div>
+          <div className="mb-2 flex w-full justify-end gap-4 text-sm">
+            <button
+              className="border-b border-gray-400 text-gray-400 hover:border-gray-500 hover:text-gray-500"
+              onClick={clickUploadBtn}
+            >
+              재업로드
+            </button>
+            <button
+              className="border-b border-gray-400 text-gray-400 hover:border-gray-500 hover:text-gray-500"
+              onClick={clearSelectedImage}
+            >
+              제거
+            </button>
+          </div>
+          <Image
+            src={URL.createObjectURL(selectedImage)}
+            alt="calendar"
+            width={280}
+            height={280}
+            className="h-[280px] w-[280px] rounded-md object-contain"
+          />
+        </div>
+      ) : (
+        <div className="mt-5 flex h-[280px] w-[280px] flex-col items-center justify-center rounded-md bg-[#E9ECEF]">
           <div className="flex flex-col items-center gap-2">
             <ImageIcon className="text-[#868E96]" />
-            <button className="rounded-xl bg-white px-8 py-2 text-[#007AFF]">
+            <button
+              className="rounded-xl border border-gray-50 bg-white px-8 py-2 text-[#007AFF] hover:bg-gray-50"
+              onClick={clickUploadBtn}
+            >
               캘린더 업로드
             </button>
             <p className="mt-4 text-xs text-[#B4B1B1]">
@@ -42,6 +62,39 @@ export const CalendarAddModal = () => {
             </p>
           </div>
         </div>
+      )}
+    </>
+  );
+};
+
+export const CalendarAddModal = () => {
+  const closeAddModal = useCalendarStore((state) => state.closeAddModal);
+  const {
+    yearList,
+    monthList,
+    selectedImage,
+    fileInputRef,
+    setSelectedYear,
+    setSelectedMonth,
+    clickUploadBtn,
+    clearSelectedImage,
+    handleFileChange,
+    handleSubmit,
+  } = useAddCalendarModal();
+  return (
+    <PortalModal
+      className="mx-4 flex w-full flex-col items-center gap-5 rounded-lg bg-[#F8F9FA] py-8 lg:w-[768px]"
+      closeModal={closeAddModal}
+    >
+      <PortalModal.Header>
+        <h1 className="text-lg md:text-2xl">캘린더 추가</h1>
+      </PortalModal.Header>
+      <PortalModal.Body className="flex flex-col items-center justify-center gap-5">
+        <ImageSelectionModalBody
+          clickUploadBtn={clickUploadBtn}
+          clearSelectedImage={clearSelectedImage}
+          selectedImage={selectedImage}
+        />
         <div className="flex w-full justify-center gap-4">
           <CustomSelect<number>
             itemList={yearList}
@@ -55,13 +108,26 @@ export const CalendarAddModal = () => {
           />
         </div>
       </PortalModal.Body>
-      <PortalModal.Footer className="flex w-full justify-between">
-        <button className="rounded-lg bg-[#007AFF] px-12 py-2 text-xl text-white">
+      <PortalModal.Footer className="flex w-full justify-center gap-8">
+        <button
+          className="rounded-lg bg-[#007AFF] px-8 py-2 text-xl text-white hover:bg-[#0067D8] md:px-12"
+          onClick={handleSubmit}
+        >
           추가
         </button>
-        <button className="text rounded-lg bg-gray-200 px-12 py-2 text-xl text-gray-500">
+        <button
+          className="text rounded-lg bg-gray-200 px-8 py-2 text-xl text-gray-500 hover:bg-gray-300 md:px-12"
+          onClick={closeAddModal}
+        >
           취소
         </button>
+        <input
+          type="file"
+          accept="image/gif, image/jpeg, image/png"
+          className="hidden"
+          onChange={handleFileChange}
+          ref={fileInputRef}
+        />
       </PortalModal.Footer>
     </PortalModal>
   );

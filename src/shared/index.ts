@@ -1,5 +1,3 @@
-import { PortalModal } from "./ui/PortalModal";
-
 export { Loading } from "./ui/Loading";
 export { IconButton } from "./ui/IconButton";
 export { BASEURL } from "./configs/url";
@@ -111,3 +109,4 @@ export { useEditEvent } from "./hooks/events/useEditEvent";
 
 //Calendar
 export { useDeleteCalendarModal } from "./hooks/calendar/useDeleteCalendarModal";
+export { useAddCalendarModal } from "./hooks/calendar/useAddCalendarModal";
