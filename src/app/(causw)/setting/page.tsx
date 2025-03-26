@@ -1,9 +1,9 @@
 "use client";
 
+import { UseTerms } from "@/fsd_shared";
 import { userRoleCodes, useUserStore } from "@/shared";
 import Link from "next/link";
 import React, { useState } from "react";
-import { UseTerms } from "@/entities/home/useTerms";
 const SettingsPage = () => {
   const {
     roles,
