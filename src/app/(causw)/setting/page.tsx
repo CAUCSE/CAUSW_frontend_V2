@@ -76,7 +76,7 @@ const SettingsPage = () => {
       { name: "캘린더 편집", link: "/setting/home/calendar" },
     ],
 
-    clubManagement: (circleId: string) => [
+    /* clubManagement: (circleId: string) => [
       {
         name: "동아리원 관리",
         link: `/setting/management/circle/${circleId}/member`,
@@ -85,14 +85,14 @@ const SettingsPage = () => {
         name: "동아리 가입 신청 관리",
         link: `/setting/management/circle/${circleId}/apply`,
       },
-    ],
+    ], */
 
     boardManagement: [
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
 
     occasionManagement: [
-      { name: "경조사 관리", link: "/setting/occasion/request" },
+      { name: "경조사 관리", link: "/setting/management/occasion/request" },
     ],
   };
 

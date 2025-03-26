@@ -1,10 +1,11 @@
 "use client";
 
-import { SettingService, Modal } from "@/shared";
+import { SettingService, Modal, ImageModal } from "@/shared";
 import { Line, LoadingComponent, Header, SubHeader } from "@/entities";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import { ImageList } from "@/shared/ui/ImageList";
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const idArray = id.split("%26%26%26");
@@ -16,6 +17,8 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useGetWaitingUser(userId, applicationId);
 
   const [onModal, setModal] = useState(false);
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const rejectMessage = useRef("");
 
@@ -95,14 +98,9 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
           증빙 서류
         </SubHeader>
         <div className="flex h-1/2 gap-1 lg:h-2/3">
-          {data?.attachedImageUrlList.map((element) => (
-            <div key={element} className="h-32 min-w-32 overflow-hidden">
-              <div
-                className="h-32 w-32 bg-contain bg-cover bg-center"
-                style={{ backgroundImage: `url(${element})` }}
-              />
-            </div>
-          ))}
+          {data?.attachedImageUrlList && (
+            <ImageList images={data.attachedImageUrlList} imageSize={125} />
+          )}
         </div>
 
         <div className="flex w-full justify-between">
@@ -130,6 +128,12 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             거부하기
           </div>
         </div>
+        {selectedImage && (
+          <ImageModal
+            imageUrl={selectedImage}
+            onClose={() => setSelectedImage(null)}
+          />
+        )}
       </main>
     </>
   );

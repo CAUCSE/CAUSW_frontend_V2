@@ -1,35 +1,9 @@
 import { BASEURL, setRscHeader } from "@/shared";
 import axios, { AxiosResponse } from "axios";
+
 import { API } from "@/shared";
 
 export const VoteRscService = () => {
-  const createVote = async (
-    data: Post.CreateVoteDto,
-  ): Promise<Post.VoteResponseDto> => {
-    const URI = `${BASEURL}/api/v1/votes/create`;
-
-    try {
-      const headers = await setRscHeader();
-      const response: AxiosResponse<Post.VoteResponseDto> = await axios.post(
-        URI,
-        data,
-        {
-          headers: headers,
-        },
-      );
-
-      if (response.status !== 201) {
-        throw new Error(
-          `Failed to create comment. Response status: ${response.status}`,
-        );
-      }
-      return response.data;
-    } catch (error) {
-      console.error("Error creating comment:", error);
-      throw error;
-    }
-  };
-
   const getVoteById = async (voteId: string): Promise<Post.VoteResponseDto> => {
     const URI = `${BASEURL}/api/v1/votes/${voteId}`;
 
@@ -48,7 +22,6 @@ export const VoteRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   };
@@ -87,7 +60,6 @@ export const VoteRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   }; */
@@ -128,13 +100,11 @@ export const VoteRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   };
 
   return {
-    createVote,
     getVoteById,
     endVoteById,
     restartVoteById,

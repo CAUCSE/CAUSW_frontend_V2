@@ -20,8 +20,11 @@ const MONTHS = [
   "November",
   "December",
 ];
+interface CalendarProps {
+  deliveredId: string | undefined;
+}
 
-export const Calendar = () => {
+export const Calendar = ({deliveredId}: CalendarProps) => {
   const [calendars, setCalendars] = useState<Home.Calendar[]>();
   const { getCalendars } = HomeRscService();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -33,7 +36,7 @@ export const Calendar = () => {
         const response = (await getCalendars(selectedYear)).calendars;
         setCalendars(response);
       } catch (e: any) {
-        console.error(e.message);
+        ;
       }
     };
 
@@ -109,7 +112,7 @@ export const Calendar = () => {
       <hr className="w-full border-[1px] border-[#E0E0E0]" />
       <Link
         // TODO : href 연결
-        href="delivered"
+        href= {`/board/${deliveredId}`}
         className="text-[24px] underline underline-offset-[5px]"
       >
         딜리버드 보러 가기

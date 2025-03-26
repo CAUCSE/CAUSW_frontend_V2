@@ -1,4 +1,3 @@
-import Circle from "@/app/(causw)/circle/[id]/page";
 import { BASEURL, setRscHeader } from "@/shared";
 
 export const CircleRscService = () => {
@@ -15,8 +14,6 @@ export const CircleRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
-
       throw error;
     }
   };
@@ -33,8 +30,6 @@ export const CircleRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
-
       throw error;
     }
   };
@@ -50,8 +45,6 @@ export const CircleRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
-
       throw error;
     }
   };
@@ -67,8 +60,6 @@ export const CircleRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
-
       throw error;
     }
   };
@@ -88,8 +79,6 @@ export const CircleRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
-
       throw error;
     }
   };
@@ -111,12 +100,9 @@ export const CircleRscService = () => {
       }
 
       const res: Circle.CircleUser[] = await response.json();
-      console.log(res);
       const data = res.filter((memberInfo) => memberInfo.user.id === userId)[0];
-      console.log(data);
       return data;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };

@@ -18,7 +18,6 @@ export const ChildCommentRscService = () => {
         );
       }
     } catch (error) {
-      console.error(`Error liking post with id ${childCommentId}:`, error);
       throw error;
     }
   };
@@ -41,10 +40,6 @@ export const ChildCommentRscService = () => {
         );
       }
     } catch (error) {
-      console.error(
-        `Error deleting child comment with id ${childCommentId}:`,
-        error,
-      );
       throw error;
     }
   };
@@ -69,7 +64,6 @@ export const ChildCommentRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error creating comment:", error);
       throw error;
     }
   };
