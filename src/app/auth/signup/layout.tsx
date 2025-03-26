@@ -1,17 +1,21 @@
 "use client";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastWithMax } from "@/shared";
 
+const queryClient = new QueryClient();
 
-const SignUpLayout = ({
+const QueryClientLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
+  <QueryClientProvider client={queryClient}>
     <>
-      <ToastWithMax/>
+      <ToastWithMax />
       {children}
     </>
+  </QueryClientProvider>
 );
 
-export default SignUpLayout;
+export default QueryClientLayout;
