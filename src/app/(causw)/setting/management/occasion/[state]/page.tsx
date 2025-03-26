@@ -3,7 +3,7 @@ import { OccasionManagement } from "@/widget";
 const firstNavigation = {
   name: "등록 신청 경조사",
   state: "request",
-  router: "/setting/occasion/request",
+  router: "/setting/management/occasion/request",
 };
 
 // 추가 탭이 필요할 경우 추가
