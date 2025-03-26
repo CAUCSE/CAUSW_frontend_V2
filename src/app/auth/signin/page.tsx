@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -13,9 +12,8 @@ import {
   LoadingComponent,
 } from "@/entities";
 import "@/firebase-messaging-sw";
-import { SignInInput } from "@/fsd_entities/auth/ui/SignInInput";
-import { SignInSubmitButton } from "@/fsd_entities/auth/ui/SignInSubmitButton";
-import { SignInFooter } from "@/fsd_widgets/auth/ui/SignInFooter";
+import { SignInInput, SignInSubmitButton } from "@/fsd_entities/auth";
+import { SignInFooter } from "@/fsd_widgets/auth";
 
 const routes = [
   { name: "회원가입하기", route: "/auth/signup" },
