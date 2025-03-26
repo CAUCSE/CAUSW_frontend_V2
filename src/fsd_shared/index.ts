@@ -27,7 +27,7 @@ export { NoButtonModal } from "./ui/noButtonModal";
 export { ToastWithMax } from "./ui/ToastWithMax";
 export { ImageModal } from "./ui/ImageModal";
 export { PaginationButtons } from "./ui/PaginationButtons";
-
+export { UseTerms } from "./ui/UseTerms";
 //Boards
 
 
