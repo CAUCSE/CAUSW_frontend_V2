@@ -1,4 +1,4 @@
-export const SignUpFormSubmitButton = () => {
+export const SignUpSubmitButton = () => {
     return (
       <button
         type="submit"

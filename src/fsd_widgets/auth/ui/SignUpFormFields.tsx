@@ -1,8 +1,5 @@
-import { SignUpInput } from "@/fsd_entities/auth/ui/SignUpInput";
-import { validationRules } from "@/fsd_entities/auth/config/validation";
 import { UseFormRegister, FieldErrors, UseFormWatch } from "react-hook-form";
-import { SignUpSelect } from "@/fsd_entities/auth/ui/SignUpSelect";
-import { SignUpCheckbox } from "@/fsd_entities/auth/ui/SignUpCheckbox";
+import { SignUpInput, SignUpSelect, SignUpCheckbox, validationRules } from "@/fsd_entities/auth";
 
 interface Props {
   register: UseFormRegister<User.SignUpForm>;

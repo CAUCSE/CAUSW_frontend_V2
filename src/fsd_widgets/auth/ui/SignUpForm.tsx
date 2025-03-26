@@ -1,13 +1,11 @@
-// src/widgets/sign-up-form/ui/SignUpForm.tsx
 "use client";
-import { useForm } from "react-hook-form";
-import { SignUpFormFields } from "./SignUpFormFields";
-import { SignUpFormSubmitButton } from "@/fsd_entities/auth/ui/SignUpSubmitButton";
-import { PreviousButton } from "@/shared";
-import { SignUpHeader } from "./SignUpHeader";
-import { useMutation } from "@tanstack/react-query";
-import { signup } from "@/fsd_entities/auth/api/post";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { PreviousButton } from "@/shared";
+import { useMutation } from "@tanstack/react-query";
+import { signup, SignUpSubmitButton } from "@/fsd_entities/auth";
+import { SignUpHeader } from "./SignUpHeader";
+import { SignUpFormFields } from "./SignUpFormFields";
 
 const allowedKeys = [
     "email",
@@ -61,7 +59,7 @@ export const SignUpForm = () => {
       <PreviousButton variant="white"></PreviousButton>
       <SignUpHeader></SignUpHeader>
       <SignUpFormFields register={register} errors={errors} watch={watch} />
-      <SignUpFormSubmitButton/>
+      <SignUpSubmitButton/>
     </form>
   );
 };
