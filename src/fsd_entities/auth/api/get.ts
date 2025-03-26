@@ -5,9 +5,7 @@ const URI = "/api/v1/users";
 
 export const checkEmailDuplicate = async (email: string): Promise<string | boolean> => {
     try {
-      const response = (await API.get(`${URI}/${email}/is-duplicated`, {
-        params: { email },
-      })) as AxiosResponse<any>; // 타입 변경
+      const response = (await API.get(`${URI}/${email}/is-duplicated`)) as AxiosResponse<any>; // 타입 변경
       if (response.data.result === false) {
         return true;
     }
@@ -29,11 +27,7 @@ export const checkEmailDuplicate = async (email: string): Promise<string | boole
 export const checkNicknameDuplicate = async (nickname: string): Promise<string | boolean> => {
 try {
     const response = (await API.get(
-    `${URI}/${nickname}/is-duplicated-nickname`,
-    {
-        params: { nickname },
-    },
-    )) as AxiosResponse<any>; // 타입 변경
+    `${URI}/${nickname}/is-duplicated-nickname`)) as AxiosResponse<any>; // 타입 변경
     if (response.data.result === false) {
         return true;
     }
@@ -56,11 +50,7 @@ studentId: string,
 ): Promise<boolean | string> => {
 try {
     const response = (await API.get(
-    `${URI}/${studentId}/is-duplicated-student-id`,
-    {
-        params: { studentId },
-    },
-    )) as AxiosResponse<any>; // 타입 변경
+    `${URI}/${studentId}/is-duplicated-student-id`)) as AxiosResponse<any>; // 타입 변경
     if (response.data.result === false) {
         return true;
     }
