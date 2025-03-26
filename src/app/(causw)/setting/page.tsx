@@ -91,7 +91,7 @@ const SettingsPage = () => {
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
 
-    occasionManagement: [{ name: "경조사 관리", link: "/setting/occasion" }],
+    occasionManagement: [{ name: "경조사 관리", link: "/setting/management/occasion/request" }],
   };
 
   const MenuItem: React.FC<{
