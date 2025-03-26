@@ -22,7 +22,6 @@ export const VoteRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   };
@@ -61,7 +60,6 @@ export const VoteRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   }; */
@@ -102,7 +100,6 @@ export const VoteRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   };

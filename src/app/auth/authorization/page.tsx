@@ -64,7 +64,6 @@ const VerificationPage: React.FC = () => {
       await getUserAdmissionInfo();
       setAdmissionApplicationStatus("AWAIT");
     } catch (error) {
-      console.log(error);
       setAdmissionApplicationStatus("UNDONE");
     }
   };

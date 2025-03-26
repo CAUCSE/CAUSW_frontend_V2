@@ -63,14 +63,13 @@ const UserManagement = async ({
           totalPages: res.totalPages,
         };
       })
-    : await getAllAdmissions(null, currentPage - 1).then((res) => {
-        data = {
-          content: res.content.map((element) => ({ ...element })),
-          totalPages: res.totalPages,
-        };
-      });
-
-  console.log(data);
+    : await getAllAdmissions(null, currentPage - 1)
+    .then((res) => {
+      data = {
+        content: res.content.map((element) => ({ ...element})),
+        totalPages: res.totalPages
+    }});
+  
 
   return (
     <>

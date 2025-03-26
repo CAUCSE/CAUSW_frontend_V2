@@ -14,7 +14,6 @@ export const UserRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -30,7 +29,6 @@ export const UserRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -46,7 +44,6 @@ export const UserRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -63,7 +60,6 @@ export const UserRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };

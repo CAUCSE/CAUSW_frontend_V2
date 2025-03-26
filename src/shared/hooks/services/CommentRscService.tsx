@@ -16,9 +16,7 @@ export const CommentRscService = () => {
         throw new Error(`Failed to like post with id ${commentId}. Response status: ${response.status}`);
       }
 
-      console.log("Post liked successfully");
     } catch (error) {
-      console.error(`Error liking post with id ${commentId}:`, error);
       throw error;
     }
   };
@@ -36,9 +34,7 @@ export const CommentRscService = () => {
         throw new Error(`Failed to delete comment with id ${commentId}. Response status: ${response.status}`);
       }
 
-      console.log("Comment deleted successfully");
     } catch (error) {
-      console.error(`Error deleting comment with id ${commentId}:`, error);
       throw error;
     }
   };
@@ -60,7 +56,6 @@ export const CommentRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error('Error creating comment:', error);
       throw error;
     }
   };

@@ -27,13 +27,13 @@ const requestPushPermission = async () => {
   if (Notification.permission === "granted") {
     alert("알림 이미 허용됨 ✅");
   } else if (Notification.permission === "denied") {
-    alert("알림 차단됨 ❌");
+    alert("알림이 차단되어 있습니다. 설정 페이지에서 알림 권한을 변경해주세요.");
   } else {
     alert("알림 권한 요청 필요 🔔");
+    Notification.requestPermission().then((permission) => {
+      alert(`새 권한 상태:, ${permission}`);
+    });
   }
-  Notification.requestPermission().then((permission) => {
-    alert(`새 권한 상태:, ${permission}`);
-  });
 };
 
 const Page = () => {
@@ -51,17 +51,10 @@ const Page = () => {
           // Show permission request UI
           setToken(
             "No registration token available. Request permission to generate one.",
-          );
-          console.log(
-            "No registration token available. Request permission to generate one.",
-          );
-          // ...
-        }
+          );}
       })
       .catch((err) => {
         setToken("An error occurred while retrieving token.");
-        console.log("An error occurred while retrieving token. ", err);
-        // ...
       });
   }, []);
   return (

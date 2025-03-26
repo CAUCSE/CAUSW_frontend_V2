@@ -17,7 +17,6 @@ export const PostRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching post:", error);
       throw error;
     }
   };
@@ -37,9 +36,7 @@ export const PostRscService = () => {
         );
       }
 
-      console.log("Post deleted successfully");
     } catch (error) {
-      console.error(`Error deleting post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -59,9 +56,7 @@ export const PostRscService = () => {
         );
       }
 
-      console.log("Post liked successfully");
     } catch (error) {
-      console.error(`Error liking post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -81,9 +76,7 @@ export const PostRscService = () => {
         );
       }
 
-      console.log("Post favorite successfully");
     } catch (error) {
-      console.error(`Error favorite post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -103,9 +96,7 @@ export const PostRscService = () => {
         );
       }
 
-      console.log("Post liked successfully");
     } catch (error) {
-      console.error(`Error liking post with id ${postId}:`, error);
       throw error;
     }
   };
@@ -125,7 +116,6 @@ export const PostRscService = () => {
       const boardList = await response.json();
       return boardList;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };

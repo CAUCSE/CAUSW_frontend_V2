@@ -12,7 +12,7 @@ export default async function CouncilFeeDetailPage({
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);
   } catch (e) {
-    console.error(e);
+    ;
   }
 
   return (

@@ -62,7 +62,6 @@ export const BoardRscService = () => {
 
       return response.data;
     } catch (error) {
-      console.error("Error creating comment:", error);
       throw error;
     }
   };
@@ -82,7 +81,6 @@ export const BoardRscService = () => {
         );
       }
     } catch (error) {
-      console.error("Error creating comment:", error);
       throw error;
     }
   };
@@ -107,7 +105,6 @@ export const BoardRscService = () => {
       const searchResult = await response.json();
       return searchResult;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };

@@ -20,7 +20,6 @@ const useGetMethod = (endpoint: string) => {
 
       return response.content;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -50,7 +49,6 @@ export const SettingRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -68,7 +66,6 @@ export const SettingRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -90,7 +87,6 @@ export const SettingRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -215,7 +211,6 @@ export const SettingRscService = () => {
 
       return response;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -242,8 +237,6 @@ export const SettingRscService = () => {
         }),
       },
     ).then((res) => res.json());
-
-    console.log(response);
 
     if (response.message)
       throw new Error((response as Error.ApiErrorResponse).message);

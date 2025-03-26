@@ -33,22 +33,20 @@ export async function ManagementDetail({
     try {
       admission = await getAdmission(admissionId);
     } catch (error) {
-      console.error("가입 신청서 조회 실패");
-      console.log(error);
+      ;
     }
   }
   let userInfo;
   try {
     userInfo = await getUser(admissionId);
   } catch (error) {
-    console.log("유저 정보 조회 실패", error);
+;
   }
   try {
-    const response = await getUserAcademicRecord(admissionId);
-    userInfo.profileImageUrl =
-      response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0];
-  } catch {
-    console.log("정보 조회 실패");
+  const response = await getUserAcademicRecord(admissionId);
+  userInfo.profileImageUrl = response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0]; }
+  catch {
+    ;
   }
 
   let name;

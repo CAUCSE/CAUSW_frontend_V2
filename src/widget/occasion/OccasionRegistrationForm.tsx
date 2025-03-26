@@ -28,7 +28,7 @@ export const OccasionRegistrationForm = () => {
 
   const { registerOccasion } = OccasionService();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async() => {
     console.log({ category, startDate, endDate, description, images });
     const data: Occasion.CreateCeremonyRequestDto = {
       category: category,
@@ -53,9 +53,9 @@ export const OccasionRegistrationForm = () => {
     }
     try {
       const response = await registerOccasion(data, images);
-      console.log(response);
-    } catch (e) {
-      console.log(e);
+    }
+    catch(e) {
+      ;
     }
 
     // TODO: API 연결

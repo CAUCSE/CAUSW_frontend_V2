@@ -82,7 +82,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
 
   // 제출 핸들러
   const onSubmit = async (data: User.userUpdateDto, event: any) => {
-    console.log(data);
     try {
       event.preventDefault();
       await updateInfo(data);
@@ -97,7 +96,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
       } else {
         toast.error("알 수 없는 에러가 발생했습니다.");
       }
-      console.log(error);
     }
   };
   useEffect(() => {

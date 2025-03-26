@@ -8,9 +8,7 @@ export const VideoBackground = ({ src }: { src: string }) => {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      video.play().catch(() => {
-        console.log("Autoplay prevented. User interaction required.");
-      });
+      video.play();
     }
   }, []);
 
