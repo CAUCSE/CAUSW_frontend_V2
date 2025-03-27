@@ -1,12 +1,7 @@
-import { InfoTextArea } from "@/fsd_entities/auth/ui/InfoTextArea";
+import { AcademicRecordSubmitButton, academicRecordValidationRules, AcademicStatusSelect, InfoTextArea, useAcademicRecordForm } from "@/fsd_entities/auth";
+import { ImageUploadField, PreviousButton } from "@/fsd_shared";
 import React from "react";
-import { AcademicStatusSelect } from "@/fsd_entities/auth/ui/AcademicStatusSelect";
 import { AcademicRecordFormHeader } from "./AcademicRecordFormHeader";
-import { academicRecordValidationRules } from "@/fsd_entities/auth/config/academicRecordValidation";
-import { ImageUploadField } from "@/fsd_shared/ui/ImageUploadField";
-import { useAcademicRecordForm } from "@/fsd_entities/auth/model/useAcademicRecordForm";
-import { AcademicRecordSubmitButton } from "@/fsd_entities/auth/ui/AcademicRecordSubmitButton";
-import { PreviousButton } from "@/shared";
 
 interface AcademicRecordFormProps {
   curAcademicStatus?: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
