@@ -1,6 +1,8 @@
 import { RegisterOptions } from "react-hook-form";
 import { checkEmailDuplicate, checkNicknameDuplicate, checkStudentIdDuplicate } from "../api/get";
-export const validationRules: Record<keyof User.SignUpForm, RegisterOptions<User.SignUpForm>> = {
+
+
+export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOptions<User.SignUpForm>> = {
   email: {
     required: "이메일을 입력해주세요.",
     pattern: {
