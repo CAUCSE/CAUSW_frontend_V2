@@ -1,5 +1,5 @@
 import { UseFormRegister, FieldErrors, UseFormWatch } from "react-hook-form";
-import { SignUpInput, SignUpSelect, SignUpCheckbox, validationRules } from "@/fsd_entities/auth";
+import { SignUpInput, SignUpSelect, SignUpCheckbox, signUpValidationRules } from "@/fsd_entities/auth";
 
 interface Props {
   register: UseFormRegister<User.SignUpForm>;
@@ -17,7 +17,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
         <SignUpInput
           register={register}
           name="email"
-          rules={validationRules.email}
+          rules={signUpValidationRules.email}
           label="아이디"
           placeholder="이메일 형식으로 입력해주세요"
           errorMessage={errors.email?.message}
@@ -25,7 +25,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
         <SignUpInput
           register={register}
           name="nickname"
-          rules={validationRules.nickname}
+          rules={signUpValidationRules.nickname}
           label="닉네임"
           placeholder="닉네임을 입력해주세요"
           errorMessage={errors.nickname?.message}
@@ -34,7 +34,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           register={register}
           name="password"
           type="password"
-          rules={validationRules.password}
+          rules={signUpValidationRules.password}
           label="비밀번호"
           placeholder="8자리 이상, 영어/숫자/특수 문자"
           errorMessage={errors.password?.message}
@@ -55,7 +55,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           name="pwConfirm"
           type="password"
           rules={{
-            ...validationRules.pwConfirm,
+            ...signUpValidationRules.pwConfirm,
             validate: (value) =>
               value === password || "비밀번호가 일치하지 않습니다.",
           }}
@@ -66,7 +66,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
         <SignUpInput
           register={register}
           name="studentId"
-          rules={validationRules.studentId}
+          rules={signUpValidationRules.studentId}
           label="학번"
           placeholder="학번 8자리를 입력해주세요"
           errorMessage={errors.studentId?.message}
@@ -75,7 +75,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
         <SignUpInput
           register={register}
           name="name"
-          rules={validationRules.name}
+          rules={signUpValidationRules.name}
           label="이름"
           placeholder="이름을 입력해주세요"
           errorMessage={errors.name?.message}
@@ -83,7 +83,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
         <SignUpInput
           register={register}
           name="major"
-          rules={validationRules.major}
+          rules={signUpValidationRules.major}
           label="학부/학과"
           placeholder="ex) 소프트웨어학부, 컴퓨터공학부"
           errorMessage={errors.major?.message}
@@ -92,7 +92,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
         <SignUpInput
           register={register}
           name="phoneNumber"
-          rules={validationRules.phoneNumber}
+          rules={signUpValidationRules.phoneNumber}
           label="연락처"
           placeholder="-을 포함해서 작성해주세요. ex) 010-1234-5678"
           errorMessage={errors.phoneNumber?.message}
