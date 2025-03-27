@@ -1,13 +1,12 @@
 //api
-export { checkEmailDuplicate, checkNicknameDuplicate, checkStudentIdDuplicate } from "./api/get";
-export { signup } from "./api/post";
 
 //config
-export { validationRules } from "./config/validation";
-
+export { signUpValidationRules } from "./config/signUpValidation";
+export { academicRecordValidationRules } from "./config/academicRecordValidation";
 
 //model
-
+export { useSignUpForm } from "./model/useSignUpForm";
+export { useAcademicRecordForm } from "./model/useAcademicRecordForm";
 
 
 //ui
