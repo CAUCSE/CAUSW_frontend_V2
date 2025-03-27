@@ -1,8 +1,10 @@
 "use client";
 
+import { FORMAPI } from "@/fsd_shared";
 import {
   API,
 } from "@/shared";
+import { createFormData } from "@/utils";
 import axios from "axios";
 
 const URI = "/api/v1/users";
@@ -20,4 +22,56 @@ try {
     }}
 };
 
+export const submitAdmissionsApplication = async (
+  data: User.AdmissionCreateRequestDto, // FileList 타입 사용
+  ): Promise<any> => {
+  try {
+    const payload = {
+      ...data,
+      images: undefined, 
+    };
 
+    const formData = createFormData(
+      payload,
+      "userAdmissionCreateRequestDto", 
+      data.attachImage ? Array.from(data.attachImage) : [], 
+      "userAdmissionAttachImageList" 
+    );
+
+    const response = await FORMAPI.post(
+      "/api/v1/users/admissions/apply",
+      formData,
+    );
+
+    return response.data; //
+  } catch (error) {
+    throw error;
+  }};
+
+
+export const postAcademicRecord = async (
+    data: User.CreateUserAcademicRecordApplicationRequestDto,
+  ): Promise<any> => {
+    try {
+      const payload = {
+        ...data, // 기존 데이터 복사
+        images: undefined, // images는 따로 처리하므로 제거
+      };
+
+      const formData = createFormData(
+        payload,
+        "createUserAcademicRecordApplicationRequestDto", 
+        data.images ? Array.from(data.images) : [], 
+        "imageFileList" 
+      );
+  
+      const response = await FORMAPI.post(
+        "/api/v1/users/academic-record/application/create",
+        formData,
+      );
+  
+      return response.data; //
+    } catch (error) {
+      throw error;
+    }
+  };
