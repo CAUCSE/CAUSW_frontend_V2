@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { createPortal } from "react-dom";
 
 interface PortalModalProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   closeModal: () => void;
 }
@@ -48,7 +48,7 @@ export const PortalModal = ({
 
 interface ModalElementProps {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const ModalHeader = ({ className = "", children }: ModalElementProps) => {
@@ -68,9 +68,9 @@ PortalModal.Body = ModalBody;
 PortalModal.Footer = ModalFooter;
 
 export interface PortalModalComponent extends React.FC<PortalModalProps> {
-  Header: React.FC<ModalElementProps>;
-  Body: React.FC<ModalElementProps>;
-  Footer: React.FC<ModalElementProps>;
+  Header?: React.FC<ModalElementProps>;
+  Body?: React.FC<ModalElementProps>;
+  Footer?: React.FC<ModalElementProps>;
 }
 
 (PortalModal as PortalModalComponent).Header = ModalHeader;
