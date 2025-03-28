@@ -1,6 +1,6 @@
 "use client";
 
-import { FORMAPI } from "@/fsd_shared";
+import { FORMAPI } from "@/shared";
 import {
   API,
 } from "@/shared";
@@ -43,8 +43,9 @@ export const submitAdmissionsApplication = async (
       formData,
     );
 
-    return response.data; //
+    return response.data;
   } catch (error) {
+    console.log(error);
     throw error;
   }};
 

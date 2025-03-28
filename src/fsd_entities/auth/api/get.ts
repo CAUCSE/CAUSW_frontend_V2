@@ -1,5 +1,6 @@
 "use client";
 import { API } from "@/fsd_shared";
+import { useUserStore } from "@/shared";
 import axios, { AxiosResponse } from "axios";
 const URI = "/api/v1/users";
 
@@ -68,6 +69,38 @@ try {
 }
 };
 
+export const getMyInfo = async () => {
+    try {
+      const response = await API.get(`${URI}/me`); // 서버로부터 유저 정보를 가져옴
+      return response;
+    } catch (error) {
+      throw error;
+    }
+};
 
+export const getUserAdmissionInfo = async () => {
+  const response = await API.get(`${URI}/admissions/self`);
+  return response;
+};
 
+export const checkCurrentAcademicStatus = async () => {
+  try {
+    const response = (await API.get(
+      `${URI}/academic-record/current`,
+    )) as AxiosResponse;
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
+export const checkIsAcademicRecordSubmitted = async () => {
+  try {
+    const response = (await API.get(
+      `${URI}/academic-record/current/not-accepted`,
+    )) as AxiosResponse;
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
