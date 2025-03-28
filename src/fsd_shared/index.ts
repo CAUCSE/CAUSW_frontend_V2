@@ -29,8 +29,6 @@ export { ImageModal } from "./ui/ImageModal";
 export { PaginationButtons } from "./ui/PaginationButtons";
 export { UseTerms } from "./ui/UseTerms";
 export { ImageUploadField } from "./ui/ImageUploadField";
-//Boards
-
 
 //Custom Hooks
 
@@ -39,3 +37,6 @@ export { usePreviousValue } from "./hooks/usePreviousValue";
 export { useIsWindowLg } from "./hooks/useIsWindowLg";
 export { useTruncateParagraph } from "./hooks/useTruncateParagraph";
 
+
+// 공용 api
+export { signin } from './hooks/AuthService'
