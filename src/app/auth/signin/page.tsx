@@ -15,6 +15,8 @@ import {
   LoadingComponent,
 } from "@/entities";
 
+import { getRccRefresh } from "@/shared";
+
 import "@/firebase-messaging-sw";
 
 const routes = [
@@ -56,12 +58,11 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
+    if (getRccRefresh()) router.replace("/home");
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/firebase-messaging-sw.js")
-        .then((registration) => {
-          ;
-        })
+        .then((registration) => {});
     }
   }, []);
 
