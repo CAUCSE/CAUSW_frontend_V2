@@ -27,13 +27,13 @@ const ImageSelectionModalBody = ({
         <div>
           <div className="mb-2 flex w-full justify-end gap-4 text-sm">
             <button
-              className="border-b border-gray-400 text-gray-400 hover:border-gray-500 hover:text-gray-500"
+              className="text-gray-400 underline hover:text-gray-500"
               onClick={clickUploadBtn}
             >
               재업로드
             </button>
             <button
-              className="border-b border-gray-400 text-gray-400 hover:border-gray-500 hover:text-gray-500"
+              className="text-gray-400 underline hover:text-gray-500"
               onClick={clearSelectedImage}
             >
               제거
