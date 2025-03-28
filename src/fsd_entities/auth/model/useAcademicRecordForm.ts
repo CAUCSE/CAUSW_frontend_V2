@@ -2,9 +2,15 @@ import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { postAcademicRecord } from "../api/post";
+import { useRouter } from "next/navigation";
 
-export const useAcademicRecordForm = () => {
+interface userInfoProps {
+    curAcademicStatus: string;
+}
 
+export const useAcademicRecordForm = ({curAcademicStatus}: userInfoProps) => {
+
+    const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -25,15 +31,21 @@ export const useAcademicRecordForm = () => {
 
   
   const onSubmit = (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
-    if (!data.images) {
+    if (data.targetAcademicStatus === "ENROLLED" && !data.images) {
         toast.error("이미지를 첨부해주세요.");
+        return;
     }
-    console.log(data);
-    // mutation.mutate(data as User.CreateUserAcademicRecordApplicationRequestDto);
+    mutation.mutate(data as User.CreateUserAcademicRecordApplicationRequestDto);
+    setTimeout(() => {
+        router.push(curAcademicStatus === "UNDEFINED" 
+            && data.targetAcademicStatus !== "ENROLLED" ? "/auth/signin" : "./"); 
+            // UNDEFINED -> 휴학, 졸업일 경우 바로 로그인 가능하므로 로그인인 페이지로 보냄
+    }, 500);
 };
 
 const onInvalid = () => {
-    toast.error("모든 항목을 조건에 맞게 입력해주세요."); };
+    toast.error("모든 항목을 조건에 맞게 입력해주세요."); 
+};
   
 
 return {
