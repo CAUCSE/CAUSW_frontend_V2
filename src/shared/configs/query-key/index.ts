@@ -1,3 +1,4 @@
+import { bannerQueryKey } from "./bannerQueryKey";
 import { boardQueryKey } from "./boardQueryKey";
 import { calendarQueryKey } from "./calendarQueryKey";
 import { eventQueryKey } from "./eventQueryKey";
@@ -8,6 +9,7 @@ import { settingQueryKey } from "./settingQueryKey";
 import { userQueryKey } from "./userQueryKey";
 
 export {
+  bannerQueryKey,
   boardQueryKey,
   eventQueryKey,
   formQueryKey,
