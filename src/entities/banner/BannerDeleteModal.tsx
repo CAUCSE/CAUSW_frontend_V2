@@ -42,7 +42,7 @@ export const BannerDeleteModal = () => {
       </PortalModal.Body>
       <PortalModal.Footer className="flex gap-4">
         <button
-          className="tex-xl rounded-lg border border-gray-200 bg-white px-8 py-2 text-gray-500 hover:bg-gray-200 md:px-12"
+          className="rounded-lg border border-gray-200 bg-white px-8 py-2 text-xl text-gray-500 hover:bg-gray-200 md:px-12"
           onClick={closeModal}
         >
           취소
