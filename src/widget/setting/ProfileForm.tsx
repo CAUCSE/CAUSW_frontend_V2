@@ -7,7 +7,6 @@ import { Header, UserInfoContainer } from "@/entities";
 import { PreviousButton } from "@/shared";
 import { useQueryClient } from "@tanstack/react-query";
 
-
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;
   paidFeeSemesters: string;
@@ -19,11 +18,7 @@ interface ProfileFormProps {
   feeInfo: FeeInfoProps;
 }
 
-
-const ProfileForm: React.FC<ProfileFormProps> = ({
-  userData,
-  feeInfo,
-}) => {
+const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
   const {
     register,
     handleSubmit,
@@ -38,8 +33,8 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
   const { updateInfo } = UserService();
   const { checkNicknameDuplicate } = AuthService();
   // 프로필 이미지 변경
-  const [profileImagePreview, setProfileImagePreview] = React.useState(userData.profileImageUrl ??
-    "/images/default_profile.png"
+  const [profileImagePreview, setProfileImagePreview] = React.useState(
+    userData.profileImageUrl ?? "/images/default_profile.png",
   );
 
   const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,21 +75,20 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
 
   const refreshSideBar = (profileImageUrl: File) => {
     setUserStore({
-      ...userData, // 기존 데이터 유지  
-      profileImageUrl: URL.createObjectURL(profileImageUrl)
+      ...userData, // 기존 데이터 유지
+      profileImageUrl: URL.createObjectURL(profileImageUrl),
     });
-  }
+  };
 
   // 제출 핸들러
   const onSubmit = async (data: User.userUpdateDto, event: any) => {
-    console.log(data);
     try {
       event.preventDefault();
       await updateInfo(data);
       toast.success("변경 사항이 저장되었습니다.");
-      queryClient.invalidateQueries({queryKey: userQueryKey.all});
-      if (data.profileImage){
-        refreshSideBar(data.profileImage);  
+      queryClient.invalidateQueries({ queryKey: userQueryKey.all });
+      if (data.profileImage) {
+        refreshSideBar(data.profileImage);
       }
     } catch (error: any) {
       if (error.status === 400) {
@@ -102,20 +96,21 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
       } else {
         toast.error("알 수 없는 에러가 발생했습니다.");
       }
-      console.log(error);
     }
   };
   useEffect(() => {
-  setValue("nickname", userData.nickname);
-  setValue("phoneNumber", userData.phoneNumber);
-  setValue("profileImage", null);
-}, []);
+    setValue("nickname", userData.nickname);
+    setValue("phoneNumber", userData.phoneNumber);
+    setValue("profileImage", null);
+  }, []);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-3">
-      <div className="h-12 mb-2">
+      <div className="mb-2 h-12">
         <PreviousButton />
       </div>
-      <Header big bold>개인정보 관리</Header>
+      <Header big bold>
+        개인정보 관리
+      </Header>
 
       <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
         <ProfileEditForm
@@ -127,10 +122,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
           userData={userData}
         />
 
-        <UserInfoContainer
-          userData={userData}
-          feeInfo={feeInfo}
-        />
+        <UserInfoContainer userData={userData} feeInfo={feeInfo} />
       </div>
 
       <div className="mt-8 flex justify-center">

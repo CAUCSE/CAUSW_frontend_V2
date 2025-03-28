@@ -40,10 +40,6 @@ export const useCreateVoteStore = create<CreateVoteState>((set) => ({
     const { options, isMultipleChoice, allowAnonymous } =
       useCreateVoteStore.getState();
     const filteredOptions = options.filter((option) => option !== "");
-    console.log("투표 제출:", filteredOptions, {
-      isMultipleChoice,
-      allowAnonymous,
-    });
   },
   clearVote: () =>
     set(() => ({

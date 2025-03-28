@@ -58,7 +58,7 @@ const CreateCircleBoardPage = () => {
         router.back();
         clearBoardInfo();
       } catch (error) {
-        console.error("게시물 생성 에러: ", error);
+        ;
       }
     } else {
       const boardRequest: Board.ApplyBoardDto = {
@@ -72,7 +72,7 @@ const CreateCircleBoardPage = () => {
         router.back();
         clearBoardInfo();
       } catch (error) {
-        console.error("게시물 생성 에러: ", error);
+        ;
       }
     }
   };

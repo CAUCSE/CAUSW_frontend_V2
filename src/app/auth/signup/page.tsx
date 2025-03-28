@@ -16,7 +16,7 @@ const SignUpPage = () => {
     setValue,
     clearErrors,
     watch,
-    trigger
+    trigger,
   } = useForm<User.SignUpForm>({ mode: "onBlur", reValidateMode: "onBlur" });
   const router = useRouter(); // useRouter 초기화
   const admissionYear = watch("admissionYearString");
@@ -31,17 +31,15 @@ const SignUpPage = () => {
     checkStudentIdDuplicate,
   } = AuthService();
 
-
-    // 엔터키를 누를 때 기본 동작을 방지하는 함수
-    const handleKeyDown = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault(); // 엔터키의 기본 동작 방지
-      }
-    };
+  // 엔터키를 누를 때 기본 동작을 방지하는 함수
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // 엔터키의 기본 동작 방지
+    }
+  };
 
   // 이메일 중복 및 형식 검사
   const handleEmailBlur = async () => {
-
     if (!email) return; // 빈 값일 경우 무시
 
     // 이메일 형식 검사
@@ -52,7 +50,7 @@ const SignUpPage = () => {
     // 이메일 중복 검사
     const isDuplicate = await checkEmailDuplicate(email);
     if (isDuplicate) {
-      return "이미 사용 중인 이메일입니다."
+      return "이미 사용 중인 이메일입니다.";
     } else {
       return true;
     }
@@ -60,7 +58,6 @@ const SignUpPage = () => {
 
   // 닉네임 중복 검사 및 형식 검사
   const handleNicknameBlur = async () => {
-
     if (!nickname) return true; // 빈 값일 경우 무시
 
     // 닉네임 길이 및 형식 검사
@@ -73,7 +70,7 @@ const SignUpPage = () => {
     // 닉네임 중복 검사
     const isDuplicate = await checkNicknameDuplicate(nickname);
     if (isDuplicate) {
-      return "이미 사용 중인 닉네임입니다."
+      return "이미 사용 중인 닉네임입니다.";
     } else {
       return true;
     }
@@ -81,14 +78,13 @@ const SignUpPage = () => {
 
   // 학번 중복 및 형식 검사
   const handleStudentIdBlur = async () => {
-
     if (!studentId) return true; // 빈 값일 경우 무시
 
     // 학번 자릿 수 검사
     const studentIdPattern = /^\d{8}$/;
     if (!studentIdPattern.test(studentId)) {
-      return "학번은 8자리로 입력해주세요."; 
-    } 
+      return "학번은 8자리로 입력해주세요.";
+    }
 
     // 학번 중복 검사
     const isDuplicate = await checkStudentIdDuplicate(studentId);
@@ -107,10 +103,9 @@ const SignUpPage = () => {
 
     if (isDuplicate) {
       return "이미 사용 중인 학번입니다.";
-    } else if (!isValidStudentId){
+    } else if (!isValidStudentId) {
       return `입학년도(${admissionYear})와 학번(${studentId.slice(0, 4)})이 일치하지 않습니다.`;
-    }
-    else {
+    } else {
       return true;
     }
   };
@@ -186,19 +181,19 @@ const SignUpPage = () => {
       };
 
       await signup(selectedData); // signup 함수 호출
-      toast.success("회원가입이 완료되었습니다.")
+      toast.success("회원가입이 완료되었습니다.");
       setTimeout(() => {
         router.push("/auth/signin");
-      }, 500)
+      }, 500);
     } catch (error: any) {
       // 에러 발생 시 처리
       toast.error(error.message || "회원가입 중 문제가 발생했습니다."); // 에러 메시지 처리
     }
   };
 
-  const onInvalid = async(errors: any) => {
-  // 모든 필드를 입력하지 않았을 경우에 대한 로직
-    toast.error("모든 항목을 조건에 맞게 입력해주세요.")
+  const onInvalid = async (errors: any) => {
+    // 모든 필드를 입력하지 않았을 경우에 대한 로직
+    toast.error("모든 항목을 조건에 맞게 입력해주세요.");
     await trigger();
     // onBlur로 설정된 에러를 복구
   };
@@ -234,7 +229,7 @@ const SignUpPage = () => {
                 placeholder="이메일 형식으로 입력해주세요"
                 {...register("email", {
                   required: "아이디를 입력해주세요",
-                  validate: handleEmailBlur
+                  validate: handleEmailBlur,
                 })}
                 onKeyDown={handleKeyDown}
               />
@@ -345,9 +340,8 @@ const SignUpPage = () => {
                 placeholder="닉네임을 입력해주세요"
                 {...register("nickname", {
                   required: "닉네임을 입력해주세요",
-                  validate: handleNicknameBlur
+                  validate: handleNicknameBlur,
                 })}
-                
                 onKeyDown={handleKeyDown}
               />
               {errors.nickname && (
@@ -388,9 +382,9 @@ const SignUpPage = () => {
                 placeholder="학번 8자리를 입력해주세요"
                 {...register("studentId", {
                   required: "학번을 입력해주세요",
-                  validate: handleStudentIdBlur
+                  validate: handleStudentIdBlur,
                 })}
-                  onKeyDown={handleKeyDown}
+                onKeyDown={handleKeyDown}
               />
               <p className="text-error">{errors?.studentId?.message}</p>
             </div>
@@ -423,7 +417,8 @@ const SignUpPage = () => {
                   required: "연락처를 입력해주세요",
                   pattern: {
                     value: /^(01[016789]-?\d{3,4}-?\d{4})$/,
-                    message: "올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)",
+                    message:
+                      "올바른 전화번호 형식이 아닙니다. (예: 010-1234-5678)",
                   },
                 })}
                 onKeyDown={handleKeyDown}
@@ -432,7 +427,6 @@ const SignUpPage = () => {
             </div>
           </div>
         </div>
-
 
         <div className="mb-8 flex w-[calc(100%-30px)] flex-col sm:w-[565px]">
           <div className="-ml-2 flex items-center pl-2">
@@ -468,15 +462,14 @@ const SignUpPage = () => {
         </div>
       </form>
 
-
       {/* 이용약관 모달 */}
       {isModalOpen && (
         <div>
-        <UseTerms
-          closeModal={() => {
-            setIsModalOpen(false);
-          }}
-        ></UseTerms>
+          <UseTerms
+            closeModal={() => {
+              setIsModalOpen(false);
+            }}
+          ></UseTerms>
         </div>
       )}
     </div>

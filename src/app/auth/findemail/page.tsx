@@ -22,19 +22,15 @@ const FindEmailPage = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const {
-    email,
-    setName,
-    setStudentId,
-    resetFindAccountStore,
-  } = useFindAccountStore(
-    useShallow((state) => ({
-      email: state.email,
-      setName: state.setName,
-      setStudentId: state.setStudentId,
-      resetFindAccountStore: state.resetFindAccountStore,
-    })),
-  );
+  const { email, setName, setStudentId, resetFindAccountStore } =
+    useFindAccountStore(
+      useShallow((state) => ({
+        email: state.email,
+        setName: state.setName,
+        setStudentId: state.setStudentId,
+        resetFindAccountStore: state.resetFindAccountStore,
+      })),
+    );
 
   const { useFindId } = AuthService();
   const { mutate: findId } = useFindId();

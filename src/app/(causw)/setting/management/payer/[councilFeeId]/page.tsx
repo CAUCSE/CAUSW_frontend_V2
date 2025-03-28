@@ -12,13 +12,12 @@ export default async function CouncilFeeDetailPage({
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);
   } catch (e) {
-    console.error(e);
+    ;
   }
 
-return (
-  
-    <div className = "mb-4">
-      <CouncilFeeDetail councilFeeId ={councilFeeId}></CouncilFeeDetail>
+  return (
+    <div className="mb-4">
+      <CouncilFeeDetail councilFeeId={councilFeeId}></CouncilFeeDetail>
       <></>
     </div>
   );

@@ -22,7 +22,7 @@ export function CircleManagementButtons({
       await router.push("../"); // 페이지 이동
       window.location.reload(); // 페이지 새로고침
     } catch (error) {
-      console.error("이동 중 오류 발생:", error);
+      ;
     }
   };
 
@@ -32,7 +32,6 @@ export function CircleManagementButtons({
       setIsSuccessModal(true);
     } catch (error) {
       setIsErrorModal(true);
-      console.log(error);
     }
   };
   return (

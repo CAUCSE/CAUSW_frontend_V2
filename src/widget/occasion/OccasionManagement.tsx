@@ -34,8 +34,6 @@ export const OccasionManagement = ({
   } else {
     isFirstNavigation = false;
   }
-  console.log(isFirstNavigation);
-  console.log(state);
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
       <Link href="/setting" className="mb-7 flex items-center text-lg">

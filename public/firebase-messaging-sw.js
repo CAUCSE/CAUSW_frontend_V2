@@ -6,12 +6,11 @@ importScripts(
 );
 
 self.addEventListener("install", function (event) {
-  console.log("fcm sw install..");
   self.skipWaiting();
 });
 
 self.addEventListener("activate", function (event) {
-  console.log("fcm sw activate..");
+  ;
 });
 
 self.addEventListener("push", function (e) {

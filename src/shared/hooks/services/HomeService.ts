@@ -1,6 +1,6 @@
 "use client";
 
-import { API, FORMAPI } from "@/shared/configs/axios";
+import { API, FORMAPI } from "@/shared";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { eventQueryKey } from "@/shared/configs/query-key/eventQueryKey";

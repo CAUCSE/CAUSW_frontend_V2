@@ -97,8 +97,10 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         <SubHeader bold big>
           증빙 서류
         </SubHeader>
-        <div className="flex h-1/2 gap-1 lg:h-2/3">        
-        {data?.attachedImageUrlList && <ImageList images={data.attachedImageUrlList} imageSize={125} />}
+        <div className="flex h-1/2 gap-1 lg:h-2/3">
+          {data?.attachedImageUrlList && (
+            <ImageList images={data.attachedImageUrlList} imageSize={125} />
+          )}
         </div>
 
         <div className="flex w-full justify-between">
@@ -126,7 +128,12 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             거부하기
           </div>
         </div>
-        {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
+        {selectedImage && (
+          <ImageModal
+            imageUrl={selectedImage}
+            onClose={() => setSelectedImage(null)}
+          />
+        )}
       </main>
     </>
   );

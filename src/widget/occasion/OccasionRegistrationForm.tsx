@@ -1,23 +1,28 @@
 "use client";
 import React, { useState } from "react";
-import 
-{ OccasionTypeDropdown,
+import {
+  OccasionTypeDropdown,
   OccasionDateInput,
   OccasionTextArea,
   OccasionImageUploader,
-  OccasionSubmitButton } from "@/entities";
+  OccasionSubmitButton,
+} from "@/entities";
 import { OccasionService } from "@/shared/hooks/services/OccasionService";
-import { getTodayDate, isPastDate, isStartDateBeforeEndDate, isValidDate } from "@/utils";
+import {
+  getTodayDate,
+  isPastDate,
+  isStartDateBeforeEndDate,
+  isValidDate,
+} from "@/utils";
 import toast from "react-hot-toast";
 
-
-
 export const OccasionRegistrationForm = () => {
-  const [category, setCategory] = useState<"MARRIAGE"| "FUNERAL" | "ETC">("MARRIAGE");
+  const [category, setCategory] = useState<"MARRIAGE" | "FUNERAL" | "ETC">(
+    "MARRIAGE",
+  );
   const [startDate, setStartDate] = useState<string>(getTodayDate());
   const [endDate, setEndDate] = useState<string>(getTodayDate());
   const [description, setDescription] = useState<string>("");
-
 
   const [images, setImages] = useState<File[]>([]);
 
@@ -29,11 +34,13 @@ export const OccasionRegistrationForm = () => {
       category: category,
       startDate: startDate,
       endDate: endDate,
-      description: description
-    }
-    
+      description: description,
+    };
+
     if (!isValidDate(startDate) || !isValidDate(endDate)) {
-      toast.error(`유효한 날짜 형식이 아닙니다. \n ex) ${getTodayDate()} 과 같이 입력해주세요!`);
+      toast.error(
+        `유효한 날짜 형식이 아닙니다. \n ex) ${getTodayDate()} 과 같이 입력해주세요!`,
+      );
       return;
     }
     if (isPastDate(startDate) || isPastDate(endDate)) {
@@ -46,10 +53,9 @@ export const OccasionRegistrationForm = () => {
     }
     try {
       const response = await registerOccasion(data, images);
-      console.log(response);
     }
     catch(e) {
-      console.log(e);
+      ;
     }
 
     // TODO: API 연결
@@ -57,7 +63,7 @@ export const OccasionRegistrationForm = () => {
 
   return (
     <div className="mx-auto max-w-4xl p-4">
-      <h1 className="mb-6 text-2xl font-bold text-center">경조사 등록 신청</h1>
+      <h1 className="mb-6 text-center text-2xl font-bold">경조사 등록 신청</h1>
       <label className="font-medium"> 분류 </label>
       <OccasionTypeDropdown
         options={["MARRIAGE", "FUNERAL", "ETC"]}
@@ -65,10 +71,18 @@ export const OccasionRegistrationForm = () => {
         onChange={setCategory}
       />
       <div className="mt-8">
-        <OccasionDateInput title="시작 날짜" initialDate={startDate} onDateChange={setStartDate} />
+        <OccasionDateInput
+          title="시작 날짜"
+          initialDate={startDate}
+          onDateChange={setStartDate}
+        />
       </div>
       <div className="mt-4">
-        <OccasionDateInput title="종료 날짜" initialDate={endDate} onDateChange={setEndDate} />
+        <OccasionDateInput
+          title="종료 날짜"
+          initialDate={endDate}
+          onDateChange={setEndDate}
+        />
       </div>
       <div className="mt-8">
         <p className="mb-4 font-medium">내용</p>
@@ -83,7 +97,7 @@ export const OccasionRegistrationForm = () => {
         <OccasionImageUploader onUpload={setImages} />
       </div>
 
-      <div className="flex justify-center items-center mt-6">
+      <div className="mt-6 flex items-center justify-center">
         <OccasionSubmitButton label="저장" onClick={handleSubmit} />
       </div>
     </div>

@@ -1,10 +1,9 @@
+export * from "./configs/api";
+
 export { Loading } from "./ui/Loading";
 export { IconButton } from "./ui/IconButton";
-export { BASEURL } from "./configs/url";
 
-export * from "./configs/axios";
 export * from "./configs/errorCode";
-export * from "./configs/fetch";
 export * from "./configs/layout";
 export * from "./configs/regex";
 export * from "./configs/permission";
@@ -12,6 +11,7 @@ export * from "./configs/permission";
 //Query Key
 export * from "./configs/query-key";
 
+//TODO: entities 이사 예정
 //Service
 export { AuthRscService } from "./hooks/services/AuthRscService";
 export { HomeRscService } from "./hooks/services/HomeRscService";
