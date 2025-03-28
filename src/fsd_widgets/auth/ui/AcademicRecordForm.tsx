@@ -1,16 +1,17 @@
-import { AcademicRecordSubmitButton, academicRecordValidationRules, AcademicStatusSelect, InfoTextArea, useAcademicRecordForm } from "@/fsd_entities/auth";
+import { academicRecordValidationRules, AcademicStatusSelect, AuthFormSubmitButton, InfoTextArea, useAcademicRecordForm } from "@/fsd_entities/auth";
 import { ImageUploadField, PreviousButton } from "@/fsd_shared";
 import React from "react";
 import { AcademicRecordFormHeader } from "./AcademicRecordFormHeader";
+import { FormSubmitButton } from "@/entities";
 
 interface AcademicRecordFormProps {
-  curAcademicStatus?: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+  curAcademicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED" | "UNDEFINED"; // undefined는 신규 사용자자
   onClose?: () => void;
   rejectionReason?: string;
 }
 
 export const AcademicRecordForm = ({curAcademicStatus, onClose, rejectionReason}: AcademicRecordFormProps) => {
-  const { register, handleSubmit, watch, errors, onSubmit, onInvalid, setValue } = useAcademicRecordForm();
+  const { register, handleSubmit, watch, errors, onSubmit, onInvalid, setValue } = useAcademicRecordForm({curAcademicStatus});
 
   const statusOptions = [
     { value: "ENROLLED", label: "재학" },
@@ -43,7 +44,7 @@ export const AcademicRecordForm = ({curAcademicStatus, onClose, rejectionReason}
   const targetAcademicStatus = watch("targetAcademicStatus");
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="bg-boardPageBackground mb-8 flex flex-col items-left justify-left gap-y-4 p-8 sm:p-16">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="min-h-screen bg-boardPageBackground flex flex-col items-left justify-left gap-y-4 p-8 sm:p-16">
     <PreviousButton></PreviousButton>
     <AcademicRecordFormHeader></AcademicRecordFormHeader>
     <AcademicStatusSelect
@@ -95,7 +96,8 @@ export const AcademicRecordForm = ({curAcademicStatus, onClose, rejectionReason}
     rules={academicRecordValidationRules.note}
     errorMessage={errors.note?.message}
     />
-  <ImageUploadField<User.CreateUserAcademicRecordApplicationRequestDto>
+  {targetAcademicStatus === "ENROLLED" && (
+  <ImageUploadField
     setValue={setValue}
     name="images"
     label="증빙 서류 업로드"
@@ -106,7 +108,7 @@ export const AcademicRecordForm = ({curAcademicStatus, onClose, rejectionReason}
   </p>
   <p className="text-md text-error mb-2">
   (이외의 파일로는 재학 증빙이 불가능합니다.)
-  </p></ImageUploadField>
-  <AcademicRecordSubmitButton/>
+  </p></ImageUploadField>)}
+  <AuthFormSubmitButton content="제출"/>
   </form>
 );};

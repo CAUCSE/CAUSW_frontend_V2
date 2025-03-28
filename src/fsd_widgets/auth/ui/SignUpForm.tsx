@@ -1,6 +1,6 @@
 "use client";
 import { PreviousButton } from "@/shared";
-import {  SignUpSubmitButton, useSignUpForm } from "@/fsd_entities/auth";
+import {  AuthFormSubmitButton, useSignUpForm } from "@/fsd_entities/auth";
 import { SignUpHeader } from "./SignUpHeader";
 import { SignUpFormFields } from "./SignUpFormFields";
 
@@ -14,7 +14,7 @@ export const SignUpForm = () => {
       <PreviousButton variant="white"></PreviousButton>
       <SignUpHeader></SignUpHeader>
       <SignUpFormFields register={register} errors={errors} watch={watch} />
-      <SignUpSubmitButton/>
+      <AuthFormSubmitButton content="회원가입"/>
     </form>
   );
 };
