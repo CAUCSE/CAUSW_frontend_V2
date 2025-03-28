@@ -5,6 +5,7 @@ import { CustomSelect, useCalendarStore } from "@/shared";
 import AddIcon from "../../../public/icons/add_icon.svg";
 import { CalendarAddModal } from "@/entities";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import { useShallow } from "zustand/react/shallow";
 
 export const CalendarListHeader = () => {
@@ -31,7 +32,7 @@ export const CalendarListHeader = () => {
         <div className="flex items-center justify-between gap-4 md:justify-normal">
           <p className="text-xl font-medium lg:text-3xl">캘린더 관리</p>
           <button
-            className="flex h-6 w-6 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF]"
+            className="hidden items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF] md:static md:flex md:h-6 md:w-6"
             onClick={openAddModal}
           >
             <AddIcon />
@@ -42,6 +43,17 @@ export const CalendarListHeader = () => {
           suffix="년"
           setSelectValue={setCalendarYear}
         />
+        <>
+          {createPortal(
+            <button
+              className="fixed bottom-28 right-14 h-12 w-12 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF] md:hidden"
+              onClick={openAddModal}
+            >
+              <AddIcon />
+            </button>,
+            document.body,
+          )}
+        </>
       </header>
       {isAddModalOpen && <CalendarAddModal />}
     </>
