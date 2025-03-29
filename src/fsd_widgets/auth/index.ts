@@ -17,3 +17,7 @@ export { VerificationStatus } from "./ui/VerificationStatus";
 export { VerificationHeader } from "./ui/VerificationHeader";
 
 export { ResetPasswordForm } from "./ui/ResetPasswordForm";
+
+export { FindEmailForm } from "./ui/FindEmailForm";
+export { FindPasswordForm } from "./ui/FindPasswordForm";
+export { FindEmailResult } from "./ui/FindEmailResult";
