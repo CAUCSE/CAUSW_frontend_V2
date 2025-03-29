@@ -32,7 +32,6 @@ export const useAdmissionForm = () => {
         toast.error("이미지를 첨부해주세요.");
         return;
     }
-    console.log(data);
     mutation.mutate(data);
 };
 
