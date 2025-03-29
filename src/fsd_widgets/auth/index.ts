@@ -15,3 +15,5 @@ export { AdmissionForm } from "./ui/AdmissionForm";
 
 export { VerificationStatus } from "./ui/VerificationStatus";
 export { VerificationHeader } from "./ui/VerificationHeader";
+
+export { ResetPasswordForm } from "./ui/ResetPasswordForm";
