@@ -290,6 +290,17 @@ declare namespace User {
     email: string;
   }
 
+  export interface ResetPasswordRequest {
+    originPassword: string;
+    updatedPassword: string;
+  }
+
+  export interface ResetPasswordFormData {
+    originPassword: string;
+    updatedPassword: string;
+    confirmPassword: string;
+  }
+
   //Store
   export interface UseUserStore extends User {
     setUserStore: (props: User.User & { isV2: boolean }) => void;
