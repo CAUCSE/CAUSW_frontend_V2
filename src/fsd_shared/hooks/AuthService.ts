@@ -12,12 +12,14 @@ import { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
 const URI = "/api/v1/users";
-const { getMyInfo } = UserService();
-
-const router = useRouter();
-const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
 
 export const signin = async (body: User.SignInRequestDto) => {
+
+    const { getMyInfo } = UserService();
+
+    const router = useRouter();
+    const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
+    
 try {
     const {
     data: { accessToken, refreshToken },
