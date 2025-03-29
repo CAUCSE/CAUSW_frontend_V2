@@ -1,6 +1,6 @@
 "use client";
 
-import { FORMAPI } from "@/shared";
+import { BASEURL, FORMAPI, getRccAccess } from "@/shared";
 import {
   API,
 } from "@/shared";
@@ -103,5 +103,21 @@ export const findPassword = async (data: User.FindPasswordRequest): Promise<void
     } else {
       throw new Error("알 수 없는 오류가 발생했습니다.");
     }
+  }
+};
+
+export const resetPassword = async (data: User.ResetPasswordRequest): Promise<void> => {
+  const accessToken = getRccAccess();
+  try {
+    await axios.put(`${BASEURL}/api/v1/users/password`,
+       data,
+       {
+        headers: {
+          Authorization: accessToken,
+          "Content-Type": "application/json",
+        },
+      },);
+  } catch (error) {
+    throw error;
   }
 };
