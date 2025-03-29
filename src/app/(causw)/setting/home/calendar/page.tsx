@@ -1,13 +1,15 @@
 import { CalendarList, CalendarListHeader } from "@/widget";
 
 const CalendarSettingPage = () => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
   return (
-    <>
-      <div className="flex h-full w-full flex-col lg:p-8">
-        <CalendarListHeader />
-        <CalendarList />
-      </div>
-    </>
+    <div className="flex h-full w-full flex-col lg:p-8">
+      <CalendarListHeader />
+      <CalendarList />
+    </div>
   );
 };
 
