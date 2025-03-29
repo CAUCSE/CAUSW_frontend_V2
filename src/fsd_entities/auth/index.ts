@@ -16,7 +16,7 @@ export { useFindPassword } from "./model/useFindPassword";
 export { SignInInput } from "./ui/SignInInput";
 export { SignInSubmitButton } from "./ui/SignInSubmitButton";
 
-export { SignUpInput } from "./ui/SignUpInput";
+export { AuthInput } from "./ui/AuthInput";
 export { SignUpSelect } from "./ui/SignUpSelect";
 export { SignUpCheckbox } from "./ui/SignUpCheckbox";
 

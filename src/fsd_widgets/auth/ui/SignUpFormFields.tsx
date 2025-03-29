@@ -1,5 +1,5 @@
 import { UseFormRegister, FieldErrors, UseFormWatch } from "react-hook-form";
-import { SignUpInput, SignUpSelect, SignUpCheckbox, signUpValidationRules } from "@/fsd_entities/auth";
+import { AuthInput, SignUpSelect, SignUpCheckbox, signUpValidationRules } from "@/fsd_entities/auth";
 
 interface Props {
   register: UseFormRegister<User.SignUpForm>;
@@ -14,7 +14,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
     <>
     <div className="grid grid-cols-1 place-items-center lg:grid lg:grid-cols-2 gap-y-2 max-w-3xl w-full p-8">
 
-        <SignUpInput
+        <AuthInput
           register={register}
           name="email"
           rules={signUpValidationRules.email}
@@ -22,7 +22,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="이메일 형식으로 입력해주세요"
           errorMessage={errors.email?.message}
         />
-        <SignUpInput
+        <AuthInput
           register={register}
           name="nickname"
           rules={signUpValidationRules.nickname}
@@ -30,7 +30,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="닉네임을 입력해주세요"
           errorMessage={errors.nickname?.message}
         />  
-        <SignUpInput
+        <AuthInput
           register={register}
           name="password"
           type="password"
@@ -50,7 +50,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
             return { value: `${year}`, label: `${year}` };
           })}
         />
-        <SignUpInput
+        <AuthInput
           register={register}
           name="pwConfirm"
           type="password"
@@ -63,7 +63,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="8자리 이상, 영어/숫자/특수 문자"
           errorMessage={errors.pwConfirm?.message}
         />
-        <SignUpInput
+        <AuthInput
           register={register}
           name="studentId"
           rules={signUpValidationRules.studentId}
@@ -72,7 +72,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           errorMessage={errors.studentId?.message}
         />
 
-        <SignUpInput
+        <AuthInput
           register={register}
           name="name"
           rules={signUpValidationRules.name}
@@ -80,7 +80,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="이름을 입력해주세요"
           errorMessage={errors.name?.message}
         />
-        <SignUpInput
+        <AuthInput
           register={register}
           name="major"
           rules={signUpValidationRules.major}
@@ -89,7 +89,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           errorMessage={errors.major?.message}
         />
 
-        <SignUpInput
+        <AuthInput
           register={register}
           name="phoneNumber"
           rules={signUpValidationRules.phoneNumber}

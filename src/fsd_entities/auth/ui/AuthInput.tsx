@@ -13,7 +13,7 @@ interface InputProps<T extends FieldValues> {
   errorMessage?: string;
 }
 
-export const SignUpInput = <T extends FieldValues>({
+export const AuthInput = <T extends FieldValues>({
   register,
   name,
   rules,
