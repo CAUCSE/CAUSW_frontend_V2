@@ -2,7 +2,6 @@ import { academicRecordValidationRules, AcademicStatusSelect, AuthFormSubmitButt
 import { ImageUploadField, PreviousButton } from "@/fsd_shared";
 import React from "react";
 import { AcademicRecordFormHeader } from "./AcademicRecordFormHeader";
-import { FormSubmitButton } from "@/entities";
 
 interface AcademicRecordFormProps {
   curAcademicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED" | "UNDEFINED"; // undefined는 신규 사용자자
