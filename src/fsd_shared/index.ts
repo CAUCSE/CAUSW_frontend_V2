@@ -39,4 +39,4 @@ export { useTruncateParagraph } from "./hooks/useTruncateParagraph";
 
 
 // 공용 api
-export { signin } from './hooks/AuthService'
+export { AuthService } from './hooks/AuthService'
