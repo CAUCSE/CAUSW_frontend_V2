@@ -20,7 +20,7 @@ const VerificationPage: React.FC = () => {
   return (
         <div className="flex h-screen items-center justify-center bg-boardPageBackground p-4">
           <div className="w-full max-w-lg rounded-lg bg-white p-8 text-center shadow-md">
-          <PreviousButton />
+          <PreviousButton routeCallback={() => {router.push("./signin")}}/>
           <VerificationHeader/>
 
           { (admissionRejectMessage || academicRecordRejectMessage) && 
