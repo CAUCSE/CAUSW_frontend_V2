@@ -70,9 +70,38 @@ export const postAcademicRecord = async (
         "/api/v1/users/academic-record/application/create",
         formData,
       );
-  
       return response.data; //
     } catch (error) {
       throw error;
     }
-  };
+};
+
+export const findId = async (data: User.FindIdRequest): Promise<User.FindIdResponse> => {
+  try {
+    const response = await API.post<User.FindIdResponse>(
+      `/api/v1/users/user-id/find`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage = error.response?.data?.message;
+      throw new Error(errorMessage);
+    } else {
+      throw new Error("알 수 없는 오류가 발생했습니다.");
+    }
+  }
+};
+
+export const findPassword = async (data: User.FindPasswordRequest): Promise<void> => {
+  try {
+    await API.put("/api/v1/users/password/find", data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorMessage = error.response?.data?.message;
+      throw new Error(errorMessage);
+    } else {
+      throw new Error("알 수 없는 오류가 발생했습니다.");
+    }
+  }
+};

@@ -1,6 +1,6 @@
-import { API } from "@/shared";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { findPassword } from "../api/post";
 
 export const useFindPassword = () => {
     return useMutation({
@@ -8,16 +8,8 @@ export const useFindPassword = () => {
         name,
         studentId,
         email,
-      }: {
-        name: string;
-        studentId: string;
-        email: string;
-      }) => {
-        await API.put("/api/v1/users/password/find", {
-          name,
-          studentId,
-          email,
-        });
+      }: User.FindPasswordRequest) => {
+        await findPassword({ name, studentId, email });
       },
       onMutate: () => {
         toast.loading("비밀번호 찾는 중...");

@@ -1,7 +1,8 @@
-import { API, useFindAccountStore } from "@/shared";
+import { useFindAccountStore } from "@/shared";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useShallow } from "zustand/react/shallow";
+import { findId } from "../api/post";
 
 export const useFindId = () => {
     const { setEmail, resetFindAccountStore } = useFindAccountStore(
@@ -18,14 +19,8 @@ export const useFindId = () => {
         studentId: string;
         name: string;
       }) => {
-        const { data }: { data: { email: string } } = await API.post(
-          `/api/v1/users/user-id/find`,
-          {
-            studentId,
-            name,
-          },
-        );
-        return data.email;
+        const { email } = await findId({ studentId, name });
+        return email;
       },
       onSuccess: (data) => {
         setEmail(data);
