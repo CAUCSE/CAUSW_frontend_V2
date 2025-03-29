@@ -11,12 +11,12 @@ export const StatusButton: React.FC<User.StatusButtonProps> = ({
   return isButton ? (
     <button
       onClick={onClick}
-      className={`w-full rounded-lg py-3 text-white transition ${backgroundColor}`}
+      className={`w-full rounded-lg py-3 text-white transition mt-4 ${backgroundColor}`}
     >
       {content}
     </button>
   ) : (
-    <div className={`w-full rounded-lg py-3 text-white transition ${backgroundColor}`}>
+    <div className={`w-full rounded-lg py-3 text-white transition mt-4 ${backgroundColor}`}>
       {content}
     </div>
   );
