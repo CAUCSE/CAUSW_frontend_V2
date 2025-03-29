@@ -13,6 +13,8 @@ export { useVerification } from "./model/useVerification";
 export { useFindId } from "./model/useFindId";
 export { useFindPassword } from "./model/useFindPassword";
 export { useResetPasswordForm } from "./model/useResetPasswordForm";
+export { useFindEmailForm } from "./model/useFindEmailForm";
+export { useFindPasswordForm } from "./model/useFindPasswordForm";
 //ui
 export { SignInInput } from "./ui/SignInInput";
 export { SignInSubmitButton } from "./ui/SignInSubmitButton";
