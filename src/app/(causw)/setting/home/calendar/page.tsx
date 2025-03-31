@@ -1,3 +1,5 @@
+"use client";
+
 import { CalendarList, CalendarListHeader } from "@/widget";
 
 const CalendarSettingPage = () => {
