@@ -57,14 +57,14 @@ export const VotingForm = ({
   return (
     <div className="flex h-full w-full flex-col">
       <div className="mb-6 flex items-center justify-between">
-        <div className="flex w-full items-center lg:space-x-4">
+        <div className="flex w-full flex-col items-center sm:flex-row lg:space-x-4">
           <div className="mt-4 w-full">
             <input
               type="text"
               placeholder="투표 이름"
               value={voteTitle}
               onChange={(e) => onVoteTitleChange(e.target.value)}
-              className="w-full border-b-post-title-input border-black bg-transparent p-1 text-[24px] placeholder:text-create-post-text focus:outline-none lg:p-2"
+              className="w-full border-b-post-title-input border-black bg-transparent p-1 text-lg placeholder:text-create-post-text focus:outline-none md:text-2xl lg:p-2"
             />
           </div>
           <div className="mt-4 flex items-center lg:space-x-4">
