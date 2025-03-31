@@ -18,7 +18,9 @@ export function CouncilFeeButtons({ params: { councilFeeId, isRefunded } }: {
     const deleteAndNavigateAndReload = async () => {
         try {
           await router.push('./'); // 페이지 이동
-          window.location.reload(); // 페이지 새로고침
+          setTimeout(() => {
+            window.location.reload(); // 페이지 새로고침
+          }, 1000);
         } catch (error) {
           ;
         }
