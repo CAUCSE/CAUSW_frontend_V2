@@ -29,6 +29,9 @@ export { ImageModal } from "./ui/ImageModal";
 export { PaginationButtons } from "./ui/PaginationButtons";
 export { UseTerms } from "./ui/UseTerms";
 export { ImageUploadField } from "./ui/ImageUploadField";
+export { Header } from "./ui/Header";
+export { SubHeader } from "./ui/SubHeader";
+export { Line } from "./ui/Line";
 
 //Custom Hooks
 
