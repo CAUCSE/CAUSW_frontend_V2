@@ -21,4 +21,7 @@ export { ResetPasswordForm } from "./ui/ResetPasswordForm";
 export { FindEmailForm } from "./ui/FindEmailForm";
 export { FindPasswordForm } from "./ui/FindPasswordForm";
 export { FindEmailResult } from "./ui/FindEmailResult";
-export { FindEmailWidget } from "./ui/FindEmailWidget";export { FindEmailWidget } from "./ui/FindEmailWidget";
+export { FindEmailWidget } from "./ui/FindEmailWidget";
+
+export { ImageBackground } from "./ui/ImageBackground";
+export { VideoBackground } from "./ui/VideoBackground";
