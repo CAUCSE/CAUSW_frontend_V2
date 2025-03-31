@@ -1,7 +1,6 @@
 "use client";
 import { AuthFormSubmitButton, AuthInput } from "@/fsd_entities/auth";
-import { useFindPasswordForm } from "@/fsd_entities/auth/model/useFindPasswordForm";
-
+import { useFindPasswordForm } from "@/fsd_entities/auth";
 
 
 export const FindPasswordForm = () => {
