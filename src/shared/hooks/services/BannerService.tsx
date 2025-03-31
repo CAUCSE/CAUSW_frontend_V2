@@ -1,35 +1,33 @@
 "use client";
 
-import { API, FORMAPI } from "@/shared";
+import { API, FORMAPI, useBannerStore } from "@/shared";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { eventQueryKey } from "@/shared/configs/query-key/eventQueryKey";
+import { bannerQueryKey } from "@/shared/configs/query-key";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
-import { useEventStore } from "@/shared/hooks/stores/event/useEventStore";
-import { useRouter } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
 
-export const HomeService = () => {
-  const useGetEventList = () => {
-    const setEventList = useEventStore((state) => state.setEventList);
-    const { data, isLoading, isSuccess } = useQuery({
-      queryKey: eventQueryKey.list(),
+export const BannerService = () => {
+  const useGetBannerList = () => {
+    return useQuery({
+      queryKey: bannerQueryKey.list(),
       queryFn: async () => {
-        const { data }: { data: Home.GetEventsResponseDto } =
+        const { data }: { data: Banner.BannerListResponseDto } =
           await API.get("/api/v1/events");
-        return data.events;
+        return data;
       },
     });
-
-    useEffect(() => {
-      if (data && isSuccess) {
-        setEventList(data);
-      }
-    }, [data, isSuccess]);
-    return { data, isLoading };
   };
 
-  const useCreateEvent = () => {
+  const useCreateBanner = () => {
+    const queryClient = useQueryClient();
+    const { closeEditBannerModal, resetSelectedBanner } = useBannerStore(
+      useShallow((state) => ({
+        closeEditBannerModal: state.closeEditBannerModal,
+        resetSelectedBanner: state.resetSelectedBanner,
+      })),
+    );
+
     return useMutation({
       mutationFn: async ({
         bannerImg,
@@ -53,11 +51,13 @@ export const HomeService = () => {
         await FORMAPI.post("/api/v1/events", formData);
       },
       onMutate: async () => {
-        toast.loading("이벤트 배너 추가 중입니다.");
+        toast.loading("이벤트 배너를 추가 중입니다.");
       },
       onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: bannerQueryKey.list() });
         toast.success("이벤트 배너가 추가되었습니다.");
-        window.location.href = "/setting/home/event";
+        resetSelectedBanner();
+        closeEditBannerModal();
       },
       onError: () => {
         toast.error("이벤트 배너 추가에 실패했습니다.");
@@ -65,7 +65,15 @@ export const HomeService = () => {
     });
   };
 
-  const useUpdateEvent = () => {
+  const useUpdateBanner = () => {
+    const queryClient = useQueryClient();
+    const { closeEditBannerModal, resetSelectedBanner } = useBannerStore(
+      useShallow((state) => ({
+        closeEditBannerModal: state.closeEditBannerModal,
+        resetSelectedBanner: state.resetSelectedBanner,
+      })),
+    );
+
     return useMutation({
       mutationFn: async ({
         id,
@@ -88,15 +96,16 @@ export const HomeService = () => {
             bannerImg.name,
           );
         }
-
         await FORMAPI.put(`/api/v1/events/${id}`, formData);
       },
       onMutate: async () => {
-        toast.loading("이벤트 배너 수정 중입니다.");
+        toast.loading("이벤트 배너를 수정 중입니다.");
       },
       onSuccess: async () => {
+        queryClient.invalidateQueries({ queryKey: bannerQueryKey.list() });
         toast.success("이벤트 배너 수정이 완료되었습니다.");
-        window.location.href = "/setting/home/event";
+        resetSelectedBanner();
+        closeEditBannerModal();
       },
       onError: () => {
         toast.error("이벤트 배너 수정에 실패했습니다. 관리자에게 문의하세요");
@@ -104,15 +113,23 @@ export const HomeService = () => {
     });
   };
 
-  const useDeleteEvent = () => {
+  const useDeleteBanner = () => {
     const queryClient = useQueryClient();
+    const { closeDeleteBannerModal, resetSelectedBanner } = useBannerStore(
+      useShallow((state) => ({
+        closeDeleteBannerModal: state.closeDeleteBannerModal,
+        resetSelectedBanner: state.resetSelectedBanner,
+      })),
+    );
     return useMutation({
       mutationFn: async ({ id }: { id: string }) => {
         await API.delete(`/api/v1/events/${id}`);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: eventQueryKey.list() });
+        queryClient.invalidateQueries({ queryKey: bannerQueryKey.list() });
         toast.success("이벤트 배너가 삭제되었습니다.");
+        resetSelectedBanner();
+        closeDeleteBannerModal();
       },
       onError: () => {
         toast.error("이벤트 배너 삭제에 실패했습니다. 관리자에게 문의하세요.");
@@ -120,5 +137,10 @@ export const HomeService = () => {
     });
   };
 
-  return { useGetEventList, useCreateEvent, useUpdateEvent, useDeleteEvent };
+  return {
+    useGetBannerList,
+    useCreateBanner,
+    useUpdateBanner,
+    useDeleteBanner,
+  };
 };
