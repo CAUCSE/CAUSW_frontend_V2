@@ -15,6 +15,7 @@ export { useFindPassword } from "./model/useFindPassword";
 export { useResetPasswordForm } from "./model/useResetPasswordForm";
 export { useFindEmailForm } from "./model/useFindEmailForm";
 export { useFindPasswordForm } from "./model/useFindPasswordForm";
+export { useV2Form } from "./model/useV2Form";
 //ui
 export { SignInInput } from "./ui/SignInInput";
 export { SignInSubmitButton } from "./ui/SignInSubmitButton";
@@ -29,3 +30,4 @@ export { InfoTextArea } from "./ui/InfoTextArea";
 export { StatusButton } from "./ui/StatusButton";
 export { AuthFormSubmitButton } from "./ui/AuthFormSubmitButton";
 export { FixedInput } from "./ui/FixedInput";
+
