@@ -25,7 +25,7 @@ export const useAcademicRecordForm = ({curAcademicStatus}: userInfoProps) => {
       toast.success("증빙 서류 제출이 완료되었습니다!");
     },
     onError: (error: any) => {
-      toast.error(error.message || "알 수 없는 오류가 발생했습니다.");
+      toast.error(error.message || "증빙 서류 제출 도중 오류가 발생했습니다.");
     },
   });
 
