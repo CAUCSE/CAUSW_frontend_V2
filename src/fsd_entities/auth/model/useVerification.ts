@@ -37,7 +37,7 @@ export const useVerification = () => {
         return checkAcademicRecordApplication();
       }
     } catch (error) {
-      console.error(error);
+      ;
     }
   };
 
