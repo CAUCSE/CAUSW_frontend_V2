@@ -11,8 +11,7 @@ const navigation: {
   name: string;
   state: "occasion" | "alarms"; // 새로운 탭 상태 추가
   router: string;
-}[] = [
-];
+}[] = [];
 
 type TOccasion = {
   occasionTitle: string;
@@ -45,11 +44,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
 
   // `state`에 따라 데이터를 결정
   const data: TOccasion[] =
-    state === "occasion"
-      ? occasionData
-      : state === "alarms"
-      ? alarmData
-      : [];
+    state === "occasion" ? occasionData : state === "alarms" ? alarmData : [];
 
   let isFirstNavigation;
   if (!state) {
@@ -64,7 +59,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
   return (
     <OccasionNotification
       state={state}
-      title= "전체 알림"
+      title="전체 알림"
       firstNavigation={firstNavigation}
       navigation={navigation}
       data={data}

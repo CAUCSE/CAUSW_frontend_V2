@@ -1,16 +1,22 @@
-import { ReactNode } from "react";
+"use client";
 
-export default function HomeSettingLayout({
-  modal,
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { ToastWithMax } from "@/shared";
+
+const queryClient = new QueryClient();
+
+const QueryClientLayout = ({
   children,
-}: {
-  modal: ReactNode;
-  children: ReactNode;
-}) {
-  return (
+}: Readonly<{
+  children: React.ReactNode;
+}>) => (
+  <QueryClientProvider client={queryClient}>
     <>
-      {modal}
+      <ToastWithMax />
       {children}
     </>
-  );
-}
+  </QueryClientProvider>
+);
+
+export default QueryClientLayout;

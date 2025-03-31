@@ -168,7 +168,7 @@ const CircleApplicationEdit = ({
         router.back();
       });
     } catch (error) {
-      console.log("신청서 수정 실패 : ", error);
+      ;
     }
   };
 

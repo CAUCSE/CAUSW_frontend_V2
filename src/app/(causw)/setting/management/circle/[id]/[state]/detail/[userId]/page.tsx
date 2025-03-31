@@ -8,10 +8,16 @@ const CircleMemberManagement = ({
 }: {
   params: { state: string; id: string; userId: string };
 }) => {
-
-  return     (<>
-<div><p>  <CircleMemberManagementDetail userId = {userId} id = {id} state = {state}/>
-</p></div>      </>);
+  return (
+    <>
+      <div>
+        <p>
+          {" "}
+          <CircleMemberManagementDetail userId={userId} id={id} state={state} />
+        </p>
+      </div>{" "}
+    </>
+  );
 };
 
 export default CircleMemberManagement;

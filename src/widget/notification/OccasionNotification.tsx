@@ -33,8 +33,7 @@ export const OccasionNotification = ({
   } else {
     isFirstNavigation = false;
   }
-  console.log(isFirstNavigation);
-  console.log(state);
+  
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
       <Link href="/setting" className="mb-7 flex items-center text-lg">
@@ -46,7 +45,7 @@ export const OccasionNotification = ({
       </Header>
       <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
         <div
-          className={`mt-8 flex px-4 gap-12 justify-start ${navigation && navigation.length > 5 ? "mb-1 w-[1000px] justify-between" : navigation && navigation.length > 2 ? "mb-1 w-[600px] justify-between" : "mb-5 w-full justify-start"} flex-row md:mb-1 md:justify-start lg:w-full`}
+          className={`mt-8 flex justify-start gap-12 px-4 ${navigation && navigation.length > 5 ? "mb-1 w-[1000px] justify-between" : navigation && navigation.length > 2 ? "mb-1 w-[600px] justify-between" : "mb-5 w-full justify-start"} flex-row md:mb-1 md:justify-start lg:w-full`}
         >
           <Link
             href={firstNavigation.state}
@@ -65,7 +64,6 @@ export const OccasionNotification = ({
                 </Link>
               ))
             : null}
-          
         </div>
       </div>
       <Line />

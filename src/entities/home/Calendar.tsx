@@ -36,7 +36,7 @@ export const Calendar = ({deliveredId}: CalendarProps) => {
         const response = (await getCalendars(selectedYear)).calendars;
         setCalendars(response);
       } catch (e: any) {
-        console.error(e.message);
+        ;
       }
     };
 

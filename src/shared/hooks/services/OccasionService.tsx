@@ -7,7 +7,7 @@ import { createFormData } from "@/utils/formDataUtil"; // 유틸 함수 가져�
 export const OccasionService = () => {
   const registerOccasion = async (
     data: Occasion.CreateCeremonyRequestDto,
-    files: File[]
+    files: File[],
   ): Promise<any> => {
     const URI = `${BASEURL}/api/v1/ceremony`;
     try {
@@ -20,7 +20,7 @@ export const OccasionService = () => {
         },
         "createCeremonyRequestDTO", // JSON 데이터 키
         files,
-        "imageFileList" // 이미지 리스트 키
+        "imageFileList", // 이미지 리스트 키
       );
 
       const headers = await setRscHeader();

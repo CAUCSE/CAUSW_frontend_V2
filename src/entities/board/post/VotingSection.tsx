@@ -50,7 +50,6 @@ const VotingSection: React.FC<VotingSectionProps> = ({
         toggleMenu();
       } catch (error) {
         endVote();
-        console.error("투표 재시작 처리 에러: ", error);
       }
     } else {
       try {
@@ -59,7 +58,6 @@ const VotingSection: React.FC<VotingSectionProps> = ({
         toggleMenu();
       } catch (error) {
         restartVote();
-        console.error("투표 종료 처리 에러: ", error);
       }
     }
   };
@@ -72,7 +70,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
     if (selectedOptions.length > 0) {
       onVote(selectedOptions);
     } else {
-      console.log("선택안함");
+      ;
     }
   };
 

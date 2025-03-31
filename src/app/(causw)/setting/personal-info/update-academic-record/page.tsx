@@ -91,8 +91,6 @@ const UpdataeAcademicRecordPage = () => {
         }
       } catch (error: any) {
         if (error.response?.status === 400) {
-        } else {
-          console.error("Error checking academic record:", error);
         }
       }
     };

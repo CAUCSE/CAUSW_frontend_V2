@@ -6,7 +6,6 @@ import { uiEntities } from "./AdmissionManagementDetailEntities";
 import { useState } from "react";
 import { WarningModal } from "./WarningModal";
 
-
 export function AdmissionManagementDetailButtons({
   state,
   admission,
@@ -15,7 +14,7 @@ export function AdmissionManagementDetailButtons({
   admission: Setting.GetAdmissionResponseDto;
 }) {
   const buttons = uiEntities[state].buttons;
-  const [ isModalOpen, setIsModalOpen ] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState("");
 
   return (
     <div className="flex gap-[20px] lg:gap-[50px]">
@@ -23,14 +22,15 @@ export function AdmissionManagementDetailButtons({
         <Button
           key={name}
           action={() => {
-            if (name === "목록에서 삭제")
- {             setIsModalOpen("DELETE");}
-            else if (name === "추방")
-{               setIsModalOpen("EXPEL");}    
-            else if (name === "거부")
-{               setIsModalOpen("REJECT");}    
-            else
-{            action(admission);}
+            if (name === "목록에서 삭제") {
+              setIsModalOpen("DELETE");
+            } else if (name === "추방") {
+              setIsModalOpen("EXPEL");
+            } else if (name === "거부") {
+              setIsModalOpen("REJECT");
+            } else {
+              action(admission);
+            }
           }}
           goBack
           variant={variant}
@@ -39,7 +39,16 @@ export function AdmissionManagementDetailButtons({
           {name}
         </Button>
       ))}
-      {isModalOpen !== "" &&(<WarningModal isOpen={true} onClose= {() => {setIsModalOpen('')}} admission = {admission} type = {isModalOpen}></WarningModal>)}
+      {isModalOpen !== "" && (
+        <WarningModal
+          isOpen={true}
+          onClose={() => {
+            setIsModalOpen("");
+          }}
+          admission={admission}
+          type={isModalOpen}
+        ></WarningModal>
+      )}
     </div>
   );
 }

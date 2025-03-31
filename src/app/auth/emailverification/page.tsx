@@ -16,7 +16,6 @@ const EmailVerificationPage = () => {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    // console.log(data);
     // 이메일 인증 번호 확인 로직 구현
   };
 

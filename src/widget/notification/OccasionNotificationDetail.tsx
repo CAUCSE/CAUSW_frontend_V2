@@ -12,7 +12,6 @@ interface OccasionNotificationProps {
 export const OccasionNotificationDetail = ({
   occasionId,
 }: OccasionNotificationProps) => {
-
   const occasionTitle = "홍길동 결혼식";
   const occasionType = "결혼";
   const occasionRegister = "홍길동";
@@ -59,7 +58,6 @@ export const OccasionNotificationDetail = ({
           <OccasionDate title="종료 날짜" date={endDate} />
         </div>
         <OccasionImage imageList={imageList} />
-
       </div>
     </>
   );
