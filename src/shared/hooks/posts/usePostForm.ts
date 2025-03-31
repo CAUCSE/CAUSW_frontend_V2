@@ -50,10 +50,16 @@ export const usePostForm = () => {
     }
 
     if (isVote) {
-      if (options.filter((option) => option.trim().length > 0).length === 0) {
+      if (options.length === 0) {
         toast.error("투표 옵션을 하나 이상 생성해주세요.");
         return;
       }
+
+      if (options.some((option) => option.trim().length === 0)) {
+        toast.error("투표 옵션을 모두 입력해주세요.");
+        return;
+      }
+
       createPostWithVote({
         postData: postRequest,
         attachImageList: selectedFiles,
