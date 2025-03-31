@@ -19,7 +19,7 @@ export const useAcademicRecordForm = ({curAcademicStatus}: userInfoProps) => {
     formState: { errors },
   } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>({ mode: "onBlur" });
 
-  const mutation = useMutation({
+  const { mutate: submitAcademicRecord } = useMutation({
     mutationFn: postAcademicRecord,
     onSuccess: () => {
       toast.success("증빙 서류 제출이 완료되었습니다!");
@@ -35,7 +35,7 @@ export const useAcademicRecordForm = ({curAcademicStatus}: userInfoProps) => {
         toast.error("이미지를 첨부해주세요.");
         return;
     }
-    mutation.mutate(data as User.CreateUserAcademicRecordApplicationRequestDto);
+    submitAcademicRecord(data as User.CreateUserAcademicRecordApplicationRequestDto);
     setTimeout(() => {
         router.push(curAcademicStatus === "UNDEFINED" 
             && data.targetAcademicStatus !== "ENROLLED" ? "/auth/signin" : "./"); 
