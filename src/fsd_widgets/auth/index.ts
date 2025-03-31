@@ -23,5 +23,7 @@ export { FindPasswordForm } from "./ui/FindPasswordForm";
 export { FindEmailResult } from "./ui/FindEmailResult";
 export { FindEmailWidget } from "./ui/FindEmailWidget";
 
+export { VTwoForm } from "./ui/VTwoForm";
+
 export { ImageBackground } from "./ui/ImageBackground";
 export { VideoBackground } from "./ui/VideoBackground";
