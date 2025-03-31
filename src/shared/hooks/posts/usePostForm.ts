@@ -8,13 +8,21 @@ import {
 } from "@/shared";
 import { useParams, useRouter } from "next/navigation";
 
+import toast from "react-hot-toast";
+import { useShallow } from "zustand/react/shallow";
+
 export const usePostForm = () => {
   const router = useRouter();
   const params = useParams();
   const boardId = params.boardId;
   const { title, content, isAnonymous, isQuestion, isVote, clearPost } =
     useCreatePostStore();
-  const clearVote = useCreateVoteStore((state) => state.clearVote);
+  const { options, clearVote } = useCreateVoteStore(
+    useShallow((state) => ({
+      options: state.options,
+      clearVote: state.clearVote,
+    })),
+  );
 
   const { selectedFiles, resetFiles } = useFileUpload();
 
@@ -31,6 +39,16 @@ export const usePostForm = () => {
       isQuestion,
     };
 
+    if (postRequest.title.trim().length === 0) {
+      toast.error("게시글 제목을 입력해주세요.");
+      return;
+    }
+
+    if (postRequest.content.trim().length === 0) {
+      toast.error("게시글 내용을 입력해주세요.");
+      return;
+    }
+
     if (isVote) {
       if (options.filter((option) => option.trim().length > 0).length === 0) {
         toast.error("투표 옵션을 하나 이상 생성해주세요.");
@@ -42,6 +60,7 @@ export const usePostForm = () => {
       });
       return;
     }
+
     createPost({
       postData: postRequest,
       attachImageList: selectedFiles,
