@@ -223,7 +223,7 @@ export const SettingRscService = () => {
     refundedAt?: number,
   ) => {
     const headers = await setRscHeader();
-    const response = await fetch(
+    await fetch(
       `${BASEURL}/api/v1/user-council-fee/create-user`,
       {
         method: "POST",
@@ -236,10 +236,7 @@ export const SettingRscService = () => {
           refundedAt,
         }),
       },
-    ).then((res) => res.json());
-
-    if (response.message)
-      throw new Error((response as Error.ApiErrorResponse).message);
+    );
     return true;
   };
 
