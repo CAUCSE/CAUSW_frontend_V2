@@ -28,8 +28,8 @@ export const usePostForm = () => {
   const { selectedFiles, resetFiles } = useFileUpload();
 
   const { useCreatePost, useCreatePostWithVote } = PostService();
-  const { mutateAsync: createPost } = useCreatePost();
-  const { mutateAsync: createPostWithVote } = useCreatePostWithVote();
+  const { mutate: createPost } = useCreatePost();
+  const { mutate: createPostWithVote } = useCreatePostWithVote();
 
   const validatePost = (postRequestDto: Post.CreatePostDto): string | null => {
     if (postRequestDto.title.trim().length === 0)
@@ -47,22 +47,20 @@ export const usePostForm = () => {
     return null;
   };
 
-  const handleCreatePostWithVote = async (
-    postRequestDto: Post.CreatePostDto,
-  ) => {
+  const handleCreatePostWithVote = (postRequestDto: Post.CreatePostDto) => {
     const validateVoteError = validateVote();
     if (validateVoteError) {
       toast.error(validateVoteError);
       return;
     }
 
-    await createPostWithVote({
+    createPostWithVote({
       postData: postRequestDto,
       attachImageList: selectedFiles,
     });
   };
 
-  const handlePostSubmit = async () => {
+  const handlePostSubmit = () => {
     const postRequest: Post.CreatePostDto = {
       title,
       content,
@@ -78,11 +76,11 @@ export const usePostForm = () => {
     }
 
     if (isVote) {
-      await handleCreatePostWithVote(postRequest);
+      handleCreatePostWithVote(postRequest);
       return;
     }
 
-    await createPost({
+    createPost({
       postData: postRequest,
       attachImageList: selectedFiles,
     });
