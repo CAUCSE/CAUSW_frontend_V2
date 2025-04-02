@@ -17,8 +17,9 @@ export const usePostForm = () => {
   const boardId = params.boardId;
   const { title, content, isAnonymous, isQuestion, isVote, clearPost } =
     useCreatePostStore();
-  const { options, clearVote } = useCreateVoteStore(
+  const { voteTitle, options, clearVote } = useCreateVoteStore(
     useShallow((state) => ({
+      voteTitle: state.voteTitle,
       options: state.options,
       clearVote: state.clearVote,
     })),
@@ -27,8 +28,32 @@ export const usePostForm = () => {
   const { selectedFiles, resetFiles } = useFileUpload();
 
   const { useCreatePost, useCreatePostWithVote } = PostService();
-  const { mutate: createPost } = useCreatePost();
-  const { mutate: createPostWithVote } = useCreatePostWithVote();
+  const { mutateAsync: createPost } = useCreatePost();
+  const { mutateAsync: createPostWithVote } = useCreatePostWithVote();
+
+  const handleCreatePostWithVote = async (
+    postRequestDto: Post.CreatePostDto,
+  ) => {
+    if (voteTitle.trim().length === 0) {
+      toast.error("투표 제목을 입력해주세요.");
+      return;
+    }
+
+    if (options.length === 0) {
+      toast.error("투표 옵션을 하나 이상 생성해주세요.");
+      return;
+    }
+
+    if (options.some((option) => option.trim().length === 0)) {
+      toast.error("투표 옵션을 모두 입력해주세요.");
+      return;
+    }
+
+    await createPostWithVote({
+      postData: postRequestDto,
+      attachImageList: selectedFiles,
+    });
+  };
 
   const handlePostSubmit = async () => {
     const postRequest: Post.CreatePostDto = {
@@ -50,24 +75,11 @@ export const usePostForm = () => {
     }
 
     if (isVote) {
-      if (options.length === 0) {
-        toast.error("투표 옵션을 하나 이상 생성해주세요.");
-        return;
-      }
-
-      if (options.some((option) => option.trim().length === 0)) {
-        toast.error("투표 옵션을 모두 입력해주세요.");
-        return;
-      }
-
-      createPostWithVote({
-        postData: postRequest,
-        attachImageList: selectedFiles,
-      });
+      await handleCreatePostWithVote(postRequest);
       return;
     }
 
-    createPost({
+    await createPost({
       postData: postRequest,
       attachImageList: selectedFiles,
     });
