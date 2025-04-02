@@ -46,16 +46,21 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
-          # Discord front-end 역할 ID
-          DISCORD_ROLE_ID="1351886402911998012"
-
-          curl -X POST -H "Content-Type: application/json" -d '{
-            "content": "<@&'"$DISCORD_ROLE_ID"'> 새로운 PR이 생성되었습니다! 리뷰 부탁드립니다.",
-            "embeds": [
-              {
-                "title": "'"$PR_TITLE"'",
-                "url": "'"$PR_URL"'",
-                "description": "작성자: **'"$PR_AUTHOR"'**\n"
-              }
-            ]
-          }' $DISCORD_WEBHOOK_URL
+          if [[ "$PR_BRANCH" == "develop" || "$PR_BRANCH" == "main" || "$PR_BRANCH" == chore* || "$PR_BRANCH" == hotfix*  ]]; then
+            echo "리뷰어를 자동으로 추가하지 않는 브랜치입니다."
+          else  
+            # Discord front-end 역할 ID
+            DISCORD_ROLE_ID="1351886402911998012"
+            
+            # Discord webhook URL
+            curl -X POST -H "Content-Type: application/json" -d '{
+              "content": "<@&'"$DISCORD_ROLE_ID"'> 새로운 PR이 생성되었습니다! 리뷰 부탁드립니다.",
+              "embeds": [
+                {
+                  "title": "'"$PR_TITLE"'",
+                  "url": "'"$PR_URL"'",
+                  "description": "작성자: **'"$PR_AUTHOR"'**\n"
+                }
+              ]
+            }' $DISCORD_WEBHOOK_URL
+          fi
