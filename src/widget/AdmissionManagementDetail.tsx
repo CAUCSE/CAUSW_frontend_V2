@@ -2,52 +2,45 @@ import {
   ManagementDetailButtons,
   managementDetailEntities,
   ManagementDetailInfoTable,
-} from "@/entities/home/setting/management";
+} from '@/entities/home/setting/management';
 import {
   convertAdmissionDataToTableEntity,
   convertUserDataToTableEntity,
   titleMapping,
   titleMappingForRejected,
   titleMappingForUser,
-} from "@/entities/home/setting/management/AdmissionManagementDetailEntities";
-import { SettingRscService } from "@/shared";
-import { ManagementState } from "./Management";
-import { UserRscService } from "@/shared";
+} from '@/entities/home/setting/management/AdmissionManagementDetailEntities';
+
+import { SettingRscService } from '@/shared';
+import { UserRscService } from '@/shared';
+
+import { ManagementState } from './Management';
 
 interface ManagementDetailProp {
   state: ManagementState;
   admissionId: string;
 }
 
-export async function ManagementDetail({
-  state,
-  admissionId,
-}: ManagementDetailProp) {
+export async function ManagementDetail({ state, admissionId }: ManagementDetailProp) {
   const entities = managementDetailEntities[state];
   const { titleSuffix } = entities;
   const { getAdmission } = SettingRscService();
   const { getUser, getUserAcademicRecord } = UserRscService();
   let admission;
 
-  if (state === "admission" || state === "reject") {
+  if (state === 'admission' || state === 'reject') {
     try {
       admission = await getAdmission(admissionId);
-    } catch (error) {
-      ;
-    }
+    } catch (error) {}
   }
   let userInfo;
   try {
     userInfo = await getUser(admissionId);
-  } catch (error) {
-;
-  }
+  } catch (error) {}
   try {
-  const response = await getUserAcademicRecord(admissionId);
-  userInfo.profileImageUrl = response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0]; }
-  catch {
-    ;
-  }
+    const response = await getUserAcademicRecord(admissionId);
+    userInfo.profileImageUrl = response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0];
+  } catch {}
 
   let name;
   let studentId;
@@ -66,14 +59,11 @@ export async function ManagementDetail({
       <p className="mt-8 text-[18px] font-semibold lg:text-[25px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
       {admission && (
         <>
-          <ManagementDetailInfoTable
-            data={convertAdmissionDataToTableEntity(admission)}
-            titleMapping={titleMapping}
-          />
+          <ManagementDetailInfoTable data={convertAdmissionDataToTableEntity(admission)} titleMapping={titleMapping} />
           <ManagementDetailButtons state={state} admission={admission} />
         </>
       )}
-      {userInfo && (state === "drop" || state === "inactive") && (
+      {userInfo && (state === 'drop' || state === 'inactive') && (
         <>
           <ManagementDetailInfoTable
             data={convertUserDataToTableEntity(userInfo)}
@@ -82,12 +72,9 @@ export async function ManagementDetail({
           <ManagementDetailButtons state={state} admission={userInfo} />
         </>
       )}
-      {userInfo && (state === "active" || state === "reject") && (
+      {userInfo && (state === 'active' || state === 'reject') && (
         <div>
-          <ManagementDetailInfoTable
-            data={convertUserDataToTableEntity(userInfo)}
-            titleMapping={titleMappingForUser}
-          />
+          <ManagementDetailInfoTable data={convertUserDataToTableEntity(userInfo)} titleMapping={titleMappingForUser} />
           <ManagementDetailButtons state={state} admission={userInfo} />
         </div>
       )}

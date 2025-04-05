@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { PortalModal, useEditBanner } from "@/shared";
+import Image from 'next/image';
 
-import Image from "next/image";
-import ImageIcon from "../../../public/icons/image_icon.svg";
+import { PortalModal, useEditBanner } from '@/shared';
+
+import ImageIcon from '../../../public/icons/image_icon.svg';
 
 interface ImageSelectionProps {
   imageUrl?: string | null;
@@ -22,16 +23,10 @@ const ImageSelection = ({
     <>
       {(imageUrl || selectedImage) && (
         <div className="flex justify-end gap-2">
-          <button
-            className="text-gray-400 underline hover:text-gray-500"
-            onClick={handleClickUploadImage}
-          >
+          <button className="text-gray-400 underline hover:text-gray-500" onClick={handleClickUploadImage}>
             재업로드
           </button>
-          <button
-            className="text-gray-400 underline hover:text-gray-500"
-            onClick={clearSelectedImage}
-          >
+          <button className="text-gray-400 underline hover:text-gray-500" onClick={clearSelectedImage}>
             제거
           </button>
         </div>
@@ -88,9 +83,7 @@ export const BannerEditModal = () => {
       className="mx-4 flex w-full max-w-[1300px] flex-col rounded-lg bg-white px-8 py-6 shadow-lg md:w-[800px]"
     >
       <PortalModal.Header className="mb-5 flex items-center justify-center md:mb-12">
-        <h1 className="text-lg md:text-2xl">
-          이벤트 배너 {selectedBannerId ? "수정" : "추가"}
-        </h1>
+        <h1 className="text-lg md:text-2xl">이벤트 배너 {selectedBannerId ? '수정' : '추가'}</h1>
       </PortalModal.Header>
       <PortalModal.Body className="flex flex-col">
         <ImageSelection
@@ -123,7 +116,7 @@ export const BannerEditModal = () => {
             className="rounded-lg bg-[#007AFF] px-8 py-2 text-xl text-white hover:bg-[#0067D8] md:px-12"
             onClick={handleSubmit}
           >
-            {selectedBannerId ? "수정" : "추가"}
+            {selectedBannerId ? '수정' : '추가'}
           </button>
           <button
             className="tex-xl rounded-lg bg-gray-200 px-8 py-2 text-gray-500 hover:bg-gray-300 md:px-12"

@@ -1,18 +1,17 @@
-"use client";
+'use client';
 
-import { BannerService, PortalModal, useBannerStore } from "@/shared";
+import { useShallow } from 'zustand/react/shallow';
 
-import { useShallow } from "zustand/react/shallow";
+import { BannerService, PortalModal, useBannerStore } from '@/shared';
 
 export const BannerDeleteModal = () => {
-  const { selectedBannerId, closeDeleteBannerModal, resetSelectedBanner } =
-    useBannerStore(
-      useShallow((state) => ({
-        selectedBannerId: state.selectedBannerId,
-        closeDeleteBannerModal: state.closeDeleteBannerModal,
-        resetSelectedBanner: state.resetSelectedBanner,
-      })),
-    );
+  const { selectedBannerId, closeDeleteBannerModal, resetSelectedBanner } = useBannerStore(
+    useShallow(state => ({
+      selectedBannerId: state.selectedBannerId,
+      closeDeleteBannerModal: state.closeDeleteBannerModal,
+      resetSelectedBanner: state.resetSelectedBanner,
+    })),
+  );
 
   const { useDeleteBanner } = BannerService();
   const { mutate: deleteBanner } = useDeleteBanner();
@@ -36,8 +35,7 @@ export const BannerDeleteModal = () => {
       </PortalModal.Header>
       <PortalModal.Body>
         <p className="text-center text-base text-red-500 md:text-lg">
-          이벤트 배너를 정말 삭제하시겠습니까? <br />이 작업은 되돌릴 수
-          없습니다.
+          이벤트 배너를 정말 삭제하시겠습니까? <br />이 작업은 되돌릴 수 없습니다.
         </p>
       </PortalModal.Body>
       <PortalModal.Footer className="flex gap-4">

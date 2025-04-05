@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 export const ProfileImage = ({ src }: { src?: string }) => {
   return (
@@ -6,7 +6,7 @@ export const ProfileImage = ({ src }: { src?: string }) => {
       <div
         className="h-[45px] w-[45px] bg-contain bg-center bg-no-repeat xl:h-24 xl:w-24"
         style={{
-          backgroundImage: `url(${src ? src : "/images/default_profile.png"})`,
+          backgroundImage: `url(${src ? src : '/images/default_profile.png'})`,
         }}
       />
     </div>

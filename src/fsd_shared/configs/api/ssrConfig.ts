@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
 
-const storageAccessKey = "CAUCSE_JWT_ACCESS";
-const storageRefreshKey = "CAUCSE_JWT_REFRESH";
+const storageAccessKey = 'CAUCSE_JWT_ACCESS';
+const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
 
 export const setRscToken = async (access: string, refresh: string | false) => {
   cookies().set(storageAccessKey, access);
@@ -29,7 +29,7 @@ export const setRscHeader = async (): Promise<{
       Authorization: `Bearer ${token}`,
     };
   } else {
-    throw new Error("4105");
+    throw new Error('4105');
   }
 };
 

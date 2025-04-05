@@ -1,14 +1,13 @@
-import { AxiosResponse } from "axios";
-import { API } from "@/shared";
+import { AxiosResponse } from 'axios';
+
+import { API } from '@/shared';
 
 export const UserCouncilFeeService = () => {
-  const URI = "/api/v1/user-council-fee";
+  const URI = '/api/v1/user-council-fee';
 
   const getUserCouncilFeeInfo = async () => {
     try {
-      const response = (await API.get(
-        `${URI}/isCurrentSemesterApplied/self/info`,
-      )) as AxiosResponse;
+      const response = (await API.get(`${URI}/isCurrentSemesterApplied/self/info`)) as AxiosResponse;
       return response;
     } catch (error) {
       throw error;
@@ -17,10 +16,7 @@ export const UserCouncilFeeService = () => {
 
   const registerCouncilFee = async (body: any) => {
     try {
-      const response = (await API.post(
-        `${URI}/create-user`,
-        body,
-      )) as AxiosResponse;
+      const response = (await API.post(`${URI}/create-user`, body)) as AxiosResponse;
       return response;
     } catch (error) {
       throw error;

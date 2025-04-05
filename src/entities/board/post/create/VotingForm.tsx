@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { useCreateVoteStore } from "@/shared";
-import { useState } from "react";
+import { useState } from 'react';
+
+import { useCreateVoteStore } from '@/shared';
 
 interface VotingFormProps {
   voteTitle: string;
@@ -31,9 +32,7 @@ export const VotingForm = ({
   const [duplicateError, setDuplicateError] = useState<string | null>(null);
 
   const handleOptionChange = (index: number, value: string) => {
-    const isDuplicate = options.some(
-      (option, i) => option === value && i !== index,
-    );
+    const isDuplicate = options.some((option, i) => option === value && i !== index);
 
     if (isDuplicate) {
       setDuplicateError(`"${value}"는 이미 추가된 항목입니다.`);
@@ -49,9 +48,7 @@ export const VotingForm = ({
 
     const { options: updatedOptions } = useCreateVoteStore.getState();
     const uniqueOptions = new Set(updatedOptions);
-    setDuplicateError(
-      uniqueOptions.size !== options.length ? null : duplicateError,
-    );
+    setDuplicateError(uniqueOptions.size !== options.length ? null : duplicateError);
   };
 
   return (
@@ -63,35 +60,23 @@ export const VotingForm = ({
               type="text"
               placeholder="투표 이름"
               value={voteTitle}
-              onChange={(e) => onVoteTitleChange(e.target.value)}
+              onChange={e => onVoteTitleChange(e.target.value)}
               className="w-full border-b-post-title-input border-black bg-transparent p-1 text-[24px] placeholder:text-create-post-text focus:outline-none lg:p-2"
             />
           </div>
           <div className="mt-4 flex items-center lg:space-x-4">
-            <label
-              className="flex w-[120px] items-center justify-center space-x-3"
-              onClick={onSelectMultiple}
-            >
-              <span
-                className={`h-5 w-5 rounded-full ${isMultipleChoice ? "bg-red-500" : "bg-gray-400"}`}
-              ></span>
+            <label className="flex w-[120px] items-center justify-center space-x-3" onClick={onSelectMultiple}>
+              <span className={`h-5 w-5 rounded-full ${isMultipleChoice ? 'bg-red-500' : 'bg-gray-400'}`}></span>
               <span className="text-gray-700">복수 선택</span>
             </label>
-            <label
-              className="flex w-[120px] items-center justify-center space-x-3"
-              onClick={onAllowAnonymous}
-            >
-              <span
-                className={`h-5 w-5 rounded-full ${allowAnonymous ? "bg-red-500" : "bg-gray-400"}`}
-              ></span>
+            <label className="flex w-[120px] items-center justify-center space-x-3" onClick={onAllowAnonymous}>
+              <span className={`h-5 w-5 rounded-full ${allowAnonymous ? 'bg-red-500' : 'bg-gray-400'}`}></span>
               <span className="text-gray-700">익명 투표</span>
             </label>
           </div>
         </div>
       </div>
-      {duplicateError && (
-        <div className="text-sm text-red-500">{duplicateError}</div>
-      )}
+      {duplicateError && <div className="text-sm text-red-500">{duplicateError}</div>}
       <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pr-2 pt-2">
         {options.map((option, index) => (
           <div key={index} className="relative">
@@ -100,7 +85,7 @@ export const VotingForm = ({
               placeholder="항목 입력"
               className="h-14 w-full rounded border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-none"
               value={option}
-              onChange={(e) => handleOptionChange(index, e.target.value)}
+              onChange={e => handleOptionChange(index, e.target.value)}
             />
             <button
               onClick={() => handleRemoveOption(index)}
@@ -111,10 +96,7 @@ export const VotingForm = ({
           </div>
         ))}
 
-        <div
-          className="flex h-14 justify-center rounded border-2 border-gray-300"
-          onClick={onAddOption}
-        >
+        <div className="flex h-14 justify-center rounded border-2 border-gray-300" onClick={onAddOption}>
           <button className="text-[16pt]">+</button>
         </div>
       </div>

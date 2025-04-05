@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface FindAccountStore {
   studentId: string;
@@ -10,18 +10,18 @@ interface FindAccountStore {
   resetFindAccountStore: () => void;
 }
 
-export const useFindAccountStore = create<FindAccountStore>((set) => ({
-  studentId: "",
-  name: "",
-  email: "",
-  setStudentId: (studentId) => set({ studentId }),
-  setName: (name) => set({ name }),
+export const useFindAccountStore = create<FindAccountStore>(set => ({
+  studentId: '',
+  name: '',
+  email: '',
+  setStudentId: studentId => set({ studentId }),
+  setName: name => set({ name }),
 
-  setEmail: (email) => set({ email }),
+  setEmail: email => set({ email }),
   resetFindAccountStore: () =>
     set({
-      studentId: "",
-      name: "",
-      email: "",
+      studentId: '',
+      name: '',
+      email: '',
     }),
 }));

@@ -1,16 +1,15 @@
-import { BASEURL, setRscHeader } from "@/shared";
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const HomeRscService = () => {
-  const URI = BASEURL + "/api/v1/home";
+  const URI = BASEURL + '/api/v1/home';
 
   const getHomePosts = async () => {
     const headers = await setRscHeader();
 
     const response = (await fetch(URI, {
-      method: "GET",
+      method: 'GET',
       headers: headers,
-    }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
-      Error.ApiErrorResponse;
+    }).then(res => res.json())) as Home.GetHomePostsResponseDto & Error.ApiErrorResponse;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -20,9 +19,9 @@ export const HomeRscService = () => {
   const getEvents = async () => {
     const headers = await setRscHeader();
     const response = (await fetch(`${BASEURL}/api/v1/events`, {
-      method: "GET",
+      method: 'GET',
       headers: headers,
-    }).then((res) => res.json())) as Home.GetEventsResponseDto;
+    }).then(res => res.json())) as Home.GetEventsResponseDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -32,9 +31,9 @@ export const HomeRscService = () => {
   const getCalendars = async (year: number) => {
     const headers = await setRscHeader();
     const response = (await fetch(`${BASEURL}/api/v1/calendars?year=${year}`, {
-      method: "GET",
+      method: 'GET',
       headers: headers,
-    }).then((res) => res.json())) as Home.GetCalendarsResponseDto;
+    }).then(res => res.json())) as Home.GetCalendarsResponseDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
     return response as Home.GetCalendarsResponseDto;
@@ -43,9 +42,9 @@ export const HomeRscService = () => {
   const getCalendar = async (id: string) => {
     const headers = await setRscHeader();
     const response = (await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
-      method: "GET",
+      method: 'GET',
       headers: headers,
-    }).then((res) => res.json())) as Home.Calendar & Error.ApiErrorResponse;
+    }).then(res => res.json())) as Home.Calendar & Error.ApiErrorResponse;
 
     if (response.errorCode) throw new Error(response.errorCode);
 

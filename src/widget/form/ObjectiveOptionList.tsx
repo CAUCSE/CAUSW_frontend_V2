@@ -1,16 +1,13 @@
-"use client";
+'use client';
 
-import { ObjectiveOption } from "@/entities";
+import { ObjectiveOption } from '@/entities';
 
 interface ObjectiveOptionListProps {
   question: Post.QuestionResponseDto;
   questionIndex: number;
 }
 
-export const ObjectiveOptionList = ({
-  question,
-  questionIndex,
-}: ObjectiveOptionListProps) => {
+export const ObjectiveOptionList = ({ question, questionIndex }: ObjectiveOptionListProps) => {
   return question.optionResponseDtoList
     .sort((optionA, optionB) => optionA.optionNumber - optionB.optionNumber)
     .map((option: Post.OptionResponseDto) => {

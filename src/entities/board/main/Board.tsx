@@ -1,22 +1,14 @@
-import { EmptyContent } from "@/entities";
-import Link from "next/link";
+import Link from 'next/link';
 
-export const Board = ({
-  boardId,
-  boardName,
-  isDefault,
-  contents,
-}: Board.BoardResponseDto) => {
+import { EmptyContent } from '@/entities';
+
+export const Board = ({ boardId, boardName, isDefault, contents }: Board.BoardResponseDto) => {
   const emptyContents = new Array(3 - contents.length).fill(0);
   return (
     <div>
       <h1 className="truncate text-xl font-semibold">
         <Link href={`/board/${boardId}`}>
-          {isDefault ? (
-            <span className="underline">{boardName}</span>
-          ) : (
-            <span>{boardName}</span>
-          )}
+          {isDefault ? <span className="underline">{boardName}</span> : <span>{boardName}</span>}
         </Link>
       </h1>
 
@@ -27,7 +19,7 @@ export const Board = ({
           </Link>
         ) : (
           <div className="divide-y-2">
-            {contents.map((content) => (
+            {contents.map(content => (
               <div key={content.contentId}>
                 <Link href={`/board/${boardId}/${content.contentId}`}>
                   <div className="truncate py-2">{content.title} </div>

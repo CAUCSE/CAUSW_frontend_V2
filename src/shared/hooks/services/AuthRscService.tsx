@@ -1,32 +1,32 @@
-"use client";
+'use client';
 
 import {
-  BASEURL,
-  useUserStore,
-  useLayoutStore,
   API,
-  setRccToken,
-  setRscToken,
-  setRscHeader,
+  BASEURL,
   getRscRefresh,
-  removeRscAccess,
-  removeRscRefresh,
   removeRccAccess,
   removeRccRefresh,
-} from "@/shared";
+  removeRscAccess,
+  removeRscRefresh,
+  setRccToken,
+  setRscHeader,
+  setRscToken,
+  useLayoutStore,
+  useUserStore,
+} from '@/shared';
 
 export const AuthRscService = () => {
-  const URI = BASEURL + "/api/v1/users";
+  const URI = BASEURL + '/api/v1/users';
 
   const updateAccess = async (refresh: string) => {
     try {
       const response = (await fetch(`${URI}/token/update`, {
-        body: JSON.stringify({ refreshToken: refresh ?? "" }),
+        body: JSON.stringify({ refreshToken: refresh ?? '' }),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        method: "PUT",
-      }).then((res) => res.json())) as User.UpdateAccessTokenRequestDto;
+        method: 'PUT',
+      }).then(res => res.json())) as User.UpdateAccessTokenRequestDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 

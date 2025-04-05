@@ -1,21 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 interface useInfiniteScrollProps {
   intersectionCallback: IntersectionObserverCallback;
   option?: IntersectionObserverInit;
 }
 
-export const useInfiniteScroll = ({
-  intersectionCallback,
-  option,
-}: useInfiniteScrollProps) => {
+export const useInfiniteScroll = ({ intersectionCallback, option }: useInfiniteScrollProps) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
 
   const observerOption = option || {
     root: null,
-    rootMargin: "0px",
+    rootMargin: '0px',
     threshold: 0.1,
   };
 
@@ -24,10 +21,7 @@ export const useInfiniteScroll = ({
       return;
     }
 
-    const observer = new IntersectionObserver(
-      intersectionCallback,
-      observerOption,
-    );
+    const observer = new IntersectionObserver(intersectionCallback, observerOption);
 
     observer.observe(targetRef.current);
 

@@ -1,18 +1,13 @@
-import { SettingRscService } from "@/shared";
+import { SettingRscService } from '@/shared';
+import { Management } from '@/widget';
 
-import { Management } from "@/widget";
-
-const AttendanceManagement = async ({
-  params: { state },
-}: {
-  params: { state: string };
-}) => {
+const AttendanceManagement = async ({ params: { state } }: { params: { state: string } }) => {
   const { getAllAttendanceUsers, getWaitingUsers } = SettingRscService();
 
   const data =
-    state === "waiting"
-      ? await getWaitingUsers().then((data) =>
-          data.map((element) => ({
+    state === 'waiting'
+      ? await getWaitingUsers().then(data =>
+          data.map(element => ({
             userName: element.userName,
             studentId: element.studentId,
             userId: `${element.userId}&&&${element.userAcademicRecordApplicationId}`,
@@ -29,20 +24,20 @@ const AttendanceManagement = async ({
         state={state}
         title="학적 상태 관리"
         firstNavigation={{
-          name: "유저 목록",
-          state: "all",
-          exportType: "ALL_USERS",
-          router: "/setting/management/attendance/detail/all",
+          name: '유저 목록',
+          state: 'all',
+          exportType: 'ALL_USERS',
+          router: '/setting/management/attendance/detail/all',
         }}
         navigation={[
           {
-            name: "승인 대기 목록",
-            state: "waiting",
-            exportType: "WAITING_USERS",
-            router: "/setting/management/attendance/detail/waiting",
+            name: '승인 대기 목록',
+            state: 'waiting',
+            exportType: 'WAITING_USERS',
+            router: '/setting/management/attendance/detail/waiting',
           },
         ]}
-        data={data.map((element) => ({
+        data={data.map(element => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.userId,

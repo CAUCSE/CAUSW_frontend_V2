@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useTruncateParagraph } from "@/shared";
+import { useTruncateParagraph } from '@/shared';
 
 interface FormSummaryResultQuestionHeaderProps {
   summaryFormResult?: Form.QuestionSummaryResponseDto[];
@@ -13,15 +13,14 @@ export const FormSummaryResultQuestionHeader = ({
   question,
   questionIndex,
 }: FormSummaryResultQuestionHeaderProps) => {
-  const { textRefs, isTruncated } =
-    useTruncateParagraph<Form.QuestionSummaryResponseDto>(summaryFormResult);
+  const { textRefs, isTruncated } = useTruncateParagraph<Form.QuestionSummaryResponseDto>(summaryFormResult);
 
   return (
     <div className={`group relative flex w-full items-center justify-start`}>
       <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
         <p
           className="truncate text-[14px] group-hover:block sm:text-xl"
-          ref={(el) => {
+          ref={el => {
             textRefs.current[questionIndex] = el;
           }}
         >

@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
+import { useParams } from 'next/navigation';
+
+import { LoadingComponent } from '@/entities';
+import { LockerService } from '@/shared';
 import {
   LockerMobileActionBtn,
   LockerSelectionDesktopManual,
   LockerSelectionGrid,
   LockerSelectionHeader,
   LockerSelectionMobileManual,
-} from "@/widget";
-
-import { LoadingComponent } from "@/entities";
-import { LockerService } from "@/shared";
-import { useParams } from "next/navigation";
+} from '@/widget';
 
 // TODO 사물함 신청 기간, 만료 기간에 따라 안내 문구 및 버튼 상태 변경하기
 

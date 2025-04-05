@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { Loading, PreviousButton, useSearchPost } from "@/shared";
-import { PostSearchInput, PostSearchResult } from "@/widget";
-import { PostSearchIntro, PostSkeletonList } from "@/entities";
+import { PostSearchIntro, PostSkeletonList } from '@/entities';
+import { Loading, PreviousButton, useSearchPost } from '@/shared';
+import { PostSearchInput, PostSearchResult } from '@/widget';
 
 export const PostSearch = () => {
   const {
@@ -30,10 +30,7 @@ export const PostSearch = () => {
             <PostSkeletonList />
           ) : (
             <div className="h-full w-full">
-              <PostSearchResult
-                postList={postList!}
-                boardId={boardId as string}
-              />
+              <PostSearchResult postList={postList!} boardId={boardId as string} />
               {hasNextPage && (
                 <div className="h-3 w-full" ref={targetRef}>
                   {isFetchingNextPage && (

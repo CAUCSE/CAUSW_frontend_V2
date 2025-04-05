@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { FormService } from "@/shared";
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
+
+import { FormService } from '@/shared';
 
 export const ExcelDownloadBtn = () => {
   const params = useParams();

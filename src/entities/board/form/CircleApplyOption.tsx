@@ -1,13 +1,10 @@
-"use client";
+'use client';
 
-import { Icon } from "@/shared";
-import { useFormContext } from "react-hook-form";
+import { useFormContext } from 'react-hook-form';
 
-export const CircleApplyOption = ({
-  questionIndex,
-  optionIndex,
-  removeOption,
-}: Form.OptionProps) => {
+import { Icon } from '@/shared';
+
+export const CircleApplyOption = ({ questionIndex, optionIndex, removeOption }: Form.OptionProps) => {
   const {
     register,
     formState: { errors },
@@ -27,7 +24,7 @@ export const CircleApplyOption = ({
             {...register(
               `questionCreateRequestDtoList.${questionIndex}.optionCreateRequestDtoList.${optionIndex}.optionText`,
               {
-                required: "항목 내용을 입력해주세요.",
+                required: '항목 내용을 입력해주세요.',
               },
             )}
             className="w-1/3 min-w-[100px] border-b border-[#000000] bg-[#FCFCFC] placeholder:text-center"
@@ -41,9 +38,7 @@ export const CircleApplyOption = ({
             <Icon iconName="remove" />
           </button>
         </div>
-        {errors[fieldName]?.message && (
-          <p className="text-red-500">{errors[fieldName]?.message}</p>
-        )}
+        {errors[fieldName]?.message && <p className="text-red-500">{errors[fieldName]?.message}</p>}
       </div>
     </div>
   );

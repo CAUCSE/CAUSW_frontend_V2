@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import clsx from "clsx";
-import { createPortal } from "react-dom";
+import clsx from 'clsx';
+import { createPortal } from 'react-dom';
 
 interface PortalModalProps {
   children?: React.ReactNode;
@@ -12,20 +12,16 @@ interface PortalModalProps {
 }
 
 // TODO: focus 스트랩 적용
-export const PortalModal = ({
-  children,
-  className,
-  closeModal,
-}: PortalModalProps) => {
+export const PortalModal = ({ children, className, closeModal }: PortalModalProps) => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         closeModal();
       }
     };
-    window.addEventListener("keydown", handleEsc);
+    window.addEventListener('keydown', handleEsc);
     return () => {
-      window.removeEventListener("keydown", handleEsc);
+      window.removeEventListener('keydown', handleEsc);
     };
   }, [closeModal]);
 
@@ -40,7 +36,7 @@ export const PortalModal = ({
       className="fixed inset-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
       onClick={clickOutSide}
     >
-      <div className={clsx("", className)}>{children}</div>
+      <div className={clsx('', className)}>{children}</div>
     </div>,
     document.body,
   );
@@ -51,15 +47,15 @@ interface ModalElementProps {
   children?: React.ReactNode;
 }
 
-const ModalHeader = ({ className = "", children }: ModalElementProps) => {
+const ModalHeader = ({ className = '', children }: ModalElementProps) => {
   return <div className={className}>{children}</div>;
 };
 
-const ModalBody = ({ className = "", children }: ModalElementProps) => {
+const ModalBody = ({ className = '', children }: ModalElementProps) => {
   return <div className={className}>{children}</div>;
 };
 
-const ModalFooter = ({ className = "", children }: ModalElementProps) => {
+const ModalFooter = ({ className = '', children }: ModalElementProps) => {
   return <div className={className}>{children}</div>;
 };
 
