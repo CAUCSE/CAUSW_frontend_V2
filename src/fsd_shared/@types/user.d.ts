@@ -275,6 +275,32 @@ declare namespace User {
     };
   }
 
+  export interface FindIdRequest {
+    studentId: string;
+    name: string;
+  }
+  
+  export interface FindIdResponse {
+    email: string;
+  }
+
+  export interface FindPasswordRequest {
+    name: string;
+    studentId: string;
+    email: string;
+  }
+
+  export interface ResetPasswordRequest {
+    originPassword: string;
+    updatedPassword: string;
+  }
+
+  export interface ResetPasswordFormData {
+    originPassword: string;
+    updatedPassword: string;
+    confirmPassword: string;
+  }
+
   //Store
   export interface UseUserStore extends User {
     setUserStore: (props: User.User & { isV2: boolean }) => void;

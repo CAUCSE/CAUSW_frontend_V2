@@ -47,7 +47,9 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
       checkVTwo: props.isV2,
     }));
   },
-
+  setEmail: (email: string) => {
+    set(() => ({ email }));
+  },
   roleTxt: () => {
     return get()
       .roles.map((element) => userRoleCodes[element])

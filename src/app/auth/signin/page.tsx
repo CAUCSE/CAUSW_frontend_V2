@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -10,12 +9,11 @@ import { useLayoutStore, AuthService, emailRegex } from "@/shared";
 import {
   VideoBackground,
   ImageBackground,
-  SignInInput,
-  SignInSubmitButton,
   LoadingComponent,
 } from "@/entities";
-
 import "@/firebase-messaging-sw";
+import { SignInInput, SignInSubmitButton } from "@/fsd_entities/auth";
+import { SignInFooter } from "@/fsd_widgets/auth";
 
 const routes = [
   { name: "회원가입하기", route: "/auth/signup" },
@@ -156,34 +154,8 @@ const SignInPage = () => {
             </div>
           ))}
       </div>
-
-      <div className="absolute bottom-3 flex w-full flex-row items-center justify-end md:bottom-5">
-        <span className="mr-1 mt-2 text-end text-sm font-bold text-white sm:text-lg">
-          중앙대학교 소프트웨어학부 <br /> ICT 위원회
-        </span>
-        <div className="mr-3 mt-2 flex flex-row justify-between md:mr-4">
-          <Image
-            onClick={() => {
-              window.location.href = "https://pf.kakao.com/_HYxjFj";
-            }}
-            src="/images/kakao.png"
-            alt="kakao"
-            width={50}
-            height={50}
-            className="mr-1 h-10 w-10 md:h-[50px] md:w-[50px]"
-          ></Image>
-          <Image
-            onClick={() => {
-              window.location.href =
-                "https://www.instagram.com/causwcse_dongne/";
-            }}
-            src="/images/instagram.png"
-            alt="instagram"
-            width={50}
-            height={50}
-            className="h-10 w-10 md:h-[50px] md:w-[50px]"
-          ></Image>
-        </div>
+      <div className="flex absolute w-full bottom-3 md:bottom-5 justify-end">
+        <SignInFooter></SignInFooter>
       </div>
     </>
   );

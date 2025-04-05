@@ -4,12 +4,15 @@ import { useRouter } from "next/navigation";
 
 export const PreviousButton = ({
   routeCallback,
+  variant,
 }: {
   routeCallback?: () => void;
+  variant?: string;
 }) => {
   const router = useRouter();
+  const color = variant === "" ? "boardPageBackground" : `${variant}`;
   return (
-    <div className="absolute left-0 top-0 m-4 bg-boardPageBackground">
+    <div className={`absolute left-0 top-0 m-4 bg-${color}`}>
       <button
         type="button"
         onClick={() => (routeCallback ? routeCallback() : router.back())}

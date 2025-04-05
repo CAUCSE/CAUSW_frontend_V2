@@ -1,9 +1,9 @@
 "use client";
 
+import { UseTerms } from "@/fsd_shared";
 import { userRoleCodes, useUserStore } from "@/shared";
 import Link from "next/link";
 import React, { useState } from "react";
-import { UseTerms } from "@/entities/home/useTerms";
 const SettingsPage = () => {
   const {
     roles,
@@ -91,7 +91,7 @@ const SettingsPage = () => {
       { name: "게시판 생성 신청 관리", link: "/setting/management/board" },
     ],
 
-    occasionManagement: [{ name: "경조사 관리", link: "/setting/occasion" }],
+    occasionManagement: [{ name: "경조사 관리", link: "/setting/management/occasion/request" }],
   };
 
   const MenuItem: React.FC<{
