@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{js,ts,jsx,tsx,json,css,html}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@iconify/json": "^2.2.226",
     "@iconify/tailwind": "^1.1.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-csv": "^1.1.10",
@@ -38,6 +41,8 @@
     "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.6",
     "postcss": "^8.4.39",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
