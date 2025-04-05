@@ -12,7 +12,7 @@ export const SubHeader = ({
   big?: boolean;
 }) => (
   <span
-    className={`${big ? "text-lg" : "text-sm"} ${underline ? "underline" : ""} ${bold ? "font-bold" : ""} ${gray ? "text-gray-400" : ""}`}
+    className={`${big ? 'text-lg' : 'text-sm'} ${underline ? 'underline' : ''} ${bold ? 'font-bold' : ''} ${gray ? 'text-gray-400' : ''}`}
   >
     {children}
   </span>

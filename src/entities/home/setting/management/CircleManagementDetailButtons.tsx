@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import { Button, CircleService } from "@/shared";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useUserStore } from "@/shared";
+import { useState } from 'react';
+
+import { useRouter } from 'next/navigation';
+
+import { Button, CircleService } from '@/shared';
+import { useUserStore } from '@/shared';
 
 export function CircleManagementButtons({
   params: { name, studentId, userId, circleId },
@@ -15,15 +17,13 @@ export function CircleManagementButtons({
   const [isSuccessModal, setIsSuccessModal] = useState(false);
   const { dropMember } = CircleService();
   const router = useRouter();
-  const myId = useUserStore((state) => state.id);
+  const myId = useUserStore(state => state.id);
 
   const deleteAndNavigateAndReload = async () => {
     try {
-      await router.push("../"); // 페이지 이동
+      await router.push('../'); // 페이지 이동
       window.location.reload(); // 페이지 새로고침
-    } catch (error) {
-      ;
-    }
+    } catch (error) {}
   };
 
   const expelMember = async () => {
@@ -39,7 +39,7 @@ export function CircleManagementButtons({
       <Button
         key="닫기"
         action={() => {
-          router.push("../");
+          router.push('../');
         }}
         variant="BLUE"
         className="h-[45px] w-[125px] lg:w-[200px]"
@@ -69,12 +69,8 @@ export function CircleManagementButtons({
             <p className="text-md font-bold text-red-500 lg:text-xl">
               {name}({studentId})을
             </p>
-            <p className="text-md font-bold text-red-500 lg:text-xl">
-              정말 동아리에서 추방하시곘습니까?
-            </p>
-            <p className="text-md font-bold text-red-500 lg:text-xl">
-              이 작업은 복구할 수 없습니다.
-            </p>
+            <p className="text-md font-bold text-red-500 lg:text-xl">정말 동아리에서 추방하시곘습니까?</p>
+            <p className="text-md font-bold text-red-500 lg:text-xl">이 작업은 복구할 수 없습니다.</p>
 
             <div className="m-4 flex space-x-8 p-4">
               <Button
@@ -105,9 +101,7 @@ export function CircleManagementButtons({
       {isErrorModal && (
         <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
-            <p className="text-md mb-2 font-bold lg:text-xl">
-              알 수 없는 오류가 발생했습니다.
-            </p>
+            <p className="text-md mb-2 font-bold lg:text-xl">알 수 없는 오류가 발생했습니다.</p>
             <Button
               key="모달 닫기"
               action={() => {
@@ -124,9 +118,7 @@ export function CircleManagementButtons({
       {isSuccessModal && (
         <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
-            <p className="text-md mb-2 font-bold lg:text-xl">
-              {name}이 추방되었습니다.
-            </p>
+            <p className="text-md mb-2 font-bold lg:text-xl">{name}이 추방되었습니다.</p>
             <Button
               action={() => {
                 setIsSuccessModal(false);

@@ -1,4 +1,4 @@
-import { BarLoader } from "react-spinners";
+import { BarLoader } from 'react-spinners';
 
 export const LoadingComponent = () => {
   return (

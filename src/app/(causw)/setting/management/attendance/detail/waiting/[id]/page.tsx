@@ -1,14 +1,17 @@
-"use client";
+'use client';
 
-import { SettingService, Modal, ImageModal } from "@/shared";
-import { Line, LoadingComponent, Header, SubHeader } from "@/entities";
-import Link from "next/link";
-import { useRef, useState } from "react";
-import Image from "next/image";
-import { ImageList } from "@/shared/ui/ImageList";
+import { useRef, useState } from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { ImageList } from '@/shared/ui/ImageList';
+
+import { Header, Line, LoadingComponent, SubHeader } from '@/entities';
+import { ImageModal, Modal, SettingService } from '@/shared';
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
-  const idArray = id.split("%26%26%26");
+  const idArray = id.split('%26%26%26');
   const userId = idArray[0];
   const applicationId = idArray[1];
 
@@ -20,7 +23,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const rejectMessage = useRef("");
+  const rejectMessage = useRef('');
 
   const closeModal = () => {
     setModal(false);
@@ -36,18 +39,13 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <button className="absolute left-0 top-0 p-2" onClick={closeModal}>
-              <Image
-                src="/images/modal_close_icon.png"
-                alt="modal-close-btn"
-                width={15}
-                height={15}
-              />
+              <Image src="/images/modal_close_icon.png" alt="modal-close-btn" width={15} height={15} />
             </button>
             <SubHeader bold big>
               거부 사유
             </SubHeader>
             <textarea
-              onChange={(event) => {
+              onChange={event => {
                 rejectMessage.current = event.target.value;
               }}
               className="h-24 min-h-24 w-full rounded-md border-2 p-3"
@@ -56,14 +54,8 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             <button
               className="mt-5 h-10 w-full rounded bg-red-500 text-white"
               onClick={() => {
-                changeAttendanceUserState(
-                  userId,
-                  applicationId,
-                  "REJECT",
-                  rejectMessage.current,
-                ).then(() => {
-                  window.location.href =
-                    "/setting/management/attendance/waiting";
+                changeAttendanceUserState(userId, applicationId, 'REJECT', rejectMessage.current).then(() => {
+                  window.location.href = '/setting/management/attendance/waiting';
                 });
               }}
             >
@@ -85,34 +77,25 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         <SubHeader bold big>
           본 학기 등록 완료 하기 차수
         </SubHeader>
-        <div>{data?.targetCompletedSemester + ""}차 학기</div>
+        <div>{data?.targetCompletedSemester + ''}차 학기</div>
 
         <SubHeader bold big>
           유저 작성 특이사항
         </SubHeader>
-        <div className="h-24 min-h-24 w-full rounded-md border-2 p-3">
-          {data?.note}
-        </div>
+        <div className="h-24 min-h-24 w-full rounded-md border-2 p-3">{data?.note}</div>
 
         <SubHeader bold big>
           증빙 서류
         </SubHeader>
         <div className="flex h-1/2 gap-1 lg:h-2/3">
-          {data?.attachedImageUrlList && (
-            <ImageList images={data.attachedImageUrlList} imageSize={125} />
-          )}
+          {data?.attachedImageUrlList && <ImageList images={data.attachedImageUrlList} imageSize={125} />}
         </div>
 
         <div className="flex w-full justify-between">
           <div
             onClick={() => {
-              changeAttendanceUserState(
-                userId,
-                applicationId,
-                "ACCEPT",
-                rejectMessage.current,
-              ).then(() => {
-                window.location.href = "/setting/management/attendance/waiting";
+              changeAttendanceUserState(userId, applicationId, 'ACCEPT', rejectMessage.current).then(() => {
+                window.location.href = '/setting/management/attendance/waiting';
               });
             }}
             className="mb-3 flex h-12 w-[49%] items-center justify-center rounded-xl bg-focus text-lg text-white"
@@ -128,12 +111,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             거부하기
           </div>
         </div>
-        {selectedImage && (
-          <ImageModal
-            imageUrl={selectedImage}
-            onClose={() => setSelectedImage(null)}
-          />
-        )}
+        {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
       </main>
     </>
   );

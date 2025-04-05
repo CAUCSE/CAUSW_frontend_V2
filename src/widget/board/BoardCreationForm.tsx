@@ -1,13 +1,8 @@
-"use client";
+'use client';
 
-import {
-  AllowAnonymousToggle,
-  BoardDetailForm,
-  RoleSelectSection,
-} from "@/entities";
-import { PreviousButton, useCreateBoard } from "@/shared";
-
-import { roles } from "@/utils";
+import { AllowAnonymousToggle, BoardDetailForm, RoleSelectSection } from '@/entities';
+import { PreviousButton, useCreateBoard } from '@/shared';
+import { roles } from '@/utils';
 
 export const BoardCreationForm = () => {
   const { handleSubmit, hasAuth } = useCreateBoard();
@@ -27,7 +22,7 @@ export const BoardCreationForm = () => {
         onClick={handleSubmit}
         className="fixed bottom-[70px] right-[9px] w-32 rounded-xl bg-red-500 px-6 py-3 font-bold text-white shadow-lg xl:bottom-10 xl:left-1/2 xl:-translate-x-1/2"
       >
-        {hasAuth ? "게시판 생성" : "게시판 생성 신청"}
+        {hasAuth ? '게시판 생성' : '게시판 생성 신청'}
       </button>
     </div>
   );

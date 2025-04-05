@@ -1,14 +1,8 @@
-import { useBoardStore } from "@/shared";
+import { useBoardStore } from '@/shared';
 
 export const BoardDetailForm = () => {
-  const {
-    boardName,
-    isNameValid,
-    boardDescription,
-    setBoardName,
-    setIsNameValid,
-    setBoardDescription,
-  } = useBoardStore();
+  const { boardName, isNameValid, boardDescription, setBoardName, setIsNameValid, setBoardDescription } =
+    useBoardStore();
 
   return (
     <>
@@ -19,16 +13,14 @@ export const BoardDetailForm = () => {
           type="text"
           className="text-md w-full border-b-post-title-input border-black bg-transparent text-black focus:outline-none xl:text-lg"
           value={boardName}
-          onChange={(e) => {
+          onChange={e => {
             setBoardName(e.target.value);
             setIsNameValid(true);
           }}
           placeholder="게시판 이름을 입력해주세요."
         />
         {!isNameValid && (
-          <div className="absolute right-0 mt-1 pr-4 text-sm text-red-500">
-            게시판 이름은 필수입니다.
-          </div>
+          <div className="absolute right-0 mt-1 pr-4 text-sm text-red-500">게시판 이름은 필수입니다.</div>
         )}
       </div>
 
@@ -37,7 +29,7 @@ export const BoardDetailForm = () => {
         <textarea
           className="text-md w-full border-b-post-title-input border-black bg-transparent text-black focus:outline-none xl:text-lg"
           value={boardDescription}
-          onChange={(e) => setBoardDescription(e.target.value)}
+          onChange={e => setBoardDescription(e.target.value)}
           placeholder="게시판 설명을 입력해주세요."
         />
       </div>

@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 
 interface BoardState {
@@ -17,38 +16,37 @@ interface BoardState {
   clearBoardInfo: () => void;
 }
 
-export const useBoardStore = create<BoardState>((set) => ({
+export const useBoardStore = create<BoardState>(set => ({
   boardName: '',
   boardDescription: '',
   allowAnonymous: false,
   selectedRoles: ['ALL'],
   isNameValid: true,
-  clearBoardInfo: () => {set({boardName:'', boardDescription:'',allowAnonymous: false,selectedRoles: ['ALL']})},
-  setBoardName: (name) => set({ boardName: name }),
-  setBoardDescription: (description) => set({ boardDescription: description }),
-  toggleAllowAnonymous: () =>
-    set((state) => ({ allowAnonymous: !state.allowAnonymous })),
-  setSelectedRoles: (roles) => set({ selectedRoles: roles }),
-  toggleRole: (roleEnums) => 
-    set((state) => {
+  clearBoardInfo: () => {
+    set({ boardName: '', boardDescription: '', allowAnonymous: false, selectedRoles: ['ALL'] });
+  },
+  setBoardName: name => set({ boardName: name }),
+  setBoardDescription: description => set({ boardDescription: description }),
+  toggleAllowAnonymous: () => set(state => ({ allowAnonymous: !state.allowAnonymous })),
+  setSelectedRoles: roles => set({ selectedRoles: roles }),
+  toggleRole: roleEnums =>
+    set(state => {
       let updatedRoles = [...state.selectedRoles];
       if (updatedRoles.includes('ALL')) {
-        updatedRoles = updatedRoles.filter((role) => role !== 'ALL');
+        updatedRoles = updatedRoles.filter(role => role !== 'ALL');
       }
-      const allSelected = roleEnums.every((enumRole) => updatedRoles.includes(enumRole));
+      const allSelected = roleEnums.every(enumRole => updatedRoles.includes(enumRole));
       if (allSelected) {
-        updatedRoles = updatedRoles.filter((enumRole) => !roleEnums.includes(enumRole));
+        updatedRoles = updatedRoles.filter(enumRole => !roleEnums.includes(enumRole));
       } else {
-        updatedRoles = [...updatedRoles, ...roleEnums.filter((enumRole) => !updatedRoles.includes(enumRole))];
+        updatedRoles = [...updatedRoles, ...roleEnums.filter(enumRole => !updatedRoles.includes(enumRole))];
       }
 
       return { selectedRoles: updatedRoles };
     }),
   toggleAnyRole: () =>
-    set((state) => ({
-      selectedRoles: state.selectedRoles.includes('ALL')
-        ? []
-        : ['ALL'],
+    set(state => ({
+      selectedRoles: state.selectedRoles.includes('ALL') ? [] : ['ALL'],
     })),
-  setIsNameValid: (isValid) => set({ isNameValid: isValid }),
+  setIsNameValid: isValid => set({ isNameValid: isValid }),
 }));

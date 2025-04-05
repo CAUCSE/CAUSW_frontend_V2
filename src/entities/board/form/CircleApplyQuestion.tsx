@@ -1,15 +1,14 @@
-"use client";
+'use client';
 
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useEffect } from 'react';
 
-import { CircleApplyOption } from "./CircleApplyOption";
-import { IconButton } from "@/shared";
-import { useEffect } from "react";
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
-export const CircleApplyQuestion = ({
-  index,
-  removeQuestion,
-}: Form.QuestionProps) => {
+import { IconButton } from '@/shared';
+
+import { CircleApplyOption } from './CircleApplyOption';
+
+export const CircleApplyQuestion = ({ index, removeQuestion }: Form.QuestionProps) => {
   const {
     register,
     control,
@@ -18,9 +17,7 @@ export const CircleApplyQuestion = ({
     formState: { errors },
   } = useFormContext<Circle.Application>();
 
-  const questionType = watch(
-    `questionCreateRequestDtoList.${index}.questionType`,
-  );
+  const questionType = watch(`questionCreateRequestDtoList.${index}.questionType`);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -28,28 +25,22 @@ export const CircleApplyQuestion = ({
   });
 
   const addOption = () => {
-    append({ optionText: "" });
+    append({ optionText: '' });
   };
 
   useEffect(() => {
     if (!questionType) {
-      setValue(
-        `questionCreateRequestDtoList.${index}.questionType`,
-        "OBJECTIVE",
-      );
-      if (questionType === "SUBJECTIVE") {
-        setValue(
-          `questionCreateRequestDtoList.${index}.optionCreateRequestDtoList`,
-          [],
-        );
+      setValue(`questionCreateRequestDtoList.${index}.questionType`, 'OBJECTIVE');
+      if (questionType === 'SUBJECTIVE') {
+        setValue(`questionCreateRequestDtoList.${index}.optionCreateRequestDtoList`, []);
       }
     }
   }, [questionType, setValue, index]);
 
   //객관식 선택 시 무조건 항목이 하나 이상 있어야 함
   useEffect(() => {
-    if (fields.length === 0 && questionType === "OBJECTIVE") {
-      append({ optionText: "" });
+    if (fields.length === 0 && questionType === 'OBJECTIVE') {
+      append({ optionText: '' });
     }
   }, [fields, append]);
 
@@ -62,12 +53,9 @@ export const CircleApplyQuestion = ({
               <input
                 type="radio"
                 value="OBJECTIVE"
-                {...register(
-                  `questionCreateRequestDtoList.${index}.questionType`,
-                  {
-                    required: "객관식 또는 주관식을 선택해주세요",
-                  },
-                )}
+                {...register(`questionCreateRequestDtoList.${index}.questionType`, {
+                  required: '객관식 또는 주관식을 선택해주세요',
+                })}
                 className="peer h-0 w-0 cursor-pointer opacity-0"
               />
               <span className="mr-1 inline-block h-3 w-3 cursor-pointer rounded-full border-2 border-black peer-checked:bg-black peer-checked:shadow-[0_0_0_2px_rgba(255,255,255,1),0_0_0_3px_rgba(0,0,0,1)] sm:m-4 sm:h-4 sm:w-4"></span>
@@ -77,12 +65,9 @@ export const CircleApplyQuestion = ({
               <input
                 type="radio"
                 value="SUBJECTIVE"
-                {...register(
-                  `questionCreateRequestDtoList.${index}.questionType`,
-                  {
-                    required: "객관식 또는 주관식을 선택해주세요",
-                  },
-                )}
+                {...register(`questionCreateRequestDtoList.${index}.questionType`, {
+                  required: '객관식 또는 주관식을 선택해주세요',
+                })}
                 className="peer h-0 w-0 cursor-pointer opacity-0"
               />
               <span className="mr-1 inline-block h-3 w-3 cursor-pointer rounded-full border-2 border-black peer-checked:bg-black peer-checked:shadow-[0_0_0_2px_rgba(255,255,255,1),0_0_0_3px_rgba(0,0,0,1)] sm:m-4 sm:h-4 sm:w-4"></span>
@@ -90,16 +75,11 @@ export const CircleApplyQuestion = ({
             </label>
           </div>
           {errors.questionCreateRequestDtoList?.[index]?.questionType && (
-            <p className="text-red-500">
-              {
-                errors.questionCreateRequestDtoList[index]?.questionType
-                  ?.message
-              }
-            </p>
+            <p className="text-red-500">{errors.questionCreateRequestDtoList[index]?.questionType?.message}</p>
           )}
         </div>
         <IconButton
-          iconName={"remove"}
+          iconName={'remove'}
           callback={() => {
             removeQuestion();
           }}
@@ -110,18 +90,16 @@ export const CircleApplyQuestion = ({
           type="text"
           placeholder="질문 내용"
           {...register(`questionCreateRequestDtoList.${index}.questionText`, {
-            required: "질문 내용을 입력해주세요",
+            required: '질문 내용을 입력해주세요',
           })}
           className="w-3/4 border-b border-[#363434] bg-[#FCFCFC] placeholder:text-[#B4B1B1]"
         />
         {errors.questionCreateRequestDtoList?.[index]?.questionText && (
-          <p className="text-red-500">
-            {errors.questionCreateRequestDtoList[index]?.questionText?.message}
-          </p>
+          <p className="text-red-500">{errors.questionCreateRequestDtoList[index]?.questionText?.message}</p>
         )}
       </div>
 
-      {questionType === "OBJECTIVE" && (
+      {questionType === 'OBJECTIVE' && (
         <>
           <label className="flex items-center gap-2">
             <input

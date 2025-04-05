@@ -1,5 +1,6 @@
-import { BASEURL, setRscHeader } from "@/shared";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
+
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const BoardRscService = () => {
   /**
@@ -39,25 +40,17 @@ export const BoardRscService = () => {
     }
   };
 
-  const createBoard = async (
-    data: Board.CreateBoardDto,
-  ): Promise<Board.BoardDto> => {
+  const createBoard = async (data: Board.CreateBoardDto): Promise<Board.BoardDto> => {
     const URI = `${BASEURL}/api/v1/boards/create`;
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<Board.BoardDto> = await axios.post(
-        URI,
-        data,
-        {
-          headers: headers,
-        },
-      );
+      const response: AxiosResponse<Board.BoardDto> = await axios.post(URI, data, {
+        headers: headers,
+      });
 
       if (response.status !== 201) {
-        throw new Error(
-          `Failed to create comment. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to create comment. Response status: ${response.status}`);
       }
 
       return response.data;
@@ -76,26 +69,18 @@ export const BoardRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(
-          `Failed to create comment. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to create comment. Response status: ${response.status}`);
       }
     } catch (error) {
       throw error;
     }
   };
 
-  const searchPost = async (
-    boardId: string | string[],
-    keyword: string,
-    pageNum: number,
-  ) => {
+  const searchPost = async (boardId: string | string[], keyword: string, pageNum: number) => {
     try {
       const headers = await setRscHeader();
       const encodedKeyword = encodeURIComponent(keyword);
-      const URI =
-        BASEURL +
-        `/api/v1/posts/search?boardId=${boardId}&keyword=${encodedKeyword}&pageNum=${pageNum}`;
+      const URI = BASEURL + `/api/v1/posts/search?boardId=${boardId}&keyword=${encodedKeyword}&pageNum=${pageNum}`;
       const response = await fetch(`${URI}`, {
         headers: headers,
       });
@@ -128,7 +113,7 @@ export const BoardRscService = () => {
     const URI = `${BASEURL}/api/v1/notifications/${boardId}`;
     try {
       const headers = await setRscHeader();
-      const response = await fetch(URI, { method: "PUT", headers: headers });
+      const response = await fetch(URI, { method: 'PUT', headers: headers });
       if (!response.ok) {
         throw new Error(`${response.status}`);
       }

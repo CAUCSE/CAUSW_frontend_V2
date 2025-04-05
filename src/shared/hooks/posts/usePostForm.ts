@@ -1,24 +1,19 @@
-"use client";
+'use client';
 
-import {
-  PostService,
-  useCreatePostStore,
-  useCreateVoteStore,
-  useFileUpload,
-} from "@/shared";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from 'next/navigation';
 
-import toast from "react-hot-toast";
-import { useShallow } from "zustand/react/shallow";
+import toast from 'react-hot-toast';
+import { useShallow } from 'zustand/react/shallow';
+
+import { PostService, useCreatePostStore, useCreateVoteStore, useFileUpload } from '@/shared';
 
 export const usePostForm = () => {
   const router = useRouter();
   const params = useParams();
   const boardId = params.boardId;
-  const { title, content, isAnonymous, isQuestion, isVote, clearPost } =
-    useCreatePostStore();
+  const { title, content, isAnonymous, isQuestion, isVote, clearPost } = useCreatePostStore();
   const { voteTitle, options, clearVote } = useCreateVoteStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       voteTitle: state.voteTitle,
       options: state.options,
       clearVote: state.clearVote,
@@ -32,18 +27,15 @@ export const usePostForm = () => {
   const { mutate: createPostWithVote } = useCreatePostWithVote();
 
   const validatePost = (postRequestDto: Post.CreatePostDto): string | null => {
-    if (postRequestDto.title.trim().length === 0)
-      return "게시글 제목을 입력해주세요.";
-    if (postRequestDto.content.trim().length === 0)
-      return "게시글 내용을 입력해주세요.";
+    if (postRequestDto.title.trim().length === 0) return '게시글 제목을 입력해주세요.';
+    if (postRequestDto.content.trim().length === 0) return '게시글 내용을 입력해주세요.';
     return null;
   };
 
   const validateVote = (): string | null => {
-    if (voteTitle.trim().length === 0) return "투표 제목을 입력해주세요.";
-    if (options.length === 0) return "투표 옵션을 하나 이상 생성해주세요.";
-    if (options.some((option) => option.trim().length === 0))
-      return "투표 옵션을 모두 입력해주세요.";
+    if (voteTitle.trim().length === 0) return '투표 제목을 입력해주세요.';
+    if (options.length === 0) return '투표 옵션을 하나 이상 생성해주세요.';
+    if (options.some(option => option.trim().length === 0)) return '투표 옵션을 모두 입력해주세요.';
     return null;
   };
 

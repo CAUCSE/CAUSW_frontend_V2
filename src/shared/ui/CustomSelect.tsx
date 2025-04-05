@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
-import DropdownIcon from "../../../public/icons/dropdown_icon.svg";
-import { createPortal } from "react-dom";
+import { createPortal } from 'react-dom';
+
+import DropdownIcon from '../../../public/icons/dropdown_icon.svg';
 
 interface DropdownItemListProps<T> {
   itemList: T[];
@@ -15,14 +16,7 @@ interface DropdownItemListProps<T> {
 }
 
 function DropdownItemListWithRef<T>(
-  {
-    itemList,
-    suffix,
-    offsetX,
-    offsetY,
-    setDropdownOpen,
-    setSelectValue,
-  }: DropdownItemListProps<T>,
+  { itemList, suffix, offsetX, offsetY, setDropdownOpen, setSelectValue }: DropdownItemListProps<T>,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const handleSelectItem = (value: any) => {
@@ -35,7 +29,7 @@ function DropdownItemListWithRef<T>(
       className="absolute max-h-32 w-28 overflow-auto rounded-md border border-gray-300 bg-white scrollbar-hide md:scrollbar-default lg:max-h-56"
       style={{
         transform: `translate(${offsetX}px, ${offsetY}px)`,
-        willChange: "transform",
+        willChange: 'transform',
       }}
     >
       <ul>
@@ -64,11 +58,7 @@ interface CustomSelectProps<T> {
   suffix: string;
 }
 
-export const CustomSelect = <T extends {}>({
-  itemList,
-  setSelectValue,
-  suffix,
-}: CustomSelectProps<T>) => {
+export const CustomSelect = <T extends {}>({ itemList, setSelectValue, suffix }: CustomSelectProps<T>) => {
   const [selectedValue, setSelectedValue] = useState<T>(itemList[0]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [dropdownX, setDropdownX] = useState<number>(0);
@@ -93,16 +83,13 @@ export const CustomSelect = <T extends {}>({
         return;
       }
       const { target } = e;
-      if (
-        !dropdownRef.current.contains(target as Node) &&
-        !selectRef.current.contains(target as Node)
-      ) {
+      if (!dropdownRef.current.contains(target as Node) && !selectRef.current.contains(target as Node)) {
         setIsOpen(false);
       }
     };
-    window.addEventListener("click", handleClickOutside);
+    window.addEventListener('click', handleClickOutside);
     return () => {
-      window.removeEventListener("click", handleClickOutside);
+      window.removeEventListener('click', handleClickOutside);
     };
   }, [isOpen]);
 

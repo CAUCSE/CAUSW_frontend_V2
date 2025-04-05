@@ -1,9 +1,4 @@
-export const CustomCheckBox: React.FC<Form.ICustomCheckBox> = ({
-  colSize,
-  value,
-  name,
-  register,
-}) => (
+export const CustomCheckBox: React.FC<Form.ICustomCheckBox> = ({ colSize, value, name, register }) => (
   <div className={`${colSpan[colSize]} flex items-center gap-2`}>
     <input
       type="checkbox"
@@ -16,9 +11,9 @@ export const CustomCheckBox: React.FC<Form.ICustomCheckBox> = ({
 );
 
 const colSpan: { [key in 1 | 2 | 3 | 4 | 5]: string } = {
-  1: "col-span-1",
-  2: "col-span-2",
-  3: "col-span-3",
-  4: "col-span-4",
-  5: "col-span-5",
+  1: 'col-span-1',
+  2: 'col-span-2',
+  3: 'col-span-3',
+  4: 'col-span-4',
+  5: 'col-span-5',
 };

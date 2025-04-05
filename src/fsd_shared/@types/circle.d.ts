@@ -1,5 +1,5 @@
 declare namespace Circle {
-  export type Status = "AWAIT" | "DROP" | "LEAVE" | "MEMBER" | "REJECT";
+  export type Status = 'AWAIT' | 'DROP' | 'LEAVE' | 'MEMBER' | 'REJECT';
 
   export interface CircleUser {
     id: string;
@@ -72,7 +72,7 @@ declare namespace Circle {
 
   // Client
   // 기본, 신청완료, 대기중, 가입됨, 제한
-  export type JoinStatus = "NONE" | "DONE" | "AWAIT" | "MEMBER" | "BLOCK";
+  export type JoinStatus = 'NONE' | 'DONE' | 'AWAIT' | 'MEMBER' | 'BLOCK';
 
   //DTO
   export interface CreateRequestDto {
@@ -82,7 +82,7 @@ declare namespace Circle {
     leaderId: string;
   }
 
-  export type UpdateRequestDto = Omit<CreateRequestDto, "leaderId">;
+  export type UpdateRequestDto = Omit<CreateRequestDto, 'leaderId'>;
 
   export type CirclesRequestDto = FindByIdDto[] & Error.ApiErrorResponse;
   export type CircleRequestDto = FindByIdDto & Error.ApiErrorResponse;

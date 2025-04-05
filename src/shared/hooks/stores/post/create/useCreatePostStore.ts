@@ -1,5 +1,6 @@
-import { PostRscService } from "@/shared";
-import { create } from "zustand";
+import { create } from 'zustand';
+
+import { PostRscService } from '@/shared';
 
 interface CreatePostState {
   title: string;
@@ -19,26 +20,25 @@ interface CreatePostState {
   clearPost: () => void;
 }
 
-export const useCreatePostStore = create<CreatePostState>((set) => ({
-  title: "",
-  content: "",
+export const useCreatePostStore = create<CreatePostState>(set => ({
+  title: '',
+  content: '',
   isQuestion: false,
   isAnonymous: false,
   isVote: false,
   isApply: false,
-  setTitle: (title) => set({ title }),
-  setContent: (content) => set({ content }),
-  setIsQuestion: (isQuestion) => set({ isQuestion }),
-  setIsAnonymous: (isAnonymous) => set({ isAnonymous }),
-  toggleQuestion: () => set((state) => ({ isQuestion: !state.isQuestion })),
-  toggleAnonymous: () => set((state) => ({ isAnonymous: !state.isAnonymous })),
-  toggleVote: () => set((state) => ({ isVote: !state.isVote, isApply: false })),
-  toggleApply: () =>
-    set((state) => ({ isVote: false, isApply: !state.isApply })),
+  setTitle: title => set({ title }),
+  setContent: content => set({ content }),
+  setIsQuestion: isQuestion => set({ isQuestion }),
+  setIsAnonymous: isAnonymous => set({ isAnonymous }),
+  toggleQuestion: () => set(state => ({ isQuestion: !state.isQuestion })),
+  toggleAnonymous: () => set(state => ({ isAnonymous: !state.isAnonymous })),
+  toggleVote: () => set(state => ({ isVote: !state.isVote, isApply: false })),
+  toggleApply: () => set(state => ({ isVote: false, isApply: !state.isApply })),
   clearPost: () => {
     set({
-      title: "",
-      content: "",
+      title: '',
+      content: '',
       isAnonymous: false,
       isQuestion: false,
       isApply: false,

@@ -1,11 +1,7 @@
-import { NavigationBar, VTwoForm } from "@/entities";
-import { SideBar } from "@/widget";
+import { NavigationBar, VTwoForm } from '@/entities';
+import { SideBar } from '@/widget';
 
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <VTwoForm />

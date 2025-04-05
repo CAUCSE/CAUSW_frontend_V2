@@ -1,4 +1,8 @@
-"use client";
+'use client';
+
+import { useParams } from 'next/navigation';
+
+import toast from 'react-hot-toast';
 
 import {
   ChildCommentRscService,
@@ -6,22 +10,13 @@ import {
   useChildCommentStore,
   useCommentStore,
   usePostStore,
-} from "@/shared";
-
-import { getTimeDifference } from "@/utils/format";
-import toast from "react-hot-toast";
-import { useParams } from "next/navigation";
+} from '@/shared';
+import { getTimeDifference } from '@/utils/format';
 
 export const useCommentInteraction = () => {
   const params = useParams();
   const { postId } = params;
-  const {
-    createCommentInfo,
-    incrementComment,
-    decrementComment,
-    addComment,
-    setPostComment,
-  } = usePostStore();
+  const { createCommentInfo, incrementComment, decrementComment, addComment, setPostComment } = usePostStore();
 
   const {
     comments,
@@ -33,17 +28,11 @@ export const useCommentInteraction = () => {
     toggleCommentPopup,
   } = useCommentStore();
 
-  const {
-    childComments,
-    setChildComment,
-    incrementChildCommentLike,
-    deleteChildComment,
-    toggleChildCommentPopup,
-  } = useChildCommentStore();
+  const { childComments, setChildComment, incrementChildCommentLike, deleteChildComment, toggleChildCommentPopup } =
+    useChildCommentStore();
 
   const { postLikeForComment, createComment } = CommentRscService();
-  const { postLikeForChildComment, createChildComment } =
-    ChildCommentRscService();
+  const { postLikeForChildComment, createChildComment } = ChildCommentRscService();
 
   const changeToPostComment = () => {
     setPostComment();
@@ -56,7 +45,7 @@ export const useCommentInteraction = () => {
       incrementCommentLike(commentId);
     } catch (error) {
       //decrementCommentLike(commentId);
-      toast.error("이미 좋아요를 누른 댓글입니다.");
+      toast.error('이미 좋아요를 누른 댓글입니다.');
     }
   };
 
@@ -66,14 +55,11 @@ export const useCommentInteraction = () => {
       incrementChildCommentLike(childCommentId);
     } catch (error) {
       //decrementChildCommentLike(childCommentId);
-      toast.error("이미 좋아요를 누른 댓글입니다.");
+      toast.error('이미 좋아요를 누른 댓글입니다.');
     }
   };
 
-  const handleAddComment = async (
-    newCommentContent: string,
-    isAnonymous: boolean,
-  ) => {
+  const handleAddComment = async (newCommentContent: string, isAnonymous: boolean) => {
     if (!createCommentInfo.isChildComment) {
       const createCommentData: Comment.CreateCommentDto = {
         content: newCommentContent,
@@ -83,18 +69,10 @@ export const useCommentInteraction = () => {
       try {
         const createCommentResponse = await createComment(createCommentData);
         addComment(createCommentResponse);
-        setComments(
-          createCommentResponse.id,
-          false,
-          true,
-          false,
-          [],
-          0,
-          getTimeDifference(Date()),
-        );
+        setComments(createCommentResponse.id, false, true, false, [], 0, getTimeDifference(Date()));
         incrementComment();
       } catch (error) {
-        toast.error("댓글 작성에 실패했습니다.");
+        toast.error('댓글 작성에 실패했습니다.');
         decrementComment();
       }
     } else {
@@ -104,25 +82,13 @@ export const useCommentInteraction = () => {
         parentCommentId: createCommentInfo.commentId!,
       };
       try {
-        const createChildCommentResponse = await createChildComment(
-          createChildCommentData,
-        );
-        addChildComment(
-          createCommentInfo.commentId!,
-          createChildCommentResponse,
-        );
-        setChildComment(
-          createChildCommentResponse.id,
-          0,
-          false,
-          true,
-          false,
-          getTimeDifference(Date()),
-        );
+        const createChildCommentResponse = await createChildComment(createChildCommentData);
+        addChildComment(createCommentInfo.commentId!, createChildCommentResponse);
+        setChildComment(createChildCommentResponse.id, 0, false, true, false, getTimeDifference(Date()));
         incrementComment();
       } catch (error) {
         decrementComment();
-        toast.error("대댓글 작성에 실패했습니다.");
+        toast.error('대댓글 작성에 실패했습니다.');
       }
     }
     changeToPostComment();
@@ -133,7 +99,7 @@ export const useCommentInteraction = () => {
       await CommentRscService().deleteCommentById(commentId);
       deleteComment(commentId);
     } catch (error) {
-      toast.error("댓글 삭제에 실패했습니다.");
+      toast.error('댓글 삭제에 실패했습니다.');
     }
   };
 
@@ -142,7 +108,7 @@ export const useCommentInteraction = () => {
       await ChildCommentRscService().deleteChildComment(childCommentId);
       deleteChildComment(childCommentId);
     } catch (error) {
-      toast.error("대댓글 삭제에 실패했습니다.");
+      toast.error('대댓글 삭제에 실패했습니다.');
     }
   };
 
@@ -153,10 +119,7 @@ export const useCommentInteraction = () => {
   };
 
   const toggleChildCommentPopupMenu = (childCommentId: string) => {
-    if (
-      childComments[childCommentId].isOwner &&
-      !childComments[childCommentId].isDeleted
-    ) {
+    if (childComments[childCommentId].isOwner && !childComments[childCommentId].isDeleted) {
       toggleChildCommentPopup(childCommentId);
     }
   };

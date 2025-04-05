@@ -1,13 +1,11 @@
-"use client";
+'use client';
 
-import { LockerService, useLockerSelectionStore } from "@/shared";
+import toast from 'react-hot-toast';
 
-import toast from "react-hot-toast";
+import { LockerService, useLockerSelectionStore } from '@/shared';
 
 export const useExtendLocker = () => {
-  const clickedLockerId = useLockerSelectionStore(
-    (state) => state.clickedLockerId,
-  );
+  const clickedLockerId = useLockerSelectionStore(state => state.clickedLockerId);
 
   const { useExtendLocker } = LockerService();
 
@@ -15,7 +13,7 @@ export const useExtendLocker = () => {
 
   const handleExtendLocker = () => {
     if (!clickedLockerId) {
-      toast.error("사물함을 선택해주세요");
+      toast.error('사물함을 선택해주세요');
       return;
     }
     extendLocker(clickedLockerId);

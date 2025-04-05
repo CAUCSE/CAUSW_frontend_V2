@@ -12,7 +12,7 @@ export const Header = ({
   big?: boolean;
 }) => (
   <span
-    className={`flex flex-row items-end ${big ? "text-3xl" : "text-2xl"} ${underline ? "underline" : ""} ${bold ? "font-bold" : ""} ${wide ? "tracking-widest" : ""}`}
+    className={`flex flex-row items-end ${big ? 'text-3xl' : 'text-2xl'} ${underline ? 'underline' : ''} ${bold ? 'font-bold' : ''} ${wide ? 'tracking-widest' : ''}`}
   >
     {children}
   </span>

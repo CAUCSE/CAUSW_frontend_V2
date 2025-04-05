@@ -1,15 +1,9 @@
-"use client";
+'use client';
 
-import {
-  PostRscService,
-  useChildCommentStore,
-  useCommentStore,
-  usePostStore,
-  useVoteStore,
-} from "@/shared";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { getTimeDifference } from "@/utils/format";
+import { PostRscService, useChildCommentStore, useCommentStore, usePostStore, useVoteStore } from '@/shared';
+import { getTimeDifference } from '@/utils/format';
 
 export const usePostDetail = (postId: string) => {
   const { setPost, setPostComment } = usePostStore();
@@ -52,7 +46,6 @@ export const usePostDetail = (postId: string) => {
           setVote(postData.voteResponseDto!);
         }
       } catch (error) {
-        ;
       } finally {
         setLoading(false); // 데이터 가져온 후 로딩 끝
       }

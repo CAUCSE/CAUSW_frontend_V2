@@ -13,10 +13,10 @@ export const PostItemContent = ({ post }: PostItemContentProps) => {
       <div className="md:text-md pb-2 text-sm">
         {post.content ? (
           post.content
-            .split("\n")
+            .split('\n')
             .slice(0, 2)
             .map((str, idx) => {
-              if (idx === 1 && post.content.split("\n").length > 2) {
+              if (idx === 1 && post.content.split('\n').length > 2) {
                 return <p key={idx}>{str}...</p>;
               }
               return (

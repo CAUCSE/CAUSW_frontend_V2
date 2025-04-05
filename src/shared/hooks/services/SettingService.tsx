@@ -1,26 +1,20 @@
-"use client";
+'use client';
 
-import { API, settingQueryKey } from "@/shared";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
-import { AxiosResponse } from "axios";
+import { API, settingQueryKey } from '@/shared';
 
 export const SettingService = () => {
-  const URI = "/api/v1/users";
+  const URI = '/api/v1/users';
 
   const getUserByName = async (name: string) => {
-    const { data } = (await API.get(`${URI}/name/${name}`)) as AxiosResponse<
-      User.User[]
-    >;
+    const { data } = (await API.get(`${URI}/name/${name}`)) as AxiosResponse<User.User[]>;
 
     return data;
   };
 
-  const updateRole = async (
-    id: string,
-    role: User.Role,
-    circleId: string | null,
-  ) => {
+  const updateRole = async (id: string, role: User.Role, circleId: string | null) => {
     await API.put(`${URI}/${id}/role`, {
       role: role,
       circleId: circleId,
@@ -29,7 +23,7 @@ export const SettingService = () => {
 
   const useGetAttendanceUser = (id: string) => {
     return useQuery({
-      queryKey: ["attendanceUser", id],
+      queryKey: ['attendanceUser', id],
       queryFn: async () => {
         const { data } = (await API.get(
           `${URI}/academic-record/record/${id}`,
@@ -43,7 +37,7 @@ export const SettingService = () => {
 
   const useGetWaitingUser = (userId: string, applicationId: string) => {
     return useQuery({
-      queryKey: ["waitingUser", userId, applicationId],
+      queryKey: ['waitingUser', userId, applicationId],
       queryFn: async () => {
         const { data } = (await API.get(
           `${URI}/academic-record/application/${userId}/${applicationId}`,
@@ -65,11 +59,11 @@ export const SettingService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: lastPage => {
         return lastPage.posts.last ? null : lastPage.posts.number + 1;
       },
-      select: (data) => {
-        return data.pages.flatMap((page) => page.posts.content);
+      select: data => {
+        return data.pages.flatMap(page => page.posts.content);
       },
     });
   };
@@ -84,11 +78,11 @@ export const SettingService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: lastPage => {
         return lastPage.posts.last ? null : lastPage.posts.number + 1;
       },
-      select: (data) => {
-        return data.pages.flatMap((page) => page.posts.content);
+      select: data => {
+        return data.pages.flatMap(page => page.posts.content);
       },
     });
   };
@@ -103,19 +97,17 @@ export const SettingService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: (lastPage) => {
+      getNextPageParam: lastPage => {
         return lastPage.posts.last ? null : lastPage.posts.number + 1;
       },
-      select: (data) => {
-        return data.pages.flatMap((page) => page.posts.content);
+      select: data => {
+        return data.pages.flatMap(page => page.posts.content);
       },
     });
   };
 
   const getApplyBoards = async (id: string) => {
-    const { data } = (await API.get(
-      `/api/v1/boards/apply/${id}`,
-    )) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
+    const { data } = (await API.get(`/api/v1/boards/apply/${id}`)) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
 
     return data;
   };

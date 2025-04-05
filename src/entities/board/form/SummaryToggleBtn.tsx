@@ -1,23 +1,24 @@
-"use client";
+'use client';
 
-import { useFormResultStore } from "@/shared";
-import { useShallow } from "zustand/react/shallow";
+import { useShallow } from 'zustand/react/shallow';
+
+import { useFormResultStore } from '@/shared';
 
 export const SummaryToggleBtn = () => {
   const { resultView, setResultView } = useFormResultStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       resultView: state.resultView,
       setResultView: state.setResultView,
     })),
   );
 
   const toggleSummaryBtn = () => {
-    setResultView("summary");
+    setResultView('summary');
   };
 
   return (
     <button
-      className={`flex h-7 w-12 items-center justify-center rounded-3xl border border-black sm:h-10 sm:w-16 ${resultView === "summary" ? "bg-[#76C6D1]" : "bg-white"}`}
+      className={`flex h-7 w-12 items-center justify-center rounded-3xl border border-black sm:h-10 sm:w-16 ${resultView === 'summary' ? 'bg-[#76C6D1]' : 'bg-white'}`}
       onClick={toggleSummaryBtn}
     >
       <p className="text-[12px] font-bold sm:text-[16px]">요약</p>

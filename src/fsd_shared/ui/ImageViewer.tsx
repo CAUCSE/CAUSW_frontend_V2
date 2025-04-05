@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState } from 'react';
+
+import Image from 'next/image';
 
 interface ImageViewerProps {
   images: string[];
@@ -29,7 +30,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
   // 이미지 다운로드
   const downloadImage = () => {
     const imageUrl = images[currentIndex];
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = imageUrl;
     link.download = `image_${currentIndex + 1}.jpg`;
     document.body.appendChild(link);
@@ -50,7 +51,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
                        transition duration-300 hover:bg-black/70 hover:text-white"
             onClick={prevImage}
           >
-            {"<"}
+            {'<'}
           </button>
         )}
 
@@ -75,7 +76,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
                        transition duration-300 hover:bg-black/70 hover:text-white"
             onClick={nextImage}
           >
-            {">"}
+            {'>'}
           </button>
         )}
       </div>

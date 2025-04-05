@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ToastWithMax } from "@/shared";
+import { ToastWithMax } from '@/shared';
 
 const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-    <>
-      <ToastWithMax />
-      {children}
-    </>
+  <>
+    <ToastWithMax />
+    {children}
+  </>
 );
 
 export default Layout;

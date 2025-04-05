@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { SettingRscService } from "@/shared";
-import { Management } from "@/widget";
+import { SettingRscService } from '@/shared';
+import { Management } from '@/widget';
 
 const PayerManagement = async () => {
   const { getPayers } = SettingRscService();
@@ -20,12 +20,12 @@ const PayerManagement = async () => {
         state={undefined}
         title="학생회비 관리"
         firstNavigation={{
-          name: "학생회비 납부자 목록",
-          state: "",
-          exportType: "PAYERS",
-          router: "/setting/management/payer/",
+          name: '학생회비 납부자 목록',
+          state: '',
+          exportType: 'PAYERS',
+          router: '/setting/management/payer/',
         }}
-        data={data.map((element) => ({
+        data={data.map(element => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.userCouncilFeeId,

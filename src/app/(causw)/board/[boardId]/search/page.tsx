@@ -1,4 +1,4 @@
-import { PostSearch } from "@/widget";
+import { PostSearch } from '@/widget';
 
 const SearchPostPage = () => {
   return (

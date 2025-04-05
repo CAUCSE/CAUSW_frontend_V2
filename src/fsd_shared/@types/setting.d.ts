@@ -1,16 +1,16 @@
 declare namespace Setting {
   export type ExportType =
-    | "ALL_USERS"
-    | "WAITING_USERS"
-    | "CIRCLE_MEMBERS"
-    | "CIRCLE_APPLY_USERS"
-    | "DROP_USERS"
-    | "ACTIVE_USERS"
-    | "INACTIVE_N_DROP_USERS"
-    | "INACTIVE_USERS"
-    | "ADMISSION_USERS"
-    | "PAYERS"
-    | "REJECT_USERS";
+    | 'ALL_USERS'
+    | 'WAITING_USERS'
+    | 'CIRCLE_MEMBERS'
+    | 'CIRCLE_APPLY_USERS'
+    | 'DROP_USERS'
+    | 'ACTIVE_USERS'
+    | 'INACTIVE_N_DROP_USERS'
+    | 'INACTIVE_USERS'
+    | 'ADMISSION_USERS'
+    | 'PAYERS'
+    | 'REJECT_USERS';
 
   export interface AdmissionUser {
     admissionYear: number;
@@ -23,7 +23,7 @@ declare namespace Setting {
     userName: string;
     studentId: string;
     //#71 추가
-    userState: User["state"];
+    userState: User['state'];
   }
 
   export interface Payer {
@@ -107,7 +107,7 @@ declare namespace Setting {
     content: Payer[];
   } & Error.ApiErrorResponse;
 
-  type AdmissionAcademicStatus = "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+  type AdmissionAcademicStatus = 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED';
 
   export type AdmissionUserDto = {
     roles: User.Role;

@@ -1,12 +1,10 @@
-"use client";
+'use client';
 
-import {
-  ChildCommentCard,
-  CommentCard,
-  CommentInput,
-  LoadingComponent,
-  PostCard,
-} from "@/entities";
+import { notFound } from 'next/navigation';
+
+import { useShallow } from 'zustand/react/shallow';
+
+import { ChildCommentCard, CommentCard, CommentInput, LoadingComponent, PostCard } from '@/entities';
 import {
   PreviousButton,
   useChildCommentStore,
@@ -16,25 +14,13 @@ import {
   usePostInteraction,
   usePostStore,
   useUserStore,
-} from "@/shared";
-
-import { notFound } from "next/navigation";
-import { useShallow } from "zustand/react/shallow";
+} from '@/shared';
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
-  const {
-    isPopupVisible,
-    post,
-    numLike,
-    numFavorite,
-    numComment,
-    isPostForm,
-    formId,
-    commentList,
-  } = usePostStore(
-    useShallow((state) => ({
+  const { isPopupVisible, post, numLike, numFavorite, numComment, isPostForm, formId, commentList } = usePostStore(
+    useShallow(state => ({
       isPopupVisible: state.isPopupVisible,
       post: state.post,
       numLike: state.numLike,
@@ -46,18 +32,13 @@ const PostDetailPage = (props: any) => {
     })),
   );
 
-  const comments = useCommentStore((state) => state.comments);
-  const childComments = useChildCommentStore((state) => state.childComments);
+  const comments = useCommentStore(state => state.comments);
+  const childComments = useChildCommentStore(state => state.childComments);
 
   const { loading } = usePostDetail(postId);
 
-  const {
-    handlePostLike,
-    handleDeletePost,
-    handlePostFavorite,
-    togglePostPopupMenu,
-    routerCallback,
-  } = usePostInteraction();
+  const { handlePostLike, handleDeletePost, handlePostFavorite, togglePostPopupMenu, routerCallback } =
+    usePostInteraction();
 
   const {
     handleCommentLike,
@@ -96,13 +77,13 @@ const PostDetailPage = (props: any) => {
             handlePostLike={handlePostLike}
             handleCommentBtn={changeToPostComment}
             hasVote={true}
-            options={["1등", "2등", "3등"]}
+            options={['1등', '2등', '3등']}
             handlePostDelete={handleDeletePost}
             toggleMenu={togglePostPopupMenu}
             isPopupVisible={isPopupVisible}
           />
           <div className="pl-4 sm:pt-3">
-            {commentList.map((comment) => {
+            {commentList.map(comment => {
               const commentData = comments[comment.id] || {
                 numLike: 0,
                 isCommentPopupVisible: false,
@@ -119,9 +100,7 @@ const PostDetailPage = (props: any) => {
                     overlayActive={commentData.overlayActive}
                     isDeleted={commentData.isDeleted}
                     isPopupVisible={commentData.isCommentPopupVisible}
-                    handleCommentToggle={() =>
-                      toggleCommentPopupMenu(comment.id)
-                    }
+                    handleCommentToggle={() => toggleCommentPopupMenu(comment.id)}
                     handleCommentLike={() => handleCommentLike(comment.id)}
                     handleDeleteComment={() => handleDeleteComment(comment.id)}
                   />
@@ -131,18 +110,10 @@ const PostDetailPage = (props: any) => {
                       childComment={childComment}
                       numLike={childComments[childComment.id].numLike}
                       isDeleted={childComments[childComment.id].isDeleted}
-                      isPopupVisible={
-                        childComments[childComment.id].isCommentPopupVisible
-                      }
-                      handleChildCommentLike={() =>
-                        handleChildCommentLike(childComment.id)
-                      }
-                      handleChildCommentToggle={() =>
-                        toggleChildCommentPopupMenu(childComment.id)
-                      }
-                      handleDeleteChildComment={() =>
-                        handleDeleteChildComment(childComment.id)
-                      }
+                      isPopupVisible={childComments[childComment.id].isCommentPopupVisible}
+                      handleChildCommentLike={() => handleChildCommentLike(childComment.id)}
+                      handleChildCommentToggle={() => toggleChildCommentPopupMenu(childComment.id)}
+                      handleDeleteChildComment={() => handleDeleteChildComment(childComment.id)}
                     />
                   ))}
                 </div>

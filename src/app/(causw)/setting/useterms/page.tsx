@@ -1,6 +1,8 @@
-"use client";
-import { UseTerms } from "@/entities/home/useTerms";
-import { useRouter } from "next/navigation";
+'use client';
+
+import { useRouter } from 'next/navigation';
+
+import { UseTerms } from '@/entities/home/useTerms';
 
 const useTermsPage = () => {
   const router = useRouter();
@@ -8,7 +10,7 @@ const useTermsPage = () => {
   return (
     <UseTerms
       closeModal={() => {
-        router.push("./");
+        router.push('./');
       }}
     ></UseTerms>
   );

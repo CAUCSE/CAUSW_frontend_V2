@@ -1,25 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { ProfileImage, SubHeader } from "@/entities";
-import {
-  UserService,
-  useUserStore,
-  AuthRscService,
-  useLayoutStore,
-} from "@/shared";
-import Link from "next/link";
+import Link from 'next/link';
+
+import { ProfileImage, SubHeader } from '@/entities';
+import { AuthRscService, useLayoutStore, UserService, useUserStore } from '@/shared';
 
 interface NotificationItemProps {
   title: string;
   timeInfo: string;
 }
 
-const NotificationItem: React.FC<NotificationItemProps> = ({
-  title,
-  timeInfo,
-}) => {
+const NotificationItem: React.FC<NotificationItemProps> = ({ title, timeInfo }) => {
   return (
     <div className="flex items-center rounded-lg border border-gray-300 bg-gray-50 p-3 shadow">
       <div className="mr-3 text-xl text-yellow-400">📝</div>
@@ -32,26 +25,26 @@ const NotificationItem: React.FC<NotificationItemProps> = ({
 };
 
 const notifications = [
-  { title: "홍길동(17) - 결혼", timeInfo: "2025.03.01" },
-  { title: "홍길동(17) - 결혼", timeInfo: "2025.03.01" },
-  { title: "홍길동(17) - 결혼", timeInfo: "2025.03.01" },
-  { title: "홍길동(17) - 결혼", timeInfo: "2025.03.01" },
+  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
+  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
+  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
+  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
 ]; // 나중에 api 호출 받아오는 걸로 변경
 
 export const SideBar = () => {
   const { getMe } = UserService();
   const { signout } = AuthRscService();
 
-  const md = useLayoutStore((state) => state.md);
-  const sm = useLayoutStore((state) => state.sm);
+  const md = useLayoutStore(state => state.md);
+  const sm = useLayoutStore(state => state.sm);
 
-  const name = useUserStore((state) => state.name);
-  const email = useUserStore((state) => state.email);
-  const profileImage = useUserStore((state) => state.profileImageUrl);
+  const name = useUserStore(state => state.name);
+  const email = useUserStore(state => state.email);
+  const profileImage = useUserStore(state => state.profileImageUrl);
 
   const handleNoRefresh = async () => {
     await signout();
-    location.href = "/auth/signin";
+    location.href = '/auth/signin';
   };
 
   useEffect(() => {
@@ -68,9 +61,7 @@ export const SideBar = () => {
               handleNoRefresh();
             }}
           ></span>
-          <span className="hidden text-xs text-black underline xl:block xl:text-sm">
-            로그아웃
-          </span>
+          <span className="hidden text-xs text-black underline xl:block xl:text-sm">로그아웃</span>
         </div>
         <div className="absolute left-12 top-0 flex flex-col items-center text-black xl:hidden">
           <Link href="/occasion">

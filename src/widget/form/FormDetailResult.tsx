@@ -1,13 +1,8 @@
-"use client";
+'use client';
 
-import { DetailFormResultHeader, LoadingComponent } from "@/entities";
-import {
-  EmptyResponseResult,
-  FormRespondentInfo,
-  FormResponseResult,
-} from "@/widget";
-
-import { useFormDetailResult } from "@/shared";
+import { DetailFormResultHeader, LoadingComponent } from '@/entities';
+import { useFormDetailResult } from '@/shared';
+import { EmptyResponseResult, FormRespondentInfo, FormResponseResult } from '@/widget';
 
 export const FormDetailResult = () => {
   const {
@@ -24,10 +19,7 @@ export const FormDetailResult = () => {
     return <LoadingComponent />;
   }
 
-  if (
-    totalFormResult &&
-    totalFormResult[0].replyResponseDtoPage.content.length === 0
-  ) {
+  if (totalFormResult && totalFormResult[0].replyResponseDtoPage.content.length === 0) {
     return <EmptyResponseResult />;
   }
 

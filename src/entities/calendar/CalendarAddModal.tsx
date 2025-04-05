@@ -1,14 +1,10 @@
-"use client";
+'use client';
 
-import {
-  CustomSelect,
-  PortalModal,
-  useAddCalendarModal,
-  useCalendarStore,
-} from "@/shared";
+import Image from 'next/image';
 
-import Image from "next/image";
-import ImageIcon from "../../../public/icons/image_icon.svg";
+import { CustomSelect, PortalModal, useAddCalendarModal, useCalendarStore } from '@/shared';
+
+import ImageIcon from '../../../public/icons/image_icon.svg';
 
 interface AddModalBodyProps {
   clickUploadBtn: () => void;
@@ -16,26 +12,16 @@ interface AddModalBodyProps {
   selectedImage: File | null;
 }
 
-const ImageSelectionModalBody = ({
-  clickUploadBtn,
-  clearSelectedImage,
-  selectedImage,
-}: AddModalBodyProps) => {
+const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedImage }: AddModalBodyProps) => {
   return (
     <>
       {selectedImage ? (
         <div>
           <div className="mb-2 flex w-full justify-end gap-4 text-sm">
-            <button
-              className="text-gray-400 underline hover:text-gray-500"
-              onClick={clickUploadBtn}
-            >
+            <button className="text-gray-400 underline hover:text-gray-500" onClick={clickUploadBtn}>
               재업로드
             </button>
-            <button
-              className="text-gray-400 underline hover:text-gray-500"
-              onClick={clearSelectedImage}
-            >
+            <button className="text-gray-400 underline hover:text-gray-500" onClick={clearSelectedImage}>
               제거
             </button>
           </div>
@@ -57,9 +43,7 @@ const ImageSelectionModalBody = ({
             >
               캘린더 업로드
             </button>
-            <p className="mt-4 text-xs text-[#B4B1B1]">
-              10MB 이하의 이미지만 업로드할 수 있습니다.
-            </p>
+            <p className="mt-4 text-xs text-[#B4B1B1]">10MB 이하의 이미지만 업로드할 수 있습니다.</p>
           </div>
         </div>
       )}
@@ -68,7 +52,7 @@ const ImageSelectionModalBody = ({
 };
 
 export const CalendarAddModal = () => {
-  const closeAddModal = useCalendarStore((state) => state.closeAddModal);
+  const closeAddModal = useCalendarStore(state => state.closeAddModal);
   const {
     yearList,
     monthList,
@@ -96,16 +80,8 @@ export const CalendarAddModal = () => {
           selectedImage={selectedImage}
         />
         <div className="flex w-full justify-center gap-4">
-          <CustomSelect<number>
-            itemList={yearList}
-            suffix="년"
-            setSelectValue={setSelectedYear}
-          />
-          <CustomSelect<number>
-            itemList={monthList}
-            suffix="월"
-            setSelectValue={setSelectedMonth}
-          />
+          <CustomSelect<number> itemList={yearList} suffix="년" setSelectValue={setSelectedYear} />
+          <CustomSelect<number> itemList={monthList} suffix="월" setSelectValue={setSelectedMonth} />
         </div>
       </PortalModal.Body>
       <PortalModal.Footer className="flex w-full justify-center gap-8">

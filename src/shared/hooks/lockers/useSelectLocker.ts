@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useLockerSelectionStore } from "@/shared";
-import { useShallow } from "zustand/react/shallow";
+import { useShallow } from 'zustand/react/shallow';
+
+import { useLockerSelectionStore } from '@/shared';
 
 export const useSelectLocker = () => {
-  const { setClickedLockerId, setClickedLockerStatus, clickedLockerId } =
-    useLockerSelectionStore(
-      useShallow((state) => ({
-        setClickedLockerId: state.setClickedLockerId,
-        setClickedLockerStatus: state.setClickedLockerStatus,
-        clickedLockerId: state.clickedLockerId, // ✅ 상태 가져오기
-      })),
-    );
+  const { setClickedLockerId, setClickedLockerStatus, clickedLockerId } = useLockerSelectionStore(
+    useShallow(state => ({
+      setClickedLockerId: state.setClickedLockerId,
+      setClickedLockerStatus: state.setClickedLockerStatus,
+      clickedLockerId: state.clickedLockerId, // ✅ 상태 가져오기
+    })),
+  );
 
   const handleLockerClick = (locker: Locker.LockerResponseDto) => {
     if (clickedLockerId === locker.id) {
@@ -22,14 +22,14 @@ export const useSelectLocker = () => {
 
     setClickedLockerId(locker.id);
     if (locker.isActive) {
-      setClickedLockerStatus("isActive");
+      setClickedLockerStatus('isActive');
       return;
     }
     if (locker.isMine) {
-      setClickedLockerStatus("isMine");
+      setClickedLockerStatus('isMine');
       return;
     }
-    setClickedLockerStatus("isNotActive");
+    setClickedLockerStatus('isNotActive');
   };
 
   return { handleLockerClick };

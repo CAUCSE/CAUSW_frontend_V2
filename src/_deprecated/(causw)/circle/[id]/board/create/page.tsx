@@ -1,42 +1,34 @@
-"use client";
+'use client';
 
-import {
-  AllowAnonymousToggle,
-  BoardDetailForm,
-  RoleSelectSection,
-} from "@/entities";
-import { BoardRscService, useBoardStore, useUserStore } from "@/shared";
-import { useParams, useRouter } from "next/navigation";
+import React from 'react';
 
-import { PreviousButton } from "@/shared/ui/previousButton";
-import React from "react";
+import { useParams, useRouter } from 'next/navigation';
+
+import { PreviousButton } from '@/shared/ui/previousButton';
+
+import { AllowAnonymousToggle, BoardDetailForm, RoleSelectSection } from '@/entities';
+import { BoardRscService, useBoardStore, useUserStore } from '@/shared';
 
 const CreateCircleBoardPage = () => {
-  const {
-    clearBoardInfo,
-    boardName,
-    setIsNameValid,
-    boardDescription,
-    allowAnonymous,
-    selectedRoles,
-  } = useBoardStore();
+  const { clearBoardInfo, boardName, setIsNameValid, boardDescription, allowAnonymous, selectedRoles } =
+    useBoardStore();
   const { applyBoard, createBoard } = BoardRscService();
-  const isPresidents = useUserStore((state) => state.isPresidents);
-  const isVicePresidents = useUserStore((state) => state.isVicePresidents);
-  const isAdmin = useUserStore((state) => state.isAdmin);
+  const isPresidents = useUserStore(state => state.isPresidents);
+  const isVicePresidents = useUserStore(state => state.isVicePresidents);
+  const isAdmin = useUserStore(state => state.isAdmin);
   const hasAuth = isAdmin() || isPresidents() || isVicePresidents();
   const router = useRouter();
   const params = useParams();
   const circleId = params.id;
   const roles = {
-    학생회장: ["PRESIDENT"],
-    부학생회장: ["VICE_PRESIDENT"],
-    관리자: ["ADMIN"],
-    동문회장: ["LEADER_ALUMNI"],
-    교수: ["PROFESSOR"],
-    학년대표: ["LEADER_1", "LEADER_2", "LEADER_3", "LEADER_4"],
-    학생회: ["COUNCIL"],
-    "일반 사용자": ["COMMON"],
+    학생회장: ['PRESIDENT'],
+    부학생회장: ['VICE_PRESIDENT'],
+    관리자: ['ADMIN'],
+    동문회장: ['LEADER_ALUMNI'],
+    교수: ['PROFESSOR'],
+    학년대표: ['LEADER_1', 'LEADER_2', 'LEADER_3', 'LEADER_4'],
+    학생회: ['COUNCIL'],
+    '일반 사용자': ['COMMON'],
   };
 
   const handleSubmit = async () => {
@@ -48,7 +40,7 @@ const CreateCircleBoardPage = () => {
       const boardRequest: Board.CreateBoardDto = {
         boardName: boardName,
         description: boardDescription,
-        boardCategory: "APP_NOTICE",
+        boardCategory: 'APP_NOTICE',
         createRoleList: selectedRoles as User.Role[],
         isAnonymousAllowed: allowAnonymous,
         circleId: circleId as string,
@@ -57,9 +49,7 @@ const CreateCircleBoardPage = () => {
         await createBoard(boardRequest);
         router.back();
         clearBoardInfo();
-      } catch (error) {
-        ;
-      }
+      } catch (error) {}
     } else {
       const boardRequest: Board.ApplyBoardDto = {
         boardName: boardName,
@@ -71,9 +61,7 @@ const CreateCircleBoardPage = () => {
         await applyBoard(boardRequest);
         router.back();
         clearBoardInfo();
-      } catch (error) {
-        ;
-      }
+      } catch (error) {}
     }
   };
   return (
@@ -91,7 +79,7 @@ const CreateCircleBoardPage = () => {
         onClick={handleSubmit}
         className="fixed bottom-28 left-1/2 -translate-x-1/2 transform rounded-3xl bg-confirm-btn px-6 py-3 font-bold text-white xl:bottom-6"
       >
-        {hasAuth ? "게시판 생성" : "게시판 생성 신청"}
+        {hasAuth ? '게시판 생성' : '게시판 생성 신청'}
       </button>
     </div>
   );

@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import { AuthService, useFindAccountStore } from "@/shared";
-import { FormErrorMessage, FormInput, FormSubmitButton } from "@/entities";
+import { useRouter } from 'next/navigation';
 
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useShallow } from "zustand/react/shallow";
+import { useForm } from 'react-hook-form';
+import { useShallow } from 'zustand/react/shallow';
+
+import { FormErrorMessage, FormInput, FormSubmitButton } from '@/entities';
+import { AuthService, useFindAccountStore } from '@/shared';
 
 interface FormData {
   name: string;
@@ -17,7 +18,7 @@ interface FormData {
 const FindPasswordPage = () => {
   const router = useRouter();
   const { studentId, name, email, resetFindAccountStore } = useFindAccountStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       studentId: state.studentId,
       name: state.name,
       email: state.email,
@@ -48,23 +49,20 @@ const FindPasswordPage = () => {
   };
 
   const handleRouterToSignIn = () => {
-    router.push("/auth/signin");
+    router.push('/auth/signin');
     resetFindAccountStore();
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-4 sm:px-0">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md rounded-lg bg-white p-8 shadow-md"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
         <h2 className="mb-4 text-xl font-semibold">이름</h2>
         <FormInput
           name="name"
           type="text"
           placeholder="이름을 입력해주세요"
           register={register}
-          rules={{ required: "이름을 입력해주세요." }}
+          rules={{ required: '이름을 입력해주세요.' }}
         />
         <FormErrorMessage message={errors.name?.message} />
 
@@ -75,10 +73,10 @@ const FindPasswordPage = () => {
           placeholder="학번 8자리를 입력해주세요."
           register={register}
           rules={{
-            required: "학번을 입력해주세요.",
+            required: '학번을 입력해주세요.',
             pattern: {
               value: /^\d{8}$/,
-              message: "학번은 8자리 숫자여야 합니다.",
+              message: '학번은 8자리 숫자여야 합니다.',
             },
           }}
         />
@@ -90,7 +88,7 @@ const FindPasswordPage = () => {
           type="email"
           placeholder="아이디를 입력해주세요"
           register={register}
-          rules={{ required: "아이디를 입력해주세요." }}
+          rules={{ required: '아이디를 입력해주세요.' }}
         />
         <FormErrorMessage message={errors.email?.message} />
 

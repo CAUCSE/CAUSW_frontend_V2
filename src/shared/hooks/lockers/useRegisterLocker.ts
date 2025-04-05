@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { LockerService, useLockerSelectionStore } from "@/shared";
+import toast from 'react-hot-toast';
+import { useShallow } from 'zustand/react/shallow';
 
-import toast from "react-hot-toast";
-import { useShallow } from "zustand/react/shallow";
+import { LockerService, useLockerSelectionStore } from '@/shared';
 
 export const useRegisterLocker = () => {
   const { clickedLockerId, clickedLockerStatus } = useLockerSelectionStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       clickedLockerId: state.clickedLockerId,
       clickedLockerStatus: state.clickedLockerStatus,
     })),
@@ -19,7 +19,7 @@ export const useRegisterLocker = () => {
 
   const handleRegisterLocker = () => {
     if (!clickedLockerStatus || !clickedLockerId) {
-      toast.error("사물함을 선택해주세요");
+      toast.error('사물함을 선택해주세요');
       return;
     }
     registerLocker(clickedLockerId);

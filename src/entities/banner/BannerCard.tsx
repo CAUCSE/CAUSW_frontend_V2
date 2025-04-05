@@ -1,11 +1,14 @@
-"use client";
+'use client';
 
-import { CardBox } from "../home/card/CardBox";
-import DeleteIcon from "../../../public/icons/delete_icon.svg";
-import Image from "next/image";
-import LinkIcon from "../../../public/icons/link_icon.svg";
-import { useBannerStore } from "@/shared";
-import { useShallow } from "zustand/react/shallow";
+import Image from 'next/image';
+
+import { useShallow } from 'zustand/react/shallow';
+
+import { useBannerStore } from '@/shared';
+
+import DeleteIcon from '../../../public/icons/delete_icon.svg';
+import LinkIcon from '../../../public/icons/link_icon.svg';
+import { CardBox } from '../home/card/CardBox';
 
 export const BannerCard = ({
   url,
@@ -24,7 +27,7 @@ export const BannerCard = ({
     openEditBannerModal,
     openDeleteBannerModal,
   } = useBannerStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       setSelectedBannerId: state.setSelectedBannerId,
       setSelectedBannerImage: state.setSelectedBannerImage,
       setSelectedBannerUrl: state.setSelectedBannerUrl,

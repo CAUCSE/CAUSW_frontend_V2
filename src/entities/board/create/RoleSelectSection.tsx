@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { UserRscService, useBoardStore } from "@/shared";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Image from "next/image";
+import Image from 'next/image';
+
+import { useBoardStore, UserRscService } from '@/shared';
 
 interface RoleSelectSectionProps {
   roles: { [key: string]: string[] };
@@ -15,11 +16,7 @@ export const RoleSelectSection = ({ roles }: RoleSelectSectionProps) => {
   useEffect(() => {
     const fetchAuth = async () => {
       const user = await UserRscService().getMe();
-      if (
-        user.roles.includes("ADMIN") ||
-        user.roles.includes("PRESIDENT") ||
-        user.roles.includes("VICE_PRESIDENT")
-      ) {
+      if (user.roles.includes('ADMIN') || user.roles.includes('PRESIDENT') || user.roles.includes('VICE_PRESIDENT')) {
         setHasAuth(true);
       }
     };
@@ -28,20 +25,13 @@ export const RoleSelectSection = ({ roles }: RoleSelectSectionProps) => {
 
   return (
     <div className="mb-2">
-      <div className="mb-2 text-2xl xl:mb-4 xl:text-3xl">
-        게시글 작성 권한 명단
-      </div>
+      <div className="mb-2 text-2xl xl:mb-4 xl:text-3xl">게시글 작성 권한 명단</div>
       {hasAuth ? (
         <div className="text-md rounded-2xl bg-notice-board-role p-4 xl:text-lg">
           <div className="mb-2 flex items-center space-x-3">
             <span onClick={toggleAnyRole}>
-              {selectedRoles.includes("ALL") ? (
-                <Image
-                  src="/images/board/role-checked.svg"
-                  alt="Checked Checkbox Icon"
-                  width={18}
-                  height={18}
-                ></Image>
+              {selectedRoles.includes('ALL') ? (
+                <Image src="/images/board/role-checked.svg" alt="Checked Checkbox Icon" width={18} height={18}></Image>
               ) : (
                 <Image
                   src="/images/board/role-non-checked.svg"

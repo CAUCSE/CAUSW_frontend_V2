@@ -1,6 +1,6 @@
 declare namespace Layout {
   //Basic
-  type BreackPoint = "sm" | "md" | "lg" | "xl";
+  type BreackPoint = 'sm' | 'md' | 'lg' | 'xl';
 
   //Store
   export interface UseLayoutStore {

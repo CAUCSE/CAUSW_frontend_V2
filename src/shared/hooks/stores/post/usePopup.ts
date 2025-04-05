@@ -1,6 +1,7 @@
-"use client"
+'use client';
 
 import { useState } from 'react';
+
 export const usePopup = (duration = 2000) => {
   const [isVisible, setIsVisible] = useState(false);
   const [message, setMessage] = useState('');

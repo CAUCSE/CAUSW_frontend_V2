@@ -1,4 +1,8 @@
-"use client";
+'use client';
+
+import { useState } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import {
   OccasionApproveModal,
@@ -7,25 +11,20 @@ import {
   OccasionDetail,
   OccasionImage,
   OccasionManageButton,
-} from "@/entities";
-
-import { Modal } from "@/shared";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+} from '@/entities';
+import { Modal } from '@/shared';
 
 interface OccasionManagementDetailProp {
   occasionId: string;
 }
 
-export const OccasionManagementDetail = ({
-  occasionId,
-}: OccasionManagementDetailProp) => {
+export const OccasionManagementDetail = ({ occasionId }: OccasionManagementDetailProp) => {
   // TODO: 경조사 정보를 불러오는 API 연동
   // TODO: 경조사 승인, 거절 API 연동
 
-  const occasionTitle = "홍길동 결혼식";
-  const occasionType = "결혼";
-  const occasionRegister = "홍길동";
+  const occasionTitle = '홍길동 결혼식';
+  const occasionType = '결혼';
+  const occasionRegister = '홍길동';
   const occasionContent = `홍길동 님의 결혼식에 초대합니다.
   
   일시: 2023년 12월 25일 오후 3시
@@ -43,18 +42,18 @@ export const OccasionManagementDetail = ({
   홍길동 & 이영희 드림
   `;
 
-  const startDate = "2023-12-25";
-  const endDate = "2023-12-25";
+  const startDate = '2023-12-25';
+  const endDate = '2023-12-25';
 
   const imageList = [
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
-    "/images/puang-proud.png",
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
+    '/images/puang-proud.png',
   ];
 
   const router = useRouter();
@@ -78,34 +77,18 @@ export const OccasionManagementDetail = ({
           <OccasionDetail title="경조사 분류" description={occasionType} />
           <OccasionDetail title="등록인" description={occasionRegister} />
         </div>
-        <OccasionContent
-          title="경조사 내용"
-          occasionContent={occasionContent}
-        />
+        <OccasionContent title="경조사 내용" occasionContent={occasionContent} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
           <OccasionDate title="시작 날짜" date={startDate} />
           <OccasionDate title="종료 날짜" date={endDate} />
         </div>
         <OccasionImage imageList={imageList} />
         <div className="flex justify-center gap-5 pt-4 md:pt-0 lg:gap-11">
-          <OccasionManageButton
-            color="BLUE"
-            onClick={handleClickApprove}
-            text="승인"
-          />
-          <OccasionManageButton
-            color="GRAY"
-            onClick={handleClickReject}
-            text="거부"
-          />
+          <OccasionManageButton color="BLUE" onClick={handleClickApprove} text="승인" />
+          <OccasionManageButton color="GRAY" onClick={handleClickReject} text="거부" />
         </div>
       </div>
-      {isModalOpen && (
-        <OccasionApproveModal
-          closeModal={closeModal}
-          occasionTitle={occasionTitle}
-        />
-      )}
+      {isModalOpen && <OccasionApproveModal closeModal={closeModal} occasionTitle={occasionTitle} />}
     </>
   );
 };

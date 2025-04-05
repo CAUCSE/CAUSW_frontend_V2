@@ -1,6 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-import { CardBox } from "./CardBox";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { CardBox } from './CardBox';
 
 export interface HomeCardProps {
   title: string;
@@ -10,20 +11,12 @@ export interface HomeCardProps {
   href: string;
 }
 
-export const HomeCard = ({
-  title,
-  subtitle,
-  bgColor,
-  icon,
-  href,
-}: HomeCardProps) => {
+export const HomeCard = ({ title, subtitle, bgColor, icon, href }: HomeCardProps) => {
   return (
     <CardBox>
       <Link href={href}>
         <div className="flex h-full items-center justify-evenly gap-2 p-[14px]">
-          <div
-            className={`h-[54px] min-w-[55.07px] ${bgColor} flex items-center justify-center rounded-full`}
-          >
+          <div className={`h-[54px] min-w-[55.07px] ${bgColor} flex items-center justify-center rounded-full`}>
             <Image src={icon} alt="icon" width="30" height="30" />
           </div>
 

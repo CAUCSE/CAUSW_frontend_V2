@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, setRscHeader } from "@/shared";
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const CommentRscService = () => {
   const postLikeForComment = async (commentId: string) => {
@@ -15,7 +15,6 @@ export const CommentRscService = () => {
       if (response.status !== 201) {
         throw new Error(`Failed to like post with id ${commentId}. Response status: ${response.status}`);
       }
-
     } catch (error) {
       throw error;
     }
@@ -33,15 +32,12 @@ export const CommentRscService = () => {
       if (response.status !== 200) {
         throw new Error(`Failed to delete comment with id ${commentId}. Response status: ${response.status}`);
       }
-
     } catch (error) {
       throw error;
     }
   };
 
-  const createComment = async (
-    data: Comment.CreateCommentDto
-  ): Promise<Comment.CommentDto> => {
+  const createComment = async (data: Comment.CreateCommentDto): Promise<Comment.CommentDto> => {
     const URI = `${BASEURL}/api/v1/comments`;
 
     try {
@@ -59,7 +55,6 @@ export const CommentRscService = () => {
       throw error;
     }
   };
-
 
   return { postLikeForComment, deleteCommentById, createComment };
 };

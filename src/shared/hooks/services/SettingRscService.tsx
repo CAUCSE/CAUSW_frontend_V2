@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from "@/shared";
+import { BASEURL, setRscHeader } from '@/shared';
 
 //페이징 적용시, 한 페이지 정도 (현재 미적용)
 const SIZE = 300;
@@ -9,12 +9,9 @@ const useGetMethod = (endpoint: string) => {
     try {
       const headers = await setRscHeader();
 
-      const response = await fetch(
-        `${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`,
-        {
-          headers: headers,
-        },
-      ).then((res) => res.json());
+      const response = await fetch(`${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`, {
+        headers: headers,
+      }).then(res => res.json());
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -26,24 +23,20 @@ const useGetMethod = (endpoint: string) => {
 };
 
 export const SettingRscService = () => {
-  const URI = BASEURL + "/api/v1/users";
+  const URI = BASEURL + '/api/v1/users';
 
   //유저 상태 조회
-  const getByState = async (
-    state: User.UserDto["state"],
-    name: string | null,
-    page: number,
-  ) => {
+  const getByState = async (state: User.UserDto['state'], name: string | null, page: number) => {
     try {
       const headers = await setRscHeader();
 
       const response = name
         ? ((await fetch(`${URI}/state/${state}?name=${name}&pageNum=${page}`, {
             headers: headers,
-          }).then((res) => res.json())) as Setting.GetByStateResponseDto)
+          }).then(res => res.json())) as Setting.GetByStateResponseDto)
         : ((await fetch(`${URI}/state/${state}?pageNum=${page}`, {
             headers: headers,
-          }).then((res) => res.json())) as Setting.GetByStateResponseDto);
+          }).then(res => res.json())) as Setting.GetByStateResponseDto);
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -60,7 +53,7 @@ export const SettingRscService = () => {
 
       const response = (await fetch(`${URI}/privileged`, {
         headers: headers,
-      }).then((res) => res.json())) as Setting.GetPrivilegedUsersResponseDto;
+      }).then(res => res.json())) as Setting.GetPrivilegedUsersResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -78,10 +71,10 @@ export const SettingRscService = () => {
       const response = name
         ? ((await fetch(`${URI}/admissions?name=${name}&pageNum=${page}`, {
             headers: headers,
-          }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto)
+          }).then(res => res.json())) as Setting.GetAllAdmissionsResponseDto)
         : ((await fetch(`${URI}/admissions?pageNum=${page}`, {
             headers: headers,
-          }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
+          }).then(res => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
       if (response.errorCode) throw new Error(response.message);
 
@@ -94,7 +87,7 @@ export const SettingRscService = () => {
   const getAdmission = async (userId: string) => {
     const header = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${userId}`, {
-      method: "GET",
+      method: 'GET',
       headers: header,
     });
 
@@ -104,18 +97,16 @@ export const SettingRscService = () => {
   };
 
   //납부자 조회
-  const getPayers = useGetMethod("user-council-fee/list") as (
-    page?: number,
-    size?: number,
-  ) => Promise<Setting.Payer[]>;
+  const getPayers = useGetMethod('user-council-fee/list') as (page?: number, size?: number) => Promise<Setting.Payer[]>;
 
   //학적 인증 전체 조회
-  const getAllAttendanceUsers = useGetMethod(
-    "users/academic-record/list/active-users",
-  ) as (page?: number, size?: number) => Promise<Setting.UserElement[]>;
+  const getAllAttendanceUsers = useGetMethod('users/academic-record/list/active-users') as (
+    page?: number,
+    size?: number,
+  ) => Promise<Setting.UserElement[]>;
 
   //학적 인증 요청 사용자 조회
-  const getWaitingUsers = useGetMethod("users/academic-record/list/await") as (
+  const getWaitingUsers = useGetMethod('users/academic-record/list/await') as (
     page?: number,
     size?: number,
   ) => Promise<Setting.WaitingUsers[]>;
@@ -124,7 +115,7 @@ export const SettingRscService = () => {
   const acceptAdmission = async (admissionId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${admissionId}/accept`, {
-      method: "PUT",
+      method: 'PUT',
       headers: headers,
     });
 
@@ -136,7 +127,7 @@ export const SettingRscService = () => {
   const rejectAdmission = async (userId: string, rejectReason: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/admissions/${userId}/reject`, {
-      method: "PUT",
+      method: 'PUT',
       headers: headers,
       body: rejectReason,
     });
@@ -149,7 +140,7 @@ export const SettingRscService = () => {
   const deleteUser = async (userId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/${userId}/delete`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: headers,
     });
 
@@ -161,7 +152,7 @@ export const SettingRscService = () => {
   const expelUser = async (userId: string, expelReason: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/${userId}/drop`, {
-      method: "PUT",
+      method: 'PUT',
       headers: headers,
       body: expelReason,
     });
@@ -174,7 +165,7 @@ export const SettingRscService = () => {
   const restoreUser = async (userId: string) => {
     const headers = await setRscHeader();
     const response = await fetch(`${URI}/restore/${userId}`, {
-      method: "PUT",
+      method: 'PUT',
       headers: headers,
     });
 
@@ -185,13 +176,10 @@ export const SettingRscService = () => {
   // 납부자 상세 조회
   const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
     const headers = await setRscHeader();
-    const response = await fetch(
-      `${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`,
-      {
-        method: "GET",
-        headers: headers,
-      },
-    );
+    const response = await fetch(`${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`, {
+      method: 'GET',
+      headers: headers,
+    });
 
     if (!response.ok) throw new Error(response.statusText);
 
@@ -205,7 +193,7 @@ export const SettingRscService = () => {
 
       const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
         headers: headers,
-      }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+      }).then(res => res.json())) as Setting.GetApplyBoardsResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -223,20 +211,17 @@ export const SettingRscService = () => {
     refundedAt?: number,
   ) => {
     const headers = await setRscHeader();
-    await fetch(
-      `${BASEURL}/api/v1/user-council-fee/create-user`,
-      {
-        method: "POST",
-        headers: { ...headers, "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId,
-          paidAt,
-          numOfPaidSemester,
-          isRefunded,
-          refundedAt,
-        }),
-      },
-    );
+    await fetch(`${BASEURL}/api/v1/user-council-fee/create-user`, {
+      method: 'POST',
+      headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userId,
+        paidAt,
+        numOfPaidSemester,
+        isRefunded,
+        refundedAt,
+      }),
+    });
     return true;
   };
 

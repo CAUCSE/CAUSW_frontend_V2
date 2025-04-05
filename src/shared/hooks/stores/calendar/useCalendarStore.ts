@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface CalendarStore {
   isDeleteModalOpen: boolean;
@@ -16,22 +16,22 @@ interface CalendarStore {
   resetCalendar: () => void;
 }
 
-export const useCalendarStore = create<CalendarStore>((set) => ({
+export const useCalendarStore = create<CalendarStore>(set => ({
   isDeleteModalOpen: false,
   isAddModalOpen: false,
-  calendarId: "",
+  calendarId: '',
   calendarYear: new Date().getFullYear(),
   calendarMonth: 1,
-  setCalendarId: (id) => set({ calendarId: id }),
-  setCalendarYear: (year) => set({ calendarYear: year }),
-  setCalendarMonth: (month) => set({ calendarMonth: month }),
+  setCalendarId: id => set({ calendarId: id }),
+  setCalendarYear: year => set({ calendarYear: year }),
+  setCalendarMonth: month => set({ calendarMonth: month }),
   openDeleteModal: () => set({ isDeleteModalOpen: true }),
   closeDeleteModal: () => set({ isDeleteModalOpen: false }),
   openAddModal: () => set({ isAddModalOpen: true }),
   closeAddModal: () => set({ isAddModalOpen: false }),
   resetCalendar: () =>
     set({
-      calendarId: "",
+      calendarId: '',
       calendarYear: new Date().getFullYear(),
       calendarMonth: 1,
       isDeleteModalOpen: false,

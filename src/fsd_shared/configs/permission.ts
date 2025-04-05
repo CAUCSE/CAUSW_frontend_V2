@@ -1,5 +1,6 @@
-"use client";
-import { getMessaging, getToken } from "firebase/messaging";
+'use client';
+
+import { getMessaging, getToken } from 'firebase/messaging';
 
 async function getFirebaseToken() {
   try {
@@ -11,31 +12,27 @@ async function getFirebaseToken() {
     console.log(token);
 
     if (!token) {
-      console.error("FCM 등록 토큰을 가져올 수 없습니다.");
+      console.error('FCM 등록 토큰을 가져올 수 없습니다.');
       return null;
     }
 
-    console.log("FCM Token:", token);
+    console.log('FCM Token:', token);
     return token;
   } catch (error) {
-    console.error("FCM 토큰을 가져오는 중 오류 발생:", error);
+    console.error('FCM 토큰을 가져오는 중 오류 발생:', error);
     return null;
   }
 }
 
 export async function onClickAlert() {
-  if (
-    "serviceWorker" in navigator &&
-    "Notification" in window &&
-    "PushManager" in window
-  ) {
-    Notification.requestPermission().then(async (result) => {
+  if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+    Notification.requestPermission().then(async result => {
       console.log(result);
-      if (result === "granted") {
+      if (result === 'granted') {
         const token = await getFirebaseToken();
         // await savePushToken(token);
         // setAlertGranted(true);
-      } else if (result === "denied") {
+      } else if (result === 'denied') {
         // setAlertGranted(false);
       }
     });

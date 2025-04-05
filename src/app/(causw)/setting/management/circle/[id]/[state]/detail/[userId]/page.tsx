@@ -1,5 +1,6 @@
-"use client";
-import { CircleMemberManagementDetail } from "@/widget";
+'use client';
+
+import { CircleMemberManagementDetail } from '@/widget';
 
 //TODO: 영현님
 
@@ -12,10 +13,10 @@ const CircleMemberManagement = ({
     <>
       <div>
         <p>
-          {" "}
+          {' '}
           <CircleMemberManagementDetail userId={userId} id={id} state={state} />
         </p>
-      </div>{" "}
+      </div>{' '}
     </>
   );
 };

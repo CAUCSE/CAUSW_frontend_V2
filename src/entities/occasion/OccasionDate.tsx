@@ -1,7 +1,7 @@
 const dateFormat = {
-  0: "년 ",
-  1: "월 ",
-  2: "일 ",
+  0: '년 ',
+  1: '월 ',
+  2: '일 ',
 };
 
 interface OccasionDateProp {
@@ -10,7 +10,7 @@ interface OccasionDateProp {
 }
 
 export const OccasionDate = ({ title, date }: OccasionDateProp) => {
-  const formattedDate = date.split("-");
+  const formattedDate = date.split('-');
 
   return (
     <div className="flex flex-col gap-2">

@@ -1,15 +1,10 @@
-"use client";
+'use client';
 
-import { AxiosResponse } from "axios";
-import { API } from "@/shared";
+import { AxiosResponse } from 'axios';
 
-export const ExcelExport = ({
-  exportType,
-  id,
-}: {
-  exportType: Setting.ExportType;
-  id?: string;
-}) => {
+import { API } from '@/shared';
+
+export const ExcelExport = ({ exportType, id }: { exportType: Setting.ExportType; id?: string }) => {
   return (
     <div
       onClick={() => {
@@ -25,22 +20,22 @@ export const ExcelExport = ({
 //TODO: Service로 분리
 const getExcelFile = async (type: Setting.ExportType, id?: string) => {
   const { data } = (await API.get(
-    type === "PAYERS"
-      ? "/api/v1/user-council-fee/export/excel"
-      : type === "ALL_USERS" || type === "WAITING_USERS"
-        ? "/api/v1/users/academic-record/export"
-        : type === "CIRCLE_MEMBERS" || type === "CIRCLE_APPLY_USERS"
+    type === 'PAYERS'
+      ? '/api/v1/user-council-fee/export/excel'
+      : type === 'ALL_USERS' || type === 'WAITING_USERS'
+        ? '/api/v1/users/academic-record/export'
+        : type === 'CIRCLE_MEMBERS' || type === 'CIRCLE_APPLY_USERS'
           ? `/api/v1/circles/${id}/users/excel`
-          : "/api/v1/users/export",
+          : '/api/v1/users/export',
     {
-      responseType: "blob", // 중요: Blob으로 받기
+      responseType: 'blob', // 중요: Blob으로 받기
     },
   )) as AxiosResponse<Blob>;
 
   const url = window.URL.createObjectURL(data);
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = url;
-  a.download = type + ".xlsx";
+  a.download = type + '.xlsx';
   document.body.appendChild(a);
   a.click();
   a.remove();

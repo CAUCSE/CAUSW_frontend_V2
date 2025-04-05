@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 export const useTruncateParagraph = <T>(data?: T[]) => {
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
@@ -21,9 +21,9 @@ export const useTruncateParagraph = <T>(data?: T[]) => {
 
   useEffect(() => {
     checkTruncate();
-    window.addEventListener("resize", checkTruncate);
+    window.addEventListener('resize', checkTruncate);
     return () => {
-      window.removeEventListener("resize", checkTruncate);
+      window.removeEventListener('resize', checkTruncate);
     };
   }, [data]);
 

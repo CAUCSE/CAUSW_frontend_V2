@@ -1,5 +1,6 @@
-import { BASEURL, setRscHeader } from "@/shared";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
+
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const PostRscService = () => {
   const getPostById = async (postId: string): Promise<Post.PostDto> => {
@@ -31,11 +32,8 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 200) {
-        throw new Error(
-          `Failed to delete post with id ${postId}. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to delete post with id ${postId}. Response status: ${response.status}`);
       }
-
     } catch (error) {
       throw error;
     }
@@ -51,11 +49,8 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(
-          `Failed to like post with id ${postId}. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
       }
-
     } catch (error) {
       throw error;
     }
@@ -71,11 +66,8 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(
-          `Failed to favorite post with id ${postId}. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to favorite post with id ${postId}. Response status: ${response.status}`);
       }
-
     } catch (error) {
       throw error;
     }
@@ -91,24 +83,18 @@ export const PostRscService = () => {
       });
 
       if (response.status !== 200) {
-        throw new Error(
-          `Failed to like post with id ${postId}. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to like post with id ${postId}. Response status: ${response.status}`);
       }
-
     } catch (error) {
       throw error;
     }
   };
 
   const getPostList = async (boardId: string | string[], pageNum: number) => {
-    const URI = BASEURL + "/api/v1/posts";
+    const URI = BASEURL + '/api/v1/posts';
     try {
       const headers = await setRscHeader();
-      const response = await fetch(
-        `${URI}?boardId=${boardId}&pageNum=${pageNum}`,
-        { headers: headers },
-      );
+      const response = await fetch(`${URI}?boardId=${boardId}&pageNum=${pageNum}`, { headers: headers });
 
       if (response.status !== 200) {
         throw new Error(`${response.status} : ${response.statusText}`);

@@ -1,13 +1,11 @@
-"use client";
+'use client';
 
-import { MyPageHeader, MyPostList } from "@/widget";
-
-import { SettingService } from "@/shared";
+import { SettingService } from '@/shared';
+import { MyPageHeader, MyPostList } from '@/widget';
 
 const MyFavoritePostsPage = () => {
   const { useGetMyFavoritePosts } = SettingService();
-  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useGetMyFavoritePosts();
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyFavoritePosts();
 
   return (
     <div className="h-full w-full">

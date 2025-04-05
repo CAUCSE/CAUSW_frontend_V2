@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { PostService, useInfiniteScroll } from "@/shared";
+import { useState } from 'react';
 
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useParams } from 'next/navigation';
+
+import { PostService, useInfiniteScroll } from '@/shared';
 
 export const useSearchPost = () => {
   const params = useParams();
@@ -11,8 +12,8 @@ export const useSearchPost = () => {
 
   const [hasEverSearched, setHasEverSearched] = useState<boolean>(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [keyword, setKeyword] = useState("");
-  const [inputText, setInputText] = useState<string>("");
+  const [keyword, setKeyword] = useState('');
+  const [inputText, setInputText] = useState<string>('');
 
   const { useGetSearchPostList } = PostService();
   const {
@@ -25,7 +26,7 @@ export const useSearchPost = () => {
   } = useGetSearchPostList(boardId as string, keyword, isSearch);
 
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
-    entries.forEach((entry) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting && hasNextPage) {
         fetchNextPage();
         observer.unobserve(entry.target);
@@ -43,7 +44,7 @@ export const useSearchPost = () => {
   };
 
   const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputText !== "") {
+    if (e.key === 'Enter' && inputText !== '') {
       setKeyword(inputText);
       setIsSearch(true);
       setHasEverSearched(true);
@@ -51,7 +52,7 @@ export const useSearchPost = () => {
   };
 
   const handleSearchButtonClick = () => {
-    if (inputText === "") {
+    if (inputText === '') {
       return;
     }
     setKeyword(inputText);

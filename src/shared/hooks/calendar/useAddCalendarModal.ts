@@ -1,16 +1,15 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react';
 
-import { CalendarService } from "@/shared/hooks/services/CalendarService";
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
+
+import { CalendarService } from '@/shared/hooks/services/CalendarService';
 
 export const useAddCalendarModal = () => {
   const { useCreateCalendar } = CalendarService();
   const { mutate: createCalendar } = useCreateCalendar();
-  const [selectedYear, setSelectedYear] = useState<number>(
-    new Date().getFullYear(),
-  );
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(1);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -46,7 +45,7 @@ export const useAddCalendarModal = () => {
 
   const handleSubmit = () => {
     if (!selectedImage) {
-      toast.error("이미지를 선택해주세요");
+      toast.error('이미지를 선택해주세요');
       return;
     }
     createCalendar({

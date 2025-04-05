@@ -1,6 +1,10 @@
-"use client";
-import React from "react";
-import { useRouter } from "next/navigation"; // 페이지 이동을 위한 useRouter 훅
+'use client';
+
+import React from 'react';
+
+import { useRouter } from 'next/navigation';
+
+// 페이지 이동을 위한 useRouter 훅
 
 interface IModalProps {
   closeModal: () => void;
@@ -20,10 +24,7 @@ export const RedirectModal = ({ closeModal, children, redirectTo }: IModalProps)
   return (
     <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
       <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
-        <button
-          className="absolute right-0 top-0 px-4 py-2 text-xl font-bold"
-          onClick={closeModal}
-        >
+        <button className="absolute right-0 top-0 px-4 py-2 text-xl font-bold" onClick={closeModal}>
           x
         </button>
         {children}

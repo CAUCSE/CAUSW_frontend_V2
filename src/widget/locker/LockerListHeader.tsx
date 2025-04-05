@@ -1,23 +1,21 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 interface LockerListHeaderProps {
   lockerLocations: Locker.LockerLocationsResponseDto;
 }
 
-export const LockerListHeader = ({
-  lockerLocations,
-}: LockerListHeaderProps) => {
+export const LockerListHeader = ({ lockerLocations }: LockerListHeaderProps) => {
   let availableLockerCount = 0,
     totalLockerCount = 0;
-  lockerLocations.lockerLocations.forEach((lockerLocation) => {
+  lockerLocations.lockerLocations.forEach(lockerLocation => {
     availableLockerCount += lockerLocation.enableLockerCount;
     totalLockerCount += lockerLocation.totalLockerCount;
   });
 
   const floor: { [key: string]: string } = {
-    SECOND: "2층",
-    THIRD: "3층",
-    FOURTH: "4층",
+    SECOND: '2층',
+    THIRD: '3층',
+    FOURTH: '4층',
   };
 
   return (
@@ -32,8 +30,8 @@ export const LockerListHeader = ({
           <div className="ml-2 rounded-2xl border border-black px-8 py-1">
             <p>
               {lockerLocations.myLocker
-                ? `${floor[lockerLocations.myLocker.lockerNumber.split(" ")[0]]} ${lockerLocations.myLocker.lockerNumber.split(" ")[1]}번`
-                : "없음"}
+                ? `${floor[lockerLocations.myLocker.lockerNumber.split(' ')[0]]} ${lockerLocations.myLocker.lockerNumber.split(' ')[1]}번`
+                : '없음'}
             </p>
           </div>
         </div>
@@ -47,8 +45,8 @@ export const LockerListHeader = ({
           <div className="ml-2 rounded-2xl border border-black px-4 py-1 md:px-8">
             <p className="text-sm md:text-base">
               {lockerLocations.myLocker
-                ? `${floor[lockerLocations.myLocker.lockerNumber.split(" ")[0]]} ${lockerLocations.myLocker.lockerNumber.split(" ")[1]}번`
-                : "없음"}
+                ? `${floor[lockerLocations.myLocker.lockerNumber.split(' ')[0]]} ${lockerLocations.myLocker.lockerNumber.split(' ')[1]}번`
+                : '없음'}
             </p>
           </div>
         </div>

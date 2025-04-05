@@ -1,17 +1,16 @@
-import { LOCKER_CONSTANT } from "@/utils";
-import Link from "next/link";
+import Link from 'next/link';
+
+import { LOCKER_CONSTANT } from '@/utils';
 
 interface LockerSelectionHeaderProps {
   lockerList: Locker.LockersResponseDto;
 }
 
-export const LockerSelectionHeader = ({
-  lockerList,
-}: LockerSelectionHeaderProps) => {
+export const LockerSelectionHeader = ({ lockerList }: LockerSelectionHeaderProps) => {
   const { floor } = LOCKER_CONSTANT();
 
   let availableLockerCount = 0;
-  lockerList.lockerList.forEach((locker) => {
+  lockerList.lockerList.forEach(locker => {
     if (locker.isActive) {
       availableLockerCount++;
     }

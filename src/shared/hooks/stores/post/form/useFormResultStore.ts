@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface FormResultStore {
   formData: Post.FormResponseDto | null;
@@ -11,31 +11,31 @@ interface FormResultStore {
   setCurrentPage: (num: number) => void;
 }
 
-export const useFormResultStore = create<FormResultStore>((set) => ({
+export const useFormResultStore = create<FormResultStore>(set => ({
   formData: null,
-  resultView: "summary",
+  resultView: 'summary',
   sortedQuestionIdList: [],
   currentPage: 1,
-  setFormData: (data) =>
-    set((state) => {
+  setFormData: data =>
+    set(state => {
       if (state.formData && state.formData.formId === data.formId) {
         return {};
       }
       const questionMap = new Map<number, string>();
-      data.questionResponseDtoList.forEach((question) => {
+      data.questionResponseDtoList.forEach(question => {
         questionMap.set(question.questionNumber, question.questionId);
       });
       return {
         formData: data,
         sortedQuestionIdList: Array.from(questionMap.entries())
           .sort((a, b) => a[0] - b[0])
-          .map((value) => value[1]),
+          .map(value => value[1]),
       };
     }),
-  setFormClosedStatus: (status) =>
-    set((state) => ({
+  setFormClosedStatus: status =>
+    set(state => ({
       formData: { ...state.formData!, isClosed: status },
     })),
-  setResultView: (view) => set({ resultView: view }),
-  setCurrentPage: (num) => set({ currentPage: num }),
+  setResultView: view => set({ resultView: view }),
+  setCurrentPage: num => set({ currentPage: num }),
 }));

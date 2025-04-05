@@ -1,5 +1,6 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+
+import Image from 'next/image';
 
 interface ImageModalProps {
   imageUrl: string;
@@ -18,7 +19,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose }) => 
           src={imageUrl}
           alt="확대 이미지"
           fill
-          style={{ objectFit: "contain" }}
+          style={{ objectFit: 'contain' }}
           className="rounded-lg shadow-lg"
         />
       </div>

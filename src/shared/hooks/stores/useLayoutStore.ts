@@ -1,11 +1,11 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 export const useLayoutStore = create<Layout.UseLayoutStore>((set, get) => ({
   sm: false,
   md: false,
   lg: false,
   xl: true,
-  setBreakpoint: (breakpoint) => {
+  setBreakpoint: breakpoint => {
     const init = {
       sm: false,
       md: false,
@@ -17,7 +17,7 @@ export const useLayoutStore = create<Layout.UseLayoutStore>((set, get) => ({
   },
 
   errorMessage: false,
-  setErrorMessage: (message) => {
+  setErrorMessage: message => {
     set(() => ({ errorMessage: message }));
   },
 }));

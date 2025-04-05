@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext } from 'react-hook-form';
 
 interface ObjectiveOptionProps {
   canSelectMultiple: boolean;
@@ -20,11 +20,9 @@ export const ObjectiveOption = ({
   return (
     <div className="flex gap-2">
       <input
-        type={canSelectMultiple ? "checkbox" : "radio"}
+        type={canSelectMultiple ? 'checkbox' : 'radio'}
         value={optionValue}
-        {...register(
-          `questionReplyRequestDtoList.${questionIndex}.selectedOptionList`,
-        )}
+        {...register(`questionReplyRequestDtoList.${questionIndex}.selectedOptionList`)}
       />
       <p>{optionContent}</p>
     </div>
