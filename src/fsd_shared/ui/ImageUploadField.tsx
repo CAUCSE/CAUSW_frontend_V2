@@ -1,7 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
-import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
-import { ImageModal } from "./ImageModal";
-import Image from "next/image";
+import React, { ChangeEvent, useState } from 'react';
+
+import Image from 'next/image';
+
+import { FieldValues, Path, UseFormSetValue } from 'react-hook-form';
+
+import { ImageModal } from './ImageModal';
 
 interface Props<T extends FieldValues> {
   name: Path<T>;
@@ -33,12 +36,12 @@ export const ImageUploadField = <T extends FieldValues>({
       return;
     }
 
-    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+    const newPreviews = newFiles.map(file => URL.createObjectURL(file));
     setFiles(updated);
-    setPreviews((prev) => [...prev, ...newPreviews]);
+    setPreviews(prev => [...prev, ...newPreviews]);
 
     const dataTransfer = new DataTransfer();
-    updated.forEach((file) => dataTransfer.items.add(file));
+    updated.forEach(file => dataTransfer.items.add(file));
     setValue(name, dataTransfer.files as any, { shouldValidate: true });
   };
 
@@ -49,7 +52,7 @@ export const ImageUploadField = <T extends FieldValues>({
     setPreviews(updatedPreviews);
 
     const dataTransfer = new DataTransfer();
-    updatedFiles.forEach((file) => dataTransfer.items.add(file));
+    updatedFiles.forEach(file => dataTransfer.items.add(file));
     setValue(name, dataTransfer.files as any, { shouldValidate: true });
   };
 
@@ -61,13 +64,7 @@ export const ImageUploadField = <T extends FieldValues>({
       <div className="flex gap-4 items-center overflow-x-auto">
         <label className="min-w-28 min-h-28 w-28 h-28 border-2 border-gray-300 rounded-lg flex items-center justify-center cursor-pointer bg-white hover:bg-gray-50 transition shrink-0">
           <span className="text-6xl text-gray-400">+</span>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleChange}
-            className="hidden"
-          />
+          <input type="file" accept="image/*" multiple onChange={handleChange} className="hidden" />
         </label>
 
         {[...previews]
@@ -78,13 +75,13 @@ export const ImageUploadField = <T extends FieldValues>({
               key={i}
               className="relative min-w-28 min-h-28 w-28 h-28 border-gray-300 rounded overflow-hidden flex-shrink-0 cursor-pointer"
             >
-            <Image
-              src={src}
-              alt={`preview-${i}`}
-              fill
-              className="object-cover cursor-pointer"
-              onClick={() => setSelectedImage(src)}
-            />
+              <Image
+                src={src}
+                alt={`preview-${i}`}
+                fill
+                className="object-cover cursor-pointer"
+                onClick={() => setSelectedImage(src)}
+              />
               <button
                 type="button"
                 onClick={() => handleDelete(previews.length - 1 - i)}
@@ -96,11 +93,8 @@ export const ImageUploadField = <T extends FieldValues>({
           ))}
       </div>
 
-      {selectedImage && (
-        <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />
-      )}
+      {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
       {errorMessage && <span className="text-error">{errorMessage}</span>}
-
     </div>
   );
 };

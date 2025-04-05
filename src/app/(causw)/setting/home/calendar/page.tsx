@@ -1,7 +1,9 @@
-import { CardBox } from "@/entities/home";
-import { HomeRscService } from "@/shared";
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { CardBox } from '@/entities/home';
+
+import { HomeRscService } from '@/shared';
 
 const CalendarCard = ({
   imgSrc,
@@ -21,17 +23,9 @@ const CalendarCard = ({
           {year}년 {month}월
         </p>
 
-        <p className="text-[10px] text-[#B4B1B1] lg:text-[15px]">
-          최종 수정일: {editDate}
-        </p>
+        <p className="text-[10px] text-[#B4B1B1] lg:text-[15px]">최종 수정일: {editDate}</p>
       </div>
-      <Image
-        src={imgSrc}
-        alt="banner"
-        width={145}
-        height={145}
-        className="h-[145px] w-[145px] object-cover"
-      />
+      <Image src={imgSrc} alt="banner" width={145} height={145} className="h-[145px] w-[145px] object-cover" />
     </CardBox>
   );
 };
@@ -41,9 +35,7 @@ export default async function CalendarSettingPage() {
   let calendars: Home.Calendar[] = [];
   try {
     calendars = (await getCalendars(2024)).calendars;
-  } catch (e: any) {
-    ;
-  }
+  } catch (e: any) {}
 
   return (
     <div className="flex h-full w-full flex-col gap-5 p-3 lg:gap-10 lg:p-8">
@@ -68,13 +60,7 @@ export default async function CalendarSettingPage() {
       /> */}
       {calendars &&
         calendars.map(({ image, year, month, updatedAt }) => (
-          <CalendarCard
-            key={year + month}
-            imgSrc={image}
-            year={year}
-            month={month}
-            editDate={updatedAt}
-          />
+          <CalendarCard key={year + month} imgSrc={image} year={year} month={month} editDate={updatedAt} />
         ))}
 
       {/* {events && <p>이벤트 목록</p>} */}

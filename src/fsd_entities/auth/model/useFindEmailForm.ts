@@ -1,23 +1,28 @@
-import { useFindAccountStore } from "@/shared";
-import { useForm } from "react-hook-form";
-import { useShallow } from "zustand/react/shallow";
-import { useFindId } from "./useFindId";
+import { useForm } from 'react-hook-form';
+import { useShallow } from 'zustand/react/shallow';
+
+import { useFindAccountStore } from '@/shared';
+
+import { useFindId } from './useFindId';
 
 interface FormData {
-    studentId: string;
-    name: string;
+  studentId: string;
+  name: string;
 }
 
 export const useFindEmailForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
-    const { setName, setStudentId } =
-    useFindAccountStore(
-      useShallow((state) => ({
-        setName: state.setName,
-        setStudentId: state.setStudentId,
-      })),
-    );
+  const { setName, setStudentId } = useFindAccountStore(
+    useShallow(state => ({
+      setName: state.setName,
+      setStudentId: state.setStudentId,
+    })),
+  );
 
   const { mutate: findId } = useFindId();
   const onSubmit = async (data: FormData) => {
@@ -31,4 +36,4 @@ export const useFindEmailForm = () => {
   };
 
   return { register, handleSubmit, formState: { errors }, onSubmit };
-}
+};

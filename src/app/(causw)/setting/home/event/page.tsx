@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import { BannerCard } from "@/entities/home";
-import { HomeService } from "@/shared";
-import Link from "next/link";
-import { LoadingComponent } from "@/entities";
+import Link from 'next/link';
+
+import { BannerCard } from '@/entities/home';
+
+import { LoadingComponent } from '@/entities';
+import { HomeService } from '@/shared';
 
 const EventSetting = () => {
   const { useGetEventList } = HomeService();
@@ -26,22 +28,12 @@ const EventSetting = () => {
         </Link>
       </div>
       <div className="flex gap-4 max-lg:flex-col lg:items-end">
-        <p className="text-[21px] font-medium lg:text-[40px]">
-          이벤트 배너 공지 편집
-        </p>
-        <span className="text-[#B4B1B1] max-lg:text-[14px]">
-          이벤트 배너는 최대 10개까지 게시 가능합니다.
-        </span>
+        <p className="text-[21px] font-medium lg:text-[40px]">이벤트 배너 공지 편집</p>
+        <span className="text-[#B4B1B1] max-lg:text-[14px]">이벤트 배너는 최대 10개까지 게시 가능합니다.</span>
       </div>
       {events &&
         events.map(({ url, image, id, updatedAt }) => (
-          <BannerCard
-            key={id}
-            url={url}
-            imgSrc={image}
-            bannerId={id}
-            date={updatedAt}
-          />
+          <BannerCard key={id} url={url} imgSrc={image} bannerId={id} date={updatedAt} />
         ))}
     </div>
   );

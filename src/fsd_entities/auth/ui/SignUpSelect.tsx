@@ -1,4 +1,4 @@
-import { FieldValues, Path, RegisterOptions, UseFormRegister } from "react-hook-form";
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface Props<T extends FieldValues> {
   register: UseFormRegister<T>;
@@ -31,15 +31,13 @@ export const SignUpSelect = <T extends FieldValues>({
         className="relative mr-8 rounded-md border border-gray-300 bg-white p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <option value="">-- 선택해주세요 --</option>
-        {options.map((opt) => (
+        {options.map(opt => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
           </option>
         ))}
       </select>
-      {errorMessage && (
-        <span className="text-error">{errorMessage}</span>
-      )}
+      {errorMessage && <span className="text-error">{errorMessage}</span>}
     </div>
   );
 };

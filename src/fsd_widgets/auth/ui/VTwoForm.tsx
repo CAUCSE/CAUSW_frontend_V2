@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Header, Line, SubHeader } from "@/entities";
-import { AuthFormSubmitButton, AuthInput, useV2Form } from "@/fsd_entities/auth";
+import { AuthFormSubmitButton, AuthInput, useV2Form } from '@/fsd_entities/auth';
+
+import { Header, Line, SubHeader } from '@/entities';
 
 export const VTwoForm = () => {
-
   const { register, handleSubmit, errors, onSubmit, checkVTwo, checkNicknameDuplicate } = useV2Form();
 
   if (checkVTwo) return null;
@@ -31,7 +31,7 @@ export const VTwoForm = () => {
               label="연락처"
               placeholder="-을 포함해서 작성해주세요. ex) 010-1234-1234"
               rules={{
-                required: "연락처를 입력해주세요",
+                required: '연락처를 입력해주세요',
                 pattern: {
                   value: /^(01[016789]-\d{3,4}-\d{4})$/,
                   message: `올바른 전화번호 형식이 아닙니다.\n예) 010-1234-5678`,
@@ -47,14 +47,15 @@ export const VTwoForm = () => {
               name="nickname"
               label="닉네임"
               placeholder="닉네임을 입력해주세요"
-              rules={{ required: "닉네임을 입력해주세요",
-                validate: async (value) => {
-                  if (typeof value !== "string") return "닉네임은 문자열이어야 합니다.";
+              rules={{
+                required: '닉네임을 입력해주세요',
+                validate: async value => {
+                  if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
                   const isAvailable = await checkNicknameDuplicate(value);
-                  return isAvailable || "이미 사용 중인 닉네임입니다.";
+                  return isAvailable || '이미 사용 중인 닉네임입니다.';
                 },
-               }}
-               errorMessage={errors.nickname?.message}
+              }}
+              errorMessage={errors.nickname?.message}
             />
           </div>
         </div>

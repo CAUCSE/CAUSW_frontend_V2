@@ -1,4 +1,4 @@
-import { PostSkeleton } from "@/entities/board/post/PostSkeleton";
+import { PostSkeleton } from '@/entities/board/post/PostSkeleton';
 
 export const PostSkeletonList = () => {
   const array = new Array(3).fill(0);

@@ -1,12 +1,11 @@
-"use client";
-import { AdmissionForm } from "@/fsd_widgets/auth";
-import React from "react";
+'use client';
+
+import React from 'react';
+
+import { AdmissionForm } from '@/fsd_widgets/auth';
 
 const UpdataeAcademicRecordPage = () => {
-
-  return (
-        <AdmissionForm/>
-  );
+  return <AdmissionForm />;
 };
 
 export default UpdataeAcademicRecordPage;

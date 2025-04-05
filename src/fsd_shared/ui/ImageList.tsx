@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import { ImageViewer } from "./ImageViewer";
+import { useState } from 'react';
+
+import Image from 'next/image';
+
+import { ImageViewer } from './ImageViewer';
 
 interface ImageListProps {
   images: string[];

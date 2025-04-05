@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useFileUpload } from "@/shared";
-import { useRef } from "react";
+import { useRef } from 'react';
+
+import Image from 'next/image';
+
+import { useFileUpload } from '@/shared';
 
 interface CreatePostFooterProps {
   isVote: boolean;
@@ -35,7 +37,7 @@ export const CreatePostFooter = ({
           ref={fileInputRef}
           className="hidden"
           multiple
-          onChange={(e) => handleFileUpload(e.target.files?.[0] || null)}
+          onChange={e => handleFileUpload(e.target.files?.[0] || null)}
         />
         <button
           className={`flex w-16 items-center justify-center rounded-full bg-comment-input md:w-20 md:p-3`}
@@ -50,7 +52,7 @@ export const CreatePostFooter = ({
           />
         </button>
         <button
-          className={`flex items-center justify-center ${isVote ? "bg-vote-btn" : "bg-comment-input"} w-16 rounded-full md:w-20 md:p-3`}
+          className={`flex items-center justify-center ${isVote ? 'bg-vote-btn' : 'bg-comment-input'} w-16 rounded-full md:w-20 md:p-3`}
           onClick={handleVoteToggle}
         >
           <Image
@@ -62,7 +64,7 @@ export const CreatePostFooter = ({
           ></Image>
         </button>
         <button
-          className={`flex w-16 items-center justify-center rounded-full md:w-20 ${isApply ? "bg-[#E27C00]" : "bg-comment-input"} md:p-3`}
+          className={`flex w-16 items-center justify-center rounded-full md:w-20 ${isApply ? 'bg-[#E27C00]' : 'bg-comment-input'} md:p-3`}
           onClick={handleApplyToggle}
         >
           <Image

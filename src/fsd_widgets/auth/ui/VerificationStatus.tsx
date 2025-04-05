@@ -1,6 +1,8 @@
-import { StatusButton } from "@/fsd_entities/auth";
-import React from "react";
-import { ADMISSION_MESSAGES, ACADEMIC_MESSAGES } from "../config/verificationStatus";
+import React from 'react';
+
+import { StatusButton } from '@/fsd_entities/auth';
+
+import { ACADEMIC_MESSAGES, ADMISSION_MESSAGES } from '../config/verificationStatus';
 
 interface VerificationStatusProps {
   admissionApplicationStatus: User.StatusType;
@@ -16,18 +18,14 @@ export const VerificationStatus: React.FC<VerificationStatusProps> = ({
   onAcademicRecordClick,
 }) => {
   return (
-        <div className="mt-2 space-y-4">
-          <StatusButton
-            status={admissionApplicationStatus}
-            messages={ADMISSION_MESSAGES}
-            onClick={onAdmissionClick}
-          />
+    <div className="mt-2 space-y-4">
+      <StatusButton status={admissionApplicationStatus} messages={ADMISSION_MESSAGES} onClick={onAdmissionClick} />
 
-          <StatusButton
-            status={academicRecordApplicationStatus}
-            messages={ACADEMIC_MESSAGES}
-            onClick={onAcademicRecordClick}
-          />
-        </div>
+      <StatusButton
+        status={academicRecordApplicationStatus}
+        messages={ACADEMIC_MESSAGES}
+        onClick={onAcademicRecordClick}
+      />
+    </div>
   );
 };

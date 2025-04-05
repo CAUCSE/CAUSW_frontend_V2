@@ -1,4 +1,4 @@
-import { FieldValues, Path, RegisterOptions, UseFormRegister } from "react-hook-form";
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface Props<T extends FieldValues> {
   register: UseFormRegister<T>;
@@ -33,9 +33,7 @@ export const InfoTextArea = <T extends FieldValues>({
         maxLength={maxLength}
         className="p-2 border border-gray-300 w-full rounded-md mb-1"
       />
-      {errorMessage && (
-        <span className="text-error">{errorMessage}</span>
-      )}
+      {errorMessage && <span className="text-error">{errorMessage}</span>}
     </div>
   );
 };

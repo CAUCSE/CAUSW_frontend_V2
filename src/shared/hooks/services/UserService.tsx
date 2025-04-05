@@ -1,17 +1,15 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse } from 'axios';
 
-import { API, FORMAPI, useUserStore } from "@/shared";
-import { createFormData } from "@/utils";
+import { API, FORMAPI, useUserStore } from '@/shared';
+import { createFormData } from '@/utils';
 
 export const UserService = () => {
-  const URI = "/api/v1/users";
+  const URI = '/api/v1/users';
 
-  const setUserStore = useUserStore((state) => state.setUserStore);
+  const setUserStore = useUserStore(state => state.setUserStore);
 
   const getMe = async () => {
-    const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<
-      User.User & { isV2: boolean }
-    >;
+    const { data } = (await API.get(`${URI}/me`)) as AxiosResponse<User.User & { isV2: boolean }>;
 
     setUserStore(data);
   };
@@ -45,10 +43,7 @@ export const UserService = () => {
 
   const updateUserAcademicInfo = async (data: any) => {
     try {
-      const response = (await API.put(
-        `${URI}/academic-record/application/update`,
-        data,
-      )) as AxiosResponse;
+      const response = (await API.put(`${URI}/academic-record/application/update`, data)) as AxiosResponse;
       return response;
     } catch (error) {
       throw error;
@@ -56,9 +51,7 @@ export const UserService = () => {
   };
   const checkCurrentAcademicStatus = async () => {
     try {
-      const response = (await API.get(
-        `${URI}/academic-record/current`,
-      )) as AxiosResponse;
+      const response = (await API.get(`${URI}/academic-record/current`)) as AxiosResponse;
       return response;
     } catch (error) {
       throw error;
@@ -66,9 +59,7 @@ export const UserService = () => {
   };
   const checkIsAcademicRecordSubmitted = async () => {
     try {
-      const response = (await API.get(
-        `${URI}/academic-record/current/not-accepted`,
-      )) as AxiosResponse;
+      const response = (await API.get(`${URI}/academic-record/current/not-accepted`)) as AxiosResponse;
       return response;
     } catch (error) {
       throw error;
@@ -77,9 +68,7 @@ export const UserService = () => {
 
   const allowUser = async (param: string) => {
     try {
-      const response = (await API.put(
-        `${URI}/admissions/${param}/accept`,
-      )) as AxiosResponse;
+      const response = (await API.put(`${URI}/admissions/${param}/accept`)) as AxiosResponse;
       return response;
     } catch (error) {
       throw error;
@@ -92,26 +81,23 @@ export const UserService = () => {
     try {
       const payload = {
         ...data,
-        images: undefined, 
+        images: undefined,
       };
 
       const formData = createFormData(
         payload,
-        "userAdmissionCreateRequestDto", 
-        data.attachImage ? Array.from(data.attachImage) : [], 
-        "userAdmissionAttachImageList" 
+        'userAdmissionCreateRequestDto',
+        data.attachImage ? Array.from(data.attachImage) : [],
+        'userAdmissionAttachImageList',
       );
-  
-      const response = await FORMAPI.post(
-        "/api/v1/users/admissions/apply",
-        formData,
-      );
-  
+
+      const response = await FORMAPI.post('/api/v1/users/admissions/apply', formData);
+
       return response.data; //
     } catch (error) {
       throw error;
-    }};
-
+    }
+  };
 
   const updateInfo = async (
     data: User.userUpdateDto, // FileList 타입 사용
@@ -119,26 +105,23 @@ export const UserService = () => {
     try {
       const payload = {
         ...data,
-        images: undefined, 
+        images: undefined,
       };
 
       const formData = createFormData(
         payload,
-        "userUpdateDto", 
-        data.profileImage ? [data.profileImage] : [], 
-        "profileImage" 
+        'userUpdateDto',
+        data.profileImage ? [data.profileImage] : [],
+        'profileImage',
       );
-  
-      const response = await FORMAPI.put(
-        "/api/v1/users",
-        formData,
-      );
-  
+
+      const response = await FORMAPI.put('/api/v1/users', formData);
+
       return response.data; //
     } catch (error) {
       throw error;
-    }};
-
+    }
+  };
 
   return {
     getMe,

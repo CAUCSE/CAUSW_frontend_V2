@@ -1,51 +1,44 @@
-"use client";
+'use client';
 
-import {
-  API,
-  UserService,
-  setRccToken,
-  setRscToken,
-  useLayoutStore,
-} from "@/shared";
-import { AxiosResponse } from "axios";
+import { useRouter } from 'next/navigation';
 
-import { useRouter } from "next/navigation";
+import { AxiosResponse } from 'axios';
 
-const URI = "/api/v1/users";
+import { API, setRccToken, setRscToken, useLayoutStore, UserService } from '@/shared';
+
+const URI = '/api/v1/users';
 export const AuthService = () => {
+  const { getMyInfo } = UserService();
 
-    const { getMyInfo } = UserService();
+  const router = useRouter();
+  const setErrorMessage = useLayoutStore(state => state.setErrorMessage);
 
-    const router = useRouter();
-    const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
-
-
-    const signin = async (body: User.SignInRequestDto) => {        
+  const signin = async (body: User.SignInRequestDto) => {
     try {
-        const {
+      const {
         data: { accessToken, refreshToken },
-        } = (await API.post(`${URI}/sign-in`, body)) as AxiosResponse<{
+      } = (await API.post(`${URI}/sign-in`, body)) as AxiosResponse<{
         accessToken: string;
         refreshToken: string;
-        }>;
+      }>;
 
-        await setRscToken(accessToken, body.auto ? refreshToken : false);
-        await setRccToken(accessToken, body.auto ? refreshToken : false);
+      await setRscToken(accessToken, body.auto ? refreshToken : false);
+      await setRccToken(accessToken, body.auto ? refreshToken : false);
 
-        const AdmissionResponse = await getMyInfo();
+      const AdmissionResponse = await getMyInfo();
 
-        if (AdmissionResponse.data.state === "AWAIT") {
-        router.push("/auth/authorization");
+      if (AdmissionResponse.data.state === 'AWAIT') {
+        router.push('/auth/authorization');
+      } else {
+        if (AdmissionResponse.data.academicStatus == 'UNDETERMINED') {
+          router.push('/auth/authorization');
         } else {
-        if (AdmissionResponse.data.academicStatus == "UNDETERMINED") {
-            router.push("/auth/authorization");
-        } else {
-            router.push("/home");
+          router.push('/home');
         }
+      }
+    } catch (error) {
+      setErrorMessage('로그인 정보가 일치하지 않습니다!');
     }
-} catch (error) {
-    setErrorMessage("로그인 정보가 일치하지 않습니다!");
-}
-};
-    return { signin };
+  };
+  return { signin };
 };

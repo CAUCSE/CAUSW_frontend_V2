@@ -1,23 +1,17 @@
-"use client";
+'use client';
 
-import { BoardRscService, useBoardStore, useUserStore } from "@/shared";
+import { useRouter } from 'next/navigation';
 
-import { useRouter } from "next/navigation";
+import { BoardRscService, useBoardStore, useUserStore } from '@/shared';
 
 export const useCreateBoard = () => {
   const router = useRouter();
-  const {
-    clearBoardInfo,
-    boardName,
-    setIsNameValid,
-    boardDescription,
-    allowAnonymous,
-    selectedRoles,
-  } = useBoardStore();
+  const { clearBoardInfo, boardName, setIsNameValid, boardDescription, allowAnonymous, selectedRoles } =
+    useBoardStore();
   const { applyBoard, createBoard } = BoardRscService();
-  const isPresidents = useUserStore((state) => state.isPresidents);
-  const isVicePresidents = useUserStore((state) => state.isVicePresidents);
-  const isAdmin = useUserStore((state) => state.isAdmin);
+  const isPresidents = useUserStore(state => state.isPresidents);
+  const isVicePresidents = useUserStore(state => state.isVicePresidents);
+  const isAdmin = useUserStore(state => state.isAdmin);
   const hasAuth = isAdmin() || isPresidents() || isVicePresidents();
 
   const handleSubmit = async () => {
@@ -29,7 +23,7 @@ export const useCreateBoard = () => {
       const boardRequest: Board.CreateBoardDto = {
         boardName: boardName,
         description: boardDescription,
-        boardCategory: "APP_NOTICE",
+        boardCategory: 'APP_NOTICE',
         createRoleList: selectedRoles as User.Role[],
         isAnonymousAllowed: allowAnonymous,
         circleId: null,

@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, setRscHeader } from "@/shared";
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const ChildCommentRscService = () => {
   const postLikeForChildComment = async (childCommentId: string) => {
@@ -13,9 +13,7 @@ export const ChildCommentRscService = () => {
       });
 
       if (response.status !== 201) {
-        throw new Error(
-          `Failed to like post with id ${childCommentId}. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to like post with id ${childCommentId}. Response status: ${response.status}`);
       }
     } catch (error) {
       throw error;
@@ -27,12 +25,9 @@ export const ChildCommentRscService = () => {
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<Comment.CommentDto> = await axios.delete(
-        URI,
-        {
-          headers: headers,
-        },
-      );
+      const response: AxiosResponse<Comment.CommentDto> = await axios.delete(URI, {
+        headers: headers,
+      });
 
       if (response.status !== 200) {
         throw new Error(
@@ -51,15 +46,12 @@ export const ChildCommentRscService = () => {
 
     try {
       const headers = await setRscHeader();
-      const response: AxiosResponse<ChildComment.ChildCommentDto> =
-        await axios.post(URI, data, {
-          headers: headers,
-        });
+      const response: AxiosResponse<ChildComment.ChildCommentDto> = await axios.post(URI, data, {
+        headers: headers,
+      });
 
       if (response.status !== 201) {
-        throw new Error(
-          `Failed to create comment. Response status: ${response.status}`,
-        );
+        throw new Error(`Failed to create comment. Response status: ${response.status}`);
       }
 
       return response.data;

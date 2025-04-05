@@ -1,19 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useEditEvent } from "@/shared";
-import { useRouter } from "next/navigation";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import { useEditEvent } from '@/shared';
 
 export function EventEditModal({ bannerId }: { bannerId?: string }) {
   const router = useRouter();
-  const {
-    bannerImg,
-    currImg,
-    url,
-    handleSubmit,
-    handleUploadImage,
-    handleEditEventUrl,
-  } = useEditEvent({ bannerId });
+  const { bannerImg, currImg, url, handleSubmit, handleUploadImage, handleEditEventUrl } = useEditEvent({ bannerId });
 
   const routeBack = () => router.back();
   return (
@@ -23,13 +17,13 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
     >
       <div
         className="relative m-4 flex w-full flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px] xl:w-[1200px]"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <button onClick={routeBack} className="absolute left-[14px] top-[10px]">
           <i className="icon-[ep--close-bold]" />
         </button>
         <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
-          이벤트 공지 배너 {bannerId ? "수정" : "추가"}
+          이벤트 공지 배너 {bannerId ? '수정' : '추가'}
         </p>
         <div className="relative flex h-[150px] w-full flex-col lg:w-[1100px]">
           <input
@@ -46,7 +40,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
             {bannerImg || currImg ? (
               currImg ? (
                 <Image
-                  alt={""}
+                  alt={''}
                   width={1100}
                   height={150}
                   src={URL.createObjectURL(currImg)}
@@ -55,7 +49,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
               ) : (
                 bannerImg && (
                   <Image
-                    alt={""}
+                    alt={''}
                     width={1100}
                     height={150}
                     src={bannerImg}
@@ -86,7 +80,7 @@ export function EventEditModal({ bannerId }: { bannerId?: string }) {
           className="mt-[40px] h-[55px] w-[250px] rounded-lg bg-[#6BBEEC] max-lg:w-[150px] lg:mt-[80px] lg:text-[24px] lg:font-semibold"
           onClick={handleSubmit}
         >
-          {bannerId ? "배너 수정" : "저장"}
+          {bannerId ? '배너 수정' : '저장'}
         </button>
       </div>
     </div>

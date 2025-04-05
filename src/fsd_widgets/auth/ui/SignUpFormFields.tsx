@@ -1,5 +1,6 @@
-import { UseFormRegister, FieldErrors, UseFormWatch } from "react-hook-form";
-import { AuthInput, SignUpSelect, SignUpCheckbox, signUpValidationRules } from "@/fsd_entities/auth";
+import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
+
+import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/fsd_entities/auth';
 
 interface Props {
   register: UseFormRegister<User.SignUpForm>;
@@ -8,12 +9,11 @@ interface Props {
 }
 
 export const SignUpFormFields = ({ register, errors, watch }: Props) => {
-  const password = watch("password");
+  const password = watch('password');
 
   return (
     <>
-    <div className="grid grid-cols-1 place-items-center lg:grid lg:grid-cols-2 gap-y-2 max-w-3xl w-full p-8">
-
+      <div className="grid grid-cols-1 place-items-center lg:grid lg:grid-cols-2 gap-y-2 max-w-3xl w-full p-8">
         <AuthInput
           register={register}
           name="email"
@@ -29,7 +29,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           label="닉네임"
           placeholder="닉네임을 입력해주세요"
           errorMessage={errors.nickname?.message}
-        />  
+        />
         <AuthInput
           register={register}
           name="password"
@@ -43,7 +43,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           register={register}
           name="admissionYearString"
           label="입학년도"
-          rules={{ required: "입학 년도를 선택해주세요" }}
+          rules={{ required: '입학 년도를 선택해주세요' }}
           errorMessage={errors.admissionYearString?.message}
           options={Array.from({ length: 100 }, (_, i) => {
             const year = new Date().getFullYear() - i;
@@ -56,8 +56,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           type="password"
           rules={{
             ...signUpValidationRules.pwConfirm,
-            validate: (value) =>
-              value === password || "비밀번호가 일치하지 않습니다.",
+            validate: value => value === password || '비밀번호가 일치하지 않습니다.',
           }}
           label="비밀번호 확인"
           placeholder="8자리 이상, 영어/숫자/특수 문자"
@@ -97,14 +96,14 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="-을 포함해서 작성해주세요. ex) 010-1234-5678"
           errorMessage={errors.phoneNumber?.message}
         />
-        </div>
-        <SignUpCheckbox
+      </div>
+      <SignUpCheckbox
         register={register}
         name="agreeToTerms"
         label="[필수] 이용 약관에 동의합니다."
-        rules={{ required: "약관에 동의해야 합니다." }}
+        rules={{ required: '약관에 동의해야 합니다.' }}
         errorMessage={errors.agreeToTerms?.message}
       />
-  </>
+    </>
   );
 };

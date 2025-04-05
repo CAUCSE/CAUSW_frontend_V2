@@ -1,42 +1,35 @@
-"use client";
+'use client';
 
 //TODO//
 //에러 페이지 JSX 업데이트 필요
+import { useEffect, useRef, useState } from 'react';
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
+import { LoadingComponent } from '@/entities';
 import {
+  allErrorCode,
+  AuthRscService,
+  AuthService,
+  getRccRefresh,
+  getRscAccess,
+  getRscRefresh,
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
-  allErrorCode,
-  getRccRefresh,
-  setRscToken,
-  getRscAccess,
-  getRscRefresh,
-  AuthService,
-  AuthRscService,
   setRscHeader,
-} from "@/shared";
+  setRscToken,
+} from '@/shared';
 
-import { LoadingComponent } from "@/entities";
-
-const Error = ({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) => {
+const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();
   const { signout } = AuthRscService();
   const { updateAccess } = AuthRscService();
 
   const handleNoRefresh = async () => {
     await signout();
-    location.href = "/auth/signin";
+    location.href = '/auth/signin';
   };
 
   const handleNoAccesss = async () => {
@@ -59,8 +52,7 @@ const Error = ({
   useEffect(() => {
     if (noAccessTokenCode.includes(error.message)) {
       handleNoAccesss();
-    } else if (noPermissionCode.includes(error.message))
-      router.push("/no-permission");
+    } else if (noPermissionCode.includes(error.message)) router.push('/no-permission');
     else {
       handleNoRefresh();
     }

@@ -1,30 +1,33 @@
-"use client";
+'use client';
 
-import { HomeRscService } from "@/shared";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { CardBox } from "./card/CardBox";
+import { useEffect, useState } from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { HomeRscService } from '@/shared';
+
+import { CardBox } from './card/CardBox';
 
 const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 interface CalendarProps {
   deliveredId: string | undefined;
 }
 
-export const Calendar = ({deliveredId}: CalendarProps) => {
+export const Calendar = ({ deliveredId }: CalendarProps) => {
   const [calendars, setCalendars] = useState<Home.Calendar[]>();
   const { getCalendars } = HomeRscService();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -35,16 +38,14 @@ export const Calendar = ({deliveredId}: CalendarProps) => {
       try {
         const response = (await getCalendars(selectedYear)).calendars;
         setCalendars(response);
-      } catch (e: any) {
-        ;
-      }
+      } catch (e: any) {}
     };
 
     fetchCalendars();
   }, [selectedYear]);
 
   const handlePrevMonth = () => {
-    setSelectedMonth((prev) => {
+    setSelectedMonth(prev => {
       if (prev === 0) {
         setSelectedYear(selectedYear - 1);
         return 11;
@@ -54,7 +55,7 @@ export const Calendar = ({deliveredId}: CalendarProps) => {
   };
 
   const handleNextMonth = () => {
-    setSelectedMonth((prev) => {
+    setSelectedMonth(prev => {
       if (prev === 11) {
         setSelectedYear(selectedYear + 1);
         return 0;
@@ -96,23 +97,17 @@ export const Calendar = ({deliveredId}: CalendarProps) => {
         style={{
           backgroundImage: `url(${
             calendars
-              ? (calendars.find(
-                  (c) =>
-                    c.year === selectedYear && c.month === selectedMonth + 1,
-                )?.image as string)
-                ? (calendars.find(
-                    (c) =>
-                      c.year === selectedYear && c.month === selectedMonth + 1,
-                  )?.image as string)
-                : "/images/puang-proud.png"
-              : "/images/puang-proud.png"
+              ? (calendars.find(c => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+                ? (calendars.find(c => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+                : '/images/puang-proud.png'
+              : '/images/puang-proud.png'
           })`,
         }}
       ></div>
       <hr className="w-full border-[1px] border-[#E0E0E0]" />
       <Link
         // TODO : href 연결
-        href= {`/board/${deliveredId}`}
+        href={`/board/${deliveredId}`}
         className="text-[24px] underline underline-offset-[5px]"
       >
         딜리버드 보러 가기

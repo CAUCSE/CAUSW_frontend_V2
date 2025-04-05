@@ -3,6 +3,6 @@ declare namespace Occasion {
     description: string;
     startDate: string;
     endDate: string;
-    category: "MARRIAGE" | "FUNERAL" | "ETC";
+    category: 'MARRIAGE' | 'FUNERAL' | 'ETC';
   }
 }

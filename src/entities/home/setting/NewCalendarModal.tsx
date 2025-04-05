@@ -1,17 +1,20 @@
-"use client";
+'use client';
 
-import { HomeRscService } from "@/shared";
-import { FormControl, InputLabel } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState } from 'react';
+
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import { FormControl, InputLabel } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+import { HomeRscService } from '@/shared';
 
 export function NewCalendarModal() {
   const [currImg, setCurrImg] = useState<File | null>();
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
   const { createCalendar } = HomeRscService();
 
   const router = useRouter();
@@ -26,17 +29,17 @@ export function NewCalendarModal() {
 
   const handleSubmit = async () => {
     if (!year || !month) {
-      alert("년도와 월을 선택해주세요.");
+      alert('년도와 월을 선택해주세요.');
       return;
     }
     if (!currImg) {
-      alert("이미지를 선택해주세요.");
+      alert('이미지를 선택해주세요.');
       return;
     }
-    if (await createCalendar(currImg, +year, +month)) alert("저장되었습니다.");
-    else alert("저장에 실패했습니다. 관리자에게 문의하세요");
+    if (await createCalendar(currImg, +year, +month)) alert('저장되었습니다.');
+    else alert('저장에 실패했습니다. 관리자에게 문의하세요');
 
-    window.location.href = "/setting/home/calendar";
+    window.location.href = '/setting/home/calendar';
   };
 
   return (
@@ -46,17 +49,12 @@ export function NewCalendarModal() {
     >
       <div
         className="relative flex w-[80vw] flex-col items-center overflow-auto bg-white p-5 py-[30px] pb-[50px] max-lg:gap-[10px] lg:h-[70vh] lg:p-[50px]"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
-        <button
-          onClick={() => router.back()}
-          className="absolute left-[14px] top-[10px]"
-        >
+        <button onClick={() => router.back()} className="absolute left-[14px] top-[10px]">
           <i className="icon-[ep--close-bold]" />
         </button>
-        <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">
-          캘린더 추가
-        </p>
+        <p className="w-full text-[21px] font-semibold lg:text-center lg:text-[40px]">캘린더 추가</p>
 
         <div className="flex w-full flex-col gap-[20px] lg:grid lg:grid-cols-[400px_1fr]">
           {/* 캘린더 이미지 선택 */}
@@ -67,7 +65,7 @@ export function NewCalendarModal() {
                 id="file"
                 type="file"
                 accept="image/gif, image/jpeg, image/png"
-                onChange={(e) => {
+                onChange={e => {
                   if (!e.target.files) return;
                   const file = e.target.files[0];
                   if (file) {
@@ -111,20 +109,17 @@ export function NewCalendarModal() {
                   type="number"
                   label="년도"
                   onChange={handleChangeYear}
-                  style={{ width: "200px" }}
+                  style={{ width: '200px' }}
                   MenuProps={{
                     style: { maxHeight: 300 },
                   }}
                 >
                   {/* from current year to 1972 */}
-                  {Array.from(
-                    { length: new Date().getFullYear() - 1971 },
-                    (_, i) => (
-                      <MenuItem key={i} value={new Date().getFullYear() - i}>
-                        {new Date().getFullYear() - i}
-                      </MenuItem>
-                    ),
-                  )}
+                  {Array.from({ length: new Date().getFullYear() - 1971 }, (_, i) => (
+                    <MenuItem key={i} value={new Date().getFullYear() - i}>
+                      {new Date().getFullYear() - i}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </div>
@@ -139,7 +134,7 @@ export function NewCalendarModal() {
                   type="number"
                   label="월"
                   onChange={handleChangeMonth}
-                  style={{ width: "100px" }}
+                  style={{ width: '100px' }}
                   MenuProps={{
                     style: { maxHeight: 300 },
                   }}

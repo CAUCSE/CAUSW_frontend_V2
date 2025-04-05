@@ -1,20 +1,15 @@
-"use client";
+'use client';
 
-import {
-  PostService,
-  useCreatePostStore,
-  useCreateVoteStore,
-  useFileUpload,
-} from "@/shared";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from 'next/navigation';
+
+import { PostService, useCreatePostStore, useCreateVoteStore, useFileUpload } from '@/shared';
 
 export const usePostForm = () => {
   const router = useRouter();
   const params = useParams();
   const boardId = params.boardId;
-  const { title, content, isAnonymous, isQuestion, isVote, clearPost } =
-    useCreatePostStore();
-  const clearVote = useCreateVoteStore((state) => state.clearVote);
+  const { title, content, isAnonymous, isQuestion, isVote, clearPost } = useCreatePostStore();
+  const clearVote = useCreateVoteStore(state => state.clearVote);
 
   const { selectedFiles, resetFiles } = useFileUpload();
 

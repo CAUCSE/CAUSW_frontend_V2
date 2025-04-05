@@ -26,5 +26,5 @@ declare namespace Locker {
     lockerList: LockerResponseDto[];
   }
 
-  export type TLockerPeriod = "LOCKER_ACCESS" | "LOCKER_EXTEND" | "NULL";
+  export type TLockerPeriod = 'LOCKER_ACCESS' | 'LOCKER_EXTEND' | 'NULL';
 }
