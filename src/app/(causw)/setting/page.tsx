@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 
 import Link from 'next/link';
 
-import { UseTerms } from '@/entities/home/useTerms';
-
+import { UseTerms } from '@/fsd_shared';
 import { userRoleCodes, useUserStore } from '@/shared';
 
 const SettingsPage = () => {
