@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader, useEventStore } from '@/shared';
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const HomeRscService = () => {
   const URI = BASEURL + '/api/v1/home';
@@ -82,6 +82,5 @@ export const HomeRscService = () => {
     getEvents,
     getCalendars,
     getCalendar,
-    createCalendar,
   };
 };

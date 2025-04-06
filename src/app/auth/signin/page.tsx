@@ -13,13 +13,13 @@ import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 import { ImageBackground, LoadingComponent, VideoBackground } from '@/entities';
 import '@/firebase-messaging-sw';
 import { onClickAlert } from '@/shared';
-import { AuthService, emailRegex, useLayoutStore } from '@/shared';
+import { AuthService, emailRegex, useLayoutStore, getRccRefresh } from '@/shared';
 
 const routes = [
   { name: '회원가입하기', route: '/auth/signup' },
   { name: '아이디 찾기', route: '/auth/findemail' },
   { name: '비밀번호 찾기', route: '/auth/findpassword' },
-  { name: '알림 허용하기', route: '/auth/test', handler: onClickAlert },
+  // { name: "알림 허용하기", route: "/auth/test", handler: onClickAlert },
 ];
 
 const SignInPage = () => {
@@ -54,6 +54,7 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
+    if (getRccRefresh()) router.replace('/home');
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then(registration => {});
     }
@@ -102,10 +103,10 @@ const SignInPage = () => {
                   {routes.map(route => (
                     <div
                       key={route.name}
-                      onClick={() => {
-                        if (route.handler) route.handler();
-                        router.push(route.route);
-                      }}
+                      // onClick={() => {
+                      //   if (route.handler) route.handler();
+                      //   router.push(route.route);
+                      // }}
                       className="border-b-2-white font-boerder mb-2 border-b text-xs text-white sm:text-[16px] md:mt-1 md:hidden"
                     >
                       {route.name}
@@ -122,7 +123,7 @@ const SignInPage = () => {
             <div
               key={route.name}
               onClick={() => {
-                if (route.handler) route.handler();
+                // if (route.handler) route.handler();
                 router.push(route.route);
               }}
               className="border-b-2-white font-boerder mt-2 hidden border-b text-white md:mt-1 md:block"

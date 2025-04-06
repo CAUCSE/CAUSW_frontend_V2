@@ -211,7 +211,7 @@ export const SettingRscService = () => {
     refundedAt?: number,
   ) => {
     const headers = await setRscHeader();
-    const response = await fetch(`${BASEURL}/api/v1/user-council-fee/create-user`, {
+    await fetch(`${BASEURL}/api/v1/user-council-fee/create-user`, {
       method: 'POST',
       headers: { ...headers, 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -221,9 +221,7 @@ export const SettingRscService = () => {
         isRefunded,
         refundedAt,
       }),
-    }).then(res => res.json());
-
-    if (response.message) throw new Error((response as Error.ApiErrorResponse).message);
+    });
     return true;
   };
 
