@@ -1,40 +1,37 @@
-"use client";
+'use client';
 
-import {
-  PostService,
-  useCreatePostStore,
-  useFileUpload,
-  usePreviousValue,
-} from "@/shared";
-import { useCallback, useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useCallback, useEffect } from 'react';
 
-import toast from "react-hot-toast";
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
+
+import { useFieldArray, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+
+import { PostService, useCreatePostStore, useFileUpload, usePreviousValue } from '@/shared';
 
 export const useCreateApply = () => {
   const params = useParams();
   const { boardId } = params;
 
-  const isApply = useCreatePostStore((state) => state.isApply);
+  const isApply = useCreatePostStore(state => state.isApply);
 
   const methods = useForm<Post.PostCreateWithFormRequestDto>({
     defaultValues: {
-      title: "",
-      content: "",
+      title: '',
+      content: '',
       boardId: boardId as string,
       isAnonymous: false,
       isQuestion: false,
       formCreateRequestDto: {
-        title: "",
+        title: '',
         questionCreateRequestDtoList: [
           {
-            questionType: "OBJECTIVE",
-            questionText: "",
+            questionType: 'OBJECTIVE',
+            questionText: '',
             isMultiple: false,
             optionCreateRequestDtoList: [
               {
-                optionText: "",
+                optionText: '',
               },
             ],
           },
@@ -63,51 +60,42 @@ export const useCreateApply = () => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "formCreateRequestDto.questionCreateRequestDtoList",
+    name: 'formCreateRequestDto.questionCreateRequestDtoList',
   });
 
   const { selectedFiles } = useFileUpload();
-  const {
-    title,
-    content,
-    isAnonymous,
-    isQuestion,
-    setContent,
-    setTitle,
-    setIsAnonymous,
-    setIsQuestion,
-  } = useCreatePostStore();
+  const { title, content, isAnonymous, isQuestion, setContent, setTitle, setIsAnonymous, setIsQuestion } =
+    useCreatePostStore();
 
   const { useCreatePostWithForm } = PostService();
   const { mutate } = useCreatePostWithForm();
 
   const ALL_SEMESTER = [
-    "FIRST_SEMESTER",
-    "SECOND_SEMESTER",
-    "THIRD_SEMESTER",
-    "FOURTH_SEMESTER",
-    "FIFTH_SEMESTER",
-    "SIXTH_SEMESTER",
-    "SEVENTH_SEMESTER",
-    "EIGHTH_SEMESTER",
-    "ABOVE_NINTH_SEMESTER",
+    'FIRST_SEMESTER',
+    'SECOND_SEMESTER',
+    'THIRD_SEMESTER',
+    'FOURTH_SEMESTER',
+    'FIFTH_SEMESTER',
+    'SIXTH_SEMESTER',
+    'SEVENTH_SEMESTER',
+    'EIGHTH_SEMESTER',
+    'ABOVE_NINTH_SEMESTER',
   ];
 
   const onSubmit = async (data: any) => {
     if (
       data.formCreateRequestDto.enrolledRegisteredSemesterList.length === 0 &&
-      data.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList.length ===
-        0 &&
+      data.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList.length === 0 &&
       !data.formCreateRequestDto.isAllowedEnrolled &&
       !data.formCreateRequestDto.isAllowedGraduation &&
       !data.formCreateRequestDto.isNeedCouncilFeePaid &&
       !data.formCreateRequestDto.isAllowedLeaveOfAbsence
     ) {
-      setError("formCreateRequestDto.isAllowedLeaveOfAbsence", {
-        type: "manual",
-        message: "신청 가능 대상을 하나 이상 지정해주세요",
+      setError('formCreateRequestDto.isAllowedLeaveOfAbsence', {
+        type: 'manual',
+        message: '신청 가능 대상을 하나 이상 지정해주세요',
       });
-      toast.error("신청 가능 대상을 하나 이상 지정해주세요");
+      toast.error('신청 가능 대상을 하나 이상 지정해주세요');
       return;
     }
 
@@ -116,51 +104,40 @@ export const useCreateApply = () => {
       data.formCreateRequestDto.enrolledRegisteredSemesterList.length === 0 &&
       !data.formCreateRequestDto.allowAllEnrolledRegisteredSemester
     ) {
-      setError("formCreateRequestDto.isAllowedEnrolled", {
-        type: "manual",
-        message: "신청 가능 학년을 하나 이상 지정해주세요 ",
+      setError('formCreateRequestDto.isAllowedEnrolled', {
+        type: 'manual',
+        message: '신청 가능 학년을 하나 이상 지정해주세요 ',
       });
-      toast.error("신청 가능 학년을 하나 이상 지정해주세요");
+      toast.error('신청 가능 학년을 하나 이상 지정해주세요');
       return;
     }
 
     if (
       data.formCreateRequestDto.isAllowedLeaveOfAbsence &&
-      data.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList.length ===
-        0 &&
+      data.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList.length === 0 &&
       !data.formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester
     ) {
-      setError("formCreateRequestDto.isAllowedLeaveOfAbsence", {
-        type: "manual",
-        message: "신청 가능 학년을 하나 이상 지정해주세요",
+      setError('formCreateRequestDto.isAllowedLeaveOfAbsence', {
+        type: 'manual',
+        message: '신청 가능 학년을 하나 이상 지정해주세요',
       });
-      toast.error("신청 가능 학년을 하나 이상 지정해주세요");
+      toast.error('신청 가능 학년을 하나 이상 지정해주세요');
       return;
     }
     const postCreateWithFormRequestDto = { ...data };
-    if (
-      postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllEnrolledRegisteredSemester
-    ) {
-      postCreateWithFormRequestDto.formCreateRequestDto.enrolledRegisteredSemesterList =
-        ALL_SEMESTER;
-      delete postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllEnrolledRegisteredSemester;
+    if (postCreateWithFormRequestDto.formCreateRequestDto.allowAllEnrolledRegisteredSemester) {
+      postCreateWithFormRequestDto.formCreateRequestDto.enrolledRegisteredSemesterList = ALL_SEMESTER;
+      delete postCreateWithFormRequestDto.formCreateRequestDto.allowAllEnrolledRegisteredSemester;
     }
 
-    if (
-      postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllLeaveOfAbsenceRegisteredSemester
-    ) {
-      postCreateWithFormRequestDto.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList =
-        ALL_SEMESTER;
-      delete postCreateWithFormRequestDto.formCreateRequestDto
-        .allowAllLeaveOfAbsenceRegisteredSemester;
+    if (postCreateWithFormRequestDto.formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester) {
+      postCreateWithFormRequestDto.formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList = ALL_SEMESTER;
+      delete postCreateWithFormRequestDto.formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester;
     }
 
     postCreateWithFormRequestDto.formCreateRequestDto.questionCreateRequestDtoList.forEach(
       (question: Post.QuestionCreateRequestDto) => {
-        if (question.questionType === "SUBJECTIVE") {
+        if (question.questionType === 'SUBJECTIVE') {
           question.optionCreateRequestDtoList.length = 0;
           question.isMultiple = false;
         }
@@ -175,136 +152,103 @@ export const useCreateApply = () => {
 
   const addSurveyForm = useCallback(() => {
     append({
-      questionType: "OBJECTIVE",
-      questionText: "",
+      questionType: 'OBJECTIVE',
+      questionText: '',
       isMultiple: false,
-      optionCreateRequestDtoList: [{ optionText: "" }],
+      optionCreateRequestDtoList: [{ optionText: '' }],
     });
   }, [append]);
 
-  const isAllowedEnrolled = watch("formCreateRequestDto.isAllowedEnrolled");
+  const isAllowedEnrolled = watch('formCreateRequestDto.isAllowedEnrolled');
 
-  const isNeedCouncilFeePaid = watch(
-    "formCreateRequestDto.isNeedCouncilFeePaid",
-  );
+  const isNeedCouncilFeePaid = watch('formCreateRequestDto.isNeedCouncilFeePaid');
 
   useEffect(() => {
     if (!isAllowedEnrolled) {
-      setValue("formCreateRequestDto.isNeedCouncilFeePaid", false);
+      setValue('formCreateRequestDto.isNeedCouncilFeePaid', false);
       if (enrolledRegisteredSemesterList.length > 0) {
-        setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
+        setValue('formCreateRequestDto.enrolledRegisteredSemesterList', []);
       }
       if (allowAllEnrolledRegisteredSemester) {
-        setValue(
-          "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
-          false,
-        );
+        setValue('formCreateRequestDto.allowAllEnrolledRegisteredSemester', false);
       }
     }
   }, [isAllowedEnrolled, setValue]);
 
   useEffect(() => {
     if (isNeedCouncilFeePaid) {
-      setValue("formCreateRequestDto.isAllowedEnrolled", true);
+      setValue('formCreateRequestDto.isAllowedEnrolled', true);
     }
   }, [isNeedCouncilFeePaid, setValue]);
 
-  const enrolledRegisteredSemesterList = watch(
-    "formCreateRequestDto.enrolledRegisteredSemesterList",
-  );
+  const enrolledRegisteredSemesterList = watch('formCreateRequestDto.enrolledRegisteredSemesterList');
 
   const prevIsAllowedEnrolled = usePreviousValue<boolean>(isAllowedEnrolled);
 
   useEffect(() => {
     if (enrolledRegisteredSemesterList.length > 0) {
-      setValue(
-        "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
-        false,
-      );
+      setValue('formCreateRequestDto.allowAllEnrolledRegisteredSemester', false);
       if (!isAllowedEnrolled && !prevIsAllowedEnrolled) {
-        setValue("formCreateRequestDto.isAllowedEnrolled", true);
+        setValue('formCreateRequestDto.isAllowedEnrolled', true);
       }
     }
     if (enrolledRegisteredSemesterList.length === 9) {
-      setValue("formCreateRequestDto.allowAllEnrolledRegisteredSemester", true);
-      setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
+      setValue('formCreateRequestDto.allowAllEnrolledRegisteredSemester', true);
+      setValue('formCreateRequestDto.enrolledRegisteredSemesterList', []);
     }
   }, [enrolledRegisteredSemesterList]);
 
-  const leaveOfAbsenceRegisteredSemesterList = watch(
-    "formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList",
-  );
+  const leaveOfAbsenceRegisteredSemesterList = watch('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList');
 
-  const isAllowedLeaveOfAbsence = watch(
-    "formCreateRequestDto.isAllowedLeaveOfAbsence",
-  );
-  const prevIsAllowedLeaveOfAbsence = usePreviousValue<boolean>(
-    isAllowedLeaveOfAbsence,
-  );
+  const isAllowedLeaveOfAbsence = watch('formCreateRequestDto.isAllowedLeaveOfAbsence');
+  const prevIsAllowedLeaveOfAbsence = usePreviousValue<boolean>(isAllowedLeaveOfAbsence);
 
   useEffect(() => {
     if (!isAllowedLeaveOfAbsence) {
       if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
-        setValue(
-          "formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList",
-          [],
-        );
+        setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', []);
       }
       if (allowAllLeaveOfAbsenceRegisteredSemester) {
-        setValue(
-          "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
-          false,
-        );
+        setValue('formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester', false);
       }
     }
   }, [isAllowedLeaveOfAbsence]);
 
   useEffect(() => {
     if (leaveOfAbsenceRegisteredSemesterList.length > 0) {
-      setValue(
-        "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
-        false,
-      );
+      setValue('formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester', false);
       if (!isAllowedLeaveOfAbsence && !prevIsAllowedLeaveOfAbsence) {
-        setValue("formCreateRequestDto.isAllowedLeaveOfAbsence", true);
+        setValue('formCreateRequestDto.isAllowedLeaveOfAbsence', true);
       }
     }
     if (leaveOfAbsenceRegisteredSemesterList.length === 9) {
-      setValue(
-        "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
-        true,
-      );
-      setValue("formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList", []);
+      setValue('formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester', true);
+      setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', []);
     }
   }, [leaveOfAbsenceRegisteredSemesterList]);
 
-  const allowAllEnrolledRegisteredSemester = watch(
-    "formCreateRequestDto.allowAllEnrolledRegisteredSemester",
-  );
+  const allowAllEnrolledRegisteredSemester = watch('formCreateRequestDto.allowAllEnrolledRegisteredSemester');
 
   useEffect(() => {
     if (allowAllEnrolledRegisteredSemester) {
-      setValue("formCreateRequestDto.enrolledRegisteredSemesterList", []);
-      setValue("formCreateRequestDto.allowAllEnrolledRegisteredSemester", true);
+      setValue('formCreateRequestDto.enrolledRegisteredSemesterList', []);
+      setValue('formCreateRequestDto.allowAllEnrolledRegisteredSemester', true);
       if (!isAllowedEnrolled && !prevIsAllowedEnrolled) {
-        setValue("formCreateRequestDto.isAllowedEnrolled", true);
+        setValue('formCreateRequestDto.isAllowedEnrolled', true);
       }
     }
   }, [allowAllEnrolledRegisteredSemester]);
 
   const allowAllLeaveOfAbsenceRegisteredSemester = watch(
-    "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
+    'formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester',
   );
 
   useEffect(() => {
     if (allowAllLeaveOfAbsenceRegisteredSemester) {
-      setValue("formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList", []);
-      setValue(
-        "formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester",
-        true,
-      );
+      setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', []);
+      setValue('formCreateRequestDto.allowAllLeaveOfAbsenceRegisteredSemester', true);
       if (!isAllowedLeaveOfAbsence && !prevIsAllowedLeaveOfAbsence) {
-        setValue("formCreateRequestDto.isAllowedLeaveOfAbsence", true);
+        setValue('formCreateRequestDto.isAllowedLeaveOfAbsence', true);
       }
     }
   }, [allowAllLeaveOfAbsenceRegisteredSemester]);
@@ -315,10 +259,10 @@ export const useCreateApply = () => {
     }
   }, [fields, addSurveyForm]);
 
-  const postTitle = watch("title");
-  const postContent = watch("content");
-  const postIsAnonymous = watch("isAnonymous");
-  const postIsQuestion = watch("isQuestion");
+  const postTitle = watch('title');
+  const postContent = watch('content');
+  const postIsAnonymous = watch('isAnonymous');
+  const postIsQuestion = watch('isQuestion');
 
   useEffect(() => {
     if (isApply) {
@@ -331,10 +275,10 @@ export const useCreateApply = () => {
 
   useEffect(() => {
     if (!isApply) {
-      setValue("title", title);
-      setValue("content", content);
-      setValue("isAnonymous", isAnonymous);
-      setValue("isQuestion", isQuestion);
+      setValue('title', title);
+      setValue('content', content);
+      setValue('isAnonymous', isAnonymous);
+      setValue('isQuestion', isQuestion);
     }
   }, [title, content, isAnonymous, isQuestion]);
 

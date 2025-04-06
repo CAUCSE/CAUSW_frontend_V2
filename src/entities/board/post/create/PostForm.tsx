@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 interface PostFormProps {
   title: string;
@@ -32,7 +32,7 @@ export const PostForm = ({
               type="text"
               placeholder="제목"
               value={title}
-              onChange={(e) => onTitleChange(e.target.value)}
+              onChange={e => onTitleChange(e.target.value)}
               className="mb-2 w-full border-b-post-title-input border-black bg-transparent pb-2 text-[24px] placeholder:text-create-post-text focus:outline-none lg:p-2"
             />
           </div>
@@ -54,9 +54,7 @@ export const PostForm = ({
                 ></Image>
               )}
             </span>
-            <span
-              className={`text-[16px] ${isQuestion ? "text-checked-text" : "text-non-checked-text"} text-nowrap`}
-            >
+            <span className={`text-[16px] ${isQuestion ? 'text-checked-text' : 'text-non-checked-text'} text-nowrap`}>
               질문
             </span>
           </div>
@@ -78,29 +76,25 @@ export const PostForm = ({
                 ></Image>
               )}
             </span>
-            <span
-              className={`text-[16px] ${isAnonymous ? "text-checked-text" : "text-non-checked-text"} text-nowrap`}
-            >
+            <span className={`text-[16px] ${isAnonymous ? 'text-checked-text' : 'text-non-checked-text'} text-nowrap`}>
               익명
             </span>
           </div>
         </div>
       </div>
-      <div className={`relative ${isVote ? "h-60" : "h-full"}`}>
-        {content === "" && (
+      <div className={`relative ${isVote ? 'h-60' : 'h-full'}`}>
+        {content === '' && (
           <div className="pointer-events-none absolute inset-0 lg:p-2">
-            <span className="bg-transparent text-[20px] text-create-post-text lg:text-[24px]">
-              내용을 입력하세요!
-            </span>
+            <span className="bg-transparent text-[20px] text-create-post-text lg:text-[24px]">내용을 입력하세요!</span>
             <br />
             <span className="bg-transparent text-[16px] text-create-post-text lg:text-[20px]">
-              {"(게시글과 댓글은 작성 후에는 수정할 수 없습니다.)"}{" "}
+              {'(게시글과 댓글은 작성 후에는 수정할 수 없습니다.)'}{' '}
             </span>
           </div>
         )}
         <textarea
           value={content}
-          onChange={(e) => onContentChange(e.target.value)}
+          onChange={e => onContentChange(e.target.value)}
           className="h-full w-full resize-none bg-transparent p-2 text-[24px] placeholder:text-create-post-text focus:outline-none"
         />
       </div>

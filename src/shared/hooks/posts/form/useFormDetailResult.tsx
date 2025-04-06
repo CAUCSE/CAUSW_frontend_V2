@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { FormService } from "@/shared/hooks/services/FormService";
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
+
+import { FormService } from '@/shared/hooks/services/FormService';
 
 export const useFormDetailResult = () => {
   const params = useParams();
@@ -22,15 +23,8 @@ export const useFormDetailResult = () => {
   let totalDetailPage = 0;
 
   if (totalFormResult) {
-    responseUserInfos.push(
-      ...totalFormResult
-        .map((result) => result.replyResponseDtoPage.content)
-        .flat(),
-    );
-    totalDetailPage = totalFormResult.reduce(
-      (acc, result) => acc + result.replyResponseDtoPage.content.length,
-      0,
-    );
+    responseUserInfos.push(...totalFormResult.map(result => result.replyResponseDtoPage.content).flat());
+    totalDetailPage = totalFormResult.reduce((acc, result) => acc + result.replyResponseDtoPage.content.length, 0);
   }
 
   return {

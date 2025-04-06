@@ -1,5 +1,6 @@
-import { BarLoader } from "react-spinners";
-import { LoadingComponent } from "@/entities";
+import { BarLoader } from 'react-spinners';
+
+import { LoadingComponent } from '@/entities';
 
 const Loading = () => {
   return <LoadingComponent />;

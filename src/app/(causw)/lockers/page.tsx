@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { LockerInfoByFloorList, LockerListHeader } from "@/widget";
-
-import { LoadingComponent } from "@/entities";
-import { LockerService } from "@/shared";
+import { LoadingComponent } from '@/entities';
+import { LockerService } from '@/shared';
+import { LockerInfoByFloorList, LockerListHeader } from '@/widget';
 
 const LockerList = () => {
   const { useGetLockerLocations } = LockerService();

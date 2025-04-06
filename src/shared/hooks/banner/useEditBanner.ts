@@ -1,30 +1,26 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
+import { useRef, useState } from 'react';
 
-import { BannerService } from "@/shared/hooks/services/BannerService";
-import { bannerQueryKey } from "@/shared/configs/query-key";
-import toast from "react-hot-toast";
-import { useBannerStore } from "@/shared/hooks/stores/banner/useBannerStore";
-import { useQueryClient } from "@tanstack/react-query";
-import { useShallow } from "zustand/react/shallow";
+import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { useShallow } from 'zustand/react/shallow';
+
+import { bannerQueryKey } from '@/shared/configs/query-key';
+import { BannerService } from '@/shared/hooks/services/BannerService';
+import { useBannerStore } from '@/shared/hooks/stores/banner/useBannerStore';
 
 export const useEditBanner = () => {
-  const {
-    selectedBannerId,
-    selectedBannerImage,
-    selectedBannerUrl,
-    closeEditBannerModal,
-    resetSelectedBanner,
-  } = useBannerStore(
-    useShallow((state) => ({
-      selectedBannerId: state.selectedBannerId,
-      selectedBannerImage: state.selectedBannerImage,
-      selectedBannerUrl: state.selectedBannerUrl,
-      closeEditBannerModal: state.closeEditBannerModal,
-      resetSelectedBanner: state.resetSelectedBanner,
-    })),
-  );
+  const { selectedBannerId, selectedBannerImage, selectedBannerUrl, closeEditBannerModal, resetSelectedBanner } =
+    useBannerStore(
+      useShallow(state => ({
+        selectedBannerId: state.selectedBannerId,
+        selectedBannerImage: state.selectedBannerImage,
+        selectedBannerUrl: state.selectedBannerUrl,
+        closeEditBannerModal: state.closeEditBannerModal,
+        resetSelectedBanner: state.resetSelectedBanner,
+      })),
+    );
 
   const queryClient = useQueryClient();
   const { useCreateBanner, useUpdateBanner } = BannerService();
@@ -34,7 +30,7 @@ export const useEditBanner = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(selectedBannerImage);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [url, setUrl] = useState<string>(selectedBannerUrl || "");
+  const [url, setUrl] = useState<string>(selectedBannerUrl || '');
 
   const handleClickUploadImage = () => {
     if (!inputRef.current) {
@@ -68,7 +64,7 @@ export const useEditBanner = () => {
   const handleSubmit = () => {
     if (selectedBannerId) {
       if (!url) {
-        toast.error("URL을 입력해주세요.");
+        toast.error('URL을 입력해주세요.');
         return;
       }
       updateBanner({
@@ -80,18 +76,16 @@ export const useEditBanner = () => {
     }
 
     if (!selectedImage) {
-      toast.error("이미지를 선택해주세요.");
+      toast.error('이미지를 선택해주세요.');
       return;
     }
     if (!url) {
-      toast.error("URL을 입력해주세요.");
+      toast.error('URL을 입력해주세요.');
       return;
     }
-    const bannerList = queryClient.getQueryData<Banner.BannerListResponseDto>(
-      bannerQueryKey.list(),
-    );
+    const bannerList = queryClient.getQueryData<Banner.BannerListResponseDto>(bannerQueryKey.list());
     if (bannerList && bannerList.count >= 10) {
-      toast.error("이벤트 배너는 최대 10개까지 등록 가능합니다.");
+      toast.error('이벤트 배너는 최대 10개까지 등록 가능합니다.');
       return;
     }
     createBanner({

@@ -1,10 +1,6 @@
-import React from "react";
-import {
-  Path,
-  UseFormRegister,
-  RegisterOptions,
-  FieldValues,
-} from "react-hook-form";
+import React from 'react';
+
+import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface InputProps<T extends FieldValues> {
   register: UseFormRegister<T>;
@@ -15,13 +11,7 @@ interface InputProps<T extends FieldValues> {
   placeholder?: string;
 }
 
-export const FormInput = <T extends FieldValues>({
-  register,
-  name,
-  rules,
-  type,
-  placeholder,
-}: InputProps<T>) => (
+export const FormInput = <T extends FieldValues>({ register, name, rules, type, placeholder }: InputProps<T>) => (
   <input
     {...register(name, rules)}
     type={type}
@@ -39,12 +29,7 @@ export const FormSubmitButton = () => (
   </button>
 );
 
-export const SignInInput = <T extends FieldValues>({
-  register,
-  name,
-  rules,
-  ...rest
-}: InputProps<T>) => (
+export const SignInInput = <T extends FieldValues>({ register, name, rules, ...rest }: InputProps<T>) => (
   <input
     {...register(name, rules)}
     {...rest}

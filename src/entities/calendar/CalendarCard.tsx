@@ -1,8 +1,12 @@
-import { CardBox } from "@/entities/home";
-import DeleteIcon from "../../../public/icons/delete_icon.svg";
-import Image from "next/image";
-import { useCalendarStore } from "@/shared";
-import { useShallow } from "zustand/react/shallow";
+import Image from 'next/image';
+
+import { useShallow } from 'zustand/react/shallow';
+
+import { CardBox } from '@/entities/home';
+
+import { useCalendarStore } from '@/shared';
+
+import DeleteIcon from '../../../public/icons/delete_icon.svg';
 
 interface CalendarCardProps {
   id: string;
@@ -11,21 +15,15 @@ interface CalendarCardProps {
   month: number;
 }
 
-export const CalendarCard = ({
-  id,
-  imgSrc,
-  year,
-  month,
-}: CalendarCardProps) => {
-  const { openDeleteModal, setCalendarId, setCalendarYear, setCalendarMonth } =
-    useCalendarStore(
-      useShallow((state) => ({
-        openDeleteModal: state.openDeleteModal,
-        setCalendarId: state.setCalendarId,
-        setCalendarYear: state.setCalendarYear,
-        setCalendarMonth: state.setCalendarMonth,
-      })),
-    );
+export const CalendarCard = ({ id, imgSrc, year, month }: CalendarCardProps) => {
+  const { openDeleteModal, setCalendarId, setCalendarYear, setCalendarMonth } = useCalendarStore(
+    useShallow(state => ({
+      openDeleteModal: state.openDeleteModal,
+      setCalendarId: state.setCalendarId,
+      setCalendarYear: state.setCalendarYear,
+      setCalendarMonth: state.setCalendarMonth,
+    })),
+  );
 
   const handleDeleteCalendar = (id: string, year: number, month: number) => {
     setCalendarId(id);

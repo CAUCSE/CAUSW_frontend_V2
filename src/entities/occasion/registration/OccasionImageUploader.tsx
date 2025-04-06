@@ -1,5 +1,6 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+
+import React, { useState } from 'react';
 
 interface ImageUploaderProps {
   onUpload: (files: File[]) => void;
@@ -11,32 +12,26 @@ export const OccasionImageUploader = ({ onUpload }: ImageUploaderProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      const newFiles = Array.from(files).map((file) => ({
+      const newFiles = Array.from(files).map(file => ({
         file,
         url: URL.createObjectURL(file),
       }));
-      setPreviews((prev) => [...prev, ...newFiles]);
-      onUpload([...previews.map((item) => item.file), ...newFiles.map((item) => item.file)]);
+      setPreviews(prev => [...prev, ...newFiles]);
+      onUpload([...previews.map(item => item.file), ...newFiles.map(item => item.file)]);
     }
   };
 
   const handleRemove = (index: number) => {
     const updatedPreviews = previews.filter((_, i) => i !== index);
     setPreviews(updatedPreviews);
-    onUpload(updatedPreviews.map((item) => item.file));
+    onUpload(updatedPreviews.map(item => item.file));
   };
 
   return (
     <div className="flex flex-wrap gap-4">
       <label className="relative flex w-24 h-24 lg:h-32 lg:w-32 cursor-pointer items-center justify-center rounded-lg border border-gray-400">
         +
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleFileChange}
-          multiple
-        />
+        <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} multiple />
       </label>
       {previews.map((preview, index) => (
         <div key={index} className="relative">

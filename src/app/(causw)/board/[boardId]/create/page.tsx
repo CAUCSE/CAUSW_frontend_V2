@@ -1,11 +1,8 @@
-"use client";
+'use client';
 
-import {
-  CreatePostFooter,
-  FilePreview,
-  PostForm,
-  VotingForm,
-} from "@/entities";
+import React from 'react';
+
+import { CreatePostFooter, FilePreview, PostForm, VotingForm } from '@/entities';
 import {
   PreviousButton,
   useCreateApply,
@@ -13,10 +10,8 @@ import {
   useCreateVoteStore,
   useFileUpload,
   usePostForm,
-} from "@/shared";
-
-import { ApplyCreationForm } from "@/widget";
-import React from "react";
+} from '@/shared';
+import { ApplyCreationForm } from '@/widget';
 
 const CreatePostPage = () => {
   const {
@@ -49,17 +44,7 @@ const CreatePostPage = () => {
 
   const { selectedFiles } = useFileUpload();
 
-  const {
-    methods,
-    register,
-    watch,
-    errors,
-    fields,
-    remove,
-    handleSubmit,
-    addSurveyForm,
-    onSubmit,
-  } = useCreateApply();
+  const { methods, register, watch, errors, fields, remove, handleSubmit, addSurveyForm, onSubmit } = useCreateApply();
 
   const { handlePostSubmit, handleBack } = usePostForm();
 
@@ -110,9 +95,9 @@ const CreatePostPage = () => {
                   onAllowAnonymous={toggleAllowAnonymous}
                 />
               ) : (
-                ""
+                ''
               )}
-              {selectedFiles.length === 0 ? "" : <FilePreview />}
+              {selectedFiles.length === 0 ? '' : <FilePreview />}
             </>
           )}
         </div>

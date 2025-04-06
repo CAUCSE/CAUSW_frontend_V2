@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface ResponseFormStore {
   form: Post.FormResponseDto | null;
@@ -6,8 +6,8 @@ interface ResponseFormStore {
   clearForm: () => void;
 }
 
-export const useResponseFormStore = create<ResponseFormStore>((set) => ({
+export const useResponseFormStore = create<ResponseFormStore>(set => ({
   form: null,
-  setForm: (form) => set(() => ({ form })),
+  setForm: form => set(() => ({ form })),
   clearForm: () => set(() => ({ form: null })),
 }));

@@ -1,14 +1,17 @@
-"use client";
+'use client';
 
-import { VoteRscService, usePostStore, useVoteStore } from "@/shared";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-import Image from "next/image";
-import { PopupMenu } from "./PopupMenu";
-import VotingSection from "./VotingSection";
-import { useEffect } from "react";
-import { useState } from "react";
-import { ImageList } from "@/shared/ui/ImageList";
+import Image from 'next/image';
+import { useParams, useRouter } from 'next/navigation';
+
+import { ImageList } from '@/shared/ui/ImageList';
+
+import { usePostStore, useVoteStore, VoteRscService } from '@/shared';
+
+import { PopupMenu } from './PopupMenu';
+import VotingSection from './VotingSection';
 
 // 투표 / 사진 / 신청서??? 화면 이해가 진행되어야 할듯
 // ++ 이거 버튼 조금 요청해야할듯 2개 잇는 거 이해 안됨
@@ -47,21 +50,11 @@ export const PostCard = ({
   toggleMenu,
   isPopupVisible,
 }: PostCardProps) => {
-  const userImage = postData.isAnonymous
-    ? "/images/default_profile.png"
-    : postData.writerProfileImage;
+  const userImage = postData.isAnonymous ? '/images/default_profile.png' : postData.writerProfileImage;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupIndex, setPopupIndex] = useState<number | null>(null);
 
-  const {
-    vote,
-    totalVote,
-    voteOptions,
-    votedMostOptions,
-    castVote,
-    cancelVote,
-    endVote,
-  } = useVoteStore();
+  const { vote, totalVote, voteOptions, votedMostOptions, castVote, cancelVote, endVote } = useVoteStore();
 
   const handleCastVote = async (selectedOptions: string[]) => {
     try {
@@ -82,13 +75,12 @@ export const PostCard = ({
   const { boardId, postId } = params;
 
   const popMenuList = [
-    { message: "게시물 삭제", handleBtn: handlePostDelete },
+    { message: '게시물 삭제', handleBtn: handlePostDelete },
     ...(postData.isOwner && postData.isPostForm
       ? [
           {
-            message: "신청 현황 보기",
-            handleBtn: () =>
-              router.push(`/board/${boardId}/${postId}/formInfo/${formId}`),
+            message: '신청 현황 보기',
+            handleBtn: () => router.push(`/board/${boardId}/${postId}/formInfo/${formId}`),
           },
         ]
       : []),
@@ -101,20 +93,12 @@ export const PostCard = ({
           <PopupMenu PopupMenuChildren={popMenuList} />
         </div>
       )}
-      <button
-        className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
-        onClick={toggleMenu}
-      >
-        <Image
-          src="/images/post/comment-menu.svg"
-          alt="Comment Menu"
-          width={4}
-          height={4}
-        ></Image>
+      <button className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
+        <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
       </button>
       <div className="flex flex-row items-center p-2">
         <Image
-          src={userImage ?? "/images/default_profile.png"}
+          src={userImage ?? '/images/default_profile.png'}
           alt="Comment Profile"
           width={80}
           height={80}
@@ -122,8 +106,8 @@ export const PostCard = ({
         />
         <div className="flex flex-col items-start">
           <div className="flex items-center text-[16px] font-bold">
-            {" "}
-            {postData.isAnonymous ? "익명" : postData.writerNickname}
+            {' '}
+            {postData.isAnonymous ? '익명' : postData.writerNickname}
           </div>
           <div className="text-[14px] text-gray-500">{postData.updatedAt}</div>
         </div>
@@ -131,9 +115,7 @@ export const PostCard = ({
 
       <div className="flex w-full flex-col items-start px-3">
         <div className="w-full">
-          <div className="mb-2 select-text px-1 text-[24px] font-medium">
-            {postData.title}
-          </div>
+          <div className="mb-2 select-text px-1 text-[24px] font-medium">{postData.title}</div>
           <div className="mb-2 select-text whitespace-pre-line break-words px-1 pb-2 text-[16px]">
             {postData.content}
           </div>
@@ -144,13 +126,12 @@ export const PostCard = ({
               <VotingSection onVote={handleCastVote} />
             </div>
           ) : (
-            ""
+            ''
           )}
         </div>
 
         <div className="relative">
-        <ImageList images={postData.fileUrlList} imageSize={90} />
-
+          <ImageList images={postData.fileUrlList} imageSize={90} />
         </div>
       </div>
 
@@ -160,37 +141,22 @@ export const PostCard = ({
           className="flex items-center space-x-2 rounded-post-br bg-post-like p-1 px-3 text-[13px] text-post-like"
           onClick={handlePostLike}
         >
-          <Image
-            src="/images/post/like.svg"
-            alt="Like Icon"
-            width={20}
-            height={20}
-          ></Image>
-          <span>{numLike > 999 ? "999+" : numLike}</span>
+          <Image src="/images/post/like.svg" alt="Like Icon" width={20} height={20}></Image>
+          <span>{numLike > 999 ? '999+' : numLike}</span>
         </button>
         <button
           className="flex items-center space-x-2 rounded-post-br bg-post-star p-1 px-3 text-[13px] text-post-star"
           onClick={handlePostFavorite}
         >
-          <Image
-            src="/images/post/star.svg"
-            alt="Favorite Icon"
-            width={20}
-            height={20}
-          ></Image>
-          <span>{numFavorite > 999 ? "999+" : numFavorite}</span>
+          <Image src="/images/post/star.svg" alt="Favorite Icon" width={20} height={20}></Image>
+          <span>{numFavorite > 999 ? '999+' : numFavorite}</span>
         </button>
         <button
           className="flex items-center space-x-2 rounded-post-br bg-post-comment p-1 px-3 text-[13px] text-post-comment"
           onClick={handleCommentBtn}
         >
-          <Image
-            src="/images/post/comment.svg"
-            alt="Comment Icon"
-            width={20}
-            height={20}
-          ></Image>
-          <span>{numComment > 999 ? "999+" : numComment}</span>
+          <Image src="/images/post/comment.svg" alt="Comment Icon" width={20} height={20}></Image>
+          <span>{numComment > 999 ? '999+' : numComment}</span>
         </button>
         {isPostForm && (
           <button
@@ -199,12 +165,7 @@ export const PostCard = ({
               router.push(`/board/${boardId}/${postId}/${formId}`);
             }}
           >
-            <Image
-              src="/images/post/form.svg"
-              alt="Form Icon"
-              width={20}
-              height={20}
-            ></Image>
+            <Image src="/images/post/form.svg" alt="Form Icon" width={20} height={20}></Image>
             <span>form 작성</span>
           </button>
         )}

@@ -1,15 +1,9 @@
-"use client";
+'use client';
 
-import {
-  DetailToggleBtn,
-  ExcelDownloadBtn,
-  FormStatusToggleBtn,
-  LoadingComponent,
-  SummaryToggleBtn,
-} from "@/entities";
-import { FormService, useFormResultStore } from "@/shared";
+import { useParams } from 'next/navigation';
 
-import { useParams } from "next/navigation";
+import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, LoadingComponent, SummaryToggleBtn } from '@/entities';
+import { FormService, useFormResultStore } from '@/shared';
 
 export const FormResultHeader = () => {
   const params = useParams();
@@ -18,7 +12,7 @@ export const FormResultHeader = () => {
   const { useGetFormInfo } = FormService();
   const { isPending } = useGetFormInfo(formId as string);
 
-  const formData = useFormResultStore((state) => state.formData);
+  const formData = useFormResultStore(state => state.formData);
 
   if (isPending) {
     return <LoadingComponent />;
@@ -26,13 +20,9 @@ export const FormResultHeader = () => {
 
   return (
     <header>
-      <p className="absolute top-6 w-full text-center text-[18px] font-bold sm:hidden">
-        {formData?.title}
-      </p>
+      <p className="absolute top-6 w-full text-center text-[18px] font-bold sm:hidden">{formData?.title}</p>
       <div className="flex h-24 items-end justify-between pb-4 sm:flex-row">
-        <p className="hidden pl-4 text-3xl font-bold sm:block">
-          {formData?.title}
-        </p>
+        <p className="hidden pl-4 text-3xl font-bold sm:block">{formData?.title}</p>
         <div className="flex gap-2 sm:gap-4">
           <SummaryToggleBtn />
           <DetailToggleBtn />

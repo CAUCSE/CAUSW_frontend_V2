@@ -1,5 +1,6 @@
-import { Header, Line } from "@/entities";
-import Link from "next/link";
+import Link from 'next/link';
+
+import { Header, Line } from '@/entities';
 
 interface OccasionNotificationProps {
   state: string | undefined;
@@ -28,12 +29,11 @@ export const OccasionNotification = ({
   if (!state) {
     isFirstNavigation = true;
   } else if (navigation) {
-    isFirstNavigation =
-      navigation.findIndex((element) => element.state === state) === -1;
+    isFirstNavigation = navigation.findIndex(element => element.state === state) === -1;
   } else {
     isFirstNavigation = false;
   }
-  
+
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
       <Link href="/setting" className="mb-7 flex items-center text-lg">
@@ -45,20 +45,20 @@ export const OccasionNotification = ({
       </Header>
       <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
         <div
-          className={`mt-8 flex justify-start gap-12 px-4 ${navigation && navigation.length > 5 ? "mb-1 w-[1000px] justify-between" : navigation && navigation.length > 2 ? "mb-1 w-[600px] justify-between" : "mb-5 w-full justify-start"} flex-row md:mb-1 md:justify-start lg:w-full`}
+          className={`mt-8 flex justify-start gap-12 px-4 ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-start'} flex-row md:mb-1 md:justify-start lg:w-full`}
         >
           <Link
             href={firstNavigation.state}
-            className={`${isFirstNavigation ? "border-b-4 border-b-focus" : ""} h-18 text-xl`}
+            className={`${isFirstNavigation ? 'border-b-4 border-b-focus' : ''} h-18 text-xl`}
           >
             {firstNavigation.name}
           </Link>
           {navigation
-            ? navigation.map((element) => (
+            ? navigation.map(element => (
                 <Link
                   key={element.state}
                   href={element.state}
-                  className={`${state === element.state ? "border-b-4 border-b-focus" : ""} h-18 text-xl`}
+                  className={`${state === element.state ? 'border-b-4 border-b-focus' : ''} h-18 text-xl`}
                 >
                   {element.name}
                 </Link>
@@ -68,14 +68,13 @@ export const OccasionNotification = ({
       </div>
       <Line />
       <div className="ml-2 mt-6 flex flex-col">
-        {data.map((element) => (
+        {data.map(element => (
           <Link
             href={
               (isFirstNavigation
                 ? firstNavigation.router
-                : navigation!.find((element) => element.state === state)
-                    ?.router) +
-              "/" +
+                : navigation!.find(element => element.state === state)?.router) +
+              '/' +
               element.occasionId
             }
             className="mb-3 text-lg"

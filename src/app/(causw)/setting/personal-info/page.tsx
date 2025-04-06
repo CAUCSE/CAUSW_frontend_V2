@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { UserService, UserCouncilFeeService, userQueryKey } from "@/shared";
-import { useQuery } from "@tanstack/react-query";
-import { LoadingComponent } from "@/entities";
-import ProfileForm from "@/widget/setting/ProfileForm";
+import React, { useEffect, useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { LoadingComponent } from '@/entities';
+import { UserCouncilFeeService, userQueryKey, UserService } from '@/shared';
+import ProfileForm from '@/widget/setting/ProfileForm';
 
 const PersonalInfoPage = () => {
   const [feeInfo, setFeeInfo] = useState({
-    studentCouncilFeeStatus: "",
-    paidFeeSemesters: "",
-    remainingFeeSemesters: "",
+    studentCouncilFeeStatus: '',
+    paidFeeSemesters: '',
+    remainingFeeSemesters: '',
   });
 
   const { getUserCouncilFeeInfo } = UserCouncilFeeService();
@@ -36,18 +38,15 @@ const PersonalInfoPage = () => {
         const userCouncilFeeData = responseUserCouncilFeeData.data;
 
         setFeeInfo({
-          studentCouncilFeeStatus: userCouncilFeeData.isAppliedThisSemester
-            ? "O"
-            : "X",
+          studentCouncilFeeStatus: userCouncilFeeData.isAppliedThisSemester ? 'O' : 'X',
           paidFeeSemesters: `${userCouncilFeeData.numOfPaidSemester}학기`,
           remainingFeeSemesters: `${userCouncilFeeData.restOfSemester}학기`,
         });
       } catch (error: any) {
-        ;
         setFeeInfo({
-          studentCouncilFeeStatus: "X",
-          paidFeeSemesters: "0학기",
-          remainingFeeSemesters: "0학기",
+          studentCouncilFeeStatus: 'X',
+          paidFeeSemesters: '0학기',
+          remainingFeeSemesters: '0학기',
         });
       }
     };
