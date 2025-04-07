@@ -13,7 +13,7 @@ import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 import { ImageBackground, LoadingComponent, VideoBackground } from '@/entities';
 import '@/firebase-messaging-sw';
 import { onClickAlert } from '@/shared';
-import { AuthService, emailRegex, useLayoutStore, getRccRefresh } from '@/shared';
+import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
 
 const routes = [
   { name: '회원가입하기', route: '/auth/signup' },
