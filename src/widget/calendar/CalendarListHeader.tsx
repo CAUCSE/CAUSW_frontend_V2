@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import { CustomSelect, useCalendarStore } from "@/shared";
+import Link from 'next/link';
 
-import AddIcon from "../../../public/icons/add_icon.svg";
-import { CalendarAddModal } from "@/entities";
-import Link from "next/link";
-import { createPortal } from "react-dom";
-import { useShallow } from "zustand/react/shallow";
+import { createPortal } from 'react-dom';
+import { useShallow } from 'zustand/react/shallow';
+
+import { CalendarAddModal } from '@/entities';
+import { CustomSelect, useCalendarStore } from '@/shared';
+
+import AddIcon from '../../../public/icons/add_icon.svg';
 
 export const CalendarListHeader = () => {
   const { setCalendarYear, isAddModalOpen, openAddModal } = useCalendarStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       setCalendarYear: state.setCalendarYear,
       isAddModalOpen: state.isAddModalOpen,
       openAddModal: state.openAddModal,
@@ -38,11 +40,7 @@ export const CalendarListHeader = () => {
             <AddIcon />
           </button>
         </div>
-        <CustomSelect<number>
-          itemList={yearList}
-          suffix="년"
-          setSelectValue={setCalendarYear}
-        />
+        <CustomSelect<number> itemList={yearList} suffix="년" setSelectValue={setCalendarYear} />
         <>
           {createPortal(
             <button

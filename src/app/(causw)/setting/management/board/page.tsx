@@ -1,6 +1,5 @@
-import { SettingRscService } from "@/shared";
-
-import { Management } from "@/widget";
+import { SettingRscService } from '@/shared';
+import { Management } from '@/widget';
 
 const BoardManagement = async () => {
   const { getApplyBoards } = SettingRscService();
@@ -13,11 +12,11 @@ const BoardManagement = async () => {
         state={undefined}
         title="게시판 생성 신청 관리"
         firstNavigation={{
-          name: "생성 신청 게시판",
-          state: "",
-          router: "/setting/management/board",
+          name: '생성 신청 게시판',
+          state: '',
+          router: '/setting/management/board',
         }}
-        data={data.map((element) => ({
+        data={data.map(element => ({
           userName: element.boardName,
           studentId: element.id,
           id: element.id,

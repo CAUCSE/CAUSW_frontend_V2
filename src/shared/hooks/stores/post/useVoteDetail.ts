@@ -1,13 +1,12 @@
-"use client";
-import { useEffect, useState } from "react";
-import {
-  useVoteStore,
-  VoteRscService,
-} from "@/shared";
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import { useVoteStore, VoteRscService } from '@/shared';
 
 export const useVoteDetail = (voteId: string) => {
   const { getVoteById } = VoteRscService();
-  const { setVote, } = useVoteStore();
+  const { setVote } = useVoteStore();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -17,7 +16,6 @@ export const useVoteDetail = (voteId: string) => {
         const voteData = await getVoteById(voteId);
         setVote(voteData);
       } catch (error) {
-        ;
       } finally {
         setLoading(false); // 데이터 가져온 후 로딩 끝
       }
@@ -28,5 +26,5 @@ export const useVoteDetail = (voteId: string) => {
     }
   }, [voteId, setVote]);
 
-  return {loading};
+  return { loading };
 };

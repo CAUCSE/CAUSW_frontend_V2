@@ -87,15 +87,15 @@ declare namespace Form {
   }
 
   type AcademicStatusType =
-    | "ENROLLED"
-    | "LEAVE_OF_ABSENCE"
-    | "GRADUATED"
-    | "DROPPED_OUT"
-    | "PROBATION"
-    | "PROFESSOR"
-    | "UNDETERMINED";
+    | 'ENROLLED'
+    | 'LEAVE_OF_ABSENCE'
+    | 'GRADUATED'
+    | 'DROPPED_OUT'
+    | 'PROBATION'
+    | 'PROFESSOR'
+    | 'UNDETERMINED';
 
-  type GraduationYearType = "FEBRUARY" | "AUGUST";
+  type GraduationYearType = 'FEBRUARY' | 'AUGUST';
 
-  export type TResultView = "summary" | "detail";
+  export type TResultView = 'summary' | 'detail';
 }

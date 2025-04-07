@@ -1,7 +1,9 @@
-import { CalendarList, CalendarListHeader } from "@/widget";
+'use client';
+
+import { CalendarList, CalendarListHeader } from '@/widget';
 
 const CalendarSettingPage = () => {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return;
   }
 

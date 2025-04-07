@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
 interface PostSearchInputProps {
   handleInputTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -31,10 +31,7 @@ export const PostSearchInput = ({
             }
           }, [])}
         />
-        <button
-          className="w-36 rounded-3xl bg-red-500 text-white"
-          onClick={handleSearchButtonClick}
-        >
+        <button className="w-36 rounded-3xl bg-red-500 text-white" onClick={handleSearchButtonClick}>
           검색
         </button>
       </div>

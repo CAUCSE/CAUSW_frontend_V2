@@ -1,19 +1,15 @@
-import { SettingRscService } from "@/shared";
-import { convertDataToTableEntity } from "@/entities/home/setting/management/CouncilFeeManagementDetailEntities";
-import CouncilFeeDetail from "@/widget/CouncilFeeManagementDetail";
-export default async function CouncilFeeDetailPage({
-  params,
-}: {
-  params: { councilFeeId: string };
-}) {
+import { convertDataToTableEntity } from '@/entities/home/setting/management/CouncilFeeManagementDetailEntities';
+
+import { SettingRscService } from '@/shared';
+import CouncilFeeDetail from '@/widget/CouncilFeeManagementDetail';
+
+export default async function CouncilFeeDetailPage({ params }: { params: { councilFeeId: string } }) {
   const { councilFeeId } = params;
   const { getUserCouncilFeeInfo } = SettingRscService();
   let userCouncilFeeInfo: Setting.UserCouncilFeeInfoDTO | undefined;
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);
-  } catch (e) {
-    ;
-  }
+  } catch (e) {}
 
   return (
     <div className="mb-4">

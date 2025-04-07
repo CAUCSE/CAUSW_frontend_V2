@@ -1,28 +1,23 @@
-"use client";
+'use client';
 
-import { API, useFormResultStore, useResponseFormStore } from "@/shared";
-import { useEffect, useState } from "react";
-import {
-  useInfiniteQuery,
-  useMutation,
-  useQueries,
-  useQuery,
-} from "@tanstack/react-query";
+import { useEffect, useState } from 'react';
 
-import { formQueryKey } from "@/shared/configs/query-key/formQueryKey";
-import toast from "react-hot-toast";
-import { useShallow } from "zustand/react/shallow";
+import { useInfiniteQuery, useMutation, useQueries, useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { useShallow } from 'zustand/react/shallow';
+
+import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
+
+import { API, useFormResultStore, useResponseFormStore } from '@/shared';
 
 export const FormService = () => {
   const getFormResponseDto = async (formId: string) => {
-    const { data }: { data: Post.FormResponseDto } = await API.get(
-      `/api/v1/forms/${formId}`,
-    );
+    const { data }: { data: Post.FormResponseDto } = await API.get(`/api/v1/forms/${formId}`);
     return data;
   };
 
   const useGetFormResponseInfo = (formId: string) => {
-    const setForm = useResponseFormStore((state) => state.setForm);
+    const setForm = useResponseFormStore(state => state.setForm);
     const { data, isPending, isError, isSuccess } = useQueries({
       queries: [
         {
@@ -32,19 +27,17 @@ export const FormService = () => {
         {
           queryKey: formQueryKey.canReply(formId),
           queryFn: async () => {
-            const { data }: { data: boolean } = await API.get(
-              `/api/v1/forms/${formId}/can-reply`,
-            );
+            const { data }: { data: boolean } = await API.get(`/api/v1/forms/${formId}/can-reply`);
             return data;
           },
         },
       ],
-      combine: (results) => {
+      combine: results => {
         return {
-          data: results.map((result) => result.data),
-          isPending: results.some((result) => result.isPending),
-          isError: results.some((result) => result.isError),
-          isSuccess: results.every((result) => result.isSuccess),
+          data: results.map(result => result.data),
+          isPending: results.some(result => result.isPending),
+          isError: results.some(result => result.isError),
+          isSuccess: results.every(result => result.isSuccess),
         };
       },
     });
@@ -60,23 +53,17 @@ export const FormService = () => {
 
   const useSubmitFormReply = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [modalMessage, setModalMessage] = useState<string>("");
+    const [modalMessage, setModalMessage] = useState<string>('');
 
     const { mutate } = useMutation({
-      mutationFn: async ({
-        formId,
-        formData,
-      }: {
-        formId: string;
-        formData: Form.QuestionReplyRequestDtoList;
-      }) => {
+      mutationFn: async ({ formId, formData }: { formId: string; formData: Form.QuestionReplyRequestDtoList }) => {
         await API.post(`/api/v1/forms/${formId}`, JSON.stringify(formData));
       },
       onSuccess: () => {
-        setModalMessage("신청서 제출 완료");
+        setModalMessage('신청서 제출 완료');
       },
       onError: () => {
-        setModalMessage("신청 대상이 아니거나 이미 제출한 신청서입니다");
+        setModalMessage('신청 대상이 아니거나 이미 제출한 신청서입니다');
       },
       onSettled: () => {
         setModalOpen(true);
@@ -88,7 +75,7 @@ export const FormService = () => {
 
   const useGetFormInfo = (formId: string) => {
     const { formData, setFormData } = useFormResultStore(
-      useShallow((state) => ({
+      useShallow(state => ({
         formData: state.formData,
         setFormData: state.setFormData,
       })),
@@ -110,8 +97,7 @@ export const FormService = () => {
     return useQuery({
       queryKey: formQueryKey.summaryResult(formId),
       queryFn: async () => {
-        const { data }: { data: Form.QuestionSummaryResponseDto[] } =
-          await API.get(`/api/v1/forms/${formId}/summary`);
+        const { data }: { data: Form.QuestionSummaryResponseDto[] } = await API.get(`/api/v1/forms/${formId}/summary`);
         return data;
       },
     });
@@ -127,13 +113,11 @@ export const FormService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: (lastPage) => {
-        return lastPage.replyResponseDtoPage.last
-          ? null
-          : lastPage.replyResponseDtoPage.pageable.pageNumber + 1;
+      getNextPageParam: lastPage => {
+        return lastPage.replyResponseDtoPage.last ? null : lastPage.replyResponseDtoPage.pageable.pageNumber + 1;
       },
-      select: (results) => {
-        return results.pages.flatMap((result) => result);
+      select: results => {
+        return results.pages.flatMap(result => result);
       },
     });
   };
@@ -154,11 +138,11 @@ export const FormService = () => {
         );
       },
       onSuccess: () => {
-        toast.success("신청서 마감 상태 변경 완료");
+        toast.success('신청서 마감 상태 변경 완료');
         setFormClosedStatus(!formData?.isClosed);
       },
       onError: () => {
-        toast.error("신청서 마감 상태 변경 실패");
+        toast.error('신청서 마감 상태 변경 실패');
       },
     });
   };
@@ -167,12 +151,10 @@ export const FormService = () => {
     return useMutation({
       mutationFn: async ({ formId }: { formId: string }) => {
         API.get(`/api/v1/forms/${formId}/export`, {
-          responseType: "blob",
-        }).then((response) => {
-          const downloadUrl = window.URL.createObjectURL(
-            new Blob([response.data]),
-          );
-          const link = document.createElement("a");
+          responseType: 'blob',
+        }).then(response => {
+          const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
           link.href = downloadUrl;
           link.download = `form-${formId}-result.xlsx`;
           document.body.appendChild(link);
@@ -182,7 +164,7 @@ export const FormService = () => {
         });
       },
       onError: () => {
-        toast.error("엑셀 다운로드 실패");
+        toast.error('엑셀 다운로드 실패');
       },
     });
   };

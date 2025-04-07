@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { PostItemContent, PostItemStatusBar } from "@/entities";
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { PostItemContent, PostItemStatusBar } from '@/entities';
 
 interface PostItemProps {
   post: Post.PostResponseDto;
@@ -18,9 +18,7 @@ export const PostItem = ({ post, boardId, targetUrl }: PostItemProps) => {
     <div
       className="flex max-h-44 w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
       onClick={() => {
-        targetUrl
-          ? router.push(targetUrl)
-          : router.push(`/board/${boardId}/${post.id}`);
+        targetUrl ? router.push(targetUrl) : router.push(`/board/${boardId}/${post.id}`);
       }}
     >
       <div className="flex w-full flex-col">

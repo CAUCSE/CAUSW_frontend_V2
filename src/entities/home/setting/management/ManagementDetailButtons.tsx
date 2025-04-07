@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import { Button } from "@/shared";
-import { ManagementState } from "@/widget";
-import { uiEntities } from "./AdmissionManagementDetailEntities";
-import { useState } from "react";
-import { WarningModal } from "./WarningModal";
+import { useState } from 'react';
+
+import { Button } from '@/shared';
+import { ManagementState } from '@/widget';
+
+import { uiEntities } from './AdmissionManagementDetailEntities';
+import { WarningModal } from './WarningModal';
 
 export function AdmissionManagementDetailButtons({
   state,
@@ -14,7 +16,7 @@ export function AdmissionManagementDetailButtons({
   admission: Setting.GetAdmissionResponseDto;
 }) {
   const buttons = uiEntities[state].buttons;
-  const [isModalOpen, setIsModalOpen] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState('');
 
   return (
     <div className="flex gap-[20px] lg:gap-[50px]">
@@ -22,12 +24,12 @@ export function AdmissionManagementDetailButtons({
         <Button
           key={name}
           action={() => {
-            if (name === "목록에서 삭제") {
-              setIsModalOpen("DELETE");
-            } else if (name === "추방") {
-              setIsModalOpen("EXPEL");
-            } else if (name === "거부") {
-              setIsModalOpen("REJECT");
+            if (name === '목록에서 삭제') {
+              setIsModalOpen('DELETE');
+            } else if (name === '추방') {
+              setIsModalOpen('EXPEL');
+            } else if (name === '거부') {
+              setIsModalOpen('REJECT');
             } else {
               action(admission);
             }
@@ -39,11 +41,11 @@ export function AdmissionManagementDetailButtons({
           {name}
         </Button>
       ))}
-      {isModalOpen !== "" && (
+      {isModalOpen !== '' && (
         <WarningModal
           isOpen={true}
           onClose={() => {
-            setIsModalOpen("");
+            setIsModalOpen('');
           }}
           admission={admission}
           type={isModalOpen}

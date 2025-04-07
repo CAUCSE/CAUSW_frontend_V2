@@ -1,0 +1,66 @@
+name: Discord PR Notification
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up jq
+        run: sudo apt-get install jq
+
+      - name: Add Reviewers
+        id: add
+        env:
+          GITHUB_TOKEN: ${{ secrets.REVIEW_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          REPO: ${{ github.repository }}
+        run: |
+          # chore, hotfix로 시작하는지 확인
+          if [[ "$PR_BRANCH" == "develop" || "$PR_BRANCH" == "main" || "$PR_BRANCH" == chore* || "$PR_BRANCH" == hotfix*  ]]; then
+            echo "리뷰어를 자동으로 추가하지 않는 브랜치입니다."
+          else
+            # PR에 리뷰어 추가
+            TEAM_NAME="2025-front-end"
+            echo "리뷰어를 추가합니다."
+
+            # Github API를 사용하여 PR에 리뷰어 추가
+            response=$(curl -s -X POST \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/$REPO/pulls/$PR_NUMBER/requested_reviewers" \
+              -d "{\"team_reviewers\": [\"$TEAM_NAME\"]}")
+          fi
+
+      - name: Send Discord Notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.PR_BOT_WEBHOOK_URL }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          if [[ "$PR_BRANCH" == "develop" || "$PR_BRANCH" == "main" || "$PR_BRANCH" == chore* || "$PR_BRANCH" == hotfix*  ]]; then
+            echo "리뷰어를 자동으로 추가하지 않는 브랜치입니다."
+          else  
+            # Discord front-end 역할 ID
+            DISCORD_ROLE_ID="1351886402911998012"
+            
+            # Discord webhook URL
+            curl -X POST -H "Content-Type: application/json" -d '{
+              "content": "<@&'"$DISCORD_ROLE_ID"'> 새로운 PR이 생성되었습니다! 리뷰 부탁드립니다.",
+              "embeds": [
+                {
+                  "title": "'"$PR_TITLE"'",
+                  "url": "'"$PR_URL"'",
+                  "description": "작성자: **'"$PR_AUTHOR"'**\n"
+                }
+              ]
+            }' $DISCORD_WEBHOOK_URL
+          fi

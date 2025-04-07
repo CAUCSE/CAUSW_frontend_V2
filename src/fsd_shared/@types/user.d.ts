@@ -9,10 +9,10 @@ declare namespace User {
     admissionYear: number;
     profileImageUrl: string;
     roles: Role[];
-    state: "ACTIVE" | "INACTIVE" | "DROP" | "INACTIVE_N_DROP" | "AWAIT";
+    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT';
     nickname: string;
     studentId: string;
-    academicStatus: "ENROLLED" | "LEAVE_OF_ABSENCE" | "GRADUATED";
+    academicStatus: 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED';
     major: string;
     currentCompletedSemester: number | null;
     graduationYear: string | null;
@@ -28,19 +28,19 @@ declare namespace User {
   }
 
   export type Role =
-    | "ADMIN"
-    | "PRESIDENT"
-    | "VICE_PRESIDENT"
-    | "COUNCIL"
-    | "LEADER_1"
-    | "LEADER_2"
-    | "LEADER_3"
-    | "LEADER_4"
-    | "LEADER_CIRCLE"
-    | "LEADER_ALUMNI"
-    | "COMMON"
-    | "PROFESSOR"
-    | "NONE";
+    | 'ADMIN'
+    | 'PRESIDENT'
+    | 'VICE_PRESIDENT'
+    | 'COUNCIL'
+    | 'LEADER_1'
+    | 'LEADER_2'
+    | 'LEADER_3'
+    | 'LEADER_4'
+    | 'LEADER_CIRCLE'
+    | 'LEADER_ALUMNI'
+    | 'COMMON'
+    | 'PROFESSOR'
+    | 'NONE';
 
   // findByName
   export type FindByNameResponseDto = User[];
@@ -48,7 +48,7 @@ declare namespace User {
 
   // updateRole
   export interface UpdateRoleRequestDto {
-    role: User["role"];
+    role: User['role'];
     circleId?: string;
   }
 
@@ -119,8 +119,8 @@ declare namespace User {
 
   export type UpdateAccessTokenRequestDto =
     | {
-        accessToken: "string";
-        refreshToken: "string";
+        accessToken: 'string';
+        refreshToken: 'string';
       }
     | ApiErrorResponse;
 
@@ -163,16 +163,16 @@ declare namespace User {
 
   export interface CreateUserAcademicRecordApplicationRequestDto {
     targetAcademicStatus:
-      | "ENROLLED"
-      | "LEAVE_OF_ABSENCE"
-      | "GRADUATED"
-      | "DROPPED_OUT"
-      | "PROBATION"
-      | "PROFESSOR"
-      | "UNDETERMINED";
+      | 'ENROLLED'
+      | 'LEAVE_OF_ABSENCE'
+      | 'GRADUATED'
+      | 'DROPPED_OUT'
+      | 'PROBATION'
+      | 'PROFESSOR'
+      | 'UNDETERMINED';
     targetCompletedSemester: number | null;
     graduationYear: number | null;
-    graduationType: "FEBRUARY" | "AUGUST" | null;
+    graduationType: 'FEBRUARY' | 'AUGUST' | null;
     note: string;
     images: FileList | null;
   }
@@ -273,6 +273,32 @@ declare namespace User {
       totalElements: number;
       totalPages: number;
     };
+  }
+
+  export interface FindIdRequest {
+    studentId: string;
+    name: string;
+  }
+
+  export interface FindIdResponse {
+    email: string;
+  }
+
+  export interface FindPasswordRequest {
+    name: string;
+    studentId: string;
+    email: string;
+  }
+
+  export interface ResetPasswordRequest {
+    originPassword: string;
+    updatedPassword: string;
+  }
+
+  export interface ResetPasswordFormData {
+    originPassword: string;
+    updatedPassword: string;
+    confirmPassword: string;
   }
 
   //Store

@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-
 interface VoteState {
   vote: Post.VoteResponseDto;
   voteOptions: Post.VoteOptionDto[];
@@ -17,7 +16,7 @@ interface VoteState {
   //removeVoteUser: (optionId: string, userId: string) => void;
 }
 
-export const useVoteStore = create<VoteState>((set) => ({
+export const useVoteStore = create<VoteState>(set => ({
   vote: {
     voteId: '',
     title: '',
@@ -29,7 +28,7 @@ export const useVoteStore = create<VoteState>((set) => ({
     isEnd: false,
     hasVoted: false,
     totalVoteCount: 0,
-    totalUserCount:0.
+    totalUserCount: 0,
   },
   voteOptions: [],
   totalVote: 0, // 초기값은 0
@@ -50,11 +49,9 @@ export const useVoteStore = create<VoteState>((set) => ({
   },
 
   incrementVoteCount: (optionId: string) =>
-    set((state) => {
-      const newOptions = state.voteOptions.map((option) =>
-        option.id === optionId
-          ? { ...option, voteCount: option.voteCount + 1 }
-          : option
+    set(state => {
+      const newOptions = state.voteOptions.map(option =>
+        option.id === optionId ? { ...option, voteCount: option.voteCount + 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
       return {
@@ -66,14 +63,12 @@ export const useVoteStore = create<VoteState>((set) => ({
 
   // 특정 옵션에 대한 투표 수 감소
   decrementVoteCount: (optionId: string) =>
-    set((state) => {
-      const newOptions = state.voteOptions.map((option) =>
-        option.id === optionId && option.voteCount > 0
-          ? { ...option, voteCount: option.voteCount - 1 }
-          : option
+    set(state => {
+      const newOptions = state.voteOptions.map(option =>
+        option.id === optionId && option.voteCount > 0 ? { ...option, voteCount: option.voteCount - 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
-      
+
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
@@ -81,55 +76,47 @@ export const useVoteStore = create<VoteState>((set) => ({
       };
     }),
 
-  endVote: () => 
-    set((state) => ({
+  endVote: () =>
+    set(state => ({
       vote: { ...state.vote, isEnd: true },
     })),
 
-  restartVote: () => 
-    set((state) => ({
+  restartVote: () =>
+    set(state => ({
       vote: { ...state.vote, isEnd: false },
     })),
 
-  castVote: (optionIds: string[]) => 
-    set((state) => {
-      const newOptions = state.voteOptions.map((option) =>
-        optionIds.includes(option.id)
-          ? { ...option, voteCount: option.voteCount + 1 }
-          : option
+  castVote: (optionIds: string[]) =>
+    set(state => {
+      const newOptions = state.voteOptions.map(option =>
+        optionIds.includes(option.id) ? { ...option, voteCount: option.voteCount + 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
       const maxVoteCount = Math.max(...newOptions.map(option => option.voteCount));
-      const mostVotedOptions = newOptions
-        .filter(option => option.voteCount === maxVoteCount)
-        .map(option => option.id);
+      const mostVotedOptions = newOptions.filter(option => option.voteCount === maxVoteCount).map(option => option.id);
 
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: true, options: newOptions, totalUserCount: state.vote.totalUserCount + 1 },  // hasVoted를 true로 설정
+        vote: { ...state.vote, hasVoted: true, options: newOptions, totalUserCount: state.vote.totalUserCount + 1 }, // hasVoted를 true로 설정
       };
     }),
 
-    cancelVote: (optionIds: string[]) => 
-    set((state) => {
-      const newOptions = state.voteOptions.map((option) =>
-        optionIds.includes(option.id)
-          ? { ...option, voteCount: option.voteCount - 1 }
-          : option
+  cancelVote: (optionIds: string[]) =>
+    set(state => {
+      const newOptions = state.voteOptions.map(option =>
+        optionIds.includes(option.id) ? { ...option, voteCount: option.voteCount - 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
       const maxVoteCount = Math.max(...newOptions.map(option => option.voteCount));
-      const mostVotedOptions = newOptions
-        .filter(option => option.voteCount === maxVoteCount)
-        .map(option => option.id);
+      const mostVotedOptions = newOptions.filter(option => option.voteCount === maxVoteCount).map(option => option.id);
 
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: false, options: newOptions, totalUserCount: state.vote.totalUserCount - 1 },  // hasVoted를 true로 설정
+        vote: { ...state.vote, hasVoted: false, options: newOptions, totalUserCount: state.vote.totalUserCount - 1 }, // hasVoted를 true로 설정
       };
     }),
 

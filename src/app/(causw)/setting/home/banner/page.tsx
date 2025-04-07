@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { BannerList, BannerSettingHeader } from "@/widget";
-
-import { BannerService } from "@/shared";
-import { LoadingComponent } from "@/entities";
+import { LoadingComponent } from '@/entities';
+import { BannerService } from '@/shared';
+import { BannerList, BannerSettingHeader } from '@/widget';
 
 const EventSetting = () => {
   const { useGetBannerList } = BannerService();

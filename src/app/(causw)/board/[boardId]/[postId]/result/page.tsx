@@ -1,7 +1,9 @@
-"use client";
-import { PreviousButton, useVoteStore } from "@/shared";
-import { useVoteDetail } from "@/shared/hooks/stores/post/useVoteDetail";
-import { LoadingComponent } from "@/entities";
+'use client';
+
+import { useVoteDetail } from '@/shared/hooks/stores/post/useVoteDetail';
+
+import { LoadingComponent } from '@/entities';
+import { PreviousButton, useVoteStore } from '@/shared';
 
 const VoteStatusPage = () => {
   const { vote } = useVoteStore();
@@ -25,11 +27,7 @@ const VoteStatusPage = () => {
             </h2>
             {!vote.allowAnonymous && (
               <div className="grid grid-cols-4 gap-2 border-b-comment-bw border-dashed border-black py-2">
-                {option.voteUsers.length == 0 ? (
-                  <div className="h-[50px]"></div>
-                ) : (
-                  ""
-                )}
+                {option.voteUsers.length == 0 ? <div className="h-[50px]"></div> : ''}
                 {option.voteUsers.map((voter, voterIndex) => (
                   <span key={voterIndex} className="flex flex-row text-[20px]">
                     {`${voter.name}(${voter.studentId})`}
