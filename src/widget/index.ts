@@ -4,7 +4,6 @@ export { SideBar } from './SideBar';
 export { CircleMemberManagementDetail } from './CircleMemberManagementDetail';
 
 // Board
-export { BoardList } from './board/BoardList';
 export { BoardCreationForm } from './board/BoardCreationForm';
 export { BoardHeader } from './board/BoardHeader';
 export { BoardPostList } from './board/BoardPostList';
