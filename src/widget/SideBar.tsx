@@ -63,11 +63,6 @@ export const SideBar = () => {
           ></span>
           <span className="hidden text-xs text-black underline xl:block xl:text-sm">로그아웃</span>
         </div>
-        <div className="absolute left-12 top-0 flex flex-col items-center text-black xl:hidden">
-          <Link href="/occasion">
-            <span className="text-black-400 icon-[codicon--bell] text-2xl"></span>
-          </Link>
-        </div>
 
         <div className="max-xl:hidden">
           <ProfileImage src={profileImage} />
@@ -77,8 +72,44 @@ export const SideBar = () => {
           <SubHeader gray>{email}</SubHeader>
         </div>
 
-        <div className="xl:hidden">
-          <ProfileImage src={profileImage} />
+        <div className="mt-6 w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md max-xl:hidden">
+          <Link href="/occasion">
+            <div className="flex gap-2 pl-1 text-xl text-black">
+              <img src="/icons/ringing_bell.svg" alt="알림 아이콘" className="h-7.5 w-6 pt-1" />
+              <span>알림</span>
+            </div>
+          </Link>
+          <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
+            {[1, 2, 3, 4].map((_, index) => (
+              <li key={index} className="flex items-center gap-3 rounded-lg bg-white p-1">
+                <img src="/icons/unread_message.svg" alt="읽지 않은 알림 아이콘" className="h-6 w-6 pl-1 pt-1" />{' '}
+                <div className="flex flex-col text-sm text-gray-600">
+                  <p className="text-l text-black">학생회 공지 게시판</p>
+                  <p>새 게시물 공지입니다.</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-6 w-full rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md max-xl:hidden">
+          <Link href="/occasion">
+            <div className="flex gap-2 pl-1 text-xl text-black">
+              <img src="/icons/ringing_bell.svg" alt="알림 아이콘" className="h-7.5 w-6 pt-1" />
+              <span>최근 경조사 알림</span>
+            </div>
+          </Link>
+          <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
+            {[1, 2, 3, 4].map((_, index) => (
+              <li key={index} className="flex items-center gap-3 rounded-lg bg-white p-1">
+                <img src="/icons/unread_message.svg" alt="읽지 않은 알림 아이콘" className="h-6 w-6 pl-1 pt-1" />
+                <div className="flex flex-col text-sm text-gray-600">
+                  <p className="text-l text-black">졸업동(17) - 결혼</p>
+                  <p>2025.03.10 ~ 2025.03.11.</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </>
