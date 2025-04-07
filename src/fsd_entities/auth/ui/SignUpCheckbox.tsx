@@ -16,13 +16,13 @@ export const SignUpCheckbox = <T extends FieldValues>({ register, name, label, r
 
   return (
     <div>
-      <div className="flex items-center gap-2 mt-2">
-        <input type="checkbox" id={name} {...register(name, rules)} className="w-4 h-4" />
+      <div className="mt-2 flex items-center gap-2">
+        <input type="checkbox" id={name} {...register(name, rules)} className="h-4 w-4" />
         <label className="text-sm text-gray-700 underline" onClick={() => setIsModalOpen(true)}>
           {label}
         </label>
       </div>
-      {errorMessage && <span className="text-error text-sm">{errorMessage}</span>}
+      {errorMessage && <span className="text-sm text-error">{errorMessage}</span>}
       {isModalOpen && (
         <div>
           <UseTerms

@@ -13,7 +13,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 place-items-center lg:grid lg:grid-cols-2 gap-y-2 max-w-3xl w-full p-8">
+      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-y-2 p-8 lg:grid lg:grid-cols-2">
         <AuthInput
           register={register}
           name="email"

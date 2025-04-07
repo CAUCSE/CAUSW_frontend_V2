@@ -20,9 +20,9 @@ export const InfoTextArea = <T extends FieldValues>({
   maxLength = 500,
 }: Props<T>) => {
   return (
-    <div className="flex flex-col w-full mx-auto mb-6">
+    <div className="mx-auto mb-6 flex w-full flex-col">
       {label && (
-        <label htmlFor={name} className="text-lg font-semibold mb-2">
+        <label htmlFor={name} className="mb-2 text-lg font-semibold">
           {label}
         </label>
       )}
@@ -31,7 +31,7 @@ export const InfoTextArea = <T extends FieldValues>({
         id={name}
         placeholder={placeholder}
         maxLength={maxLength}
-        className="p-2 border border-gray-300 w-full rounded-md mb-1"
+        className="mb-1 w-full rounded-md border border-gray-300 p-2"
       />
       {errorMessage && <span className="text-error">{errorMessage}</span>}
     </div>

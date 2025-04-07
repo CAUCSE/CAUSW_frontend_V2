@@ -32,7 +32,7 @@ const VerificationPage: React.FC = () => {
         <VerificationHeader />
 
         {(admissionRejectMessage || academicRecordRejectMessage) && (
-          <p className="text-error font-bold break-words">
+          <p className="break-words font-bold text-error">
             {' '}
             {academicRecordRejectMessage === '' ? '가입 신청서' : '재학 증빙 서류'} 거절 사유 :{' '}
             {admissionRejectMessage || academicRecordRejectMessage}

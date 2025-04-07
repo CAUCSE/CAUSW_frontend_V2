@@ -36,7 +36,7 @@ export function CouncilFeeButtons({
     }
   };
   return (
-    <div className="flex justify-center mt-8 gap-[30px] lg:gap-[60px]">
+    <div className="mt-8 flex justify-center gap-[30px] lg:gap-[60px]">
       <Button
         key="닫기"
         action={() => {
@@ -81,10 +81,10 @@ export function CouncilFeeButtons({
       {isWarningModalOpen && (
         <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
-            <p className="font-bold text-md lg:text-xl text-red-500">정말 납부자 목록에서 삭제하시곘습니까?</p>
-            <p className="font-bold text-md lg:text-xl text-red-500">이 작업은 복구할 수 없습니다.</p>
+            <p className="text-md font-bold text-red-500 lg:text-xl">정말 납부자 목록에서 삭제하시곘습니까?</p>
+            <p className="text-md font-bold text-red-500 lg:text-xl">이 작업은 복구할 수 없습니다.</p>
 
-            <div className="flex space-x-8 p-4 m-4">
+            <div className="m-4 flex space-x-8 p-4">
               <Button
                 key="추방"
                 action={() => {

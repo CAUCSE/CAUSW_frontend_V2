@@ -132,7 +132,7 @@ const SignInPage = () => {
             </div>
           ))}
       </div>
-      <div className="flex absolute w-full bottom-3 md:bottom-5 justify-end">
+      <div className="absolute bottom-3 flex w-full justify-end md:bottom-5">
         <SignInFooter></SignInFooter>
       </div>
     </>

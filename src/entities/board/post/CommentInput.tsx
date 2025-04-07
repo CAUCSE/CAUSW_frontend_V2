@@ -32,21 +32,21 @@ export const CommentInput = ({ handleAddComment }: CommentInputProps) => {
   };
 
   return (
-    <div className="fixed flex items-center justify-center bottom-[70px] w-full px-3 xl:bottom-2 xl:left-40 xl:right-72 xl:mr-4 xl:w-auto">
-      <div className="flex flex-grow items-center justify-between p-4 bg-comment-input rounded-comment-input-br">
+    <div className="fixed bottom-[70px] flex w-full items-center justify-center px-3 xl:bottom-2 xl:left-40 xl:right-72 xl:mr-4 xl:w-auto">
+      <div className="flex flex-grow items-center justify-between rounded-comment-input-br bg-comment-input p-4">
         <div className="flex items-center space-x-2 pr-3">
           <input
             type="checkbox"
-            className="form-checkbox h-6 w-6 border-gray-300 border-2"
+            className="form-checkbox h-6 w-6 border-2 border-gray-300"
             checked={isAnonymous}
             onChange={e => setIsAnonymous(e.target.checked)}
           />
-          <div className="text-gray-400 text-[16px]">익명</div>
+          <div className="text-[16px] text-gray-400">익명</div>
         </div>
         <input
           type="text"
           placeholder="댓글을 입력해주세요!"
-          className="flex flex-grow bg-comment-input border-none outline-none text-black text-[16px] "
+          className="flex flex-grow border-none bg-comment-input text-[16px] text-black outline-none"
           value={commentContent}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

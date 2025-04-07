@@ -108,11 +108,11 @@ const SubmitAcademicRecordPage = ({
   };
 
   return (
-    <div className="p-6 bg-boardPageBackground min-h-screen">
+    <div className="min-h-screen bg-boardPageBackground p-6">
       <PreviousButton routeCallback={() => handleCancel()}></PreviousButton>
-      <div className="mt-8 mb-6">
+      <div className="mb-6 mt-8">
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
-        <p className="text-gray-600 hidden lg:block">
+        <p className="hidden text-gray-600 lg:block">
           재학 중일 시 학부 사무실, 동문회 등의 사업/행사 신청을 위한 증빙 절차입니다. 증빙이 되지 않으면 휴학/졸업이
           아닌 재학 중인 회원은 서비스 이용이 어렵습니다.
         </p>
@@ -121,10 +121,10 @@ const SubmitAcademicRecordPage = ({
       <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="grid grid-cols-1 gap-8">
         {/* 학적 상태 선택 */}
         <div className="flex flex-col">
-          <label className="text-lg font-semibold mb-2">본 학기 학적 상태</label>
+          <label className="mb-2 text-lg font-semibold">본 학기 학적 상태</label>
           <select
             {...register('targetAcademicStatus', { required: '학적 상태는 필수 항목입니다.' })}
-            className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+            className="mb-1 w-full rounded-md border border-gray-300 p-2 sm:w-1/3"
           >
             <option value="">-선택해주세요-</option>
             <option value="ENROLLED">재학</option>
@@ -140,10 +140,10 @@ const SubmitAcademicRecordPage = ({
         {/* N차 학기 선택 */}
         {academicStatus === 'ENROLLED' && (
           <div className="flex flex-col">
-            <label className="text-lg font-semibold mb-2">본 학기 기준 등록 완료 학기 차수</label>
+            <label className="mb-2 text-lg font-semibold">본 학기 기준 등록 완료 학기 차수</label>
             <select
               {...register('targetCompletedSemester', { required: '학기 차수는 필수 항목입니다.' })}
-              className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+              className="mb-1 w-full rounded-md border border-gray-300 p-2 sm:w-1/3"
             >
               <option value="">-선택해주세요-</option>
               <option value="1">1차 학기</option>
@@ -165,10 +165,10 @@ const SubmitAcademicRecordPage = ({
         {/* 졸업 년도 선택 */}
         {academicStatus === 'GRADUATED' && (
           <div className="flex flex-col">
-            <label className="text-lg font-semibold mb-2">졸업 년도</label>
+            <label className="mb-2 text-lg font-semibold">졸업 년도</label>
             <select
               {...register('graduationYear', { required: '졸업 년도 선택은 필수 항목입니다.' })}
-              className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+              className="mb-1 w-full rounded-md border border-gray-300 p-2 sm:w-1/3"
             >
               <option value="">-선택해주세요-</option>
               {yearOptions.map(option => (
@@ -184,10 +184,10 @@ const SubmitAcademicRecordPage = ({
         {/* 졸업 월 선택 */}
         {academicStatus === 'GRADUATED' && (
           <div className="flex flex-col">
-            <label className="text-lg font-semibold mb-2">졸업 월</label>
+            <label className="mb-2 text-lg font-semibold">졸업 월</label>
             <select
               {...register('graduationType', { required: '졸업 월 선택은 필수 항목입니다.' })}
-              className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+              className="mb-1 w-full rounded-md border border-gray-300 p-2 sm:w-1/3"
             >
               <option value="">-선택해주세요-</option>
               <option value="FEBRUARY">2월</option>
@@ -199,28 +199,28 @@ const SubmitAcademicRecordPage = ({
 
         {/* 특이사항 입력 */}
         <div className="flex flex-col">
-          <label className="text-lg font-semibold mb-2">유저 작성 특이사항</label>
+          <label className="mb-2 text-lg font-semibold">유저 작성 특이사항</label>
           <textarea
             {...register('note', { maxLength: 500, required: '특이사항을 작성해주세요.' })}
             placeholder="특이사항을 작성해주세요. ( 500자 이내 )"
-            className="p-2 border border-gray-300 rounded-md w-full mb-1"
+            className="mb-1 w-full rounded-md border border-gray-300 p-2"
           />
           {errors.note && <span className="text-red-500">{errors.note.message}</span>}
         </div>
         {/* 증빙 서류 제출 */}
         {academicStatus === 'ENROLLED' && (
           <div className="mb-2 mr-4 max-w-full">
-            <label className="block text-gray-700 sm:text-xl text-lg font-bold mb-2">학부 재적/졸업 증빙 자료</label>
-            <p className="text-md text-red-500 mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
-            <p className="text-md text-red-500 mb-2">(이외의 파일로는 재학 증빙이 불가능합니다.)</p>
-            <div className="flex items-center justify-left border-2 border-gray-300 rounded-lg p-4 overflow-auto w-full lg:w-4/6 mb-1">
-              <div className="w-32 h-32 border-2 border-gray-300 rounded-lg p-4 mr-4 flex-shrink-0 aspect-square">
+            <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">학부 재적/졸업 증빙 자료</label>
+            <p className="text-md mt-1 text-red-500">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
+            <p className="text-md mb-2 text-red-500">(이외의 파일로는 재학 증빙이 불가능합니다.)</p>
+            <div className="justify-left mb-1 flex w-full items-center overflow-auto rounded-lg border-2 border-gray-300 p-4 lg:w-4/6">
+              <div className="mr-4 aspect-square h-32 w-32 flex-shrink-0 rounded-lg border-2 border-gray-300 p-4">
                 <label
                   htmlFor="file-upload"
-                  className="cursor-pointer flex flex-col items-center justify-center h-full"
+                  className="flex h-full cursor-pointer flex-col items-center justify-center"
                 >
                   <svg
-                    className="w-12 h-12 text-gray-400"
+                    className="h-12 w-12 text-gray-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -257,25 +257,25 @@ const SubmitAcademicRecordPage = ({
               </div>
 
               {imagePreviews.length > 0 && (
-                <div className="flex flex-nowrap w-full gap-4 mb-2">
+                <div className="mb-2 flex w-full flex-nowrap gap-4">
                   {imagePreviews.map((preview, index) => (
                     <div
                       key={index}
-                      className="relative w-32 h-32 border-2 border-gray-300 rounded-lg overflow-hidden flex-shrink-0 aspect-square"
+                      className="relative aspect-square h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg border-2 border-gray-300"
                     >
                       <img
                         src={preview}
                         alt={`Preview ${index + 1}`}
-                        className="object-cover w-full h-full cursor-pointer"
+                        className="h-full w-full cursor-pointer object-cover"
                         onClick={() => handleImageClick(preview)}
                       />
                       <button
                         type="button"
-                        className="absolute top-0 right-0 mt-1 mr-1 bg-red-500 text-white rounded-full p-1"
+                        className="absolute right-0 top-0 mr-1 mt-1 rounded-full bg-red-500 p-1 text-white"
                         onClick={() => handleImageDelete(index)}
                       >
                         <svg
-                          className="w-4 h-4"
+                          className="h-4 w-4"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -302,11 +302,11 @@ const SubmitAcademicRecordPage = ({
         {/* 모달 */}
         {selectedImage && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10"
             onClick={closeImage}
           >
-            <div className="bg-white p-4 rounded-lg max-w-3xl max-h-full overflow-auto">
-              <img src={selectedImage} alt="Selected" className="object-contain w-full h-full" />
+            <div className="max-h-full max-w-3xl overflow-auto rounded-lg bg-white p-4">
+              <img src={selectedImage} alt="Selected" className="h-full w-full object-contain" />
             </div>
           </div>
         )}
@@ -314,13 +314,13 @@ const SubmitAcademicRecordPage = ({
         {/* 지난 제출 때 거절당했을 때 표시되는 모달 */}
         {rejectMessageModal && (
           <NoButtonModal closeModal={() => setRejectMessageModal(false)}>
-            <h1 className="font-bold mb-8">다음과 같은 이유로 재학 증빙 서류 제출이 거절되었습니다.</h1>
+            <h1 className="mb-8 font-bold">다음과 같은 이유로 재학 증빙 서류 제출이 거절되었습니다.</h1>
             <h1>거절 사유 : {rejectMessage}</h1>
           </NoButtonModal>
         )}
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="bg-focus text-white p-3 rounded-md w-2/3 lg:w-1/3 hover:bg-blue-400">
+          <button type="submit" className="w-2/3 rounded-md bg-focus p-3 text-white hover:bg-blue-400 lg:w-1/3">
             변경 사항 저장
           </button>
         </div>

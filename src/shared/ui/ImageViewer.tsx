@@ -45,10 +45,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
         {/* 이전 버튼 - 이미지 바깥쪽 */}
         {currentIndex > 0 && (
           <button
-            className="absolute left-0 -translate-x-full z-50 flex h-10 w-10 lg:h-14 lg:w-14 
-                       items-center justify-center rounded-full 
-                       bg-black/50 text-gray-500 text-3xl font-bold backdrop-blur-md 
-                       transition duration-300 hover:bg-black/70 hover:text-white"
+            className="absolute left-0 z-50 flex h-10 w-10 -translate-x-full items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
             onClick={prevImage}
           >
             {'<'}
@@ -56,7 +53,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
         )}
 
         {/* 이미지 */}
-        <div className="relative lg:min-w-[45vw] lg:min-h-[45vw] min-w-[80vw] min-h-[80vw] flex items-center justify-center">
+        <div className="relative flex min-h-[80vw] min-w-[80vw] items-center justify-center lg:min-h-[45vw] lg:min-w-[45vw]">
           <Image
             src={images[currentIndex]}
             alt="확대된 이미지"
@@ -70,10 +67,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
         {/* 다음 버튼 - 이미지 바깥쪽 */}
         {currentIndex < images.length - 1 && (
           <button
-            className="absolute right-0 translate-x-full z-50 flex h-10 w-10 lg:h-14 lg:w-14 
-                       items-center justify-center rounded-full 
-                       bg-black/50 text-gray-500 text-3xl font-bold backdrop-blur-md 
-                       transition duration-300 hover:bg-black/70 hover:text-white"
+            className="absolute right-0 z-50 flex h-10 w-10 translate-x-full items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
             onClick={nextImage}
           >
             {'>'}
@@ -83,9 +77,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
 
       {/* 닫기 버튼 */}
       <button
-        className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full 
-                   bg-black/50 text-gray-500 text-2xl font-bold backdrop-blur-md transition duration-300 
-                   hover:bg-black/70 hover:text-white"
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
         onClick={onClose}
       >
         ✕
@@ -93,9 +85,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
 
       {/* 다운로드 버튼 */}
       <button
-        className="absolute top-4 right-16 flex h-10 w-10 items-center justify-center rounded-full 
-                   bg-black/50 text-gray-500 text-2xl font-bold backdrop-blur-md transition duration-300 
-                   hover:bg-black/70 hover:text-white"
+        className="absolute right-16 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
         onClick={downloadImage}
       >
         ↓
