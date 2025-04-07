@@ -76,7 +76,6 @@ export { PortalModal } from './ui/PortalModal';
 
 //Boards
 
-export { useGetBoardList } from './hooks/boards/useGetBoardList';
 export { useCreateBoard } from './hooks/boards/useCreateBoard';
 
 //Custom Hooks

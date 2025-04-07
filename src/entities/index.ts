@@ -32,11 +32,6 @@ export { ObjectiveQuestionSummaryResult } from './board/form/ObjectiveQuestionSu
 export { SubjectiveQuestionSummaryResult } from './board/form/SubjectiveQuestionSummaryResult';
 export { DetailFormResultHeader } from './board/form/DetailFormResultHeader';
 
-export { Board } from './board/main/Board';
-export { DefaultBoard } from './board/main/DefaultBoard';
-export { EmptyContent } from './board/main/EmptyContent';
-export { CustomBoard } from './board/main/CustomBoard';
-
 export { PostCard } from './board/post/PostCard';
 export { CommentCard } from './board/post/CommentCard';
 export { ChildCommentCard } from './board/post/ChildCommentCard';

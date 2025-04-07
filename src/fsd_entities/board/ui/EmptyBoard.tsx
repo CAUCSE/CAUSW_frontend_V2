@@ -1,4 +1,4 @@
-export const EmptyContent = () => (
+export const EmptyBoard = () => (
   <ul className="divide-y-2 divide-transparent">
     <li className="py-2">　</li>
     <li className="py-2">게시물이 없습니다.</li>
