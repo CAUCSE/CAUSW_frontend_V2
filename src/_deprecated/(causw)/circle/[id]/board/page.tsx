@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import { CustomBoard } from '@/entities';
+import { CustomBoard } from '@/fsd_widgets/board/ui/CustomBoard';
+
 import { BoardRscService, CircleRscService } from '@/shared';
 
 const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {
