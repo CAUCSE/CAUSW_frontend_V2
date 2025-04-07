@@ -64,12 +64,22 @@ export const SideBar = () => {
           <span className="hidden text-xs text-black underline xl:block xl:text-sm">로그아웃</span>
         </div>
 
+        <div className="absolute left-12 top-0 flex flex-col items-center text-black xl:hidden">
+          <Link href="/occasion">
+            <span className="text-black-400 icon-[codicon--bell] text-2xl"></span>
+          </Link>
+        </div>
+
         <div className="max-xl:hidden">
           <ProfileImage src={profileImage} />
         </div>
         <div className="mr-2 flex flex-col items-end xl:mr-0 xl:items-center">
           <SubHeader big>{name}</SubHeader>
           <SubHeader gray>{email}</SubHeader>
+        </div>
+
+        <div className="xl:hidden">
+          <ProfileImage src={profileImage} />
         </div>
 
         <div className="mt-6 w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md max-xl:hidden">
