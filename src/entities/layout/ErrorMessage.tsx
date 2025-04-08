@@ -19,7 +19,7 @@ export const ErrorMessage = () => {
     <div
       className={`${
         errorMessage ? 'block' : 'hidden'
-      } w-72 fixed top-8 left-1/2 transform -translate-x-1/2 bg-error text-center text-white px-5 py-2.5 rounded shadow-md text-sm z-50 transition-opacity duration-500 md:w-80 md:text-base`}
+      } fixed left-1/2 top-8 z-50 w-72 -translate-x-1/2 transform rounded bg-error px-5 py-2.5 text-center text-sm text-white shadow-md transition-opacity duration-500 md:w-80 md:text-base`}
     >
       {errorMessage}
     </div>

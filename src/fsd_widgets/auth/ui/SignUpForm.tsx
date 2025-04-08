@@ -13,7 +13,7 @@ export const SignUpForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className="flex flex-col items-center justify-center gap-y-4 mt-8"
+      className="mt-8 flex flex-col items-center justify-center gap-y-4"
     >
       <PreviousButton variant="white"></PreviousButton>
       <Header bold>회원가입</Header>

@@ -13,7 +13,7 @@ export const FindPasswordForm = () => {
     isSuccess,
   } = useFindPasswordForm();
   return (
-    <div className="bg-boardPageBackground flex min-h-screen flex-col items-center justify-center px-4 sm:px-0">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-boardPageBackground px-4 sm:px-0">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
         <AuthInput
           name="name"
@@ -52,9 +52,9 @@ export const FindPasswordForm = () => {
         />
 
         {isSuccess ? (
-          <div className="w-full flex justify-center">
+          <div className="flex w-full justify-center">
             <button
-              className="flex items-center w-40 justify-center mt-6 h-10 rounded-lg bg-focus text-white hover:bg-blue-400 mb-4"
+              className="mb-4 mt-6 flex h-10 w-40 items-center justify-center rounded-lg bg-focus text-white hover:bg-blue-400"
               onClick={handleRouterToSignIn}
               type="button"
             >

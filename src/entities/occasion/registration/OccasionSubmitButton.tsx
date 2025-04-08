@@ -8,7 +8,7 @@ interface ButtonProps {
 export const OccasionSubmitButton = ({ label, onClick }: ButtonProps) => (
   <button
     onClick={onClick}
-    className="rounded-lg px-10 py-1 text-lg font-bold md:px-16 md:text-xl bg-focus py-2 text-black hover:bg-blue-400"
+    className="rounded-lg bg-focus px-10 py-1 py-2 text-lg font-bold text-black hover:bg-blue-400 md:px-16 md:text-xl"
   >
     {label}
   </button>
