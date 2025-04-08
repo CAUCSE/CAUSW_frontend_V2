@@ -2,8 +2,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 
-import { API } from '@/fsd_shared';
-import { useUserStore } from '@/shared';
+import { API } from '@/shared';
 
 const URI = '/api/v1/users';
 
@@ -68,8 +67,7 @@ export const getMyInfo = async () => {
 };
 
 export const getUserAdmissionInfo = async () => {
-  const response = await API.get(`${URI}/admissions/self`);
-  return response;
+  await API.get(`${URI}/admissions/self`);
 };
 
 export const checkCurrentAcademicStatus = async () => {
