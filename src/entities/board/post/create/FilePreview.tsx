@@ -12,26 +12,26 @@ export const FilePreview = React.memo(() => {
   };
 
   return (
-    <div className="h-full w-full border-t-comment-bw border-file-preview-border pt-6 grid grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+    <div className="mt-4 grid h-full w-full grid-cols-3 gap-4 border-t-comment-bw border-file-preview-border pt-6 lg:grid-cols-6">
       {selectedFiles.map((file, index) => (
         <div
           key={index}
-          className="relative w-24 h-24 lg:w-32 lg:h-32 w-min-20 h-min-20 bg-center bg-cover border border-black"
+          className="w-min-20 h-min-20 relative h-24 w-24 border border-black bg-cover bg-center lg:h-32 lg:w-32"
         >
           {isImageFile(file.name) ? (
             <div
-              className="w-full h-full bg-cover bg-center"
+              className="h-full w-full bg-cover bg-center"
               style={{ backgroundImage: `url(${URL.createObjectURL(file)})` }}
             />
           ) : (
-            <div className="flex flex-col items-center justify-center w-24 h-24 lg:w-32 lg:h-32 w-min-20 h-min-20 border border-black p-2 space-y-2">
+            <div className="w-min-20 h-min-20 flex h-24 w-24 flex-col items-center justify-center space-y-2 border border-black p-2 lg:h-32 lg:w-32">
               <Image src="/images/post/file-icon.svg" alt={file.name} width={30} height={30} />
               <span className="text-[10px]">{file.name}</span>
             </div>
           )}
           {/* 파일 제거 버튼 */}
           <button
-            className="absolute top-1 right-1 bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center"
+            className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
             onClick={() => removeFile(index)} // 파일 제거 함수 호출
           >
             &times;

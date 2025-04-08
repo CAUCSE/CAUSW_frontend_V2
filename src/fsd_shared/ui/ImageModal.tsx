@@ -10,10 +10,10 @@ interface ImageModalProps {
 export const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose }) => {
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
       onClick={onClose} // 모달 외부 클릭하면 닫힘
     >
-      <div className="relative w-[400px] h-[600px] lg:w-[500px] lg:h-[600px]">
+      <div className="relative h-[600px] w-[400px] lg:h-[600px] lg:w-[500px]">
         {/* 이미지 */}
         <Image
           src={imageUrl}

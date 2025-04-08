@@ -69,7 +69,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
               </div>
               <button
                 onClick={() => (window.location.href = '/setting/personal-info/update-academic-record')}
-                className="mb-2 mr-2 w-full rounded-md border border-gray-300 bg-focus p-2 text-center text-white lg:w-5/6 hover:bg-blue-400"
+                className="mb-2 mr-2 w-full rounded-md border border-gray-300 bg-focus p-2 text-center text-white hover:bg-blue-400 lg:w-5/6"
               >
                 학적 상태 수정
               </button>

@@ -5,10 +5,10 @@ export const StatusButton: React.FC<User.StatusButtonProps> = ({ status, message
   const content = messages[status];
 
   return isButton ? (
-    <button onClick={onClick} className={`w-full rounded-lg py-3 text-white transition mt-4 ${backgroundColor}`}>
+    <button onClick={onClick} className={`mt-4 w-full rounded-lg py-3 text-white transition ${backgroundColor}`}>
       {content}
     </button>
   ) : (
-    <div className={`w-full rounded-lg py-3 text-white transition mt-4 ${backgroundColor}`}>{content}</div>
+    <div className={`mt-4 w-full rounded-lg py-3 text-white transition ${backgroundColor}`}>{content}</div>
   );
 };

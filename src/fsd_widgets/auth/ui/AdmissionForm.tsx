@@ -17,10 +17,10 @@ export const AdmissionForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className="min-h-screen h-full bg-boardPageBackground flex flex-col items-left justify-left gap-y-4 p-8 sm:p-16"
+      className="items-left justify-left flex h-full min-h-screen flex-col gap-y-4 bg-boardPageBackground p-8 sm:p-16"
     >
       <PreviousButton></PreviousButton>
-      <h1 className="text-2xl font-bold mt-8 sm:mt-4">가입 신청서 작성</h1>
+      <h1 className="mt-8 text-2xl font-bold sm:mt-4">가입 신청서 작성</h1>
       <FixedInput register={register} name="email" label="이메일" value={email} />
       <InfoTextArea
         register={register}
@@ -36,7 +36,7 @@ export const AdmissionForm = () => {
         label="증빙 서류 업로드"
         errorMessage={errors.attachImage?.message}
       >
-        <p className="text-md text-error mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
+        <p className="text-md mt-1 text-error">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
       </ImageUploadField>
       <AuthFormSubmitButton content="제출" />
     </form>

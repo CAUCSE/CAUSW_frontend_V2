@@ -11,6 +11,6 @@ export const OccasionTextArea = ({ placeholder, value, onChange }: TextAreaProps
     placeholder={placeholder}
     value={value}
     onChange={e => onChange(e.target.value)}
-    className="w-full h-64 rounded-2xl border border-gray-300 p-2"
+    className="h-64 w-full rounded-2xl border border-gray-300 p-2"
   />
 );
