@@ -4,24 +4,79 @@ import { useEffect } from 'react';
 
 import Link from 'next/link';
 
-import { ProfileImage, SubHeader } from '@/entities';
-import { AuthRscService, useLayoutStore, UserService, useUserStore } from '@/shared';
+import axios, { AxiosResponse } from 'axios';
+import { create } from 'zustand';
 
-interface NotificationItemProps {
+import { ProfileImage, SubHeader } from '@/entities';
+import { AuthRscService, BASEURL, setRscHeader, useLayoutStore, UserService, useUserStore } from '@/shared';
+
+interface Notification {
+  targetId: string;
   title: string;
-  timeInfo: string;
+  noticeType: string;
+  body: string;
+  isRead: boolean;
+  notificationLogId: string;
 }
 
-const NotificationItem: React.FC<NotificationItemProps> = ({ title, timeInfo }) => {
-  return (
-    <div className="flex items-center rounded-lg border border-gray-300 bg-gray-50 p-3 shadow">
-      <div className="mr-3 text-xl text-yellow-400">📝</div>
-      <div>
-        <p className="text-sm font-medium">{title}</p>
-        <p className="text-xs text-gray-500">{timeInfo}</p>
-      </div>
-    </div>
-  );
+interface NotificationState {
+  notifications: Notification[];
+  ceremonyNotifications: Notification[];
+  loadNotifications: () => Promise<void>;
+  loadCeremonyNotifications: () => Promise<void>;
+  markAsRead: (id: string) => Promise<void>;
+}
+
+const NotificationService = {
+  getNotifications: async (): Promise<Notification[]> => {
+    const URI = `${BASEURL}/api/v1/notifications/log/general/top4`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Notification[]> = await axios.get(URI, {
+        headers,
+      });
+      console.log('헤더', headers);
+
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch notifications');
+      }
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getCeremonyNotifications: async (): Promise<Notification[]> => {
+    const URI = `${BASEURL}/api/v1/notifications/log/ceremony/top4`;
+
+    try {
+      const headers = await setRscHeader();
+      const response: AxiosResponse<Notification[]> = await axios.get(URI, {
+        headers,
+      });
+
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch ceremony notifications');
+      }
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  markAsRead: async (id: string): Promise<void> => {
+    const URI = `${BASEURL}/api/v1/notifications/log/isRead/${id}`;
+
+    try {
+      const headers = await setRscHeader();
+      await axios.post(URI, {}, { headers });
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 const notifications = [
