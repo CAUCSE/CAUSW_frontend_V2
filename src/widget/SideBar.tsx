@@ -79,16 +79,47 @@ const NotificationService = {
   },
 };
 
-const notifications = [
-  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
-  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
-  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
-  { title: '홍길동(17) - 결혼', timeInfo: '2025.03.01' },
-]; // 나중에 api 호출 받아오는 걸로 변경
+const useNotificationStore = create<NotificationState>(set => ({
+  notifications: [],
+  ceremonyNotifications: [],
+
+  loadNotifications: async () => {
+    try {
+      const notifications = await NotificationService.getNotifications();
+      set({ notifications });
+    } catch (error) {
+      console.error('일반 알림 불러오기 실패:', error);
+    }
+  },
+
+  loadCeremonyNotifications: async () => {
+    try {
+      const ceremonyNotifications = await NotificationService.getCeremonyNotifications();
+      set({ ceremonyNotifications });
+    } catch (error) {
+      console.error('경조사 알림 불러오기 실패:', error);
+    }
+  },
+
+  markAsRead: async (id: string) => {
+    try {
+      await NotificationService.markAsRead(id);
+      set(state => ({
+        notifications: state.notifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
+        ceremonyNotifications: state.ceremonyNotifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
+      }));
+      console.log('알림 읽음 처리 성공:', id);
+    } catch (error) {
+      console.error('알림 읽음 처리 실패:', error);
+    }
+  },
+}));
 
 export const SideBar = () => {
   const { getMe } = UserService();
   const { signout } = AuthRscService();
+  const { notifications, ceremonyNotifications, loadNotifications, loadCeremonyNotifications, markAsRead } =
+    useNotificationStore();
 
   const md = useLayoutStore(state => state.md);
   const sm = useLayoutStore(state => state.sm);
@@ -104,6 +135,11 @@ export const SideBar = () => {
 
   useEffect(() => {
     getMe();
+  }, []);
+
+  useEffect(() => {
+    loadNotifications();
+    loadCeremonyNotifications();
   }, []);
 
   return (
