@@ -181,13 +181,19 @@ export const SideBar = () => {
             </div>
           </Link>
           <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
-            {[1, 2, 3, 4].map((_, index) => (
-              <li key={index} className="flex items-center gap-3 rounded-lg bg-white p-1">
+            {notifications.map((notification, index) => (
+              <li key={index} className="rounded-lg bg-white p-1">
+                <Link
+                  href={`/setting/notification/alarm/${notification.notificationLogId}`}
+                  className="flex items-center gap-3"
+                  onClick={() => markAsRead(notification.notificationLogId)}
+                >
                 <img src="/icons/unread_message.svg" alt="읽지 않은 알림 아이콘" className="h-6 w-6 pl-1 pt-1" />{' '}
                 <div className="flex flex-col text-sm text-gray-600">
-                  <p className="text-l text-black">학생회 공지 게시판</p>
-                  <p>새 게시물 공지입니다.</p>
+                    <p className="text-l text-black">{notification.title}</p>
+                    <p>{notification.body}</p>
                 </div>
+                </Link>
               </li>
             ))}
           </ul>
