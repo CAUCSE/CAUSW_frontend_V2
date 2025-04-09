@@ -207,13 +207,19 @@ export const SideBar = () => {
             </div>
           </Link>
           <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
-            {[1, 2, 3, 4].map((_, index) => (
-              <li key={index} className="flex items-center gap-3 rounded-lg bg-white p-1">
-                <img src="/icons/unread_message.svg" alt="읽지 않은 알림 아이콘" className="h-6 w-6 pl-1 pt-1" />
+            {ceremonyNotifications.map((ceremony, index) => (
+              <li key={index} className="rounded-lg bg-white p-1">
+                <Link
+                  href={`/setting/notification/occasion/${ceremony.notificationLogId}`}
+                  className="flex items-center gap-3"
+                  onClick={() => markAsRead(ceremony.notificationLogId)}
+                >
+                  <img src="/icons/unread_message.svg" alt="읽지 않은 알림 아이콘" className="h-6 w-6 pl-1 pt-1" />{' '}
                 <div className="flex flex-col text-sm text-gray-600">
-                  <p className="text-l text-black">졸업동(17) - 결혼</p>
-                  <p>2025.03.10 ~ 2025.03.11.</p>
+                    <p className="text-l text-black">{ceremony.title}</p>
+                    <p>{ceremony.body}</p>
                 </div>
+                </Link>
               </li>
             ))}
           </ul>
