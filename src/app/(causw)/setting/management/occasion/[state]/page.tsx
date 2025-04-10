@@ -13,19 +13,7 @@ const navigation: {
   router: string;
 }[] = [];
 
-type TOccasion = {
-  occasionTitle: string;
-  occasionId: string;
-};
-
 const Occasion = ({ params: { state } }: { params: { state: string } }) => {
-  // TODO 경조사 가져오는 로직 연동 필요
-  const data: TOccasion[] = [
-    {
-      occasionTitle: '테스트 경조사',
-      occasionId: '1',
-    },
-  ];
   let isFirstNavigation;
   if (!state) {
     isFirstNavigation = true;
@@ -40,7 +28,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
       title="경조사 등록 신청 관리"
       firstNavigation={firstNavigation}
       navigation={navigation}
-      data={data}
+      isFirstNavigation={isFirstNavigation}
     />
   );
 };

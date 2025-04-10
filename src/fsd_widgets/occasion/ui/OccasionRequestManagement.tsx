@@ -15,17 +15,8 @@ export const OccasionRequestManagement = ({
   title,
   firstNavigation,
   navigation,
-  data,
+  isFirstNavigation,
 }: OccasionRequestManagementProps) => {
-  let isFirstNavigation;
-  if (!state) {
-    isFirstNavigation = true;
-  } else if (navigation) {
-    isFirstNavigation = navigation.findIndex(element => element.state === state) === -1;
-  } else {
-    isFirstNavigation = false;
-  }
-
   const [ceremonyList, setCeremonyList] = useState<any[]>([]);
 
   useEffect(() => {
@@ -65,19 +56,19 @@ export const OccasionRequestManagement = ({
       </div>
       <Line />
       <div className="ml-2 mt-6 flex flex-col">
-        {data.map(element => (
+        {ceremonyList.map(element => (
           <Link
             href={
               (isFirstNavigation
                 ? firstNavigation.router
                 : navigation!.find(element => element.state === state)?.router) +
               '/' +
-              element.occasionId
+              element.id
             }
             className="mb-3 text-lg"
-            key={element.occasionId}
+            key={element.id}
           >
-            {element.occasionTitle}
+            {element.description}
           </Link>
         ))}
       </div>
