@@ -6,23 +6,9 @@ import Link from 'next/link';
 
 import { getCeremonyAwaitList } from '@/fsd_entities/ocaasion/api/get';
 
-import { Header, Line } from '@/fsd_shared';
+import { MESSAGES } from '@/fsd_shared/configs/constants';
 
-interface OccasionRequestManagementProps {
-  state: string | undefined;
-  title: string;
-  firstNavigation: {
-    name: string;
-    state: string;
-    router: string;
-  };
-  navigation?: {
-    name: string;
-    state: string;
-    router: string;
-  }[];
-  data: { occasionTitle: string; occasionId: string }[];
-}
+import { Header, Line } from '@/fsd_shared';
 
 export const OccasionRequestManagement = ({
   state,
@@ -60,7 +46,7 @@ export const OccasionRequestManagement = ({
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
       <Link href="/setting" className="mb-7 flex items-center text-lg">
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
-        이전
+        {MESSAGES.PREVIOUS_BUTTON_TEXT}
       </Link>
       <Header bold big>
         {title}
