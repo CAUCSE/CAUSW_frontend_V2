@@ -1,4 +1,4 @@
-import { OccasionManagement } from '@/widget';
+import { OccasionRequestManagement } from '@/fsd_widgets/occasion/ui';
 
 const firstNavigation = {
   name: '등록 신청 경조사',
@@ -35,7 +35,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
     isFirstNavigation = false;
   }
   return (
-    <OccasionManagement
+    <OccasionRequestManagement
       state={state}
       title="경조사 등록 신청 관리"
       firstNavigation={firstNavigation}
