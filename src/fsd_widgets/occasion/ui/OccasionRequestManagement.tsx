@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { getCeremonyAwaitList } from '@/fsd_entities/ocaasion/api/get';
 
-import { MESSAGES } from '@/fsd_shared/configs/constants';
+import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared/configs/constants';
 
 import { Header, Line } from '@/fsd_shared';
 
@@ -34,7 +34,7 @@ export const OccasionRequestManagement = ({
         console.log('result', result);
         setCeremonyList(result);
       } catch (error) {
-        throw new Error(`경조사 목록을 받아올 수 없습니다.`);
+        throw new Error(ERROR_MESSAGES.OCCASION_LIST_FETCH_FAIL);
       }
     };
 

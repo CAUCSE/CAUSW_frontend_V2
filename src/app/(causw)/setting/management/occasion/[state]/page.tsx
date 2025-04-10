@@ -1,5 +1,7 @@
 import { OccasionRequestManagement } from '@/fsd_widgets/occasion/ui';
 
+import { MESSAGES } from '@/fsd_shared/configs/constants';
+
 const firstNavigation = {
   name: '등록 신청 경조사',
   state: 'request',
@@ -25,7 +27,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
   return (
     <OccasionRequestManagement
       state={state}
-      title="경조사 등록 신청 관리"
+      title={MESSAGES.OCCASION.TITLE}
       firstNavigation={firstNavigation}
       navigation={navigation}
     />
