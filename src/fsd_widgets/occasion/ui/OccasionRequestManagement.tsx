@@ -10,15 +10,23 @@ import { MESSAGES } from '@/fsd_shared/configs/constants';
 
 import { Header, Line } from '@/fsd_shared';
 
+import { OccasionList } from './OccasionList';
+
 export const OccasionRequestManagement = ({
   state,
   title,
   firstNavigation,
   navigation,
-  isFirstNavigation,
 }: OccasionRequestManagementProps) => {
   const [ceremonyList, setCeremonyList] = useState<any[]>([]);
-
+  let isFirstNavigation;
+  if (!state) {
+    isFirstNavigation = true;
+  } else if (navigation) {
+    isFirstNavigation = navigation.findIndex(element => element.state === state) === -1;
+  } else {
+    isFirstNavigation = false;
+  }
   useEffect(() => {
     const fetchCeremonyList = async () => {
       try {
@@ -54,24 +62,10 @@ export const OccasionRequestManagement = ({
           </Link>
         </div>
       </div>
+
       <Line />
-      <div className="ml-2 mt-6 flex flex-col">
-        {ceremonyList.map(element => (
-          <Link
-            href={
-              (isFirstNavigation
-                ? firstNavigation.router
-                : navigation!.find(element => element.state === state)?.router) +
-              '/' +
-              element.id
-            }
-            className="mb-3 text-lg"
-            key={element.id}
-          >
-            {element.description}
-          </Link>
-        ))}
-      </div>
+
+      <OccasionList list={ceremonyList} firstNavigation={firstNavigation} navigation={navigation} state={state} />
     </div>
   );
 };

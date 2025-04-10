@@ -28,7 +28,6 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
       title="경조사 등록 신청 관리"
       firstNavigation={firstNavigation}
       navigation={navigation}
-      isFirstNavigation={isFirstNavigation}
     />
   );
 };
