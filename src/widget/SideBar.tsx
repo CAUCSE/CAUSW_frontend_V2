@@ -5,8 +5,11 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import { toast } from 'react-hot-toast';
 import { create } from 'zustand';
+
+import { API, getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
 import { ProfileImage, SubHeader } from '@/entities';
 import { AuthRscService, BASEURL, UserService, useUserStore } from '@/shared';
@@ -36,11 +39,11 @@ const NotificationService = {
     const URI = `${BASEURL}/api/v1/notifications/log/general/top4`;
 
     try {
-      const headers = await setRscHeader();
-      const response: AxiosResponse<Notification[]> = await axios.get(URI, {
-        headers,
+      const response: AxiosResponse<Notification[]> = await API.get(URI, {
+        headers: {
+          Authorization: getRccAccess(),
+        },
       });
-      console.log('헤더', headers);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch notifications');
@@ -48,6 +51,7 @@ const NotificationService = {
 
       return response.data;
     } catch (error) {
+      toast.error('알림 가져오기 실패: 서버 응답 오류');
       throw error;
     }
   },
@@ -56,9 +60,10 @@ const NotificationService = {
     const URI = `${BASEURL}/api/v1/notifications/log/ceremony/top4`;
 
     try {
-      const headers = await setRscHeader();
-      const response: AxiosResponse<Notification[]> = await axios.get(URI, {
-        headers,
+      const response: AxiosResponse<Notification[]> = await API.get(URI, {
+        headers: {
+          Authorization: getRccAccess(),
+        },
       });
 
       if (response.status !== 200) {
@@ -67,6 +72,7 @@ const NotificationService = {
 
       return response.data;
     } catch (error) {
+      toast.error('경조사 알림 가져오기 실패: 서버 응답 오류');
       throw error;
     }
   },
@@ -75,9 +81,18 @@ const NotificationService = {
     const URI = `${BASEURL}/api/v1/notifications/log/isRead/${id}`;
 
     try {
-      const headers = await setRscHeader();
-      await axios.post(URI, {}, { headers });
+      await API.post(
+        URI,
+        {},
+        {
+          headers: {
+            Authorization: getRccAccess(),
+          },
+        },
+      );
+      toast.error(`알림 ${id} 읽음 처리 완료`);
     } catch (error) {
+      toast.error(`알림 ${id} 읽음 처리 실패: 서버 응답 오류`);
       throw error;
     }
   },
@@ -92,7 +107,7 @@ const useNotificationStore = create<NotificationState>(set => ({
       const notifications = await NotificationService.getNotifications();
       set({ notifications });
     } catch (error) {
-      console.error('일반 알림 불러오기 실패:', error);
+      toast.error('일반 알림 불러오기 실패: 서버 응답 오류');
     }
   },
 
@@ -101,7 +116,7 @@ const useNotificationStore = create<NotificationState>(set => ({
       const ceremonyNotifications = await NotificationService.getCeremonyNotifications();
       set({ ceremonyNotifications });
     } catch (error) {
-      console.error('경조사 알림 불러오기 실패:', error);
+      toast.error('경조사 알림 불러오기 실패: 서버 응답 오류');
     }
   },
 
@@ -112,9 +127,9 @@ const useNotificationStore = create<NotificationState>(set => ({
         notifications: state.notifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
         ceremonyNotifications: state.ceremonyNotifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
       }));
-      console.log('알림 읽음 처리 성공:', id);
+      toast.error(`알림 ${id} 읽음 처리 성공`);
     } catch (error) {
-      console.error('알림 읽음 처리 실패:', error);
+      toast.error('알림 읽음 처리 실패: 서버 응답 오류');
     }
   },
 }));
