@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 
 import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { useUserStore } from '@/shared';
@@ -23,6 +23,9 @@ export const useAdmissionForm = () => {
     mutationFn: submitAdmissionsApplication,
     onSuccess: () => {
       toast.success('가입 신청서 제출이 완료되었습니다!');
+      setTimeout(() => {
+        router.push('/auth/authorization');
+      }, 500);
     },
     onError: (error: any) => {
       toast.error('가입 신청서 제출 실패: ' + (error || '오류가 발생했습니다.'));
