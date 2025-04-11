@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 import { ErrorMessage } from '@/entities';
 import '@/firebase-messaging-sw';
-import { WindowSizeListener } from '@/shared';
+import { GA, WindowSizeListener } from '@/fsd_shared';
 
 import './globals.css';
 
@@ -42,6 +43,22 @@ export default function RootLayout({
           />
         </head>
         <body>
+          <GA />
+          <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`} />
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-0MFP0WN799', {
+                page_path: window.location.pathname,
+              });
+            `,
+            }}
+          />
           <WindowSizeListener />
           <ErrorMessage />
           {children}

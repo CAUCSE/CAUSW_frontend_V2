@@ -15,6 +15,7 @@ export * from './configs/query-key';
 //Service
 
 //Listener
+export { GA } from './listener/GA';
 export { WindowSizeListener } from './listener/WindowSizeListener';
 
 //Ui
