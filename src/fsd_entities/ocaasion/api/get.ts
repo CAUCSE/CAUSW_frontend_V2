@@ -1,55 +1,53 @@
-import { BASEURL, setRscHeader } from '@/fsd_shared';
+import axios from 'axios';
+
+import { API, setRscHeader } from '@/fsd_shared';
 
 export const getCeremonyAwaitList = async (page: number, size: number, sort?: string[]) => {
-  const URI = `${BASEURL}/api/v1/ceremony/list/await`;
-  const url = new URL(URI);
-  const params = new URLSearchParams({
+  const URI = `/api/v1/ceremony/list/await`;
+
+  const params = {
     page: page.toString(),
     size: size.toString(),
-  });
-  if (sort) {
-    params.append('sort', sort.join(','));
-  }
-  const finalUrl = `${url.toString()}?${params.toString()}`;
+    ...(sort && { sort: sort.join(',') }),
+  };
+
   try {
     const headers = await setRscHeader();
-    const response = await fetch(finalUrl, {
-      method: 'GET',
-      headers: {
-        ...headers,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`${response.status}`);
+    const response = await API.get(URI, { params, headers });
+
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
     }
-    const res = await response.json();
-    console.log('res', res);
-    return res?.content?.length ? res.content : [];
+
+    return response.data?.content?.length ? response.data.content : [];
   } catch (error) {
-    console.error('Ceremony list fetch error:', error);
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error:', error.response?.data);
+    } else {
+      console.error('General error:', error);
+    }
     throw error;
   }
 };
 
 export const getCeremonyDetail = async (idx: string) => {
-  const URI = `${BASEURL}/api/v1/ceremony/${idx}`;
+  const URI = `/api/v1/ceremony/${idx}`;
 
   try {
     const headers = await setRscHeader();
-    const response = await fetch(URI, {
-      method: 'GET',
-      headers: {
-        ...headers,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`${response.status}`);
+    const response = await API.get(URI, { headers });
+
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
     }
-    const res = await response.json();
-    console.log('res', res);
-    return res;
+
+    return response.data;
   } catch (error) {
-    console.error('Ceremony detail fetch error:', error);
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error:', error.response?.data);
+    } else {
+      console.error('General error:', error);
+    }
     throw error;
   }
 };

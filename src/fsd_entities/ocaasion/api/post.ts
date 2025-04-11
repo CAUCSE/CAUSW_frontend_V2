@@ -1,6 +1,7 @@
-import { BASEURL, setRscHeader } from '@/fsd_shared';
+import axios from 'axios';
 
-// 상태:  ACCEPT, REJECT, AWAIT, CLOSE
+import { API, setRscHeader } from '@/fsd_shared';
+
 export const updateCeremonyState = async ({
   ceremonyId,
   targetCeremonyState,
@@ -10,23 +11,24 @@ export const updateCeremonyState = async ({
   targetCeremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE';
   rejectMessage?: string;
 }) => {
-  const headers = await setRscHeader();
-  const res = await fetch(`${BASEURL}/api/v1/ceremony/state`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: JSON.stringify({
+  const URI = `/api/v1/ceremony/state`;
+  try {
+    const headers = await setRscHeader();
+    const response = await API.put(URI, {
       ceremonyId,
       targetCeremonyState,
       rejectMessage,
-    }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Update failed with status ${res.status}`);
+    });
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Axios error:', error.response?.data);
+    } else {
+      console.error('General error:', error);
+    }
+    throw error;
   }
-
-  return await res.json();
 };
