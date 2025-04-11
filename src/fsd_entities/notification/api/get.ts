@@ -4,14 +4,7 @@ import { toast } from 'react-hot-toast';
 import { API, getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 import { BASEURL } from '@/fsd_shared/configs/api/url';
 
-interface Notification {
-  targetId: string;
-  title: string;
-  noticeType: string;
-  body: string;
-  isRead: boolean;
-  notificationLogId: string;
-}
+import { Notification } from '../config/types';
 
 export const getNotifications = async (): Promise<Notification[]> => {
   const URI = `${BASEURL}/api/v1/notifications/log/general/top4`;

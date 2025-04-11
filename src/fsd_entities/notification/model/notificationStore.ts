@@ -3,15 +3,7 @@ import { create } from 'zustand';
 
 import { getCeremonyNotifications, getNotifications } from '../api/get';
 import { markAsRead } from '../api/post';
-
-export interface Notification {
-  targetId: string;
-  title: string;
-  noticeType: string;
-  body: string;
-  isRead: boolean;
-  notificationLogId: string;
-}
+import { Notification } from '../config/types';
 
 interface NotificationState {
   notifications: Notification[];

@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Notification } from '@/fsd_entities/notification/model/notificationStore';
-
 import unReadMessage from '../../../../public/icons/unread_message.png';
+import { Notification } from '../config/types';
 
 interface NotificationListProps {
   notifications: Notification[];
