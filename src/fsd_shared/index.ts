@@ -1,4 +1,8 @@
-// configs
+export * from './configs/api';
+
+export { Loading } from './ui/Loading';
+export { IconButton } from './ui/IconButton';
+
 export * from './configs';
 
 //TODO: entities 이사 예정
