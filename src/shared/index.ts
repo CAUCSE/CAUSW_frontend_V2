@@ -74,10 +74,6 @@ export { CustomSelect } from './ui/CustomSelect';
 export { EmptyComponent } from './ui/EmptyComponent';
 export { PortalModal } from './ui/PortalModal';
 
-//Boards
-
-export { useCreateBoard } from './hooks/boards/useCreateBoard';
-
 //Custom Hooks
 
 export { useInfiniteScroll } from './hooks/useInfiniteScroll';
