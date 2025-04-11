@@ -6,7 +6,7 @@ const buttonColor = {
 export const OccasionApprovalButton = ({ color, onClick, text }: OccasionApprovalButtonProps) => {
   return (
     <button
-      className={`rounded-lg px-10 py-1 text-lg font-bold md:px-16 md:text-xl ${buttonColor[color]}`}
+      className={` whitespace-nowrap flex justify-center items-center rounded-lg px-10 py-1 text-lg font-semibold md:px-16 md:text-xl w-1/4 h-[55px] ${buttonColor[color]}`}
       onClick={onClick}
     >
       {text}

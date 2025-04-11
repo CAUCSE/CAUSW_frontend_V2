@@ -18,7 +18,7 @@ const OccasionRequestDetailPage = () => {
         {MESSAGES.PREVIOUS_BUTTON_TEXT}
       </Link>
       <Header bold big>
-        {MESSAGES.OCCASION.INFO}
+        {MESSAGES.OCCASION.DETAIL_CONTENT_TITLE}
       </Header>
       <OccasionDetailPage occasionId={occasionId} />
     </div>

@@ -36,7 +36,7 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
         setEndDate(OccasionContent.endDate);
         setImageList(OccasionContent.attachedImageUrlList);
       } catch (error) {
-        throw new Error(`${MESSAGES.OCCASION.INFO} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
+        throw new Error(`${MESSAGES.OCCASION.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
       }
     };
 
