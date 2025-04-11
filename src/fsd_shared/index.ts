@@ -3,13 +3,7 @@ export * from './configs/api';
 export { Loading } from './ui/Loading';
 export { IconButton } from './ui/IconButton';
 
-export * from './configs/errorCode';
-export * from './configs/layout';
-export * from './configs/regex';
-export * from './configs/permission';
-
-//Query Key
-export * from './configs/query-key';
+export * from './configs';
 
 //TODO: entities 이사 예정
 //Service
