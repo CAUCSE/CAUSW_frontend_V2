@@ -13,7 +13,7 @@ export const OccasionList = ({ list, firstNavigation, navigation, state }: Occas
           className="mb-3 text-lg"
           key={element.id}
         >
-          {element.description}
+          {element.title}
         </Link>
       ))}
     </div>

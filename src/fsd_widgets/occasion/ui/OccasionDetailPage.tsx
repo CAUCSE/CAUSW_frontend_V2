@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { getCeremonyDetail } from '@/fsd_entities/ocaasion/api/get';
+import { getCeremonyAwaitList, getCeremonyDetail } from '@/fsd_entities/ocaasion/api/get';
 import {
   OccasionApprovalButton,
   OccasionApprovalModal,
@@ -15,11 +15,7 @@ import {
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared/configs/constants';
 
-interface OccasionDetailPageProp {
-  occasionId: string;
-}
-
-export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProp) => {
+export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
   // TODO: 경조사 승인, 거절 API 연동
   const [occasionTitle, setOccasionTitle] = useState('');
   const [occasionType, setOccasionType] = useState('');
@@ -32,7 +28,6 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProp) => {
     const fetchCeremonyList = async () => {
       try {
         const OccasionContent = await getCeremonyDetail(occasionId);
-        console.log('OccasionContent', OccasionContent);
         setOccasionTitle(OccasionContent.description);
         setOccasionType(OccasionContent.category);
         setOccasionRegister(OccasionContent.ceremonyState);
@@ -41,14 +36,25 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProp) => {
         setEndDate(OccasionContent.endDate);
         setImageList(OccasionContent.attachedImageUrlList);
       } catch (error) {
-        // throw new Error(ERROR_MESSAGES.OCCASION_LIST_FETCH_FAIL);
-        console.log(error);
+        throw new Error(`${MESSAGES.OCCASION.INFO} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
       }
     };
 
     fetchCeremonyList();
   }, []);
+  useEffect(() => {
+    const fetchTitles = async () => {
+      try {
+        const res = await getCeremonyAwaitList(0, 10);
+        const matchedOccasion = res.filter(item => item.id === occasionId);
+        setOccasionTitle(matchedOccasion[0].title);
+      } catch (err) {
+        throw new Error(`${MESSAGES.OCCASION.TITLE} - ${ERROR_MESSAGES.MATCH_DATA_FETCH_FAIL}`);
+      }
+    };
 
+    fetchTitles();
+  }, []);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const closeModal = () => {

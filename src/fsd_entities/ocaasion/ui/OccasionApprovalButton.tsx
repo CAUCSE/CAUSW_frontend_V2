@@ -3,13 +3,7 @@ const buttonColor = {
   GRAY: 'bg-[#B4B1B1]',
 };
 
-interface OccasionManageButtonProp {
-  color: 'BLUE' | 'GRAY';
-  onClick: () => void;
-  text: string;
-}
-
-export const OccasionApprovalButton = ({ color, onClick, text }: OccasionManageButtonProp) => {
+export const OccasionApprovalButton = ({ color, onClick, text }: OccasionApprovalButtonProps) => {
   return (
     <button
       className={`rounded-lg px-10 py-1 text-lg font-bold md:px-16 md:text-xl ${buttonColor[color]}`}

@@ -4,12 +4,7 @@ const dateFormat = {
   2: '일 ',
 };
 
-interface OccasionDateProp {
-  title: string;
-  date: string;
-}
-
-export const OccasionDateTile = ({ title, date }: OccasionDateProp) => {
+export const OccasionDateTile = ({ title, date }: OccasionDateTileProps) => {
   const formattedDate = date.split('-');
 
   return (

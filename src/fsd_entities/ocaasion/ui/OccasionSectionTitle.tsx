@@ -1,9 +1,4 @@
-interface OccasionContentProp {
-  title: string;
-  occasionContent: string;
-}
-
-export const OccasionSectionTitle = ({ title, occasionContent }) => {
+export const OccasionSectionTitle = ({ title, occasionContent }: OccasionSectionTitleProps) => {
   return (
     <div className="flex flex-col gap-2">
       <h1 className="text-lg font-bold md:text-2xl">{title}</h1>

@@ -1,12 +1,7 @@
 interface Occasion {
   id: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  category: string;
-  ceremonyState: string;
-  attachedImageUrlList: string[];
-  note: string | null;
+  body: string;
+  title: string;
 }
 interface OccasionData {
   content: Occasion[];
@@ -54,3 +49,31 @@ type OccasionListProps = {
   navigation?: NavigationItem[];
   state: string | undefined;
 };
+interface OccasionDetailPageProps {
+  occasionId: string;
+}
+interface OccasionDetailContentProps {
+  title: string;
+  description: string;
+}
+interface OccasionApprovalButtonProps {
+  color: 'BLUE' | 'GRAY';
+  onClick: () => void;
+  text: string;
+}
+interface OccasionApprovalModalProps {
+  closeModal: () => void;
+  occasionTitle: string;
+}
+interface OccasionDateTileProps {
+  title: string;
+  date: string;
+}
+interface OccasionSectionTitleProps {
+  title: string;
+  occasionContent: string;
+}
+
+interface OccasionImageTileProps {
+  imageList: string[];
+}
