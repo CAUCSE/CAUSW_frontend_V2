@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
+import { OccasionDetailPage } from '@/fsd_widgets/occasion/ui';
+
 import { Header } from '@/entities';
-import { OccasionManagementDetail } from '@/widget';
 
 const OccasionRequestDetailPage = () => {
   const { occasionId } = useParams<{ occasionId: string }>();
@@ -17,7 +18,7 @@ const OccasionRequestDetailPage = () => {
       <Header bold big>
         경조사 정보
       </Header>
-      <OccasionManagementDetail occasionId={occasionId} />
+      <OccasionDetailPage occasionId={occasionId} />
     </div>
   );
 };

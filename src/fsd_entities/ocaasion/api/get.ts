@@ -30,3 +30,26 @@ export const getCeremonyAwaitList = async (page: number, size: number, sort?: st
     throw error;
   }
 };
+
+export const getCeremonyDetail = async (idx: string) => {
+  const URI = `${BASEURL}/api/v1/ceremony/${idx}`;
+
+  try {
+    const headers = await setRscHeader();
+    const response = await fetch(URI, {
+      method: 'GET',
+      headers: {
+        ...headers,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    const res = await response.json();
+    console.log('res', res);
+    return res;
+  } catch (error) {
+    console.error('Ceremony detail fetch error:', error);
+    throw error;
+  }
+};
