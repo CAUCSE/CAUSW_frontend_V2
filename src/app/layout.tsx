@@ -54,6 +54,9 @@ export default function RootLayout({
 export const metadata: Metadata = {
   title: 'CAUSW V2',
   description: '중앙대학교 소프트웨어학부 동문을 위한 서비스',
+  alternates: {
+    canonical: 'https://causw.co.kr/auth/signin',
+  },
   icons: {
     icon: [
       { url: 'favicons/favicon-96x96.png', rel: 'icon' },

@@ -10,7 +10,7 @@ module.exports = {
     policies: [
       {
         userAgent: '*',
-        allow: ['/authorization', '/findemail', '/findpassword', '/signin', '/signup'],
+        allow: ['/auth'],
         disallow: ['/home', '/locker', '/board', '/setting'],
       },
     ],
