@@ -21,7 +21,7 @@ export const NotificationWidget = () => {
   }, []);
 
   return (
-    <div className="mt-6 w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md">
+    <div className="mt-6 hidden w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md xl:block">
       {/* 일반 알림 */}
       <Link href="/occasion">
         <div className="flex gap-2 pl-1 text-xl text-black">
