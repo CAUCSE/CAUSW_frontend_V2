@@ -77,3 +77,9 @@ interface OccasionSectionTitleProps {
 interface OccasionImageTileProps {
   imageList: string[];
 }
+
+interface UpdateCeremonyStateProps {
+  ceremonyId: string;
+  targetCeremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE';
+  rejectMessage?: string;
+}

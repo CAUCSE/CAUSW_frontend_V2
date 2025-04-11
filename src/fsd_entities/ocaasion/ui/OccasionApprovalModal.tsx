@@ -6,9 +6,9 @@ export const OccasionApprovalModal = ({ closeModal, occasionTitle }: OccasionApp
   return (
     <Modal closeModal={closeModal}>
       <div className="flex flex-col items-center gap-10 text-center">
-        <h1 className="text-xl font-bold md:text-2xl">{MESSAGES.OCCASION.REGRISTRATION_SUCCESS}</h1>
+        <h1 className="text-xl font-bold md:text-2xl">{MESSAGES.OCCASION.REGISTRATION_SUCCESS}</h1>
         <p className="break-keep text-lg md:text-xl">
-          <span className="text-[#FF0000]">{occasionTitle}</span> {MESSAGES.OCCASION.REGRISTRATION_SUCCESS_MESSAGE}
+          <span className="text-[#FF0000]">{occasionTitle}</span> {MESSAGES.OCCASION.REGISTRATION_SUCCESS_MESSAGE}
         </p>
       </div>
     </Modal>

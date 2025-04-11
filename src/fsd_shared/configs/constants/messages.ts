@@ -1,7 +1,7 @@
 export const MESSAGES = Object.freeze({
   PREVIOUS_BUTTON_TEXT: '이전',
   OCCASION: {
-    REGRISTRATION_LIST: '경조사 등록 신청 관리',
+    REGISTRATION_LIST: '경조사 등록 신청 관리',
     CATEGORY: '경조사 분류',
     INFO: '경조사 정보',
     TITLE: '경조사 제목',
@@ -11,7 +11,7 @@ export const MESSAGES = Object.freeze({
     REJECTION: '거절',
     START_DATE: '시작 날짜',
     END_DATE: '종료 날짜',
-    REGRISTRATION_SUCCESS: '경조사 등록 성공',
-    REGRISTRATION_SUCCESS_MESSAGE: '경조사 등록 신청이 정상적으로 승인되었습니다.',
+    REGISTRATION_SUCCESS: '경조사 등록 성공',
+    REGISTRATION_SUCCESS_MESSAGE: '경조사 등록 신청이 정상적으로 승인되었습니다.',
   },
 });

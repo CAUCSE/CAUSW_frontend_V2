@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { getCeremonyAwaitList, getCeremonyDetail } from '@/fsd_entities/ocaasion/api/get';
+import { updateCeremonyState } from '@/fsd_entities/ocaasion/api/post';
 import {
   OccasionApprovalButton,
   OccasionApprovalModal,
@@ -16,7 +17,6 @@ import {
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared/configs/constants';
 
 export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
-  // TODO: 경조사 승인, 거절 API 연동
   const [occasionTitle, setOccasionTitle] = useState('');
   const [occasionType, setOccasionType] = useState('');
   const [occasionRegister, setOccasionRegister] = useState('');
@@ -61,12 +61,27 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
     router.back();
   };
 
-  const handleClickApprove = () => {
-    setIsModalOpen(true);
+  const handleClickApprove = async () => {
+    try {
+      await updateCeremonyState({
+        ceremonyId: occasionId,
+        targetCeremonyState: 'ACCEPT',
+      });
+      setIsModalOpen(true);
+    } catch (error) {
+      throw new Error(ERROR_MESSAGES.REGISTRATION_APPROVAL_FAIL);
+    }
   };
-
-  const handleClickReject = () => {
-    router.back();
+  const handleClickReject = async () => {
+    try {
+      await updateCeremonyState({
+        ceremonyId: occasionId,
+        targetCeremonyState: 'REJECT',
+      });
+      router.back();
+    } catch (error) {
+      throw new Error(ERROR_MESSAGES.RERISTRATION_REJECT_MESSAGE);
+    }
   };
 
   return (

@@ -34,7 +34,7 @@ export const OccasionRequestManagement = ({
         console.log('result', result);
         setCeremonyList(result);
       } catch (error) {
-        throw new Error(`${MESSAGES.OCCASION.REGRISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
+        throw new Error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
       }
     };
 

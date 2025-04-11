@@ -27,7 +27,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
   return (
     <OccasionRequestManagement
       state={state}
-      title={MESSAGES.OCCASION.REGRISTRATION_LIST}
+      title={MESSAGES.OCCASION.REGISTRATION_LIST}
       firstNavigation={firstNavigation}
       navigation={navigation}
     />
