@@ -1,4 +1,4 @@
-import { getBoardInfoList, getBoardList } from '../api';
+import { getBoardInfoList, getBoardList } from '../../api';
 
 export const fetchBoardList = async () => {
   const [boardList, boardInfoList] = await Promise.all([getBoardList(), getBoardInfoList()]);
