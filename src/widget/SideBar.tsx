@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import Link from 'next/link';
 
-import { NotificationWidget } from '@/fsd_widgets/notification/ui/NotificationWidget';
+import { NotificationWidget } from '@/fsd_widgets/notification';
 
 import { ProfileImage, SubHeader } from '@/entities';
 import { AuthRscService, UserService, useUserStore } from '@/shared';
