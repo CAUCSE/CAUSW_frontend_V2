@@ -13,11 +13,33 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en">
+      <html lang="ko">
         <head>
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'CAUSW',
+                url: 'https://causw.co.kr',
+                description:
+                  '중앙대학교 소프트웨어학부 동문만 사용할 수 있는 커뮤니티 서비스로, 단순 소셜 네트워크 기능 뿐만 아니라 사물함 신청, 동아리 신청 및 학생회 사업/행사 신청 등 전반적으로 소프트웨어 학부 학생 사회를 하나로 묶어주며, 학생들의 편의를 증진 시켜주는 서비스, CAUSW',
+                publisher: {
+                  '@type': 'Organization',
+                  name: '중앙대학교 소프트웨어학부',
+                  url: 'https://sw.cau.ac.kr',
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: 'https://causw.co.kr/_next/image?url=%2Fimages%2Fsignin-logo.png&w=1920&q=75&dpl=dpl_6awPM6qeGtELn978Q8qm7sMEt2dX',
+                  },
+                },
+              }),
+            }}
+          />
         </head>
         <body>
           <WindowSizeListener />
