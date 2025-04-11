@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { CustomBoard } from '@/fsd_widgets/board/ui/CustomBoard';
+import { CustomBoard } from '@/fsd_widgets/board/ui/BoardList/CustomBoard';
 
 import { BoardRscService, CircleRscService } from '@/shared';
 
