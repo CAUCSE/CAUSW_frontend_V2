@@ -13,7 +13,7 @@ import {
   OccasionSectionTitle,
 } from '@/fsd_entities/ocaasion/ui';
 
-import { ERROR_MESSAGES } from '@/fsd_shared/configs/constants';
+import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared/configs/constants';
 
 interface OccasionDetailPageProp {
   occasionId: string;
@@ -67,18 +67,18 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProp) => {
     <>
       <div className="flex flex-col gap-3 pb-10 pt-8 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionSectionTitle title="경조사 분류" occasionContent={occasionType} />
-          <OccasionSectionTitle title="등록인" occasionContent={occasionRegister} />
+          <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={occasionType} />
+          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={occasionRegister} />
         </div>
-        <OccasionSectionTitle title="경조사 내용" occasionContent={occasionContent} />
+        <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionContent} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionDateTile title="시작 날짜" date={startDate} />
-          <OccasionDateTile title="종료 날짜" date={endDate} />
+          <OccasionDateTile title={MESSAGES.OCCASION.START_DATE} date={startDate} />
+          <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={endDate} />
         </div>
         <OccasionImageTile imageList={imageList} />
         <div className="flex justify-center gap-5 pt-4 md:pt-0 lg:gap-11">
-          <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text="승인" />
-          <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text="거부" />
+          <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
+          <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
         </div>
       </div>
       {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionTitle} />}
