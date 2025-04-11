@@ -39,10 +39,6 @@ export { PopupMenu } from './board/post/PopupMenu';
 export { CommentInput } from './board/post/CommentInput';
 export { PostSkeleton } from './board/post/PostSkeleton';
 
-export { AllowAnonymousToggle } from './board/create/AllowAnonymousToggle';
-export { RoleSelectSection } from './board/create/RoleSelectSection';
-export { BoardDetailForm } from './board/create/BoardDetailForm';
-
 export { PostForm } from './board/post/create/PostForm';
 export { VotingForm } from './board/post/create/VotingForm';
 export { CreatePostFooter } from './board/post/create/CreatePostFooter';
