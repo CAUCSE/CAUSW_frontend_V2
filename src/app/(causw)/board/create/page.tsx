@@ -1,4 +1,4 @@
-import { BoardCreationForm } from '@/widget';
+import { BoardCreationForm } from '@/fsd_widgets/board';
 
 const CreateBoardPage = () => {
   return <BoardCreationForm />;
