@@ -2,17 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
-import { RoleSelectSection } from '@/entities';
 import { LoadingComponent } from '@/entities';
 import { SettingService } from '@/shared';
 
-const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) => {
-  const router = useRouter();
+import CheckedIcon from '../../../../../../../public/icons/checked_icon.svg';
+import NonCheckedIcon from '../../../../../../../public/icons/not_checked_icon.svg';
 
+const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) => {
   const { getApplyBoards, acceptApplyBoards, rejectApplyBoards } = SettingService();
 
   const [data, setData] = useState<undefined | Setting.GetApplyBoardResponseDto>();
@@ -52,14 +50,9 @@ const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) =
         <div className="flex items-center space-x-4 pt-4">
           <span>
             {data.isAnonymousAllowed ? (
-              <Image src="/images/board/role-checked.svg" alt="Checked Checkbox Icon" width={22} height={22}></Image>
+              <CheckedIcon width={22} height={22} />
             ) : (
-              <Image
-                src="/images/board/role-non-checked.svg"
-                alt="Non Checked Checkbox Icon"
-                width={22}
-                height={22}
-              ></Image>
+              <NonCheckedIcon width={22} height={22} />
             )}
           </span>
           <span className="text-[20px]">익명 허용 여부</span>
