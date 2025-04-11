@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useNotificationStore } from '@/fsd_entities/notification/model/notificationStore';
-import { NotificationList } from '@/fsd_entities/notification/ui/NotificationList';
+import { useNotificationStore } from '@/fsd_entities/notification';
+import { NotificationList } from '@/fsd_entities/notification';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
