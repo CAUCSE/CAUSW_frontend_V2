@@ -1,1 +1,1 @@
-export { BoardList } from './ui';
+export { BoardList, BoardCreationForm } from './ui';
