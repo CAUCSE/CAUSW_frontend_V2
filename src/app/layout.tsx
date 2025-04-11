@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import type { Metadata } from 'next';
 import Script from 'next/script';
 
@@ -43,7 +45,7 @@ export default function RootLayout({
           />
         </head>
         <body>
-          <GA />
+          {/* 초기 페이지 진입 시 GA에 페이지 정보를 전송 */}
           <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`} />
           <Script
             id="gtag-init"
@@ -59,6 +61,10 @@ export default function RootLayout({
             `,
             }}
           />
+          {/* 클라이언트 라우팅으로 페이지 이동 감지 */}
+          <Suspense>
+            <GA />
+          </Suspense>
           <WindowSizeListener />
           <ErrorMessage />
           {children}
