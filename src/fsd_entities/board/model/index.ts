@@ -1,1 +1,1 @@
-export { fetchBoardList } from './fetchBoardList';
+export { fetchBoardList } from './hooks';
