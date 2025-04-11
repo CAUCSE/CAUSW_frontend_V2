@@ -1,0 +1,17 @@
+# *
+User-agent: *
+Allow: /authorization
+Allow: /findemail
+Allow: /findpassword
+Allow: /signin
+Allow: /signup
+Disallow: /home
+Disallow: /locker
+Disallow: /board
+Disallow: /setting
+
+# Host
+Host: https://causw.co.kr
+
+# Sitemaps
+Sitemap: https://causw.co.kr/sitemap.xml
