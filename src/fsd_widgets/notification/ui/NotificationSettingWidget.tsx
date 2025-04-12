@@ -7,8 +7,8 @@ import { AllYearToggle } from '@/fsd_entities/notification/ui/AllYearToggle';
 
 import { Button } from '@/fsd_shared/ui/Button';
 
-const NotificationSettingWidget = () => {
-  const { years, setAll, setSetAll, addYear, removeYear, onSubmit } = useNotificationSettingForm();
+export const NotificationSettingWidget = () => {
+  const { years, setAll, setAllYearsSelected, addYear, removeYear, onSubmit } = useNotificationSettingForm();
 
   return (
     <div className="flex flex-col items-center gap-16">
@@ -19,7 +19,7 @@ const NotificationSettingWidget = () => {
             <AdmissionYearInput onAdd={addYear} disabled={setAll} />
           </div>
           <p className="text-sm text-gray-400 mb-2">학번 입력 후 추가 버튼을 눌러주세요.</p>
-          <AllYearToggle checked={setAll} onChange={setSetAll} />
+          <AllYearToggle checked={setAll} onChange={setAllYearsSelected} />
         </div>
         <AdmissionYearList years={years} onRemove={removeYear} isAllSelected={setAll} />
       </div>
@@ -29,5 +29,3 @@ const NotificationSettingWidget = () => {
     </div>
   );
 };
-
-export default NotificationSettingWidget;

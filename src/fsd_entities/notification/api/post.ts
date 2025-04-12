@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import { API, getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
+import { API } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -14,10 +14,8 @@ interface NotificationSettingPayload {
 
 export const createCeremonyNotificationSetting = async (payload: NotificationSettingPayload) => {
   try {
-    const response = await API.post(`${CEREMONY_URI}/notification-setting`, payload, {
-      headers: { Authorization: getRccAccess() },
-    });
-    return response.data;
+    const { data } = await API.post(`${CEREMONY_URI}/notification-setting`, payload);
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage = error.response?.data?.message || '알림 설정 생성에 실패했습니다.';

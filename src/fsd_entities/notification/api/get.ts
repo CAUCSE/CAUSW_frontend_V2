@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API } from '@/fsd_shared/configs/api/csrConfig';
+import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -12,8 +12,8 @@ export interface CeremonyNotificationSettingDto {
 
 export const getCeremonyNotificationSetting = async (): Promise<CeremonyNotificationSettingDto | string> => {
   try {
-    const response = await API.get(`${CEREMONY_URI}/notification-setting`);
-    return response.data;
+    const { data } = await API.get(`${CEREMONY_URI}/notification-setting`);
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '알림 설정 조회에 실패했습니다.';

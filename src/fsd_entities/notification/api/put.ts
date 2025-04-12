@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import { API, getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
+import { API } from '@/fsd_shared/configs/api/csrConfig';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -14,10 +14,8 @@ interface NotificationSettingPayload {
 
 export const updateCeremonySetting = async (payload: NotificationSettingPayload) => {
   try {
-    const response = await API.put(`${CEREMONY_URI}/notification-setting`, payload, {
-      headers: { Authorization: getRccAccess() },
-    });
-    return response.data;
+    const { data } = await API.put(`${CEREMONY_URI}/notification-setting`, payload);
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorMessage = error.response?.data?.message || '설정 저장 실패';

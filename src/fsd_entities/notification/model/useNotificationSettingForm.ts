@@ -17,30 +17,30 @@ interface NotificationSettingPayload {
 export const useNotificationSettingForm = () => {
   const [years, setYears] = useState<number[]>([]);
   const [existingSetting, setExistingSetting] = useState<CeremonyNotificationSettingDto | null>(null);
-
   const [setAll, setSetAllValue] = useState(false);
 
-  const setSetAll = (value: boolean) => {
+  const setAllYearsSelected = (value: boolean) => {
     setSetAllValue(value);
     if (value) setYears([]);
   };
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const result = await getCeremonyNotificationSetting();
-        if (typeof result !== 'string') {
-          setExistingSetting(result);
-          setYears(result.subscribedAdmissionYears ?? []);
-          setSetAll(result.setAll);
-        } else {
-          toast.error(result);
-        }
-      } catch (e) {
-        toast.error('알림 설정을 불러오는 데 실패했습니다.');
+  const fetchCeremonyNotificationSetting = async (setExistingSetting, setYears, setAllYearsSelected) => {
+    try {
+      const result = await getCeremonyNotificationSetting();
+      if (typeof result !== 'string') {
+        setExistingSetting(result);
+        setYears(result.subscribedAdmissionYears ?? []);
+        setAllYearsSelected(result.setAll);
+      } else {
+        toast.error(result);
       }
-    };
-    fetch();
+    } catch (e) {
+      toast.error('알림 설정을 불러오는 데 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    fetchCeremonyNotificationSetting(setExistingSetting, setYears, setAllYearsSelected);
   }, []);
 
   const addYear = (year: number) => {
@@ -59,23 +59,21 @@ export const useNotificationSettingForm = () => {
       setAll,
       notificationActive: true,
     };
-
     try {
       if (existingSetting) {
-        await updateCeremonySetting(payload);
-      } else {
-        await createCeremonyNotificationSetting(payload);
+        updateCeremonySetting(payload);
+        return;
       }
+      createCeremonyNotificationSetting(payload);
     } catch (error) {
       toast.error('알림 설정 저장에 실패했습니다.');
-      console.error(error);
     }
   };
 
   return {
     years,
     setAll,
-    setSetAll,
+    setAllYearsSelected,
     addYear,
     removeYear,
     onSubmit,

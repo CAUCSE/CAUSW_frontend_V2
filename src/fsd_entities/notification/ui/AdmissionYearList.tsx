@@ -1,12 +1,12 @@
 'use client';
 
-interface Props {
+interface AdmissionYearListProps {
   years: number[];
   onRemove: (year: number) => void;
   isAllSelected?: boolean;
 }
 
-export const AdmissionYearList = ({ years, onRemove, isAllSelected }: Props) => {
+export const AdmissionYearList = ({ years, onRemove, isAllSelected }: AdmissionYearListProps) => {
   return (
     <div
       className={`w-72 h-72 overflow-y-auto border border-black rounded-xl p-5 ${

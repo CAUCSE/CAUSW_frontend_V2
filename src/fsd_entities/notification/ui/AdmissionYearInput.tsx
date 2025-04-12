@@ -4,12 +4,12 @@ import { useState } from 'react';
 
 import { Button } from '@/fsd_shared/ui/Button';
 
-interface Props {
+interface AdmissionYearInputProps {
   onAdd: (year: number) => void;
   disabled: boolean;
 }
 
-export const AdmissionYearInput = ({ onAdd, disabled }: Props) => {
+export const AdmissionYearInput = ({ onAdd, disabled }: AdmissionYearInputProps) => {
   const [year, setYear] = useState('');
 
   const handleAdd = () => {
