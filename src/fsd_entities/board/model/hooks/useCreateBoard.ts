@@ -2,15 +2,14 @@
 
 import { toast } from 'react-hot-toast';
 
-import { useUserStore } from '@/shared';
+import { useHasAuth } from '@/fsd_shared';
 
 import { useCreateCommonBoard, useCreateNoticeBoard } from '../queries';
 import { useBoardCreationStore } from '../stores';
 
 export const useCreateBoard = () => {
   const boardName = useBoardCreationStore(state => state.boardName);
-  const userRole = useUserStore(state => state.roles);
-  const hasAuth = userRole.includes('ADMIN') || userRole.includes('PRESIDENT') || userRole.includes('VICE_PRESIDENT');
+  const hasAuth = useHasAuth();
   const { mutate: createNoticeBoard } = useCreateNoticeBoard();
   const { mutate: createCommonBoard } = useCreateCommonBoard();
 
