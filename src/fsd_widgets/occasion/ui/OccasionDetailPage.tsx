@@ -24,6 +24,7 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [imageList, setImageList] = useState<string[]>([]);
+
   useEffect(() => {
     const fetchCeremonyList = async () => {
       try {

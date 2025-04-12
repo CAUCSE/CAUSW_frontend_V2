@@ -8,19 +8,19 @@ import { OccasionDetailPage } from '@/fsd_widgets/occasion/ui';
 import { MESSAGES } from '@/fsd_shared/configs/constants';
 
 import { Header } from '@/entities';
+import { PreviousButton } from '@/fsd_shared';
 
 const OccasionRequestDetailPage = () => {
   const { occasionId } = useParams<{ occasionId: string }>();
   return (
-    <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
-      <Link href="/setting/management/occasion/request" className="mb-7 flex items-center text-lg">
-        <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
-        {MESSAGES.PREVIOUS_BUTTON_TEXT}
-      </Link>
-      <Header bold big>
-        {MESSAGES.OCCASION.DETAIL_CONTENT_TITLE}
-      </Header>
-      <OccasionDetailPage occasionId={occasionId} />
+    <div className="w-full p-6">
+      <PreviousButton />
+      <div className="pt-12">
+        <Header bold big>
+          {MESSAGES.OCCASION.DETAIL_CONTENT_TITLE}
+        </Header>
+        <OccasionDetailPage occasionId={occasionId} />
+      </div>
     </div>
   );
 };
