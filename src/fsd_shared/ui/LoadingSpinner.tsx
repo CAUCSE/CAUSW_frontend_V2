@@ -9,7 +9,7 @@ const override: CSSProperties = {
   textAlign: 'center',
 };
 
-export const Loading = ({ loading, size }: { loading: boolean; size: number }) => (
+export const LoadingSpinner = ({ loading, size }: { loading: boolean; size: number }) => (
   <div>
     <ClipLoader color="#99dfec" loading={loading} cssOverride={override} speedMultiplier={1} size={size} />
   </div>
