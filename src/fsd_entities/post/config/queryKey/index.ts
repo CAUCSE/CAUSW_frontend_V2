@@ -1,0 +1,1 @@
+export { postQueryKey } from './postQueryKey';
