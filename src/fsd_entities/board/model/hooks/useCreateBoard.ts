@@ -11,7 +11,6 @@ export const useCreateBoard = () => {
   const boardName = useBoardCreationStore(state => state.boardName);
   const userRole = useUserStore(state => state.roles);
   const hasAuth = userRole.includes('ADMIN') || userRole.includes('PRESIDENT') || userRole.includes('VICE_PRESIDENT');
-  console.log(hasAuth);
   const { mutate: createNoticeBoard } = useCreateNoticeBoard();
   const { mutate: createCommonBoard } = useCreateCommonBoard();
 
