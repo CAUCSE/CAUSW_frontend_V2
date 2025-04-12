@@ -1,0 +1,1 @@
+export { useGetPostList } from './useGetPostList';
