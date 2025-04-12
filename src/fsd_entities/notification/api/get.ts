@@ -2,12 +2,11 @@ import { AxiosResponse } from 'axios';
 import { toast } from 'react-hot-toast';
 
 import { API, getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
-import { BASEURL } from '@/fsd_shared/configs/api/url';
 
 import { Notification } from '../config/types';
 
 export const getNotifications = async (): Promise<Notification[]> => {
-  const URI = `${BASEURL}/api/v1/notifications/log/general/top4`;
+  const URI = `/api/v1/notifications/log/general/top4`;
 
   try {
     const response: AxiosResponse<Notification[]> = await API.get(URI, {
@@ -26,7 +25,7 @@ export const getNotifications = async (): Promise<Notification[]> => {
 };
 
 export const getCeremonyNotifications = async (): Promise<Notification[]> => {
-  const URI = `${BASEURL}/api/v1/notifications/log/ceremony/top4`;
+  const URI = `/api/v1/notifications/log/ceremony/top4`;
 
   try {
     const response: AxiosResponse<Notification[]> = await API.get(URI, {

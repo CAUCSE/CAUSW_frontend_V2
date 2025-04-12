@@ -1,10 +1,9 @@
 import { toast } from 'react-hot-toast';
 
 import { API, getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
-import { BASEURL } from '@/fsd_shared/configs/api/url';
 
 export const markAsRead = async (id: string): Promise<void> => {
-  const URI = `${BASEURL}/api/v1/notifications/log/isRead/${id}`;
+  const URI = `/api/v1/notifications/log/isRead/${id}`;
 
   try {
     await API.post(URI, {}, { headers: { Authorization: getRccAccess() } });
