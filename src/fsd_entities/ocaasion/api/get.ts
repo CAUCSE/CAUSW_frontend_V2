@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-import { API, setRscHeader } from '@/fsd_shared';
+import { API } from '@/fsd_shared';
 
 export const getCeremonyAwaitList = async (page: number, size: number, sort?: string[]) => {
   const URI = `/api/v1/ceremony/list/await`;
@@ -12,13 +12,11 @@ export const getCeremonyAwaitList = async (page: number, size: number, sort?: st
   };
 
   try {
-    const headers = await setRscHeader();
-    const response = await API.get(URI, { params, headers });
+    const response = (await API.get(URI, { params })) as AxiosResponse<any>;
 
     if (response.status !== 200) {
       throw new Error(`Error: ${response.status}`);
     }
-
     return response.data?.content?.length ? response.data.content : [];
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -34,8 +32,7 @@ export const getCeremonyDetail = async (idx: string) => {
   const URI = `/api/v1/ceremony/${idx}`;
 
   try {
-    const headers = await setRscHeader();
-    const response = await API.get(URI, { headers });
+    const response = await API.get(URI);
 
     if (response.status !== 200) {
       throw new Error(`Error: ${response.status}`);

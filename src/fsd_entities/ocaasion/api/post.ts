@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API, setRscHeader } from '@/fsd_shared';
+import { API } from '@/fsd_shared';
 
 export const updateCeremonyState = async ({
   ceremonyId,
@@ -13,7 +13,6 @@ export const updateCeremonyState = async ({
 }) => {
   const URI = `/api/v1/ceremony/state`;
   try {
-    const headers = await setRscHeader();
     const response = await API.put(URI, {
       ceremonyId,
       targetCeremonyState,
