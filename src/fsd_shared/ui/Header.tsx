@@ -10,10 +10,15 @@ export const Header = ({
   wide?: boolean;
   bold?: boolean;
   big?: boolean;
-}) => (
-  <span
-    className={`flex flex-row items-end ${big ? 'text-3xl' : 'text-2xl'} ${underline ? 'underline' : ''} ${bold ? 'font-bold' : ''} ${wide ? 'tracking-widest' : ''}`}
-  >
-    {children}
-  </span>
-);
+}) => {
+  const textSize = big ? 'text-3xl' : 'text-2xl';
+  const underlineClass = underline ? 'underline' : '';
+  const boldClass = bold ? 'font-bold' : '';
+  const wideClass = wide ? 'tracking-widest' : '';
+
+  return (
+    <span className={`flex flex-row items-end ${textSize} ${underlineClass} ${boldClass} ${wideClass}`}>
+      {children}
+    </span>
+  );
+};
