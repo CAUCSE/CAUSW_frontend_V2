@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
+import clsx from 'clsx';
+
 import { getCeremonyAwaitList } from '@/fsd_entities/ocaasion/api/get';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
 import { OccasionList } from './OccasionList';
-import NavigationTabLink from './NavigationTabLink';
 
 export const OccasionRequestManagement = ({
   state,
@@ -18,15 +19,13 @@ export const OccasionRequestManagement = ({
   firstNavigation,
   navigation,
 }: OccasionRequestManagementProps) => {
-  const [ceremonyList, setCeremonyList] = useState<any[]>([]);
-  let isFirstNavigation;
-  if (!state) {
-    isFirstNavigation = true;
-  } else if (navigation) {
-    isFirstNavigation = navigation.findIndex(element => element.state === state) === -1;
-  } else {
-    isFirstNavigation = false;
-  }
+  const [ceremonyList, setCeremonyList] = useState<Occasion[]>([]);
+  const isFirstNavigation = (() => {
+    if (!state) return true;
+    if (!navigation) return false;
+    return navigation.findIndex(element => element.state === state) === -1;
+  })();
+
   useEffect(() => {
     const fetchCeremonyList = async () => {
       try {
@@ -50,11 +49,16 @@ export const OccasionRequestManagement = ({
         </Header>
         <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
           <div
-            className={`mt-8 flex px-4 ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-start'} flex-row md:mb-1 md:justify-start lg:w-full`}
+            className={clsx(
+              'mt-8 flex flex-row px-4 md:mb-1 md:justify-start lg:w-full',
+              (navigation?.length ?? 0) > 5 && 'mb-1 w-[1000px] justify-between',
+              (navigation?.length ?? 0) > 2 && (navigation?.length ?? 0) <= 5 && 'mb-1 w-[600px] justify-between',
+              (navigation?.length ?? 0) <= 2 && 'mb-5 w-full justify-start',
+            )}
           >
             <Link
               href={firstNavigation.state}
-              className={`${isFirstNavigation ? 'border-b-4 border-b-focus' : ''} h-18 text-xl`}
+              className={clsx('h-18 text-xl', isFirstNavigation && 'border-b-4 border-b-focus')}
             >
               {firstNavigation.name}
             </Link>
