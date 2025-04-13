@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { isAxiosError } from 'axios';
 
 import { API } from '@/fsd_shared';
 
@@ -23,7 +23,7 @@ export const updateCeremonyState = async ({
     }
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
       console.error('Axios error:', error.response?.data);
     } else {
       console.error('General error:', error);

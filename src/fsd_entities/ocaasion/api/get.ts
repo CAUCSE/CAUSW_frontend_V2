@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, isAxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 import { API } from '@/fsd_shared';
 
@@ -19,10 +20,10 @@ export const getCeremonyAwaitList = async (page: number, size: number, sort?: st
     }
     return response.data?.content?.length ? response.data.content : [];
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios error:', error.response?.data);
+    if (isAxiosError(error)) {
+      toast.error('Axios error:', error.response?.data);
     } else {
-      console.error('General error:', error);
+      toast.error('General error');
     }
     throw error;
   }
@@ -40,10 +41,10 @@ export const getCeremonyDetail = async (idx: string) => {
 
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
       console.error('Axios error:', error.response?.data);
     } else {
-      console.error('General error:', error);
+      toast.error('General error');
     }
     throw error;
   }
