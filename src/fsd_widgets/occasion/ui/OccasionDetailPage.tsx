@@ -14,7 +14,7 @@ import {
   OccasionSectionTitle,
 } from '@/fsd_entities/ocaasion/ui';
 
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared/configs/constants';
+import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
   const [occasionTitle, setOccasionTitle] = useState('');

@@ -1,5 +1,4 @@
-import { MESSAGES } from '@/fsd_shared/configs/constants';
-
+import { MESSAGES } from '@/fsd_shared';
 import { Modal } from '@/shared';
 
 export const OccasionApprovalModal = ({ closeModal, occasionTitle }: OccasionApprovalModalProps) => {

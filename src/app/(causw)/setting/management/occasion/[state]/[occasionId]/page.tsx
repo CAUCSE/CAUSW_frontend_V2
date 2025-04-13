@@ -5,9 +5,8 @@ import { useParams } from 'next/navigation';
 
 import { OccasionDetailPage } from '@/fsd_widgets/occasion/ui';
 
-import { MESSAGES } from '@/fsd_shared/configs/constants';
-
 import { Header } from '@/entities';
+import { MESSAGES } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
 
 const OccasionRequestDetailPage = () => {

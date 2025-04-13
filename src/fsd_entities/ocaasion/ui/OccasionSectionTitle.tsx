@@ -1,4 +1,4 @@
-import { MESSAGES } from '@/fsd_shared/configs/constants';
+import { MESSAGES } from '@/fsd_shared';
 
 export const OccasionSectionTitle = ({ title, occasionContent }: OccasionSectionTitleProps) => {
   return (

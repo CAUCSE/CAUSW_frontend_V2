@@ -1,6 +1,6 @@
 import { OccasionRequestManagement } from '@/fsd_widgets/occasion/ui';
 
-import { MESSAGES } from '@/fsd_shared/configs/constants';
+import { MESSAGES } from '@/fsd_shared';
 
 const firstNavigation = {
   name: '등록 신청 경조사',

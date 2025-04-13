@@ -6,8 +6,7 @@ import Link from 'next/link';
 
 import { getCeremonyAwaitList } from '@/fsd_entities/ocaasion/api/get';
 
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared/configs/constants';
-
+import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
 import { OccasionList } from './OccasionList';
