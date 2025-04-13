@@ -42,7 +42,7 @@ export const getCeremonyDetail = async (idx: string) => {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error('Axios error:', error.response?.data);
+      toast.error('Axios error:', error.response?.data);
     } else {
       toast.error('General error');
     }

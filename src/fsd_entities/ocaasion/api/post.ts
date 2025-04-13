@@ -1,4 +1,5 @@
 import { isAxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 import { API } from '@/fsd_shared';
 
@@ -24,9 +25,9 @@ export const updateCeremonyState = async ({
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error('Axios error:', error.response?.data);
+      toast.error('Axios error:', error.response?.data);
     } else {
-      console.error('General error:', error);
+      toast.error('General error');
     }
     throw error;
   }
