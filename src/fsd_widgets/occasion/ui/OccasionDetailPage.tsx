@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { getCeremonyAwaitList, getCeremonyDetail } from '@/fsd_entities/ocaasion/api/get';
-import { updateCeremonyState } from '@/fsd_entities/ocaasion/api/post';
+import toast from 'react-hot-toast';
+
+import { updateCeremonyState } from '@/fsd_entities/ocaasion/api';
+import { useCeremonyData } from '@/fsd_entities/ocaasion/model';
 import {
   OccasionApprovalButton,
   OccasionApprovalModal,
@@ -17,45 +19,8 @@ import {
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
-  const [occasionTitle, setOccasionTitle] = useState('');
-  const [occasionType, setOccasionType] = useState('');
-  const [occasionRegister, setOccasionRegister] = useState('');
-  const [occasionContent, setOccasionContent] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [imageList, setImageList] = useState<string[]>([]);
+  const { occasionDetails } = useCeremonyData(occasionId);
 
-  useEffect(() => {
-    const fetchCeremonyList = async () => {
-      try {
-        const OccasionContent = await getCeremonyDetail(occasionId);
-        setOccasionTitle(OccasionContent.description);
-        setOccasionType(OccasionContent.category);
-        setOccasionRegister(OccasionContent.ceremonyState);
-        setOccasionContent(OccasionContent.description);
-        setStartDate(OccasionContent.startDate);
-        setEndDate(OccasionContent.endDate);
-        setImageList(OccasionContent.attachedImageUrlList);
-      } catch (error) {
-        throw new Error(`${MESSAGES.OCCASION.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
-      }
-    };
-
-    fetchCeremonyList();
-  }, []);
-  useEffect(() => {
-    const fetchTitles = async () => {
-      try {
-        const res = await getCeremonyAwaitList(0, 10);
-        const matchedOccasion = res.filter(item => item.id === occasionId);
-        setOccasionTitle(matchedOccasion[0].title);
-      } catch (err) {
-        throw new Error(`${MESSAGES.OCCASION.TITLE} - ${ERROR_MESSAGES.MATCH_DATA_FETCH_FAIL}`);
-      }
-    };
-
-    fetchTitles();
-  }, []);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const closeModal = () => {
@@ -70,7 +35,7 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
       });
       setIsModalOpen(true);
     } catch (error) {
-      throw new Error(ERROR_MESSAGES.REGISTRATION_APPROVAL_FAIL);
+      toast.error(ERROR_MESSAGES.REGISTRATION_APPROVAL_FAIL);
     }
   };
   const handleClickReject = async () => {
@@ -89,21 +54,21 @@ export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
     <>
       <div className="flex flex-col gap-3 pb-10 pt-8 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={occasionType} />
-          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={occasionRegister} />
+          <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={occasionDetails.type} />
+          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={occasionDetails.register} />
         </div>
-        <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionContent} />
+        <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionDetails.content} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionDateTile title={MESSAGES.OCCASION.START_DATE} date={startDate} />
-          <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={endDate} />
+          <OccasionDateTile title={MESSAGES.OCCASION.START_DATE} date={occasionDetails.startDate} />
+          <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
         </div>
-        <OccasionImageTile imageList={imageList} />
+        <OccasionImageTile imageList={occasionDetails.imageList} />
         <div className="flex justify-center gap-5 pt-4 md:pt-0 lg:gap-11">
           <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
           <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
         </div>
       </div>
-      {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionTitle} />}
+      {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionDetails.title} />}
     </>
   );
 };

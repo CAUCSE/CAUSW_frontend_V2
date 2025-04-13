@@ -1,14 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { getCeremonyAwaitList } from '@/fsd_entities/ocaasion/api/get';
+import { useCeremonyData } from '@/fsd_entities/ocaasion/model';
 
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
 import { OccasionList } from './OccasionList';
@@ -19,26 +16,12 @@ export const OccasionRequestManagement = ({
   firstNavigation,
   navigation,
 }: OccasionRequestManagementProps) => {
-  const [ceremonyList, setCeremonyList] = useState<Occasion[]>([]);
+  const { ceremonyList } = useCeremonyData();
   const isFirstNavigation = (() => {
     if (!state) return true;
     if (!navigation) return false;
     return navigation.findIndex(element => element.state === state) === -1;
   })();
-
-  useEffect(() => {
-    const fetchCeremonyList = async () => {
-      try {
-        const result = await getCeremonyAwaitList(0, 10);
-        console.log('result', result);
-        setCeremonyList(result);
-      } catch (error) {
-        throw new Error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
-      }
-    };
-
-    fetchCeremonyList();
-  }, []);
 
   return (
     <div className="w-full p-6">
