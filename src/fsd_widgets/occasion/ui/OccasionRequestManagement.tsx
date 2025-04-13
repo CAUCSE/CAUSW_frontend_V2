@@ -10,6 +10,7 @@ import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
 import { OccasionList } from './OccasionList';
+import NavigationTabLink from './NavigationTabLink';
 
 export const OccasionRequestManagement = ({
   state,
