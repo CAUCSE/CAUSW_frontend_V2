@@ -5,6 +5,7 @@ export * from './configs';
 //Service
 
 //Listener
+export { WindowSizeListener } from './listener/WindowSizeListener';
 export * from './listener';
 
 //Ui
