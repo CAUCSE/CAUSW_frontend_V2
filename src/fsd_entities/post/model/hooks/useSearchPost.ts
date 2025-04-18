@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 import { useParams } from 'next/navigation';
 
-import { PostService, useInfiniteScroll } from '@/shared';
+import { useGetPostSearchList } from '@/fsd_entities/post';
+
+import { useInfiniteScroll } from '@/fsd_shared';
 
 export const useSearchPost = () => {
   const params = useParams();
@@ -15,7 +17,6 @@ export const useSearchPost = () => {
   const [keyword, setKeyword] = useState('');
   const [inputText, setInputText] = useState<string>('');
 
-  const { useGetSearchPostList } = PostService();
   const {
     fetchNextPage,
     data: postList,
@@ -23,7 +24,7 @@ export const useSearchPost = () => {
     isSuccess,
     isFetchingNextPage,
     hasNextPage,
-  } = useGetSearchPostList(boardId as string, keyword, isSearch);
+  } = useGetPostSearchList({ boardId: boardId as string, keyword, isSearch });
 
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
     entries.forEach(entry => {
