@@ -1,4 +1,4 @@
-import { PostSearch } from '@/widget';
+import { PostSearch } from '@/fsd_widgets/post';
 
 const SearchPostPage = () => {
   return (
