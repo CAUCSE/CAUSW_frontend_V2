@@ -1,11 +1,12 @@
-import { PostItem, PostSearchNotFound } from '@/entities';
+import { PostCard } from '@/fsd_entities/post';
+
+import { PostSearchNotFound } from './PostSearchNotFound';
 
 interface PostSearchResultProps {
   postList: Post.PostResponseDto[];
-  boardId: string;
 }
 
-export const PostSearchResult = ({ postList, boardId }: PostSearchResultProps) => {
+export const PostSearchResult = ({ postList }: PostSearchResultProps) => {
   return (
     <>
       {postList!.length === 0 ? (
@@ -15,7 +16,7 @@ export const PostSearchResult = ({ postList, boardId }: PostSearchResultProps) =
           {postList!
             .filter(post => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
-              <PostItem key={post.id} post={post} boardId={boardId as string} targetUrl={`/board/search/${post.id}`} />
+              <PostCard key={post.id} post={post} targetUrl={`/board/search/${post.id}`} />
             ))}
         </div>
       )}

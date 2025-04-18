@@ -15,6 +15,11 @@ export const PostSearchInput = ({
   handleSearchButtonClick,
   inputText,
 }: PostSearchInputProps) => {
+  const autoFocusToInput = useCallback((node: HTMLInputElement) => {
+    if (node) {
+      node.focus();
+    }
+  }, []);
   return (
     <div className="flex h-14 w-full justify-center">
       <div className="flex h-full w-full justify-between gap-4 lg:w-3/4">
@@ -25,11 +30,7 @@ export const PostSearchInput = ({
           onChange={handleInputTextChange}
           onKeyUp={handleEnterKey}
           value={inputText}
-          ref={useCallback((node: HTMLInputElement) => {
-            if (node) {
-              node.focus();
-            }
-          }, [])}
+          ref={autoFocusToInput}
         />
         <button className="w-36 rounded-3xl bg-red-500 text-white" onClick={handleSearchButtonClick}>
           검색
