@@ -82,7 +82,6 @@ export { useIsWindowLg } from './hooks/useIsWindowLg';
 export { useTruncateParagraph } from './hooks/useTruncateParagraph';
 
 //Posts
-export { useSearchPost } from './hooks/posts/useSearchPost';
 export { usePostForm } from './hooks/posts/usePostForm';
 export { usePostInteraction } from './hooks/posts/usePostInteraction';
 export { useCommentInteraction } from './hooks/posts/comment/useCommentInteraction';

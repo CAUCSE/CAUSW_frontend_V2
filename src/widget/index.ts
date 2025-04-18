@@ -4,9 +4,6 @@ export { SideBar } from './SideBar';
 export { CircleMemberManagementDetail } from './CircleMemberManagementDetail';
 
 // Post
-export { PostSearch } from './post/PostSearch';
-export { PostSearchResult } from './post/PostSearchResult';
-export { PostSearchInput } from './post/PostSearchInput';
 export { ApplyCreationForm } from './post/apply/ApplyCreationForm';
 
 // Form
