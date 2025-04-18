@@ -1,14 +1,17 @@
 'use client';
 
-import { PostSearchIntro, PostSkeletonList } from '@/entities';
-import { Loading, PreviousButton, useSearchPost } from '@/shared';
-import { PostSearchInput, PostSearchResult } from '@/widget';
+import { PostSkeletonList, useSearchPost } from '@/fsd_entities/post';
+
+import { LoadingSpinner, PreviousButton } from '@/fsd_shared';
+
+import { PostSearchInput } from './PostSearchInput';
+import { PostSearchIntro } from './PostSearchIntro';
+import { PostSearchResult } from './PostSearchResult';
 
 export const PostSearch = () => {
   const {
     hasEverSearched,
     postList,
-    boardId,
     hasNextPage,
     isFetchingNextPage,
     targetRef,
@@ -30,12 +33,12 @@ export const PostSearch = () => {
             <PostSkeletonList />
           ) : (
             <div className="h-full w-full">
-              <PostSearchResult postList={postList!} boardId={boardId as string} />
+              <PostSearchResult postList={postList!} />
               {hasNextPage && (
                 <div className="h-3 w-full" ref={targetRef}>
                   {isFetchingNextPage && (
                     <div className="pt-5">
-                      <Loading loading={isFetchingNextPage} size={50} />
+                      <LoadingSpinner loading={isFetchingNextPage} size={50} />
                     </div>
                   )}
                 </div>
