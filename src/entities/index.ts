@@ -38,7 +38,6 @@ export { ChildCommentCard } from './board/post/ChildCommentCard';
 export { PopupMenu } from './board/post/PopupMenu';
 export { CommentInput } from './board/post/CommentInput';
 
-export { PostForm } from './board/post/create/PostForm';
 export { VotingForm } from './board/post/create/VotingForm';
 export { CreatePostFooter } from './board/post/create/CreatePostFooter';
 export { FilePreview } from './board/post/create/FilePreview';
