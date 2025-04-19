@@ -1,16 +1,16 @@
 'use client';
 
-import React from 'react';
-
-import { PostCreationForm } from '@/fsd_widgets/post';
+import { PostCreationForm, PostCreationFormButtonGroup } from '@/fsd_widgets/post';
 import { VoteCreationForm } from '@/fsd_widgets/vote';
 
-import { CreatePostFooter, FilePreview } from '@/entities';
-import { PreviousButton, useCreateApply, useCreatePostStore, useFileUpload, usePostForm } from '@/shared';
+import { usePostCreationStore } from '@/fsd_entities/post';
+
+import { FilePreview } from '@/entities';
+import { PreviousButton, useCreateApply, useFileUpload, usePostForm } from '@/shared';
 import { ApplyCreationForm } from '@/widget';
 
 const CreatePostPage = () => {
-  const { isVote, isApply, toggleApply, toggleVote } = useCreatePostStore();
+  const { isApply, isVote } = usePostCreationStore();
 
   const { selectedFiles } = useFileUpload();
 
@@ -47,13 +47,7 @@ const CreatePostPage = () => {
           )}
         </div>
       </div>
-      <CreatePostFooter
-        isVote={isVote}
-        isApply={isApply}
-        handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit}
-        handleVoteToggle={toggleVote}
-        handleApplyToggle={toggleApply}
-      />
+      <PostCreationFormButtonGroup handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit} />
     </>
   );
 };
