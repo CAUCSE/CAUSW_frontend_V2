@@ -19,10 +19,17 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
     }
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleUploadFile(e);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   return (
     <div className="fixed bottom-[100px] flex w-full justify-center xl:bottom-4 xl:left-10 xl:space-x-24">
       <div className="flex flex-grow grid-cols-4 justify-center gap-2 xl:space-x-4">
-        <input type="file" ref={fileInputRef} className="hidden" onChange={handleUploadFile} />
+        <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
         <button
           className={`flex w-16 items-center justify-center rounded-full bg-comment-input md:w-20 md:p-3`}
           onClick={handleFileUploadButtonClick}
