@@ -26,7 +26,7 @@ export const PostContentTextarea = () => {
 게시글과 댓글은 작성 후에는 수정할 수 없습니다.`}
       className={clsx(
         'w-full resize-none bg-transparent p-2 text-2xl placeholder:text-2xl placeholder:text-create-post-text focus:outline-none',
-        isVote ? 'h-60' : 'h-full',
+        isVote ? 'h-60 flex-shrink-0' : 'h-full',
       )}
     />
   );
