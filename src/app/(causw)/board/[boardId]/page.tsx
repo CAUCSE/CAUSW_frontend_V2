@@ -1,39 +1,22 @@
-'use client';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { useParams } from 'next/navigation';
+import { getPostListServer, postQueryKey } from '@/fsd_entities/post';
 
-import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
+import { BoardPage } from './BoardPage';
 
-import { useGetPostList } from '@/fsd_entities/post';
-
-import { LoadingScreen } from '@/fsd_shared';
-
-const BoardPage = () => {
-  const { boardId } = useParams();
-
-  const { data, fetchNextPage, isFetchingNextPage, isLoading, hasNextPage, isError, error } = useGetPostList({
-    boardId: boardId as string,
+const BoardPageServer = async ({ params }: { params: { boardId: string } }) => {
+  const queryClient = new QueryClient();
+  const { boardId } = params;
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: postQueryKey.list(boardId),
+    queryFn: async ({ pageParam = 0 }) => await getPostListServer(boardId, pageParam),
+    initialPageParam: 0,
   });
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
-  if (isError) {
-    throw error;
-  }
-
   return (
-    <div className="h-full w-full">
-      <BoardHeader boardName={data?.boardName!} />
-      <BoardPostList
-        postList={data?.postList!}
-        isFetchingNextPage={isFetchingNextPage}
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-      />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <BoardPage />
+    </HydrationBoundary>
   );
 };
 
-export default BoardPage;
+export default BoardPageServer;
