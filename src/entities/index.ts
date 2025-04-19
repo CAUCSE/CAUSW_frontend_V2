@@ -32,23 +32,12 @@ export { ObjectiveQuestionSummaryResult } from './board/form/ObjectiveQuestionSu
 export { SubjectiveQuestionSummaryResult } from './board/form/SubjectiveQuestionSummaryResult';
 export { DetailFormResultHeader } from './board/form/DetailFormResultHeader';
 
-export { Board } from './board/main/Board';
-export { DefaultBoard } from './board/main/DefaultBoard';
-export { EmptyContent } from './board/main/EmptyContent';
-export { CustomBoard } from './board/main/CustomBoard';
-
 export { PostCard } from './board/post/PostCard';
 export { CommentCard } from './board/post/CommentCard';
 export { ChildCommentCard } from './board/post/ChildCommentCard';
 export { PopupMenu } from './board/post/PopupMenu';
 export { CommentInput } from './board/post/CommentInput';
-export { PostSkeleton } from './board/post/PostSkeleton';
 
-export { AllowAnonymousToggle } from './board/create/AllowAnonymousToggle';
-export { RoleSelectSection } from './board/create/RoleSelectSection';
-export { BoardDetailForm } from './board/create/BoardDetailForm';
-
-export { PostForm } from './board/post/create/PostForm';
 export { VotingForm } from './board/post/create/VotingForm';
 export { CreatePostFooter } from './board/post/create/CreatePostFooter';
 export { FilePreview } from './board/post/create/FilePreview';
@@ -58,13 +47,9 @@ export { FormErrorMessage } from './layout/FormErrorMessage';
 export { PostItem } from './board/postList/PostItem';
 export { PostItemStatusBar } from './board/postList/PostItemStatusBar';
 export { PostItemContent } from './board/postList/PostItemContent';
-export { PostSkeletonList } from './board/postList/PostSkeletonList';
 
 export { CircleApplyQuestion } from './board/form/CircleApplyQuestion';
 export { CircleApplyOption } from './board/form/CircleApplyOption';
-
-export { PostSearchIntro } from './board/search/PostSearchIntro';
-export { PostSearchNotFound } from './board/search/PostSearchNotFound';
 
 export { VTwoForm } from './layout/VTwoForm';
 

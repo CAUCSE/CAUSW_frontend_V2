@@ -75,7 +75,7 @@ API.interceptors.response.use(
         handleNoRefresh();
       }
     }
-    throw new Error(`${error}`);
+    throw error;
   },
 );
 
@@ -113,6 +113,6 @@ FORMAPI.interceptors.response.use(
         handleNoRefresh();
       }
     }
-    throw new Error(`${error}`);
+    throw error;
   },
 );

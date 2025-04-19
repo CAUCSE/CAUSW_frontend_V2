@@ -1,7 +1,8 @@
 'use client';
 
-import PreviousIcon from '../../../public/icons/previous_icon.svg';
 import { useRouter } from 'next/navigation';
+
+import PreviousIcon from '../../../public/icons/previous_icon.svg';
 
 export const PreviousButton = ({ routeCallback }: { routeCallback?: () => void }) => {
   const router = useRouter();

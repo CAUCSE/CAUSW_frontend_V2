@@ -1,46 +1,16 @@
 'use client';
 
-import React from 'react';
+import { PostCreationForm, PostCreationFormButtonGroup } from '@/fsd_widgets/post';
+import { VoteCreationForm } from '@/fsd_widgets/vote';
 
-import { CreatePostFooter, FilePreview, PostForm, VotingForm } from '@/entities';
-import {
-  PreviousButton,
-  useCreateApply,
-  useCreatePostStore,
-  useCreateVoteStore,
-  useFileUpload,
-  usePostForm,
-} from '@/shared';
+import { usePostCreationStore } from '@/fsd_entities/post';
+
+import { FilePreview } from '@/entities';
+import { PreviousButton, useCreateApply, useFileUpload, usePostForm } from '@/shared';
 import { ApplyCreationForm } from '@/widget';
 
 const CreatePostPage = () => {
-  const {
-    title,
-    content,
-    isAnonymous,
-    isQuestion,
-    isVote,
-    isApply,
-    setContent,
-    setTitle,
-    toggleAnonymous,
-    toggleQuestion,
-    toggleApply,
-    toggleVote,
-  } = useCreatePostStore();
-
-  const {
-    voteTitle,
-    options,
-    isMultipleChoice,
-    allowAnonymous,
-    setVoteTitle,
-    setVoteOption,
-    addVoteOption,
-    removeVoteOption,
-    toggleMultipleChoice,
-    toggleAllowAnonymous,
-  } = useCreateVoteStore();
+  const { isApply, isVote } = usePostCreationStore();
 
   const { selectedFiles } = useFileUpload();
 
@@ -69,46 +39,15 @@ const CreatePostPage = () => {
             />
           ) : (
             <>
-              <PostForm
-                title={title}
-                content={content}
-                isQuestion={isQuestion}
-                isAnonymous={isAnonymous}
-                isVote={isVote}
-                onTitleChange={setTitle}
-                onContentChange={setContent}
-                onQuestionToggle={toggleQuestion}
-                onAnonymousToggle={toggleAnonymous}
-              />
+              <PostCreationForm />
               {/* 투표 파트 */}
-              {isVote ? (
-                <VotingForm
-                  voteTitle={voteTitle}
-                  options={options}
-                  isMultipleChoice={isMultipleChoice}
-                  allowAnonymous={allowAnonymous}
-                  onVoteTitleChange={setVoteTitle}
-                  onAddOption={addVoteOption}
-                  onChangeOption={setVoteOption}
-                  onRemoveOption={removeVoteOption}
-                  onSelectMultiple={toggleMultipleChoice}
-                  onAllowAnonymous={toggleAllowAnonymous}
-                />
-              ) : (
-                ''
-              )}
-              {selectedFiles.length === 0 ? '' : <FilePreview />}
+              {isVote && <VoteCreationForm />}
+              {selectedFiles.length > 0 && <FilePreview />}
             </>
           )}
         </div>
       </div>
-      <CreatePostFooter
-        isVote={isVote}
-        isApply={isApply}
-        handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit}
-        handleVoteToggle={toggleVote}
-        handleApplyToggle={toggleApply}
-      />
+      <PostCreationFormButtonGroup handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit} />
     </>
   );
 };
