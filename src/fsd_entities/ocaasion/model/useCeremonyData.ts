@@ -9,7 +9,7 @@ import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { getCeremonyAwaitList, getCeremonyDetail } from '../api';
 
 export const useCeremonyData = (occasionId?: string) => {
-  const [ceremonyList, setCeremonyList] = useState<Occasion[]>([]);
+  const [ceremonyList, setCeremonyList] = useState<Occasion.Occasion[]>([]);
   const [occasionDetails, setOccasionDetails] = useState({
     title: '',
     type: '',

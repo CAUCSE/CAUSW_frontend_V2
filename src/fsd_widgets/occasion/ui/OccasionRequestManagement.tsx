@@ -15,7 +15,7 @@ export const OccasionRequestManagement = ({
   title,
   firstNavigation,
   navigation,
-}: OccasionRequestManagementProps) => {
+}: Occasion.OccasionRequestManagementProps) => {
   const { ceremonyList } = useCeremonyData();
   const isFirstNavigation = (() => {
     if (!state) return true;

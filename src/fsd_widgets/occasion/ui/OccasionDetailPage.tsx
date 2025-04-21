@@ -18,7 +18,7 @@ import {
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
-export const OccasionDetailPage = ({ occasionId }: OccasionDetailPageProps) => {
+export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(occasionId);
 
   const router = useRouter();
