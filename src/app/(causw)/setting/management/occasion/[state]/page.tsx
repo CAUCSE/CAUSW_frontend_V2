@@ -1,4 +1,4 @@
-import { OccasionRequestManagement } from '@/fsd_widgets/occasion/ui';
+import { OccasionRequestManagement } from '@/fsd_widgets/occasion';
 
 import { MESSAGES } from '@/fsd_shared';
 

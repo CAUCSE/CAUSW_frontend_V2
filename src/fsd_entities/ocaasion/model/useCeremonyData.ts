@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
-import { getCeremonyAwaitList, getCeremonyDetail } from '../api';
+import { getCeremonyAwaitList, getCeremonyDetail } from '../api/get';
 
 export const useCeremonyData = (occasionId?: string) => {
   const [ceremonyList, setCeremonyList] = useState<Occasion.Occasion[]>([]);

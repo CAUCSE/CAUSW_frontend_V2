@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { updateCeremonyState } from '@/fsd_entities/ocaasion/api';
-import { useCeremonyData } from '@/fsd_entities/ocaasion/model';
+import { updateCeremonyState } from '@/fsd_entities/ocaasion';
+import { useCeremonyData } from '@/fsd_entities/ocaasion';
 import {
   OccasionApprovalButton,
   OccasionApprovalModal,

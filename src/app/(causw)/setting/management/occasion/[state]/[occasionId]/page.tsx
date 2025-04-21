@@ -1,9 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
-import { OccasionDetailPage } from '@/fsd_widgets/occasion/ui';
+import { OccasionDetailPage } from '@/fsd_widgets/occasion';
 
 import { Header } from '@/entities';
 import { MESSAGES } from '@/fsd_shared';

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { useCeremonyData } from '@/fsd_entities/ocaasion/model';
+import { useCeremonyData } from '@/fsd_entities/ocaasion';
 
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
