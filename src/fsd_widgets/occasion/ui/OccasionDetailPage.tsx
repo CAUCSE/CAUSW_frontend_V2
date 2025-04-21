@@ -14,7 +14,7 @@ import {
   OccasionDateTile,
   OccasionImageTile,
   OccasionSectionTitle,
-} from '@/fsd_entities/ocaasion/ui';
+} from '@/fsd_entities/ocaasion';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 

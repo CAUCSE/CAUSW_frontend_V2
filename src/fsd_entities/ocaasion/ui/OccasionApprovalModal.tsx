@@ -1,7 +1,7 @@
 import { MESSAGES } from '@/fsd_shared';
 import { Modal } from '@/shared';
 
-export const OccasionApprovalModal = ({ closeModal, occasionTitle }: OccasionApprovalModalProps) => {
+export const OccasionApprovalModal = ({ closeModal, occasionTitle }: Occasion.OccasionApprovalModalProps) => {
   return (
     <Modal closeModal={closeModal}>
       <div className="flex flex-col items-center gap-10 text-center">
