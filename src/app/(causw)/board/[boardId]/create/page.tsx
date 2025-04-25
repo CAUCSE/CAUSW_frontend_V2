@@ -6,6 +6,7 @@ import { PostCreationForm, PostCreationFormButtonGroup } from '@/fsd_widgets/pos
 import { VoteCreationForm } from '@/fsd_widgets/vote';
 
 import { UploadFilePreview, usePostCreationStore, useUploadFileStore } from '@/fsd_entities/post';
+import { useCreatePost } from '@/fsd_entities/post';
 
 import { PreviousButton, useCreateApply, usePostForm } from '@/shared';
 import { ApplyCreationForm } from '@/widget';
@@ -23,6 +24,8 @@ const CreatePostPage = () => {
   const { methods, register, watch, errors, fields, remove, handleSubmit, addSurveyForm, onSubmit } = useCreateApply();
 
   const { handlePostSubmit, handleBack } = usePostForm();
+
+  const { mutate: createPost } = useCreatePost();
 
   return (
     <>
@@ -53,7 +56,7 @@ const CreatePostPage = () => {
           )}
         </div>
       </div>
-      <PostCreationFormButtonGroup handleSubmit={isApply ? handleSubmit(onSubmit) : handlePostSubmit} />
+      <PostCreationFormButtonGroup handleSubmit={isApply ? handleSubmit(onSubmit) : createPost} />
     </>
   );
 };

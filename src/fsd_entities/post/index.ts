@@ -16,6 +16,7 @@ export {
   usePostCreationStore,
   useUploadFileStore,
   useUploadFile,
+  useCreatePost,
 } from './model';
 export { postQueryKey } from './config';
 export { getPostListServer } from './api';
