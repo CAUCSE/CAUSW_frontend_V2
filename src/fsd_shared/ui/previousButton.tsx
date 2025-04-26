@@ -1,14 +1,16 @@
 'use client';
 
+import PreviousIcon from '../../../public/icons/previous_icon.svg';
 import { useRouter } from 'next/navigation';
 
 export const PreviousButton = ({ routeCallback }: { routeCallback?: () => void }) => {
   const router = useRouter();
   return (
-    <div className="absolute left-0 top-0 m-4 bg-boardPageBackground">
-      <button type="button" onClick={() => (routeCallback ? routeCallback() : router.back())}>
-        <div className="flex items-center">
-          <span className="pr-4 text-2xl">{'<'}</span>이전
+    <div className="absolute left-0 top-0 m-4">
+      <button type="button" onClick={() => (routeCallback ? routeCallback() : router.back())} className="w-full">
+        <div className="flex items-center gap-3">
+          <PreviousIcon className="h-8 w-8" />
+          <p className="text-lg">이전</p>
         </div>
       </button>
     </div>
