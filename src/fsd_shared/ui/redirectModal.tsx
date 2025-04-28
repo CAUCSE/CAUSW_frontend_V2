@@ -30,7 +30,7 @@ export const RedirectModal = ({ closeModal, children, redirectTo }: IModalProps)
         {children}
 
         {/* 페이지 이동 버튼 */}
-        <button className="h-10 w-28 rounded bg-focus hover:bg-blue-500 mt-4 text-white" onClick={handleRedirect}>
+        <button className="mt-4 h-10 w-28 rounded bg-focus text-white hover:bg-blue-500" onClick={handleRedirect}>
           이동하기
         </button>
       </div>

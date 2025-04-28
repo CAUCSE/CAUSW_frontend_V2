@@ -1,4 +1,6 @@
-import { OccasionManagement } from '@/widget';
+import { OccasionRequestManagement } from '@/fsd_widgets/occasion';
+
+import { MESSAGES } from '@/fsd_shared';
 
 const firstNavigation = {
   name: '등록 신청 경조사',
@@ -13,19 +15,7 @@ const navigation: {
   router: string;
 }[] = [];
 
-type TOccasion = {
-  occasionTitle: string;
-  occasionId: string;
-};
-
 const Occasion = ({ params: { state } }: { params: { state: string } }) => {
-  // TODO 경조사 가져오는 로직 연동 필요
-  const data: TOccasion[] = [
-    {
-      occasionTitle: '테스트 경조사',
-      occasionId: '1',
-    },
-  ];
   let isFirstNavigation;
   if (!state) {
     isFirstNavigation = true;
@@ -35,12 +25,11 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
     isFirstNavigation = false;
   }
   return (
-    <OccasionManagement
+    <OccasionRequestManagement
       state={state}
-      title="경조사 등록 신청 관리"
+      title={MESSAGES.OCCASION.REGISTRATION_LIST}
       firstNavigation={firstNavigation}
       navigation={navigation}
-      data={data}
     />
   );
 };

@@ -15,7 +15,7 @@ const keyMapping = {
 export const OccasionTypeDropdown = ({ options, placeholder, onChange }: OccasionDropdownProps) => (
   <select
     onChange={e => onChange(e.target.value as 'MARRIAGE' | 'FUNERAL' | 'ETC')}
-    className="w-full md:w-1/2 block rounded-lg border border-gray-300 p-2 text-base mt-4"
+    className="mt-4 block w-full rounded-lg border border-gray-300 p-2 text-base md:w-1/2"
   >
     {options.map((option, index) => (
       <option key={index} value={option}>

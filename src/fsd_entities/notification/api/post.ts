@@ -1,6 +1,9 @@
 'use client';
 
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
+import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
 import { API } from '@/shared';
 
@@ -23,5 +26,17 @@ export const createCeremonyNotificationSetting = async (payload: NotificationSet
     } else {
       throw new Error('알 수 없는 오류가 발생했습니다.');
     }
+  }
+};
+
+export const markAsRead = async (id: string): Promise<void> => {
+  const URI = `/api/v1/notifications/log/isRead/${id}`;
+
+  try {
+    await API.post(URI, {}, { headers: { Authorization: getRccAccess() } });
+    toast.success(`알림 ${id} 읽음 처리 완료`);
+  } catch (error) {
+    toast.error(`알림 ${id} 읽음 처리 실패: 서버 응답 오류`);
+    throw error;
   }
 };

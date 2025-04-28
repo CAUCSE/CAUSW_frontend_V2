@@ -6,9 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --cache --cache-location ./node_modules/.cache/.eslintcache",
     "format": "prettier --write \"**/*.{js,ts,jsx,tsx,json,css,html}\"",
-    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\""
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "generate:sitemap": "next-sitemap"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
@@ -21,6 +22,7 @@
     "firebase": "^11.3.0",
     "js-cookie": "^3.0.5",
     "next": "14.2.3",
+    "next-sitemap": "^4.2.3",
     "react": "^18",
     "react-csv": "^2.2.2",
     "react-dom": "^18",
@@ -46,7 +48,7 @@
     "eslint-plugin-prettier": "^5.2.6",
     "postcss": "^8.4.39",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.5",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "react-spinners": "^0.14.1",
     "recharts": "^2.12.7",
     "tailwind-scrollbar-hide": "^1.1.7",

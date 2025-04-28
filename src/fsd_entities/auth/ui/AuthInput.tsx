@@ -27,7 +27,7 @@ export const AuthInput = <T extends FieldValues>({
   const isPassword = type === 'password';
 
   return (
-    <div className="flex flex-col w-full max-w-md mx-auto mb-6">
+    <div className="mx-auto mb-6 flex w-full max-w-md flex-col">
       {label && (
         <label htmlFor={rest.id || name} className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
           {label}

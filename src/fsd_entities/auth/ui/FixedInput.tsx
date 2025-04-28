@@ -13,7 +13,7 @@ export const FixedInput = <T extends FieldValues>({ register, name, label, value
       <label className="text-lg font-semibold">{label}</label>
       <input
         {...register(name)}
-        className="p-2 border border-gray-300 w-full sm:w-1/3 rounded-md mb-1"
+        className="mb-1 w-full rounded-md border border-gray-300 p-2 sm:w-1/3"
         defaultValue={value}
         readOnly={!!value}
       ></input>

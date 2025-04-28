@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ChangeEvent, useState } from 'react';
 
 import Image from 'next/image';
@@ -57,12 +59,12 @@ export const ImageUploadField = <T extends FieldValues>({
   };
 
   return (
-    <div className="flex flex-col w-full mx-auto mb-6">
-      {label && <label className="text-lg font-semibold mb-1">{label}</label>}
+    <div className="mx-auto mb-6 flex w-full flex-col">
+      {label && <label className="mb-1 text-lg font-semibold">{label}</label>}
       {children && <div className="mb-1">{children}</div>}
 
-      <div className="flex gap-4 items-center overflow-x-auto">
-        <label className="min-w-28 min-h-28 w-28 h-28 border-2 border-gray-300 rounded-lg flex items-center justify-center cursor-pointer bg-white hover:bg-gray-50 transition shrink-0">
+      <div className="flex items-center gap-4 overflow-x-auto">
+        <label className="flex h-28 min-h-28 w-28 min-w-28 shrink-0 cursor-pointer items-center justify-center rounded-lg border-2 border-gray-300 bg-white transition hover:bg-gray-50">
           <span className="text-6xl text-gray-400">+</span>
           <input type="file" accept="image/*" multiple onChange={handleChange} className="hidden" />
         </label>
@@ -73,19 +75,19 @@ export const ImageUploadField = <T extends FieldValues>({
           .map((src, i) => (
             <div
               key={i}
-              className="relative min-w-28 min-h-28 w-28 h-28 border-gray-300 rounded overflow-hidden flex-shrink-0 cursor-pointer"
+              className="relative h-28 min-h-28 w-28 min-w-28 flex-shrink-0 cursor-pointer overflow-hidden rounded border-gray-300"
             >
               <Image
                 src={src}
                 alt={`preview-${i}`}
                 fill
-                className="object-cover cursor-pointer"
+                className="cursor-pointer object-cover"
                 onClick={() => setSelectedImage(src)}
               />
               <button
                 type="button"
                 onClick={() => handleDelete(previews.length - 1 - i)}
-                className="absolute top-1 right-1 bg-red-500 text-white rounded-full px-1 text-xs"
+                className="absolute right-1 top-1 rounded-full bg-red-500 px-1 text-xs text-white"
               >
                 ✕
               </button>

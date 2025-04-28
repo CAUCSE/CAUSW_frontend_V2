@@ -1,8 +1,11 @@
+import { Suspense } from 'react';
+
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 import { ErrorMessage } from '@/entities';
 import '@/firebase-messaging-sw';
-import { WindowSizeListener } from '@/shared';
+import { GA, WindowSizeListener } from '@/fsd_shared';
 
 import './globals.css';
 
@@ -13,13 +16,55 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en">
+      <html lang="ko">
         <head>
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'CAUSW',
+                url: 'https://causw.co.kr',
+                description:
+                  '중앙대학교 소프트웨어학부 동문만 사용할 수 있는 커뮤니티 서비스로, 단순 소셜 네트워크 기능 뿐만 아니라 사물함 신청, 동아리 신청 및 학생회 사업/행사 신청 등 전반적으로 소프트웨어 학부 학생 사회를 하나로 묶어주며, 학생들의 편의를 증진 시켜주는 서비스, CAUSW',
+                publisher: {
+                  '@type': 'Organization',
+                  name: '중앙대학교 소프트웨어학부',
+                  url: 'https://sw.cau.ac.kr',
+                  logo: {
+                    '@type': 'ImageObject',
+                    url: 'https://causw.co.kr/_next/image?url=%2Fimages%2Fsignin-logo.png&w=1920&q=75&dpl=dpl_6awPM6qeGtELn978Q8qm7sMEt2dX',
+                  },
+                },
+              }),
+            }}
+          />
         </head>
         <body>
+          {/* 초기 페이지 진입 시 GA에 페이지 정보를 전송 */}
+          <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`} />
+          <Script
+            id="gtag-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-0MFP0WN799', {
+                page_path: window.location.pathname,
+              });
+            `,
+            }}
+          />
+          {/* 클라이언트 라우팅으로 페이지 이동 감지 */}
+          <Suspense>
+            <GA />
+          </Suspense>
           <WindowSizeListener />
           <ErrorMessage />
           {children}
@@ -32,6 +77,9 @@ export default function RootLayout({
 export const metadata: Metadata = {
   title: 'CAUSW V2',
   description: '중앙대학교 소프트웨어학부 동문을 위한 서비스',
+  alternates: {
+    canonical: 'https://causw.co.kr/auth/signin',
+  },
   icons: {
     icon: [
       { url: 'favicons/favicon-96x96.png', rel: 'icon' },
