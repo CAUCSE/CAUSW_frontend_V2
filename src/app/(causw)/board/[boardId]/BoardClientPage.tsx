@@ -1,14 +1,12 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-
 import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
 
-import { useGetPostList } from '@/fsd_entities/post';
-
 import { LoadingScreen } from '@/fsd_shared';
+import { useGetPostList } from '@/fsd_entities/post';
+import { useParams } from 'next/navigation';
 
-export const BoardPage = () => {
+export const BoardClientPage = () => {
   const { boardId } = useParams();
 
   const { data, fetchNextPage, isFetchingNextPage, isLoading, hasNextPage, isError, error } = useGetPostList({

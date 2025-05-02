@@ -1,8 +1,7 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
 import { getPostListServer, postQueryKey } from '@/fsd_entities/post';
 
-import { BoardPage } from './BoardPage';
+import { BoardClientPage } from './BoardClientPage';
 
 const BoardPageServer = async ({ params }: { params: { boardId: string } }) => {
   const queryClient = new QueryClient();
@@ -14,7 +13,7 @@ const BoardPageServer = async ({ params }: { params: { boardId: string } }) => {
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <BoardPage />
+      <BoardClientPage />
     </HydrationBoundary>
   );
 };
