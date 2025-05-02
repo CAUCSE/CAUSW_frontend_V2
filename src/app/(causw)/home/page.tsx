@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { Banner, Calendar, CardBox, HomeCard } from '@/entities/home';
+import { FCMTokenChecker } from '@/fsd_widgets/notification';
 
-import { usePushNotification } from '@/fsd_entities/notification';
+import { Banner, Calendar, CardBox, HomeCard } from '@/entities/home';
 
 import { HomeRscService } from '@/shared';
 
@@ -32,11 +32,9 @@ const cardsEntities = [
 
 const HomePage = async () => {
   const { getHomePosts, getEvents } = HomeRscService();
-  const { compareFCMToken } = usePushNotification();
 
   const events = await getEvents();
   const homePosts = await getHomePosts();
-  compareFCMToken();
 
   const mainBoards = [
     homePosts.find(board => board.board.name.includes('서비스 공지')),
@@ -49,6 +47,7 @@ const HomePage = async () => {
 
   return (
     <>
+      <FCMTokenChecker />
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
           <Banner
