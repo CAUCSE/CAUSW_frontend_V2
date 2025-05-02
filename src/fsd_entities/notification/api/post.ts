@@ -77,7 +77,7 @@ export const createCeremony = async (formData: FormData): Promise<CreateCeremony
       throw new Error('알 수 없는 오류가 발생했습니다.');
     }
 export const updateFCMToken = async (token: string): Promise<void> => {
-  const URI = `/api/v1/users/fcm?token=${token}`;
+  const URI = `/api/v1/users/fcm?fcmToken=${token}`;
   try {
     await API.post(URI);
   } catch (error) {
