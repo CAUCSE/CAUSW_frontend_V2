@@ -4,6 +4,7 @@
 
 //model
 export { useNotificationStore } from './model/notificationStore';
+export { usePushNotification } from './model/usePushNotification';
 
 //ui
 export { NotificationList } from './ui/NotificationList';
