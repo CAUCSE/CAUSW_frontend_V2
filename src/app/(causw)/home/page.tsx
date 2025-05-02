@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 import { Banner, Calendar, CardBox, HomeCard } from '@/entities/home';
 
+import { usePushNotification } from '@/fsd_entities/notification';
+
 import { HomeRscService } from '@/shared';
 
 const cardsEntities = [
@@ -30,9 +32,11 @@ const cardsEntities = [
 
 const HomePage = async () => {
   const { getHomePosts, getEvents } = HomeRscService();
+  const { compareFCMToken } = usePushNotification();
 
   const events = await getEvents();
   const homePosts = await getHomePosts();
+  compareFCMToken();
 
   const mainBoards = [
     homePosts.find(board => board.board.name.includes('서비스 공지')),
