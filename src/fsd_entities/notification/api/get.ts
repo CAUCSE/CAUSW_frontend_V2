@@ -67,16 +67,6 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getFCMToken = async (): Promise<string[] | null> => {
-  const URI = `/api/v1/users/fcm`;
-
-  try {
-    const response: AxiosResponse<string[]> = await API.get(URI);
-    return response.data || null;
-  } catch (error) {
-    return null;
-  }
-};
 export const getCeremonies = async (
   ceremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE' = 'ACCEPT',
   pageNum: number = 0,
@@ -93,5 +83,16 @@ export const getCeremonies = async (
   } catch (error) {
     toast.error('경조사 목록 가져오기 실패');
     throw error;
+  }
+};
+
+export const getFCMToken = async (): Promise<string | null> => {
+  const URI = `/api/v1/users/fcm`;
+
+  try {
+    const response: AxiosResponse<string> = await API.get(URI);
+    return response.data;
+  } catch (error) {
+    return null;
   }
 };
