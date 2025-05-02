@@ -66,12 +66,12 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getFCMToken = async (): Promise<string | null> => {
+export const getFCMToken = async (): Promise<string[] | null> => {
   const URI = `/api/v1/users/fcm`;
 
   try {
-    const response: AxiosResponse<string> = await API.get(URI);
-    return response.data;
+    const response: AxiosResponse<string[]> = await API.get(URI);
+    return response.data || null;
   } catch (error) {
     return null;
   }

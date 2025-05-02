@@ -97,7 +97,7 @@ export const usePushNotification = () => {
       const serverFCMToken = await getFCMToken();
 
       // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
-      if (!serverFCMToken || serverFCMToken !== clientFCMToken) {
+      if (!serverFCMToken || !serverFCMToken.includes(clientFCMToken)) {
         await updateFCMToken(clientFCMToken);
       }
     } catch (error) {}
