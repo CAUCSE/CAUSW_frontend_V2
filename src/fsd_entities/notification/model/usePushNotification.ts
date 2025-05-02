@@ -63,20 +63,35 @@ export const usePushNotification = () => {
   const compareFCMToken = async (): Promise<void> => {
     try {
       const deviceType = getDeviceType();
-      if (deviceType === 'desktop') return;
+      if (deviceType === 'desktop') {
+        console.log('desktop 환경입니다');
+        return;
+      }
 
       // 이미 체크된 경우 스킵
       const checked = localStorage.getItem(FCM_CHECKED_KEY);
       if (checked) {
+        console.log('이미 토큰 여부가 확인 되었습니다');
         return;
       }
       localStorage.setItem(FCM_CHECKED_KEY, 'true');
+
+      // 알림 권한 요청
+      await Notification.requestPermission();
+
+      if (Notification.permission !== 'granted') {
+        console.log('알림 권한 요청 실패');
+        return;
+      }
 
       // 클라이언트에서 토큰 가져오기
       const clientFCMToken = await getClientFCMToken();
 
       // 로컬에서 토큰 못 가져오는 경우 early return
-      if (!clientFCMToken) return;
+      if (!clientFCMToken) {
+        console.log('FCM 토큰을 client 단에서 불러오는데 실패했습니다.');
+        return;
+      }
 
       // 서버에서 현재 사용자의 토큰 조회
       const serverFCMToken = await getFCMToken();
