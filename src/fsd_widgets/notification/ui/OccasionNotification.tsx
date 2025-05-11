@@ -1,10 +1,9 @@
 import Link from 'next/link';
 
-import { Header, Line } from '@/entities';
+import { Header, Line } from '@/fsd_shared';
 
 interface OccasionNotificationProps {
   state: string | undefined;
-  title: string;
   firstNavigation: {
     name: string;
     state: string;
@@ -18,13 +17,7 @@ interface OccasionNotificationProps {
   data: { occasionTitle: string; occasionId: string }[];
 }
 
-export const OccasionNotification = ({
-  state,
-  title,
-  firstNavigation,
-  navigation,
-  data,
-}: OccasionNotificationProps) => {
+export const OccasionNotification = ({ state, firstNavigation, navigation, data }: OccasionNotificationProps) => {
   let isFirstNavigation;
   if (!state) {
     isFirstNavigation = true;
@@ -35,14 +28,7 @@ export const OccasionNotification = ({
   }
 
   return (
-    <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
-      <Link href="/setting" className="mb-7 flex items-center text-lg">
-        <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
-        이전
-      </Link>
-      <Header bold big>
-        {title}
-      </Header>
+    <div>
       <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
         <div
           className={`mt-8 flex justify-start gap-12 px-4 ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-start'} flex-row md:mb-1 md:justify-start lg:w-full`}

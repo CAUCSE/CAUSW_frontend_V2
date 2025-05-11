@@ -1,4 +1,8 @@
-import { OccasionNotification } from '@/widget';
+import Link from 'next/link';
+
+import { OccasionNotification } from '@/fsd_widgets/notification';
+
+import { Header, Line } from '@/entities';
 
 const firstNavigation = {
   name: '경조사 목록',
@@ -6,6 +10,11 @@ const firstNavigation = {
   router: '/setting/notification/occasion',
 };
 
+const secondtNavigation = {
+  name: 'd사 목록',
+  state: 'alarms',
+  router: '/setting/notification/alarms',
+};
 // 추가 탭이 필요할 경우 추가
 const navigation: {
   name: string;
@@ -55,13 +64,19 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
   }
 
   return (
-    <OccasionNotification
-      state={state}
-      title="전체 알림"
-      firstNavigation={firstNavigation}
-      navigation={navigation}
-      data={data}
-    />
+    <>
+      <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+        <Link href="/setting" className="mb-7 flex items-center text-lg">
+          <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
+          이전
+        </Link>
+        <Header bold big>
+          전체 알림
+        </Header>
+        <OccasionNotification state={state} firstNavigation={firstNavigation} navigation={navigation} data={data} />
+        <OccasionNotification state={state} firstNavigation={secondtNavigation} navigation={navigation} data={data} />
+      </div>
+    </>
   );
 };
 
