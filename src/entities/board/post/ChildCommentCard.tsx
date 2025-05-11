@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
 import Image from 'next/image';
 
 import { getTimeDifference } from '@/utils/format';
@@ -28,6 +30,22 @@ export const ChildCommentCard = ({
 }: ChildCommentCardProps) => {
   const isAnon = childComment.isAnonymous;
   const writerProfileImage = childComment.isAnonymous ? '/images/default_profile.png' : childComment.writerProfileImage;
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+        if (isPopupVisible) {
+          handleChildCommentToggle();
+        }
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isPopupVisible, handleChildCommentToggle]);
+
   const handleLike = () => {
     if (!isDeleted) {
       handleChildCommentLike();
@@ -41,13 +59,16 @@ export const ChildCommentCard = ({
         <Image src="/images/post/child-comment.svg" alt="Child Comment" width={25} height={25}></Image>
       </div>
       <div className="relative mb-4 flex w-full max-w-sm flex-grow flex-col rounded-post-br border bg-white pb-2 shadow-post-sh">
-        <button
-          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
-          onClick={handleChildCommentToggle}
-        >
-          <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
-        </button>
-        {isPopupVisible ? <PopupMenu PopupMenuChildren={popMenuList} /> : ''}
+        <div ref={popupRef} className="relative">
+          <button
+            className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
+            onClick={handleChildCommentToggle}
+          >
+            <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
+          </button>
+          {isPopupVisible && <PopupMenu PopupMenuChildren={popMenuList} />}
+        </div>
+
         <div className="mb-1 flex flex-row items-center px-2">
           <Image
             src={writerProfileImage ?? '/images/default_profile.png'}

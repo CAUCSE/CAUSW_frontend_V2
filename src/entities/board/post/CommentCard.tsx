@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
 import Image from 'next/image';
 
 import { useCommentStore, usePostStore } from '@/shared';
@@ -32,6 +34,23 @@ export const CommentCard = ({
   const { toggleCommentOverlay } = useCommentStore();
   const { setCommentInfo: setChildComment } = usePostStore();
   const writerProfileImage = comment.isAnonymous ? '/images/default_profile.png' : comment.writerProfileImage;
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+        if (isPopupVisible) {
+          handleCommentToggle();
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isPopupVisible, handleCommentToggle]);
+
   const handleOverlayToggle = () => {
     if (!isDeleted) {
       setChildComment(comment.id);
@@ -50,13 +69,15 @@ export const CommentCard = ({
     <div
       className={`relative flex flex-col rounded-post-br border pb-2 shadow-post-sh ${overlayActive ? 'bg-overlay-bg' : 'bg-white'} mb-4 max-w-sm`}
     >
-      <button
-        className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
-        onClick={handleCommentToggle}
-      >
-        <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
-      </button>
-      {isPopupVisible ? <PopupMenu PopupMenuChildren={popMenuList} /> : ''}
+      <div ref={popupRef} className="relative">
+        <button
+          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
+          onClick={handleCommentToggle}
+        >
+          <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
+        </button>
+        {isPopupVisible && <PopupMenu PopupMenuChildren={popMenuList} />}
+      </div>
 
       <div className="mb-1 flex flex-row items-center px-2">
         <Image
