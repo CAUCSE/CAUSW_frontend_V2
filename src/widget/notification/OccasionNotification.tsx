@@ -43,7 +43,7 @@ export const OccasionNotification = ({
       <Header bold big>
         {title}
       </Header>
-      <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
+      {/* <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
         <div
           className={`mt-8 flex justify-start gap-12 px-4 ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-start'} flex-row md:mb-1 md:justify-start lg:w-full`}
         >
@@ -83,7 +83,7 @@ export const OccasionNotification = ({
             {element.occasionTitle}
           </Link>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
