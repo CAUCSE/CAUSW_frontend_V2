@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
-import { Line } from '@/entities';
+import MenuIcon from '../../../../public/icons/menu.svg';
+import AddIcon from '../../../../public/icons/plus_icon.svg';
+import SettingIcon from '../../../../public/icons/setting.svg';
 
 interface OccasionNotificationProps {
   name: string;
@@ -20,18 +22,29 @@ interface OccasionNotificationProps {
 
 export const OccasionNotification = ({ name, state, firstNavigation, navigation, data }: OccasionNotificationProps) => {
   return (
-    <div>
-      <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
-        <div
-          className={`mb-5 mt-8 flex w-full flex-row items-end justify-center gap-12 px-4 md:mb-1 md:justify-center lg:w-full`}
-        >
-          <Link href={`setting/notification/${state}`} className={`h-18 text-xl`}>
+    <div className="mt-8">
+      <div className="flex w-full justify-center border-b-[3px] border-[#BABABA] pb-2">
+        <div className="flex-1" />
+        <div className="flex flex-1 justify-center">
+          <Link href={`setting/notification/${state}`} className="h-18 text-xl">
             {name}
           </Link>
         </div>
-        {state === 'occasion' && <div>dddsdfsdd</div>}
+        {state === 'occasion' && (
+          <div className="flex flex-1 flex-row items-center justify-end gap-x-1">
+            <Link href={`setting/notification/${state}`}>
+              <AddIcon />
+            </Link>
+            <Link href={`setting/notification/${state}`}>
+              <MenuIcon />
+            </Link>
+            <Link href={`setting/notification/${state}`}>
+              <SettingIcon />
+            </Link>
+          </div>
+        )}
       </div>
-      <Line />
+
       <div className="ml-2 mt-6 flex flex-col">
         {data.map(element => (
           <Link

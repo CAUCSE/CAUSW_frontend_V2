@@ -28,8 +28,8 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
   const { updateAccess } = AuthRscService();
 
   const handleNoRefresh = async () => {
-    await signout();
-    location.href = '/auth/signin';
+    // await signout();
+    // location.href = '/auth/signin';
   };
 
   const handleNoAccesss = async () => {
