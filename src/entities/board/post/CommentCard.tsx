@@ -78,7 +78,7 @@ export const CommentCard = ({
       <div className="mb-1 px-8 text-[16px]">{isDeleted ? '삭제된 댓글입니다.' : comment.content}</div>
 
       <button
-        className="flex flex-row items-center justify-start space-x-3 px-8 py-1 text-[13px] text-post-like"
+        className="flex h-9 w-24 flex-row items-center justify-start space-x-3 px-8 py-1 text-[13px] text-post-like"
         onClick={handleLike}
       >
         <Image src="/images/post/like.svg" alt="Like Icon" width={20} height={20}></Image>
