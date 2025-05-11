@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { OccasionNotification } from '@/fsd_widgets/notification';
 
-import { Header, Line } from '@/entities';
+import { Header } from '@/entities';
 
 const firstNavigation = {
   name: '경조사 목록',
@@ -73,8 +73,22 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
         <Header bold big>
           전체 알림
         </Header>
-        <OccasionNotification state={state} firstNavigation={firstNavigation} navigation={navigation} data={data} />
-        <OccasionNotification state={state} firstNavigation={secondtNavigation} navigation={navigation} data={data} />
+        <div className='w-full" grid grid-cols-2 gap-16'>
+          <OccasionNotification
+            name={'알림'}
+            state={'alarms'}
+            firstNavigation={firstNavigation}
+            navigation={navigation}
+            data={alarmData}
+          />
+          <OccasionNotification
+            name={'경조사'}
+            state={'occasion'}
+            firstNavigation={secondtNavigation}
+            navigation={navigation}
+            data={occasionData}
+          />
+        </div>
       </div>
     </>
   );
