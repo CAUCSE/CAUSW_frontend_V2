@@ -115,7 +115,10 @@ export const PostCard = ({
 
       <div className="flex w-full flex-col items-start px-3">
         <div className="w-full">
-          <div className="mb-2 select-text px-1 text-[24px] font-medium">{postData.title}</div>
+          <div className="mb-2 select-text px-1 text-[24px] font-medium">
+            {postData.isQuestion ? '[질문] ' : ''}
+            {postData.title}
+          </div>
           <div className="mb-2 select-text whitespace-pre-line break-words px-1 pb-2 text-[16px]">
             {postData.content}
           </div>
