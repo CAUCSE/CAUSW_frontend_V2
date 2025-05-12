@@ -56,14 +56,12 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
         variant={payNum ? 'BLUE' : 'GRAY'}
         action={async () => {
           if (!payNum) return;
+          if (user.currentCompletedSemester === null || user.currentCompletedSemester === undefined) {
+            toast.error('등록 완료 학기 정보가 없어 학생회비 납부자 등록이 불가합니다.');
+            return;
+          }
           try {
-            const res = await addPayer(
-              userId,
-              user.currentCompletedSemester ? 8 - user.currentCompletedSemester : 1,
-              payNum,
-              false,
-              0,
-            );
+            const res = await addPayer(userId, 8 - user.currentCompletedSemester, payNum, false, 0);
             if (!res) {
               toast.error('납부자 추가 중 오류가 발생했습니다.');
               // throw new Error("납부자 추가 중 오류가 발생했습니다.");
