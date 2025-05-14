@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import MenuIcon from '../../../../public/icons/menu.svg';
 import AddIcon from '../../../../public/icons/plus_icon.svg';
@@ -9,6 +12,7 @@ interface HeaderProps {
   state: string;
 }
 export const OccasionNotificationHeader = ({ name, state }: HeaderProps) => {
+  const pathname = usePathname();
   return (
     <div className="mb-5 flex w-full justify-center border-b-[3px] border-[#BABABA] pb-2">
       {state === 'occasion' && <div className="flex-1" />}
@@ -22,7 +26,7 @@ export const OccasionNotificationHeader = ({ name, state }: HeaderProps) => {
           <Link href={`setting/notification/${state}`}>
             <AddIcon />
           </Link>
-          <Link href={`setting/notification/${state}`}>
+          <Link href={`${pathname}/list`}>
             <MenuIcon />
           </Link>
           <Link href={`setting/notification/${state}`}>
