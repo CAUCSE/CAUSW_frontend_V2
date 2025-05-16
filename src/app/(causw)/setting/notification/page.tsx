@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Box, Tab, Tabs, Typography } from '@mui/material';
 
@@ -11,6 +12,10 @@ import { OccasionNotification } from '@/fsd_widgets/notification';
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { Header } from '@/entities';
+
+import MenuIcon from '../../../../../public/icons/menu.svg';
+import AddIcon from '../../../../../public/icons/plus_icon.svg';
+import SettingIcon from '../../../../../public/icons/setting.svg';
 
 const firstNavigation = {
   name: '경조사 목록',
@@ -45,7 +50,7 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
     // },
     {
       id: 1,
-      title: '알람1',
+      title: '경조사 알람1',
       subtitle: '2025.03.10 ~ 2025.03.11',
       isRead: true,
     },
@@ -58,7 +63,7 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
     // },
     {
       id: 3,
-      title: '경조사 알람1',
+      title: '알람1',
       subtitle: '2025.03.10 ~ 2025.03.11',
       isRead: false,
     },
@@ -74,7 +79,7 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
   } else {
     isFirstNavigation = false;
   }
-
+  const pathname = usePathname();
   return (
     <>
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
@@ -131,13 +136,30 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
               fontSize: '32px',
             }}
           />
+          {activeTab === 1 && (
+            <div className="flex flex-1 flex-row items-center justify-end gap-x-1">
+              <Link href={`setting/notification`}>
+                <AddIcon />
+              </Link>
+              <Link href={`${pathname}/list`}>
+                <MenuIcon />
+              </Link>
+              <Link href={`setting/notification`}>
+                <SettingIcon />
+              </Link>
+            </div>
+          )}
         </Tabs>
         {activeTab === 0 && (
           <>
             <ListBox data={alarmData} />
           </>
         )}
-        {activeTab === 1 && <>dddd</>}
+        {activeTab === 1 && (
+          <>
+            <ListBox data={occasionData} />
+          </>
+        )}
         {/* <div className='w-full" grid grid-cols-2 gap-16'>
           <OccasionNotification
             name={'알림'}
