@@ -7,13 +7,13 @@ import { Header } from '@/entities';
 const firstNavigation = {
   name: '경조사 목록',
   state: 'occasion',
-  router: '/setting/notification/occasion',
+  router: '/setting/notification',
 };
 
 const secondtNavigation = {
   name: 'd사 목록',
   state: 'alarms',
-  router: '/setting/notification/alarms',
+  router: '/setting/notification',
 };
 // 추가 탭이 필요할 경우 추가
 const navigation: {

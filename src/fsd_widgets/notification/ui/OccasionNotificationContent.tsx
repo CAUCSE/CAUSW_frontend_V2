@@ -11,7 +11,7 @@ export const OccasionNotificationContent = ({ occasionTitle, occasionId, state }
   const read = true;
   return (
     <div className="rounded-md bg-white p-3">
-      <Link href={`/setting/notification/${state}/${occasionId}`} className="mb-3 text-lg">
+      <Link href={`/setting/notification/${occasionId}`} className="mb-3 text-lg">
         <div className="flex flex-row items-center gap-2">
           <div className="no-wrap">
             <NotificationStatusIcon read={read} />

@@ -17,19 +17,19 @@ export const OccasionNotificationHeader = ({ name, state }: HeaderProps) => {
     <div className="mb-5 flex w-full justify-center border-b-[3px] border-[#BABABA] pb-2">
       {state === 'occasion' && <div className="flex-1" />}
       <div className="flex flex-1 justify-center text-2xl font-medium">
-        <Link href={`setting/notification/${state}`} className="h-18 text-xl">
+        <Link href={`setting/notification`} className="h-18 text-xl">
           {name}
         </Link>
       </div>
       {state === 'occasion' && (
         <div className="flex flex-1 flex-row items-center justify-end gap-x-1">
-          <Link href={`setting/notification/${state}`}>
+          <Link href={`setting/notification`}>
             <AddIcon />
           </Link>
           <Link href={`${pathname}/list`}>
             <MenuIcon />
           </Link>
-          <Link href={`setting/notification/${state}`}>
+          <Link href={`setting/notification`}>
             <SettingIcon />
           </Link>
         </div>
