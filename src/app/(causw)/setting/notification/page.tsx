@@ -8,6 +8,8 @@ import { Box, Tab, Tabs, Typography } from '@mui/material';
 
 import { OccasionNotification } from '@/fsd_widgets/notification';
 
+import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
+
 import { Header } from '@/entities';
 
 const firstNavigation = {
@@ -36,30 +38,33 @@ type TOccasion = {
 const Notification = ({ params: { state } }: { params: { state: string } }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   // TODO 경조사 가져오는 로직 연동 필요
-  const occasionData: TOccasion[] = [
+  const occasionData: CeremonyItem[] = [
+    // {
+    //   occasionTitle: '테스트 경조사 1',
+    //   occasionId: '1',
+    // },
     {
-      occasionTitle: '테스트 경조사 1',
-      occasionId: '1',
-    },
-    {
-      occasionTitle: '테스트 경조사 2',
-      occasionId: '2',
+      id: 1,
+      title: '알람1',
+      subtitle: '2025.03.10 ~ 2025.03.11',
+      isRead: true,
     },
   ];
 
-  const alarmData: TOccasion[] = [
+  const alarmData: CeremonyItem[] = [
+    // {
+    //   occasionTitle: '테스트 알림 1',
+    //   occasionId: '3',
+    // },
     {
-      occasionTitle: '테스트 알림 1',
-      occasionId: '3',
-    },
-    {
-      occasionTitle: '테스트 알림 2',
-      occasionId: '4',
+      id: 3,
+      title: '경조사 알람1',
+      subtitle: '2025.03.10 ~ 2025.03.11',
+      isRead: false,
     },
   ];
 
   // `state`에 따라 데이터를 결정
-  const data: TOccasion[] = state === 'occasion' ? occasionData : state === 'alarms' ? alarmData : [];
 
   let isFirstNavigation;
   if (!state) {
@@ -127,7 +132,11 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
             }}
           />
         </Tabs>
-        {activeTab === 0 && <>dd</>}
+        {activeTab === 0 && (
+          <>
+            <ListBox data={alarmData} />
+          </>
+        )}
         {activeTab === 1 && <>dddd</>}
         {/* <div className='w-full" grid grid-cols-2 gap-16'>
           <OccasionNotification
