@@ -6,6 +6,7 @@ import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 import { API } from '@/fsd_shared';
 
 import { Notification } from '../config/types';
+import { CeremonyResponse } from '../config/types';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -65,3 +66,23 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
     throw error;
   }
 };
+
+export const getCeremonies = async (
+  ceremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE' = 'ACCEPT',
+  pageNum: number = 0,
+): Promise<CeremonyResponse> => {
+  try {
+    const response: AxiosResponse<CeremonyResponse> = await API.get(CEREMONY_URI, {
+      params: {
+        ceremonyState,
+        pageNum,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    toast.error('경조사 목록 가져오기 실패');
+    throw error;
+  }
+};
+
