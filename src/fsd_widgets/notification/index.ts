@@ -4,5 +4,4 @@ export { NotificationSettingWidget } from './ui/NotificationSettingWidget';
 
 // ui
 export { NotificationWidget } from './ui/NotificationWidget';
-export { OccasionNotification } from './ui/OccasionNotification';
 export { FCMTokenChecker } from './ui/FCMTokenChecker';
