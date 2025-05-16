@@ -107,6 +107,7 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
             justifyContent: 'flex-start',
             padding: '8px 8px 4px 16px',
             borderBottom: '3px solid #bababa',
+            marginBottom: '24px',
           }}
         >
           <Tab
