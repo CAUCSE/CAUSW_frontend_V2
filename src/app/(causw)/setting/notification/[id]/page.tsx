@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
+import { OccasionDetailPage } from '@/fsd_widgets/occasion';
+
 import { Header } from '@/entities';
 import { OccasionNotificationDetail } from '@/widget';
 
@@ -17,7 +19,8 @@ const OccasionRequestDetailPage = () => {
       <Header bold big>
         경조사 정보
       </Header>
-      <OccasionNotificationDetail occasionId={occasionId} />
+      {/* <OccasionNotificationDetail occasionId={occasionId} /> */}
+      <OccasionDetailPage occasionId={occasionId} />
     </div>
   );
 };
