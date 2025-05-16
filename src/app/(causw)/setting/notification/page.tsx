@@ -87,16 +87,15 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           이전
         </Link>
-        {/* <Header bold big>
+        <Header bold big>
           전체 알림
-        </Header> */}
-        <div className="font-600 text-[48px]">전체 알림</div>
+        </Header>
 
         <Tabs
           value={activeTab}
           TabIndicatorProps={{
             style: {
-              height: '7px',
+              height: '5px',
               backgroundColor: '#6bbeec',
               borderRadius: '20px',
             },
@@ -120,7 +119,7 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
               '&.Mui-selected': {
                 color: '#000',
               },
-              fontSize: '32px',
+              fontSize: '20px',
               fontWeight: '500',
             }}
           />
@@ -134,7 +133,7 @@ const Notification = ({ params: { state } }: { params: { state: string } }) => {
               '&.Mui-selected': {
                 color: '#000',
               },
-              fontSize: '32px',
+              fontSize: '20px',
             }}
           />
           {activeTab === 1 && (
