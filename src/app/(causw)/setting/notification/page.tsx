@@ -1,4 +1,10 @@
+'use client';
+
+import { useState } from 'react';
+
 import Link from 'next/link';
+
+import { Box, Tab, Tabs, Typography } from '@mui/material';
 
 import { OccasionNotification } from '@/fsd_widgets/notification';
 
@@ -27,7 +33,8 @@ type TOccasion = {
   occasionId: string;
 };
 
-const Occasion = ({ params: { state } }: { params: { state: string } }) => {
+const Notification = ({ params: { state } }: { params: { state: string } }) => {
+  const [activeTab, setActiveTab] = useState<number>(0);
   // TODO 경조사 가져오는 로직 연동 필요
   const occasionData: TOccasion[] = [
     {
@@ -70,10 +77,59 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           이전
         </Link>
-        <Header bold big>
+        {/* <Header bold big>
           전체 알림
-        </Header>
-        <div className='w-full" grid grid-cols-2 gap-16'>
+        </Header> */}
+        <div className="font-600 text-[48px]">전체 알림</div>
+
+        <Tabs
+          value={activeTab}
+          TabIndicatorProps={{
+            style: {
+              height: '7px',
+              backgroundColor: '#6bbeec',
+              borderRadius: '20px',
+            },
+          }}
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'flex-start',
+            padding: '8px 8px 4px 16px',
+            borderBottom: '3px solid #bababa',
+          }}
+        >
+          <Tab
+            label="알림"
+            disableRipple
+            onClick={() => setActiveTab(0)}
+            sx={{
+              textTransform: 'none',
+              color: '#000',
+              '&.Mui-selected': {
+                color: '#000',
+              },
+              fontSize: '32px',
+              fontWeight: '500',
+            }}
+          />
+          <Tab
+            label="경조사"
+            disableRipple
+            onClick={() => setActiveTab(1)}
+            sx={{
+              textTransform: 'none',
+              color: '#000',
+              '&.Mui-selected': {
+                color: '#000',
+              },
+              fontSize: '32px',
+            }}
+          />
+        </Tabs>
+        {activeTab === 0 && <>dd</>}
+        {activeTab === 1 && <>dddd</>}
+        {/* <div className='w-full" grid grid-cols-2 gap-16'>
           <OccasionNotification
             name={'알림'}
             state={'alarms'}
@@ -88,10 +144,10 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
             navigation={navigation}
             data={occasionData}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
 };
 
-export default Occasion;
+export default Notification;
