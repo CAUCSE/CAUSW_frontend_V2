@@ -1,17 +1,28 @@
 'use client';
 
-import { useShallow } from 'zustand/react/shallow';
+import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
 
-import { useVoteCreationStore } from '../../model';
+import { PostSchema } from '@/fsd_entities/post';
+
 import { CustomToggle } from './CustomToggle';
 
 export const AnonymousToggle = () => {
-  const { allowAnonymous, toggleAllowAnonymous } = useVoteCreationStore(
-    useShallow(state => ({
-      allowAnonymous: state.allowAnonymous,
-      toggleAllowAnonymous: state.toggleAllowAnonymous,
-    })),
-  );
+  const { control } = useFormContext<PostSchema>();
 
-  return <CustomToggle isActive={allowAnonymous} onClick={toggleAllowAnonymous} text="익명 투표" />;
+  const toggleAllowAnonymous = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: ControllerRenderProps<PostSchema, 'voteCreateRequestDto.allowAnonymous'>,
+  ) => {
+    field.onChange(e.target.checked);
+  };
+
+  return (
+    <Controller
+      control={control}
+      name="voteCreateRequestDto.allowAnonymous"
+      render={({ field }) => (
+        <CustomToggle isChecked={field.value} onCheckChanged={e => toggleAllowAnonymous(e, field)} text="익명 투표" />
+      )}
+    />
+  );
 };

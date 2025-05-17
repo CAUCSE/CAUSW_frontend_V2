@@ -1,17 +1,27 @@
 'use client';
 
-import { useShallow } from 'zustand/react/shallow';
+import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
 
-import { usePostCreationStore } from '../../model';
+import { PostSchema } from '@/fsd_entities/post';
+
 import { CustomToggle } from './CustomToggle';
 
 export const QuestionToggle = () => {
-  const { isQuestion, toggleQuestion } = usePostCreationStore(
-    useShallow(state => ({
-      isQuestion: state.isQuestion,
-      toggleQuestion: state.toggleQuestion,
-    })),
-  );
+  const { control } = useFormContext<PostSchema>();
+  const toggleQuestion = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: ControllerRenderProps<PostSchema, 'isQuestion'>,
+  ) => {
+    field.onChange(e.target.checked);
+  };
 
-  return <CustomToggle isChecked={isQuestion} onClick={toggleQuestion} text="질문" />;
+  return (
+    <Controller
+      name="isQuestion"
+      control={control}
+      render={({ field }) => (
+        <CustomToggle isChecked={field.value} onCheckedChange={e => toggleQuestion(e, field)} text="질문" />
+      )}
+    />
+  );
 };

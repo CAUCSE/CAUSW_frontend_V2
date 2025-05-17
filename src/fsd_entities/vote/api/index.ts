@@ -1,0 +1,1 @@
+export { createVote } from './post';
