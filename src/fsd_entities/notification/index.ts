@@ -11,7 +11,7 @@ export { NotificationList } from './ui/NotificationList';
 
 // model
 export { useNotificationSettingForm } from './model/useNotificationSettingForm';
-
+export { useNotificationData } from './model';
 // ui
 export { AdmissionYearInput } from './ui/AdmissionYearInput';
 export { AllYearToggle } from './ui/AllYearToggle';

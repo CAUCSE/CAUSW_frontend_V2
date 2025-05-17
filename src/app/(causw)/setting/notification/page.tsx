@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 import { NotificationTabs } from '@/fsd_widgets/notification';
 
+import { useNotificationData } from '@/fsd_entities/notification';
+
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { Header } from '@/entities';
@@ -17,7 +19,9 @@ type TOccasion = {
 
 const Notification = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
-  // TODO 경조사 가져오는 로직 연동 필요
+  const { notificationData } = useNotificationData();
+  console.log('notificationData', notificationData);
+
   const occasionData: CeremonyItem[] = [
     {
       id: 1,
