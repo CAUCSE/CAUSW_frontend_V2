@@ -16,11 +16,11 @@ export const useGetPostSearchList = ({ boardId, keyword, isSearch }: UseGetPostS
     queryKey: postQueryKey.searchResult(boardId, keyword),
     queryFn: async ({ pageParam }) => getSearchPostList({ boardId, keyword, pageNum: pageParam }),
     initialPageParam: 0,
-    getNextPageParam: lastPage => {
+    getNextPageParam: (lastPage) => {
       return lastPage.post.last ? null : lastPage.post.number + 1;
     },
-    select: data => {
-      return data.pages.flatMap(page => page.post.content);
+    select: (data) => {
+      return data.pages.flatMap((page) => page.post.content);
     },
     enabled: isSearch && keyword !== '',
     staleTime: 0,

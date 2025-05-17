@@ -17,7 +17,7 @@ export const MyPostList = ({
   fetchNextPage,
 }: MyPostListProps) => {
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting && hasNextPage) {
         fetchNextPage();
         observer.unobserve(entry.target);
@@ -40,7 +40,7 @@ export const MyPostList = ({
       ) : (
         <>
           {postList!
-            .filter(post => !post.isDeleted)
+            .filter((post) => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
               <PostItem key={post.id} post={post} targetUrl={`/board/my/${post.id}`} />
             ))}

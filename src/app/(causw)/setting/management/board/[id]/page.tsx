@@ -16,7 +16,7 @@ const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) =
   const [data, setData] = useState<undefined | Setting.GetApplyBoardResponseDto>();
 
   useEffect(() => {
-    getApplyBoards(id).then(res => setData(res));
+    getApplyBoards(id).then((res) => setData(res));
   }, []);
 
   if (!data) return <LoadingComponent />;

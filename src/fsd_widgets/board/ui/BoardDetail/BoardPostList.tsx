@@ -23,7 +23,7 @@ interface BoardPostListProps {
 
 export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetchNextPage }: BoardPostListProps) => {
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting && hasNextPage) {
         fetchNextPage();
         observer.unobserve(entry.target);
@@ -41,7 +41,7 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
       ) : (
         <>
           {postList!
-            .filter(post => !post.isDeleted)
+            .filter((post) => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
               <PostCard key={post.id} post={post} />
             ))}

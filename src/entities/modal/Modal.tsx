@@ -34,7 +34,7 @@ export function Modal({
           `z-[9999] rounded-md border border-[rgba(39,39,39,0.2)] bg-white p-[14px] shadow-md`,
           className,
         )}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         open
         {...props}
       >
@@ -72,7 +72,7 @@ export function TitleModal({
           className,
           `z-[9999] rounded-md border border-[rgba(39,39,39,0.2)] bg-white p-[11.65px] pb-[15px] pt-[20px] shadow-md`,
         )}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         open
       >
         <p className="border-b border-black border-opacity-[0.07] pb-[11.35px] text-start text-[16px] font-light">

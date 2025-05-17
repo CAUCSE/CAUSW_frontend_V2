@@ -27,7 +27,7 @@ export const useSearchPost = () => {
   } = useGetPostSearchList({ boardId: boardId as string, keyword, isSearch });
 
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting && hasNextPage) {
         fetchNextPage();
         observer.unobserve(entry.target);

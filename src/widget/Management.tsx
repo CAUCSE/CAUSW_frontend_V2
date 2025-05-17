@@ -41,12 +41,12 @@ export const Management = ({
   const isFirstNavigation = !state
     ? true
     : navigation
-      ? navigation.findIndex(elemenent => elemenent.state === state) === -1
+      ? navigation.findIndex((elemenent) => elemenent.state === state) === -1
       : false;
 
   const exportType = isFirstNavigation
     ? firstNavigation.exportType
-    : navigation?.find(element => element.state === state)?.exportType;
+    : navigation?.find((element) => element.state === state)?.exportType;
 
   return (
     <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
@@ -69,7 +69,7 @@ export const Management = ({
             {firstNavigation.name}
           </Link>
           {navigation
-            ? navigation.map(element => (
+            ? navigation.map((element) => (
                 <Link
                   key={element.state}
                   href={element.state}
@@ -83,12 +83,12 @@ export const Management = ({
       </div>
       <Line />
       <div className="ml-2 mt-6 flex flex-col">
-        {data.map(element => (
+        {data.map((element) => (
           <Link
             href={
               (isFirstNavigation
                 ? firstNavigation.router
-                : navigation!.find(element => element.state === state)?.router) +
+                : navigation!.find((element) => element.state === state)?.router) +
               '/' +
               element.id
             }

@@ -9,7 +9,7 @@ import { FindEmailResult } from './FindEmailResult';
 
 export const FindEmailWidget = () => {
   const { email, resetFindAccountStore } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       email: state.email,
       resetFindAccountStore: state.resetFindAccountStore,
     })),

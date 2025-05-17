@@ -7,7 +7,7 @@ import { LockerService, useLockerSelectionStore } from '@/shared';
 
 export const useRegisterLocker = () => {
   const { clickedLockerId, clickedLockerStatus } = useLockerSelectionStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       clickedLockerId: state.clickedLockerId,
       clickedLockerStatus: state.clickedLockerStatus,
     })),

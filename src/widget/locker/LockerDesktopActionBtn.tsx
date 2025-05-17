@@ -8,7 +8,7 @@ interface LockerDesktopActionBtnProps {
 }
 
 export const LockerDesktopActionBtn = ({ lockerPeriod }: LockerDesktopActionBtnProps) => {
-  const clickedLockerStatus = useLockerSelectionStore(state => state.clickedLockerStatus);
+  const clickedLockerStatus = useLockerSelectionStore((state) => state.clickedLockerStatus);
 
   return (
     <div className="flex w-full flex-col items-center gap-8">

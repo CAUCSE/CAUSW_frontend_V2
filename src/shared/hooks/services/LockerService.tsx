@@ -28,7 +28,7 @@ export const LockerService = () => {
   };
 
   const useRegisterLocker = () => {
-    const setClickedLockerStatus = useLockerSelectionStore(state => state.setClickedLockerStatus);
+    const setClickedLockerStatus = useLockerSelectionStore((state) => state.setClickedLockerStatus);
 
     const queryClient = useQueryClient();
     return useMutation({
@@ -51,7 +51,7 @@ export const LockerService = () => {
 
   const useReturnLocker = () => {
     const { setClickedLockerId, setClickedLockerStatus } = useLockerSelectionStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         setClickedLockerId: state.setClickedLockerId,
         setClickedLockerStatus: state.setClickedLockerStatus,
       })),

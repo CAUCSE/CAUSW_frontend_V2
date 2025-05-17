@@ -10,9 +10,9 @@ import { createPostWithForm } from '../../api/post';
 import { usePostCreationStore, useUploadFileStore } from '../stores';
 
 export const useCreatePostWithForm = () => {
-  const clearPost = usePostCreationStore(state => state.clearPost);
+  const clearPost = usePostCreationStore((state) => state.clearPost);
   const { selectedFileList, clearFileList } = useUploadFileStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       selectedFileList: state.selectedFileList,
       clearFileList: state.clearFileList,
     })),
@@ -26,7 +26,7 @@ export const useCreatePostWithForm = () => {
         attachImageList: selectedFileList,
       });
     },
-    onSuccess: data => {
+    onSuccess: (data) => {
       router.replace(`/board/${boardId}/${data}`);
       clearFileList();
       clearPost();

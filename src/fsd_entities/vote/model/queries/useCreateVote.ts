@@ -15,7 +15,7 @@ export const useCreateVote = () => {
       await createVote(voteData);
       return voteData.postId;
     },
-    onSuccess: postId => {
+    onSuccess: (postId) => {
       router.replace(`/board/${boardId}/${postId}`);
     },
     onError: (error: Error) => {

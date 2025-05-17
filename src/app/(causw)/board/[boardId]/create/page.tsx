@@ -26,13 +26,13 @@ import { useCreateApply, usePostForm } from '@/shared';
 
 const CreatePostPage = () => {
   const { isApply, isVote } = usePostCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isApply: state.isApply,
       isVote: state.isVote,
     })),
   );
 
-  const selectedFileList = useUploadFileStore(state => state.selectedFileList);
+  const selectedFileList = useUploadFileStore((state) => state.selectedFileList);
 
   const { handlePostSubmit, handleBack } = usePostForm();
 
@@ -100,7 +100,7 @@ const CreatePostPage = () => {
     });
   }, [isVote, isApply, methods]);
 
-  const handleSubmit = methods.handleSubmit(async data => {
+  const handleSubmit = methods.handleSubmit(async (data) => {
     if (isApply) {
       const { title, content, isAnonymous, isQuestion } = data;
       let { formCreateRequestDto } = data;

@@ -5,11 +5,11 @@ interface FormResponseResultProps {
 }
 
 export const FormResponseResult = ({ totalFormResult }: FormResponseResultProps) => {
-  const currentPage = useFormResultStore(state => state.currentPage);
+  const currentPage = useFormResultStore((state) => state.currentPage);
 
   return totalFormResult![0].questionResponseDtoList
     .sort((a, b) => a.questionNumber - b.questionNumber)
-    .map(questionDto => {
+    .map((questionDto) => {
       return (
         <div key={questionDto.questionId} className="w-3/4 min-w-[280px] sm:min-w-[530px]">
           <div className="flex w-full items-center justify-between">
@@ -21,14 +21,14 @@ export const FormResponseResult = ({ totalFormResult }: FormResponseResultProps)
             {questionDto.questionType === 'OBJECTIVE' ? (
               questionDto.optionResponseDtoList
                 .sort((a, b) => a.optionNumber - b.optionNumber)
-                .map(option => {
+                .map((option) => {
                   const userReplyResult = totalFormResult!
-                    .map(result => result.replyResponseDtoPage.content)
+                    .map((result) => result.replyResponseDtoPage.content)
                     .flat()
-                    .map(reply => {
+                    .map((reply) => {
                       return reply.replyQuestionResponseDtoList;
                     })
-                    [currentPage - 1].filter(response => response.questionId === questionDto.questionId)[0];
+                    [currentPage - 1].filter((response) => response.questionId === questionDto.questionId)[0];
                   return (
                     <div key={option.optionId} className="flex gap-2">
                       <input
@@ -44,12 +44,12 @@ export const FormResponseResult = ({ totalFormResult }: FormResponseResultProps)
               <input
                 value={
                   totalFormResult!
-                    .map(result => result.replyResponseDtoPage.content)
+                    .map((result) => result.replyResponseDtoPage.content)
                     .flat()
-                    .map(reply => {
+                    .map((reply) => {
                       return reply.replyQuestionResponseDtoList;
                     })
-                    [currentPage - 1].filter(response => response.questionId === questionDto.questionId)[0]
+                    [currentPage - 1].filter((response) => response.questionId === questionDto.questionId)[0]
                     .questionAnswer
                 }
                 readOnly

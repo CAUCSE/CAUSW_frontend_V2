@@ -17,7 +17,7 @@ interface CalendarCardProps {
 
 export const CalendarCard = ({ id, imgSrc, year, month }: CalendarCardProps) => {
   const { openDeleteModal, setCalendarId, setCalendarYear, setCalendarMonth } = useCalendarStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       openDeleteModal: state.openDeleteModal,
       setCalendarId: state.setCalendarId,
       setCalendarYear: state.setCalendarYear,

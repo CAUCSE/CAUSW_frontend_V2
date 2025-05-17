@@ -38,12 +38,12 @@ export const ImageUploadField = <T extends FieldValues>({
       return;
     }
 
-    const newPreviews = newFiles.map(file => URL.createObjectURL(file));
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
     setFiles(updated);
-    setPreviews(prev => [...prev, ...newPreviews]);
+    setPreviews((prev) => [...prev, ...newPreviews]);
 
     const dataTransfer = new DataTransfer();
-    updated.forEach(file => dataTransfer.items.add(file));
+    updated.forEach((file) => dataTransfer.items.add(file));
     setValue(name, dataTransfer.files as any, { shouldValidate: true });
   };
 
@@ -54,7 +54,7 @@ export const ImageUploadField = <T extends FieldValues>({
     setPreviews(updatedPreviews);
 
     const dataTransfer = new DataTransfer();
-    updatedFiles.forEach(file => dataTransfer.items.add(file));
+    updatedFiles.forEach((file) => dataTransfer.items.add(file));
     setValue(name, dataTransfer.files as any, { shouldValidate: true });
   };
 

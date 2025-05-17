@@ -19,7 +19,7 @@ const CircleMembers = async ({ params: { id } }: { params: { id: string } }) => 
         <Header bold>{data[0].circle.name} 총 부원</Header>
 
         <div className="flex flex-wrap gap-2">
-          {data.map(element => (
+          {data.map((element) => (
             <div key={element.user.id} className="flex h-44 w-36 flex-col items-center justify-center">
               <ProfileImage src={element.user.profileImageUrl}></ProfileImage>
               <SubHeader bold>

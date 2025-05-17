@@ -10,7 +10,7 @@ export const FindEmailResult = () => {
   const router = useRouter();
 
   const { email } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       email: state.email,
     })),
   );

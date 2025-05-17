@@ -60,7 +60,7 @@ export const VotingForm = ({
               type="text"
               placeholder="투표 이름"
               value={voteTitle}
-              onChange={e => onVoteTitleChange(e.target.value)}
+              onChange={(e) => onVoteTitleChange(e.target.value)}
               className="w-full border-b-post-title-input border-black bg-transparent p-1 text-lg placeholder:text-create-post-text focus:outline-none md:text-2xl lg:p-2"
             />
           </div>
@@ -85,7 +85,7 @@ export const VotingForm = ({
               placeholder="항목 입력"
               className="h-14 w-full rounded border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-none"
               value={option}
-              onChange={e => handleOptionChange(index, e.target.value)}
+              onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <button
               onClick={() => handleRemoveOption(index)}

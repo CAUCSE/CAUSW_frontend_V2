@@ -8,8 +8,8 @@ import { PostSchema } from '@/fsd_entities/post';
 import { usePostCreationStore } from '../../model';
 
 export const PostContentTextarea = () => {
-  const isVote = usePostCreationStore(state => state.isVote);
-  const isApply = usePostCreationStore(state => state.isApply);
+  const isVote = usePostCreationStore((state) => state.isVote);
+  const isApply = usePostCreationStore((state) => state.isApply);
   const { control } = useFormContext<PostSchema>();
 
   const handleContentChange = (
@@ -27,7 +27,7 @@ export const PostContentTextarea = () => {
         <div className={clsx('relative', isVote || isApply ? 'h-60 flex-shrink-0' : 'flex-grow')}>
           <textarea
             value={field.value}
-            onChange={e => handleContentChange(e, field)}
+            onChange={(e) => handleContentChange(e, field)}
             placeholder={`내용을 입력하세요!
 게시글과 댓글은 작성 후에는 수정할 수 없습니다.`}
             className={clsx(

@@ -8,7 +8,7 @@ import { useBoardCreationStore } from '../../model';
 
 export const BoardDetailForm = () => {
   const { boardName, boardDescription, setBoardName, setBoardDescription } = useBoardCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       boardName: state.boardName,
       boardDescription: state.boardDescription,
       setBoardName: state.setBoardName,

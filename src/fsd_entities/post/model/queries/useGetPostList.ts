@@ -12,12 +12,12 @@ export const useGetPostList = ({ boardId }: { boardId: string }) => {
       return await getPostList({ boardId, pageNum: pageParam });
     },
     initialPageParam: 0,
-    getNextPageParam: lastPage => {
+    getNextPageParam: (lastPage) => {
       return lastPage.post.last ? null : lastPage.post.number + 1;
     },
-    select: data => {
+    select: (data) => {
       const result = { boardName: data.pages[0].boardName };
-      return { ...result, postList: data.pages.flatMap(page => page.post.content) };
+      return { ...result, postList: data.pages.flatMap((page) => page.post.content) };
     },
   });
 };

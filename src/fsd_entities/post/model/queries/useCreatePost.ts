@@ -10,10 +10,10 @@ import { createPost } from '../../api';
 import { usePostCreationStore, useUploadFileStore } from '../stores';
 
 export const useCreatePost = () => {
-  const isVote = usePostCreationStore(state => state.isVote);
-  const clearPost = usePostCreationStore(state => state.clearPost);
+  const isVote = usePostCreationStore((state) => state.isVote);
+  const clearPost = usePostCreationStore((state) => state.clearPost);
   const { selectedFileList, clearFileList } = useUploadFileStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       selectedFileList: state.selectedFileList,
       clearFileList: state.clearFileList,
     })),
@@ -28,7 +28,7 @@ export const useCreatePost = () => {
         postData: { title, content, isAnonymous, isQuestion, boardId: boardId as string },
         attachImageList: selectedFileList,
       }),
-    onSuccess: postId => {
+    onSuccess: (postId) => {
       if (isVote) {
         return postId;
       }

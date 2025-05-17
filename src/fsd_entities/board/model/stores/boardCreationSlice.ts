@@ -19,15 +19,15 @@ interface BoardCreationAction {
 
 export type BoardCreationSlice = BoardCreationState & BoardCreationAction;
 
-export const createBoardCreationSlice: StateCreator<BoardCreationSlice, [], [], BoardCreationSlice> = set => ({
+export const createBoardCreationSlice: StateCreator<BoardCreationSlice, [], [], BoardCreationSlice> = (set) => ({
   boardName: '',
   boardDescription: '',
   allowAnonymous: false,
   selectedRoleList: ['ALL'],
-  setBoardName: boardName => set({ boardName }),
-  setBoardDescription: boardDescription => set({ boardDescription }),
-  setAllowAnonymous: allowAnonymous => set({ allowAnonymous }),
-  setSelectedRoleList: selectedRoleList => set({ selectedRoleList }),
+  setBoardName: (boardName) => set({ boardName }),
+  setBoardDescription: (boardDescription) => set({ boardDescription }),
+  setAllowAnonymous: (allowAnonymous) => set({ allowAnonymous }),
+  setSelectedRoleList: (selectedRoleList) => set({ selectedRoleList }),
   resetBoardCreation: () =>
     set({
       boardName: '',

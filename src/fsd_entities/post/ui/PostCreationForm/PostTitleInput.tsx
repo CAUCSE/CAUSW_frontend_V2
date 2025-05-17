@@ -35,7 +35,7 @@ export const PostTitleInput = () => {
             type="text"
             placeholder="제목"
             value={title}
-            onChange={e => handleTitleChange(e, field)}
+            onChange={(e) => handleTitleChange(e, field)}
             className="mb-2 w-full flex-grow border-b border-black border-b-black bg-transparent pb-2 text-2xl placeholder:text-[#b7b7b7] focus:outline-none lg:p-2"
             ref={autoFocusOnInput}
           />

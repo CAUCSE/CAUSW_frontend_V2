@@ -14,16 +14,16 @@ export const NotificationSettingWidget = () => {
     <div className="flex flex-col items-center gap-16">
       <div className="flex">
         <div className="mr-10">
-          <p className="text-xl font-semibold mb-3">경조사 알림을 받을 학번 설정</p>
+          <p className="mb-3 text-xl font-semibold">경조사 알림을 받을 학번 설정</p>
           <div className="mb-2">
             <AdmissionYearInput onAdd={addYear} disabled={setAll} />
           </div>
-          <p className="text-sm text-gray-400 mb-2">학번 입력 후 추가 버튼을 눌러주세요.</p>
+          <p className="mb-2 text-sm text-gray-400">학번 입력 후 추가 버튼을 눌러주세요.</p>
           <AllYearToggle checked={setAll} onChange={setAllYearsSelected} />
         </div>
         <AdmissionYearList years={years} onRemove={removeYear} isAllSelected={setAll} />
       </div>
-      <Button variant="BLUE" action={onSubmit} className="text-lg font-bold px-20 py-1">
+      <Button variant="BLUE" action={onSubmit} className="px-20 py-1 text-lg font-bold">
         저장
       </Button>
     </div>

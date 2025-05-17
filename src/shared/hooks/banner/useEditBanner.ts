@@ -13,7 +13,7 @@ import { useBannerStore } from '@/shared/hooks/stores/banner/useBannerStore';
 export const useEditBanner = () => {
   const { selectedBannerId, selectedBannerImage, selectedBannerUrl, closeEditBannerModal, resetSelectedBanner } =
     useBannerStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         selectedBannerId: state.selectedBannerId,
         selectedBannerImage: state.selectedBannerImage,
         selectedBannerUrl: state.selectedBannerUrl,

@@ -14,7 +14,7 @@ import { useBoardCreationStore } from '../stores';
 export const useCreateNoticeBoard = () => {
   const router = useRouter();
   const { boardName, boardDescription, allowAnonymous, selectedRoleList, resetBoardCreation } = useBoardCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       boardName: state.boardName,
       boardDescription: state.boardDescription,
       allowAnonymous: state.allowAnonymous,

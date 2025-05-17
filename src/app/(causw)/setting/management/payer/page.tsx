@@ -25,7 +25,7 @@ const PayerManagement = async () => {
           exportType: 'PAYERS',
           router: '/setting/management/payer/',
         }}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.userCouncilFeeId,

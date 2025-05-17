@@ -6,7 +6,7 @@ import { useBoardCreationStore } from '../stores';
 
 export const useSelectRole = () => {
   const { selectedRoleList, setSelectedRoleList } = useBoardCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       selectedRoleList: state.selectedRoleList,
       setSelectedRoleList: state.setSelectedRoleList,
     })),
@@ -21,9 +21,9 @@ export const useSelectRole = () => {
   };
 
   const handleToggleRole = (role: User.Role) => {
-    const newSelectedRoleList = selectedRoleList.filter(r => r !== 'ALL');
+    const newSelectedRoleList = selectedRoleList.filter((r) => r !== 'ALL');
     if (newSelectedRoleList.includes(role)) {
-      setSelectedRoleList(newSelectedRoleList.filter(r => r !== role));
+      setSelectedRoleList(newSelectedRoleList.filter((r) => r !== role));
       return;
     }
     if (selectedRoleList.length === 7) {

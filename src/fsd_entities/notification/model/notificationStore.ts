@@ -13,7 +13,7 @@ interface NotificationState {
   markAsRead: (id: string) => Promise<void>;
 }
 
-export const useNotificationStore = create<NotificationState>(set => ({
+export const useNotificationStore = create<NotificationState>((set) => ({
   notifications: [],
   ceremonyNotifications: [],
 
@@ -40,9 +40,9 @@ export const useNotificationStore = create<NotificationState>(set => ({
   markAsRead: async (id: string) => {
     try {
       await markAsRead(id);
-      set(state => ({
-        notifications: state.notifications.map(n => (n.notificationLogId === id ? { ...n, isRead: true } : n)),
-        ceremonyNotifications: state.ceremonyNotifications.map(n =>
+      set((state) => ({
+        notifications: state.notifications.map((n) => (n.notificationLogId === id ? { ...n, isRead: true } : n)),
+        ceremonyNotifications: state.ceremonyNotifications.map((n) =>
           n.notificationLogId === id ? { ...n, isRead: true } : n,
         ),
       }));

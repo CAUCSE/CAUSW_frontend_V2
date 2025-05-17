@@ -23,7 +23,7 @@ export const createPost = async ({ postData, attachImageList }: CreatePostParams
     ),
   );
 
-  attachImageList.forEach(file => {
+  attachImageList.forEach((file) => {
     formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
   });
 
@@ -37,7 +37,7 @@ export const createPostWithForm = async ({ postData, attachImageList }: CreatePo
     'postCreateWithFormRequestDto',
     new Blob([JSON.stringify({ ...postData })], { type: 'application/json' }),
   );
-  attachImageList.forEach(file => {
+  attachImageList.forEach((file) => {
     formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
   });
 

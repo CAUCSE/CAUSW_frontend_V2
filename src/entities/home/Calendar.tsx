@@ -45,7 +45,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
   }, [selectedYear]);
 
   const handlePrevMonth = () => {
-    setSelectedMonth(prev => {
+    setSelectedMonth((prev) => {
       if (prev === 0) {
         setSelectedYear(selectedYear - 1);
         return 11;
@@ -55,7 +55,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
   };
 
   const handleNextMonth = () => {
-    setSelectedMonth(prev => {
+    setSelectedMonth((prev) => {
       if (prev === 11) {
         setSelectedYear(selectedYear + 1);
         return 0;
@@ -97,8 +97,8 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
         style={{
           backgroundImage: `url(${
             calendars
-              ? (calendars.find(c => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
-                ? (calendars.find(c => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+              ? (calendars.find((c) => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+                ? (calendars.find((c) => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
                 : '/images/puang-proud.png'
               : '/images/puang-proud.png'
           })`,

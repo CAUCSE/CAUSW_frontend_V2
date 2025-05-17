@@ -28,6 +28,6 @@ export const getPostListServer = async (boardId: string, page: number) => {
   const response = fetch(`${BASEURL}/api/v1/posts?boardId=${boardId}&pageNum=${page}`, {
     headers,
     cache: 'no-store',
-  }).then(res => res.json());
+  }).then((res) => res.json());
   return response;
 };

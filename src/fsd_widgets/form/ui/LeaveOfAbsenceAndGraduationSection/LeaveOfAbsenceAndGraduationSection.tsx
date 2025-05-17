@@ -20,7 +20,7 @@ export const LeaveOfAbsenceAndGraduationSection = () => {
         <div className="grid grid-cols-2 gap-x-5 gap-y-1 lg:grid-cols-5 lg:gap-2">
           <LeaveOfAbsenceToggle />
           <GraduationToggle />
-          {Object.values(SemesterMetaData).map(semester => (
+          {Object.values(SemesterMetaData).map((semester) => (
             <SemesterToggleForLeaveOfAbsence key={semester.value} {...semester} className="col-span-1" />
           ))}
         </div>

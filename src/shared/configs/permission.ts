@@ -21,7 +21,7 @@ async function getFirebaseToken() {
 
 export async function onClickAlert() {
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    Notification.requestPermission().then(async result => {
+    Notification.requestPermission().then(async (result) => {
       if (result === 'granted') {
         const token = await getFirebaseToken();
         // await savePushToken(token);
