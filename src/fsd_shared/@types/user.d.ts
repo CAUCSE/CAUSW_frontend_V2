@@ -304,9 +304,8 @@ declare namespace User {
   //Store
   export interface UseUserStore extends User {
     setUserStore: (props: User.User & { isV2: boolean }) => void;
-
+    setEmail: (email: string) => void;
     checkVTwo: boolean;
-
     roleTxt: () => string;
     nameWithAdmission: () => string;
     profileImageSrc: () => string;
