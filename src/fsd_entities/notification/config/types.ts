@@ -7,6 +7,15 @@ export interface Notification {
   notificationLogId: string;
 }
 
+export interface CreateCeremonyPayload {
+  description: string;
+  startDate: string;
+  endDate: string;
+  category: '' | 'MARRIAGE' | 'FUNERAL' | 'GRADUATION' | 'ETC';
+  imageFileList?: FileList;
+}
+
+
 export interface Ceremony {
   id: string;
   title: string;

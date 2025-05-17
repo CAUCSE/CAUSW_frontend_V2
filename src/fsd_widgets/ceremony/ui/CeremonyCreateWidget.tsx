@@ -1,11 +1,12 @@
 'use client';
 
 import { useForm, FormProvider } from 'react-hook-form';
-import { useCeremonyCreateForm, CeremonyFormValues } from '@/fsd_entities/notification/model/useCelemonyCreateForm';
 import { SelectBox } from '@/fsd_shared/ui/SelectBox';
 import { InputBox } from '@/fsd_shared/ui/InputBox';
 import { ImageUploadField } from '@/fsd_shared/ui/ImageUploadField';
 import { Button } from '@/fsd_shared';
+import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
+import { useCeremonyCreateForm } from '@/fsd_entities/notification/model/useCelemonyCreateForm';
 
 const categoryOptions = [
   { label: '결혼', value: 'MARRIAGE' },
@@ -15,17 +16,17 @@ const categoryOptions = [
 ];
 
 export const CeremonyCreateWidget = () => {
-  const methods = useForm<CeremonyFormValues>({
+  const methods = useForm<CreateCeremonyPayload>({
     defaultValues: {
       category: '',
       startDate: '',
       endDate: '',
       description: '',
-      attachedImageList: [],
+      imageFileList: undefined,
     },
   });
 
-  const { onSubmit, loading } = useCeremonyCreateForm();
+  const { onSubmit } = useCeremonyCreateForm();
 
   // react-hook-form submit wrapper
   const handleFormSubmit = methods.handleSubmit(onSubmit);
@@ -38,7 +39,7 @@ export const CeremonyCreateWidget = () => {
           <SelectBox
             options={categoryOptions}
             value={methods.watch('category')}
-            onChange={(value) => methods.setValue('category', value)}
+            onChange={(value) => methods.setValue('category', value as CreateCeremonyPayload['category'])}
             hint="-선택해주세요-"
             width="w-64"
             height="h-12"
@@ -83,7 +84,7 @@ export const CeremonyCreateWidget = () => {
         <div className="flex flex-col gap-2.5">
           <p className="text-xl font-medium">사진 등록</p>
           <ImageUploadField
-            name="attachedImageList"
+            name="imageFileList"
             setValue={methods.setValue}
             maxFiles={5}
           />
@@ -93,7 +94,6 @@ export const CeremonyCreateWidget = () => {
           variant="BLUE"
           type="submit"
           className="text-lg font-bold px-20 py-1"
-          disabled={loading}
         >
           저장
         </Button>
