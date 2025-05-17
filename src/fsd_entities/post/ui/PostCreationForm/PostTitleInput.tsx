@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 
 import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
 
-import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
+import { PostSchema } from '@/fsd_entities/post';
 
 export const PostTitleInput = () => {
   const { control } = useFormContext<PostSchema>();

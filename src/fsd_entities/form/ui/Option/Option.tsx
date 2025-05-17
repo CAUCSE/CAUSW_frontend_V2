@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
+import { PostSchema } from '@/fsd_entities/post';
 
 import TrashcanIcon from '../../../../../public/icons/delete_icon.svg';
 

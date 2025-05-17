@@ -2,7 +2,7 @@
 
 import { Controller, ControllerProps, ControllerRenderProps, useFormContext } from 'react-hook-form';
 
-import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
+import { PostSchema } from '@/fsd_entities/post';
 
 import MinusIcon from '../../../../../public/icons/minus_icon.svg';
 
