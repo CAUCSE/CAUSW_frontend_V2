@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { NotificationTabs } from '@/fsd_widgets/notification';
 
-import { useNotificationData } from '@/fsd_entities/notification';
+import { useCeremonyNotificationData, useNotificationData } from '@/fsd_entities/notification';
 
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
@@ -20,11 +20,19 @@ type TOccasion = {
 const Notification = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { notificationData } = useNotificationData();
+  const { ceremonyNotificationData } = useCeremonyNotificationData();
   console.log('notificationData', notificationData);
+  console.log('ceremonyNotificationData', ceremonyNotificationData);
 
   const occasionData: CeremonyItem[] = [
     {
       id: 1,
+      title: '경조사 알람1',
+      subtitle: '2025.03.10 ~ 2025.03.11',
+      isRead: true,
+    },
+    {
+      id: 5,
       title: '경조사 알람1',
       subtitle: '2025.03.10 ~ 2025.03.11',
       isRead: true,
@@ -34,6 +42,12 @@ const Notification = () => {
   const alarmData: CeremonyItem[] = [
     {
       id: 3,
+      title: '알람1',
+      subtitle: '2025.03.10 ~ 2025.03.11',
+      isRead: false,
+    },
+    {
+      id: 4,
       title: '알람1',
       subtitle: '2025.03.10 ~ 2025.03.11',
       isRead: false,

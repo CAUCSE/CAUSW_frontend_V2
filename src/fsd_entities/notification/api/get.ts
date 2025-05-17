@@ -120,3 +120,27 @@ export const getNotificationData = async (pageNum: number = 0): Promise<Notifica
     throw error;
   }
 };
+export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
+  const URI = `/api/v1/notifications/log/ceremony`;
+
+  try {
+    const response = await API.get(URI, {
+      params: {
+        pageNum,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      toast.error('Axios error:', error.response?.data);
+    } else {
+      toast.error('General error');
+    }
+    throw error;
+  }
+};
