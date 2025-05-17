@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
@@ -11,8 +13,8 @@ import { PostCreationForm, PostCreationFormButtonGroup } from '@/fsd_widgets/pos
 import { VoteCreationForm } from '@/fsd_widgets/vote';
 
 import {
-  postSchema,
   PostSchema,
+  postSchema,
   UploadFilePreview,
   useCreatePostWithForm,
   usePostCreationStore,
@@ -22,19 +24,26 @@ import { useCreatePost } from '@/fsd_entities/post';
 import { useCreateVote } from '@/fsd_entities/vote';
 
 import { PreviousButton } from '@/fsd_shared';
-import { useCreateApply, usePostForm } from '@/shared';
 
 const CreatePostPage = () => {
-  const { isApply, isVote } = usePostCreationStore(
+  const { isApply, isVote, clearPost } = usePostCreationStore(
     useShallow((state) => ({
       isApply: state.isApply,
       isVote: state.isVote,
+      clearPost: state.clearPost,
     })),
   );
 
-  const selectedFileList = useUploadFileStore((state) => state.selectedFileList);
+  const { selectedFileList, clearFileList } = useUploadFileStore(
+    useShallow((state) => ({ selectedFileList: state.selectedFileList, clearFileList: state.clearFileList })),
+  );
+  const router = useRouter();
 
-  const { handlePostSubmit, handleBack } = usePostForm();
+  const handleBack = () => {
+    clearPost();
+    clearFileList();
+    router.back();
+  };
 
   const { mutateAsync: createPost } = useCreatePost();
   const { mutate: createVote } = useCreateVote();
