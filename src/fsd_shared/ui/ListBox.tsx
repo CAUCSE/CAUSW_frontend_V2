@@ -54,7 +54,21 @@ export const ListBox = ({ data }: ListBoxProps) => {
     <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
       <div className="flex flex-col space-y-4">
         {items.map(item => (
-          <div key={item.id} className="flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow">
+          <div key={item.id} className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow">
+            {!item.isRead && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: 6,
+                  left: 6,
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  backgroundColor: 'red',
+                }}
+              />
+            )}
+
             <div className="text-gray-600">{item.isRead ? <MailOpendIcon size={32} /> : <MailIcon size={32} />}</div>
             <div className="text-left">
               <div className="font-medium text-[#212323]">{item.title}</div>

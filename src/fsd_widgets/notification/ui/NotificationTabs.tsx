@@ -1,16 +1,19 @@
 'use client';
 
-import { Tab, Tabs } from '@mui/material';
+import { Badge, Tab, Tabs } from '@mui/material';
 
 import { NotificationActionButtons } from './NotificationActionButtons';
 
 interface Props {
   activeTab: number;
   setActiveTab: (index: number) => void;
-  showActionButtons: boolean;
+  hasUnread: {
+    alarm: boolean;
+    ceremony: boolean;
+  };
 }
 
-export const NotificationTabs = ({ activeTab, setActiveTab, showActionButtons }: Props) => (
+export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) => (
   <Tabs
     value={activeTab}
     TabIndicatorProps={{
@@ -30,7 +33,23 @@ export const NotificationTabs = ({ activeTab, setActiveTab, showActionButtons }:
     }}
   >
     <Tab
-      label="알림"
+      label={
+        <div style={{ display: 'flex', gap: 4 }}>
+          {hasUnread.alarm && (
+            <span
+              style={{
+                display: 'flex',
+                marginTop: '4px',
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                backgroundColor: 'red',
+              }}
+            />
+          )}
+          <span style={{ fontSize: '20px', fontWeight: 500 }}>알림</span>
+        </div>
+      }
       disableRipple
       onClick={() => setActiveTab(0)}
       sx={{
@@ -44,7 +63,23 @@ export const NotificationTabs = ({ activeTab, setActiveTab, showActionButtons }:
       }}
     />
     <Tab
-      label="경조사"
+      label={
+        <div style={{ display: 'flex', gap: 4 }}>
+          {hasUnread.ceremony && (
+            <span
+              style={{
+                display: 'flex',
+                marginTop: '4px',
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                backgroundColor: 'red',
+              }}
+            />
+          )}
+          <span style={{ fontSize: '20px', fontWeight: 500 }}>경조사</span>
+        </div>
+      }
       disableRipple
       onClick={() => setActiveTab(1)}
       sx={{
@@ -56,6 +91,6 @@ export const NotificationTabs = ({ activeTab, setActiveTab, showActionButtons }:
         fontSize: '20px',
       }}
     />
-    {showActionButtons && <NotificationActionButtons />}
+    {activeTab === 1 && <NotificationActionButtons />}
   </Tabs>
 );

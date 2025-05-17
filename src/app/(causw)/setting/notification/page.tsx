@@ -32,6 +32,10 @@ const Notification = () => {
     body: data.body,
     isRead: data.isRead,
   }));
+  const hasUnread = {
+    alarm: alarmData.some(item => !item.isRead),
+    ceremony: ceremonyData.some(item => !item.isRead),
+  };
 
   return (
     <>
@@ -42,7 +46,7 @@ const Notification = () => {
         </Link>
         <Header big>전체 알림</Header>
 
-        <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} showActionButtons={activeTab === 1} />
+        <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
         {activeTab === 0 && (
           <>{alarmData.length === 0 ? <div>일반 알람이 없습니다.</div> : <ListBox data={alarmData} />}</>
         )}
