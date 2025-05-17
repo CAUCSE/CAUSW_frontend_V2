@@ -1,2 +1,2 @@
-export { useVoteCreationStore, useCreateVote } from './model';
+export { useCreateVote } from './model';
 export { VoteTitleInput, MultipleSelectionToggle, AnonymousToggle, VoteOptionInput } from './ui';
