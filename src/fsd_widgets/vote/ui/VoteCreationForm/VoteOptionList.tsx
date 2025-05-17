@@ -1,24 +1,28 @@
 'use client';
 
+import { useState } from 'react';
+
+import { useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
+
+import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
 
 import { useVoteCreationStore, VoteOptionInput } from '@/fsd_entities/vote';
 
 import PlusIcon from '../../../../../public/icons/add_icon.svg';
 
 export const VoteOptionList = () => {
-  const { optionList, addVoteOption } = useVoteCreationStore(
-    useShallow(state => ({
-      optionList: state.optionList,
-      addVoteOption: state.addVoteOption,
-    })),
-  );
+  const { setValue, watch } = useFormContext<PostSchema>();
 
+  const optionList = watch('voteCreateRequestDto.options');
+
+  const addVoteOption = () => {
+    const newOptionList = [...optionList, ''];
+    setValue('voteCreateRequestDto.options', newOptionList);
+  };
   return (
     <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pr-2 pt-2">
-      {optionList.map((option, index) => (
-        <VoteOptionInput key={index} index={index} option={option} />
-      ))}
+      {optionList?.map((option, index) => <VoteOptionInput key={index} index={index} option={option} />)}
       <button
         className="flex h-14 items-center justify-center rounded border-2 border-gray-300 text-center text-black"
         onClick={addVoteOption}
