@@ -27,7 +27,7 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
   };
 
   return (
-    <div className="fixed bottom-[100px] flex w-full justify-center xl:bottom-4 xl:left-10 xl:space-x-24">
+    <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 xl:bottom-4 xl:left-1/2 xl:space-x-24">
       <div className="flex flex-grow grid-cols-4 justify-center gap-2 xl:space-x-4">
         <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
         <button

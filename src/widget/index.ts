@@ -3,9 +3,6 @@ export { Management, type ManagementState } from './Management';
 export { SideBar } from './SideBar';
 export { CircleMemberManagementDetail } from './CircleMemberManagementDetail';
 
-// Post
-export { ApplyCreationForm } from './post/apply/ApplyCreationForm';
-
 // Form
 export { ExpiredForm } from './form/ExpiredForm';
 export { NoPermissionForm } from './form/NoPermissionForm';

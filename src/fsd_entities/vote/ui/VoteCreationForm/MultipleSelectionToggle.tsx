@@ -1,17 +1,30 @@
 'use client';
 
-import { useShallow } from 'zustand/react/shallow';
+import React from 'react';
 
-import { useVoteCreationStore } from '../../model';
+import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+
+import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
+
 import { CustomToggle } from './CustomToggle';
 
 export const MultipleSelectionToggle = () => {
-  const { isMultipleChoice, toggleMultipleChoice } = useVoteCreationStore(
-    useShallow(state => ({
-      isMultipleChoice: state.isMultipleChoice,
-      toggleMultipleChoice: state.toggleMultipleChoice,
-    })),
-  );
+  const { control } = useFormContext<PostSchema>();
 
-  return <CustomToggle isActive={isMultipleChoice} onClick={toggleMultipleChoice} text="복수 선택" />;
+  const toggleMultipleChoice = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: ControllerRenderProps<PostSchema, 'voteCreateRequestDto.allowMultiple'>,
+  ) => {
+    field.onChange(e.target.checked);
+  };
+
+  return (
+    <Controller
+      control={control}
+      name="voteCreateRequestDto.allowMultiple"
+      render={({ field }) => (
+        <CustomToggle isChecked={field.value} onCheckChanged={e => toggleMultipleChoice(e, field)} text="복수 선택" />
+      )}
+    />
+  );
 };

@@ -1,17 +1,28 @@
 'use client';
 
-import { useShallow } from 'zustand/react/shallow';
+import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
 
-import { usePostCreationStore } from '../../model';
+import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
+
 import { CustomToggle } from './CustomToggle';
 
 export const AnonymousToggle = () => {
-  const { isAnonymous, toggleAnonymous } = usePostCreationStore(
-    useShallow(state => ({
-      isAnonymous: state.isAnonymous,
-      toggleAnonymous: state.toggleAnonymous,
-    })),
-  );
+  const { control } = useFormContext<PostSchema>();
 
-  return <CustomToggle isChecked={isAnonymous} onClick={toggleAnonymous} text="익명" />;
+  const toggleAnonymous = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: ControllerRenderProps<PostSchema, 'isAnonymous'>,
+  ) => {
+    field.onChange(e.target.checked);
+  };
+
+  return (
+    <Controller
+      name="isAnonymous"
+      control={control}
+      render={({ field }) => (
+        <CustomToggle isChecked={field.value} onCheckedChange={e => toggleAnonymous(e, field)} text="익명" />
+      )}
+    />
+  );
 };
