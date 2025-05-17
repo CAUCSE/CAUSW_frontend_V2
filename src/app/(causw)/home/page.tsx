@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { FCMTokenChecker } from '@/fsd_widgets/notification';
+
 import { Banner, Calendar, CardBox, HomeCard } from '@/entities/home';
 
 import { HomeRscService } from '@/shared';
@@ -45,6 +47,7 @@ const HomePage = async () => {
 
   return (
     <>
+      <FCMTokenChecker />
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
           <Banner
