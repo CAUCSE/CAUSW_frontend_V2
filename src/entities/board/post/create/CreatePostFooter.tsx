@@ -37,7 +37,7 @@ export const CreatePostFooter = ({
           ref={fileInputRef}
           className="hidden"
           multiple
-          onChange={e => handleFileUpload(e.target.files?.[0] || null)}
+          onChange={(e) => handleFileUpload(e.target.files?.[0] || null)}
         />
         <button
           className={`flex w-16 items-center justify-center rounded-full bg-comment-input md:w-20 md:p-3`}

@@ -45,7 +45,7 @@ const formSchema = z
     isAllowedGraduation: z.boolean(),
   })
   .refine(
-    data => {
+    (data) => {
       if (data.isAllowedEnrolled && data.enrolledRegisteredSemesterList.length === 0) {
         return false;
       }
@@ -57,7 +57,7 @@ const formSchema = z
     },
   )
   .refine(
-    data => {
+    (data) => {
       if (data.isAllowedLeaveOfAbsence && data.leaveOfAbsenceRegisteredSemesterList.length === 0) {
         return false;
       }

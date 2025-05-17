@@ -5,7 +5,7 @@ export const useLayoutStore = create<Layout.UseLayoutStore>((set, get) => ({
   md: false,
   lg: false,
   xl: true,
-  setBreakpoint: breakpoint => {
+  setBreakpoint: (breakpoint) => {
     const init = {
       sm: false,
       md: false,
@@ -17,7 +17,7 @@ export const useLayoutStore = create<Layout.UseLayoutStore>((set, get) => ({
   },
 
   errorMessage: false,
-  setErrorMessage: message => {
+  setErrorMessage: (message) => {
     set(() => ({ errorMessage: message }));
   },
 }));

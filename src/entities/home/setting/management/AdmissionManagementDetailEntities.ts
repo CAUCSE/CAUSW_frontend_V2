@@ -4,7 +4,7 @@ import { SettingRscService } from '@/shared';
 
 type state = 'admission' | 'reject' | 'active' | 'drop' | 'inactive';
 
-const admitTarget = async userId => {
+const admitTarget = async (userId) => {
   const { acceptAdmission } = SettingRscService();
 
   try {
@@ -18,7 +18,7 @@ const admitTarget = async userId => {
   }
 };
 
-const restoreTarget = async userId => {
+const restoreTarget = async (userId) => {
   const { restoreUser } = SettingRscService();
 
   try {
@@ -49,7 +49,7 @@ export const uiEntities: Record<
       {
         name: '승인',
         variant: 'BLUE',
-        action: async admission => {
+        action: async (admission) => {
           await admitTarget(admission.id);
         },
       },
@@ -100,7 +100,7 @@ export const uiEntities: Record<
       {
         name: '복구',
         variant: 'BLUE',
-        action: async admission => {
+        action: async (admission) => {
           await restoreTarget(admission.id);
         },
       },
@@ -117,7 +117,7 @@ export const uiEntities: Record<
       {
         name: '탈퇴 복구',
         variant: 'BLUE',
-        action: async admission => {
+        action: async (admission) => {
           await restoreTarget(admission.id);
           window.location.assign(`/setting/management/user/inactive`);
         },
@@ -246,7 +246,7 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
 
 // 동아리 멤버 상세보기 페이지용 (가입 요청 일시 제외)
 export const titleMappingForCircle = Object.keys(titleMapping)
-  .filter(key => !['requestedAt', 'leftPayedSemester'].includes(key))
+  .filter((key) => !['requestedAt', 'leftPayedSemester'].includes(key))
   .reduce(
     (obj, key) => {
       obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];

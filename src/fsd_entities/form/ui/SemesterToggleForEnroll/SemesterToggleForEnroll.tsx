@@ -66,7 +66,7 @@ export const SemesterToggle = ({ label, value, className }: SemesterToggleProps)
           value={value}
           className={className}
           isChecked={field.value?.includes(value)}
-          onCheckedChange={e => handleCheckedChange(e, field)}
+          onCheckedChange={(e) => handleCheckedChange(e, field)}
         />
       )}
     />

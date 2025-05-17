@@ -17,7 +17,7 @@ export const ResponseQuestion = ({ question, questionIdx }: ResponseQuestionProp
     formState: { errors },
   } = useFormContext();
 
-  const form = useResponseFormStore(state => state.form);
+  const form = useResponseFormStore((state) => state.form);
   form?.questionResponseDtoList;
   const { textRefs, isTruncated } = useTruncateParagraph<Post.QuestionResponseDto>(form?.questionResponseDtoList);
 
@@ -29,7 +29,7 @@ export const ResponseQuestion = ({ question, questionIdx }: ResponseQuestionProp
         <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
           <p
             className="truncate text-[14px] group-hover:block sm:text-xl"
-            ref={el => {
+            ref={(el) => {
               textRefs.current[questionIdx] = el;
             }}
           >

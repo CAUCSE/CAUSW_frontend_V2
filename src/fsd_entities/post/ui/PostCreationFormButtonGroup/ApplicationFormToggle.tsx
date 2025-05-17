@@ -8,7 +8,7 @@ import { usePostCreationStore } from '../../model';
 
 export const ApplicationFormToggle = () => {
   const { isApply, toggleApply } = usePostCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isApply: state.isApply,
       toggleApply: state.toggleApply,
     })),

@@ -11,7 +11,7 @@ import { useBoardCreationStore } from '../stores';
 
 export const useCreateCommonBoard = () => {
   const { boardName, description, isAnonymousAllowed, resetBoardCreation } = useBoardCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       boardName: state.boardName,
       description: state.boardDescription,
       isAnonymousAllowed: state.allowAnonymous,

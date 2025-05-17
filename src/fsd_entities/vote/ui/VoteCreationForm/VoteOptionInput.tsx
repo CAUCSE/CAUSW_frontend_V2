@@ -41,7 +41,7 @@ export const VoteOptionInput = ({ index, option }: VoteOptionInputProps) => {
             placeholder="항목 입력"
             className="h-14 w-full rounded border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-none"
             value={field.value}
-            onChange={e => handleOptionChange(e, field)}
+            onChange={(e) => handleOptionChange(e, field)}
           />
           <button
             onClick={() => removeVoteOption(index)}

@@ -17,7 +17,7 @@ export function CircleManagementButtons({
   const [isSuccessModal, setIsSuccessModal] = useState(false);
   const { dropMember } = CircleService();
   const router = useRouter();
-  const myId = useUserStore(state => state.id);
+  const myId = useUserStore((state) => state.id);
 
   const deleteAndNavigateAndReload = async () => {
     try {

@@ -18,7 +18,7 @@ interface FormData {
 export const useFindPasswordForm = () => {
   const router = useRouter();
   const { studentId, name, email, resetFindAccountStore } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       studentId: state.studentId,
       name: state.name,
       email: state.email,

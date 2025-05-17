@@ -5,7 +5,7 @@ import { AuthService } from '@/shared';
 import { UserService } from '@/shared';
 
 export const useV2Form = () => {
-  const checkVTwo = useUserStore(state => state.checkVTwo);
+  const checkVTwo = useUserStore((state) => state.checkVTwo);
   const { checkNicknameDuplicate } = AuthService();
   const { updateVTwo, updateInfo } = UserService();
   const {

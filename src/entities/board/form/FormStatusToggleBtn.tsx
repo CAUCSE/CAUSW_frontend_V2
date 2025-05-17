@@ -9,7 +9,7 @@ export const FormStatusToggleBtn = () => {
   const { formId } = params;
   const { useUpdateFormClosedStatus } = FormService();
   const { mutate: updateFormClosedStatus } = useUpdateFormClosedStatus();
-  const formData = useFormResultStore(state => state.formData);
+  const formData = useFormResultStore((state) => state.formData);
 
   const setFormState = () => {
     updateFormClosedStatus({ formId: formId as string });

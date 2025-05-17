@@ -27,7 +27,7 @@ export const BannerCard = ({
     openEditBannerModal,
     openDeleteBannerModal,
   } = useBannerStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       setSelectedBannerId: state.setSelectedBannerId,
       setSelectedBannerImage: state.setSelectedBannerImage,
       setSelectedBannerUrl: state.setSelectedBannerUrl,

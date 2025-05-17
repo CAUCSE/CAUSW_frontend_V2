@@ -23,9 +23,9 @@ export const AuthService = () => {
   const { getMyInfo, checkCurrentAcademicStatus } = UserService();
 
   const router = useRouter();
-  const setUserStore = useUserStore(state => state.setUserStore);
-  const setErrorMessage = useLayoutStore(state => state.setErrorMessage);
-  const state = useUserStore(state => state.state);
+  const setUserStore = useUserStore((state) => state.setUserStore);
+  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
+  const state = useUserStore((state) => state.state);
 
   const signin = async (body: User.SignInRequestDto) => {
     try {
@@ -124,7 +124,7 @@ export const AuthService = () => {
 
   const useFindId = () => {
     const { setEmail, resetFindAccountStore } = useFindAccountStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         setEmail: state.setEmail,
         resetFindAccountStore: state.resetFindAccountStore,
       })),
@@ -137,7 +137,7 @@ export const AuthService = () => {
         });
         return data.email;
       },
-      onSuccess: data => {
+      onSuccess: (data) => {
         setEmail(data);
       },
       onError: () => {

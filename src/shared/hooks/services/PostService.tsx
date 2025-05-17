@@ -10,8 +10,8 @@ import { API, FORMAPI, useCreatePostStore, useCreateVoteStore, useFileUploadStor
 export const PostService = () => {
   const useCreatePost = () => {
     const router = useRouter();
-    const clearPost = useCreatePostStore(state => state.clearPost);
-    const clearFiles = useFileUploadStore(state => state.clearFiles);
+    const clearPost = useCreatePostStore((state) => state.clearPost);
+    const clearFiles = useFileUploadStore((state) => state.clearFiles);
     return useMutation({
       mutationFn: async ({ postData, attachImageList }: { postData: Post.CreatePostDto; attachImageList: File[] }) => {
         const formData = new FormData();
@@ -31,7 +31,7 @@ export const PostService = () => {
           ),
         );
 
-        attachImageList.forEach(file => {
+        attachImageList.forEach((file) => {
           formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
         });
 
@@ -52,8 +52,8 @@ export const PostService = () => {
 
   const useCreatePostWithForm = () => {
     const router = useRouter();
-    const clearPost = useCreatePostStore(state => state.clearPost);
-    const clearFiles = useFileUploadStore(state => state.clearFiles);
+    const clearPost = useCreatePostStore((state) => state.clearPost);
+    const clearFiles = useFileUploadStore((state) => state.clearFiles);
     return useMutation({
       mutationFn: async ({
         postWithFormData,
@@ -70,7 +70,7 @@ export const PostService = () => {
           }),
         );
 
-        attachImageList.forEach(file => {
+        attachImageList.forEach((file) => {
           formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
         });
 
@@ -90,8 +90,8 @@ export const PostService = () => {
 
   const useCreatePostWithVote = () => {
     const router = useRouter();
-    const clearPost = useCreatePostStore(state => state.clearPost);
-    const clearFiles = useFileUploadStore(state => state.clearFiles);
+    const clearPost = useCreatePostStore((state) => state.clearPost);
+    const clearFiles = useFileUploadStore((state) => state.clearFiles);
     const { voteTitle, options, isMultipleChoice, allowAnonymous, clearVote } = useCreateVoteStore();
     return useMutation({
       mutationFn: async ({ postData, attachImageList }: { postData: Post.CreatePostDto; attachImageList: File[] }) => {
@@ -112,7 +112,7 @@ export const PostService = () => {
           ),
         );
 
-        attachImageList.forEach(file => {
+        attachImageList.forEach((file) => {
           formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
         });
 

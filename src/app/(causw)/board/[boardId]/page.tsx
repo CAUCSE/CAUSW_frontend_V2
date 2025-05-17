@@ -1,4 +1,5 @@
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
 import { getPostListServer, postQueryKey } from '@/fsd_entities/post';
 
 import { BoardClientPage } from './BoardClientPage';

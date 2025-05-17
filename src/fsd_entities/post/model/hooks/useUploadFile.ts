@@ -8,7 +8,7 @@ import { useUploadFileStore } from '../stores';
 
 export const useUploadFile = () => {
   const { selectedFileList, addFile } = useUploadFileStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       selectedFileList: state.selectedFileList,
       addFile: state.addFile,
     })),

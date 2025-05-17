@@ -21,7 +21,7 @@ export const AnonymousToggle = () => {
       control={control}
       name="voteCreateRequestDto.allowAnonymous"
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckChanged={e => toggleAllowAnonymous(e, field)} text="익명 투표" />
+        <CustomToggle isChecked={field.value} onCheckChanged={(e) => toggleAllowAnonymous(e, field)} text="익명 투표" />
       )}
     />
   );

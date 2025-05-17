@@ -12,7 +12,7 @@ export const BoardService = () => {
         );
         return data;
       },
-      select: data => {
+      select: (data) => {
         return data.boardName;
       },
     });

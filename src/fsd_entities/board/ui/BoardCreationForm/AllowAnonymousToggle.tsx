@@ -8,7 +8,7 @@ import { useBoardCreationStore } from '../../model';
 
 export const AllowAnonymousToggle = () => {
   const { allowAnonymous, setAllowAnonymous } = useBoardCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       allowAnonymous: state.allowAnonymous,
       setAllowAnonymous: state.setAllowAnonymous,
     })),

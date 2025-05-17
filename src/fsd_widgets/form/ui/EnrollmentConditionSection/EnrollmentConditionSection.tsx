@@ -15,7 +15,7 @@ export const EnrollmentConditionSection = () => {
         <div className="grid grid-cols-2 gap-1 lg:grid-cols-5 lg:gap-2">
           <EnrolledToggle />
           <CouncilFeeToggle />
-          {Object.values(SemesterMetaData).map(semester => (
+          {Object.values(SemesterMetaData).map((semester) => (
             <SemesterToggle key={semester.value} {...semester} className="col-span-1" />
           ))}
         </div>

@@ -9,7 +9,7 @@ interface BannerListProps {
 
 export const BannerList = ({ bannerList }: BannerListProps) => {
   const { isBannerEditModalOpen, isBannerDeleteModalOpen } = useBannerStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isBannerEditModalOpen: state.isBannerEditModalOpen,
       isBannerDeleteModalOpen: state.isBannerDeleteModalOpen,
     })),

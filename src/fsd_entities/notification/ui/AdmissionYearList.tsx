@@ -9,19 +9,19 @@ interface AdmissionYearListProps {
 export const AdmissionYearList = ({ years, onRemove, isAllSelected }: AdmissionYearListProps) => {
   return (
     <div
-      className={`w-72 h-72 overflow-y-auto border border-black rounded-xl p-5 ${
+      className={`h-72 w-72 overflow-y-auto rounded-xl border border-black p-5 ${
         isAllSelected ? 'bg-gray-200' : 'bg-white'
       }`}
     >
-      {years.map(year => (
-        <div key={year} className="flex justify-between items-center mb-2">
-          <span
-            onClick={() => onRemove(year)}
-            className="cursor-pointer"
-          >
+      {years.map((year) => (
+        <div key={year} className="mb-2 flex items-center justify-between">
+          <span onClick={() => onRemove(year)} className="cursor-pointer">
             {year}학번
           </span>
-          <button onClick={() => onRemove(year)} className="w-4 h-0.5 rounded-2xl bg-black transform scale-150"></button>
+          <button
+            onClick={() => onRemove(year)}
+            className="h-0.5 w-4 scale-150 transform rounded-2xl bg-black"
+          ></button>
         </div>
       ))}
     </div>

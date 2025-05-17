@@ -82,7 +82,7 @@ const CircleApplicationEdit = ({ params: { id } }: { params: { id: string } }) =
     name: 'questionCreateRequestDtoList',
   });
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     if (
       data.enrolledRegisteredSemesterList.length === 0 &&
       data.leaveOfAbsenceRegisteredSemesterList.length === 0 &&

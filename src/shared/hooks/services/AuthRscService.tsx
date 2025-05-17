@@ -24,7 +24,7 @@ export const AuthRscService = () => {
           'Content-Type': 'application/json',
         },
         method: 'PUT',
-      }).then(res => res.json())) as User.UpdateAccessTokenRequestDto;
+      }).then((res) => res.json())) as User.UpdateAccessTokenRequestDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 

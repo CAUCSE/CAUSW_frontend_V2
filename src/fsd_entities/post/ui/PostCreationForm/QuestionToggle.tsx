@@ -20,7 +20,7 @@ export const QuestionToggle = () => {
       name="isQuestion"
       control={control}
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckedChange={e => toggleQuestion(e, field)} text="질문" />
+        <CustomToggle isChecked={field.value} onCheckedChange={(e) => toggleQuestion(e, field)} text="질문" />
       )}
     />
   );

@@ -21,7 +21,7 @@ export const DetailFormResultHeader = ({
   isFetchingNextPage,
   fetchNextPage,
 }: DetailFormResultHeaderProps) => {
-  const currentPage = useFormResultStore(state => state.currentPage);
+  const currentPage = useFormResultStore((state) => state.currentPage);
   const { moveToNextResult, moveToPreviousResult } = useFormResultPagination();
 
   return (

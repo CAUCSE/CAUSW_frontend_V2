@@ -23,7 +23,7 @@ export const MultipleSelectionToggle = () => {
       control={control}
       name="voteCreateRequestDto.allowMultiple"
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckChanged={e => toggleMultipleChoice(e, field)} text="복수 선택" />
+        <CustomToggle isChecked={field.value} onCheckChanged={(e) => toggleMultipleChoice(e, field)} text="복수 선택" />
       )}
     />
   );

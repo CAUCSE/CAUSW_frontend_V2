@@ -29,7 +29,7 @@ export const OccasionNotification = ({
   if (!state) {
     isFirstNavigation = true;
   } else if (navigation) {
-    isFirstNavigation = navigation.findIndex(element => element.state === state) === -1;
+    isFirstNavigation = navigation.findIndex((element) => element.state === state) === -1;
   } else {
     isFirstNavigation = false;
   }
@@ -54,7 +54,7 @@ export const OccasionNotification = ({
             {firstNavigation.name}
           </Link>
           {navigation
-            ? navigation.map(element => (
+            ? navigation.map((element) => (
                 <Link
                   key={element.state}
                   href={element.state}
@@ -68,12 +68,12 @@ export const OccasionNotification = ({
       </div>
       <Line />
       <div className="ml-2 mt-6 flex flex-col">
-        {data.map(element => (
+        {data.map((element) => (
           <Link
             href={
               (isFirstNavigation
                 ? firstNavigation.router
-                : navigation!.find(element => element.state === state)?.router) +
+                : navigation!.find((element) => element.state === state)?.router) +
               '/' +
               element.occasionId
             }

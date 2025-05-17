@@ -13,9 +13,9 @@ export const SideBar = () => {
   const { getMe } = UserService();
   const { signout } = AuthRscService();
 
-  const name = useUserStore(state => state.name);
-  const email = useUserStore(state => state.email);
-  const profileImage = useUserStore(state => state.profileImageUrl);
+  const name = useUserStore((state) => state.name);
+  const email = useUserStore((state) => state.email);
+  const profileImage = useUserStore((state) => state.profileImageUrl);
 
   const handleNoRefresh = async () => {
     await signout();

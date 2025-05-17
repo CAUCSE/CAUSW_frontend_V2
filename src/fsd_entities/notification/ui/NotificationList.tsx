@@ -13,7 +13,7 @@ interface NotificationListProps {
 export const NotificationList = ({ notifications, linkPrefix, markAsRead }: NotificationListProps) => {
   return (
     <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
-      {notifications.map(notification => (
+      {notifications.map((notification) => (
         <li key={notification.notificationLogId} className="rounded-lg bg-white p-1">
           <Link
             href={`${linkPrefix}/${notification.notificationLogId}`}

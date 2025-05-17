@@ -20,7 +20,7 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
   if (!state) {
     isFirstNavigation = true;
   } else if (navigation.length > 0) {
-    isFirstNavigation = navigation.findIndex(element => element.state === state) === -1;
+    isFirstNavigation = navigation.findIndex((element) => element.state === state) === -1;
   } else {
     isFirstNavigation = false;
   }

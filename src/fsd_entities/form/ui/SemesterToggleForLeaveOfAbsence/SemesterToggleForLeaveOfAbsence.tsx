@@ -65,7 +65,7 @@ export const SemesterToggleForLeaveOfAbsence = ({ label, value, className }: Sem
           label={label}
           value={value}
           isChecked={field.value?.includes(value)}
-          onCheckedChange={e => handleCheckedChange(e, field)}
+          onCheckedChange={(e) => handleCheckedChange(e, field)}
           className={className}
         />
       )}

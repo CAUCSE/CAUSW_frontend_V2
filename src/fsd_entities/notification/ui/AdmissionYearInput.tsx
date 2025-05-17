@@ -25,15 +25,15 @@ export const AdmissionYearInput = ({ onAdd, disabled }: AdmissionYearInputProps)
       <input
         type="number"
         value={year}
-        onChange={e => setYear(e.target.value)}
+        onChange={(e) => setYear(e.target.value)}
         className="w-10 border-b border-b-black bg-transparent px-1"
         disabled={disabled}
       />
-      <span className="text-2xl mr-14">학번</span>
+      <span className="mr-14 text-2xl">학번</span>
       <Button
         variant="BLUE"
         action={handleAdd}
-        className="text-sm px-4 py-1"
+        className="px-4 py-1 text-sm"
         disabled={disabled || isNaN(parseInt(year))}
       >
         추가

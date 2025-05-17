@@ -32,7 +32,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
   } = useForm<User.userUpdateDto>();
 
   const queryClient = useQueryClient();
-  const setUserStore = useUserStore(state => state.setUserStore);
+  const setUserStore = useUserStore((state) => state.setUserStore);
   const { updateInfo } = UserService();
   const { checkNicknameDuplicate } = AuthService();
   // 프로필 이미지 변경

@@ -7,7 +7,7 @@ interface LockerListHeaderProps {
 export const LockerListHeader = ({ lockerLocations }: LockerListHeaderProps) => {
   let availableLockerCount = 0,
     totalLockerCount = 0;
-  lockerLocations.lockerLocations.forEach(lockerLocation => {
+  lockerLocations.lockerLocations.forEach((lockerLocation) => {
     availableLockerCount += lockerLocation.enableLockerCount;
     totalLockerCount += lockerLocation.totalLockerCount;
   });

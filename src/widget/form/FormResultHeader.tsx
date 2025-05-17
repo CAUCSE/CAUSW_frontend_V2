@@ -12,7 +12,7 @@ export const FormResultHeader = () => {
   const { useGetFormInfo } = FormService();
   const { isPending } = useGetFormInfo(formId as string);
 
-  const formData = useFormResultStore(state => state.formData);
+  const formData = useFormResultStore((state) => state.formData);
 
   if (isPending) {
     return <LoadingComponent />;

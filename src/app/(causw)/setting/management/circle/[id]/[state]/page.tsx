@@ -25,7 +25,7 @@ const CircleManagement = async ({ params: { state, id } }: { params: { state: st
             router: '/setting/management/circle/' + id + '/apply',
           },
         ]}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.user.name,
           studentId: element.user.studentId,
           id: element.user.id,

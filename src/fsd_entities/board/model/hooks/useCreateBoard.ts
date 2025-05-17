@@ -8,7 +8,7 @@ import { useCreateCommonBoard, useCreateNoticeBoard } from '../queries';
 import { useBoardCreationStore } from '../stores';
 
 export const useCreateBoard = () => {
-  const boardName = useBoardCreationStore(state => state.boardName);
+  const boardName = useBoardCreationStore((state) => state.boardName);
   const hasAuth = useHasAuth();
   const { mutate: createNoticeBoard } = useCreateNoticeBoard();
   const { mutate: createCommonBoard } = useCreateCommonBoard();

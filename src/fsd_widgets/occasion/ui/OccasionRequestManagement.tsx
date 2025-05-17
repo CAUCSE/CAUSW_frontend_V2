@@ -20,7 +20,7 @@ export const OccasionRequestManagement = ({
   const isFirstNavigation = (() => {
     if (!state) return true;
     if (!navigation) return false;
-    return navigation.findIndex(element => element.state === state) === -1;
+    return navigation.findIndex((element) => element.state === state) === -1;
   })();
 
   return (

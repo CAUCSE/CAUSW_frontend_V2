@@ -17,8 +17,8 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
   const [circle, setCircle] = useState<Circle.CircleRequestDto>();
   const [mainImg, setMainImg] = useState<File | undefined>();
 
-  const admissionYear = useUserStore(state => state.admissionYear);
-  const profileImage = useUserStore(state => state.profileImageUrl);
+  const admissionYear = useUserStore((state) => state.admissionYear);
+  const profileImage = useUserStore((state) => state.profileImageUrl);
 
   const router = useRouter();
 
@@ -105,7 +105,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           name="upload"
           accept="image/*"
           capture="environment"
-          onChange={event => {
+          onChange={(event) => {
             if (event.target.files) setMainImg(event.target.files[0]);
           }}
         ></input>
@@ -117,7 +117,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
               type="number"
               placeholder={'' + circle.circleTax}
               className="mr-1 w-24 rounded-md text-center md:pl-4"
-              onChange={event => handleChange(event, 'circleTax')}
+              onChange={(event) => handleChange(event, 'circleTax')}
             ></input>
             <span>원</span>
           </div>
@@ -130,7 +130,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
               type="number"
               placeholder={'' + circle.recruitMembers}
               className="mr-1 w-24 rounded-md text-center md:pl-4"
-              onChange={event => handleChange(event, 'recruitMembers')}
+              onChange={(event) => handleChange(event, 'recruitMembers')}
             ></input>
             <span>명</span>
           </div>
@@ -154,7 +154,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           <input
             type="date"
             className="rounded-md pl-4"
-            onChange={event => handleChange(event, 'recruitEndDate')}
+            onChange={(event) => handleChange(event, 'recruitEndDate')}
           ></input>
         </div>
 
@@ -171,7 +171,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
           <textarea
             className="h-36 w-full rounded-md p-2"
             placeholder={circle.description}
-            onChange={event => handleChange(event, 'description')}
+            onChange={(event) => handleChange(event, 'description')}
           ></textarea>
         </div>
 

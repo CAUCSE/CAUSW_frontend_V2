@@ -11,7 +11,7 @@ import FileIcon from '../../../../../public/icons/file_icon.svg';
 
 export const UploadFilePreview = () => {
   const { selectedFileList, removeFile } = useUploadFileStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       selectedFileList: state.selectedFileList,
       removeFile: state.removeFile,
     })),

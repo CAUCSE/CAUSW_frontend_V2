@@ -21,7 +21,7 @@ export const AnonymousToggle = () => {
       name="isAnonymous"
       control={control}
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckedChange={e => toggleAnonymous(e, field)} text="익명" />
+        <CustomToggle isChecked={field.value} onCheckedChange={(e) => toggleAnonymous(e, field)} text="익명" />
       )}
     />
   );

@@ -39,7 +39,7 @@ export const CommentInput = ({ handleAddComment }: CommentInputProps) => {
             type="checkbox"
             className="form-checkbox h-6 w-6 border-2 border-gray-300"
             checked={isAnonymous}
-            onChange={e => setIsAnonymous(e.target.checked)}
+            onChange={(e) => setIsAnonymous(e.target.checked)}
           />
           <div className="text-[16px] text-gray-400">익명</div>
         </div>

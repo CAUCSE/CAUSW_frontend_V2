@@ -8,7 +8,7 @@ import { usePostCreationStore } from '../../model';
 
 export const VoteToggle = () => {
   const { isVote, toggleVote } = usePostCreationStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isVote: state.isVote,
       toggleVote: state.toggleVote,
     })),

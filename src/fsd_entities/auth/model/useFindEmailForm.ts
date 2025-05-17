@@ -18,7 +18,7 @@ export const useFindEmailForm = () => {
   } = useForm<FormData>();
 
   const { setName, setStudentId } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       setName: state.setName,
       setStudentId: state.setStudentId,
     })),
