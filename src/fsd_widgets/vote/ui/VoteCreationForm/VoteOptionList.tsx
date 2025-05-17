@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { PostSchema } from '@/app/(causw)/board/[boardId]/create/page';
-
+import { PostSchema } from '@/fsd_entities/post';
 import { useVoteCreationStore, VoteOptionInput } from '@/fsd_entities/vote';
 
 import PlusIcon from '../../../../../public/icons/add_icon.svg';
