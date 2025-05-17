@@ -10,9 +10,9 @@ import MailIcon from '../../../public/icons/envelope_icon.svg';
 import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';
 
 export interface CeremonyItem {
-  id: number;
+  id: string;
   title: string;
-  subtitle: string;
+  body: string;
   isRead: boolean;
 }
 
@@ -24,12 +24,19 @@ export const ListBox = ({ data }: ListBoxProps) => {
   const [items, setItems] = useState<CeremonyItem[]>([]);
   const [page, setPage] = useState(0);
   const itemsPerPage = 4;
+  useEffect(() => {
+    const nextItems = data.slice(0, itemsPerPage);
+    setItems(nextItems);
+    setPage(1);
+  }, [data]);
 
   const loadMore = useCallback(() => {
-    const nextItems = data.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
-    setItems(prev => [...prev, ...nextItems]);
-    setPage(prev => prev + 1);
-  }, [page, data]);
+    setPage(prevPage => {
+      const nextItems = data.slice(prevPage * itemsPerPage, (prevPage + 1) * itemsPerPage);
+      setItems(prevItems => [...prevItems, ...nextItems]);
+      return prevPage + 1;
+    });
+  }, [data]);
 
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
@@ -51,7 +58,7 @@ export const ListBox = ({ data }: ListBoxProps) => {
             <div className="text-gray-600">{item.isRead ? <MailOpendIcon size={32} /> : <MailIcon size={32} />}</div>
             <div className="text-left">
               <div className="font-medium text-[#212323]">{item.title}</div>
-              <div className="text-sm text-[#212323]">{item.subtitle}</div>
+              <div className="text-sm text-[#212323]">{item.body}</div>
             </div>
           </div>
         ))}

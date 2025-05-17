@@ -12,47 +12,26 @@ import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { Header } from '@/entities';
 
-type TOccasion = {
-  occasionTitle: string;
-  occasionId: string;
-};
-
 const Notification = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
+  // const [alarmData, setAlarmData] = useState<CeremonyItem[]>([]);
   console.log('notificationData', notificationData);
   console.log('ceremonyNotificationData', ceremonyNotificationData);
+  const alarmData: CeremonyItem[] = notificationData.map(data => ({
+    id: data.notificationLogId,
+    title: data.title,
+    body: data.body,
+    isRead: data.isRead,
+  }));
 
-  const occasionData: CeremonyItem[] = [
-    {
-      id: 1,
-      title: '경조사 알람1',
-      subtitle: '2025.03.10 ~ 2025.03.11',
-      isRead: true,
-    },
-    {
-      id: 5,
-      title: '경조사 알람1',
-      subtitle: '2025.03.10 ~ 2025.03.11',
-      isRead: true,
-    },
-  ];
-
-  const alarmData: CeremonyItem[] = [
-    {
-      id: 3,
-      title: '알람1',
-      subtitle: '2025.03.10 ~ 2025.03.11',
-      isRead: false,
-    },
-    {
-      id: 4,
-      title: '알람1',
-      subtitle: '2025.03.10 ~ 2025.03.11',
-      isRead: false,
-    },
-  ];
+  const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(data => ({
+    id: data.notificationLogId,
+    title: data.title,
+    body: data.body,
+    isRead: data.isRead,
+  }));
 
   return (
     <>
@@ -64,8 +43,12 @@ const Notification = () => {
         <Header big>전체 알림</Header>
 
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} showActionButtons={activeTab === 1} />
-        {activeTab === 0 && <ListBox data={alarmData} />}
-        {activeTab === 1 && <ListBox data={occasionData} />}
+        {activeTab === 0 && (
+          <>{alarmData.length === 0 ? <div>일반 알람이 없습니다.</div> : <ListBox data={alarmData} />}</>
+        )}
+        {activeTab === 1 && (
+          <>{ceremonyData.length === 0 ? <div>경조사 알람이 없습니다.</div> : <ListBox data={ceremonyData} />}</>
+        )}
       </div>
     </>
   );

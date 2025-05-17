@@ -1,9 +1,11 @@
 declare namespace Notification {
   interface NotificationData {
-    description: string;
-    startDate: string;
-    endDate: string;
-    category: 'MARRIAGE' | 'FUNERAL' | 'ETC';
+    targetId: string;
+    title: string;
+    noticeType: string;
+    body: string;
+    isRead: boolean;
+    notificationLogId: string;
   }
   interface NotificationResponse {
     totalElements: number;
