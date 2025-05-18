@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import { NotificationTabs } from '@/fsd_widgets/notification';
 
@@ -14,7 +15,14 @@ import { Header } from '@/entities';
 import { useGetBoardList } from '@/shared';
 
 const Notification = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab'); // 'general' or 'ceremony'
+  const initialTab = tabParam === 'general' ? 0 : 1;
+
+  useEffect(() => {
+    setActiveTab(tabParam === 'general' ? 0 : 1);
+  }, [tabParam]);
+  const [activeTab, setActiveTab] = useState<number>(initialTab);
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
   // const [alarmData, setAlarmData] = useState<CeremonyItem[]>([]);
@@ -46,6 +54,7 @@ const Notification = () => {
       targetId: alarm.targetId,
     };
   });
+
   console.log('matchedBoardIds', matchedBoardPairs);
   return (
     <>
