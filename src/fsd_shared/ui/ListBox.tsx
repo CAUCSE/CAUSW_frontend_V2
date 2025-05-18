@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
+import Link from 'next/link';
+
 import { Mail, MailOpen } from 'lucide-react';
 
 import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
@@ -18,9 +20,10 @@ export interface CeremonyItem {
 
 interface ListBoxProps {
   data: CeremonyItem[];
+  link?: any;
 }
 
-export const ListBox = ({ data }: ListBoxProps) => {
+export const ListBox = ({ data, link }: ListBoxProps) => {
   const [items, setItems] = useState<CeremonyItem[]>([]);
   const [page, setPage] = useState(0);
   const itemsPerPage = 4;
@@ -49,12 +52,19 @@ export const ListBox = ({ data }: ListBoxProps) => {
   useEffect(() => {
     loadMore();
   }, []);
-
   return (
     <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
       <div className="flex flex-col space-y-4">
         {items.map(item => (
-          <div key={item.id} className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow">
+          <Link
+            href={
+              link
+                ? `/board/${link.find(l => l.notificationLogId === item.id)?.boardId}/${link.find(l => l.notificationLogId === item.id)?.targetId}`
+                : `/ceremony/${item.id}`
+            }
+            key={item.id}
+            className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow"
+          >
             {!item.isRead && (
               <span
                 style={{
@@ -74,7 +84,7 @@ export const ListBox = ({ data }: ListBoxProps) => {
               <div className="font-medium text-[#212323]">{item.title}</div>
               <div className="text-sm text-[#212323]">{item.body}</div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div ref={targetRef} className="invisible h-px" />

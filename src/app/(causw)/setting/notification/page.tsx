@@ -11,6 +11,7 @@ import { useCeremonyNotificationData, useNotificationData } from '@/fsd_entities
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { Header } from '@/entities';
+import { useGetBoardList } from '@/shared';
 
 const Notification = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
@@ -36,7 +37,16 @@ const Notification = () => {
     alarm: alarmData.some(item => !item.isRead),
     ceremony: ceremonyData.some(item => !item.isRead),
   };
-
+  const { boards } = useGetBoardList();
+  const matchedBoardPairs = notificationData.map(alarm => {
+    const matchedBoard = boards.find(board => board.boardName === alarm.title);
+    return {
+      notificationLogId: alarm.notificationLogId,
+      boardId: matchedBoard?.boardId ?? '',
+      targetId: alarm.targetId,
+    };
+  });
+  console.log('matchedBoardIds', matchedBoardPairs);
   return (
     <>
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
@@ -48,7 +58,13 @@ const Notification = () => {
 
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
         {activeTab === 0 && (
-          <>{alarmData.length === 0 ? <div>일반 알람이 없습니다.</div> : <ListBox data={alarmData} />}</>
+          <>
+            {alarmData.length === 0 ? (
+              <div>일반 알람이 없습니다.</div>
+            ) : (
+              <ListBox data={alarmData} link={matchedBoardPairs} />
+            )}
+          </>
         )}
         {activeTab === 1 && (
           <>{ceremonyData.length === 0 ? <div>경조사 알람이 없습니다.</div> : <ListBox data={ceremonyData} />}</>
