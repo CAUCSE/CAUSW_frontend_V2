@@ -1,28 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 
 import { NotificationTabs } from '@/fsd_widgets/notification';
 
-import { useCeremonyNotificationData, useNotificationData } from '@/fsd_entities/notification';
+import { useCeremonyNotificationData, useNotificationData, useNotificationTabParam } from '@/fsd_entities/notification';
 
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
-import { Header } from '@/entities';
+import { Header } from '@/fsd_shared';
 import { useGetBoardList } from '@/shared';
 
 const Notification = () => {
-  const searchParams = useSearchParams();
-  const tabParam = searchParams.get('tab'); // 'general' or 'ceremony'
-  const initialTab = tabParam === 'general' ? 0 : 1;
-
-  useEffect(() => {
-    setActiveTab(tabParam === 'general' ? 0 : 1);
-  }, [tabParam]);
-  const [activeTab, setActiveTab] = useState<number>(initialTab);
+  const { activeTab, setActiveTab } = useNotificationTabParam();
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
   // const [alarmData, setAlarmData] = useState<CeremonyItem[]>([]);
