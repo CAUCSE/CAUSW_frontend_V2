@@ -26,7 +26,7 @@ const Notification = () => {
   }));
 
   const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(data => ({
-    id: data.notificationLogId,
+    id: data.targetId,
     title: data.title,
     body: data.body,
     isRead: data.isRead,
