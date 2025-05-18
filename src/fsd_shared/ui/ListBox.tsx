@@ -62,7 +62,7 @@ export const ListBox = ({ data, link }: ListBoxProps) => {
         {items.map(item => {
           const targetLink = link
             ? `/board/${link.find(l => l.notificationLogId === item.id)?.boardId}/${link.find(l => l.notificationLogId === item.id)?.targetId}`
-            : `/ceremony/${item.id}`;
+            : `/setting/notification/${item.id}`;
           return (
             <div
               onClick={() => {
