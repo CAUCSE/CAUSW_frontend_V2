@@ -8,16 +8,15 @@ import { useCeremonyNotificationData, useNotificationData, useNotificationTabPar
 
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
-import { Header } from '@/fsd_shared';
+import { ERROR_MESSAGES, Header, MESSAGES } from '@/fsd_shared';
 import { useGetBoardList } from '@/shared';
 
 const Notification = () => {
   const { activeTab, setActiveTab } = useNotificationTabParam();
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
-  // const [alarmData, setAlarmData] = useState<CeremonyItem[]>([]);
-  console.log('notificationData', notificationData);
-  console.log('ceremonyNotificationData', ceremonyNotificationData);
+  const { boards } = useGetBoardList(); // 해당 부분 리팩토링되면 fsd파일로 수정예정
+
   const alarmData: CeremonyItem[] = notificationData.map(data => ({
     id: data.notificationLogId,
     title: data.title,
@@ -31,11 +30,12 @@ const Notification = () => {
     body: data.body,
     isRead: data.isRead,
   }));
+
   const hasUnread = {
     alarm: alarmData.some(item => !item.isRead),
     ceremony: ceremonyData.some(item => !item.isRead),
   };
-  const { boards } = useGetBoardList();
+
   const matchedBoardPairs = notificationData.map(alarm => {
     const matchedBoard = boards.find(board => board.boardName === alarm.title);
     return {
@@ -51,22 +51,28 @@ const Notification = () => {
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
         <Link href="/setting" className="mb-7 flex items-center text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
-          이전
+          {MESSAGES.PREVIOUS_BUTTON_TEXT}
         </Link>
-        <Header big>전체 알림</Header>
+        <Header big>{MESSAGES.NOTIFICATION.ALL}</Header>
 
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
         {activeTab === 0 && (
           <>
             {alarmData.length === 0 ? (
-              <div>일반 알람이 없습니다.</div>
+              <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_GENERAL_ALARM}</div>
             ) : (
               <ListBox data={alarmData} link={matchedBoardPairs} />
             )}
           </>
         )}
         {activeTab === 1 && (
-          <>{ceremonyData.length === 0 ? <div>경조사 알람이 없습니다.</div> : <ListBox data={ceremonyData} />}</>
+          <>
+            {ceremonyData.length === 0 ? (
+              <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_CEREMONY_ALARM}</div>
+            ) : (
+              <ListBox data={ceremonyData} />
+            )}
+          </>
         )}
       </div>
     </>

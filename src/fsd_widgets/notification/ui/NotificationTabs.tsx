@@ -2,6 +2,8 @@
 
 import { Badge, Tab, Tabs } from '@mui/material';
 
+import { MESSAGES } from '@/fsd_shared';
+
 import { NotificationActionButtons } from './NotificationActionButtons';
 
 interface Props {
@@ -47,7 +49,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
               }}
             />
           )}
-          <span style={{ fontSize: '20px', fontWeight: 500 }}>알림</span>
+          <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.GENERAL}</span>
         </div>
       }
       disableRipple
@@ -77,7 +79,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
               }}
             />
           )}
-          <span style={{ fontSize: '20px', fontWeight: 500 }}>경조사</span>
+          <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.CEREMONY}</span>
         </div>
       }
       disableRipple

@@ -14,4 +14,9 @@ export const MESSAGES = Object.freeze({
     REGISTRATION_SUCCESS: '경조사 등록 성공',
     REGISTRATION_SUCCESS_MESSAGE: '경조사 등록 신청이 정상적으로 승인되었습니다.',
   },
+  NOTIFICATION: {
+    ALL: '전체 알림',
+    GENERAL: '알림',
+    CEREMONY: '경조사',
+  },
 });
