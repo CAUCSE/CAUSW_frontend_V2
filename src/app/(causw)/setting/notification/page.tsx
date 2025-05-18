@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { NotificationTabs } from '@/fsd_widgets/notification';
 
@@ -12,6 +12,7 @@ import { ERROR_MESSAGES, Header, MESSAGES } from '@/fsd_shared';
 import { useGetBoardList } from '@/shared';
 
 const Notification = () => {
+  const router = useRouter();
   const { activeTab, setActiveTab } = useNotificationTabParam();
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
@@ -45,14 +46,13 @@ const Notification = () => {
     };
   });
 
-  console.log('matchedBoardIds', matchedBoardPairs);
   return (
     <>
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
-        <Link href="/setting" className="mb-7 flex items-center text-lg">
+        <div onClick={() => router.back()} className="mb-7 flex items-center text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           {MESSAGES.PREVIOUS_BUTTON_TEXT}
-        </Link>
+        </div>
         <Header big>{MESSAGES.NOTIFICATION.ALL}</Header>
 
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
