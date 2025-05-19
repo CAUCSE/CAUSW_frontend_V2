@@ -10,6 +10,7 @@ export const MESSAGES = Object.freeze({
     DETAIL_CONTENTS: '내용',
     APPROVAL: '승인',
     REJECTION: '거부',
+    CANCEL_REGIST: '신청 취소',
     START_DATE: '시작 날짜',
     END_DATE: '종료 날짜',
     REGISTRATION_SUCCESS: '경조사 등록 성공',

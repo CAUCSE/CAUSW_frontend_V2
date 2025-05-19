@@ -18,7 +18,7 @@ const OccasionNotificationDetailPage = () => {
         <Header bold big>
           {MESSAGES.OCCASION.CEREMONY_CONTENTS}
         </Header>
-        <OccasionDetailPage occasionId={id} />
+        <OccasionDetailPage occasionId={id} user={true} />
       </div>
     </div>
   );
