@@ -59,17 +59,17 @@ export const ListBox = ({ data, link }: ListBoxProps) => {
   return (
     <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
       <div className="flex flex-col space-y-4">
-        {items.map(item => {
+        {items.map((item, index) => {
           const targetLink = link
             ? `/board/${link.find(l => l.notificationLogId === item.id)?.boardId}/${link.find(l => l.notificationLogId === item.id)?.targetId}`
-            : `/setting/notification/${item.id}`;
+            : `/ceremony/${item.id}`;
           return (
             <div
               onClick={() => {
                 markAsRead(item.id);
                 router.push(targetLink);
               }}
-              key={item.id}
+              key={`item.id-${index}`}
               className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow"
             >
               {!item.isRead && (

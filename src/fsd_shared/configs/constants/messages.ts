@@ -4,6 +4,7 @@ export const MESSAGES = Object.freeze({
     REGISTRATION_LIST: '경조사 등록 신청 관리',
     CATEGORY: '경조사 분류',
     DETAIL_CONTENT_TITLE: '경조사 등록 신청 정보',
+    CEREMONY_CONTENTS: '경조사 정보',
     TITLE: '경조사 제목',
     REGISTRANT: '신청자',
     DETAIL_CONTENTS: '내용',
