@@ -41,7 +41,17 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
     router.back();
   };
   const ceremonyType = ceremonyTypeMap[occasionDetails.type];
-
+  const handleClickReject = async () => {
+    try {
+      await updateCeremonyState({
+        ceremonyId: ceremonyId,
+        targetCeremonyState: 'REJECT',
+      });
+      router.back();
+    } catch (error) {
+      throw new Error(ERROR_MESSAGES.RERISTRATION_REJECT_MESSAGE);
+    }
+  };
   return (
     <>
       <div className="flex flex-col gap-3 pb-10 pt-8 md:gap-6">
@@ -65,6 +75,9 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
             </div>
           </div>
         )} */}
+        <div className="fixed bottom-24 left-1/2 z-50 w-full max-w-[270px] -translate-x-1/2 rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold">
+          <div onClick={handleClickReject}>{MESSAGES.OCCASION.CANCEL_REGIST}</div>
+        </div>
       </div>
       {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionDetails.title} />}
     </>
