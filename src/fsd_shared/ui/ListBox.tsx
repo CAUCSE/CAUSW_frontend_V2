@@ -16,6 +16,7 @@ export interface CeremonyItem {
   title: string;
   body: string;
   isRead?: boolean;
+  targetId?: string;
 }
 
 interface ListBoxProps {
@@ -60,11 +61,19 @@ export const ListBox = ({ data, alarm }: ListBoxProps) => {
     <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
       <div className="flex flex-col space-y-4">
         {items.map((item, index) => {
-          const targetLink = alarm === 'general' ? `/board/${item.id}/${item.targetId}` : `/ceremony/${item.id}`;
+          const targetLink =
+            alarm === 'general'
+              ? `/board/${item.id}/${item.targetId}`
+              : item.targetId
+                ? `/ceremony/${item.targetId}`
+                : `/ceremony/${item.id}`;
           return (
             <div
               onClick={() => {
-                if (!item.isRead) markAsRead(item.id);
+                console.log('item', item);
+                if (!item.isRead) {
+                  markAsRead(item.id);
+                }
                 router.push(targetLink);
               }}
               key={`item.id-${index}`}

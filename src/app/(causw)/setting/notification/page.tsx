@@ -26,12 +26,12 @@ const Notification = () => {
   }));
 
   const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(data => ({
-    id: data.targetId,
+    id: data.notificationLogId,
     title: data.title,
     body: data.body,
     isRead: data.isRead,
+    targetId: data.targetId,
   }));
-
   const hasUnread = {
     alarm: alarmData.some(item => !item.isRead),
     ceremony: ceremonyData.some(item => !item.isRead),

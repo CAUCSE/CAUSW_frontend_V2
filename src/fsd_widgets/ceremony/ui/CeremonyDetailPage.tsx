@@ -14,13 +14,12 @@ import { UserService, useUserStore } from '@/shared';
 
 const ceremonyTypeMap: Record<string, string> = {
   MARRIAGE: '결혼',
-  FUNERNAL: '장례식',
+  FUNERAL: '장례식',
   GRADUATION: '졸업',
   ETC: '기타',
 };
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(ceremonyId);
-  console.log('occasionDetails  ', occasionDetails);
   const { getMe } = UserService();
   useEffect(() => {
     getMe();

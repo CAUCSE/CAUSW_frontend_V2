@@ -41,8 +41,10 @@ export const useNotificationStore = create<NotificationState>(set => ({
     try {
       await markAsRead(id);
       set(state => ({
-        notifications: state.notifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
-        ceremonyNotifications: state.ceremonyNotifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
+        notifications: state.notifications.map(n => (n.notificationLogId === id ? { ...n, isRead: true } : n)),
+        ceremonyNotifications: state.ceremonyNotifications.map(n =>
+          n.notificationLogId === id ? { ...n, isRead: true } : n,
+        ),
       }));
       toast.success(`알림 ${id} 읽음 처리 성공`);
     } catch (error) {
