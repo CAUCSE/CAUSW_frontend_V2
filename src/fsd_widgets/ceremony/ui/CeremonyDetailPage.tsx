@@ -1,20 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import toast from 'react-hot-toast';
-
-import { updateCeremonyState } from '@/fsd_entities/ocaasion';
+import { cancelCeremonyRegist } from '@/fsd_entities/ceremony';
+import '@/fsd_entities/ocaasion';
 import { useCeremonyData } from '@/fsd_entities/ocaasion';
-import {
-  OccasionApprovalButton,
-  OccasionApprovalModal,
-  OccasionDateTile,
-  OccasionImageTile,
-  OccasionSectionTitle,
-} from '@/fsd_entities/ocaasion';
+import { OccasionDateTile, OccasionImageTile, OccasionSectionTitle } from '@/fsd_entities/ocaasion';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { UserService, useUserStore } from '@/shared';
@@ -27,29 +20,24 @@ const ceremonyTypeMap: Record<string, string> = {
 };
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(ceremonyId);
+  console.log('occasionDetails  ', occasionDetails);
   const { getMe } = UserService();
   useEffect(() => {
     getMe();
   }, []);
   const name = useUserStore(state => state.name);
   const studentId = useUserStore(state => state.studentId);
-  console.log('name', name, 'studentId ', studentId);
-  console.log('occasionDetails', occasionDetails);
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const closeModal = () => {
-    router.back();
-  };
+
   const ceremonyType = ceremonyTypeMap[occasionDetails.type];
   const handleClickReject = async () => {
     try {
-      await updateCeremonyState({
+      await cancelCeremonyRegist({
         ceremonyId: ceremonyId,
-        targetCeremonyState: 'REJECT',
       });
-      router.back();
+      router.push('/ceremony/list');
     } catch (error) {
-      throw new Error(ERROR_MESSAGES.RERISTRATION_REJECT_MESSAGE);
+      throw new Error(ERROR_MESSAGES.CANCEL_REGITSTERED_CEREMONY);
     }
   };
   return (
@@ -65,21 +53,12 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
           <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
         </div>
         <OccasionImageTile imageList={occasionDetails.imageList} />
-        {/* {occasionDetails.ceremonyState === 'AWAIT' && (
-          <div className="flex justify-center">
-            <div
-              className="w-full max-w-[270px] rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold"
-              onClick={handleClickReject}
-            >
-              {MESSAGES.OCCASION.CANCEL_REGIST}
-            </div>
+        {occasionDetails.register === 'AWAIT' && (
+          <div className="fixed bottom-24 left-1/2 z-50 w-full max-w-[270px] -translate-x-1/2 rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold">
+            <div onClick={handleClickReject}>{MESSAGES.OCCASION.CANCEL_REGIST}</div>
           </div>
-        )} */}
-        <div className="fixed bottom-24 left-1/2 z-50 w-full max-w-[270px] -translate-x-1/2 rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold">
-          <div onClick={handleClickReject}>{MESSAGES.OCCASION.CANCEL_REGIST}</div>
-        </div>
+        )}
       </div>
-      {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionDetails.title} />}
     </>
   );
 };

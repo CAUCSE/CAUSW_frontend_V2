@@ -8,4 +8,5 @@ export const ERROR_MESSAGES = Object.freeze({
     EMPTY_GENERAL_ALARM: '알람이 없습니다',
     EMPTY_CEREMONY_ALARM: '경조사 알람이 없습니다',
   },
+  CANCEL_REGITSTERED_CEREMONY: '경조사 신청을 취소할 수 없습니다.',
 });

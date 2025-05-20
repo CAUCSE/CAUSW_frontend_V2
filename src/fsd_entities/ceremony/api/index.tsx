@@ -1,0 +1,1 @@
+export { cancelCeremonyRegist } from './post';
