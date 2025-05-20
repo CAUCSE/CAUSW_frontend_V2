@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -17,45 +17,37 @@ import {
 } from '@/fsd_entities/ocaasion';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { UserService, useUserStore } from '@/shared';
 
+const ceremonyTypeMap: Record<string, string> = {
+  MARRIAGE: '결혼',
+  FUNERNAL: '장례식',
+  GRADUATION: '졸업',
+  ETC: '기타',
+};
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(ceremonyId);
+  const { getMe } = UserService();
+  useEffect(() => {
+    getMe();
+  }, []);
+  const name = useUserStore(state => state.name);
+  const studentId = useUserStore(state => state.studentId);
+  console.log('name', name, 'studentId ', studentId);
   console.log('occasionDetails', occasionDetails);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const closeModal = () => {
     router.back();
   };
-
-  const handleClickApprove = async () => {
-    try {
-      await updateCeremonyState({
-        ceremonyId: ceremonyId,
-        targetCeremonyState: 'ACCEPT',
-      });
-      setIsModalOpen(true);
-    } catch (error) {
-      toast.error(ERROR_MESSAGES.REGISTRATION_APPROVAL_FAIL);
-    }
-  };
-  const handleClickReject = async () => {
-    try {
-      await updateCeremonyState({
-        ceremonyId: ceremonyId,
-        targetCeremonyState: 'REJECT',
-      });
-      router.back();
-    } catch (error) {
-      throw new Error(ERROR_MESSAGES.RERISTRATION_REJECT_MESSAGE);
-    }
-  };
+  const ceremonyType = ceremonyTypeMap[occasionDetails.type];
 
   return (
     <>
       <div className="flex flex-col gap-3 pb-10 pt-8 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={occasionDetails.type} />
-          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={occasionDetails.register} />
+          <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={ceremonyType} />
+          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={`${name}/${studentId}`} />
         </div>
         <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionDetails.content} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
