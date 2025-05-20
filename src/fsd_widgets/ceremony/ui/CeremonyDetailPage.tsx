@@ -18,9 +18,9 @@ import {
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
-export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPageProps) => {
-  const { occasionDetails } = useCeremonyData(occasionId);
-
+export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
+  const { occasionDetails } = useCeremonyData(ceremonyId);
+  console.log('occasionDetails', occasionDetails);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const closeModal = () => {
@@ -30,7 +30,7 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
   const handleClickApprove = async () => {
     try {
       await updateCeremonyState({
-        ceremonyId: occasionId,
+        ceremonyId: ceremonyId,
         targetCeremonyState: 'ACCEPT',
       });
       setIsModalOpen(true);
@@ -41,7 +41,7 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
   const handleClickReject = async () => {
     try {
       await updateCeremonyState({
-        ceremonyId: occasionId,
+        ceremonyId: ceremonyId,
         targetCeremonyState: 'REJECT',
       });
       router.back();
@@ -63,10 +63,16 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
           <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
         </div>
         <OccasionImageTile imageList={occasionDetails.imageList} />
-        <div className="flex justify-center gap-5 pt-4 md:pt-0 lg:gap-11">
-          <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
-          <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
-        </div>
+        {/* {occasionDetails.ceremonyState === 'AWAIT' && (
+          <div className="flex justify-center">
+            <div
+              className="w-full max-w-[270px] rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold"
+              onClick={handleClickReject}
+            >
+              {MESSAGES.OCCASION.CANCEL_REGIST}
+            </div>
+          </div>
+        )} */}
       </div>
       {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionDetails.title} />}
     </>

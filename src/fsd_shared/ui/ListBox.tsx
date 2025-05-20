@@ -15,16 +15,16 @@ export interface CeremonyItem {
   id: string;
   title: string;
   body: string;
-  isRead: boolean;
+  isRead?: boolean;
 }
 
 interface ListBoxProps {
   data: CeremonyItem[];
-  link?: any;
+  alarm?: string; //general | ceremony
 }
 
-export const ListBox = ({ data, link }: ListBoxProps) => {
-  const [items, setItems] = useState<CeremonyItem[]>([]);
+export const ListBox = ({ data, alarm }: ListBoxProps) => {
+  const [items, setItems] = useState<Notification.GeneralAlarmItem[]>([]);
   const [page, setPage] = useState(0);
   const router = useRouter();
   const itemsPerPage = 4;
@@ -60,9 +60,7 @@ export const ListBox = ({ data, link }: ListBoxProps) => {
     <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
       <div className="flex flex-col space-y-4">
         {items.map((item, index) => {
-          const targetLink = link
-            ? `/board/${link.find(l => l.notificationLogId === item.id)?.boardId}/${link.find(l => l.notificationLogId === item.id)?.targetId}`
-            : `/ceremony/${item.id}`;
+          const targetLink = alarm === 'general' ? `/board/${item.id}/${item.targetId}` : `/ceremony/${item.id}`;
           return (
             <div
               onClick={() => {

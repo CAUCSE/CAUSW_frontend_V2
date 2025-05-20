@@ -9,20 +9,20 @@ import { useCeremonyNotificationData, useNotificationData, useNotificationTabPar
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { ERROR_MESSAGES, Header, MESSAGES } from '@/fsd_shared';
-import { useGetBoardList } from '@/shared';
 
 const Notification = () => {
   const router = useRouter();
   const { activeTab, setActiveTab } = useNotificationTabParam();
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
-  const { boards } = useGetBoardList(); // 해당 부분 리팩토링되면 fsd파일로 수정예정
 
-  const alarmData: CeremonyItem[] = notificationData.map(data => ({
+  const alarmData: Notification.GeneralAlarmItem[] = notificationData.map(data => ({
     id: data.notificationLogId,
     title: data.title,
     body: data.body,
     isRead: data.isRead,
+    targetId: data.targetId,
+    noticeType: data.noticeType,
   }));
 
   const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(data => ({
@@ -36,15 +36,6 @@ const Notification = () => {
     alarm: alarmData.some(item => !item.isRead),
     ceremony: ceremonyData.some(item => !item.isRead),
   };
-
-  const matchedBoardPairs = notificationData.map(alarm => {
-    const matchedBoard = boards.find(board => board.boardName === alarm.title);
-    return {
-      notificationLogId: alarm.notificationLogId,
-      boardId: matchedBoard?.boardId ?? '',
-      targetId: alarm.targetId,
-    };
-  });
 
   return (
     <>
@@ -61,7 +52,7 @@ const Notification = () => {
             {alarmData.length === 0 ? (
               <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_GENERAL_ALARM}</div>
             ) : (
-              <ListBox data={alarmData} link={matchedBoardPairs} />
+              <ListBox data={alarmData} alarm="general" />
             )}
           </>
         )}

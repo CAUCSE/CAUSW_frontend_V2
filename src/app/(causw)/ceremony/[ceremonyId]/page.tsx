@@ -2,15 +2,15 @@
 
 import { useParams } from 'next/navigation';
 
-import { OccasionDetailPage } from '@/fsd_widgets/occasion';
+import { CeremonyDetailPage } from '@/fsd_widgets/ceremony';
 
 import { Header } from '@/entities';
 import { MESSAGES } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
 
 const OccasionNotificationDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
-  console.log('occasionId', id);
+  const { ceremonyId } = useParams<{ ceremonyId: string }>();
+  console.log('occasionId', ceremonyId);
   return (
     <div className="w-full p-6">
       <PreviousButton />
@@ -18,7 +18,7 @@ const OccasionNotificationDetailPage = () => {
         <Header bold big>
           {MESSAGES.OCCASION.CEREMONY_CONTENTS}
         </Header>
-        <OccasionDetailPage occasionId={id} user={true} />
+        <CeremonyDetailPage ceremonyId={ceremonyId} />
       </div>
     </div>
   );
