@@ -64,7 +64,7 @@ export const ListBox = ({ data, alarm }: ListBoxProps) => {
           return (
             <div
               onClick={() => {
-                markAsRead(item.id);
+                if (!item.isRead) markAsRead(item.id);
                 router.push(targetLink);
               }}
               key={`item.id-${index}`}
