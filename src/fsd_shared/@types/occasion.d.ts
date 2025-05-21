@@ -58,6 +58,7 @@ declare namespace Occasion {
   };
   interface OccasionDetailPageProps {
     occasionId: string;
+    user?: boolean;
   }
   interface OccasionDetailContentProps {
     title: string;

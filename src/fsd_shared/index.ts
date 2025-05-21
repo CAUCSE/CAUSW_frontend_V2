@@ -19,5 +19,5 @@ export * from './hooks';
 export { AuthService } from './hooks/AuthService';
 
 // 상수 메시지
-export * from './configs/constants/messages';
+export * from './configs/constants/';
 export * from './configs/constants/errorMessages';
