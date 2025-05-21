@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 import Image from 'next/image';
 
@@ -14,6 +14,7 @@ interface Props<T extends FieldValues> {
   errorMessage?: string;
   setValue: UseFormSetValue<T>;
   maxFiles?: number;
+  resetTrigger?: boolean;
   children?: React.ReactNode;
 }
 
@@ -23,11 +24,20 @@ export const ImageUploadField = <T extends FieldValues>({
   errorMessage,
   setValue,
   maxFiles = 5,
+  resetTrigger = false,
   children,
 }: Props<T>) => {
   const [previews, setPreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (resetTrigger) {
+      setPreviews([]);
+      setFiles([]);
+      setSelectedImage(null);
+    }
+  }, [resetTrigger]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newFiles = e.target.files ? Array.from(e.target.files) : [];

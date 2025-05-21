@@ -1,30 +1,30 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import { MailOpen, Mail } from 'lucide-react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+import { useNotificationStore } from '@/fsd_entities/notification';
 import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 
-export interface CeremonyItem {
-  id: number;
+import MailIcon from '../../../public/icons/envelope_icon.svg';
+import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';
+
+export interface Item {
+  id: string;
   title: string;
-  subtitle: string;
+  body: string;
   isRead: boolean;
 }
 
 interface ListBoxProps {
-  data: CeremonyItem[];
+  data: Item[];
+  link?: any;
+  loadMore: () => void;
 }
 
-export const ListBox = ({ data }: ListBoxProps) => {
-  const [items, setItems] = useState<CeremonyItem[]>([]);
-  const [page, setPage] = useState(0);
-  const itemsPerPage = 4;
-
-  const loadMore = useCallback(() => {
-    const nextItems = data.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
-    setItems(prev => [...prev, ...nextItems]);
-    setPage(prev => prev + 1);
-  }, [page, data]);
+export const ListBox = ({ data, link, loadMore }: ListBoxProps) => {
+  const router = useRouter();
+  const markAsRead = useNotificationStore(state => state.markAsRead);
 
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
@@ -35,26 +35,50 @@ export const ListBox = ({ data }: ListBoxProps) => {
   });
 
   useEffect(() => {
-    loadMore();
+    // 초기 진입 시 1회 호출 방지 (불필요하면 제거 가능)
   }, []);
 
   return (
-    <div className="bg-gray-100 p-4 max-h-[400px] overflow-y-auto rounded-lg">
-      {items.map(item => (
-        <div
-          key={item.id}
-          className="bg-white rounded-xl p-4 mb-4 shadow flex items-center gap-4"
-        >
-          <div className="text-gray-600">
-            {item.isRead ? <MailOpen size={32} /> : <Mail size={32} />}
-          </div>
-          <div className="text-left">
-            <div className="font-semibold text-gray-800">{item.title}</div>
-            <div className="text-sm text-gray-500">{item.subtitle}</div>
-          </div>
-        </div>
-      ))}
-      <div ref={targetRef} className="h-10" />
+    <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
+      <div className="flex flex-col space-y-4">
+        {data.map((item, index) => {
+          const targetLink = link
+            ? `/board/${link.find(l => l.notificationLogId === item.id)?.boardId}/${link.find(l => l.notificationLogId === item.id)?.targetId}`
+            : `/ceremony/${item.id}`;
+
+          return (
+            <div
+              onClick={() => {
+                markAsRead(item.id);
+                router.push(targetLink);
+              }}
+              key={`item.id-${index}`}
+              className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow"
+            >
+              {!item.isRead && (
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 6,
+                    left: 6,
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    backgroundColor: 'red',
+                  }}
+                />
+              )}
+
+              <div className="text-gray-600">{item.isRead ? <MailOpendIcon size={32} /> : <MailIcon size={32} />}</div>
+              <div className="text-left">
+                <div className="font-medium text-[#212323]">{item.title}</div>
+                <div className="text-sm text-[#212323]">{item.body}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div ref={targetRef} className="invisible h-px" />
     </div>
   );
 };

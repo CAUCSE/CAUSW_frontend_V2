@@ -39,7 +39,7 @@ export const SideBar = () => {
       </div>
 
       <div className="absolute left-12 top-0 flex flex-col items-center text-black xl:hidden">
-        <Link href="/occasion">
+        <Link href="/setting/notification">
           <span className="text-black-400 icon-[codicon--bell] text-2xl"></span>
         </Link>
       </div>

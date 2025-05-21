@@ -15,7 +15,6 @@ export interface CreateCeremonyPayload {
   imageFileList?: FileList;
 }
 
-
 export interface Ceremony {
   id: string;
   title: string;

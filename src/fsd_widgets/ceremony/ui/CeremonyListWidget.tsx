@@ -1,45 +1,62 @@
 'use client';
 
-import { useState } from 'react';
-import { ListBox, CeremonyItem } from '@/fsd_shared/ui/ListBox';
+import { useState, useEffect } from 'react';
+import { CommonTabs } from '@/fsd_shared/ui/CommonTabs';
+import { Item, ListBox } from '@/fsd_shared/ui/ListBox';
+import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/useCeremonyListQuery';
+import { InfiniteData } from '@tanstack/react-query';
 
-const tabs = [
-  { label: '등록 완료', value: 'ACCEPT' },
-  { label: '등록 거부', value: 'REJECT' },
-  { label: '등록 대기 중', value: 'AWAIT' },
+const tabItems = [
+  { label: '등록 완료', key: 'ACCEPT' },
+  { label: '등록 거부', key: 'REJECT' },
+  { label: '등록 대기 중', key: 'AWAIT' },
 ];
 
-const mockData: CeremonyItem[] = Array.from({ length: 30 }).map((_, idx) => ({
-  id: idx,
-  title: `홍길동(${17 + idx}) - 결혼`,
-  subtitle: '2025.03.10. ~ 2025.03.11.',
-  isRead: idx % 2 === 0,
-}));
-
 export const CeremonyListWidget = () => {
-  const [activeTab, setActiveTab] = useState('ACCEPT');
+  const [activeTab, setActiveTab] = useState(0);
+  const ceremonyState = tabItems[activeTab].key;
 
-  const filteredData = mockData;
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useCeremonyListQuery(ceremonyState);
+
+  useEffect(() => {
+    refetch();
+  }, [ceremonyState, refetch]);
+
+  const infiniteData = data as InfiniteData<Notification.NotificationResponse> | undefined;
+
+  const items: Item[] = infiniteData?.pages
+    ? infiniteData.pages.flatMap(page =>
+      page.content.map(item => ({
+        id: item.notificationLogId,
+        title: item.title,
+        body: item.body,
+        isRead: true,
+      }))
+    )
+    : [];
 
   return (
     <div className="w-full max-w-3xl">
-      <div className="flex space-x-6 border-b mb-6 text-lg font-medium">
-        {tabs.map((tab) => (
-          <button
-            key={tab.value}
-            onClick={() => setActiveTab(tab.value)}
-            className={`pb-2 ${
-              activeTab === tab.value
-                ? 'border-b-2 border-blue-500 text-blue-600'
-                : 'text-gray-600'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div>
-        <ListBox data={filteredData} />
+      <CommonTabs
+        tabItems={tabItems}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      <div className="mt-4">
+        <ListBox
+          data={items}
+          loadMore={() => {
+            if (hasNextPage && !isFetchingNextPage) {
+              fetchNextPage();
+            }
+          }}
+        />
       </div>
     </div>
   );

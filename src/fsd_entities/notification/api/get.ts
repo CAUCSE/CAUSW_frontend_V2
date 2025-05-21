@@ -1,12 +1,11 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, isAxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
 import { API } from '@/fsd_shared';
 
-import { Notification } from '../config/types';
-import { CeremonyResponse } from '../config/types';
+import { CeremonyResponse, Notification } from '../config/types';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -86,3 +85,91 @@ export const getCeremonies = async (
   }
 };
 
+export const getFCMToken = async (): Promise<string | null> => {
+  const URI = `/api/v1/users/fcm`;
+
+  try {
+    const response: AxiosResponse<string> = await API.get(URI);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
+  const URI = `/api/v1/notifications/log/general`;
+
+  try {
+    const response = await API.get(URI, {
+      params: {
+        pageNum,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      toast.error('Axios error:', error.response?.data);
+    } else {
+      toast.error('General error');
+    }
+    throw error;
+  }
+};
+export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
+  const URI = `/api/v1/notifications/log/ceremony`;
+
+  try {
+    const response = await API.get(URI, {
+      params: {
+        pageNum,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      toast.error('Axios error:', error.response?.data);
+    } else {
+      toast.error('General error');
+    }
+    throw error;
+  }
+};
+
+export const getCeremonyData = async (
+  ceremonyState: string,
+  pageNum: number = 0
+): Promise<Notification.NotificationResponse> => {
+  const URI = `/api/v1/ceremony`;
+
+  try {
+    const response = await API.get(URI, {
+      params: {
+        ceremonyState,
+        pageNum,
+      },
+    });
+
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      toast.error('Axios error:', error.response?.data);
+    } else {
+      toast.error('General error');
+    }
+    throw error;
+  }
+};

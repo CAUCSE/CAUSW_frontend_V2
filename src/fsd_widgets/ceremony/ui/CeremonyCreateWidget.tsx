@@ -7,6 +7,8 @@ import { ImageUploadField } from '@/fsd_shared/ui/ImageUploadField';
 import { Button } from '@/fsd_shared';
 import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
 import { useCeremonyCreateForm } from '@/fsd_entities/notification/model/useCelemonyCreateForm';
+import { formatDateInput } from '@/utils/inputFormatters';
+import { useState } from "react";
 
 const categoryOptions = [
   { label: '결혼', value: 'MARRIAGE' },
@@ -27,9 +29,13 @@ export const CeremonyCreateWidget = () => {
   });
 
   const { onSubmit } = useCeremonyCreateForm();
-
-  // react-hook-form submit wrapper
-  const handleFormSubmit = methods.handleSubmit(onSubmit);
+  const [resetImageUploader, setResetImageUploader] = useState(false);
+  const handleFormSubmit = methods.handleSubmit(async (data) => {
+    await onSubmit(data);
+    methods.reset();
+    setResetImageUploader(true);
+    setTimeout(() => setResetImageUploader(false), 0);
+  });
 
   return (
     <FormProvider {...methods}>
@@ -53,6 +59,7 @@ export const CeremonyCreateWidget = () => {
               hint="YYYY-MM-DD"
               value={methods.watch('startDate')}
               onChange={(value) => methods.setValue('startDate', value)}
+              formatter={formatDateInput}
               inputType="single-line"
               height="h-8"
               width="w-36"
@@ -62,6 +69,7 @@ export const CeremonyCreateWidget = () => {
               hint="YYYY-MM-DD"
               value={methods.watch('endDate')}
               onChange={(value) => methods.setValue('endDate', value)}
+              formatter={formatDateInput}
               inputType="single-line"
               height="h-8"
               width="w-36"
@@ -87,6 +95,7 @@ export const CeremonyCreateWidget = () => {
             name="imageFileList"
             setValue={methods.setValue}
             maxFiles={5}
+            resetTrigger={resetImageUploader}
           />
         </div>
 
