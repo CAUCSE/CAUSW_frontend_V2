@@ -18,7 +18,6 @@ export const useNotificationSettingForm = () => {
   const [years, setYears] = useState<number[]>([]);
   const [existingSetting, setExistingSetting] = useState<CeremonyNotificationSettingDto | null>(null);
   const [setAll, setSetAllValue] = useState(false);
-
   const setAllYearsSelected = (value: boolean) => {
     setSetAllValue(value);
     if (value) setYears([]);
