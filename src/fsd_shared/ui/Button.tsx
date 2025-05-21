@@ -9,7 +9,7 @@ type Variant = 'BLUE' | 'RED' | 'GRAY';
 interface ButtonProp extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: Variant;
   goBack?: boolean;
-  action: () => void;
+  action?: () => void;
 }
 
 const variantClass: Record<Variant, string> = {
@@ -23,7 +23,7 @@ export function Button({ variant, action, className, goBack, children, ...props 
     <button
       className={clsx(className, variantClass[variant], 'rounded-[10px]')}
       onClick={() => {
-        action();
+        action?.();
         // goBack && window.history.back();
         // window.location.reload();
       }}
