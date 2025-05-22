@@ -27,11 +27,6 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
       },
       pt: '8px',
       pb: '4px',
-      // display: 'flex',
-      // justifyContent: {
-      //   xs: 'center',
-      //   md: 'flex-end',
-      // },
     }}
   >
     <Tabs
@@ -49,15 +44,13 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
 
         px: 4,
         justifyContent: {
-          xs: 'center', // md 이하에서는 가운데 정렬
-          md: 'flex-end', // md 이상에서는 왼쪽 정렬
+          xs: 'center',
+          md: 'flex-end',
         },
         padding: {
-          xs: '8px 0 4px 0', // md 이하
-          md: '8px 8px 4px 16px ', // md 이상
+          xs: '8px 0 4px 0',
+          md: '8px 8px 4px 16px ',
         },
-        // borderBottom: '3px solid #bababa',
-        // marginBottom: '24px',
       }}
     >
       <Tab
@@ -128,6 +121,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
           },
         }}
       />
+
       {activeTab === 1 && <NotificationActionButtons />}
     </Tabs>
   </Box>

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { NotificationTabs } from '@/fsd_widgets/notification';
+import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notification';
 
 import { useCeremonyNotificationData, useNotificationData, useNotificationTabParam } from '@/fsd_entities/notification';
 
@@ -46,10 +46,16 @@ const Notification = () => {
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           {MESSAGES.PREVIOUS_BUTTON_TEXT}
         </div>
-        <div className="text-2xl font-medium md:text-3xl">
-          {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
+        <div className="flex flex-row items-center justify-between">
+          <div className="text-2xl font-medium md:text-3xl">
+            {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
+          </div>
+          {activeTab === 1 && (
+            <div className="md:hidden">
+              <NotificationActionButtons />
+            </div>
+          )}
         </div>
-
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
         {activeTab === 0 && (
           <>
