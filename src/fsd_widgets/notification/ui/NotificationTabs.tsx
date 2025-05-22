@@ -1,6 +1,6 @@
 'use client';
 
-import { Badge, Tab, Tabs } from '@mui/material';
+import { Badge, Box, Tab, Tabs } from '@mui/material';
 
 import { MESSAGES } from '@/fsd_shared';
 
@@ -16,83 +16,119 @@ interface Props {
 }
 
 export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) => (
-  <Tabs
-    value={activeTab}
-    TabIndicatorProps={{
-      style: {
-        height: '5px',
-        backgroundColor: '#6bbeec',
-        borderRadius: '20px',
-      },
-    }}
+  <Box
     sx={{
-      display: 'flex',
       width: '100%',
-      justifyContent: 'flex-start',
-      padding: '8px 8px 4px 16px',
       borderBottom: '3px solid #bababa',
-      marginBottom: '24px',
+      mb: '24px',
+      px: {
+        xs: 4,
+        md: 2,
+      },
+      pt: '8px',
+      pb: '4px',
+      // display: 'flex',
+      // justifyContent: {
+      //   xs: 'center',
+      //   md: 'flex-end',
+      // },
     }}
   >
-    <Tab
-      label={
-        <div style={{ display: 'flex', gap: 4 }}>
-          {hasUnread.alarm && (
-            <span
-              style={{
-                display: 'flex',
-                marginTop: '4px',
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: 'red',
-              }}
-            />
-          )}
-          <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.GENERAL}</span>
-        </div>
-      }
-      disableRipple
-      onClick={() => setActiveTab(0)}
-      sx={{
-        textTransform: 'none',
-        color: '#000',
-        '&.Mui-selected': {
-          color: '#000',
+    <Tabs
+      value={activeTab}
+      TabIndicatorProps={{
+        style: {
+          height: '5px',
+          backgroundColor: '#6bbeec',
+          borderRadius: '20px',
         },
-        fontSize: '20px',
-        fontWeight: '500',
       }}
-    />
-    <Tab
-      label={
-        <div style={{ display: 'flex', gap: 4 }}>
-          {hasUnread.ceremony && (
-            <span
-              style={{
-                display: 'flex',
-                marginTop: '4px',
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: 'red',
-              }}
-            />
-          )}
-          <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.CEREMONY}</span>
-        </div>
-      }
-      disableRipple
-      onClick={() => setActiveTab(1)}
       sx={{
-        textTransform: 'none',
-        color: '#000',
-        '&.Mui-selected': {
-          color: '#000',
+        display: 'flex',
+        width: '100%',
+
+        px: 4,
+        justifyContent: {
+          xs: 'center', // md 이하에서는 가운데 정렬
+          md: 'flex-end', // md 이상에서는 왼쪽 정렬
         },
-        fontSize: '20px',
+        padding: {
+          xs: '8px 0 4px 0', // md 이하
+          md: '8px 8px 4px 16px ', // md 이상
+        },
+        // borderBottom: '3px solid #bababa',
+        // marginBottom: '24px',
       }}
-    />
-    {activeTab === 1 && <NotificationActionButtons />}
-  </Tabs>
+    >
+      <Tab
+        label={
+          <div style={{ display: 'flex', gap: 4 }}>
+            {hasUnread.alarm && (
+              <span
+                style={{
+                  display: 'flex',
+                  marginTop: '4px',
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  backgroundColor: 'red',
+                }}
+              />
+            )}
+            <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.GENERAL}</span>
+          </div>
+        }
+        disableRipple
+        onClick={() => setActiveTab(0)}
+        sx={{
+          textTransform: 'none',
+          color: '#000',
+          '&.Mui-selected': {
+            color: '#000',
+          },
+          fontSize: '20px',
+          fontWeight: '500',
+          minWidth: {
+            xs: '50%',
+            md: '120px',
+          },
+        }}
+      />
+
+      <Tab
+        label={
+          <div style={{ display: 'flex', gap: 4 }}>
+            {hasUnread.ceremony && (
+              <span
+                style={{
+                  display: 'flex',
+                  marginTop: '4px',
+                  width: 10,
+                  height: 10,
+                  borderRadius: '50%',
+                  backgroundColor: 'red',
+                }}
+              />
+            )}
+            <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.CEREMONY}</span>
+          </div>
+        }
+        disableRipple
+        onClick={() => setActiveTab(1)}
+        sx={{
+          textTransform: 'none',
+          color: '#000',
+          '&.Mui-selected': {
+            color: '#000',
+          },
+          fontSize: '20px',
+          minWidth: {
+            xs: '50%',
+            md: '120px',
+          },
+        }}
+      />
+      {activeTab === 1 && <NotificationActionButtons />}
+    </Tabs>
+  </Box>
 );

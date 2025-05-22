@@ -10,6 +10,8 @@ import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { ERROR_MESSAGES, Header, MESSAGES } from '@/fsd_shared';
 
+import BellIcon from '../../../../../public/icons/bell_icon.svg';
+
 const Notification = () => {
   const router = useRouter();
   const { activeTab, setActiveTab } = useNotificationTabParam();
@@ -40,11 +42,13 @@ const Notification = () => {
   return (
     <>
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
-        <div onClick={() => router.back()} className="mb-7 flex items-center text-lg">
+        <div onClick={() => router.back()} className="mb-7 flex items-center text-base md:text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           {MESSAGES.PREVIOUS_BUTTON_TEXT}
         </div>
-        <Header big>{MESSAGES.NOTIFICATION.ALL}</Header>
+        <div className="text-2xl font-medium md:text-3xl">
+          {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
+        </div>
 
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
         {activeTab === 0 && (
