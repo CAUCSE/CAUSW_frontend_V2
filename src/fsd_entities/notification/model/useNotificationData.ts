@@ -14,7 +14,6 @@ export const useNotificationData = () => {
   const fetchNotificationData = async () => {
     try {
       const data = await getNotificationData(0);
-      console.log('Notification data:', data);
       setNotificationData(data.content);
     } catch (error) {
       toast.error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
@@ -32,7 +31,6 @@ export const useCeremonyNotificationData = () => {
   const fetchCeremonyNotificationData = async () => {
     try {
       const data = await getCeremonyNotificationData(0);
-      console.log('useCeremonyNotificationData data:', data);
       setCeremonyNotificationData(data.content);
     } catch (error) {
       toast.error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
