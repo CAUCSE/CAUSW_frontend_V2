@@ -63,7 +63,7 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
           <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
         </div>
         <OccasionImageTile imageList={occasionDetails.imageList} />
-        <div className="flex justify-center gap-5 pt-4 md:pt-0 lg:gap-11">
+        <div className="fixed bottom-20 left-0 z-50 flex w-full justify-center gap-5 md:pt-0 lg:gap-11">
           <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
           <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
         </div>
