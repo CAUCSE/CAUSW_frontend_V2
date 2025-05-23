@@ -83,7 +83,18 @@ const CreatePostPage = () => {
         voteCreateRequestDto: undefined,
         formCreateRequestDto: {
           title: '',
-          questionCreateRequestDtoList: [],
+          questionCreateRequestDtoList: [
+            {
+              questionType: 'OBJECTIVE',
+              questionText: '',
+              isMultiple: false,
+              optionCreateRequestDtoList: [
+                {
+                  optionText: '',
+                },
+              ],
+            },
+          ],
           isAllowedEnrolled: false,
           allowAllEnrolledRegisteredSemester: false,
           enrolledRegisteredSemesterList: [],
