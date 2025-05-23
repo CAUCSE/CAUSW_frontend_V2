@@ -1,6 +1,6 @@
 'use client';
 
-import { Badge, Box, Tab, Tabs } from '@mui/material';
+import { Box, Tab, Tabs } from '@mui/material';
 
 import { MESSAGES } from '@/fsd_shared';
 

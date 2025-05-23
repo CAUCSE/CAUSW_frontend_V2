@@ -8,7 +8,7 @@ import { useCeremonyNotificationData, useNotificationData, useNotificationTabPar
 
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
-import { ERROR_MESSAGES, Header, MESSAGES, PreviousButton } from '@/fsd_shared';
+import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 
@@ -34,6 +34,7 @@ const Notification = () => {
     isRead: data.isRead,
     targetId: data.targetId,
   }));
+
   const hasUnread = {
     alarm: alarmData.some(item => !item.isRead),
     ceremony: ceremonyData.some(item => !item.isRead),
