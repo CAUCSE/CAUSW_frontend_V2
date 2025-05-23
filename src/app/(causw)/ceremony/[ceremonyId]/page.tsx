@@ -10,14 +10,11 @@ import { PreviousButton } from '@/fsd_shared';
 
 const OccasionNotificationDetailPage = () => {
   const { ceremonyId } = useParams<{ ceremonyId: string }>();
-  console.log('occasionId', ceremonyId);
   return (
     <div className="w-full p-6">
       <PreviousButton />
       <div className="pt-12">
-        <Header bold big>
-          {MESSAGES.OCCASION.CEREMONY_CONTENTS}
-        </Header>
+        <div className="text-2xl font-medium md:text-3xl">{MESSAGES.OCCASION.CEREMONY_CONTENTS}</div>
         <CeremonyDetailPage ceremonyId={ceremonyId} />
       </div>
     </div>

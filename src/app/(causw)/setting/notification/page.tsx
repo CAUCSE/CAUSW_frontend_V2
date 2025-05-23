@@ -8,7 +8,7 @@ import { useCeremonyNotificationData, useNotificationData, useNotificationTabPar
 
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
-import { ERROR_MESSAGES, Header, MESSAGES } from '@/fsd_shared';
+import { ERROR_MESSAGES, Header, MESSAGES, PreviousButton } from '@/fsd_shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 
@@ -46,6 +46,7 @@ const Notification = () => {
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           {MESSAGES.PREVIOUS_BUTTON_TEXT}
         </div>
+
         <div className="flex flex-row items-center justify-between">
           <div className="text-2xl font-medium md:text-3xl">
             {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
