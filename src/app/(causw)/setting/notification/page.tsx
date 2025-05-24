@@ -18,22 +18,26 @@ const Notification = () => {
   const { notificationData } = useNotificationData();
   const { ceremonyNotificationData } = useCeremonyNotificationData();
 
-  const alarmData: Notification.GeneralAlarmItem[] = notificationData.map(data => ({
-    id: data.notificationLogId,
-    title: data.title,
-    body: data.body,
-    isRead: data.isRead,
-    targetId: data.targetId,
-    noticeType: data.noticeType,
-  }));
+  const alarmData: Notification.GeneralAlarmItem[] = notificationData.map(
+    ({ notificationLogId, title, body, isRead, targetId, noticeType }) => ({
+      id: notificationLogId,
+      title,
+      body,
+      isRead,
+      targetId,
+      noticeType,
+    }),
+  );
 
-  const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(data => ({
-    id: data.notificationLogId,
-    title: data.title,
-    body: data.body,
-    isRead: data.isRead,
-    targetId: data.targetId,
-  }));
+  const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(
+    ({ notificationLogId, title, body, isRead, targetId }) => ({
+      id: notificationLogId,
+      title: title,
+      body: body,
+      isRead: isRead,
+      targetId: targetId,
+    }),
+  );
 
   const hasUnread = {
     alarm: alarmData.some(item => !item.isRead),
