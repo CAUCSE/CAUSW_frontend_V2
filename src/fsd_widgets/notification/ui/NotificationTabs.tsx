@@ -2,7 +2,7 @@
 
 import { Box, Tab, Tabs } from '@mui/material';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
 
 import { NotificationActionButtons } from './NotificationActionButtons';
 
@@ -72,7 +72,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
           </div>
         }
         disableRipple
-        onClick={() => setActiveTab(0)}
+        onClick={() => setActiveTab(NOTIFICATION_TAB.GENERAL)}
         sx={{
           textTransform: 'none',
           color: '#000',
@@ -107,7 +107,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
           </div>
         }
         disableRipple
-        onClick={() => setActiveTab(1)}
+        onClick={() => setActiveTab(NOTIFICATION_TAB.CEREMONY)}
         sx={{
           textTransform: 'none',
           color: '#000',
@@ -122,7 +122,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
         }}
       />
 
-      {activeTab === 1 && <NotificationActionButtons />}
+      {activeTab === NOTIFICATION_TAB.CEREMONY && <NotificationActionButtons />}
     </Tabs>
   </Box>
 );

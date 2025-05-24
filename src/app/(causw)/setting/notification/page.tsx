@@ -8,7 +8,7 @@ import { useCeremonyNotificationData, useNotificationData, useNotificationTabPar
 
 import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { ERROR_MESSAGES, MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 
@@ -56,14 +56,14 @@ const Notification = () => {
           <div className="text-2xl font-medium md:text-3xl">
             {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
           </div>
-          {activeTab === 1 && (
+          {activeTab === NOTIFICATION_TAB.CEREMONY && (
             <div className="md:hidden">
               <NotificationActionButtons />
             </div>
           )}
         </div>
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
-        {activeTab === 0 && (
+        {activeTab === NOTIFICATION_TAB.GENERAL && (
           <>
             {alarmData.length === 0 ? (
               <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_GENERAL_ALARM}</div>
@@ -72,7 +72,7 @@ const Notification = () => {
             )}
           </>
         )}
-        {activeTab === 1 && (
+        {activeTab === NOTIFICATION_TAB.CEREMONY && (
           <>
             {ceremonyData.length === 0 ? (
               <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_CEREMONY_ALARM}</div>
