@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { CommonTabs } from '@/fsd_shared/ui/CommonTabs';
 import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
-import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/useCeremonyListQuery';
+import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/queries/useCeremonyListQuery';
 import { InfiniteData } from '@tanstack/react-query';
 import { CeremonyState } from '@/fsd_entities/notification/api';
 

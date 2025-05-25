@@ -36,10 +36,6 @@ export const getNotifications = async (): Promise<Notification[]> => {
       headers: { Authorization: getRccAccess() },
     });
 
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch notifications');
-    }
-
     return response.data;
   } catch (error) {
     toast.error('알림 가져오기 실패: 서버 응답 오류');
@@ -54,10 +50,6 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
     const response: AxiosResponse<Notification[]> = await API.get(URI, {
       headers: { Authorization: getRccAccess() },
     });
-
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch ceremony notifications');
-    }
 
     return response.data;
   } catch (error) {
@@ -87,16 +79,12 @@ export const getNotificationData = async (pageNum: number = 0): Promise<Notifica
       },
     });
 
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error('Axios error:', error.response?.data);
+      toast.error('데이터를 불러오는데 실패했습니다.', error.response?.data);
     } else {
-      toast.error('General error');
+      toast.error('알 수 없는 오류가 발생했습니다.');
     }
     throw error;
   }
@@ -111,16 +99,12 @@ export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<
       },
     });
 
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error('Axios error:', error.response?.data);
+      toast.error('데이터를 불러오는데 실패했습니다.', error.response?.data);
     } else {
-      toast.error('General error');
+      toast.error('알 수 없는 오류가 발생했습니다.');
     }
     throw error;
   }
@@ -135,7 +119,7 @@ export enum CeremonyState {
 
 export const getCeremonyData = async (
   ceremonyState: CeremonyState = CeremonyState.ACCEPT,
-  pageNum: number = 0
+  pageNum: number = 0,
 ): Promise<Notification.NotificationResponse> => {
   const URI = `/api/v1/ceremony`;
 
@@ -147,16 +131,12 @@ export const getCeremonyData = async (
       },
     });
 
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error('Axios error:', error.response?.data);
+      toast.error('경조사 데이터를 불러오는데 실패했습니다.', error.response?.data);
     } else {
-      toast.error('General error');
+      toast.error('알 수 없는 오류가 발생했습니다.');
     }
     throw error;
   }

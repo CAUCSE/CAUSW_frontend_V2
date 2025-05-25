@@ -1,9 +1,10 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getCeremonyData, CeremonyState } from '@/fsd_entities/notification/api';
+import { ceremonyQueryKey } from '@/fsd_shared';
 
 export const useCeremonyListQuery = (ceremonyState: CeremonyState) => {
-  return useInfiniteQuery<Notification.NotificationResponse, Error, Notification.NotificationResponse, [string, string], number>({
-    queryKey: ['ceremonies', ceremonyState],
+  return useInfiniteQuery({
+    queryKey: ceremonyQueryKey.list(ceremonyState),
     queryFn: ({ pageParam = 0 }) => getCeremonyData(ceremonyState, pageParam),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {

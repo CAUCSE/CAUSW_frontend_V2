@@ -9,8 +9,10 @@ import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types'
 import { useCeremonyCreateForm } from '@/fsd_entities/notification/model/useCelemonyCreateForm';
 import { formatDateInput } from '@/utils/inputFormatters';
 import { useState } from "react";
+import { CeremonyCategory } from '@/fsd_entities/notification/config/types';
 
-const categoryOptions = [
+
+const categoryOptions: { label: string; value: CeremonyCategory }[] = [
   { label: '결혼', value: 'MARRIAGE' },
   { label: '장례식', value: 'FUNERAL' },
   { label: '졸업', value: 'GRADUATION' },

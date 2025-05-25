@@ -7,7 +7,7 @@ import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
 import { API, FORMAPI } from '@/shared';
 import { createFormData } from '@/utils';
-import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
+import { CeremonyResponse, CreateCeremonyPayload } from "@/fsd_entities/notification/config/types";
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -54,7 +54,7 @@ export const updateFCMToken = async (token: string): Promise<void> => {
 };
 
 
-export const postCeremony = async (payload: CreateCeremonyPayload): Promise<any> => {
+export const addCeremony = async (payload: CreateCeremonyPayload): Promise<CeremonyResponse> => {
   try {
     const dto = {
       ...payload,

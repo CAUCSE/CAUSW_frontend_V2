@@ -7,11 +7,13 @@ export interface Notification {
   notificationLogId: string;
 }
 
+export type CeremonyCategory = '' | 'MARRIAGE' | 'FUNERAL' | 'GRADUATION' | 'ETC';
+
 export interface CreateCeremonyPayload {
   description: string;
   startDate: string;
   endDate: string;
-  category: '' | 'MARRIAGE' | 'FUNERAL' | 'GRADUATION' | 'ETC';
+  category: CeremonyCategory;
   imageFileList?: FileList;
 }
 
