@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { CommonTabs } from '@/fsd_shared/ui/CommonTabs';
-import { Item, ListBox } from '@/fsd_shared/ui/ListBox';
+import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
 import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/useCeremonyListQuery';
 import { InfiniteData } from '@tanstack/react-query';
+import { CeremonyState } from '@/fsd_entities/notification/api';
 
-const tabItems = [
-  { label: '등록 완료', key: 'ACCEPT' },
-  { label: '등록 거부', key: 'REJECT' },
-  { label: '등록 대기 중', key: 'AWAIT' },
+const tabItems: { label: string; key: CeremonyState }[] = [
+  { label: '등록 완료', key: CeremonyState.ACCEPT },
+  { label: '등록 거부', key: CeremonyState.REJECT },
+  { label: '등록 대기 중', key: CeremonyState.AWAIT },
 ];
 
 export const CeremonyListWidget = () => {
@@ -30,7 +31,7 @@ export const CeremonyListWidget = () => {
 
   const infiniteData = data as InfiniteData<Notification.NotificationResponse> | undefined;
 
-  const items: Item[] = infiniteData?.pages
+  const items: ListBoxItem[] = infiniteData?.pages
     ? infiniteData.pages.flatMap(page =>
       page.content.map(item => ({
         id: item.notificationLogId,

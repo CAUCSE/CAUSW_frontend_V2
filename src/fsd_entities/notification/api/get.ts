@@ -66,25 +66,6 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getCeremonies = async (
-  ceremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE' = 'ACCEPT',
-  pageNum: number = 0,
-): Promise<CeremonyResponse> => {
-  try {
-    const response: AxiosResponse<CeremonyResponse> = await API.get(CEREMONY_URI, {
-      params: {
-        ceremonyState,
-        pageNum,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    toast.error('경조사 목록 가져오기 실패');
-    throw error;
-  }
-};
-
 export const getFCMToken = async (): Promise<string | null> => {
   const URI = `/api/v1/users/fcm`;
 
@@ -145,8 +126,15 @@ export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<
   }
 };
 
+export enum CeremonyState {
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+  AWAIT = 'AWAIT',
+  CLOSE = 'CLOSE',
+}
+
 export const getCeremonyData = async (
-  ceremonyState: string,
+  ceremonyState: CeremonyState = CeremonyState.ACCEPT,
   pageNum: number = 0
 ): Promise<Notification.NotificationResponse> => {
   const URI = `/api/v1/ceremony`;

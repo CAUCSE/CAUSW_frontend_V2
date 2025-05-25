@@ -6,7 +6,7 @@ import { NotificationTabs } from '@/fsd_widgets/notification';
 
 import { useCeremonyNotificationData, useNotificationData, useNotificationTabParam } from '@/fsd_entities/notification';
 
-import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
+import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { ERROR_MESSAGES, Header, MESSAGES } from '@/fsd_shared';
 import { useGetBoardList } from '@/shared';
@@ -18,14 +18,14 @@ const Notification = () => {
   const { ceremonyNotificationData } = useCeremonyNotificationData();
   const { boards } = useGetBoardList(); // 해당 부분 리팩토링되면 fsd파일로 수정예정
 
-  const alarmData: CeremonyItem[] = notificationData.map(data => ({
+  const alarmData: ListBoxItem[] = notificationData.map(data => ({
     id: data.notificationLogId,
     title: data.title,
     body: data.body,
     isRead: data.isRead,
   }));
 
-  const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(data => ({
+  const ceremonyData: ListBoxItem[] = ceremonyNotificationData.map(data => ({
     id: data.targetId,
     title: data.title,
     body: data.body,
