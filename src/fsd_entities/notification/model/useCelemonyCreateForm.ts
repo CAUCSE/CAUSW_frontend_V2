@@ -1,3 +1,4 @@
+'use client';
 
 import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
 import { toast } from 'react-hot-toast';
