@@ -11,7 +11,7 @@ export const PreviousButton = ({ routeCallback }: { routeCallback?: () => void }
       <button type="button" onClick={() => (routeCallback ? routeCallback() : router.back())} className="w-full">
         <div className="flex items-center gap-3">
           <PreviousIcon className="h-8 w-8" />
-          <p className="text-lg">이전</p>
+          <p className="text-base md:text-lg">이전</p>
         </div>
       </button>
     </div>

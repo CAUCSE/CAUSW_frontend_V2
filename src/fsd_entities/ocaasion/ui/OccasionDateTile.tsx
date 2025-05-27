@@ -14,7 +14,7 @@ export const OccasionDateTile = ({ title, date }: Occasion.OccasionDateTileProps
         {formattedDate.map((number, idx) => {
           return (
             <p key={dateFormat[idx]}>
-              <span>{number}</span>
+              <span className="border-b border-[#000000] pr-2 md:border-none md:pr-0">{number}</span>
               <span>{dateFormat[idx]}</span>
             </p>
           );

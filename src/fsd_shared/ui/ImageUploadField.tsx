@@ -94,7 +94,6 @@ export const ImageUploadField = <T extends FieldValues>({
             </div>
           ))}
       </div>
-
       {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
       {errorMessage && <span className="text-error">{errorMessage}</span>}
     </div>

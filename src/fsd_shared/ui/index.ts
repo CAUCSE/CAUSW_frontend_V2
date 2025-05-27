@@ -17,4 +17,6 @@ export { SubHeader } from './SubHeader';
 export { ToastWithMax } from './ToastWithMax';
 export { UseTerms } from './UseTerms';
 export { PortalModal } from './PortalModal';
+export { SelectBox } from './SelectBox';
+export { InputBox } from './InputBox';
 export { LoadingScreen } from './LoadingScreen';
