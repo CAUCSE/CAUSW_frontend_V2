@@ -41,10 +41,23 @@ const Notification = () => {
   );
 
   const hasUnread = {
-    alarm: alarmData.some(item => !item.isRead),
-    ceremony: ceremonyData.some(item => !item.isRead),
+    alarm: alarmData.some((item) => !item.isRead),
+    ceremony: ceremonyData.some((item) => !item.isRead),
   };
-
+  const NotificationTab = {
+    [NOTIFICATION_TAB.GENERAL]: () =>
+      alarmData.length === 0 ? (
+        <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_GENERAL_ALARM}</div>
+      ) : (
+        <ListBox data={alarmData} alarm="general" />
+      ),
+    [NOTIFICATION_TAB.CEREMONY]: () =>
+      ceremonyData.length === 0 ? (
+        <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_CEREMONY_ALARM}</div>
+      ) : (
+        <ListBox data={ceremonyData} />
+      ),
+  };
   return (
     <>
       <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
