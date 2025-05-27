@@ -32,10 +32,10 @@ const Notification = () => {
   const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(
     ({ notificationLogId, title, body, isRead, targetId }) => ({
       id: notificationLogId,
-      title: title,
-      body: body,
-      isRead: isRead,
-      targetId: targetId,
+      title,
+      body,
+      isRead,
+      targetId,
     }),
   );
 
