@@ -17,7 +17,7 @@ const ApplyPage = () => {
       questionReplyRequestDtoList: [],
     },
   });
-  const form = useResponseFormStore(state => state.form);
+  const form = useResponseFormStore((state) => state.form);
 
   const { setError } = methods;
   const { useGetFormResponseInfo } = FormService();

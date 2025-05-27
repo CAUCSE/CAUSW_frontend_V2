@@ -49,7 +49,7 @@ export const VTwoForm = () => {
               placeholder="닉네임을 입력해주세요"
               rules={{
                 required: '닉네임을 입력해주세요',
-                validate: async value => {
+                validate: async (value) => {
                   if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
                   const isAvailable = await checkNicknameDuplicate(value);
                   return isAvailable || '이미 사용 중인 닉네임입니다.';

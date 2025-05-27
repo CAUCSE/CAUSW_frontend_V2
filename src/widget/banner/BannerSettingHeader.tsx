@@ -14,7 +14,7 @@ interface BannerSettingHeaderProps {
 
 export const BannerSettingHeader = ({ bannerList }: BannerSettingHeaderProps) => {
   const { isBannerEditModalOpen, openEditBannerModal } = useBannerStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isBannerEditModalOpen: state.isBannerEditModalOpen,
       openEditBannerModal: state.openEditBannerModal,
     })),

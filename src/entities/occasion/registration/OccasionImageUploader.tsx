@@ -12,19 +12,19 @@ export const OccasionImageUploader = ({ onUpload }: ImageUploaderProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      const newFiles = Array.from(files).map(file => ({
+      const newFiles = Array.from(files).map((file) => ({
         file,
         url: URL.createObjectURL(file),
       }));
-      setPreviews(prev => [...prev, ...newFiles]);
-      onUpload([...previews.map(item => item.file), ...newFiles.map(item => item.file)]);
+      setPreviews((prev) => [...prev, ...newFiles]);
+      onUpload([...previews.map((item) => item.file), ...newFiles.map((item) => item.file)]);
     }
   };
 
   const handleRemove = (index: number) => {
     const updatedPreviews = previews.filter((_, i) => i !== index);
     setPreviews(updatedPreviews);
-    onUpload(updatedPreviews.map(item => item.file));
+    onUpload(updatedPreviews.map((item) => item.file));
   };
 
   return (

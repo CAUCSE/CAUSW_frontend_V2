@@ -59,11 +59,11 @@ export const SettingService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: lastPage => {
+      getNextPageParam: (lastPage) => {
         return lastPage.posts.last ? null : lastPage.posts.number + 1;
       },
-      select: data => {
-        return data.pages.flatMap(page => page.posts.content);
+      select: (data) => {
+        return data.pages.flatMap((page) => page.posts.content);
       },
     });
   };
@@ -78,11 +78,11 @@ export const SettingService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: lastPage => {
+      getNextPageParam: (lastPage) => {
         return lastPage.posts.last ? null : lastPage.posts.number + 1;
       },
-      select: data => {
-        return data.pages.flatMap(page => page.posts.content);
+      select: (data) => {
+        return data.pages.flatMap((page) => page.posts.content);
       },
     });
   };
@@ -97,11 +97,11 @@ export const SettingService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: lastPage => {
+      getNextPageParam: (lastPage) => {
         return lastPage.posts.last ? null : lastPage.posts.number + 1;
       },
-      select: data => {
-        return data.pages.flatMap(page => page.posts.content);
+      select: (data) => {
+        return data.pages.flatMap((page) => page.posts.content);
       },
     });
   };

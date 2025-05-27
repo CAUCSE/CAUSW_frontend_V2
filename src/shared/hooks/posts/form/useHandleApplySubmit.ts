@@ -16,7 +16,7 @@ export const useHandleApplySubmit = ({ setError }: useHandleApplySubmitProps) =>
   const { formId } = params;
 
   const { form, clearForm } = useResponseFormStore(
-    useShallow(state => ({ form: state.form, clearForm: state.clearForm })),
+    useShallow((state) => ({ form: state.form, clearForm: state.clearForm })),
   );
   const { useSubmitFormReply } = FormService();
   const { modalMessage, modalOpen, setModalOpen, mutate: submitFormReply } = useSubmitFormReply();
@@ -64,8 +64,8 @@ export const useHandleApplySubmit = ({ setError }: useHandleApplySubmitProps) =>
         if (typeof questionReplyRequestDto.selectedOptionList === 'string') {
           questionReplyRequestDto.selectedOptionList = [Number(questionReplyRequestDto.selectedOptionList)];
         } else if (typeof questionReplyRequestDto.selectedOptionList === 'object') {
-          questionReplyRequestDto.selectedOptionList = questionReplyRequestDto.selectedOptionList.map(selectedOption =>
-            Number(selectedOption),
+          questionReplyRequestDto.selectedOptionList = questionReplyRequestDto.selectedOptionList.map(
+            (selectedOption) => Number(selectedOption),
           );
         }
       },

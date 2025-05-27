@@ -11,11 +11,11 @@ import { NotificationList } from '@/fsd_entities/notification';
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
-  const notifications = useNotificationStore(state => state.notifications);
-  const ceremonyNotifications = useNotificationStore(state => state.ceremonyNotifications);
-  const loadNotifications = useNotificationStore(state => state.loadNotifications);
-  const loadCeremonyNotifications = useNotificationStore(state => state.loadCeremonyNotifications);
-  const markAsRead = useNotificationStore(state => state.markAsRead);
+  const notifications = useNotificationStore((state) => state.notifications);
+  const ceremonyNotifications = useNotificationStore((state) => state.ceremonyNotifications);
+  const loadNotifications = useNotificationStore((state) => state.loadNotifications);
+  const loadCeremonyNotifications = useNotificationStore((state) => state.loadCeremonyNotifications);
+  const markAsRead = useNotificationStore((state) => state.markAsRead);
 
   useEffect(() => {
     loadNotifications();

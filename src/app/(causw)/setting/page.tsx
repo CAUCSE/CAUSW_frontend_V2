@@ -9,7 +9,7 @@ import { userRoleCodes, useUserStore } from '@/shared';
 
 const SettingsPage = () => {
   const { roles, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader } =
-    useUserStore(state => ({
+    useUserStore((state) => ({
       roles: state.roles,
       isStudent: state.isStudent,
       isProfessor: state.isProfessor,
@@ -22,15 +22,15 @@ const SettingsPage = () => {
       isAlumniLeader: state.isAlumniLeader,
     }));
 
-  const circleIdIfLeader = useUserStore(state => state.circleIdIfLeader);
-  const circleNameIfLeader = useUserStore(state => state.circleNameIfLeader);
+  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
+  const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
   const roleItems: {
     name: string;
     link: string;
   }[] = [];
 
-  roles.forEach(role => {
+  roles.forEach((role) => {
     if (role !== 'LEADER_CIRCLE')
       roleItems.push({
         name: userRoleCodes[role] + ' 권한 위임',

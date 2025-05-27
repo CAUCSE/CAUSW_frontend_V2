@@ -13,7 +13,7 @@ interface NotificationState {
   markAsRead: (id: string) => Promise<void>;
 }
 
-export const useNotificationStore = create<NotificationState>(set => ({
+export const useNotificationStore = create<NotificationState>((set) => ({
   notifications: [],
   ceremonyNotifications: [],
 
@@ -40,9 +40,9 @@ export const useNotificationStore = create<NotificationState>(set => ({
   markAsRead: async (id: string) => {
     try {
       await markAsRead(id);
-      set(state => ({
-        notifications: state.notifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
-        ceremonyNotifications: state.ceremonyNotifications.map(n => (n.targetId === id ? { ...n, isRead: true } : n)),
+      set((state) => ({
+        notifications: state.notifications.map((n) => (n.targetId === id ? { ...n, isRead: true } : n)),
+        ceremonyNotifications: state.ceremonyNotifications.map((n) => (n.targetId === id ? { ...n, isRead: true } : n)),
       }));
       toast.success(`알림 ${id} 읽음 처리 성공`);
     } catch (error) {

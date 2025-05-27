@@ -30,18 +30,18 @@ interface CommentState {
   toggleCommentPopup: (id: string) => void;
 }
 
-export const useCommentStore = create<CommentState>(set => ({
+export const useCommentStore = create<CommentState>((set) => ({
   comments: {},
   childCommentList: [],
   setComments: (id, isCommentPopupVisible, isOwner, isDeleted, childCommentList, numLike, createdAt) =>
-    set(state => ({
+    set((state) => ({
       comments: {
         ...state.comments,
         [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted, childCommentList, overlayActive: false, createdAt },
       },
     })),
   addChildComment: (id, newChildComment) =>
-    set(state => ({
+    set((state) => ({
       comments: {
         ...state.comments,
         [id]: {
@@ -55,8 +55,8 @@ export const useCommentStore = create<CommentState>(set => ({
         },
       },
     })),
-  incrementCommentLike: id =>
-    set(state => ({
+  incrementCommentLike: (id) =>
+    set((state) => ({
       comments: {
         ...state.comments,
         [id]: {
@@ -70,8 +70,8 @@ export const useCommentStore = create<CommentState>(set => ({
         },
       },
     })),
-  decrementCommentLike: id =>
-    set(state => ({
+  decrementCommentLike: (id) =>
+    set((state) => ({
       comments: {
         ...state.comments,
         [id]: {
@@ -85,8 +85,8 @@ export const useCommentStore = create<CommentState>(set => ({
         },
       },
     })),
-  toggleCommentOverlay: id =>
-    set(state => {
+  toggleCommentOverlay: (id) =>
+    set((state) => {
       const updatedComments = Object.keys(state.comments).reduce(
         (acc, commentId) => {
           acc[commentId] = {
@@ -101,7 +101,7 @@ export const useCommentStore = create<CommentState>(set => ({
       return { comments: updatedComments };
     }),
   clearAllOverlays: () =>
-    set(state => {
+    set((state) => {
       const updatedComments = Object.keys(state.comments).reduce(
         (acc, commentId) => {
           acc[commentId] = {
@@ -115,8 +115,8 @@ export const useCommentStore = create<CommentState>(set => ({
 
       return { comments: updatedComments };
     }),
-  deleteComment: id =>
-    set(state => ({
+  deleteComment: (id) =>
+    set((state) => ({
       comments: {
         ...state.comments,
         [id]: {
@@ -130,8 +130,8 @@ export const useCommentStore = create<CommentState>(set => ({
         },
       },
     })),
-  toggleCommentPopup: id =>
-    set(state => ({
+  toggleCommentPopup: (id) =>
+    set((state) => ({
       comments: {
         ...state.comments,
         [id]: {

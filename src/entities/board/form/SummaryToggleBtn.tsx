@@ -6,7 +6,7 @@ import { useFormResultStore } from '@/shared';
 
 export const SummaryToggleBtn = () => {
   const { resultView, setResultView } = useFormResultStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       resultView: state.resultView,
       setResultView: state.setResultView,
     })),

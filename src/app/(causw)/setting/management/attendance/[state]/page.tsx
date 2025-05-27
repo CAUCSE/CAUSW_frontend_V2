@@ -6,8 +6,8 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
 
   const data =
     state === 'waiting'
-      ? await getWaitingUsers().then(data =>
-          data.map(element => ({
+      ? await getWaitingUsers().then((data) =>
+          data.map((element) => ({
             userName: element.userName,
             studentId: element.studentId,
             userId: `${element.userId}&&&${element.userAcademicRecordApplicationId}`,
@@ -37,7 +37,7 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
             router: '/setting/management/attendance/detail/waiting',
           },
         ]}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.userId,

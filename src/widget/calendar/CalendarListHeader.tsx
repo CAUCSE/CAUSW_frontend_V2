@@ -12,7 +12,7 @@ import AddIcon from '../../../public/icons/add_icon.svg';
 
 export const CalendarListHeader = () => {
   const { setCalendarYear, isAddModalOpen, openAddModal } = useCalendarStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       setCalendarYear: state.setCalendarYear,
       isAddModalOpen: state.isAddModalOpen,
       openAddModal: state.openAddModal,

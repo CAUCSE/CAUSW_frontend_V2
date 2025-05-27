@@ -4,7 +4,7 @@ import { PreviousButton, useFormResultStore } from '@/shared';
 import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widget';
 
 const FormInfoPage = () => {
-  const resultView = useFormResultStore(state => state.resultView);
+  const resultView = useFormResultStore((state) => state.resultView);
 
   return (
     <>

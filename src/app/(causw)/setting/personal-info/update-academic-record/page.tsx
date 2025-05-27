@@ -7,7 +7,7 @@ import { AcademicRecordForm } from '@/fsd_widgets/auth';
 import { useUserStore } from '@/shared';
 
 const UpdataeAcademicRecordPage = () => {
-  const curAcademicStatus = useUserStore(state => state.academicStatus);
+  const curAcademicStatus = useUserStore((state) => state.academicStatus);
   return <AcademicRecordForm curAcademicStatus={curAcademicStatus} />;
 };
 

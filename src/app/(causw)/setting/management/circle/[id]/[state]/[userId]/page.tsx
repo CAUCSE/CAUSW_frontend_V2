@@ -56,7 +56,7 @@ const CircleApplyManagement = ({
       <div className="flex w-full flex-col items-center gap-8 overflow-y-auto">
         {application.map((question: Post.QuestionResponseDto) => {
           const userReply = data.replyQuestionResponseDtoList.filter(
-            reply => reply.questionId === question.questionId,
+            (reply) => reply.questionId === question.questionId,
           )[0];
           return (
             <div key={question.questionId} className="w-3/4 min-w-[280px] sm:min-w-[530px]">
@@ -69,7 +69,7 @@ const CircleApplyManagement = ({
                 {question.questionType === 'OBJECTIVE' ? (
                   question.optionResponseDtoList
                     .sort((a, b) => a.optionNumber - b.optionNumber)
-                    .map(option => {
+                    .map((option) => {
                       return (
                         <div key={option.optionId} className="flex gap-2">
                           {question.isMultiple ? (

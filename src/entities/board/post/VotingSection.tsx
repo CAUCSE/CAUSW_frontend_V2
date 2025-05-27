@@ -27,7 +27,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
   const handleChange = (option: string) => {
     if (isMultiple) {
       if (selectedOptions.includes(option)) {
-        setSelectedOptions(selectedOptions.filter(o => o !== option));
+        setSelectedOptions(selectedOptions.filter((o) => o !== option));
       } else {
         setSelectedOptions([...selectedOptions, option]);
       }
@@ -68,7 +68,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(prev => !prev);
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (
@@ -126,7 +126,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
             </div>
           )}
 
-          {voteOptions!.map(option => {
+          {voteOptions!.map((option) => {
             const percentage = (option.voteCount / totalVote) * 100;
             return (
               <div key={option.id} className="mx-1 flex flex-col pb-8 pt-1">
@@ -183,7 +183,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
           ) : (
             ''
           )}
-          {voteOptions.map(option => (
+          {voteOptions.map((option) => (
             <label key={option.id} className="mb-4 flex items-center">
               <input
                 type="checkbox"

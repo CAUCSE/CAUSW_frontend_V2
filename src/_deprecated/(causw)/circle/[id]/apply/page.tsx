@@ -111,8 +111,8 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
         if (typeof questionReplyRequestDto.selectedOptionList === 'string') {
           questionReplyRequestDto.selectedOptionList = [Number(questionReplyRequestDto.selectedOptionList)];
         } else if (typeof questionReplyRequestDto.selectedOptionList === 'object') {
-          questionReplyRequestDto.selectedOptionList = questionReplyRequestDto.selectedOptionList.map(selectedOption =>
-            Number(selectedOption),
+          questionReplyRequestDto.selectedOptionList = questionReplyRequestDto.selectedOptionList.map(
+            (selectedOption) => Number(selectedOption),
           );
         }
       },
@@ -161,7 +161,7 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
                       <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
                         <p
                           className="truncate text-[14px] group-hover:block sm:text-xl"
-                          ref={el => {
+                          ref={(el) => {
                             textRefs.current[questionIdx] = el;
                           }}
                         >

@@ -6,7 +6,7 @@ interface FormRespondentInfoProps {
 }
 
 export const FormRespondentInfo = ({ responseUserInfos }: FormRespondentInfoProps) => {
-  const currentPage = useFormResultStore(state => state.currentPage);
+  const currentPage = useFormResultStore((state) => state.currentPage);
   const {
     detailUserInfoLeftKeyValue,
     detailUserInfoLeftKeys,

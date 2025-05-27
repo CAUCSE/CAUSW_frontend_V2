@@ -1,22 +1,9 @@
-'use client';
+import { Provider } from './Provider';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-import { ToastWithMax } from '@/shared';
-
-const queryClient = new QueryClient();
-
-const QueryClientLayout = ({
+const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) => (
-  <QueryClientProvider client={queryClient}>
-    <>
-      <ToastWithMax />
-      {children}
-    </>
-  </QueryClientProvider>
-);
+}>) => <Provider>{children}</Provider>;
 
-export default QueryClientLayout;
+export default Layout;

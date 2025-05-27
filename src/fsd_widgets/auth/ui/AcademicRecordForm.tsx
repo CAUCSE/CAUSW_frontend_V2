@@ -42,7 +42,7 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
         register={register}
         name="targetAcademicStatus"
         label="본 학기 학적 상태"
-        options={STATUS_OPTIONS.filter(opt => opt.value !== curAcademicStatus)}
+        options={STATUS_OPTIONS.filter((opt) => opt.value !== curAcademicStatus)}
         rules={academicRecordValidationRules.targetAcademicStatus}
         errorMessage={errors.targetAcademicStatus?.message}
       />

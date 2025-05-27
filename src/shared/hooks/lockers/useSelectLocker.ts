@@ -6,7 +6,7 @@ import { useLockerSelectionStore } from '@/shared';
 
 export const useSelectLocker = () => {
   const { setClickedLockerId, setClickedLockerStatus, clickedLockerId } = useLockerSelectionStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       setClickedLockerId: state.setClickedLockerId,
       setClickedLockerStatus: state.setClickedLockerStatus,
       clickedLockerId: state.clickedLockerId, // ✅ 상태 가져오기

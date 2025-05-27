@@ -16,7 +16,7 @@ const BoardManagement = async () => {
           state: '',
           router: '/setting/management/board',
         }}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.boardName,
           studentId: element.id,
           id: element.id,

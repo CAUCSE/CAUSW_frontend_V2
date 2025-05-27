@@ -17,7 +17,7 @@ export const NavigationBar = () => {
         className="absolute left-1/2 top-6 -translate-x-1/2 transform max-xl:hidden"
       />
 
-      {icons.map(iconClass => (
+      {icons.map((iconClass) => (
         <Link
           key={iconClass.href}
           href={iconClass.href}

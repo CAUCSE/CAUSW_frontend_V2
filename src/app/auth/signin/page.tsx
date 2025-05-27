@@ -25,7 +25,7 @@ const routes = [
 const SignInPage = () => {
   const router = useRouter();
 
-  const setErrorMessage = useLayoutStore(state => state.setErrorMessage);
+  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const { signin } = AuthService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
@@ -56,7 +56,7 @@ const SignInPage = () => {
   useEffect(() => {
     if (getRccRefresh()) router.replace('/home');
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/firebase-messaging-sw.js').then(registration => {});
+      navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
     }
   }, []);
 
@@ -100,7 +100,7 @@ const SignInPage = () => {
                   </label>
                 </div>
                 <div className="flex flex-col items-end">
-                  {routes.map(route => (
+                  {routes.map((route) => (
                     <div
                       key={route.name}
                       // onClick={() => {
@@ -119,7 +119,7 @@ const SignInPage = () => {
         </form>
 
         {!enterEmail &&
-          routes.map(route => (
+          routes.map((route) => (
             <div
               key={route.name}
               onClick={() => {

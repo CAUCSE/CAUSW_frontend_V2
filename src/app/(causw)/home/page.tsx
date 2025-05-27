@@ -37,13 +37,13 @@ const HomePage = async () => {
   const homePosts = await getHomePosts();
 
   const mainBoards = [
-    homePosts.find(board => board.board.name.includes('서비스 공지')),
-    homePosts.find(board => board.board.name.includes('학부 공지')),
-    homePosts.find(board => board.board.name.includes('동문회 공지')),
-    homePosts.find(board => board.board.name.includes('학생회 공지')),
+    homePosts.find((board) => board.board.name.includes('서비스 공지')),
+    homePosts.find((board) => board.board.name.includes('학부 공지')),
+    homePosts.find((board) => board.board.name.includes('동문회 공지')),
+    homePosts.find((board) => board.board.name.includes('학생회 공지')),
   ];
 
-  const deliveredId = homePosts.find(board => board.board.name.includes('딜리버드'))?.board.id;
+  const deliveredId = homePosts.find((board) => board.board.name.includes('딜리버드'))?.board.id;
 
   return (
     <>
@@ -51,8 +51,8 @@ const HomePage = async () => {
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
           <Banner
-            images={events.count > 0 ? events.events.map(e => e.image) : ['/images/puang-proud.png']}
-            urls={events.count > 0 ? events.events.map(e => e.url) : ['/home']}
+            images={events.count > 0 ? events.events.map((e) => e.image) : ['/images/puang-proud.png']}
+            urls={events.count > 0 ? events.events.map((e) => e.url) : ['/home']}
             loop={events.count > 0}
           />
         )}

@@ -45,7 +45,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
               거부 사유
             </SubHeader>
             <textarea
-              onChange={event => {
+              onChange={(event) => {
                 rejectMessage.current = event.target.value;
               }}
               className="h-24 min-h-24 w-full rounded-md border-2 p-3"

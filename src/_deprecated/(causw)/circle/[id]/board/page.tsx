@@ -1,19 +1,20 @@
 import Link from 'next/link';
 
-import { CustomBoard } from '@/entities';
+import { CustomBoard } from '@/fsd_widgets/board/ui/BoardList/CustomBoard';
+
 import { BoardRscService, CircleRscService } from '@/shared';
 
 const CircleBoards = async ({ params: { id } }: { params: { id: string } }) => {
   const { getMainBoardList } = BoardRscService();
   const { getCircleBoards } = CircleRscService();
   const mainBoards = (await getMainBoardList()) as Array<Board.BoardResponseDto>;
-  const circleBoardIds = await getCircleBoards(id).then(circleBoards =>
-    circleBoards.boardList.map(circleBoard => circleBoard.id),
+  const circleBoardIds = await getCircleBoards(id).then((circleBoards) =>
+    circleBoards.boardList.map((circleBoard) => circleBoard.id),
   );
 
   const commonBoards: Array<Board.BoardResponseDto> = [];
 
-  mainBoards.forEach(element => {
+  mainBoards.forEach((element) => {
     if (circleBoardIds.includes(element.boardId)) {
       commonBoards.push(element);
     }

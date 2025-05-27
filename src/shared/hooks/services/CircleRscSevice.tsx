@@ -6,7 +6,7 @@ export const CircleRscService = () => {
   const getCircles = async () => {
     try {
       const headers = await setRscHeader();
-      const response = (await fetch(URI, { headers: headers }).then(res => res.json())) as Circle.CirclesRequestDto;
+      const response = (await fetch(URI, { headers: headers }).then((res) => res.json())) as Circle.CirclesRequestDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -22,7 +22,7 @@ export const CircleRscService = () => {
       const response = (await fetch(`${URI}/${id}`, {
         headers: headers,
         cache: 'no-store',
-      }).then(res => res.json())) as Circle.CircleRequestDto;
+      }).then((res) => res.json())) as Circle.CircleRequestDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -37,7 +37,7 @@ export const CircleRscService = () => {
       const headers = await setRscHeader();
       const response = (await fetch(`${URI}/${id}/boards`, {
         headers: headers,
-      }).then(res => res.json())) as Circle.GetCircleBoardsResponseDto;
+      }).then((res) => res.json())) as Circle.GetCircleBoardsResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -52,7 +52,7 @@ export const CircleRscService = () => {
       const headers = await setRscHeader();
       const response = (await fetch(`${URI}/${id}/memberList`, {
         headers: headers,
-      }).then(res => res.json())) as Circle.GetCircleMembersResponseDto;
+      }).then((res) => res.json())) as Circle.GetCircleMembersResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -65,8 +65,8 @@ export const CircleRscService = () => {
   const getCircleUsersByState = async (id: string, state: Circle.JoinStatus) => {
     try {
       const headers = await setRscHeader();
-      const response = (await fetch(`${URI}/${id}/users?circleMemberStatus=${state}`, { headers: headers }).then(res =>
-        res.json(),
+      const response = (await fetch(`${URI}/${id}/users?circleMemberStatus=${state}`, { headers: headers }).then(
+        (res) => res.json(),
       )) as Circle.GetUserListResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
@@ -87,7 +87,7 @@ export const CircleRscService = () => {
       }
 
       const res: Circle.CircleUser[] = await response.json();
-      const data = res.filter(memberInfo => memberInfo.user.id === userId)[0];
+      const data = res.filter((memberInfo) => memberInfo.user.id === userId)[0];
       return data;
     } catch (error) {
       throw error;

@@ -52,7 +52,7 @@ const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedI
 };
 
 export const CalendarAddModal = () => {
-  const closeAddModal = useCalendarStore(state => state.closeAddModal);
+  const closeAddModal = useCalendarStore((state) => state.closeAddModal);
   const {
     yearList,
     monthList,
