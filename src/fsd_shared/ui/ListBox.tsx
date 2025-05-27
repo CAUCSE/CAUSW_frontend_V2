@@ -29,7 +29,7 @@ export const ListBox = ({ data, alarm }: ListBoxProps) => {
   const [page, setPage] = useState(0);
   const router = useRouter();
   const itemsPerPage = 4;
-  const markAsRead = useNotificationStore(state => state.markAsRead);
+  const markAsRead = useNotificationStore((state) => state.markAsRead);
 
   useEffect(() => {
     const nextItems = data.slice(0, itemsPerPage);
@@ -38,9 +38,9 @@ export const ListBox = ({ data, alarm }: ListBoxProps) => {
   }, [data]);
 
   const loadMore = useCallback(() => {
-    setPage(prevPage => {
+    setPage((prevPage) => {
       const nextItems = data.slice(prevPage * itemsPerPage, (prevPage + 1) * itemsPerPage);
-      setItems(prevItems => [...prevItems, ...nextItems]);
+      setItems((prevItems) => [...prevItems, ...nextItems]);
       return prevPage + 1;
     });
   }, [data]);

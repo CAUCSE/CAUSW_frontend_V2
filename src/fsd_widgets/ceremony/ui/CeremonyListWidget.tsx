@@ -25,7 +25,7 @@ export const CeremonyListWidget = () => {
   return (
     <div className="w-full max-w-3xl">
       <div className="mb-6 flex space-x-6 border-b text-lg font-medium">
-        {tabs.map(tab => (
+        {tabs.map((tab) => (
           <button
             key={tab.value}
             onClick={() => setActiveTab(tab.value)}

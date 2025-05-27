@@ -24,8 +24,8 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
   useEffect(() => {
     getMe();
   }, []);
-  const name = useUserStore(state => state.name);
-  const studentId = useUserStore(state => state.studentId);
+  const name = useUserStore((state) => state.name);
+  const studentId = useUserStore((state) => state.studentId);
   const router = useRouter();
 
   const ceremonyType = ceremonyTypeMap[occasionDetails.type];

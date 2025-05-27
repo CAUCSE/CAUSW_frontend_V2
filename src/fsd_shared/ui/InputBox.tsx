@@ -3,8 +3,8 @@
 import React from 'react';
 
 interface InputBoxProps {
-  width?: string;   // 예: 'w-64'
-  height?: string;  // 예: 'h-10'
+  width?: string; // 예: 'w-64'
+  height?: string; // 예: 'h-10'
   hint?: string;
   value: string;
   onChange: (value: string) => void;
