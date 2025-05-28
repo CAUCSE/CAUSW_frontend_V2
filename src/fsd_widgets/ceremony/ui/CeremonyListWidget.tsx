@@ -6,6 +6,7 @@ import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
 import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/queries/useCeremonyListQuery';
 import { InfiniteData } from '@tanstack/react-query';
 import { CeremonyState } from '@/fsd_entities/notification/api';
+import { CeremonyResponse } from "@/fsd_entities/notification/config/types";
 
 const tabItems: { label: string; key: CeremonyState }[] = [
   { label: '등록 완료', key: CeremonyState.ACCEPT },
@@ -29,12 +30,12 @@ export const CeremonyListWidget = () => {
     refetch();
   }, [ceremonyState, refetch]);
 
-  const infiniteData = data as InfiniteData<Notification.NotificationResponse> | undefined;
+  const infiniteData = data as InfiniteData<CeremonyResponse> | undefined;
 
   const items: ListBoxItem[] = infiniteData?.pages
     ? infiniteData.pages.flatMap(page =>
       page.content.map(item => ({
-        id: item.notificationLogId,
+        id: item.id,
         title: item.title,
         body: item.body,
         isRead: true,

@@ -69,7 +69,7 @@ export enum CeremonyState {
 export const getCeremonyData = async (
   ceremonyState: CeremonyState = CeremonyState.ACCEPT,
   pageNum: number = 0,
-): Promise<Notification.NotificationResponse> => {
+): Promise<CeremonyResponse> => {
   try {
     const response = await API.get(CEREMONY_URI, {
       params: {
