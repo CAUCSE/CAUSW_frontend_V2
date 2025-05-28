@@ -20,7 +20,7 @@ const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
   const { isPopupVisible, post, numLike, numFavorite, numComment, isPostForm, formId, commentList } = usePostStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isPopupVisible: state.isPopupVisible,
       post: state.post,
       numLike: state.numLike,
@@ -32,8 +32,8 @@ const PostDetailPage = (props: any) => {
     })),
   );
 
-  const comments = useCommentStore(state => state.comments);
-  const childComments = useChildCommentStore(state => state.childComments);
+  const comments = useCommentStore((state) => state.comments);
+  const childComments = useChildCommentStore((state) => state.childComments);
 
   const { loading } = usePostDetail(postId);
 
@@ -83,7 +83,7 @@ const PostDetailPage = (props: any) => {
             isPopupVisible={isPopupVisible}
           />
           <div className="pl-4 sm:pt-3">
-            {commentList.map(comment => {
+            {commentList.map((comment) => {
               const commentData = comments[comment.id] || {
                 numLike: 0,
                 isCommentPopupVisible: false,

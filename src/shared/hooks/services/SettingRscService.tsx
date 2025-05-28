@@ -11,7 +11,7 @@ const useGetMethod = (endpoint: string) => {
 
       const response = await fetch(`${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`, {
         headers: headers,
-      }).then(res => res.json());
+      }).then((res) => res.json());
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -33,10 +33,10 @@ export const SettingRscService = () => {
       const response = name
         ? ((await fetch(`${URI}/state/${state}?name=${name}&pageNum=${page}`, {
             headers: headers,
-          }).then(res => res.json())) as Setting.GetByStateResponseDto)
+          }).then((res) => res.json())) as Setting.GetByStateResponseDto)
         : ((await fetch(`${URI}/state/${state}?pageNum=${page}`, {
             headers: headers,
-          }).then(res => res.json())) as Setting.GetByStateResponseDto);
+          }).then((res) => res.json())) as Setting.GetByStateResponseDto);
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -53,7 +53,7 @@ export const SettingRscService = () => {
 
       const response = (await fetch(`${URI}/privileged`, {
         headers: headers,
-      }).then(res => res.json())) as Setting.GetPrivilegedUsersResponseDto;
+      }).then((res) => res.json())) as Setting.GetPrivilegedUsersResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -71,10 +71,10 @@ export const SettingRscService = () => {
       const response = name
         ? ((await fetch(`${URI}/admissions?name=${name}&pageNum=${page}`, {
             headers: headers,
-          }).then(res => res.json())) as Setting.GetAllAdmissionsResponseDto)
+          }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto)
         : ((await fetch(`${URI}/admissions?pageNum=${page}`, {
             headers: headers,
-          }).then(res => res.json())) as Setting.GetAllAdmissionsResponseDto);
+          }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
       if (response.errorCode) throw new Error(response.message);
 
@@ -193,7 +193,7 @@ export const SettingRscService = () => {
 
       const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
         headers: headers,
-      }).then(res => res.json())) as Setting.GetApplyBoardsResponseDto;
+      }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 

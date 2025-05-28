@@ -13,7 +13,7 @@ export const usePostForm = () => {
   const boardId = params.boardId;
   const { title, content, isAnonymous, isQuestion, isVote, clearPost } = useCreatePostStore();
   const { voteTitle, options, clearVote } = useCreateVoteStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       voteTitle: state.voteTitle,
       options: state.options,
       clearVote: state.clearVote,
@@ -35,7 +35,7 @@ export const usePostForm = () => {
   const validateVote = (): string | null => {
     if (voteTitle.trim().length === 0) return '투표 제목을 입력해주세요.';
     if (options.length === 0) return '투표 옵션을 하나 이상 생성해주세요.';
-    if (options.some(option => option.trim().length === 0)) return '투표 옵션을 모두 입력해주세요.';
+    if (options.some((option) => option.trim().length === 0)) return '투표 옵션을 모두 입력해주세요.';
     return null;
   };
 

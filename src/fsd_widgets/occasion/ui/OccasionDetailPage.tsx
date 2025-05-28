@@ -18,7 +18,7 @@ import {
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
-export const OccasionDetailPage = ({ occasionId, user }: Occasion.OccasionDetailPageProps) => {
+export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(occasionId);
 
   const router = useRouter();
@@ -63,21 +63,10 @@ export const OccasionDetailPage = ({ occasionId, user }: Occasion.OccasionDetail
           <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
         </div>
         <OccasionImageTile imageList={occasionDetails.imageList} />
-        {user ? (
-          <div className="flex justify-center">
-            <div
-              className="w-full max-w-[270px] rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold"
-              onClick={handleClickReject}
-            >
-              {MESSAGES.OCCASION.CANCEL_REGIST}
-            </div>
-          </div>
-        ) : (
-          <div className="flex justify-center gap-5 pt-4 md:pt-0 lg:gap-11">
-            <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
-            <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
-          </div>
-        )}
+        <div className="fixed bottom-20 left-0 z-50 flex w-full justify-center gap-5 md:pt-0 lg:gap-11">
+          <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
+          <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
+        </div>
       </div>
       {isModalOpen && <OccasionApprovalModal closeModal={closeModal} occasionTitle={occasionDetails.title} />}
     </>

@@ -16,7 +16,7 @@ interface VoteState {
   //removeVoteUser: (optionId: string, userId: string) => void;
 }
 
-export const useVoteStore = create<VoteState>(set => ({
+export const useVoteStore = create<VoteState>((set) => ({
   vote: {
     voteId: '',
     title: '',
@@ -36,10 +36,10 @@ export const useVoteStore = create<VoteState>(set => ({
 
   setVote: (voteData: Post.VoteResponseDto) => {
     const totalVotes = voteData.options.reduce((total, option) => total + option.voteCount, 0);
-    const maxVoteCount = Math.max(...voteData.options.map(option => option.voteCount));
+    const maxVoteCount = Math.max(...voteData.options.map((option) => option.voteCount));
     const mostVotedOptions = voteData.options
-      .filter(option => option.voteCount === maxVoteCount)
-      .map(option => option.id);
+      .filter((option) => option.voteCount === maxVoteCount)
+      .map((option) => option.id);
     set({
       vote: voteData,
       voteOptions: voteData.options,
@@ -49,8 +49,8 @@ export const useVoteStore = create<VoteState>(set => ({
   },
 
   incrementVoteCount: (optionId: string) =>
-    set(state => {
-      const newOptions = state.voteOptions.map(option =>
+    set((state) => {
+      const newOptions = state.voteOptions.map((option) =>
         option.id === optionId ? { ...option, voteCount: option.voteCount + 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
@@ -63,8 +63,8 @@ export const useVoteStore = create<VoteState>(set => ({
 
   // 특정 옵션에 대한 투표 수 감소
   decrementVoteCount: (optionId: string) =>
-    set(state => {
-      const newOptions = state.voteOptions.map(option =>
+    set((state) => {
+      const newOptions = state.voteOptions.map((option) =>
         option.id === optionId && option.voteCount > 0 ? { ...option, voteCount: option.voteCount - 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
@@ -77,23 +77,25 @@ export const useVoteStore = create<VoteState>(set => ({
     }),
 
   endVote: () =>
-    set(state => ({
+    set((state) => ({
       vote: { ...state.vote, isEnd: true },
     })),
 
   restartVote: () =>
-    set(state => ({
+    set((state) => ({
       vote: { ...state.vote, isEnd: false },
     })),
 
   castVote: (optionIds: string[]) =>
-    set(state => {
-      const newOptions = state.voteOptions.map(option =>
+    set((state) => {
+      const newOptions = state.voteOptions.map((option) =>
         optionIds.includes(option.id) ? { ...option, voteCount: option.voteCount + 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
-      const maxVoteCount = Math.max(...newOptions.map(option => option.voteCount));
-      const mostVotedOptions = newOptions.filter(option => option.voteCount === maxVoteCount).map(option => option.id);
+      const maxVoteCount = Math.max(...newOptions.map((option) => option.voteCount));
+      const mostVotedOptions = newOptions
+        .filter((option) => option.voteCount === maxVoteCount)
+        .map((option) => option.id);
 
       return {
         voteOptions: newOptions,
@@ -104,13 +106,15 @@ export const useVoteStore = create<VoteState>(set => ({
     }),
 
   cancelVote: (optionIds: string[]) =>
-    set(state => {
-      const newOptions = state.voteOptions.map(option =>
+    set((state) => {
+      const newOptions = state.voteOptions.map((option) =>
         optionIds.includes(option.id) ? { ...option, voteCount: option.voteCount - 1 } : option,
       );
       const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
-      const maxVoteCount = Math.max(...newOptions.map(option => option.voteCount));
-      const mostVotedOptions = newOptions.filter(option => option.voteCount === maxVoteCount).map(option => option.id);
+      const maxVoteCount = Math.max(...newOptions.map((option) => option.voteCount));
+      const mostVotedOptions = newOptions
+        .filter((option) => option.voteCount === maxVoteCount)
+        .map((option) => option.id);
 
       return {
         voteOptions: newOptions,

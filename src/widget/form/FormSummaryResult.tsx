@@ -18,12 +18,12 @@ export const FormSummaryResult = () => {
 
   const { data: summaryFormResult, isPending, isSuccess } = useGetFormSummaryResult(formId as string);
 
-  const sortedQuestionIdList = useFormResultStore(state => state.sortedQuestionIdList);
+  const sortedQuestionIdList = useFormResultStore((state) => state.sortedQuestionIdList);
 
   const summaryFormResultMap = new Map<string, Form.QuestionSummaryResponseDto>();
 
   if (isSuccess && summaryFormResult) {
-    summaryFormResult.forEach(result => {
+    summaryFormResult.forEach((result) => {
       summaryFormResultMap.set(result.questionId, result);
     });
   }
@@ -42,7 +42,7 @@ export const FormSummaryResult = () => {
       id: result.questionId,
       data: result.optionSummarieList
         ?.sort((a, b) => a.optionNumber - b.optionNumber)
-        .map(option => ({
+        .map((option) => ({
           optionText: option.optionText,
           selectedCount: option.selectedCount,
         })),

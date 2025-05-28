@@ -25,8 +25,8 @@ const AddPayer = () => {
 
   const { getUserByName } = SettingService();
 
-  const onSubmit: SubmitHandler<IFormInput> = data => {
-    getUserByName(data.searchContent).then(res => setDate(res));
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    getUserByName(data.searchContent).then((res) => setDate(res));
   };
 
   const [data, setDate] = useState<User.User[]>([]);
@@ -71,7 +71,7 @@ const AddPayer = () => {
             <Header bold>검색 결과</Header>
             <div className="mt-3 flex flex-col">
               {data.length < 1 ? '검색 결과가 없습니다.' : null}
-              {data.map(element => (
+              {data.map((element) => (
                 <div
                   className={`pb-1 pl-2 pt-1 text-lg ${
                     selectId === element.id ? 'rounded-lg bg-focus text-white' : ''

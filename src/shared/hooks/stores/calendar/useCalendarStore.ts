@@ -16,15 +16,15 @@ interface CalendarStore {
   resetCalendar: () => void;
 }
 
-export const useCalendarStore = create<CalendarStore>(set => ({
+export const useCalendarStore = create<CalendarStore>((set) => ({
   isDeleteModalOpen: false,
   isAddModalOpen: false,
   calendarId: '',
   calendarYear: new Date().getFullYear(),
   calendarMonth: 1,
-  setCalendarId: id => set({ calendarId: id }),
-  setCalendarYear: year => set({ calendarYear: year }),
-  setCalendarMonth: month => set({ calendarMonth: month }),
+  setCalendarId: (id) => set({ calendarId: id }),
+  setCalendarYear: (year) => set({ calendarYear: year }),
+  setCalendarMonth: (month) => set({ calendarMonth: month }),
   openDeleteModal: () => set({ isDeleteModalOpen: true }),
   closeDeleteModal: () => set({ isDeleteModalOpen: false }),
   openAddModal: () => set({ isAddModalOpen: true }),

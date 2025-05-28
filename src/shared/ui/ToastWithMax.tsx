@@ -10,9 +10,9 @@ export const ToastWithMax = () => {
 
   useEffect(() => {
     toasts
-      .filter(toast => toast.visible)
+      .filter((toast) => toast.visible)
       .filter((_, index) => index >= toastLimit)
-      .forEach(t => toast.dismiss(t.id));
+      .forEach((t) => toast.dismiss(t.id));
   }, [toasts, toastLimit]);
 
   return <Toaster position="top-center" reverseOrder={false} />;

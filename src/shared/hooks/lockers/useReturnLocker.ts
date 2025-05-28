@@ -6,7 +6,7 @@ import { LockerService } from '@/shared/hooks/services/LockerService';
 import { useLockerSelectionStore } from '@/shared/hooks/stores/locker/useLockerSelectionStore';
 
 export const useReturnLocker = () => {
-  const clickedLockerId = useLockerSelectionStore(state => state.clickedLockerId);
+  const clickedLockerId = useLockerSelectionStore((state) => state.clickedLockerId);
   const { useReturnLocker } = LockerService();
 
   const { mutate: returnLocker } = useReturnLocker();

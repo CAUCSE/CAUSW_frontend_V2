@@ -8,10 +8,10 @@ interface LockerSelectionStore {
   setClickedLockerId: (id: string | null) => void;
 }
 
-export const useLockerSelectionStore = create<LockerSelectionStore>(set => ({
+export const useLockerSelectionStore = create<LockerSelectionStore>((set) => ({
   clickedLockerStatus: null,
   clickedLockerId: null,
 
-  setClickedLockerStatus: status => set({ clickedLockerStatus: status }),
-  setClickedLockerId: id => set({ clickedLockerId: id }),
+  setClickedLockerStatus: (status) => set({ clickedLockerStatus: status }),
+  setClickedLockerId: (id) => set({ clickedLockerId: id }),
 }));

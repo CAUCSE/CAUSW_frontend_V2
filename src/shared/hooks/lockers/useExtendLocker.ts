@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { LockerService, useLockerSelectionStore } from '@/shared';
 
 export const useExtendLocker = () => {
-  const clickedLockerId = useLockerSelectionStore(state => state.clickedLockerId);
+  const clickedLockerId = useLockerSelectionStore((state) => state.clickedLockerId);
 
   const { useExtendLocker } = LockerService();
 

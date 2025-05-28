@@ -9,7 +9,7 @@ export default function NotificationSettingPage() {
     <>
       <PreviousButton />
       <div className="p-12">
-        <h1 className="text-3xl font-semibold mb-14 text-center">경조사 알림 설정</h1>
+        <h1 className="mb-14 text-center text-3xl font-semibold">경조사 알림 설정</h1>
         <NotificationSettingWidget />
       </div>
     </>

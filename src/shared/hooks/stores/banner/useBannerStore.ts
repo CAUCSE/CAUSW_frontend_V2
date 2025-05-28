@@ -16,15 +16,15 @@ interface BannerStore {
   resetSelectedBanner: () => void;
 }
 
-export const useBannerStore = create<BannerStore>(set => ({
+export const useBannerStore = create<BannerStore>((set) => ({
   selectedBannerId: null,
   selectedBannerImage: null,
   selectedBannerUrl: null,
   isBannerDeleteModalOpen: false,
   isBannerEditModalOpen: false,
-  setSelectedBannerId: id => set({ selectedBannerId: id }),
-  setSelectedBannerImage: image => set({ selectedBannerImage: image }),
-  setSelectedBannerUrl: url => set({ selectedBannerUrl: url }),
+  setSelectedBannerId: (id) => set({ selectedBannerId: id }),
+  setSelectedBannerImage: (image) => set({ selectedBannerImage: image }),
+  setSelectedBannerUrl: (url) => set({ selectedBannerUrl: url }),
   openDeleteBannerModal: () => set({ isBannerDeleteModalOpen: true }),
   openEditBannerModal: () => set({ isBannerEditModalOpen: true }),
   closeDeleteBannerModal: () => set({ isBannerDeleteModalOpen: false }),

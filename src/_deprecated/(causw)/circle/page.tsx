@@ -14,7 +14,7 @@ const CirclePage = async () => {
         {myCircles.length < 1 ? (
           <div className="ml-6 mt-2 text-gray-500">가입된 동아리가 없습니다.</div>
         ) : (
-          myCircles.map(circle =>
+          myCircles.map((circle) =>
             !circle.isDeleted ? (
               <CircleElement
                 key={circle.id + 'my'}
@@ -29,7 +29,7 @@ const CirclePage = async () => {
       </div>
       <div className="ml-7 mt-6 text-2xl font-bold md:ml-14 md:mt-16">전체 동아리 목록</div>
       <div className="flex w-full flex-row flex-wrap justify-center md:ml-9 md:w-[calc(100%-56px)] md:justify-start">
-        {circles.map(circle =>
+        {circles.map((circle) =>
           !circle.isDeleted ? (
             <CircleElement
               key={circle.id}

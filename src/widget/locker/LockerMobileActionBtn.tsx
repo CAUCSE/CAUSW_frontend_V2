@@ -8,7 +8,7 @@ interface LockerMobileActionBtnProps {
 }
 
 export const LockerMobileActionBtn = ({ lockerPeriod }: LockerMobileActionBtnProps) => {
-  const clickedLockerStatus = useLockerSelectionStore(state => state.clickedLockerStatus);
+  const clickedLockerStatus = useLockerSelectionStore((state) => state.clickedLockerStatus);
 
   return (
     <div className="fixed bottom-24 md:hidden">

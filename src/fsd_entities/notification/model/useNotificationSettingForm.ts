@@ -44,12 +44,12 @@ export const useNotificationSettingForm = () => {
 
   const addYear = (year: number) => {
     if (!years.includes(year)) {
-      setYears(prev => [...prev, year]);
+      setYears((prev) => [...prev, year]);
     }
   };
 
   const removeYear = (year: number) => {
-    setYears(prev => prev.filter(y => y !== year));
+    setYears((prev) => prev.filter((y) => y !== year));
   };
 
   const onSubmit = async () => {

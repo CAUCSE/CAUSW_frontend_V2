@@ -21,7 +21,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   createdAt: '',
   checkVTwo: true,
 
-  setUserStore: props => {
+  setUserStore: (props) => {
     set(() => ({
       id: props.id,
       email: props.email,
@@ -50,7 +50,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
   roleTxt: () => {
     return get()
-      .roles.map(element => userRoleCodes[element])
+      .roles.map((element) => userRoleCodes[element])
       .join(' / ');
   },
 

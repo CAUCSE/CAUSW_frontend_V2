@@ -58,6 +58,38 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
+
+export enum CeremonyState {
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+  AWAIT = 'AWAIT',
+  CLOSE = 'CLOSE',
+}
+
+export const getCeremonyData = async (
+  ceremonyState: CeremonyState = CeremonyState.ACCEPT,
+  pageNum: number = 0,
+): Promise<Notification.NotificationResponse> => {
+  try {
+    const response = await API.get(CEREMONY_URI, {
+      params: {
+        ceremonyState,
+        pageNum,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      toast.error('경조사 데이터를 불러오는데 실패했습니다.', error.response?.data);
+    } else {
+      toast.error('알 수 없는 오류가 발생했습니다.');
+    }
+    throw error;
+  }
+};
+
+
 export const getFCMToken = async (): Promise<string | null> => {
   const URI = `/api/v1/users/fcm`;
 
@@ -82,9 +114,9 @@ export const getNotificationData = async (pageNum: number = 0): Promise<Notifica
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error('데이터를 불러오는데 실패했습니다.', error.response?.data);
+      toast.error('Axios error:', error.response?.data);
     } else {
-      toast.error('알 수 없는 오류가 발생했습니다.');
+      toast.error('General error');
     }
     throw error;
   }
@@ -102,41 +134,9 @@ export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error('데이터를 불러오는데 실패했습니다.', error.response?.data);
+      toast.error('Axios error:', error.response?.data);
     } else {
-      toast.error('알 수 없는 오류가 발생했습니다.');
-    }
-    throw error;
-  }
-};
-
-export enum CeremonyState {
-  ACCEPT = 'ACCEPT',
-  REJECT = 'REJECT',
-  AWAIT = 'AWAIT',
-  CLOSE = 'CLOSE',
-}
-
-export const getCeremonyData = async (
-  ceremonyState: CeremonyState = CeremonyState.ACCEPT,
-  pageNum: number = 0,
-): Promise<Notification.NotificationResponse> => {
-  const URI = `/api/v1/ceremony`;
-
-  try {
-    const response = await API.get(URI, {
-      params: {
-        ceremonyState,
-        pageNum,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      toast.error('경조사 데이터를 불러오는데 실패했습니다.', error.response?.data);
-    } else {
-      toast.error('알 수 없는 오류가 발생했습니다.');
+      toast.error('General error');
     }
     throw error;
   }

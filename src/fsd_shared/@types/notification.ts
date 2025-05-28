@@ -7,6 +7,14 @@ declare namespace Notification {
     isRead: boolean;
     notificationLogId: string;
   }
+  interface GeneralAlarmItem {
+    id: string;
+    title: string;
+    body: string;
+    isRead?: boolean;
+    targetId?: string;
+    noticeType?: string;
+  }
   interface NotificationResponse {
     totalElements: number;
     totalPages: number;

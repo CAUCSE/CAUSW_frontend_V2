@@ -37,7 +37,7 @@ export function WarningModal({
     }
   };
 
-  const deleteTarget = async userId => {
+  const deleteTarget = async (userId) => {
     const { deleteUser } = SettingRscService();
     try {
       await deleteUser(userId);
@@ -68,7 +68,7 @@ export function WarningModal({
             <textarea
               className="mb-24 h-3/6 w-full rounded-lg border border-gray-300 p-2"
               value={reason}
-              onChange={e => setReason(e.target.value)}
+              onChange={(e) => setReason(e.target.value)}
               placeholder={type === 'REJECT' ? '가입 거부 사유 작성' : '추방 사유 작성'}
             />
             <button

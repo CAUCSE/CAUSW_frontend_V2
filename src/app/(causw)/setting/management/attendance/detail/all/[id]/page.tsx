@@ -59,7 +59,7 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
         비고
       </SubHeader>
       <textarea
-        onChange={event => {
+        onChange={(event) => {
           note.current = event.target.value;
         }}
         className="h-24 min-h-24 w-full rounded-md border-2 p-3 placeholder:text-stone-500"
@@ -67,12 +67,12 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
       ></textarea>
 
       <div className="mb-2 mt-2 h-1/3 w-full overflow-y-auto rounded-md border-2 bg-white lg:h-1/2">
-        {data?.userAcademicRecordApplicationResponseDtoList.map(element => (
+        {data?.userAcademicRecordApplicationResponseDtoList.map((element) => (
           <div key={element.changeDate} className="flex h-24 w-full items-center justify-evenly border-b-2 font-bold">
             <span className="text-center">{element.changeDate.split('T')[0]}</span>
             <span className="w-1/5 text-center">{element.targetAcademicStatus}</span>
             <div className="flex w-2/5 justify-center gap-2 overflow-x-auto">
-              {element.attachedImageUrlList.map(element => (
+              {element.attachedImageUrlList.map((element) => (
                 <div key={element} className="h-20 min-w-20 overflow-hidden">
                   <div
                     className="h-20 w-20 bg-contain bg-cover bg-center"

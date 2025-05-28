@@ -11,13 +11,13 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
   const me = await getMe();
   const circle = await getCircle(id);
   const members = await getCircleMembers(id);
-  const leader = members.find(member => member.user.id === circle.leaderId)?.user;
+  const leader = members.find((member) => member.user.id === circle.leaderId)?.user;
 
   const myCircles = await getMyCircles();
 
   const isCircleLeader = me.circleIdIfLeader?.includes(id) || me.roles.includes('ADMIN');
 
-  const isMyCircle = myCircles.findIndex(myCircle => myCircle.id === id) !== -1;
+  const isMyCircle = myCircles.findIndex((myCircle) => myCircle.id === id) !== -1;
 
   return (
     <>

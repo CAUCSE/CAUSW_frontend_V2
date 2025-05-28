@@ -6,7 +6,7 @@ import { Header, Line, SubHeader } from '@/entities';
 import { AuthService, UserService, useUserStore } from '@/shared';
 
 export const VTwoForm = () => {
-  const checkVTwo = useUserStore(state => state.checkVTwo);
+  const checkVTwo = useUserStore((state) => state.checkVTwo);
 
   const { checkNicknameDuplicate } = AuthService();
   const { updateVTwo, updateInfo } = UserService();

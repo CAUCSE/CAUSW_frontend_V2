@@ -45,11 +45,11 @@ const SubmitApplicationModal = ({
       setFileList(updatedFileList);
 
       // 이미지 미리보기 URL 생성 및 추가
-      const newImagePreviews = newFiles.map(file => URL.createObjectURL(file));
-      setImagePreviews(prevPreviews => [...newImagePreviews, ...prevPreviews.reverse()]);
+      const newImagePreviews = newFiles.map((file) => URL.createObjectURL(file));
+      setImagePreviews((prevPreviews) => [...newImagePreviews, ...prevPreviews.reverse()]);
 
       const dataTransfer = new DataTransfer();
-      updatedFileList.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+      updatedFileList.forEach((file) => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
 
       setValue('attachImage', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정
 
@@ -72,7 +72,7 @@ const SubmitApplicationModal = ({
   };
 
   const handleImageDelete = (index: number) => {
-    setImagePreviews(prevPreviews => prevPreviews.filter((_, i) => i !== index));
+    setImagePreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
 
     // 파일리스트에서 해당 파일 삭제
     const updatedFiles = fileList.filter((_, i) => i !== index);
@@ -80,7 +80,7 @@ const SubmitApplicationModal = ({
 
     // useForm에서 관리하는 files 상태도 함께 업데이트
     const dataTransfer = new DataTransfer();
-    updatedFiles.forEach(file => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
+    updatedFiles.forEach((file) => dataTransfer.items.add(file)); // 새로운 파일 목록으로 DataTransf  er 구성
     setValue('attachImage', dataTransfer.files, { shouldValidate: true }); // useForm에 새로운 파일 목록 설정
   };
 

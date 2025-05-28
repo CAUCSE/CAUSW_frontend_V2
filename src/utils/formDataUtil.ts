@@ -11,7 +11,7 @@ export const createFormData = (
 
   // 파일이 존재하면 FormData에 추가
   if (files && files.length > 0) {
-    files.forEach(file => {
+    files.forEach((file) => {
       formData.append(fileKey, new Blob([file], { type: file.type }), file.name);
     });
   } else {
