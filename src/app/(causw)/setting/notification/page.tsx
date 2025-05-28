@@ -6,7 +6,7 @@ import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notif
 
 import { useCeremonyNotificationData, useNotificationData, useNotificationTabParam } from '@/fsd_entities/notification';
 
-import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
+import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
 
 import { ERROR_MESSAGES, MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
 
@@ -29,7 +29,7 @@ const Notification = () => {
     }),
   );
 
-  const ceremonyData: CeremonyItem[] = ceremonyNotificationData.map(
+  const ceremonyData: ListBoxItem[] = ceremonyNotificationData.map(
     ({ notificationLogId, title, body, isRead, targetId }) => ({
       id: notificationLogId,
       title,
