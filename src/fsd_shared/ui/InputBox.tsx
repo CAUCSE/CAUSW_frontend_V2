@@ -3,8 +3,8 @@
 import React from 'react';
 
 interface InputBoxProps {
-  width?: string;   // 예: 'w-64'
-  height?: string;  // 예: 'h-10'
+  width?: string; // 예: 'w-64'
+  height?: string; // 예: 'h-10'
   hint?: string;
   value: string;
   onChange: (value: string) => void;
@@ -33,22 +33,9 @@ export const InputBox: React.FC<InputBoxProps> = ({
 
   if (inputType === 'multi-line') {
     return (
-      <textarea
-        placeholder={hint}
-        value={value}
-        onChange={handleChange}
-        className={`${baseStyle} resize-none py-2`}
-      />
+      <textarea placeholder={hint} value={value} onChange={handleChange} className={`${baseStyle} resize-none py-2`} />
     );
   }
 
-  return (
-    <input
-      type={type}
-      placeholder={hint}
-      value={value}
-      onChange={handleChange}
-      className={baseStyle}
-    />
-  );
+  return <input type={type} placeholder={hint} value={value} onChange={handleChange} className={baseStyle} />;
 };

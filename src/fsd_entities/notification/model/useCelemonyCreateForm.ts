@@ -1,8 +1,9 @@
 'use client';
 
-import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
 import { toast } from 'react-hot-toast';
-import { useAddCeremonyMutation } from "@/fsd_entities/notification/hooks/mutations/useAddCeremonyMutation";
+
+import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
+import { useAddCeremonyMutation } from '@/fsd_entities/notification/hooks/mutations/useAddCeremonyMutation';
 
 export const useCeremonyCreateForm = () => {
   const { mutate: addCeremony } = useAddCeremonyMutation({

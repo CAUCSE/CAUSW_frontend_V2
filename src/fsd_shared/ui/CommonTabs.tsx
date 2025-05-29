@@ -1,6 +1,6 @@
 'use client';
 
-import { Tabs, Tab } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 
 interface TabItem {
   label: string;
@@ -37,9 +37,7 @@ export const CommonTabs = ({ tabItems, activeTab, setActiveTab }: CommonTabsProp
       {tabItems.map((item, index) => (
         <Tab
           key={item.key}
-          label={
-            <span style={{ fontSize: '16px', fontWeight: 500 }}>{item.label}</span>
-          }
+          label={<span style={{ fontSize: '16px', fontWeight: 500 }}>{item.label}</span>}
           disableRipple
           sx={{
             textTransform: 'none',

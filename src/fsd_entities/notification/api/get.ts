@@ -58,7 +58,6 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-
 export enum CeremonyState {
   ACCEPT = 'ACCEPT',
   REJECT = 'REJECT',
@@ -88,7 +87,6 @@ export const getCeremonyData = async (
     throw error;
   }
 };
-
 
 export const getFCMToken = async (): Promise<string | null> => {
   const URI = `/api/v1/users/fcm`;

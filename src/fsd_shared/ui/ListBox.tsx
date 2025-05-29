@@ -26,7 +26,7 @@ interface ListBoxProps {
 
 export const ListBox = ({ data, alarm, loadMore }: ListBoxProps) => {
   const router = useRouter();
-  const markAsRead = useNotificationStore(state => state.markAsRead);
+  const markAsRead = useNotificationStore((state) => state.markAsRead);
 
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {

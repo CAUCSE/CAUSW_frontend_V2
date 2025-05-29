@@ -6,7 +6,7 @@ import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notif
 
 import { useCeremonyNotificationData, useNotificationData, useNotificationTabParam } from '@/fsd_entities/notification';
 
-import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
+import { ListBox, ListBoxItem } from '@/fsd_shared/ui/ListBox';
 
 import { ERROR_MESSAGES, MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
 
