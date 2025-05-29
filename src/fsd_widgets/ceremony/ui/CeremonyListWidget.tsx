@@ -1,42 +1,64 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { CommonTabs } from '@/fsd_shared/ui/CommonTabs';
+import { ListBoxItem, ListBox } from '@/fsd_shared/ui/ListBox';
+import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/queries/useCeremonyListQuery';
+import { InfiniteData } from '@tanstack/react-query';
+import { CeremonyState } from '@/fsd_entities/notification/api';
+import { CeremonyResponse } from "@/fsd_entities/notification/config/types";
 
-import { CeremonyItem, ListBox } from '@/fsd_shared/ui/ListBox';
-
-const tabs = [
-  { label: '등록 완료', value: 'ACCEPT' },
-  { label: '등록 거부', value: 'REJECT' },
-  { label: '등록 대기 중', value: 'AWAIT' },
+const tabItems: { label: string; key: CeremonyState }[] = [
+  { label: '등록 완료', key: CeremonyState.ACCEPT },
+  { label: '등록 거부', key: CeremonyState.REJECT },
+  { label: '등록 대기 중', key: CeremonyState.AWAIT },
 ];
 
-const mockData: CeremonyItem[] = Array.from({ length: 30 }).map((_, idx) => ({
-  id: idx.toString(),
-  title: `홍길동(${17 + idx}) - 결혼`,
-  body: '2025.03.10. ~ 2025.03.11.',
-  isRead: idx % 2 === 0,
-}));
-
 export const CeremonyListWidget = () => {
-  const [activeTab, setActiveTab] = useState('ACCEPT');
+  const [activeTab, setActiveTab] = useState(0);
+  const ceremonyState = tabItems[activeTab].key;
 
-  const filteredData = mockData;
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useCeremonyListQuery(ceremonyState);
+
+  useEffect(() => {
+    refetch();
+  }, [ceremonyState, refetch]);
+
+  const infiniteData = data as InfiniteData<CeremonyResponse> | undefined;
+
+  const items: ListBoxItem[] = infiniteData?.pages
+    ? infiniteData.pages.flatMap(page =>
+      page.content.map(item => ({
+        id: item.id,
+        title: item.title,
+        body: item.body,
+        isRead: true,
+      }))
+    )
+    : [];
 
   return (
     <div className="w-full max-w-3xl">
-      <div className="mb-6 flex space-x-6 border-b text-lg font-medium">
-        {tabs.map((tab) => (
-          <button
-            key={tab.value}
-            onClick={() => setActiveTab(tab.value)}
-            className={`pb-2 ${activeTab === tab.value ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-600'}`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div>
-        <ListBox data={filteredData} />
+      <CommonTabs
+        tabItems={tabItems}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      <div className="mt-4">
+        <ListBox
+          data={items}
+          loadMore={() => {
+            if (hasNextPage && !isFetchingNextPage) {
+              fetchNextPage();
+            }
+          }}
+        />
       </div>
     </div>
   );

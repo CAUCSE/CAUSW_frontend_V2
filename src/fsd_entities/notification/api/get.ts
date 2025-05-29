@@ -36,10 +36,6 @@ export const getNotifications = async (): Promise<Notification[]> => {
       headers: { Authorization: getRccAccess() },
     });
 
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch notifications');
-    }
-
     return response.data;
   } catch (error) {
     toast.error('알림 가져오기 실패: 서버 응답 오류');
@@ -55,10 +51,6 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
       headers: { Authorization: getRccAccess() },
     });
 
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch ceremony notifications');
-    }
-
     return response.data;
   } catch (error) {
     toast.error('경조사 알림 가져오기 실패: 서버 응답 오류');
@@ -66,12 +58,20 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getCeremonies = async (
-  ceremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE' = 'ACCEPT',
+
+export enum CeremonyState {
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+  AWAIT = 'AWAIT',
+  CLOSE = 'CLOSE',
+}
+
+export const getCeremonyData = async (
+  ceremonyState: CeremonyState = CeremonyState.ACCEPT,
   pageNum: number = 0,
 ): Promise<CeremonyResponse> => {
   try {
-    const response: AxiosResponse<CeremonyResponse> = await API.get(CEREMONY_URI, {
+    const response = await API.get(CEREMONY_URI, {
       params: {
         ceremonyState,
         pageNum,
@@ -80,10 +80,15 @@ export const getCeremonies = async (
 
     return response.data;
   } catch (error) {
-    toast.error('경조사 목록 가져오기 실패');
+    if (isAxiosError(error)) {
+      toast.error('경조사 데이터를 불러오는데 실패했습니다.', error.response?.data);
+    } else {
+      toast.error('알 수 없는 오류가 발생했습니다.');
+    }
     throw error;
   }
 };
+
 
 export const getFCMToken = async (): Promise<string | null> => {
   const URI = `/api/v1/users/fcm`;
@@ -106,10 +111,6 @@ export const getNotificationData = async (pageNum: number = 0): Promise<Notifica
       },
     });
 
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -129,10 +130,6 @@ export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<
         pageNum,
       },
     });
-
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
 
     return response.data;
   } catch (error) {

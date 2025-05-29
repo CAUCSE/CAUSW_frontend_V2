@@ -1,7 +1,5 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-
 import { useRouter } from 'next/navigation';
 
 import { useNotificationStore } from '@/fsd_entities/notification';
@@ -11,56 +9,37 @@ import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 import MailIcon from '../../../public/icons/envelope_icon.svg';
 import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';
 
-export interface CeremonyItem {
+export interface ListBoxItem {
   id: string;
   title: string;
   body: string;
   isRead?: boolean;
   targetId?: string;
+  notificationLogId?: string;
 }
 
 interface ListBoxProps {
-  data: CeremonyItem[];
+  data: ListBoxItem[];
   alarm?: string; //general | ceremony
+  loadMore?: () => void;
 }
 
-export const ListBox = ({ data, alarm }: ListBoxProps) => {
-  const [items, setItems] = useState<Notification.GeneralAlarmItem[]>([]);
-  const [page, setPage] = useState(0);
+export const ListBox = ({ data, alarm, loadMore }: ListBoxProps) => {
   const router = useRouter();
-  const itemsPerPage = 4;
-  const markAsRead = useNotificationStore((state) => state.markAsRead);
-
-  useEffect(() => {
-    const nextItems = data.slice(0, itemsPerPage);
-    setItems(nextItems);
-    setPage(1);
-  }, [data]);
-
-  const loadMore = useCallback(() => {
-    setPage((prevPage) => {
-      const nextItems = data.slice(prevPage * itemsPerPage, (prevPage + 1) * itemsPerPage);
-      setItems((prevItems) => [...prevItems, ...nextItems]);
-      return prevPage + 1;
-    });
-  }, [data]);
+  const markAsRead = useNotificationStore(state => state.markAsRead);
 
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && loadMore) {
         loadMore();
       }
     },
   });
 
-  useEffect(() => {
-    loadMore();
-  }, []);
-
   return (
     <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
       <div className="flex flex-col space-y-4">
-        {items.map((item, index) => {
+        {data.map((item, index) => {
           const targetLink =
             alarm === 'general'
               ? `/board/${item.id}/${item.targetId}`
@@ -70,7 +49,6 @@ export const ListBox = ({ data, alarm }: ListBoxProps) => {
           return (
             <div
               onClick={() => {
-                console.log('item', item);
                 if (!item.isRead) {
                   markAsRead(item.id);
                 }
