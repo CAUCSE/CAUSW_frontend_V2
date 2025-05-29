@@ -26,7 +26,7 @@ function DropdownItemListWithRef<T>(
   return createPortal(
     <div
       ref={ref}
-      className="absolute max-h-32 w-28 overflow-auto rounded-md border border-gray-300 bg-white scrollbar-hide md:scrollbar-default lg:max-h-56"
+      className="scrollbar-hide md:scrollbar-default absolute max-h-32 w-28 overflow-auto rounded-md border border-gray-300 bg-white lg:max-h-56"
       style={{
         transform: `translate(${offsetX}px, ${offsetY}px)`,
         willChange: 'transform',

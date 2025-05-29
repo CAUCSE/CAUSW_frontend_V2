@@ -1,6 +1,6 @@
 const PostSkeleton = () => {
   return (
-    <div className="flex animate-pulse items-center space-x-8 space-y-0 rounded-xl bg-white p-4 shadow-lg lg:p-6">
+    <div className="flex animate-pulse items-center space-y-0 space-x-8 rounded-xl bg-white p-4 shadow-lg lg:p-6">
       <div className="w-full">
         <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200"></div>
         <div className="mb-2.5 h-2 w-52 max-w-[480px] rounded-full bg-gray-200 md:w-full"></div>

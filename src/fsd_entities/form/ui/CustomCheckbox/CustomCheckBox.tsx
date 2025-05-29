@@ -15,7 +15,7 @@ export const CustomCheckBox = ({ value, label, isChecked, onCheckedChange, class
         type="checkbox"
         value={value}
         checked={isChecked}
-        className="h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
+        className="h-4 w-4 cursor-pointer appearance-none rounded-xs border-2 border-solid border-black bg-size-[100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
         onChange={onCheckedChange}
       />
       <p className="text-sm">{label}</p>

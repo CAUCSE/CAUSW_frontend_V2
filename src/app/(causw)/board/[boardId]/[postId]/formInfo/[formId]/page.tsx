@@ -12,7 +12,7 @@ const FormInfoPage = () => {
       {
         <>
           <FormResultHeader />
-          <main className="flex h-[calc(100%-6rem)] w-full flex-col items-center gap-8 overflow-auto pb-10 pt-4">
+          <main className="flex h-[calc(100%-6rem)] w-full flex-col items-center gap-8 overflow-auto pt-4 pb-10">
             {resultView === 'summary' && <FormSummaryResult />}
             {resultView === 'detail' && <FormDetailResult />}
           </main>

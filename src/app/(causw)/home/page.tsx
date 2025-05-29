@@ -77,7 +77,7 @@ const HomePage = async () => {
               </div>
             </div>
 
-            <div className="flex w-full overflow-auto bg-transparent scrollbar-hide md:hidden 2xl:flex 2xl:h-1/5">
+            <div className="scrollbar-hide flex w-full overflow-auto bg-transparent md:hidden 2xl:flex 2xl:h-1/5">
               <div className="flex w-full flex-col justify-between gap-[20px] bg-transparent pb-4 2xl:grid 2xl:grid-cols-3 2xl:flex-row">
                 {cardsEntities.map((card, idx) => (
                   <HomeCard key={idx} {...card} />
@@ -105,9 +105,9 @@ const HomePage = async () => {
                       <Link
                         href={'/board/' + mainBoard?.board.id + '/' + mainBoard?.posts.content[0].id}
                         key={mainBoard?.posts.content[0].id}
-                        className="flex h-28 w-[80%] flex-col items-center justify-center border-b border-t"
+                        className="flex h-28 w-[80%] flex-col items-center justify-center border-t border-b"
                       >
-                        <span className="block w-full whitespace-normal text-center" style={{ wordBreak: 'keep-all' }}>
+                        <span className="block w-full text-center whitespace-normal" style={{ wordBreak: 'keep-all' }}>
                           {mainBoard?.posts.content[0].title}
                         </span>
                         <div className="text-sm font-normal text-gray-400">
@@ -115,7 +115,7 @@ const HomePage = async () => {
                         </div>
                       </Link>
                     ) : (
-                      <div key={index} className="flex h-28 w-[80%] items-center justify-center border-b border-t">
+                      <div key={index} className="flex h-28 w-[80%] items-center justify-center border-t border-b">
                         최신 공지가 없습니다.
                       </div>
                     ),

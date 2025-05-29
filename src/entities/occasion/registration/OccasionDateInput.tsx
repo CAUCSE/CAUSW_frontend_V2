@@ -36,7 +36,7 @@ export const OccasionDateInput = ({ title, initialDate, onDateChange }: Occasion
               type="number"
               value={number}
               onChange={(e) => handleInputChange(e.target.value, idx)}
-              className="w-16 border-b-2 border-gray-300 bg-[#F8F8F8] text-center focus:outline-none"
+              className="w-16 border-b-2 border-gray-300 bg-[#F8F8F8] text-center focus:outline-hidden"
             />
             <span>{dateFormat[idx]}</span>
           </div>

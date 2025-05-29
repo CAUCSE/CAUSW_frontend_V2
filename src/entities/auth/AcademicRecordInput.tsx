@@ -108,9 +108,9 @@ const SubmitAcademicRecordPage = ({
   };
 
   return (
-    <div className="min-h-screen bg-boardPageBackground p-6">
+    <div className="bg-board-page-background min-h-screen p-6">
       <PreviousButton routeCallback={() => handleCancel()}></PreviousButton>
-      <div className="mb-6 mt-8">
+      <div className="mt-8 mb-6">
         <h1 className="text-2xl font-bold">학부 재학 증빙 서류 제출</h1>
         <p className="hidden text-gray-600 lg:block">
           재학 중일 시 학부 사무실, 동문회 등의 사업/행사 신청을 위한 증빙 절차입니다. 증빙이 되지 않으면 휴학/졸업이
@@ -209,12 +209,12 @@ const SubmitAcademicRecordPage = ({
         </div>
         {/* 증빙 서류 제출 */}
         {academicStatus === 'ENROLLED' && (
-          <div className="mb-2 mr-4 max-w-full">
+          <div className="mr-4 mb-2 max-w-full">
             <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">학부 재적/졸업 증빙 자료</label>
             <p className="text-md mt-1 text-red-500">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
             <p className="text-md mb-2 text-red-500">(이외의 파일로는 재학 증빙이 불가능합니다.)</p>
             <div className="justify-left mb-1 flex w-full items-center overflow-auto rounded-lg border-2 border-gray-300 p-4 lg:w-4/6">
-              <div className="mr-4 aspect-square h-32 w-32 flex-shrink-0 rounded-lg border-2 border-gray-300 p-4">
+              <div className="mr-4 aspect-square h-32 w-32 shrink-0 rounded-lg border-2 border-gray-300 p-4">
                 <label
                   htmlFor="file-upload"
                   className="flex h-full cursor-pointer flex-col items-center justify-center"
@@ -261,7 +261,7 @@ const SubmitAcademicRecordPage = ({
                   {imagePreviews.map((preview, index) => (
                     <div
                       key={index}
-                      className="relative aspect-square h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg border-2 border-gray-300"
+                      className="relative aspect-square h-32 w-32 shrink-0 overflow-hidden rounded-lg border-2 border-gray-300"
                     >
                       <img
                         src={preview}
@@ -271,7 +271,7 @@ const SubmitAcademicRecordPage = ({
                       />
                       <button
                         type="button"
-                        className="absolute right-0 top-0 mr-1 mt-1 rounded-full bg-red-500 p-1 text-white"
+                        className="absolute top-0 right-0 mt-1 mr-1 rounded-full bg-red-500 p-1 text-white"
                         onClick={() => handleImageDelete(index)}
                       >
                         <svg
@@ -302,7 +302,7 @@ const SubmitAcademicRecordPage = ({
         {/* 모달 */}
         {selectedImage && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10"
+            className="bg-opacity-10 fixed inset-0 z-50 flex items-center justify-center bg-black"
             onClick={closeImage}
           >
             <div className="max-h-full max-w-3xl overflow-auto rounded-lg bg-white p-4">
@@ -320,7 +320,7 @@ const SubmitAcademicRecordPage = ({
         )}
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="w-2/3 rounded-md bg-focus p-3 text-white hover:bg-blue-400 lg:w-1/3">
+          <button type="submit" className="bg-focus w-2/3 rounded-md p-3 text-white hover:bg-blue-400 lg:w-1/3">
             변경 사항 저장
           </button>
         </div>

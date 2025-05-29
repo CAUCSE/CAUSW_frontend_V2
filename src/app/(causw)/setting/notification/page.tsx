@@ -59,7 +59,7 @@ const Notification = () => {
   };
   return (
     <>
-      <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+      <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
         <div onClick={() => router.back()} className="mb-7 flex items-center text-base md:text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           {MESSAGES.PREVIOUS_BUTTON_TEXT}

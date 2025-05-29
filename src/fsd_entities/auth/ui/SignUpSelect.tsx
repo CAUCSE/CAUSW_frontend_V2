@@ -28,7 +28,7 @@ export const SignUpSelect = <T extends FieldValues>({
       <select
         {...register(name, rules)}
         id={name}
-        className="relative mr-8 rounded-md border border-gray-300 bg-white p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="relative mr-8 rounded-md border border-gray-300 bg-white p-2 focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
       >
         <option value="">-- 선택해주세요 --</option>
         {options.map((opt) => (

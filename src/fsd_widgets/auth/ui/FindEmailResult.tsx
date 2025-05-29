@@ -23,13 +23,13 @@ export const FindEmailResult = () => {
       </p>
       <div className="mt-4 flex w-full justify-between px-4">
         <button
-          className="mt-6 h-10 w-40 rounded-lg bg-focus text-white hover:bg-blue-400"
+          className="bg-focus mt-6 h-10 w-40 rounded-lg text-white hover:bg-blue-400"
           onClick={() => router.push('/auth/signin')}
         >
           로그인하기
         </button>
         <button
-          className="mt-6 h-10 w-40 rounded-lg bg-focus text-white hover:bg-blue-400"
+          className="bg-focus mt-6 h-10 w-40 rounded-lg text-white hover:bg-blue-400"
           onClick={() => router.push('/auth/findpassword')}
         >
           비밀번호 찾기

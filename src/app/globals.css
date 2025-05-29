@@ -1,41 +1,61 @@
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css) layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-html,
-body {
-  touch-action: manipulation;
+@config '../../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-body {
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-use-select: none;
-  user-select: none;
-}
+@layer utilities {
+  html,
+  body {
+    touch-action: manipulation;
+  }
 
-main {
-  scrollbar-gutter: stable both-edges;
-}
-img {
-  object-fit: cover;
-}
+  body {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-use-select: none;
+    user-select: none;
+  }
 
-input {
-  outline: none;
-}
+  main {
+    scrollbar-gutter: stable both-edges;
+  }
+  img {
+    object-fit: cover;
+  }
 
-#specificInput:-webkit-autofill,
-#specificInput:-webkit-autofill:hover,
-#specificInput:-webkit-autofill:focus,
-#specificInput:-webkit-autofill:active {
-  transition: background-color 5000s ease-in-out 0s;
-  -webkit-transition: background-color 9999s ease-out;
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
-  -webkit-text-fill-color: rgb(255, 255, 255) !important;
+  input {
+    outline: none;
+  }
+
+  #specificInput:-webkit-autofill,
+  #specificInput:-webkit-autofill:hover,
+  #specificInput:-webkit-autofill:focus,
+  #specificInput:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 9999s ease-out;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
+    -webkit-text-fill-color: rgb(255, 255, 255) !important;
+  }
 }
 
 @layer base {

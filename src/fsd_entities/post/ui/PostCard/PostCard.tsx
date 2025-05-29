@@ -25,7 +25,7 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
       <div className="flex w-full flex-col">
         <div className="flex w-full items-center justify-between">
           <PostCardContent post={post} />
-          <div className="h-16 w-16 flex-shrink-0 overflow-hidden sm:h-24 sm:w-24">
+          <div className="h-16 w-16 shrink-0 overflow-hidden sm:h-24 sm:w-24">
             {post.postAttachImage && (
               <Image
                 src={post.postAttachImage}

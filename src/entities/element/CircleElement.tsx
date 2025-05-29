@@ -16,7 +16,7 @@ export const CircleElement = ({
       <div className="flex h-52 w-52 items-center justify-center overflow-hidden rounded-xl">
         <img src={mainImage} alt={'Circle Image'} className="h-full w-full object-cover" />
       </div>
-      <span className="mt-4 block w-3/4 whitespace-normal text-center text-lg font-bold">{name}</span>
+      <span className="mt-4 block w-3/4 text-center text-lg font-bold whitespace-normal">{name}</span>
 
       <span className="mt-1 w-3/4 truncate text-center text-gray-400">{description}</span>
     </div>

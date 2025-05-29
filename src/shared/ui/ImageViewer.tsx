@@ -77,7 +77,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
 
       {/* 닫기 버튼 */}
       <button
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
+        className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
         onClick={onClose}
       >
         ✕
@@ -85,7 +85,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
 
       {/* 다운로드 버튼 */}
       <button
-        className="absolute right-16 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
+        className="absolute top-4 right-16 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
         onClick={downloadImage}
       >
         ↓

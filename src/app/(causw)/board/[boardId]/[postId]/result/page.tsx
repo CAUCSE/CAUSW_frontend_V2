@@ -26,7 +26,7 @@ const VoteStatusPage = () => {
               {`${option.optionName} - ${option.voteCount}명`}
             </h2>
             {!vote.allowAnonymous && (
-              <div className="grid grid-cols-4 gap-2 border-b-comment-bw border-dashed border-black py-2">
+              <div className="border-b-comment-bw grid grid-cols-4 gap-2 border-dashed border-black py-2">
                 {option.voteUsers.length == 0 ? <div className="h-[50px]"></div> : ''}
                 {option.voteUsers.map((voter, voterIndex) => (
                   <span key={voterIndex} className="flex flex-row text-[20px]">

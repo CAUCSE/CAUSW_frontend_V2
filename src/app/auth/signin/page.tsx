@@ -65,7 +65,7 @@ const SignInPage = () => {
       {false ? <LoadingComponent /> : null}
       <VideoBackground src="/videos/signin-background.mp4" />
       <ImageBackground src="/images/signin-logo.png" alt="sign in page background img" darkBackground />
-      <div className="absolute left-1/2 top-[35%] flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
+      <div className="absolute top-[35%] left-1/2 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
         <div
           onClick={() => {
             setEnterEmail(false);
@@ -92,7 +92,7 @@ const SignInPage = () => {
             </>
           ) : (
             <>
-              <div className="mt-1 flex w-full items-start justify-between pl-1 pr-1">
+              <div className="mt-1 flex w-full items-start justify-between pr-1 pl-1">
                 <div className="flex items-center">
                   <input type="checkbox" id="auto" {...register('auto')} />
                   <label htmlFor="auto" className="ml-1 text-xs font-thin text-white sm:text-[16px]">

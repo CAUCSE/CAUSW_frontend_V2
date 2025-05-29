@@ -40,9 +40,9 @@ export const ChildCommentCard = ({
       <div className="p-2">
         <Image src="/images/post/child-comment.svg" alt="Child Comment" width={25} height={25}></Image>
       </div>
-      <div className="relative mb-4 flex w-full max-w-sm flex-grow flex-col rounded-post-br border bg-white pb-2 shadow-post-sh">
+      <div className="rounded-post-br shadow-post-sh relative mb-4 flex w-full max-w-sm grow flex-col border bg-white pb-2">
         <button
-          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center"
+          className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center"
           onClick={handleChildCommentToggle}
         >
           <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
@@ -68,14 +68,14 @@ export const ChildCommentCard = ({
         <div className="mb-1 px-8 text-[14px]">{isDeleted ? '삭제된 댓글입니다.' : childComment.content}</div>
 
         <button
-          className="flex flex-row items-center justify-start space-x-3 px-8 py-1 text-[13px] text-post-like"
+          className="text-post-like flex flex-row items-center justify-start space-x-3 px-8 py-1 text-[13px]"
           onClick={handleLike}
         >
           <Image src="/images/post/like.svg" alt="Like Icon" width={20} height={20}></Image>
           <span>{numLike > 999 ? '999+' : numLike}</span>
         </button>
         <button
-          className="absolute bottom-3 right-10 flex flex-row items-center justify-between space-x-3 rounded-comment-br bg-comment-btn px-2.5 py-1.5"
+          className="rounded-comment-br bg-comment-btn absolute right-10 bottom-3 flex flex-row items-center justify-between space-x-3 px-2.5 py-1.5"
           onClick={handleLike}
         >
           <Image

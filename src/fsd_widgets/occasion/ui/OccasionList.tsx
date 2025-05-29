@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const OccasionList = ({ list, firstNavigation, navigation, state }: Occasion.OccasionListProps) => {
   return (
-    <div className="ml-2 mt-6 flex flex-col">
+    <div className="mt-6 ml-2 flex flex-col">
       {list.map((element: Occasion.Occasion) => (
         <Link
           href={

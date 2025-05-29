@@ -75,7 +75,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="ml-[3%] mt-8 grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:mt-[6%] lg:h-5/6">
+      <div className="mt-8 ml-[3%] grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr] gap-4 md:mt-[6%] lg:h-5/6">
         <div className="col-span-3 min-h-24 md:col-span-2 md:row-span-2">
           <div onClick={() => router.back()} className="mb-4 flex items-center text-lg">
             <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
@@ -159,7 +159,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-3 row-span-1 flex w-32 flex-col items-center gap-2 md:col-span-1 md:row-span-4">
-          <div className="mb-6 mt-6 w-full text-2xl font-bold">운영진</div>
+          <div className="mt-6 mb-6 w-full text-2xl font-bold">운영진</div>
           <ProfileImage src={profileImage}></ProfileImage>
           <SubHeader bold>
             회장 {circle.leaderName} ({admissionYear % 100})
@@ -167,7 +167,7 @@ const CircleDetailEdit = ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-3 row-span-1 md:col-span-2 md:row-span-4">
-          <div className="mb-6 mt-6 text-2xl font-bold">설명</div>
+          <div className="mt-6 mb-6 text-2xl font-bold">설명</div>
           <textarea
             className="h-36 w-full rounded-md p-2"
             placeholder={circle.description}

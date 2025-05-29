@@ -22,7 +22,7 @@ export const SignUpCheckbox = <T extends FieldValues>({ register, name, label, r
           {label}
         </label>
       </div>
-      {errorMessage && <span className="text-sm text-error">{errorMessage}</span>}
+      {errorMessage && <span className="text-error text-sm">{errorMessage}</span>}
       {isModalOpen && (
         <div>
           <UseTerms

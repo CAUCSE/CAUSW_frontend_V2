@@ -21,11 +21,11 @@ export const LockerInfoByFloor = ({ lockerLocation }: LockerInfoByFloorProps) =>
                 width: `${(lockerLocation.enableLockerCount / lockerLocation.totalLockerCount) * 100}%`,
               }}
             ></div>
-            <div className="h-8 flex-grow bg-[#D9D9D9] md:h-11"></div>
+            <div className="h-8 grow bg-[#D9D9D9] md:h-11"></div>
           </div>
           <div className="ml-4 flex-col flex-nowrap">
-            <p className="text-nowrap text-sm md:text-base">잔여 {lockerLocation.enableLockerCount}개</p>
-            <p className="text-nowrap text-sm md:text-base">전체 {lockerLocation.totalLockerCount}개</p>
+            <p className="text-sm text-nowrap md:text-base">잔여 {lockerLocation.enableLockerCount}개</p>
+            <p className="text-sm text-nowrap md:text-base">전체 {lockerLocation.totalLockerCount}개</p>
           </div>
         </div>
       </section>

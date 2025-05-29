@@ -36,7 +36,7 @@ export const BoardDetailForm = () => {
         <label className="mb-2 text-xl xl:text-2xl">게시판 이름</label>
         <input
           type="text"
-          className="text-md w-full border-b-post-title-input border-black bg-transparent text-black focus:outline-none xl:text-lg"
+          className="text-md border-b-post-title-input w-full border-black bg-transparent text-black focus:outline-hidden xl:text-lg"
           value={boardName}
           onChange={handleBoardNameChange}
           placeholder="게시판 이름을 입력해주세요"
@@ -45,7 +45,7 @@ export const BoardDetailForm = () => {
       <section>
         <label className="mb-2 text-xl xl:text-2xl">게시판 설명</label>
         <textarea
-          className="text-md w-full resize-none border-b border-black bg-transparent text-black focus:outline-none xl:text-lg"
+          className="text-md w-full resize-none border-b border-black bg-transparent text-black focus:outline-hidden xl:text-lg"
           value={boardDescription}
           onChange={handleBoardDescriptionChange}
           placeholder="게시판 설명을 입력해주세요"

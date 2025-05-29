@@ -18,7 +18,7 @@ export const OccasionNotificationContent = ({ occasionTitle, occasionId, state }
           </div>
 
           <div>
-            <div className="text-[22px] text-xl font-semibold">{occasionTitle}</div>
+            <div className="text-xl text-[22px] font-semibold">{occasionTitle}</div>
             <div className="text-lg font-medium">{occasionTitle}</div>
           </div>
         </div>

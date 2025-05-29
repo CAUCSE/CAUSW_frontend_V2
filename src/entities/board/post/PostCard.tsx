@@ -87,13 +87,13 @@ export const PostCard = ({
   ];
 
   return (
-    <div className="relative mb-4 mt-4 flex max-w-xl flex-col rounded-post-br border bg-post p-2 shadow-post-sh">
+    <div className="rounded-post-br bg-post shadow-post-sh relative mt-4 mb-4 flex max-w-xl flex-col border p-2">
       {isPopupVisible && (
         <div>
           <PopupMenu PopupMenuChildren={popMenuList} />
         </div>
       )}
-      <button className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
+      <button className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
         <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
       </button>
       <div className="flex flex-row items-center p-2">
@@ -115,8 +115,8 @@ export const PostCard = ({
 
       <div className="flex w-full flex-col items-start px-3">
         <div className="w-full">
-          <div className="mb-2 select-text px-1 text-[24px] font-medium">{postData.title}</div>
-          <div className="mb-2 select-text whitespace-pre-line break-words px-1 pb-2 text-[16px]">
+          <div className="mb-2 px-1 text-[24px] font-medium select-text">{postData.title}</div>
+          <div className="mb-2 px-1 pb-2 text-[16px] break-words whitespace-pre-line select-text">
             {postData.content}
           </div>
 
@@ -138,21 +138,21 @@ export const PostCard = ({
       {/* 디자인 따라 위치 조정해야함 */}
       <div className="flex flex-row space-x-3 p-2">
         <button
-          className="flex items-center space-x-2 rounded-post-br bg-post-like p-1 px-3 text-[13px] text-post-like"
+          className="rounded-post-br bg-post-like text-post-like flex items-center space-x-2 p-1 px-3 text-[13px]"
           onClick={handlePostLike}
         >
           <Image src="/images/post/like.svg" alt="Like Icon" width={20} height={20}></Image>
           <span>{numLike > 999 ? '999+' : numLike}</span>
         </button>
         <button
-          className="flex items-center space-x-2 rounded-post-br bg-post-star p-1 px-3 text-[13px] text-post-star"
+          className="rounded-post-br bg-post-star text-post-star flex items-center space-x-2 p-1 px-3 text-[13px]"
           onClick={handlePostFavorite}
         >
           <Image src="/images/post/star.svg" alt="Favorite Icon" width={20} height={20}></Image>
           <span>{numFavorite > 999 ? '999+' : numFavorite}</span>
         </button>
         <button
-          className="flex items-center space-x-2 rounded-post-br bg-post-comment p-1 px-3 text-[13px] text-post-comment"
+          className="rounded-post-br bg-post-comment text-post-comment flex items-center space-x-2 p-1 px-3 text-[13px]"
           onClick={handleCommentBtn}
         >
           <Image src="/images/post/comment.svg" alt="Comment Icon" width={20} height={20}></Image>
@@ -160,7 +160,7 @@ export const PostCard = ({
         </button>
         {isPostForm && (
           <button
-            className="flex items-center space-x-2 rounded-post-br bg-post-form p-1 px-3 text-[12px] text-black"
+            className="rounded-post-br bg-post-form flex items-center space-x-2 p-1 px-3 text-[12px] text-black"
             onClick={() => {
               router.push(`/board/${boardId}/${postId}/${formId}`);
             }}

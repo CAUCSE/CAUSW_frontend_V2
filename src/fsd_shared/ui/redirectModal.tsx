@@ -22,15 +22,15 @@ export const RedirectModal = ({ closeModal, children, redirectTo }: IModalProps)
   };
 
   return (
-    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+    <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
       <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
-        <button className="absolute right-0 top-0 px-4 py-2 text-xl font-bold" onClick={closeModal}>
+        <button className="absolute top-0 right-0 px-4 py-2 text-xl font-bold" onClick={closeModal}>
           x
         </button>
         {children}
 
         {/* 페이지 이동 버튼 */}
-        <button className="mt-4 h-10 w-28 rounded bg-focus text-white hover:bg-blue-500" onClick={handleRedirect}>
+        <button className="bg-focus mt-4 h-10 w-28 rounded-sm text-white hover:bg-blue-500" onClick={handleRedirect}>
           이동하기
         </button>
       </div>

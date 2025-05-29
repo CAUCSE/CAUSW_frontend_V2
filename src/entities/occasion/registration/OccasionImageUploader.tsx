@@ -43,7 +43,7 @@ export const OccasionImageUploader = ({ onUpload }: ImageUploaderProps) => {
           {/* 삭제 버튼 */}
           <button
             onClick={() => handleRemove(index)}
-            className="absolute right-0 top-0 flex h-3 w-3 items-center justify-center rounded-full border border-gray-400 bg-white text-sm font-bold"
+            className="absolute top-0 right-0 flex h-3 w-3 items-center justify-center rounded-full border border-gray-400 bg-white text-sm font-bold"
           >
             ×
           </button>

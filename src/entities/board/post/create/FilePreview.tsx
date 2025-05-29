@@ -12,7 +12,7 @@ export const FilePreview = React.memo(() => {
   };
 
   return (
-    <div className="mt-4 grid h-full w-full grid-cols-3 gap-4 border-t-comment-bw border-file-preview-border pt-6 lg:grid-cols-6">
+    <div className="border-t-comment-bw border-file-preview-border mt-4 grid h-full w-full grid-cols-3 gap-4 pt-6 lg:grid-cols-6">
       {selectedFiles.map((file, index) => (
         <div
           key={index}
@@ -31,7 +31,7 @@ export const FilePreview = React.memo(() => {
           )}
           {/* 파일 제거 버튼 */}
           <button
-            className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
+            className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
             onClick={() => removeFile(index)} // 파일 제거 함수 호출
           >
             &times;

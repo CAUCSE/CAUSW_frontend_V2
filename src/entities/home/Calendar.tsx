@@ -89,7 +89,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
         }
         width={2070}
         height={2070}
-        className="h-full w-full border-b-[1px] object-cover"
+        className="h-full w-full border-b object-cover"
         alt="캘린더"
       /> */}
       <div
@@ -104,7 +104,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
           })`,
         }}
       ></div>
-      <hr className="w-full border-[1px] border-[#E0E0E0]" />
+      <hr className="w-full border border-[#E0E0E0]" />
       <Link
         // TODO : href 연결
         href={`/board/${deliveredId}`}

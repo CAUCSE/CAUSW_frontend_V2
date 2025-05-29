@@ -32,7 +32,7 @@ export const VerificationStatus: React.FC<VerificationStatusProps> = ({
   onAcademicRecordClick,
 }) => {
   return (
-    <div className="flex h-screen items-center justify-center bg-boardPageBackground">
+    <div className="bg-board-page-background flex h-screen items-center justify-center">
       <div className="w-full max-w-lg rounded-lg bg-white p-8 text-center shadow-md">
         <h1 className="mb-4 text-2xl font-semibold">본인 인증 안내</h1>
         <p className="mb-4 text-gray-600">서비스 이용을 위해 본인 인증이 필요합니다.</p>

@@ -14,7 +14,7 @@ export const CustomToggle = ({ isChecked, onCheckChanged, text }: CustomTogglePr
         checked={isChecked}
         onChange={onCheckChanged}
         className={clsx(
-          'h-[1.125rem] w-[1.125rem] cursor-pointer appearance-none rounded-full border-2 border-solid checked:bg-red-500',
+          'h-4.5 w-4.5 cursor-pointer appearance-none rounded-full border-2 border-solid checked:bg-red-500',
           isChecked ? 'border-red-500' : 'border-[#8C8C8C]',
         )}
       />

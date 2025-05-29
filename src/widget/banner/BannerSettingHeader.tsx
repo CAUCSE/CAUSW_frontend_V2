@@ -54,7 +54,7 @@ export const BannerSettingHeader = ({ bannerList }: BannerSettingHeaderProps) =>
       </header>
       {createPortal(
         <button
-          className="fixed bottom-28 right-14 h-10 w-10 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF] md:hidden"
+          className="fixed right-14 bottom-28 h-10 w-10 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF] md:hidden"
           onClick={handleClickAddBanner}
         >
           <AddIcon />

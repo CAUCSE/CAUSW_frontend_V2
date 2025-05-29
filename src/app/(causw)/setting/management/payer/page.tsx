@@ -12,7 +12,7 @@ const PayerManagement = async () => {
     <>
       <Link
         href="/setting/management/payer/add"
-        className="absolute right-4 top-6 z-10 flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black bg-focus text-lg text-white md:right-52 md:top-16"
+        className="bg-focus absolute top-6 right-4 z-10 flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg text-white md:top-16 md:right-52"
       >
         납부자 추가
       </Link>

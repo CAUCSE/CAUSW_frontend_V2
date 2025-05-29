@@ -12,7 +12,7 @@ export const SubjectiveOption = ({ questionIdx }: SubjectiveOptionProps) => {
   return (
     <input
       type="text"
-      className="flex w-full items-center border-b-[1px] border-black bg-white outline-none"
+      className="flex w-full items-center border-b border-black bg-white outline-hidden"
       placeholder="답변을 입력해주세요"
       {...register(`questionReplyRequestDtoList.${questionIdx}.questionReply`)}
     />

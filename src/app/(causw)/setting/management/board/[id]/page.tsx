@@ -22,26 +22,26 @@ const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) =
   if (!data) return <LoadingComponent />;
 
   return (
-    <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+    <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <Link href="/setting/management/board" className="mb-7 flex items-center text-lg">
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
       <div className="flex h-full flex-col gap-3 p-2 pt-10 lg:p-10">
-        <div className="mb-2 text-[35px] lg:mb-6 lg:mt-2">게시판 생성 신청 정보</div>
+        <div className="mb-2 text-[35px] lg:mt-2 lg:mb-6">게시판 생성 신청 정보</div>
 
         <div className="text-[28px]">게시판 이름</div>
-        <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
+        <div className="border-b-post-title-input mb-5 w-full border-black bg-transparent text-[20px] text-black focus:outline-hidden">
           {data.boardName}
         </div>
 
         <div className="text-[28px]">신청자</div>
-        <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
+        <div className="border-b-post-title-input mb-5 w-full border-black bg-transparent text-[20px] text-black focus:outline-hidden">
           {data.user.name} ({data.user.studentId})
         </div>
 
         <div className="text-[28px]">게시판 설명</div>
-        <div className="mb-5 w-full border-b-post-title-input border-black bg-transparent text-[20px] text-black focus:outline-none">
+        <div className="border-b-post-title-input mb-5 w-full border-black bg-transparent text-[20px] text-black focus:outline-hidden">
           {data.description}
         </div>
 
@@ -60,7 +60,7 @@ const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) =
 
         <div className="flex w-full flex-col justify-center gap-3 md:flex-row">
           <button
-            className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl"
+            className="bg-default flex h-10 w-80 items-center justify-center rounded-xl text-lg text-white md:h-16 lg:text-xl"
             onClick={() => {
               acceptApplyBoards(id).then(() => {
                 window.location.href = '/setting/management/board';

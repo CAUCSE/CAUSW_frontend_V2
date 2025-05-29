@@ -85,7 +85,7 @@ export const ImageUploadField = <T extends FieldValues>({
           .map((src, i) => (
             <div
               key={i}
-              className="relative h-28 min-h-28 w-28 min-w-28 flex-shrink-0 cursor-pointer overflow-hidden rounded border-gray-300"
+              className="relative h-28 min-h-28 w-28 min-w-28 shrink-0 cursor-pointer overflow-hidden rounded-sm border-gray-300"
             >
               <Image
                 src={src}
@@ -97,7 +97,7 @@ export const ImageUploadField = <T extends FieldValues>({
               <button
                 type="button"
                 onClick={() => handleDelete(previews.length - 1 - i)}
-                className="absolute right-1 top-1 rounded-full bg-red-500 px-1 text-xs text-white"
+                className="absolute top-1 right-1 rounded-full bg-red-500 px-1 text-xs text-white"
               >
                 ✕
               </button>

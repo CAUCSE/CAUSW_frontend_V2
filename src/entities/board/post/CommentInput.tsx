@@ -32,8 +32,8 @@ export const CommentInput = ({ handleAddComment }: CommentInputProps) => {
   };
 
   return (
-    <div className="fixed bottom-[70px] flex w-full items-center justify-center px-3 xl:bottom-2 xl:left-40 xl:right-72 xl:mr-4 xl:w-auto">
-      <div className="flex flex-grow items-center justify-between rounded-comment-input-br bg-comment-input p-4">
+    <div className="fixed bottom-[70px] flex w-full items-center justify-center px-3 xl:right-72 xl:bottom-2 xl:left-40 xl:mr-4 xl:w-auto">
+      <div className="rounded-comment-input-br bg-comment-input flex grow items-center justify-between p-4">
         <div className="flex items-center space-x-2 pr-3">
           <input
             type="checkbox"
@@ -46,7 +46,7 @@ export const CommentInput = ({ handleAddComment }: CommentInputProps) => {
         <input
           type="text"
           placeholder="댓글을 입력해주세요!"
-          className="flex flex-grow border-none bg-comment-input text-[16px] text-black outline-none"
+          className="bg-comment-input flex grow border-none text-[16px] text-black outline-hidden"
           value={commentContent}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

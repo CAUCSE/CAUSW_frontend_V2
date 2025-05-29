@@ -60,7 +60,7 @@ const PostDetailPage = (props: any) => {
   }
 
   return (
-    <div className="bottom-5 top-0 h-full w-full bg-boardPageBackground scrollbar-hide lg:relative">
+    <div className="bg-board-page-background scrollbar-hide top-0 bottom-5 h-full w-full lg:relative">
       <div className="h-16 w-full bg-[#F8F8F8]">
         <PreviousButton routeCallback={routerCallback} />
       </div>

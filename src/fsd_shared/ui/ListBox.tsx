@@ -55,7 +55,7 @@ export const ListBox = ({ data, alarm, loadMore }: ListBoxProps) => {
                 router.push(targetLink);
               }}
               key={`item.id-${index}`}
-              className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow"
+              className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow-sm"
             >
               {!item.isRead && (
                 <span

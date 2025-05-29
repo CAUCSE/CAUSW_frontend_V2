@@ -27,7 +27,7 @@ export const FormSummaryResultQuestionHeader = ({
           {question.questionText}
         </p>
         {isTruncated[questionIndex] && (
-          <span className="absolute left-0 top-full hidden w-max bg-gray-800 p-1 text-xs text-white group-hover:block">
+          <span className="absolute top-full left-0 hidden w-max bg-gray-800 p-1 text-xs text-white group-hover:block">
             {question.questionText}
           </span>
         )}

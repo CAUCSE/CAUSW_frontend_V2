@@ -23,12 +23,9 @@ export const UploadFilePreview = () => {
   };
 
   return (
-    <div className="mt-4 flex h-fit w-full flex-shrink-0 flex-grow gap-4 overflow-x-scroll border-t-comment-bw border-file-preview-border p-4">
+    <div className="border-t-comment-bw border-file-preview-border mt-4 flex h-fit w-full shrink-0 grow gap-4 overflow-x-scroll p-4">
       {selectedFileList.map((file, index) => (
-        <div
-          key={index}
-          className="relative h-24 w-24 flex-shrink-0 border border-black bg-cover bg-center lg:h-32 lg:w-32"
-        >
+        <div key={index} className="relative h-24 w-24 shrink-0 border border-black bg-cover bg-center lg:h-32 lg:w-32">
           {isImageFile(file.name) ? (
             <Image
               src={URL.createObjectURL(file)}
@@ -44,7 +41,7 @@ export const UploadFilePreview = () => {
             </div>
           )}
           <button
-            className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
+            className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
             onClick={() => removeFile(index)}
           >
             <CloseIcon className="h-5 w-5" />

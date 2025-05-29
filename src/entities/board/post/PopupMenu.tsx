@@ -11,7 +11,7 @@ interface PopupMenuChild {
 
 export const PopupMenu: React.FC<PopupMenuProps> = ({ PopupMenuChildren }) => {
   return (
-    <div className="absolute right-10 top-4 z-10 flex w-32 flex-col divide-y-[1px] rounded-lg border border-gray-300 bg-white shadow-lg">
+    <div className="absolute top-4 right-10 z-10 flex w-32 flex-col divide-y rounded-lg border border-gray-300 bg-white shadow-lg">
       {PopupMenuChildren.map((child: PopupMenuChild, idx: number) => (
         <button
           className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"

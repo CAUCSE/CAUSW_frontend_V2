@@ -17,10 +17,10 @@ export const VoteOptionList = () => {
     setValue('voteCreateRequestDto.options', newOptionList);
   };
   return (
-    <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pr-2 pt-2">
+    <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pt-2 pr-2">
       {optionList?.map((option, index) => <VoteOptionInput key={index} index={index} option={option} />)}
       <button
-        className="flex h-14 items-center justify-center rounded border-2 border-gray-300 text-center text-black"
+        className="flex h-14 items-center justify-center rounded-sm border-2 border-gray-300 text-center text-black"
         onClick={addVoteOption}
       >
         <PlusIcon width={24} height={24} />

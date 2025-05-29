@@ -178,7 +178,7 @@ const CreatePostPage = () => {
 
   return (
     <>
-      <div className="bottom-5 top-0 h-full w-full lg:relative lg:bottom-28">
+      <div className="top-0 bottom-5 h-full w-full lg:relative lg:bottom-28">
         <PreviousButton routeCallback={handleBack} />
         <div className="h-14 bg-[#F8F8F8]" />
         <div className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">

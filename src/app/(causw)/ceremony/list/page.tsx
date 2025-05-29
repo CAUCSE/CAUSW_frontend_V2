@@ -15,7 +15,7 @@ export default function CeremonyListPage() {
     <QueryClientProvider client={queryClient}>
       <PreviousButton />
       <div className="p-12">
-        <h1 className="mb-12 mt-12 text-left text-3xl font-semibold">내 경조사 목록</h1>
+        <h1 className="mt-12 mb-12 text-left text-3xl font-semibold">내 경조사 목록</h1>
         <CeremonyListWidget />
       </div>
     </QueryClientProvider>

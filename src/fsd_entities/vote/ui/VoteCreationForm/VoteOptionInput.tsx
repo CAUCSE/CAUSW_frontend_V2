@@ -39,13 +39,13 @@ export const VoteOptionInput = ({ index, option }: VoteOptionInputProps) => {
           <input
             type="text"
             placeholder="항목 입력"
-            className="h-14 w-full rounded border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-none"
+            className="h-14 w-full rounded-sm border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-hidden"
             value={field.value}
             onChange={(e) => handleOptionChange(e, field)}
           />
           <button
             onClick={() => removeVoteOption(index)}
-            className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
+            className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white"
           >
             <MinusIcon width={16} height={16} />
           </button>

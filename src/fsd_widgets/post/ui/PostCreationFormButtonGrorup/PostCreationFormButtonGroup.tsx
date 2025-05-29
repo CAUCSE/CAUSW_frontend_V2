@@ -28,10 +28,10 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
 
   return (
     <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 xl:bottom-4 xl:left-1/2 xl:space-x-24">
-      <div className="flex flex-grow grid-cols-4 justify-center gap-2 xl:space-x-4">
+      <div className="flex grow grid-cols-4 justify-center gap-2 xl:space-x-4">
         <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
         <button
-          className={`flex w-16 items-center justify-center rounded-full bg-comment-input md:w-20 md:p-3`}
+          className={`bg-comment-input flex w-16 items-center justify-center rounded-full md:w-20 md:p-3`}
           onClick={handleFileUploadButtonClick}
         >
           <ImageIcon className="h-6 w-6 md:h-8 md:w-8" />
@@ -40,7 +40,7 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
         <ApplicationFormToggle />
         <button
           onClick={handleSubmit}
-          className="rounded-full bg-[#F04C23] px-4 py-2 text-sm text-white shadow-md hover:bg-orange-600 focus:outline-none md:px-6 md:text-xl xl:ml-20 xl:px-8"
+          className="rounded-full bg-[#F04C23] px-4 py-2 text-sm text-white shadow-md hover:bg-orange-600 focus:outline-hidden md:px-6 md:text-xl xl:ml-20 xl:px-8"
         >
           글작성
         </button>

@@ -103,10 +103,10 @@ const SubmitApplicationModal = ({
   };
 
   return (
-    <div className="bg-boardPageBackground p-6">
+    <div className="bg-board-page-background p-6">
       <PreviousButton routeCallback={() => onClose()}></PreviousButton>
       {/* 이전 버튼 */}
-      <div className="mb-6 mt-8">
+      <div className="mt-8 mb-6">
         <h1 className="text-2xl font-bold">승인 신청서 작성</h1>
       </div>
 
@@ -135,14 +135,14 @@ const SubmitApplicationModal = ({
           {errors.description && <span className="text-red-500">{errors.description.message}</span>}
         </div>
 
-        <div className="mb-2 mr-4 max-w-full">
+        <div className="mr-4 mb-2 max-w-full">
           <label className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">가입 신청 이미지 제출</label>
-          <p className="text-md mb-2 mt-1 text-red-500">
+          <p className="text-md mt-1 mb-2 text-red-500">
             mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.
           </p>
 
           <div className="justify-left mb-1 flex w-full items-center overflow-auto rounded-lg border-2 border-gray-300 p-4 lg:w-4/6">
-            <div className="mr-4 aspect-square h-32 w-32 flex-shrink-0 rounded-lg border-2 border-gray-300 p-4">
+            <div className="mr-4 aspect-square h-32 w-32 shrink-0 rounded-lg border-2 border-gray-300 p-4">
               <label htmlFor="file-upload" className="flex h-full cursor-pointer flex-col items-center justify-center">
                 <svg
                   className="h-12 w-12 text-gray-400"
@@ -186,7 +186,7 @@ const SubmitApplicationModal = ({
                 {imagePreviews.map((preview, index) => (
                   <div
                     key={index}
-                    className="relative aspect-square h-32 w-32 flex-shrink-0 overflow-hidden rounded-lg border-2 border-gray-300"
+                    className="relative aspect-square h-32 w-32 shrink-0 overflow-hidden rounded-lg border-2 border-gray-300"
                   >
                     <img
                       src={preview}
@@ -196,7 +196,7 @@ const SubmitApplicationModal = ({
                     />
                     <button
                       type="button"
-                      className="absolute right-0 top-0 mr-1 mt-1 rounded-full bg-red-500 p-1 text-white"
+                      className="absolute top-0 right-0 mt-1 mr-1 rounded-full bg-red-500 p-1 text-white"
                       onClick={() => {
                         handleImageDelete(index);
                       }}
@@ -228,7 +228,7 @@ const SubmitApplicationModal = ({
         {/* 모달 */}
         {selectedImage && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10"
+            className="bg-opacity-10 fixed inset-0 z-50 flex items-center justify-center bg-black"
             onClick={closeImage}
           >
             <div className="max-h-full max-w-3xl overflow-auto rounded-lg bg-white p-4">
@@ -246,7 +246,7 @@ const SubmitApplicationModal = ({
         )}
 
         <div className="mt-8 flex justify-center">
-          <button type="submit" className="w-2/3 rounded-md bg-focus p-3 text-white hover:bg-blue-400 lg:w-1/3">
+          <button type="submit" className="bg-focus w-2/3 rounded-md p-3 text-white hover:bg-blue-400 lg:w-1/3">
             변경 사항 저장
           </button>
         </div>

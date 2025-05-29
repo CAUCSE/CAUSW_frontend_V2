@@ -30,7 +30,7 @@ export const OccasionRequestManagement = ({
         <Header bold big>
           {title}
         </Header>
-        <div className="mb-[-18px] h-[86px] w-full overflow-x-auto scrollbar-hide md:mb-0 md:h-[70px]">
+        <div className="scrollbar-hide mb-[-18px] h-[86px] w-full overflow-x-auto md:mb-0 md:h-[70px]">
           <div
             className={clsx(
               'mt-8 flex flex-row px-4 md:mb-1 md:justify-start lg:w-full',
@@ -41,7 +41,7 @@ export const OccasionRequestManagement = ({
           >
             <Link
               href={firstNavigation.state}
-              className={clsx('h-18 text-xl', isFirstNavigation && 'border-b-4 border-b-focus')}
+              className={clsx('h-18 text-xl', isFirstNavigation && 'border-b-focus border-b-4')}
             >
               {firstNavigation.name}
             </Link>

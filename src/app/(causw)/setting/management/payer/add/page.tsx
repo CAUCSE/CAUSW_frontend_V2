@@ -35,7 +35,7 @@ const AddPayer = () => {
 
   return (
     <>
-      <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+      <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
         <Link href={'/setting'} className="mb-7 flex items-center text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           이전
@@ -73,8 +73,8 @@ const AddPayer = () => {
               {data.length < 1 ? '검색 결과가 없습니다.' : null}
               {data.map((element) => (
                 <div
-                  className={`pb-1 pl-2 pt-1 text-lg ${
-                    selectId === element.id ? 'rounded-lg bg-focus text-white' : ''
+                  className={`pt-1 pb-1 pl-2 text-lg ${
+                    selectId === element.id ? 'bg-focus rounded-lg text-white' : ''
                   }`}
                   key={element.name}
                   onClick={() => {

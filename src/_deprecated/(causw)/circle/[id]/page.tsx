@@ -21,7 +21,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="ml-[3%] mt-8 grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr] gap-4 xl:mt-[6%] xl:h-5/6">
+      <div className="mt-8 ml-[3%] grid h-[800px] w-[90%] grid-cols-[1fr_1fr_1fr] grid-rows-[1fr_1fr_1fr_1fr_1fr_4fr_6fr_1fr_1fr_1fr_1fr_1fr] gap-4 xl:mt-[6%] xl:h-5/6">
         <div className={`${isCircleLeader ? 'col-span-2 xl:col-span-1' : 'col-span-3'} mb-2 min-h-24 xl:row-span-2`}>
           <Link href={'/circle'} className="mb-4 flex items-center text-lg">
             <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
@@ -83,7 +83,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-3 row-span-1 flex w-32 flex-col items-center gap-2 xl:col-span-1 xl:row-span-4">
-          <div className="mb-6 mt-6 w-full text-2xl font-bold">운영진</div>
+          <div className="mt-6 mb-6 w-full text-2xl font-bold">운영진</div>
           <ProfileImage src={leader ? leader.profileImageUrl : '/images/default_profile.png'}></ProfileImage>
           <SubHeader bold>
             회장 {circle.leaderName} ({leader && leader!.admissionYear % 100})
@@ -91,7 +91,7 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <div className="col-span-3 row-span-1 xl:col-span-2 xl:row-span-4">
-          <div className="mb-6 mt-6 text-2xl font-bold">설명</div>
+          <div className="mt-6 mb-6 text-2xl font-bold">설명</div>
           <div className="h-36 w-full overflow-y-auto rounded-md bg-white p-2" style={{ whiteSpace: 'pre-line' }}>
             {circle.description}
           </div>
@@ -100,21 +100,21 @@ const Circle = async ({ params: { id } }: { params: { id: string } }) => {
         {!isMyCircle ? (
           <Link
             href={'/circle/' + id + '/apply'}
-            className="col-span-3 row-span-1 flex h-10 items-center justify-center rounded-md bg-account text-lg text-white xl:col-span-2 xl:row-span-2 xl:h-16 xl:text-xl"
+            className="bg-account col-span-3 row-span-1 flex h-10 items-center justify-center rounded-md text-lg text-white xl:col-span-2 xl:row-span-2 xl:h-16 xl:text-xl"
           >
             신청하기
           </Link>
         ) : (
           <Link
             href={'/circle/' + id + '/board'}
-            className="col-span-3 row-span-1 mt-60 flex h-10 items-center justify-center rounded-md bg-barkblue text-lg text-white xl:col-span-2 xl:row-span-2 xl:h-16 xl:text-xl"
+            className="bg-barkblue col-span-3 row-span-1 mt-60 flex h-10 items-center justify-center rounded-md text-lg text-white xl:col-span-2 xl:row-span-2 xl:h-16 xl:text-xl"
           >
             동아리 게시판
           </Link>
         )}
         <Link
           href={'/circle/' + id + '/members'}
-          className="col-span-3 row-span-1 mt-60 flex h-10 items-center justify-center rounded-md bg-default text-lg text-white xl:col-span-1 xl:row-span-2 xl:h-16 xl:text-xl"
+          className="bg-default col-span-3 row-span-1 mt-60 flex h-10 items-center justify-center rounded-md text-lg text-white xl:col-span-1 xl:row-span-2 xl:h-16 xl:text-xl"
         >
           부원 명단 보기
         </Link>

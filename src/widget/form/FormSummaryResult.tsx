@@ -55,7 +55,7 @@ export const FormSummaryResult = () => {
           questionIndex={resultIdx}
         />
         <div
-          className={`flex min-h-[50px] w-full flex-col gap-2 rounded-sm border border-black bg-white px-3 py-2 sm:min-w-[400px]`}
+          className={`flex min-h-[50px] w-full flex-col gap-2 rounded-xs border border-black bg-white px-3 py-2 sm:min-w-[400px]`}
         >
           {result.questionType === 'OBJECTIVE' ? (
             <ObjectiveQuestionSummaryResult objectiveQuestion={objectiveQuestion} />
