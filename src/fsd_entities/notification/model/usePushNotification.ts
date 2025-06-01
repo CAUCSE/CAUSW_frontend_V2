@@ -64,14 +64,12 @@ export const usePushNotification = () => {
     try {
       const deviceType = getDeviceType();
       if (deviceType === 'desktop') {
-        console.log('desktop 환경입니다');
         return;
       }
 
       // 이미 체크된 경우 스킵
       const checked = localStorage.getItem(FCM_CHECKED_KEY);
       if (checked) {
-        console.log('이미 토큰 여부가 확인 되었습니다');
         return;
       }
       localStorage.setItem(FCM_CHECKED_KEY, 'true');
@@ -80,7 +78,6 @@ export const usePushNotification = () => {
       await Notification.requestPermission();
 
       if (Notification.permission !== 'granted') {
-        console.log('알림 권한 요청 실패');
         return;
       }
 
@@ -89,7 +86,6 @@ export const usePushNotification = () => {
 
       // 로컬에서 토큰 못 가져오는 경우 early return
       if (!clientFCMToken) {
-        console.log('FCM 토큰을 client 단에서 불러오는데 실패했습니다.');
         return;
       }
 

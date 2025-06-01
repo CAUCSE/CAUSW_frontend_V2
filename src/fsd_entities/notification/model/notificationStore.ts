@@ -21,7 +21,6 @@ export const useNotificationStore = create<NotificationState>((set) => ({
     try {
       const notifications = await getNotifications();
       set({ notifications });
-      console.log('알림 불러오기 성공:', notifications);
     } catch (error) {
       toast.error('일반 알림 불러오기 실패: 서버 응답 오류');
     }
@@ -31,7 +30,6 @@ export const useNotificationStore = create<NotificationState>((set) => ({
     try {
       const ceremonyNotifications = await getCeremonyNotifications();
       set({ ceremonyNotifications });
-      console.log('경조사 알림 불러오기 성공:', ceremonyNotifications);
     } catch (error) {
       toast.error('경조사 알림 불러오기 실패: 서버 응답 오류');
     }
