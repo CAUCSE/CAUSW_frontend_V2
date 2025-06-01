@@ -27,7 +27,7 @@ export const SideBar = () => {
   }, []);
 
   return (
-    <div className="fixed -top-1 right-0 flex h-[55px] w-full items-center justify-end space-y-4 pr-4 xl:h-screen xl:w-72 xl:flex-col xl:justify-center">
+    <div className="fixed right-0 flex h-[55px] w-full items-center justify-end space-y-4 pr-4 xl:h-screen xl:w-72 xl:flex-col xl:justify-center">
       <div className="absolute top-4 left-3 flex flex-col items-center text-black xl:top-11 xl:left-52">
         <span
           className="icon-[codicon--sign-out] text-2xl xl:text-4xl"
@@ -38,7 +38,7 @@ export const SideBar = () => {
         <span className="hidden text-xs text-black underline xl:block xl:text-sm">로그아웃</span>
       </div>
 
-      <div className="absolute top-0 left-12 flex flex-col items-center text-black xl:hidden">
+      <div className="absolute top-4 left-12 flex flex-col items-center text-black xl:hidden">
         <Link href="/setting/notification">
           <span className="text-black-400 icon-[codicon--bell] text-2xl"></span>
         </Link>
@@ -47,7 +47,7 @@ export const SideBar = () => {
       <div className="max-xl:hidden">
         <ProfileImage src={profileImage} />
       </div>
-      <div className="mr-2 flex flex-col items-end xl:mr-0 xl:items-center">
+      <div className="mr-2 flex flex-col items-center xl:mr-0 xl:items-center">
         <SubHeader big>{name}</SubHeader>
         <SubHeader gray>{email}</SubHeader>
       </div>
