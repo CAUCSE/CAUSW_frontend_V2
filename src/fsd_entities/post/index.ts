@@ -8,6 +8,8 @@ export {
   VoteToggle,
   ApplicationFormToggle,
   UploadFilePreview,
+  CreatePostButton,
+  SearchPostButton,
 } from './ui';
 export {
   useGetPostList,
