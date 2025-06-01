@@ -25,7 +25,7 @@ export const getSearchPostList = async ({
 
 export const getPostListServer = async (boardId: string, page: number) => {
   const headers = await setRscHeader();
-  const response = fetch(`${BASEURL}/api/v1/posts?boardId=${boardId}&pageNum=${page}`, {
+  const response = await fetch(`${BASEURL}/api/v1/posts?boardId=${boardId}&pageNum=${page}`, {
     headers,
     cache: 'no-store',
   }).then((res) => res.json());
