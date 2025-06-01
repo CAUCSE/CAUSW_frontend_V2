@@ -17,7 +17,6 @@ interface BoardNotificationToggleProps {
 }
 
 export const BoardNotificationToggle = ({ isNotificationActive }: BoardNotificationToggleProps) => {
-  console.log({ isNotificationActive });
   const params = useParams();
   const { boardId } = params as { boardId: string };
 
