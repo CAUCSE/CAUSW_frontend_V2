@@ -6,6 +6,7 @@ declare namespace Notification {
     body: string;
     isRead: boolean;
     notificationLogId: string;
+    targetParentId: string;
   }
   interface GeneralAlarmItem {
     id: string;
@@ -14,6 +15,7 @@ declare namespace Notification {
     isRead?: boolean;
     targetId?: string;
     noticeType?: string;
+    targetParentId?: string;
   }
   interface NotificationResponse {
     totalElements: number;

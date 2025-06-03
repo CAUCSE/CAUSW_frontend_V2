@@ -19,12 +19,13 @@ const Notification = () => {
   const { ceremonyNotificationData } = useCeremonyNotificationData();
 
   const alarmData: Notification.GeneralAlarmItem[] = notificationData.map(
-    ({ notificationLogId, title, body, isRead, targetId, noticeType }) => ({
+    ({ notificationLogId, title, body, isRead, targetId, noticeType, targetParentId }) => ({
       id: notificationLogId,
       title,
       body,
       isRead,
       targetId,
+      targetParentId,
       noticeType,
     }),
   );

@@ -14,8 +14,9 @@ export interface ListBoxItem {
   title: string;
   body: string;
   isRead?: boolean;
-  targetId?: string;
+  targetId?: string; // 게시글 id
   notificationLogId?: string;
+  targetParentId?: string; //게시판 id
 }
 
 interface ListBoxProps {
@@ -42,7 +43,7 @@ export const ListBox = ({ data, alarm, loadMore }: ListBoxProps) => {
         {data.map((item, index) => {
           const targetLink =
             alarm === 'general'
-              ? `/board/${item.id}/${item.targetId}`
+              ? `/board/${item.targetParentId}/${item.targetId}`
               : item.targetId
                 ? `/ceremony/${item.targetId}`
                 : `/ceremony/${item.id}`;
