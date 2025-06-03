@@ -55,7 +55,10 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
       <div className="flex flex-col gap-3 pt-8 pb-10 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
           <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={occasionDetails.type} />
-          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={occasionDetails.register} />
+          <OccasionSectionTitle
+            title={MESSAGES.OCCASION.REGISTRANT}
+            occasionContent={`${occasionDetails.applicantName}/${occasionDetails.applicantStudentId}`}
+          />
         </div>
         <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionDetails.content} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
