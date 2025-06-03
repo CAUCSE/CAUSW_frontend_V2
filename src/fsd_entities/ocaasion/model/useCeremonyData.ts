@@ -39,7 +39,6 @@ export const useCeremonyData = (occasionId?: string) => {
       const fetchCeremonyDetail = async () => {
         try {
           const OccasionContent = await getCeremonyDetail(occasionId);
-          console.log('지워 OccasionContent', OccasionContent);
           const matchedOccasion = ceremonyList.find((item) => item.id === occasionId);
 
           setOccasionDetails({
