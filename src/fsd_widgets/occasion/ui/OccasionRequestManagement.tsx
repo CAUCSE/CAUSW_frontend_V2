@@ -41,7 +41,7 @@ export const OccasionRequestManagement = ({
           >
             <Link
               href={firstNavigation.state}
-              className={clsx('h-18 text-xl', isFirstNavigation && 'border-b-focus border-b-4')}
+              className={clsx('text-xl', isFirstNavigation && 'border-b-focus border-b-4')}
             >
               {firstNavigation.name}
             </Link>
