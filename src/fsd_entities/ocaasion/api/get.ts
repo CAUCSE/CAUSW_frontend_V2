@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const getCeremonyAwaitList = async (page: number, size: number, sort?: string[]) => {
   const URI = `/api/v1/ceremony/list/await`;

@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 import { CeremonyResponse, Notification } from '../config/types';
 

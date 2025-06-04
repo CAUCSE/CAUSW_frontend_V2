@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const updateCeremonyState = async ({
   ceremonyId,

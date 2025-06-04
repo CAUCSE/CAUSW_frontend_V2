@@ -1,7 +1,7 @@
 import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const cancelCeremonyRegist = async ({ ceremonyId }: { ceremonyId: string }) => {
   const URI = `/api/v1/ceremony/state/close/${ceremonyId}`;
