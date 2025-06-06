@@ -12,7 +12,7 @@ interface BoardHeaderProps {
 
 export const BoardHeader = ({ boardName, isNotificationActive }: BoardHeaderProps) => {
   return (
-    <div className="flex h-24 w-full items-end px-5 sm:px-10">
+    <div className="flex h-24 w-full flex-col gap-2 px-5 pt-3">
       <PreviousButton />
       <div className="z-10 flex w-full items-center justify-between">
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">{boardName}</div>

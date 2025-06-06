@@ -57,7 +57,7 @@ export const BoardNotificationToggle = ({ isNotificationActive }: BoardNotificat
     <Button
       variant="outline"
       size="icon"
-      className="h-8 w-10 rounded-3xl border-[1px] border-black"
+      className="h-8 w-10 cursor-pointer rounded-3xl border-[1px] border-black"
       onClick={handleClickNotificationToggle}
     >
       <Bell className={clsx(isActive ? 'text-red-500' : 'text-black')} />

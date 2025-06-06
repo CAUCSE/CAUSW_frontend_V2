@@ -24,7 +24,7 @@ export const BoardClientPage = () => {
   }
 
   return (
-    <div className="h-full w-full">
+    <div className="flex h-full w-full flex-col gap-2">
       <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
       <BoardPostList
         postList={data?.postList!}
