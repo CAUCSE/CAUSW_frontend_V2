@@ -19,6 +19,7 @@ declare namespace Post {
     isPostFavorite: boolean;
     isPostVote: boolean;
     isPostForm: boolean;
+    isPostSubscribed:boolean;
     isOwner: boolean;
     updatable: boolean;
     deletable: boolean;
