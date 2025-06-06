@@ -31,3 +31,8 @@ export const getPostListServer = async (boardId: string, page: number) => {
   }).then((res) => res.json());
   return response;
 };
+
+export const getPostDetail = async ({ postId }: { postId: string }) => {
+  const { data }: { data: Post.PostDto } = await API.get(`/api/v1/posts/${postId}`);
+  return data;
+};
