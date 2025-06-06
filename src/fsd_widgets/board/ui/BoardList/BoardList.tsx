@@ -16,7 +16,7 @@ export const BoardList = async () => {
 
   return (
     <>
-      <div className="absolute h-full w-full py-3">
+      <div className="h-full w-full py-3">
         <div className="flex flex-col items-center">
           {sortedBoardList.filter((board) => board.isDefault).length > 0 &&
             (roles.includes('ADMIN') ? (
