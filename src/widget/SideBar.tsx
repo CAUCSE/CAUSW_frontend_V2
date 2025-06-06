@@ -37,7 +37,8 @@ export const SideBar = ({ className }: SideBarProps) => {
     <aside className={className}>
       <Button
         size="icon"
-        className="absolute top-3 left-3 flex cursor-pointer flex-col gap-2 border-none bg-transparent p-0 text-black shadow-none hover:bg-transparent xl:top-4 xl:right-4 xl:left-auto"
+        variant="ghost"
+        className="absolute top-3 left-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:top-4 xl:right-4 xl:left-auto"
         onClick={handleNoRefresh}
       >
         <LogOut className="size-6 xl:size-8" />
@@ -46,7 +47,8 @@ export const SideBar = ({ className }: SideBarProps) => {
 
       <Button
         size="icon"
-        className="absolute top-3 left-12 border-none bg-transparent text-black shadow-none hover:bg-transparent xl:hidden"
+        variant="ghost"
+        className="absolute top-3 left-12 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
         asChild
       >
         <Link href="/setting/notification">
