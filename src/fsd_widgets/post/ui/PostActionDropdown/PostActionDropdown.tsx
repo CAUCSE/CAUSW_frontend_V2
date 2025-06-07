@@ -1,7 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { EllipsisVertical } from 'lucide-react';
 
@@ -54,7 +53,7 @@ export const PostActionDropdown = ({
       <DropdownMenuTrigger asChild>
         {/* Shadcn 버튼 사용 시 asChild 사용 불가로 인한 일반 button 사용 */}
         <button className="absolute top-4 right-4 cursor-pointer">
-          <EllipsisVertical className="size-4" />
+          <EllipsisVertical className="size-4 text-[#B4B1B1]" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
