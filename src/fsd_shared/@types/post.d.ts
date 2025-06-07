@@ -240,4 +240,10 @@ declare namespace Post {
     | "SEVENTH_SEMESTER"
     | "EIGHTH_SEMESTER"
     | "ABOVE_NINTH_SEMESTER";
+
+  export interface PostSubscribeResponseDto {
+    postId: string;
+    userId: string;
+    isSubscribed: boolean;
+  }
 }
