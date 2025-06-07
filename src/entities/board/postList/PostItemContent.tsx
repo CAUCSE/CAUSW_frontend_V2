@@ -6,7 +6,7 @@ export const PostItemContent = ({ post }: PostItemContentProps) => {
   return (
     <div className="flex w-2/3 flex-col">
       <div className="flex-auto truncate">
-        <p className="overflow-hidden text-ellipsis whitespace-nowrap pb-2 text-sm font-bold md:text-2xl">
+        <p className="overflow-hidden pb-2 text-sm font-bold text-ellipsis whitespace-nowrap md:text-2xl">
           {post.title}
         </p>
       </div>

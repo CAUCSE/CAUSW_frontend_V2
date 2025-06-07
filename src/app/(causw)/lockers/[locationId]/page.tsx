@@ -26,7 +26,7 @@ const LockerSelectionPage = () => {
   }
 
   return (
-    <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+    <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <LockerSelectionHeader lockerList={lockerList!} />
       <div className="flex h-full flex-col items-center gap-4 md:flex-row md:justify-between">
         <LockerSelectionMobileManual lockerPeriod={lockerList!.lockerPeriod} />

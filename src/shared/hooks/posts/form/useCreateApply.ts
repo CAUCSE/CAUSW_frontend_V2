@@ -13,7 +13,7 @@ export const useCreateApply = () => {
   const params = useParams();
   const { boardId } = params;
 
-  const isApply = useCreatePostStore(state => state.isApply);
+  const isApply = useCreatePostStore((state) => state.isApply);
 
   const methods = useForm<Post.PostCreateWithFormRequestDto>({
     defaultValues: {

@@ -105,7 +105,7 @@ export const CircleApplyQuestion = ({ index, removeQuestion }: Form.QuestionProp
             <input
               type="checkbox"
               {...register(`questionCreateRequestDtoList.${index}.isMultiple`)}
-              className="ml-4 h-4 w-4 cursor-pointer appearance-none rounded-sm border-2 border-solid border-black bg-[length:100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
+              className="ml-4 h-4 w-4 cursor-pointer appearance-none rounded-xs border-2 border-solid border-black bg-size-[100%_100%] bg-center bg-no-repeat checked:bg-[url('/icons/checked_icon.png')]"
             />
             복수 선택 가능
           </label>

@@ -9,7 +9,7 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
       value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
       message: '올바른 이메일 형식이 아닙니다.',
     },
-    validate: async value => {
+    validate: async (value) => {
       if (typeof value !== 'string') return '이메일은 문자열이어야 합니다.';
       const isAvailable = await checkEmailDuplicate(value);
       return isAvailable || '이미 사용 중인 이메일입니다다.';
@@ -39,7 +39,7 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
       value: /^[0-9]{8}$/,
       message: '학번은 8자리 숫자여야 합니다.',
     },
-    validate: async value => {
+    validate: async (value) => {
       if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
       const isAvailable = await checkStudentIdDuplicate(value);
       return isAvailable || '이미 사용 중인 학번입니다다.';
@@ -50,7 +50,7 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
   },
   nickname: {
     required: '닉네임을 입력해주세요.',
-    validate: async value => {
+    validate: async (value) => {
       if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
       if (!value.trim()) return '올바른 닉네임이 아닙니다.';
       const isAvailable = await checkNicknameDuplicate(value);

@@ -60,8 +60,8 @@ export const VotingForm = ({
               type="text"
               placeholder="투표 이름"
               value={voteTitle}
-              onChange={e => onVoteTitleChange(e.target.value)}
-              className="w-full border-b-post-title-input border-black bg-transparent p-1 text-lg placeholder:text-create-post-text focus:outline-none md:text-2xl lg:p-2"
+              onChange={(e) => onVoteTitleChange(e.target.value)}
+              className="border-b-post-title-input placeholder:text-create-post-text w-full border-black bg-transparent p-1 text-lg focus:outline-hidden md:text-2xl lg:p-2"
             />
           </div>
           <div className="mt-4 flex items-center lg:space-x-4">
@@ -77,26 +77,26 @@ export const VotingForm = ({
         </div>
       </div>
       {duplicateError && <div className="text-sm text-red-500">{duplicateError}</div>}
-      <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pr-2 pt-2">
+      <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pt-2 pr-2">
         {options.map((option, index) => (
           <div key={index} className="relative">
             <input
               type="text"
               placeholder="항목 입력"
-              className="h-14 w-full rounded border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-none"
+              className="h-14 w-full rounded-sm border-2 border-gray-300 pl-3 focus:border-gray-600 focus:outline-hidden"
               value={option}
-              onChange={e => handleOptionChange(index, e.target.value)}
+              onChange={(e) => handleOptionChange(index, e.target.value)}
             />
             <button
               onClick={() => handleRemoveOption(index)}
-              className="absolute right-0 top-0 -mr-2 -mt-2 h-5 w-5 rounded-full bg-red-500 text-white"
+              className="absolute top-0 right-0 -mt-2 -mr-2 h-5 w-5 rounded-full bg-red-500 text-white"
             >
               -
             </button>
           </div>
         ))}
 
-        <div className="flex h-14 justify-center rounded border-2 border-gray-300" onClick={onAddOption}>
+        <div className="flex h-14 justify-center rounded-sm border-2 border-gray-300" onClick={onAddOption}>
           <button className="text-[16pt]">+</button>
         </div>
       </div>

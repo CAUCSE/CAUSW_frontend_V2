@@ -6,7 +6,7 @@ export const PreviousButton = ({ routeCallback, variant }: { routeCallback?: () 
   const router = useRouter();
   const color = variant === '' ? 'boardPageBackground' : `${variant}`;
   return (
-    <div className={`absolute left-0 top-0 m-4 bg-${color}`}>
+    <div className={`absolute top-0 left-0 m-4 bg-${color}`}>
       <button type="button" onClick={() => (routeCallback ? routeCallback() : router.back())}>
         <div className="flex items-center">
           <span className="pr-4 text-2xl">{'<'}</span>이전

@@ -17,7 +17,7 @@ export const usePostInteraction = () => {
   const { postLikeForPost, deletePost, postFavorite } = PostRscService();
 
   const { isPresidents, isAdmin, isVicePresidents } = useUserStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       isPresidents: state.isPresidents,
       isAdmin: state.isAdmin,
       isVicePresidents: state.isVicePresidents,

@@ -13,7 +13,7 @@ const LockerList = () => {
   }
 
   return (
-    <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+    <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <LockerListHeader lockerLocations={lockerLocations} />
       <LockerInfoByFloorList lockerLocations={lockerLocations} />
     </div>

@@ -8,11 +8,11 @@ interface LockerDesktopActionBtnProps {
 }
 
 export const LockerDesktopActionBtn = ({ lockerPeriod }: LockerDesktopActionBtnProps) => {
-  const clickedLockerStatus = useLockerSelectionStore(state => state.clickedLockerStatus);
+  const clickedLockerStatus = useLockerSelectionStore((state) => state.clickedLockerStatus);
 
   return (
     <div className="flex w-full flex-col items-center gap-8">
-      <div className="w-2/3 whitespace-pre-wrap break-keep text-center">
+      <div className="w-2/3 text-center break-keep whitespace-pre-wrap">
         <p className="text-sm text-[#888888]">
           신청 후 다른 사물함으로 재신청하는 경우, 원래 사물함은 자동으로 반납 처리 됩니다.
         </p>

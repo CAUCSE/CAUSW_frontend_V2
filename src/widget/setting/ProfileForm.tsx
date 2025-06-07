@@ -32,7 +32,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
   } = useForm<User.userUpdateDto>();
 
   const queryClient = useQueryClient();
-  const setUserStore = useUserStore(state => state.setUserStore);
+  const setUserStore = useUserStore((state) => state.setUserStore);
   const { updateInfo } = UserService();
   const { checkNicknameDuplicate } = AuthService();
   // 프로필 이미지 변경
@@ -129,7 +129,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
       </div>
 
       <div className="mt-8 flex justify-center">
-        <button type="submit" className="w-32 rounded-3xl bg-focus p-3 text-white hover:bg-blue-400 lg:w-80">
+        <button type="submit" className="bg-focus w-32 rounded-3xl p-3 text-white hover:bg-blue-400 lg:w-80">
           변경 사항 저장
         </button>
       </div>

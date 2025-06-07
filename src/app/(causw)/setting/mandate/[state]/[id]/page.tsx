@@ -23,12 +23,12 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const circleIdIfLeader = useUserStore(state => state.circleIdIfLeader);
+  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
 
   const { getUserByName, updateRole } = SettingService();
 
-  const onSubmit: SubmitHandler<IFormInput> = data => {
-    getUserByName(data.searchContent).then(res => setDate(res));
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    getUserByName(data.searchContent).then((res) => setDate(res));
   };
 
   const [data, setDate] = useState<User.User[]>([]);
@@ -37,7 +37,7 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
 
   return (
     <>
-      <div className="relative left-4 top-3 w-[calc(100%-2rem)] md:left-14 md:top-14 md:w-[calc(100%-7rem)]">
+      <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
         <Link href={'/setting'} className="mb-7 flex items-center text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           이전
@@ -80,10 +80,10 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
             <Header bold>검색 결과</Header>
             <div className="mt-3 flex flex-col">
               {data.length < 1 ? '검색 결과가 없습니다.' : null}
-              {data.map(element => (
+              {data.map((element) => (
                 <div
-                  className={`pb-1 pl-2 pt-1 text-lg ${
-                    selectId === element.id ? 'rounded-lg bg-focus text-white' : ''
+                  className={`pt-1 pb-1 pl-2 text-lg ${
+                    selectId === element.id ? 'bg-focus rounded-lg text-white' : ''
                   }`}
                   key={element.name}
                   onClick={() => {

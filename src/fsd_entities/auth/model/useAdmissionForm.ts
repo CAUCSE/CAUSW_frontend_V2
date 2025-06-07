@@ -11,7 +11,7 @@ import { submitAdmissionsApplication } from '../api/post';
 export const useAdmissionForm = () => {
   const router = useRouter();
 
-  const email = useUserStore(state => state.email);
+  const email = useUserStore((state) => state.email);
   const {
     register,
     handleSubmit,

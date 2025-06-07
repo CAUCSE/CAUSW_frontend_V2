@@ -1,22 +1,20 @@
 'use client';
 
+import { usePushNotification } from '@/fsd_entities/notification';
+
 import {
-  API,
   BASEURL,
-  getRscRefresh,
   removeRccAccess,
   removeRccRefresh,
   removeRscAccess,
   removeRscRefresh,
   setRccToken,
-  setRscHeader,
   setRscToken,
-  useLayoutStore,
-  useUserStore,
 } from '@/shared';
 
 export const AuthRscService = () => {
   const URI = BASEURL + '/api/v1/users';
+  const { resetFCMToken } = usePushNotification();
 
   const updateAccess = async (refresh: string) => {
     try {
@@ -26,7 +24,7 @@ export const AuthRscService = () => {
           'Content-Type': 'application/json',
         },
         method: 'PUT',
-      }).then(res => res.json())) as User.UpdateAccessTokenRequestDto;
+      }).then((res) => res.json())) as User.UpdateAccessTokenRequestDto;
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -43,6 +41,7 @@ export const AuthRscService = () => {
     //TODO: API 추가 필요
     removeRccAccess();
     removeRccRefresh();
+    resetFCMToken();
     await removeRscAccess();
     await removeRscRefresh();
   };

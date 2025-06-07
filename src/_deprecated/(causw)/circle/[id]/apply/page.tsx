@@ -111,8 +111,8 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
         if (typeof questionReplyRequestDto.selectedOptionList === 'string') {
           questionReplyRequestDto.selectedOptionList = [Number(questionReplyRequestDto.selectedOptionList)];
         } else if (typeof questionReplyRequestDto.selectedOptionList === 'object') {
-          questionReplyRequestDto.selectedOptionList = questionReplyRequestDto.selectedOptionList.map(selectedOption =>
-            Number(selectedOption),
+          questionReplyRequestDto.selectedOptionList = questionReplyRequestDto.selectedOptionList.map(
+            (selectedOption) => Number(selectedOption),
           );
         }
       },
@@ -134,12 +134,12 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
       {loading ? (
         <LoadingComponent />
       ) : form?.isClosed ? (
-        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
+        <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
           <Image src="/images/puang-proud.png" alt="404" width={200} height={250}></Image>
           <span>마감된 신청서입니다.</span>
         </div>
       ) : !canUserReply ? (
-        <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
+        <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center text-xl font-bold">
           <Image src="/images/puang-proud.png" alt="404" width={200} height={250}></Image>
           <span className="text-center">신청서 페이지가 존재하지 않습니다.</span>
         </div>
@@ -161,14 +161,14 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
                       <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
                         <p
                           className="truncate text-[14px] group-hover:block sm:text-xl"
-                          ref={el => {
+                          ref={(el) => {
                             textRefs.current[questionIdx] = el;
                           }}
                         >
                           {question.questionText}
                         </p>
                         {isTruncated[questionIdx] && (
-                          <span className="absolute left-0 top-full hidden w-max bg-gray-800 p-1 text-xs text-white group-hover:block">
+                          <span className="absolute top-full left-0 hidden w-max bg-gray-800 p-1 text-xs text-white group-hover:block">
                             {question.questionText}
                           </span>
                         )}
@@ -177,7 +177,7 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
                     </div>
 
                     <div
-                      className={`${question.questionType === 'SUBJECTIVE' ? 'justify-end' : ''} flex min-h-[50px] w-full flex-col gap-2 rounded-sm border border-black bg-white px-4 py-2 sm:min-w-[400px]`}
+                      className={`${question.questionType === 'SUBJECTIVE' ? 'justify-end' : ''} flex min-h-[50px] w-full flex-col gap-2 rounded-xs border border-black bg-white px-4 py-2 sm:min-w-[400px]`}
                     >
                       {question.questionType === 'OBJECTIVE' ? (
                         question.optionResponseDtoList
@@ -205,7 +205,7 @@ const CircleApplyPage = ({ params: { id } }: { params: { id: string } }) => {
                       ) : (
                         <input
                           type="text"
-                          className="flex w-full items-center border-b-[1px] border-black bg-white outline-none"
+                          className="flex w-full items-center border-b border-black bg-white outline-hidden"
                           placeholder="답변을 입력해주세요"
                           {...register(`questionReplyRequestDtoList.${questionIdx}.questionReply`)}
                         />

@@ -8,7 +8,7 @@ import { findId } from '../api/post';
 
 export const useFindId = () => {
   const { setEmail, resetFindAccountStore } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       setEmail: state.setEmail,
       resetFindAccountStore: state.resetFindAccountStore,
     })),
@@ -18,7 +18,7 @@ export const useFindId = () => {
       const { email } = await findId({ studentId, name });
       return email;
     },
-    onSuccess: data => {
+    onSuccess: (data) => {
       setEmail(data);
     },
     onError: () => {

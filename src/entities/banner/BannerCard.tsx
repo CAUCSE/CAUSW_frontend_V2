@@ -27,7 +27,7 @@ export const BannerCard = ({
     openEditBannerModal,
     openDeleteBannerModal,
   } = useBannerStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       setSelectedBannerId: state.setSelectedBannerId,
       setSelectedBannerImage: state.setSelectedBannerImage,
       setSelectedBannerUrl: state.setSelectedBannerUrl,
@@ -64,7 +64,7 @@ export const BannerCard = ({
           <p className="">{url}</p>
         </div>
         <button
-          className="absolute right-2 top-2 h-8 w-8 place-items-center rounded-full border border-[#A0A0A0] bg-white text-[#A0A0A0] hover:bg-red-500 hover:text-white"
+          className="absolute top-2 right-2 h-8 w-8 place-items-center rounded-full border border-[#A0A0A0] bg-white text-[#A0A0A0] hover:bg-red-500 hover:text-white"
           onClick={handleDeleteEvent}
         >
           <DeleteIcon />

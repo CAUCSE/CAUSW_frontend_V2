@@ -21,7 +21,7 @@ const TableUnit = ({
       {title === '학부 재적/졸업 증빙 자료' || title === '가입 신청서 첨부 이미지' ? (
         data ? (
           <Image
-            className={data === '' ? 'invisible rounded-md' : 'mb-8 mt-8 rounded-md'}
+            className={data === '' ? 'invisible rounded-md' : 'mt-8 mb-8 rounded-md'}
             src={data}
             alt={title}
             width={200}
@@ -55,8 +55,8 @@ export function ManagementDetailInfoTable({
       <div className="grid h-full grid-cols-2 justify-around gap-y-[27px] pt-4 font-semibold lg:w-[700px] lg:pt-8">
         <PreviousButton></PreviousButton>
         {Object.keys(data)
-          .filter(key => key in titleMapping)
-          .map(k => {
+          .filter((key) => key in titleMapping)
+          .map((k) => {
             const key = k as keyof typeof data;
             return <TableUnit key={key} title={titleMapping[k]} data={data[key]} setSelectedImage={setSelectedImage} />;
           })}

@@ -28,7 +28,7 @@ interface PostState {
   togglePostPopup: () => void;
 }
 
-export const usePostStore = create<PostState>(set => ({
+export const usePostStore = create<PostState>((set) => ({
   isPopupVisible: false,
   post: null,
   numLike: 0,
@@ -38,7 +38,7 @@ export const usePostStore = create<PostState>(set => ({
   createCommentInfo: { isChildComment: false, commentId: null },
   isPostForm: false,
   formId: '',
-  setPost: postData =>
+  setPost: (postData) =>
     set({
       isPopupVisible: false,
       post: postData,
@@ -49,25 +49,25 @@ export const usePostStore = create<PostState>(set => ({
       isPostForm: postData.isPostForm,
       formId: postData.formResponseDto ? postData.formResponseDto.formId : '',
     }),
-  setNumLike: num => set({ numLike: num }),
-  setNumFavorite: num => set({ numFavorite: num }),
-  setNumComment: num => set({ numComment: num }),
-  setIsPostForm: state => set({ isPostForm: state }),
-  setCommentList: comments => set({ commentList: comments }),
-  incrementLike: () => set(state => ({ numLike: state.numLike + 1 })),
-  decrementLike: () => set(state => ({ numLike: state.numLike - 1 })),
-  incrementFavorite: () => set(state => ({ numFavorite: state.numFavorite + 1 })),
-  decrementFavorite: () => set(state => ({ numFavorite: state.numFavorite - 1 })),
-  incrementComment: () => set(state => ({ numComment: state.numComment + 1 })),
-  addComment: newComment => set(state => ({ commentList: [...state.commentList, newComment] })),
+  setNumLike: (num) => set({ numLike: num }),
+  setNumFavorite: (num) => set({ numFavorite: num }),
+  setNumComment: (num) => set({ numComment: num }),
+  setIsPostForm: (state) => set({ isPostForm: state }),
+  setCommentList: (comments) => set({ commentList: comments }),
+  incrementLike: () => set((state) => ({ numLike: state.numLike + 1 })),
+  decrementLike: () => set((state) => ({ numLike: state.numLike - 1 })),
+  incrementFavorite: () => set((state) => ({ numFavorite: state.numFavorite + 1 })),
+  decrementFavorite: () => set((state) => ({ numFavorite: state.numFavorite - 1 })),
+  incrementComment: () => set((state) => ({ numComment: state.numComment + 1 })),
+  addComment: (newComment) => set((state) => ({ commentList: [...state.commentList, newComment] })),
   setPostComment: () =>
     set(() => ({
       createCommentInfo: { isChildComment: false, commentId: null },
     })),
-  setCommentInfo: commentId =>
+  setCommentInfo: (commentId) =>
     set(() => ({
       createCommentInfo: { isChildComment: true, commentId: commentId },
     })),
-  decrementComment: () => set(state => ({ numComment: state.numComment - 1 })),
-  togglePostPopup: () => set(state => ({ isPopupVisible: !state.isPopupVisible })),
+  decrementComment: () => set((state) => ({ numComment: state.numComment - 1 })),
+  togglePostPopup: () => set((state) => ({ isPopupVisible: !state.isPopupVisible })),
 }));

@@ -82,7 +82,7 @@ const CircleApplicationEdit = ({ params: { id } }: { params: { id: string } }) =
     name: 'questionCreateRequestDtoList',
   });
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     if (
       data.enrolledRegisteredSemesterList.length === 0 &&
       data.leaveOfAbsenceRegisteredSemesterList.length === 0 &&
@@ -292,7 +292,7 @@ const CircleApplicationEdit = ({ params: { id } }: { params: { id: string } }) =
 
   return (
     <>
-      <div onClick={() => router.back()} className="absolute left-10 top-10 flex items-center text-lg md:left-24">
+      <div onClick={() => router.back()} className="absolute top-10 left-10 flex items-center text-lg md:left-24">
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </div>

@@ -11,7 +11,7 @@ export const AuthService = () => {
   const { getMyInfo } = UserService();
 
   const router = useRouter();
-  const setErrorMessage = useLayoutStore(state => state.setErrorMessage);
+  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
 
   const signin = async (body: User.SignInRequestDto) => {
     try {

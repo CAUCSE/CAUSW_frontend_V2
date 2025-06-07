@@ -30,7 +30,7 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className="items-left justify-left flex min-h-screen flex-col gap-y-4 bg-boardPageBackground p-8 sm:p-16"
+      className="items-left justify-left bg-board-page-background flex min-h-screen flex-col gap-y-4 p-8 sm:p-16"
     >
       <PreviousButton></PreviousButton>
       <Header bold>학부 재학 증빙 서류 제출</Header>
@@ -42,7 +42,7 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
         register={register}
         name="targetAcademicStatus"
         label="본 학기 학적 상태"
-        options={STATUS_OPTIONS.filter(opt => opt.value !== curAcademicStatus)}
+        options={STATUS_OPTIONS.filter((opt) => opt.value !== curAcademicStatus)}
         rules={academicRecordValidationRules.targetAcademicStatus}
         errorMessage={errors.targetAcademicStatus?.message}
       />
@@ -93,8 +93,8 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
           label="증빙 서류 업로드"
           errorMessage={errors.images?.message}
         >
-          <p className="text-md mt-1 text-error">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
-          <p className="text-md mb-2 text-error">(이외의 파일로는 재학 증빙이 불가능합니다.)</p>
+          <p className="text-md text-error mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
+          <p className="text-md text-error mb-2">(이외의 파일로는 재학 증빙이 불가능합니다.)</p>
         </ImageUploadField>
       )}
       <AuthFormSubmitButton content="제출" />

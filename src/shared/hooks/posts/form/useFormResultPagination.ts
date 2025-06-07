@@ -7,7 +7,7 @@ import { useFormResultStore } from '@/shared';
 
 export const useFormResultPagination = () => {
   const { currentPage, setCurrentPage } = useFormResultStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       currentPage: state.currentPage,
       setCurrentPage: state.setCurrentPage,
     })),

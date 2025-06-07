@@ -9,7 +9,7 @@ import { userRoleCodes, useUserStore } from '@/shared';
 
 const SettingsPage = () => {
   const { roles, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader } =
-    useUserStore(state => ({
+    useUserStore((state) => ({
       roles: state.roles,
       isStudent: state.isStudent,
       isProfessor: state.isProfessor,
@@ -22,15 +22,15 @@ const SettingsPage = () => {
       isAlumniLeader: state.isAlumniLeader,
     }));
 
-  const circleIdIfLeader = useUserStore(state => state.circleIdIfLeader);
-  const circleNameIfLeader = useUserStore(state => state.circleNameIfLeader);
+  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
+  const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
   const roleItems: {
     name: string;
     link: string;
   }[] = [];
 
-  roles.forEach(role => {
+  roles.forEach((role) => {
     if (role !== 'LEADER_CIRCLE')
       roleItems.push({
         name: userRoleCodes[role] + ' 권한 위임',
@@ -163,7 +163,7 @@ const SettingsPage = () => {
   return (
     <div className="flex min-h-screen items-start justify-center">
       <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-8 mt-8 text-3xl font-bold">환경설정</h1>
+        <h1 className="mt-8 mb-8 text-3xl font-bold">환경설정</h1>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">{renderMenuItems()}</div>
         {isUseTermsOpen && <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>}
       </div>

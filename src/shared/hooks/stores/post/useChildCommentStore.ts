@@ -24,18 +24,18 @@ interface ChildCommentStore {
   deleteChildComment: (id: string) => void;
 }
 
-export const useChildCommentStore = create<ChildCommentStore>(set => ({
+export const useChildCommentStore = create<ChildCommentStore>((set) => ({
   childComments: {},
 
   setChildComment: (id, numLike, isCommentPopupVisible, isOwner, isDeleted, createdAt) =>
-    set(state => ({
+    set((state) => ({
       childComments: {
         ...state.childComments,
         [id]: { numLike, isCommentPopupVisible, isOwner, isDeleted, createdAt },
       },
     })),
-  incrementChildCommentLike: id =>
-    set(state => ({
+  incrementChildCommentLike: (id) =>
+    set((state) => ({
       childComments: {
         ...state.childComments,
         [id]: {
@@ -47,8 +47,8 @@ export const useChildCommentStore = create<ChildCommentStore>(set => ({
         },
       },
     })),
-  decrementChildCommentLike: id =>
-    set(state => ({
+  decrementChildCommentLike: (id) =>
+    set((state) => ({
       childComments: {
         ...state.childComments,
         [id]: {
@@ -60,8 +60,8 @@ export const useChildCommentStore = create<ChildCommentStore>(set => ({
         },
       },
     })),
-  toggleChildCommentPopup: id =>
-    set(state => ({
+  toggleChildCommentPopup: (id) =>
+    set((state) => ({
       childComments: {
         ...state.childComments,
         [id]: {
@@ -73,8 +73,8 @@ export const useChildCommentStore = create<ChildCommentStore>(set => ({
         },
       },
     })),
-  deleteChildComment: id =>
-    set(state => ({
+  deleteChildComment: (id) =>
+    set((state) => ({
       childComments: {
         ...state.childComments,
         [id]: {

@@ -27,7 +27,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
   const handleChange = (option: string) => {
     if (isMultiple) {
       if (selectedOptions.includes(option)) {
-        setSelectedOptions(selectedOptions.filter(o => o !== option));
+        setSelectedOptions(selectedOptions.filter((o) => o !== option));
       } else {
         setSelectedOptions([...selectedOptions, option]);
       }
@@ -68,7 +68,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(prev => !prev);
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (
@@ -80,7 +80,7 @@ const VotingSection: React.FC<VotingSectionProps> = ({
             {showResult && vote.allowAnonymous ? `총 ${totalVote}표` : ''}
           </div>
         </span>
-        <div className="w-max-[300px] mx-2 w-full bg-vote-title px-4 py-3 text-center text-[14px] font-semibold text-red-500">
+        <div className="w-max-[300px] bg-vote-title mx-2 w-full px-4 py-3 text-center text-[14px] font-semibold text-red-500">
           {vote.title}
         </div>
         <span>
@@ -90,9 +90,9 @@ const VotingSection: React.FC<VotingSectionProps> = ({
       </div>
 
       {showResult ? (
-        <div className="relative mb-4 space-y-3 rounded-lg border-comment-bw border-black bg-white p-4">
+        <div className="border-comment-bw relative mb-4 space-y-3 rounded-lg border-black bg-white p-4">
           {isMenuOpen && (
-            <div className="absolute right-8 top-0 z-10 w-32 rounded-lg border border-gray-300 bg-white shadow-lg">
+            <div className="absolute top-0 right-8 z-10 w-32 rounded-lg border border-gray-300 bg-white shadow-lg">
               <button
                 className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                 onClick={handleViewResult}
@@ -109,27 +109,27 @@ const VotingSection: React.FC<VotingSectionProps> = ({
             </div>
           )}
           {vote.isOwner ? (
-            <button className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
+            <button className="absolute top-0 right-0 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
               <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
             </button>
           ) : (
             ''
           )}
           {!vote.allowAnonymous && (
-            <div className="absolute bottom-4 right-4">
+            <div className="absolute right-4 bottom-4">
               <button
                 onClick={handleViewResult}
-                className="border-b-comment-bw border-normal-board-role-text text-normal-board-role-text focus:outline-none"
+                className="border-b-comment-bw border-normal-board-role-text text-normal-board-role-text focus:outline-hidden"
               >
                 투표 결과 확인하기
               </button>
             </div>
           )}
 
-          {voteOptions!.map(option => {
+          {voteOptions!.map((option) => {
             const percentage = (option.voteCount / totalVote) * 100;
             return (
-              <div key={option.id} className="mx-1 flex flex-col pb-8 pt-1">
+              <div key={option.id} className="mx-1 flex flex-col pt-1 pb-8">
                 <div className="flex items-center">
                   {votedMostOptions.includes(option.id) ? (
                     <Image
@@ -137,18 +137,18 @@ const VotingSection: React.FC<VotingSectionProps> = ({
                       alt="Vote Winner"
                       width={20}
                       height={20}
-                      className="my-2 ml-0 mr-4"
+                      className="my-2 mr-4 ml-0"
                     ></Image>
                   ) : (
-                    <div className="my-2 ml-0 mr-4 h-[20px] w-[20px]"></div>
+                    <div className="my-2 mr-4 ml-0 h-[20px] w-[20px]"></div>
                   )}
                   <span className="flex-1 text-[16px]">{option.optionName}</span>
                   <span className="text-[14px]">{option.voteCount}명</span>
                 </div>
                 <span className="flex-1">
-                  <div className="relative h-2 w-full rounded bg-gray-300">
+                  <div className="relative h-2 w-full rounded-sm bg-gray-300">
                     <div
-                      className="absolute left-0 top-0 h-full rounded bg-vote-theme"
+                      className="bg-vote-theme absolute top-0 left-0 h-full rounded-sm"
                       style={{ width: `${percentage}%` }}
                     ></div>
                   </div>
@@ -158,9 +158,9 @@ const VotingSection: React.FC<VotingSectionProps> = ({
           })}
         </div>
       ) : (
-        <div className="relative mb-4 rounded-lg border-comment-bw border-black bg-white p-3 pt-6">
+        <div className="border-comment-bw relative mb-4 rounded-lg border-black bg-white p-3 pt-6">
           {isMenuOpen && (
-            <div className="absolute right-8 top-0 z-10 w-32 rounded-lg border border-gray-300 bg-white shadow-lg">
+            <div className="absolute top-0 right-8 z-10 w-32 rounded-lg border border-gray-300 bg-white shadow-lg">
               <button
                 className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                 onClick={handleViewResult}
@@ -177,13 +177,13 @@ const VotingSection: React.FC<VotingSectionProps> = ({
             </div>
           )}
           {vote.isOwner ? (
-            <button className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
+            <button className="absolute top-0 right-0 flex h-10 w-10 items-center justify-center" onClick={toggleMenu}>
               <Image src="/images/post/comment-menu.svg" alt="Comment Menu" width={4} height={4}></Image>
             </button>
           ) : (
             ''
           )}
-          {voteOptions.map(option => (
+          {voteOptions.map((option) => (
             <label key={option.id} className="mb-4 flex items-center">
               <input
                 type="checkbox"
@@ -194,14 +194,14 @@ const VotingSection: React.FC<VotingSectionProps> = ({
                 className="hidden"
               />
               <span
-                className={`mr-3 inline-block h-[20px] w-[20px] rounded-full border-comment-bw border-black transition-all duration-200 ${
+                className={`border-comment-bw mr-3 inline-block h-[20px] w-[20px] rounded-full border-black transition-all duration-200 ${
                   selectedOptions.includes(option.id) ? 'bg-vote-theme shadow-vote-option' : ''
                 }`}
               />
               <span className="text-[16px]">{option.optionName}</span>
             </label>
           ))}
-          <button onClick={handleVote} className="mt-4 w-full rounded-lg bg-vote-theme py-3 text-[16px] text-white">
+          <button onClick={handleVote} className="bg-vote-theme mt-4 w-full rounded-lg py-3 text-[16px] text-white">
             투표하기
           </button>
         </div>

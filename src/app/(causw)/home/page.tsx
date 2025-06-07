@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { FCMTokenChecker } from '@/fsd_widgets/notification';
+
 import { Banner, Calendar, CardBox, HomeCard } from '@/entities/home';
 
 import { HomeRscService } from '@/shared';
@@ -35,21 +37,22 @@ const HomePage = async () => {
   const homePosts = await getHomePosts();
 
   const mainBoards = [
-    homePosts.find(board => board.board.name.includes('서비스 공지')),
-    homePosts.find(board => board.board.name.includes('학부 공지')),
-    homePosts.find(board => board.board.name.includes('동문회 공지')),
-    homePosts.find(board => board.board.name.includes('학생회 공지')),
+    homePosts.find((board) => board.board.name.includes('서비스 공지')),
+    homePosts.find((board) => board.board.name.includes('학부 공지')),
+    homePosts.find((board) => board.board.name.includes('동문회 공지')),
+    homePosts.find((board) => board.board.name.includes('학생회 공지')),
   ];
 
-  const deliveredId = homePosts.find(board => board.board.name.includes('딜리버드'))?.board.id;
+  const deliveredId = homePosts.find((board) => board.board.name.includes('딜리버드'))?.board.id;
 
   return (
     <>
+      <FCMTokenChecker />
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
           <Banner
-            images={events.count > 0 ? events.events.map(e => e.image) : ['/images/puang-proud.png']}
-            urls={events.count > 0 ? events.events.map(e => e.url) : ['/home']}
+            images={events.count > 0 ? events.events.map((e) => e.image) : ['/images/puang-proud.png']}
+            urls={events.count > 0 ? events.events.map((e) => e.url) : ['/home']}
             loop={events.count > 0}
           />
         )}
@@ -74,7 +77,7 @@ const HomePage = async () => {
               </div>
             </div>
 
-            <div className="flex w-full overflow-auto bg-transparent scrollbar-hide md:hidden 2xl:flex 2xl:h-1/5">
+            <div className="scrollbar-hide flex w-full overflow-auto bg-transparent md:hidden 2xl:flex 2xl:h-1/5">
               <div className="flex w-full flex-col justify-between gap-[20px] bg-transparent pb-4 2xl:grid 2xl:grid-cols-3 2xl:flex-row">
                 {cardsEntities.map((card, idx) => (
                   <HomeCard key={idx} {...card} />
@@ -102,9 +105,9 @@ const HomePage = async () => {
                       <Link
                         href={'/board/' + mainBoard?.board.id + '/' + mainBoard?.posts.content[0].id}
                         key={mainBoard?.posts.content[0].id}
-                        className="flex h-28 w-[80%] flex-col items-center justify-center border-b border-t"
+                        className="flex h-28 w-[80%] flex-col items-center justify-center border-t border-b"
                       >
-                        <span className="block w-full whitespace-normal text-center" style={{ wordBreak: 'keep-all' }}>
+                        <span className="block w-full text-center whitespace-normal" style={{ wordBreak: 'keep-all' }}>
                           {mainBoard?.posts.content[0].title}
                         </span>
                         <div className="text-sm font-normal text-gray-400">
@@ -112,7 +115,7 @@ const HomePage = async () => {
                         </div>
                       </Link>
                     ) : (
-                      <div key={index} className="flex h-28 w-[80%] items-center justify-center border-b border-t">
+                      <div key={index} className="flex h-28 w-[80%] items-center justify-center border-t border-b">
                         최신 공지가 없습니다.
                       </div>
                     ),
