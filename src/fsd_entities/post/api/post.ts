@@ -1,4 +1,4 @@
-import { FORMAPI } from '@/shared';
+import { API, FORMAPI } from '@/shared';
 
 export interface CreatePostParams {
   postData: Post.CreatePostDto;
@@ -43,4 +43,9 @@ export const createPostWithForm = async ({ postData, attachImageList }: CreatePo
 
   const { data }: { data: CreatePostResponse } = await FORMAPI.post('/api/v1/posts/form', formData);
   return data.id;
+};
+
+export const subscribePost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
+  const { data }: { data: Post.PostSubscribeResponseDto } = await API.post(`/api/v1/posts/subscribe/${postId}`);
+  return data;
 };

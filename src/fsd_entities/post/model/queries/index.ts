@@ -2,3 +2,6 @@ export { useGetPostList } from './useGetPostList';
 export { useGetPostSearchList } from './useGetPostSearchList';
 export { useCreatePost } from './useCreatePost';
 export { useCreatePostWithForm } from './useCreatePostWithForm';
+export { useDeletePost } from './useDeletePost';
+export { useUnsubscribePost } from './useUnsubscribePost';
+export { useSubscribePost } from './useSubscribePost';
