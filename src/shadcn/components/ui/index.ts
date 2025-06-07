@@ -16,3 +16,4 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from './dropdown-menu';
+export { Badge } from './badge';
