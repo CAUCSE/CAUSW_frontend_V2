@@ -6,10 +6,16 @@ import toast from 'react-hot-toast';
 
 import { ProfileEditForm } from '@/entities/home/setting/personal-info/ProfileEditForm';
 
+// TODO: 엔티티 간 import 배제 필요
+import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
+
 import { Header, UserInfoContainer } from '@/entities';
-// TODO: import 경로 변경 필요
-import { AuthService, userQueryKey, UserService, useUserStore } from '@/shared';
 import { PreviousButton } from '@/shared';
+
+import { updateInfo } from '../../api/put';
+import { userQueryKey } from '../../config/userQueryKey';
+// TODO: import 경로 변경 필요
+import { useUserStore } from '../../model';
 
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;
@@ -34,8 +40,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
 
   const queryClient = useQueryClient();
   const setUserStore = useUserStore((state) => state.setUserStore);
-  const { updateInfo } = UserService();
-  const { checkNicknameDuplicate } = AuthService();
   // 프로필 이미지 변경
   const [profileImagePreview, setProfileImagePreview] = React.useState(
     userData.profileImageUrl ?? '/images/default_profile.png',

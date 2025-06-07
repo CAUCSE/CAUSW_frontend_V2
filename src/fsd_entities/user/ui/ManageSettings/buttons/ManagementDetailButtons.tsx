@@ -3,9 +3,9 @@
 import { useState } from 'react';
 
 import { Button } from '@/shared';
-import { ManagementState } from '@/widget';
 
 import { uiEntities } from '../../../config/AdmissionManagementDetailEntities';
+import { ManagementState } from '../../../model/types';
 import { WarningModal } from '../modal/WarningModal';
 
 export function AdmissionManagementDetailButtons({

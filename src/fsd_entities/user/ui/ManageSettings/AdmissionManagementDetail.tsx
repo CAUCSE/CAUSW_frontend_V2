@@ -12,7 +12,7 @@ import {
   titleMappingForRejected,
   titleMappingForUser,
 } from '../../config/AdmissionManagementDetailEntities';
-import { ManagementState } from './Management';
+import { ManagementState } from '../../model/types';
 
 interface ManagementDetailProp {
   state: ManagementState;

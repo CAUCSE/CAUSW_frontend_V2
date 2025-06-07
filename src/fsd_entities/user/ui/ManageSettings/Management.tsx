@@ -7,8 +7,6 @@ import { PaginationButtons } from '@/shared';
 
 import { ExcelExportButton } from './buttons';
 
-export type ManagementState = 'admission' | 'reject' | 'active' | 'drop' | 'inactive';
-
 interface Prop {
   state: string | undefined;
   title: string;

@@ -1,9 +1,5 @@
-import {
-  convertDataToTableEntity,
-  titleMapping,
-} from '@/entities/home/setting/management/CouncilFeeManagementDetailEntities';
-
 import { getUserCouncilFeeInfo } from '../../api/get';
+import { convertDataToTableEntity, titleMapping } from '../../config/CouncilFeeManagementDetailEntities';
 import { CouncilFeeButtons } from './buttons';
 import { ManagementDetailInfoTable } from './ManagementDetailInfoTable';
 
