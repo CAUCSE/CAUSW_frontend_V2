@@ -3,15 +3,15 @@ import {
   managementDetailEntities,
   ManagementDetailInfoTable,
 } from '@/entities/home/setting/management';
+
+import { getAdmission, getUser, getUserAcademicRecord } from '../../api/get';
 import {
   convertAdmissionDataToTableEntity,
   convertUserDataToTableEntity,
   titleMapping,
   titleMappingForRejected,
   titleMappingForUser,
-} from '@/entities/home/setting/management/AdmissionManagementDetailEntities';
-
-import { getAdmission, getUser, getUserAcademicRecord } from '../../api/get';
+} from '../../config/AdmissionManagementDetailEntities';
 import { ManagementState } from './Management';
 
 interface ManagementDetailProp {
