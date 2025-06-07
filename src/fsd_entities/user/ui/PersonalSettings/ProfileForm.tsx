@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { ProfileEditForm } from '@/entities/home/setting/personal-info/ProfileEditForm';
 
 import { Header, UserInfoContainer } from '@/entities';
+// TODO: import 경로 변경 필요
 import { AuthService, userQueryKey, UserService, useUserStore } from '@/shared';
 import { PreviousButton } from '@/shared';
 

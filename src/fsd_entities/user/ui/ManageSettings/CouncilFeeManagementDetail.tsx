@@ -3,13 +3,11 @@ import {
   titleMapping,
 } from '@/entities/home/setting/management/CouncilFeeManagementDetailEntities';
 
-import { SettingRscService } from '@/shared';
-
+import { getUserCouncilFeeInfo } from '../../api/get';
 import { CouncilFeeButtons } from './buttons';
 import { ManagementDetailInfoTable } from './ManagementDetailInfoTable';
 
 export async function CouncilFeeDetail({ councilFeeId }: { councilFeeId: string }) {
-  const { getUserCouncilFeeInfo } = SettingRscService();
   let userCouncilFeeInfo: Setting.UserCouncilFeeInfoDTO | undefined;
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);

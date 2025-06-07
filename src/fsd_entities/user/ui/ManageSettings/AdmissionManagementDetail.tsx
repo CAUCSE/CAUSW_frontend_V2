@@ -11,9 +11,7 @@ import {
   titleMappingForUser,
 } from '@/entities/home/setting/management/AdmissionManagementDetailEntities';
 
-import { SettingRscService } from '@/shared';
-import { UserRscService } from '@/shared';
-
+import { getAdmission, getUser, getUserAcademicRecord } from '../../api/get';
 import { ManagementState } from './Management';
 
 interface ManagementDetailProp {
@@ -24,8 +22,7 @@ interface ManagementDetailProp {
 export async function ManagementDetail({ state, admissionId }: ManagementDetailProp) {
   const entities = managementDetailEntities[state];
   const { titleSuffix } = entities;
-  const { getAdmission } = SettingRscService();
-  const { getUser, getUserAcademicRecord } = UserRscService();
+
   let admission;
 
   if (state === 'admission' || state === 'reject') {

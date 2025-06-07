@@ -1,5 +1,5 @@
 import { LoadingComponent, PostItem } from '@/entities';
-import { Loading, SettingService, useInfiniteScroll } from '@/shared';
+import { Loading, useInfiniteScroll } from '@/shared';
 
 interface MyPostListProps {
   data: Post.PostResponseDto[];

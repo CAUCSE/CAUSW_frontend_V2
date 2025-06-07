@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button, Modal } from '@/shared';
-import { UserCouncilFeeService } from '@/shared';
+
+import { deleteUserCouncilFeeInfo } from '../../../api/delete';
 
 export function CouncilFeeButtons({
   params: { councilFeeId, isRefunded },
@@ -13,7 +14,6 @@ export function CouncilFeeButtons({
   params: { councilFeeId: string; isRefunded: boolean | undefined };
 }) {
   const router = useRouter();
-  const { deleteUserCouncilFeeInfo } = UserCouncilFeeService();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
@@ -79,7 +79,7 @@ export function CouncilFeeButtons({
       )}
 
       {isWarningModalOpen && (
-        <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
+        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <p className="text-md font-bold text-red-500 lg:text-xl">정말 납부자 목록에서 삭제하시곘습니까?</p>
             <p className="text-md font-bold text-red-500 lg:text-xl">이 작업은 복구할 수 없습니다.</p>
