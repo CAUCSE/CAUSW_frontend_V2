@@ -2,13 +2,14 @@
 
 import { useParams } from 'next/navigation';
 
-import { LoadingComponent } from '@/entities';
+import { LockerSelectionHeader } from '@/fsd_widgets/locker';
+
+import { LoadingScreen } from '@/fsd_shared';
 import { LockerService } from '@/shared';
 import {
   LockerMobileActionBtn,
   LockerSelectionDesktopManual,
   LockerSelectionGrid,
-  LockerSelectionHeader,
   LockerSelectionMobileManual,
 } from '@/widget';
 
@@ -22,7 +23,7 @@ const LockerSelectionPage = () => {
   const { data: lockerList, isLoading } = useGetLockerList(locationId);
 
   if (isLoading) {
-    return <LoadingComponent />;
+    return <LoadingScreen />;
   }
 
   return (
