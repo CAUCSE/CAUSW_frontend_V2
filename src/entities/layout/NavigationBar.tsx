@@ -23,7 +23,7 @@ export const NavigationBar = () => {
           href={iconClass.href}
           className={`h-[50px] w-[210px] ${
             firstRouter === iconClass.href ? 'bg-[#F8F8F8]' : 'bg-default'
-          } border-default flex flex-col items-center justify-center rounded-xl border-[5px] xl:mb-0 xl:h-24 xl:w-11/12 xl:rounded-l-2xl xl:rounded-r-none xl:border-0`}
+          } border-default flex flex-col items-center justify-center rounded-xl border-[5px] xl:mr-0 xl:mb-0 xl:h-24 xl:w-11/12 xl:rounded-l-2xl xl:rounded-r-none xl:border-0`}
         >
           <span
             className={`${iconClass.icon} ${
