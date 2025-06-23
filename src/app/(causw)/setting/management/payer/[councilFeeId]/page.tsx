@@ -1,7 +1,6 @@
-import { convertDataToTableEntity } from '@/entities/home/setting/management/CouncilFeeManagementDetailEntities';
+import { CouncilFeeManagementDetail } from '@/fsd_entities/user/ui';
 
 import { SettingRscService } from '@/shared';
-import CouncilFeeDetail from '@/widget/CouncilFeeManagementDetail';
 
 export default async function CouncilFeeDetailPage({ params }: { params: { councilFeeId: string } }) {
   const { councilFeeId } = params;
@@ -13,8 +12,7 @@ export default async function CouncilFeeDetailPage({ params }: { params: { counc
 
   return (
     <div className="mb-4">
-      <CouncilFeeDetail councilFeeId={councilFeeId}></CouncilFeeDetail>
-      <></>
+      <CouncilFeeManagementDetail councilFeeId={councilFeeId} />
     </div>
   );
 }

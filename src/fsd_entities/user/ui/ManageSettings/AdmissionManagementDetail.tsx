@@ -1,5 +1,6 @@
 /*AdmissionManagementDetail.tsx
-  관리-유저 관리
+  
+  - "환경설정"-"관리"-"유저 관리"-유저 선택
   */
 import { getAdmission, getUser, getUserAcademicRecord } from '../../api/get';
 import { managementDetailEntities } from '../../config';

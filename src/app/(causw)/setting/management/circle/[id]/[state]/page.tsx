@@ -1,5 +1,6 @@
+import { Management } from '@/fsd_entities/user/ui';
+
 import { CircleRscService } from '@/shared';
-import { Management } from '@/widget';
 
 const CircleManagement = async ({ params: { state, id } }: { params: { state: string; id: string } }) => {
   const { getCircleUsersByState } = CircleRscService();
