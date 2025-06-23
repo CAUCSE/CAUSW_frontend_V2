@@ -1,5 +1,10 @@
 'use client';
 
+/*ManagementDetailInfoTable.tsx
+  
+  - "환경설정"-"관리"-"학생회비 납부자 유저"-"납부자 추가"
+  - AdmissionManagementDetail, CouncilFeeManagementDetail에서 활용
+  */
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
 import Image from 'next/image';
