@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { ToastWithMax } from '@/shared';
+import { ToastWithMax } from '@/fsd_shared';
 
 const queryClient = new QueryClient();
 
