@@ -1,10 +1,5 @@
-import {
-  ManagementDetailButtons,
-  managementDetailEntities,
-  ManagementDetailInfoTable,
-} from '@/entities/home/setting/management';
-
 import { getAdmission, getUser, getUserAcademicRecord } from '../../api/get';
+import { managementDetailEntities } from '../../config';
 import {
   convertAdmissionDataToTableEntity,
   convertUserDataToTableEntity,
@@ -13,6 +8,8 @@ import {
   titleMappingForUser,
 } from '../../config/AdmissionManagementDetailEntities';
 import { ManagementState } from '../../model/types';
+import { ManagementDetailButtons } from './buttons';
+import { ManagementDetailInfoTable } from './ManagementDetailInfoTable';
 
 interface ManagementDetailProp {
   state: ManagementState;

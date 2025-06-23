@@ -4,7 +4,7 @@ import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
 import Image from 'next/image';
 
-import { ImageModal, PreviousButton } from '@/shared';
+import { ImageModal, PreviousButton } from '@/fsd_shared';
 
 const TableUnit = ({
   title,
@@ -21,7 +21,7 @@ const TableUnit = ({
       {title === '학부 재적/졸업 증빙 자료' || title === '가입 신청서 첨부 이미지' ? (
         data ? (
           <Image
-            className={data === '' ? 'invisible rounded-md' : 'mb-8 mt-8 rounded-md'}
+            className={data === '' ? 'invisible rounded-md' : 'mt-8 mb-8 rounded-md'}
             src={data}
             alt={title}
             width={200}

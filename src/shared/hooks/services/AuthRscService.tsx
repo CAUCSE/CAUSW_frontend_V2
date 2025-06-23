@@ -38,7 +38,7 @@ export const AuthRscService = () => {
   };
 
   const signout = async () => {
-    //TODO: API 추가 필요
+    // TODO: API 추가 필요
     removeRccAccess();
     removeRccRefresh();
     resetFCMToken();

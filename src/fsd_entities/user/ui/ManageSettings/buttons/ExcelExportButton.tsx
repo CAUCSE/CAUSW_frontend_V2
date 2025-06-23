@@ -2,9 +2,9 @@
 
 import { AxiosResponse } from 'axios';
 
-// TODO: API 이동 필요
+// 유저 리펙 TODO: API 이동 필요
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 export const ExcelExportButton = ({ exportType, id }: { exportType: Setting.ExportType; id?: string }) => {
   return (
@@ -19,7 +19,7 @@ export const ExcelExportButton = ({ exportType, id }: { exportType: Setting.Expo
   );
 };
 
-//TODO: Service로 분리
+// 유저 리펙 TODO: Service로 분리
 const getExcelFile = async (type: Setting.ExportType, id?: string) => {
   const { data } = (await API.get(
     type === 'PAYERS'

@@ -1,4 +1,4 @@
-import { PreviousButton } from '@/shared';
+import { PreviousButton } from '@/fsd_shared';
 
 interface MyPageHeaderProps {
   pageName: string;

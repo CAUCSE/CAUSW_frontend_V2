@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Button } from '@/shared';
+import { Button } from '@/fsd_shared';
 
 import { uiEntities } from '../../../config/AdmissionManagementDetailEntities';
 import { ManagementState } from '../../../model/types';

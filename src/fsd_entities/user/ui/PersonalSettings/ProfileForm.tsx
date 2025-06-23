@@ -6,16 +6,15 @@ import toast from 'react-hot-toast';
 
 import { ProfileEditForm } from '@/entities/home/setting/personal-info/ProfileEditForm';
 
-// TODO: 엔티티 간 import 배제 필요
+// 유저 리펙 TODO: 엔티티 간 import 배제 필요
 import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
 
-import { Header, UserInfoContainer } from '@/entities';
-import { PreviousButton } from '@/shared';
+import { Header, PreviousButton } from '@/fsd_shared';
 
 import { updateInfo } from '../../api/put';
 import { userQueryKey } from '../../config/userQueryKey';
-// TODO: import 경로 변경 필요
 import { useUserStore } from '../../model';
+import { UserInfoContainer } from './UserInfoContainer';
 
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;
@@ -134,7 +133,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
       </div>
 
       <div className="mt-8 flex justify-center">
-        <button type="submit" className="w-32 rounded-3xl bg-focus p-3 text-white hover:bg-blue-400 lg:w-80">
+        <button type="submit" className="bg-focus w-32 rounded-3xl p-3 text-white hover:bg-blue-400 lg:w-80">
           변경 사항 저장
         </button>
       </div>

@@ -18,7 +18,7 @@ interface UserInfoContainerProps {
   feeInfo: FeeInfoProps;
 }
 
-//TODO: 이름 수정 필요
+// 유저 리펙 TODO: 이름 수정 필요
 export const UserInfoContainer: React.FC<UserInfoContainerProps> = ({ userData, feeInfo }) => {
   return (
     <div className="grid grid-cols-2 gap-4 lg:flex lg:gap-2">

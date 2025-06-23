@@ -4,17 +4,17 @@ export { IconButton } from './ui/IconButton';
 
 export * from './configs';
 
-//TODO: entities 이사 예정
-//Service
+// 유저 리펙 TODO: entities 이사 예정
+// Service
 
-//Listener
+// Listener
 export { WindowSizeListener } from './listener/WindowSizeListener';
 export * from './listener';
 
-//Ui
+// Ui
 export * from './ui';
 
-//Custom Hooks
+// Custom Hooks
 export * from './hooks';
 
 // 공용 api

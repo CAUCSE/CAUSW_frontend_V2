@@ -1,5 +1,5 @@
 import { LoadingComponent, PostItem } from '@/entities';
-import { Loading, useInfiniteScroll } from '@/shared';
+import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
 
 interface MyPostListProps {
   data: Post.PostResponseDto[];
@@ -49,7 +49,7 @@ export const MyPostList = ({
             <div className="min-h-5 w-full" ref={targetRef}>
               {isFetchingNextPage && (
                 <div className="pt-5">
-                  <Loading loading={isFetchingNextPage} size={50} />
+                  <LoadingSpinner loading={isFetchingNextPage} size={50} />
                 </div>
               )}
             </div>
