@@ -1,1 +1,1 @@
-export { LockerSelectionHeader } from './ui';
+export * from './ui';
