@@ -44,7 +44,6 @@ export const useNotificationStore = create<NotificationState>((set) => ({
           n.notificationLogId === id ? { ...n, isRead: true } : n,
         ),
       }));
-      toast.success(`알림 ${id} 읽음 처리 성공`);
     } catch (error) {
       toast.error('알림 읽음 처리 실패: 서버 응답 오류');
     }

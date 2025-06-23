@@ -14,8 +14,9 @@ export interface ListBoxItem {
   title: string;
   body: string;
   isRead?: boolean;
-  targetId?: string;
+  targetId?: string; // 게시글 id
   notificationLogId?: string;
+  targetParentId?: string; //게시판 id
 }
 
 interface ListBoxProps {
@@ -37,12 +38,12 @@ export const ListBox = ({ data, alarm, loadMore }: ListBoxProps) => {
   });
 
   return (
-    <div className="max-h-[400px] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4">
-      <div className="flex flex-col space-y-4">
+    <div className="max-h-[calc(100vh-22rem)] max-w-[560px] overflow-y-auto rounded-lg bg-[#D9D9D9] p-4 md:max-h-[calc(100vh-25rem)] xl:max-h-[calc(100vh-17rem)]">
+      <div className="flex max-h-full flex-col space-y-4">
         {data.map((item, index) => {
           const targetLink =
             alarm === 'general'
-              ? `/board/${item.id}/${item.targetId}`
+              ? `/board/${item.targetParentId}/${item.targetId}`
               : item.targetId
                 ? `/ceremony/${item.targetId}`
                 : `/ceremony/${item.id}`;

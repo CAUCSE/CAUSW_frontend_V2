@@ -19,12 +19,13 @@ const Notification = () => {
   const { ceremonyNotificationData } = useCeremonyNotificationData();
 
   const alarmData: Notification.GeneralAlarmItem[] = notificationData.map(
-    ({ notificationLogId, title, body, isRead, targetId, noticeType }) => ({
+    ({ notificationLogId, title, body, isRead, targetId, noticeType, targetParentId }) => ({
       id: notificationLogId,
       title,
       body,
       isRead,
       targetId,
+      targetParentId,
       noticeType,
     }),
   );
@@ -76,24 +77,8 @@ const Notification = () => {
           )}
         </div>
         <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
-        {activeTab === NOTIFICATION_TAB.GENERAL && (
-          <>
-            {alarmData.length === 0 ? (
-              <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_GENERAL_ALARM}</div>
-            ) : (
-              <ListBox data={alarmData} alarm="general" />
-            )}
-          </>
-        )}
-        {activeTab === NOTIFICATION_TAB.CEREMONY && (
-          <>
-            {ceremonyData.length === 0 ? (
-              <div>{ERROR_MESSAGES.NOTIFICATION.EMPTY_CEREMONY_ALARM}</div>
-            ) : (
-              <ListBox data={ceremonyData} />
-            )}
-          </>
-        )}
+
+        {NotificationTab[activeTab]()}
       </div>
     </>
   );

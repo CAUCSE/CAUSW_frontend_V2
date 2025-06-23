@@ -20,12 +20,6 @@ const ceremonyTypeMap: Record<string, string> = {
 };
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(ceremonyId);
-  const { getMe } = UserService();
-  useEffect(() => {
-    getMe();
-  }, []);
-  const name = useUserStore((state) => state.name);
-  const studentId = useUserStore((state) => state.studentId);
   const router = useRouter();
 
   const ceremonyType = ceremonyTypeMap[occasionDetails.type];
@@ -44,7 +38,10 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
       <div className="flex flex-col gap-3 pt-8 pb-10 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
           <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={ceremonyType} />
-          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={`${name}/${studentId}`} />
+          <OccasionSectionTitle
+            title={MESSAGES.OCCASION.REGISTRANT}
+            occasionContent={`${occasionDetails.applicantName}/${occasionDetails.applicantStudentId}`}
+          />
         </div>
         <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionDetails.content} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">

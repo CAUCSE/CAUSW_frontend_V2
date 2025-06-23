@@ -55,7 +55,10 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
       <div className="flex flex-col gap-3 pt-8 pb-10 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
           <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={occasionDetails.type} />
-          <OccasionSectionTitle title={MESSAGES.OCCASION.REGISTRANT} occasionContent={occasionDetails.register} />
+          <OccasionSectionTitle
+            title={MESSAGES.OCCASION.REGISTRANT}
+            occasionContent={`${occasionDetails.applicantName}/${occasionDetails.applicantStudentId}`}
+          />
         </div>
         <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionDetails.content} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
@@ -63,7 +66,7 @@ export const OccasionDetailPage = ({ occasionId }: Occasion.OccasionDetailPagePr
           <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
         </div>
         <OccasionImageTile imageList={occasionDetails.imageList} />
-        <div className="fixed bottom-20 left-0 z-50 flex w-full justify-center gap-5 md:pt-0 lg:gap-11">
+        <div className="fixed bottom-20 left-0 z-50 flex w-full justify-center gap-5 md:pt-0 lg:gap-11 xl:left-auto xl:w-[calc(100%-29rem)]">
           <OccasionApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.OCCASION.APPROVAL} />
           <OccasionApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.OCCASION.REJECTION} />
         </div>

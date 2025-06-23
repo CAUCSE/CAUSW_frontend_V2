@@ -18,6 +18,8 @@ export const useCeremonyData = (occasionId?: string) => {
     startDate: '',
     endDate: '',
     imageList: [] as string[],
+    applicantName: '',
+    applicantStudentId: '',
   });
   const fetchCeremonyList = async () => {
     try {
@@ -47,6 +49,8 @@ export const useCeremonyData = (occasionId?: string) => {
             startDate: OccasionContent.startDate,
             endDate: OccasionContent.endDate,
             imageList: OccasionContent.attachedImageUrlList,
+            applicantName: OccasionContent.applicantName,
+            applicantStudentId: OccasionContent.applicantStudentId,
           });
         } catch (error) {
           toast.error(`${MESSAGES.OCCASION.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);

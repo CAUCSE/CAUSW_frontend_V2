@@ -37,7 +37,6 @@ export const markAsRead = async (id: string): Promise<void> => {
 
   try {
     await API.post(URI, {}, { headers: { Authorization: getRccAccess() } });
-    toast.success(`알림 ${id} 읽음 처리 완료`);
   } catch (error) {
     toast.error(`알림 ${id} 읽음 처리 실패: 서버 응답 오류`);
     throw error;
