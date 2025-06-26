@@ -2,24 +2,22 @@
 
 import { useParams } from 'next/navigation';
 
-import { LockerSelectionHeader } from '@/fsd_widgets/locker';
-
-import { LoadingScreen } from '@/fsd_shared';
-import { LockerService } from '@/shared';
 import {
   LockerMobileActionBtn,
   LockerSelectionDesktopManual,
   LockerSelectionGrid,
+  LockerSelectionHeader,
   LockerSelectionMobileManual,
-} from '@/widget';
+} from '@/fsd_widgets/locker';
 
-// TODO 사물함 신청 기간, 만료 기간에 따라 안내 문구 및 버튼 상태 변경하기
+import { useGetLockerList } from '@/fsd_entities/locker';
+
+import { LoadingScreen } from '@/fsd_shared';
 
 const LockerSelectionPage = () => {
   const params = useParams();
   const locationId = params.locationId as string;
 
-  const { useGetLockerList } = LockerService();
   const { data: lockerList, isLoading } = useGetLockerList(locationId);
 
   if (isLoading) {

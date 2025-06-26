@@ -12,3 +12,12 @@ export const useGetLockerLocations = () => {
     },
   });
 };
+export const useGetLockerList = (locationId: string) => {
+  return useQuery({
+    queryKey: lockerQueryKey.list(locationId),
+    queryFn: async () => {
+      const { data }: { data: Locker.LockersResponseDto } = await API.get(`/api/v1/lockers/locations/${locationId}`);
+      return data;
+    },
+  });
+};
