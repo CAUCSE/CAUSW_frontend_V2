@@ -1,7 +1,6 @@
 'use client';
 
-import { LockerExtendBtn, LockerRegisterBtn, LockerReturnBtn } from '@/entities';
-import { useLockerSelectionStore } from '@/shared';
+import { LockerExtendBtn, LockerRegisterBtn, LockerReturnBtn, useLockerSelectionStore } from '@/fsd_entities/locker';
 
 interface LockerMobileActionBtnProps {
   lockerPeriod: Locker.TLockerPeriod;

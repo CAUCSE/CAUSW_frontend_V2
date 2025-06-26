@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { LOCKER_CONSTANT } from '@/utils';
+import { LOCKER_CONSTANT } from '@/fsd_shared';
 
 interface LockerInfoByFloorProps {
   lockerLocation: Locker.LockerLocationResponseDto;

@@ -2,7 +2,7 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useLockerSelectionStore } from '@/shared';
+import { useLockerSelectionStore } from './useLockerSelectionStore';
 
 export const useSelectLocker = () => {
   const { setClickedLockerId, setClickedLockerStatus, clickedLockerId } = useLockerSelectionStore(
