@@ -1,1 +1,1 @@
-export { PostSearch, PostCreationForm, PostCreationFormButtonGroup } from './ui';
+export { PostSearch, PostCreationForm, PostCreationFormButtonGroup, PostDetailSection } from './ui';

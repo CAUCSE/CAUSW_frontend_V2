@@ -11,6 +11,12 @@ export {
   CreatePostButton,
   SearchPostButton,
   PostWriterProfileImage,
+  PostDetailTitle,
+  PostDetailContent,
+  PostLikeButton,
+  PostScrapButton,
+  PostCommentCountBadge,
+  PostFormWriteButton,
 } from './ui';
 export {
   useGetPostList,

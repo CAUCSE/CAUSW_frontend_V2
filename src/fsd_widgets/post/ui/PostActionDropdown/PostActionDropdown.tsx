@@ -7,6 +7,7 @@ import { EllipsisVertical } from 'lucide-react';
 import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/fsd_entities/post';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
+import { buttonVariants } from '@/shadcn/components/ui/button';
 
 interface PostActionDropdownProps {
   postId: Post.PostDto['id'];
@@ -52,7 +53,13 @@ export const PostActionDropdown = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         {/* Shadcn 버튼 사용 시 asChild 사용 불가로 인한 일반 button 사용 */}
-        <button className="absolute top-4 right-4 cursor-pointer">
+        <button
+          className={buttonVariants({
+            variant: 'ghost',
+            size: 'icon',
+            className: 'absolute top-4 right-4 cursor-pointer',
+          })}
+        >
           <EllipsisVertical className="size-4 text-[#B4B1B1]" />
         </button>
       </DropdownMenuTrigger>

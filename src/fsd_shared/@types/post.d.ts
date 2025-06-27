@@ -28,7 +28,7 @@ declare namespace Post {
     commentList: CommentListDto;
     boardName: string;
     formResponseDto: FormResponseDto | null;
-    voteResponseDto: VoteResponseDto | null;
+    voteResponseDto: Vote.VoteResponseDto | null;
   }
 
   export interface PostResponseDtoList extends Pagination.PageableObject {

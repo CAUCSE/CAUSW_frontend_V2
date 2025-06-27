@@ -18,7 +18,11 @@ declare namespace User {
     graduationYear: string | null;
     graduationType: string | null;
     phoneNumber: string | null;
+    /** ISO date string */
     createdAt: string;
+    /** ISO date string */
+    updatedAt: string;
+    isV2: boolean;
   }
 
   export interface UserAdmissionCreateRequestDto {

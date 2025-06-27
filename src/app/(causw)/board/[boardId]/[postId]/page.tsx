@@ -4,9 +4,11 @@ import { notFound } from 'next/navigation';
 
 import { useShallow } from 'zustand/react/shallow';
 
+import { PostDetailSection } from '@/fsd_widgets/post';
+
 import { ChildCommentCard, CommentCard, CommentInput, LoadingComponent, PostCard } from '@/entities';
+import { LoadingScreen, PreviousButton } from '@/fsd_shared';
 import {
-  PreviousButton,
   useChildCommentStore,
   useCommentInteraction,
   useCommentStore,
@@ -52,7 +54,7 @@ const PostDetailPage = (props: any) => {
   } = useCommentInteraction();
 
   if (loading) {
-    return <LoadingComponent />;
+    return <LoadingScreen />;
   }
 
   if (!post) {
@@ -60,11 +62,10 @@ const PostDetailPage = (props: any) => {
   }
 
   return (
-    <div className="bg-board-page-background scrollbar-hide top-0 bottom-5 h-full w-full lg:relative">
-      <div className="h-16 w-full bg-[#F8F8F8]">
-        <PreviousButton routeCallback={routerCallback} />
-      </div>
+    <div className="h-full w-full">
+      <PreviousButton routeCallback={routerCallback} />
       <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
+        <PostDetailSection postData={post} />
         <div className="sm:pl-3">
           <PostCard
             postData={post!}
