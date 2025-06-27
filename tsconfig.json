@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@icons/*": ["public/icons/*"]
+      "@icons/*": ["./public/icons/*"]
     },
     "noImplicitAny": false
   },
