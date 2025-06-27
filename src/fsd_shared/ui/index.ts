@@ -20,3 +20,4 @@ export { PortalModal } from './PortalModal';
 export { SelectBox } from './SelectBox';
 export { InputBox } from './InputBox';
 export { LoadingScreen } from './LoadingScreen';
+export { CardBox } from './CardBox';
