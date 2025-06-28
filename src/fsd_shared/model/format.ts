@@ -11,17 +11,10 @@ export function formatDateString(dateString: string): string {
 }
 
 export const getTimeDifference = (ISOtime: string) => {
-  console.log(ISOtime);
   const createdTime = new Date(ISOtime);
   const now = new Date();
   const diffMSec = now.getTime() - createdTime.getTime();
   const diffMin = Math.round(diffMSec / (60 * 1000));
-
-  console.log(createdTime, now);
-
-  console.log(now.getFullYear(), createdTime.getFullYear());
-  console.log(now.getMonth(), createdTime.getMonth());
-  console.log(now.getDate(), createdTime.getDate());
 
   if (diffMin === 0) {
     return `방금 전`;

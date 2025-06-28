@@ -4,7 +4,7 @@ declare namespace Vote {
     title: string;
     allowAnonymous: boolean;
     allowMultiple: boolean;
-    options: VoteOption[];
+    options: Vote.VoteOption[];
     postId: Post.PostDto['id'];
     isOwner: boolean;
     hasVoted: boolean;

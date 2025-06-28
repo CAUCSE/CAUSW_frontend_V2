@@ -8,6 +8,7 @@ export {
   useSubscribePost,
   useLikePost,
   useScrapPost,
+  useGetPostDetail,
 } from './queries';
 export { useSearchPost, useUploadFile } from './hooks';
 export { usePostCreationStore, useUploadFileStore } from './stores';

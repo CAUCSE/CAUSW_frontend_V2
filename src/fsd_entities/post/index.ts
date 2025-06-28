@@ -30,6 +30,7 @@ export {
   useUnsubscribePost,
   useDeletePost,
   useSubscribePost,
+  useGetPostDetail,
 } from './model';
 export { postQueryKey, type PostSchema, postSchema } from './config';
 export { getPostListServer } from './api';

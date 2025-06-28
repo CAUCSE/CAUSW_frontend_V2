@@ -2,9 +2,9 @@
 
 import { notFound } from 'next/navigation';
 
-import { useShallow } from 'zustand/react/shallow';
-
 import { PostDetailSection } from '@/fsd_widgets/post';
+
+import { useGetPostDetail } from '@/fsd_entities/post';
 
 import { ChildCommentCard, CommentCard, CommentInput, LoadingComponent, PostCard } from '@/entities';
 import { LoadingScreen, PreviousButton } from '@/fsd_shared';
@@ -15,32 +15,21 @@ import {
   usePostDetail,
   usePostInteraction,
   usePostStore,
-  useUserStore,
 } from '@/shared';
 
 const PostDetailPage = (props: any) => {
   const postId = props.params.postId;
 
-  const { isPopupVisible, post, numLike, numFavorite, numComment, isPostForm, formId, commentList } = usePostStore(
-    useShallow((state) => ({
-      isPopupVisible: state.isPopupVisible,
-      post: state.post,
-      numLike: state.numLike,
-      numFavorite: state.numFavorite,
-      numComment: state.numComment,
-      isPostForm: state.isPostForm,
-      formId: state.formId,
-      commentList: state.commentList,
-    })),
-  );
+  const { data: postDetail, isLoading: isPostDetailLoading } = useGetPostDetail({ postId });
+
+  const commentList = usePostStore((state) => state.commentList);
 
   const comments = useCommentStore((state) => state.comments);
   const childComments = useChildCommentStore((state) => state.childComments);
 
   const { loading } = usePostDetail(postId);
 
-  const { handlePostLike, handleDeletePost, handlePostFavorite, togglePostPopupMenu, routerCallback } =
-    usePostInteraction();
+  const { routerCallback } = usePostInteraction();
 
   const {
     handleCommentLike,
@@ -50,39 +39,22 @@ const PostDetailPage = (props: any) => {
     handleDeleteChildComment,
     toggleCommentPopupMenu,
     toggleChildCommentPopupMenu,
-    changeToPostComment,
   } = useCommentInteraction();
 
-  if (loading) {
+  if (loading || isPostDetailLoading) {
     return <LoadingScreen />;
   }
 
-  if (!post) {
+  if (!postDetail) {
     return notFound();
   }
 
   return (
     <div className="h-full w-full">
       <PreviousButton routeCallback={routerCallback} />
-      <div className="flex h-[calc(100%-9rem)] w-full flex-col space-y-3 overflow-y-auto p-3">
-        <PostDetailSection postData={post} />
+      <div className="flex w-full flex-col space-y-3 overflow-y-auto p-3">
+        <PostDetailSection postData={postDetail} />
         <div className="sm:pl-3">
-          <PostCard
-            postData={post!}
-            numComment={numComment}
-            numFavorite={numFavorite}
-            numLike={numLike}
-            isPostForm={isPostForm}
-            formId={formId}
-            handlePostFavorite={handlePostFavorite}
-            handlePostLike={handlePostLike}
-            handleCommentBtn={changeToPostComment}
-            hasVote={true}
-            options={['1등', '2등', '3등']}
-            handlePostDelete={handleDeletePost}
-            toggleMenu={togglePostPopupMenu}
-            isPopupVisible={isPopupVisible}
-          />
           <div className="pl-4 sm:pt-3">
             {commentList.map((comment) => {
               const commentData = comments[comment.id] || {

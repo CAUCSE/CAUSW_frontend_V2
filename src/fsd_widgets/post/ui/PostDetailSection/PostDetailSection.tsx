@@ -1,14 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
-
-import { usePathname, useRouter } from 'next/navigation';
-
-import { MessageCircle, Pen, Star, ThumbsUp } from 'lucide-react';
-
 import { PostActionBar } from '@/fsd_widgets/post/ui/PostActionBar';
-
-import { Button } from '@/shadcn/components/ui';
 
 import { PostActionDropdown } from '../PostActionDropdown';
 import { PostContentSection } from '../PostContentSection';
@@ -19,10 +11,6 @@ interface PostDetailSectionProps {
 }
 
 export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const totalCount = useMemo(() => (count: number) => (count > 999 ? '999+' : count), []);
-
   return (
     <section className="rounded-post-br bg-post shadow-post-sh relative mt-4 mb-4 flex max-w-xl flex-col border p-2">
       <PostActionDropdown

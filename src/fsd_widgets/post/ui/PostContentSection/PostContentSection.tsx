@@ -12,20 +12,12 @@ interface PostContentSectionProps {
   voteData: Vote.VoteResponseDto;
 }
 
-export const PostContentSection = ({
-  postTitle,
-  postContent,
-  isPostVote,
-  fileUrlList,
-  voteData,
-}: PostContentSectionProps) => {
+export const PostContentSection = ({ postTitle, postContent, fileUrlList, voteData }: PostContentSectionProps) => {
   return (
     <section className="flex w-full flex-col items-start px-3">
       <div className="w-full">
         <PostDetailTitle postTitle={postTitle} />
         <PostDetailContent postContent={postContent} />
-
-        {/* 나중에 투표 api 생기면 연결 */}
         {voteData && <div className="flex w-full lg:pr-12">{<VoteSection voteData={voteData} />}</div>}
       </div>
 

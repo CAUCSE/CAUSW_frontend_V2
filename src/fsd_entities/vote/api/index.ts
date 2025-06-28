@@ -1,1 +1,1 @@
-export { createVote } from './post';
+export { createVote, restartVote, endVote, submitVote } from './post';

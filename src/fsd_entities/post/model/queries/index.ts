@@ -7,3 +7,4 @@ export { useUnsubscribePost } from './useUnsubscribePost';
 export { useSubscribePost } from './useSubscribePost';
 export { useLikePost } from './useLikePost';
 export { useScrapPost } from './useScrapPost';
+export { useGetPostDetail } from './useGetPostDetail';
