@@ -1,5 +1,3 @@
-'use client';
-
 import { PostActionBar } from '@/fsd_widgets/post/ui/PostActionBar';
 
 import { PostActionDropdown } from '../PostActionDropdown';
@@ -12,7 +10,7 @@ interface PostDetailSectionProps {
 
 export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
   return (
-    <section className="rounded-post-br bg-post shadow-post-sh relative mt-4 mb-4 flex max-w-xl flex-col border p-2">
+    <section className="rounded-post-br bg-post shadow-post-sh relative flex max-w-xl flex-col border p-2">
       <PostActionDropdown
         postId={postData.id}
         isPostSubscribed={postData.isPostSubscribed}

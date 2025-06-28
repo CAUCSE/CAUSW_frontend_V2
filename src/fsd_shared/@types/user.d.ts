@@ -7,7 +7,7 @@ declare namespace User {
     id: string;
     name: string;
     admissionYear: number;
-    profileImageUrl: string;
+    profileImageUrl: string | null;
     roles: Role[];
     state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT';
     nickname: string;

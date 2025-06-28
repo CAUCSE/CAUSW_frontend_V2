@@ -20,6 +20,8 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   phoneNumber: '',
   createdAt: '',
   checkVTwo: true,
+  updatedAt: '',
+  isV2: true,
 
   setUserStore: (props) => {
     set(() => ({

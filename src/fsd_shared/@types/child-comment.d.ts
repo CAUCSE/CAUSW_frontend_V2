@@ -17,6 +17,7 @@ declare namespace ChildComment {
     isChildCommentLike: boolean;
     numLike: number;
   }
+
   export interface CreateChildCommentDto {
     content: string;
     parentCommentId: string;

@@ -7,8 +7,8 @@ import toast from 'react-hot-toast';
 import { ProfileEditForm } from '@/entities/home/setting/personal-info/ProfileEditForm';
 
 import { Header, UserInfoContainer } from '@/entities';
+import { PreviousButton } from '@/fsd_shared';
 import { AuthService, userQueryKey, UserService, useUserStore } from '@/shared';
-import { PreviousButton } from '@/shared';
 
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;

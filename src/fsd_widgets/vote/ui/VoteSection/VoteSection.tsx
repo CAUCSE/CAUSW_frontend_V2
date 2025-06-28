@@ -22,7 +22,7 @@ export const VoteSection = ({ voteData }: VotingSectionProps) => {
         <div className="border-comment-bw flex flex-col gap-2 rounded-lg border-black bg-white p-3">
           <VoteSectionHeader voteData={voteData} />
           <VoteResultSectionMain voteOptions={voteData.options} totalVote={voteData.totalVoteCount} />
-          {!isAnonymous && <VoteResultSectionFooter />}
+          {!isAnonymous && <VoteResultSectionFooter voteId={voteData.voteId} />}
         </div>
       ) : (
         <div className="border-comment-bw flex flex-col gap-2 rounded-lg border-black bg-white p-3">

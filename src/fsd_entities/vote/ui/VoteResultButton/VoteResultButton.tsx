@@ -4,12 +4,16 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { Button } from '@/shadcn/components/ui';
 
-export const VoteResultButton = () => {
+interface VoteResultButtonProps {
+  voteId: string;
+}
+
+export const VoteResultButton = ({ voteId }: VoteResultButtonProps) => {
   const router = useRouter();
   const path = usePathname();
 
   const handleViewResult = () => {
-    router.push(`${path}/result`);
+    router.push(`${path}/result/${voteId}`);
   };
 
   return (
