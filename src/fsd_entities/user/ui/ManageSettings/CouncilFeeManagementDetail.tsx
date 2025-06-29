@@ -1,7 +1,7 @@
-/* CouncilFeeManagementDetail.tsx
-
-  - "환경설정"-"관리"-"학생회비 납부자 관리"-유저 선택
-  */
+/**
+ * CouncilFeeManagementDetail.tsx
+ * - "환경설정"-"관리"-"학생회비 납부자 관리"-유저 선택
+ */
 import { getUserCouncilFeeInfo } from '../../api/get';
 import { convertDataToTableEntity, titleMapping } from '../../config/CouncilFeeManagementDetailEntities';
 import { CouncilFeeButtons } from './buttons';

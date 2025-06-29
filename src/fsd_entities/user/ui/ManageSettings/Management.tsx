@@ -1,10 +1,10 @@
 'use server';
 
-/*Management.tsx
-  
-  - "환경설정"-"관리" 이하
-  - 유저 리스트 및 내부 네비게이션 바 포함
-  */
+/**
+ * Management.tsx
+ * - "환경설정"-"관리" 이하
+ * - 유저 리스트 및 내부 네비게이션 바 포함
+ */
 import Link from 'next/link';
 
 import { Header, Line, PaginationButtons } from '@/fsd_shared';
