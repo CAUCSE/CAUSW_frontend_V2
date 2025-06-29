@@ -1,11 +1,9 @@
 'use client';
 
+import { useGetMyPosts } from '@/fsd_entities/user/api/get';
 import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 
-import { SettingService } from '@/shared';
-
 const MyPostsPage = () => {
-  const { useGetMyPosts } = SettingService();
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyPosts();
   return (
     <div className="h-full w-full">

@@ -1,4 +1,5 @@
-export const URI = '/api/v1/users';
+export const URL = '/api/v1/users';
+export const FEE_URL = '/api/v1/user-council-fee';
 export const PAGE_SIZE = 300;
 
 // 유저 리펙 TODO: 식별자 꼬라지 개선 필요.

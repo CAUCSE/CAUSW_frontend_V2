@@ -1,11 +1,9 @@
 'use client';
 
+import { useGetMyFavoritePosts } from '@/fsd_entities/user/api/get';
 import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 
-import { SettingService } from '@/shared';
-
 const MyFavoritePostsPage = () => {
-  const { useGetMyFavoritePosts } = SettingService();
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyFavoritePosts();
 
   return (

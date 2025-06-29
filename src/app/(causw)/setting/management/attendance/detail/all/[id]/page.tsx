@@ -4,11 +4,12 @@ import { useRef } from 'react';
 
 import Link from 'next/link';
 
+import { useGetAttendanceUser } from '@/fsd_entities/user/api/get';
+import { updateAttendanceUserNote } from '@/fsd_entities/user/api/put';
+
 import { Header, LoadingComponent, SubHeader } from '@/entities';
-import { SettingService } from '@/shared';
 
 const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
-  const { useGetAttendanceUser, updateAttendanceUserNote } = SettingService();
   const { data, isLoading } = useGetAttendanceUser(id);
 
   const note = useRef('');

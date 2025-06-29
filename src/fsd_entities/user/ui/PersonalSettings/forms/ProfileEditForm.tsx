@@ -1,6 +1,6 @@
 /**
  * ProfileEditForm.tsx
- * - "환경설정"-"개인정보 관리"-내부 편집 영역
+ * - "환경설정"-"개인정보 관리"-정보 수정 가능 영역
  */
 import { UseFormRegister } from 'react-hook-form';
 

@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import { UserService, useUserStore } from '@/shared';
+import { getMyInfo } from '@/fsd_entities/user/api/get';
+
+import { useUserStore } from '@/shared';
 
 import { checkIsAcademicRecordSubmitted, getUserAdmissionInfo } from '../api/get';
 
 export const useVerification = () => {
-  const { getMyInfo } = UserService();
   const [emailValue, setEmailValue] = useState('');
   const [admissionApplicationStatus, setAdmissionApplicationStatus] = useState<User.StatusType>('BANNED');
   const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] = useState<User.StatusType>('BANNED');

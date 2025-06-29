@@ -1,3 +1,8 @@
+/**
+ * UserInfoContainer.tsx
+ * - "환경설정"-"개인정보 관리"-정보 수정 불가능 영역
+ */
+
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;
   paidFeeSemesters: string;
@@ -18,7 +23,6 @@ interface UserInfoContainerProps {
   feeInfo: FeeInfoProps;
 }
 
-// 유저 리펙 TODO: 이름 수정 필요
 export const UserInfoContainer: React.FC<UserInfoContainerProps> = ({ userData, feeInfo }) => {
   return (
     <div className="grid grid-cols-2 gap-4 lg:flex lg:gap-2">

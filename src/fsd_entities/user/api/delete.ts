@@ -1,10 +1,10 @@
 import { API } from '@/fsd_shared';
 
-import { URI } from '../config';
+import { FEE_URL } from '../config';
 
 export const deleteUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   try {
-    const response = await API.delete(`${URI}-council-fee/delete`, {
+    const response = await API.delete(`${FEE_URL}/delete`, {
       headers: {
         userCouncilFeeId: userCouncilFeeId,
       },

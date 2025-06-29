@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { API, BASEURL, FORMAPI, setRscHeader } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
-import { URI } from '../config';
+import { FEE_URL, URL } from '../config';
 
 export const submitAdmissionsApplication = async (
   data: User.AdmissionCreateRequestDto, // FileList 타입 사용
@@ -21,7 +21,7 @@ export const submitAdmissionsApplication = async (
       'userAdmissionAttachImageList',
     );
 
-    const response = await FORMAPI.post(URI + '/admissions/apply', formData);
+    const response = await FORMAPI.post(URL + '/admissions/apply', formData);
 
     return response.data; //
   } catch (error) {
@@ -31,7 +31,7 @@ export const submitAdmissionsApplication = async (
 
 export const registerCouncilFee = async (body: any) => {
   try {
-    const response = (await API.post(`${URI}-council-fee/create-user`, body)) as AxiosResponse;
+    const response = (await API.post(`${FEE_URL}/create-user`, body)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;

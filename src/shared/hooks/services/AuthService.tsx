@@ -7,21 +7,12 @@ import axios, { AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import {
-  API,
-  BASEURL,
-  setRccToken,
-  setRscToken,
-  useFindAccountStore,
-  useLayoutStore,
-  UserService,
-  useUserStore,
-} from '@/shared';
+import { getMyInfo } from '@/fsd_entities/user/api/get';
+
+import { API, BASEURL, setRccToken, setRscToken, useFindAccountStore, useLayoutStore, useUserStore } from '@/shared';
 
 export const AuthService = () => {
   const URI = '/api/v1/users';
-  const { getMyInfo, checkCurrentAcademicStatus } = UserService();
-
   const router = useRouter();
   const setUserStore = useUserStore((state) => state.setUserStore);
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);

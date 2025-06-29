@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
+import { getApplyBoards } from '@/fsd_entities/user/api/get';
+import { acceptApplyBoards, rejectApplyBoards } from '@/fsd_entities/user/api/put';
+
 import { LoadingComponent } from '@/entities';
-import { SettingService } from '@/shared';
 
 import CheckedIcon from '../../../../../../../public/icons/checked_icon.svg';
 import NonCheckedIcon from '../../../../../../../public/icons/not_checked_icon.svg';
 
 const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) => {
-  const { getApplyBoards, acceptApplyBoards, rejectApplyBoards } = SettingService();
-
   const [data, setData] = useState<undefined | Setting.GetApplyBoardResponseDto>();
 
   useEffect(() => {

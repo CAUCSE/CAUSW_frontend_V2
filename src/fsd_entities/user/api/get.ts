@@ -4,15 +4,15 @@ import { AxiosResponse } from 'axios';
 import { API, setRscHeader, settingQueryKey } from '@/fsd_shared';
 import { BASEURL } from '@/fsd_shared';
 
-import { PAGE_SIZE, URI } from '../config';
+import { FEE_URL, PAGE_SIZE, URL } from '../config';
 
-const SSR_URI = BASEURL + URI;
+const SSR_URL = BASEURL + URL;
 
 // CSR API Method
 
 export const getMyInfo = async () => {
   try {
-    const response = await API.get(`${URI}/me`); // 서버로부터 유저 정보를 가져옴
+    const response = await API.get(`${URL}/me`); // 서버로부터 유저 정보를 가져옴
     return response;
   } catch (error) {
     throw error;
@@ -21,7 +21,7 @@ export const getMyInfo = async () => {
 
 export const getUserInfo = async (userId: string) => {
   try {
-    const response = await API.get(`${URI}/${userId}`);
+    const response = await API.get(`${URL}/${userId}`);
     return response;
   } catch (error) {
     throw error;
@@ -29,13 +29,13 @@ export const getUserInfo = async (userId: string) => {
 };
 
 export const getUserAdmissionInfo = async () => {
-  const response = await API.get(`${URI}/admissions/self`);
+  const response = await API.get(`${URL}/admissions/self`);
   return response;
 };
 
 export const checkCurrentAcademicStatus = async () => {
   try {
-    const response = (await API.get(`${URI}/academic-record/current`)) as AxiosResponse;
+    const response = (await API.get(`${URL}/academic-record/current`)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -44,31 +44,16 @@ export const checkCurrentAcademicStatus = async () => {
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {
-    const response = (await API.get(`${URI}/academic-record/current/not-accepted`)) as AxiosResponse;
+    const response = (await API.get(`${URL}/academic-record/current/not-accepted`)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
   }
 };
 
-export const checkIsCurrentSemesterApplied = async (userId: string) => {
-  try {
-    const response =
-      (await API.get(`${URI}-council-fee/isCurrentSemesterApplied`),
-      {
-        headers: {
-          params: userId,
-        },
-      });
-    return response;
-  } catch (error) {
-    return false;
-  }
-};
-
-// 전 SettingService 리팩터링
+// 전 SettingService 리펙
 export const getUserByName = async (name: string) => {
-  const { data } = (await API.get(`${URI}/name/${name}`)) as AxiosResponse<User.User[]>;
+  const { data } = (await API.get(`${URL}/name/${name}`)) as AxiosResponse<User.User[]>;
 
   return data;
 };
@@ -78,7 +63,7 @@ export const useGetAttendanceUser = (id: string) => {
     queryKey: ['attendanceUser', id],
     queryFn: async () => {
       const { data } = (await API.get(
-        `${URI}/academic-record/record/${id}`,
+        `${URL}/academic-record/record/${id}`,
       )) as AxiosResponse<Setting.GetAttendanceUserResponseDto>;
 
       return data;
@@ -92,7 +77,7 @@ export const useGetWaitingUser = (userId: string, applicationId: string) => {
     queryKey: ['waitingUser', userId, applicationId],
     queryFn: async () => {
       const { data } = (await API.get(
-        `${URI}/academic-record/application/${userId}/${applicationId}`,
+        `${URL}/academic-record/application/${userId}/${applicationId}`,
       )) as AxiosResponse<Setting.GetWaitingUserResponseDto>;
 
       return data;
@@ -105,15 +90,15 @@ export const useGetMyPosts = () => {
   return useInfiniteQuery({
     queryKey: settingQueryKey.myPost(),
     queryFn: async ({ pageParam }) => {
-      const { data }: { data: User.UserPostsResponseDto } = await API.get(`${URI}/posts/written?pageNum=${pageParam}`);
+      const { data }: { data: User.UserPostsResponseDto } = await API.get(`${URL}/posts/written?pageNum=${pageParam}`);
       return data;
     },
     initialPageParam: 0,
-    getNextPageParam: lastPage => {
+    getNextPageParam: (lastPage) => {
       return lastPage.posts.last ? null : lastPage.posts.number + 1;
     },
-    select: data => {
-      return data.pages.flatMap(page => page.posts.content);
+    select: (data) => {
+      return data.pages.flatMap((page) => page.posts.content);
     },
   });
 };
@@ -123,16 +108,16 @@ export const useGetMyCommentPosts = () => {
     queryKey: settingQueryKey.myCommentPost(),
     queryFn: async ({ pageParam }) => {
       const { data }: { data: User.UserPostsResponseDto } = await API.get(
-        `${URI}/comments/written?pageNum=${pageParam}`,
+        `${URL}/comments/written?pageNum=${pageParam}`,
       );
       return data;
     },
     initialPageParam: 0,
-    getNextPageParam: lastPage => {
+    getNextPageParam: (lastPage) => {
       return lastPage.posts.last ? null : lastPage.posts.number + 1;
     },
-    select: data => {
-      return data.pages.flatMap(page => page.posts.content);
+    select: (data) => {
+      return data.pages.flatMap((page) => page.posts.content);
     },
   });
 };
@@ -141,15 +126,15 @@ export const useGetMyFavoritePosts = () => {
   return useInfiniteQuery({
     queryKey: settingQueryKey.myFavoritePost(),
     queryFn: async ({ pageParam }) => {
-      const { data }: { data: User.UserPostsResponseDto } = await API.get(`${URI}/posts/favorite?pageNum=${pageParam}`);
+      const { data }: { data: User.UserPostsResponseDto } = await API.get(`${URL}/posts/favorite?pageNum=${pageParam}`);
       return data;
     },
     initialPageParam: 0,
-    getNextPageParam: lastPage => {
+    getNextPageParam: (lastPage) => {
       return lastPage.posts.last ? null : lastPage.posts.number + 1;
     },
-    select: data => {
-      return data.pages.flatMap(page => page.posts.content);
+    select: (data) => {
+      return data.pages.flatMap((page) => page.posts.content);
     },
   });
 };
@@ -164,7 +149,7 @@ const setGetMethod = (endpoint: string) => {
 
       const response = await fetch(`${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`, {
         headers: headers,
-      }).then(res => res.json());
+      }).then((res) => res.json());
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -178,7 +163,7 @@ const setGetMethod = (endpoint: string) => {
 export const getMe = async () => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${SSR_URI}/me`, { headers: headers }).then(res => res.json())) as User.UserDto;
+    const response = (await fetch(`${SSR_URL}/me`, { headers: headers }).then((res) => res.json())) as User.UserDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -191,7 +176,7 @@ export const getMe = async () => {
 export const getUser = async (id: string) => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${SSR_URI}/${id}`, { headers: headers }).then(res => res.json())) as User.UserDto;
+    const response = (await fetch(`${SSR_URL}/${id}`, { headers: headers }).then((res) => res.json())) as User.UserDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -204,7 +189,7 @@ export const getUser = async (id: string) => {
 export const getUserAcademicRecord = async (id: string) => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${SSR_URI}/academic-record/record/${id}`, { headers: headers }).then(res =>
+    const response = (await fetch(`${SSR_URL}/academic-record/record/${id}`, { headers: headers }).then((res) =>
       res.json(),
     )) as any;
 
@@ -220,9 +205,9 @@ export const getMyCircles = async () => {
   try {
     const headers = await setRscHeader();
 
-    const response = (await fetch(`${SSR_URI}/circles`, {
+    const response = (await fetch(`${SSR_URL}/circles`, {
       headers: headers,
-    }).then(res => res.json())) as Circle.CirclesRequestDto;
+    }).then((res) => res.json())) as Circle.CirclesRequestDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -238,12 +223,12 @@ export const getByState = async (state: User.UserDto['state'], name: string | nu
     const headers = await setRscHeader();
 
     const response = name
-      ? ((await fetch(`${SSR_URI}/state/${state}?name=${name}&pageNum=${page}`, {
+      ? ((await fetch(`${SSR_URL}/state/${state}?name=${name}&pageNum=${page}`, {
           headers: headers,
-        }).then(res => res.json())) as Setting.GetByStateResponseDto)
-      : ((await fetch(`${SSR_URI}/state/${state}?pageNum=${page}`, {
+        }).then((res) => res.json())) as Setting.GetByStateResponseDto)
+      : ((await fetch(`${SSR_URL}/state/${state}?pageNum=${page}`, {
           headers: headers,
-        }).then(res => res.json())) as Setting.GetByStateResponseDto);
+        }).then((res) => res.json())) as Setting.GetByStateResponseDto);
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -258,9 +243,9 @@ export const getPrivilegedUsers = async () => {
   try {
     const headers = await setRscHeader();
 
-    const response = (await fetch(`${SSR_URI}/privileged`, {
+    const response = (await fetch(`${SSR_URL}/privileged`, {
       headers: headers,
-    }).then(res => res.json())) as Setting.GetPrivilegedUsersResponseDto;
+    }).then((res) => res.json())) as Setting.GetPrivilegedUsersResponseDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -276,12 +261,12 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
     const headers = await setRscHeader();
 
     const response = name
-      ? ((await fetch(`${SSR_URI}/admissions?name=${name}&pageNum=${page}`, {
+      ? ((await fetch(`${SSR_URL}/admissions?name=${name}&pageNum=${page}`, {
           headers: headers,
-        }).then(res => res.json())) as Setting.GetAllAdmissionsResponseDto)
-      : ((await fetch(`${SSR_URI}/admissions?pageNum=${page}`, {
+        }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto)
+      : ((await fetch(`${SSR_URL}/admissions?pageNum=${page}`, {
           headers: headers,
-        }).then(res => res.json())) as Setting.GetAllAdmissionsResponseDto);
+        }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
     if (response.errorCode) throw new Error(response.message);
 
@@ -293,7 +278,7 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
 
 export const getAdmission = async (userId: string) => {
   const header = await setRscHeader();
-  const response = await fetch(`${SSR_URI}/admissions/${userId}`, {
+  const response = await fetch(`${SSR_URL}/admissions/${userId}`, {
     method: 'GET',
     headers: header,
   });
@@ -321,6 +306,40 @@ export const getWaitingUsers = setGetMethod('users/academic-record/list/await') 
   size?: number,
 ) => Promise<Setting.WaitingUsers[]>;
 
+//게시판 신청 목록 조회
+export const getApplyBoardList = async () => {
+  try {
+    const headers = await setRscHeader();
+
+    const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
+      headers: headers,
+    }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getApplyBoards = async (id: string) => {
+  const { data } = (await API.get(`/api/v1/boards/apply/${id}`)) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
+
+  return data;
+};
+
+// 전 UserCouncilFeeService 리펙
+
+export const getMyCouncilFeeInfo = async () => {
+  try {
+    const response = (await API.get(`${FEE_URL}/isCurrentSemesterApplied/self/info`)) as AxiosResponse;
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // 납부자 상세 조회
 export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   const headers = await setRscHeader();
@@ -334,19 +353,17 @@ export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
 };
 
-//게시판 신청 목록 조회
-export const getApplyBoards = async () => {
+export const checkIsCurrentSemesterApplied = async (userId: string) => {
   try {
-    const headers = await setRscHeader();
-
-    const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
-      headers: headers,
-    }).then(res => res.json())) as Setting.GetApplyBoardsResponseDto;
-
-    if (response.errorCode) throw new Error(response.errorCode);
-
+    const response =
+      (await API.get(`${FEE_URL}/isCurrentSemesterApplied`),
+      {
+        headers: {
+          params: userId,
+        },
+      });
     return response;
   } catch (error) {
-    throw error;
+    return false;
   }
 };

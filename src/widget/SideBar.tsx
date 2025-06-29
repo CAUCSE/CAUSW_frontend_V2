@@ -6,11 +6,12 @@ import Link from 'next/link';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
+import { getMe } from '@/fsd_entities/user/api/get';
+
 import { ProfileImage, SubHeader } from '@/entities';
-import { AuthRscService, UserService, useUserStore } from '@/shared';
+import { AuthRscService, useUserStore } from '@/shared';
 
 export const SideBar = () => {
-  const { getMe } = UserService();
   const { signout } = AuthRscService();
 
   const name = useUserStore((state) => state.name);

@@ -8,9 +8,10 @@ import { cancelCeremonyRegist } from '@/fsd_entities/ceremony';
 import '@/fsd_entities/ocaasion';
 import { useCeremonyData } from '@/fsd_entities/ocaasion';
 import { OccasionDateTile, OccasionImageTile, OccasionSectionTitle } from '@/fsd_entities/ocaasion';
+import { getMe } from '@/fsd_entities/user/api/get';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
-import { UserService, useUserStore } from '@/shared';
+import { useUserStore } from '@/shared';
 
 const ceremonyTypeMap: Record<string, string> = {
   MARRIAGE: '결혼',
@@ -20,7 +21,6 @@ const ceremonyTypeMap: Record<string, string> = {
 };
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
   const { occasionDetails } = useCeremonyData(ceremonyId);
-  const { getMe } = UserService();
   useEffect(() => {
     getMe();
   }, []);

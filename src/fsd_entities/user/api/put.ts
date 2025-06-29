@@ -1,13 +1,15 @@
+import { AxiosResponse } from 'axios';
+
 import { API, BASEURL, FORMAPI, setRscHeader } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
-import { URI } from '../config';
+import { URL } from '../config';
 
-const SSR_URI = BASEURL + URI;
+const SSR_URL = BASEURL + URL;
 
 export const updateUserAcademicInfo = async (data: any) => {
   try {
-    const response = (await API.put(`${URI}/academic-record/application/update`, data)) as AxiosResponse;
+    const response = (await API.put(`${URL}/academic-record/application/update`, data)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -16,7 +18,7 @@ export const updateUserAcademicInfo = async (data: any) => {
 
 export const allowUser = async (param: string) => {
   try {
-    const response = (await API.put(`${URI}/admissions/${param}/accept`)) as AxiosResponse;
+    const response = (await API.put(`${URL}/admissions/${param}/accept`)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -76,7 +78,7 @@ export const updateAttendanceUserNote = async (id: string, note: string) => {
 // 사용자 추방
 export const expelUser = async (userId: string, expelReason: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${SSR_URI}/${userId}/drop`, {
+  const response = await fetch(`${SSR_URL}/${userId}/drop`, {
     method: 'PUT',
     headers: headers,
     body: expelReason,
@@ -89,7 +91,7 @@ export const expelUser = async (userId: string, expelReason: string) => {
 // 사용자 복구
 export const restoreUser = async (userId: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${SSR_URI}/restore/${userId}`, {
+  const response = await fetch(`${SSR_URL}/restore/${userId}`, {
     method: 'PUT',
     headers: headers,
   });
@@ -101,7 +103,7 @@ export const restoreUser = async (userId: string) => {
 //가입 승인
 export const acceptAdmission = async (admissionId: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${SSR_URI}/admissions/${admissionId}/accept`, {
+  const response = await fetch(`${SSR_URL}/admissions/${admissionId}/accept`, {
     method: 'PUT',
     headers: headers,
   });
@@ -113,7 +115,7 @@ export const acceptAdmission = async (admissionId: string) => {
 //가입 거부
 export const rejectAdmission = async (userId: string, rejectReason: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${SSR_URI}/admissions/${userId}/reject`, {
+  const response = await fetch(`${SSR_URL}/admissions/${userId}/reject`, {
     method: 'PUT',
     headers: headers,
     body: rejectReason,
@@ -121,4 +123,15 @@ export const rejectAdmission = async (userId: string, rejectReason: string) => {
 
   if (!response.ok) throw new Error(response.statusText);
   return true;
+};
+
+export const updateRole = async (id: string, role: User.Role, circleId: string | null) => {
+  await API.put(`${URL}/${id}/role`, {
+    role: role,
+    circleId: circleId,
+  });
+};
+
+export const updateVTwo = async () => {
+  await API.put(`${URL}/update/isV2`);
 };

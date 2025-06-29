@@ -5,7 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { NoButtonModal, PreviousButton, UserService } from '@/shared';
+import { submitAdmissionsApplication } from '@/fsd_entities/user/api/post';
+
+import { NoButtonModal, PreviousButton } from '@/shared';
 
 const SubmitApplicationModal = ({
   onClose,
@@ -27,7 +29,6 @@ const SubmitApplicationModal = ({
   const [fileList, setFileList] = useState<File[]>([]); // 관리할 파일 목록
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { submitAdmissionsApplication } = UserService();
   const [rejectMessageModal, setRejectMessageModal] = useState(false);
 
   useEffect(() => {
