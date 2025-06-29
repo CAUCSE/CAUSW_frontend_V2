@@ -32,7 +32,6 @@ export { LockerDesktopActionBtn } from './locker/LockerDesktopActionBtn';
 
 // Application
 export { VerificationStatus } from './application/VerificationStatus';
-export * from './setting';
 
 // Calendar
 export { CalendarListHeader } from './calendar/CalendarListHeader';

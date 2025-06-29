@@ -1,7 +1,8 @@
 'use client';
 
+import { MyPageHeader, MyPostList } from '@/fsd_entities/user/ui';
+
 import { SettingService } from '@/shared';
-import { MyPageHeader, MyPostList } from '@/widget';
 
 const MyFavoritePostsPage = () => {
   const { useGetMyFavoritePosts } = SettingService();

@@ -1,12 +1,14 @@
 'use client';
 
+/**
+ * ProfileForm.tsx
+ * - "환경설정"-"개인정보 관리"
+ */
 import React, { useEffect } from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-
-import { ProfileEditForm } from '@/entities/home/setting/personal-info/ProfileEditForm';
 
 // 유저 리펙 TODO: 엔티티 간 import 배제 필요
 import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
@@ -16,6 +18,7 @@ import { Header, PreviousButton } from '@/fsd_shared';
 import { updateInfo } from '../../api/put';
 import { userQueryKey } from '../../config/userQueryKey';
 import { useUserStore } from '../../model';
+import { ProfileEditForm } from './forms/ProfileEditForm';
 import { UserInfoContainer } from './UserInfoContainer';
 
 interface FeeInfoProps {

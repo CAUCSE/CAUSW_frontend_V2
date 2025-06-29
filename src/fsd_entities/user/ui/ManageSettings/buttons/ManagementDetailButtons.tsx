@@ -6,7 +6,7 @@ import { Button } from '@/fsd_shared';
 
 import { uiEntities } from '../../../config/AdmissionManagementDetailEntities';
 import { ManagementState } from '../../../model/types';
-import { WarningModal } from '../modal/WarningModal';
+import { WarningModal } from '../modals/WarningModal';
 
 export function AdmissionManagementDetailButtons({
   state,

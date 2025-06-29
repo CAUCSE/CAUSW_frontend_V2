@@ -1,3 +1,7 @@
+/**
+ * MyPageHeader.tsx
+ * - "환경설정"-"기록"-이하 페이지 헤더
+ */
 import { PreviousButton } from '@/fsd_shared';
 
 interface MyPageHeaderProps {

@@ -1,3 +1,7 @@
+/**
+ * MyPageList.tsx
+ * - "환경설정"-"기록"-이하 페이지 데이터 리스트
+ */
 import { LoadingComponent, PostItem } from '@/entities';
 import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
 

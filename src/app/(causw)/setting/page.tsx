@@ -54,7 +54,7 @@ const SettingsPage = () => {
       { name: '이용약관', link: '/setting/useterms' },
     ],
     records: [
-      { name: '내가 쓴 글', link: '/setting/my/posts' },
+      { name: '내가 쓴 게시글', link: '/setting/my/posts' },
       { name: '내가 쓴 댓글', link: '/setting/my/comments' },
       { name: '내가 찜한 글', link: '/setting/my/favorite' },
     ],
