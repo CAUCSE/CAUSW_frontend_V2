@@ -1,6 +1,6 @@
 'use client';
 
-import { MyPageHeader, MyPostList } from '@/fsd_entities/user/ui';
+import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 
 import { SettingService } from '@/shared';
 
@@ -11,8 +11,8 @@ const MyFavoritePostsPage = () => {
   return (
     <div className="h-full w-full">
       <>
-        <MyPageHeader pageName="내가 찜한 게시글" />
-        <MyPostList
+        <MyRecordHeader pageName="내가 찜한 게시글" />
+        <MyRecordList
           data={data!}
           isLoading={isLoading}
           isFetchingNextPage={isFetchingNextPage}

@@ -1,5 +1,5 @@
 export { ProfileEditForm } from './forms/ProfileEditForm';
-export { MyPageHeader } from './MyPageHeader';
-export { MyPostList } from './MyPostList';
+export { MyRecordHeader } from './MyRecordHeader';
+export { MyRecordList } from './MyRecordList';
 export { ProfileForm } from './ProfileForm';
 export { UserInfoContainer } from './UserInfoContainer';

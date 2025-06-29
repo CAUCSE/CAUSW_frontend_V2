@@ -5,7 +5,7 @@
 import { LoadingComponent, PostItem } from '@/entities';
 import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
 
-interface MyPostListProps {
+interface MyRecordListProps {
   data: Post.PostResponseDto[];
   isLoading: boolean;
   isFetchingNextPage: boolean;
@@ -13,13 +13,13 @@ interface MyPostListProps {
   fetchNextPage: () => void;
 }
 
-export const MyPostList = ({
+export const MyRecordList = ({
   data: postList,
   isLoading,
   isFetchingNextPage,
   hasNextPage,
   fetchNextPage,
-}: MyPostListProps) => {
+}: MyRecordListProps) => {
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting && hasNextPage) {

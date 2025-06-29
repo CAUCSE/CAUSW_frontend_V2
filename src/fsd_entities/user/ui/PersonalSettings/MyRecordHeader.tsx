@@ -1,14 +1,14 @@
 /**
- * MyPageHeader.tsx
+ * MyRecordHeader.tsx
  * - "환경설정"-"기록"-이하 페이지 헤더
  */
 import { PreviousButton } from '@/fsd_shared';
 
-interface MyPageHeaderProps {
+interface MyRecordHeaderProps {
   pageName: string;
 }
 
-export const MyPageHeader = ({ pageName }: MyPageHeaderProps) => {
+export const MyRecordHeader = ({ pageName }: MyRecordHeaderProps) => {
   return (
     <div className="flex h-24 w-full items-end px-5 sm:px-10">
       <PreviousButton />
