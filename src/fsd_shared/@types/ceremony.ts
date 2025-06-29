@@ -76,7 +76,7 @@ declare namespace Ceremony {
   }
   interface CeremonyApprovalModalProps {
     closeModal: () => void;
-    occasionTitle: string;
+    ceremonyTitle: string;
   }
   interface CeremonyDateTileProps {
     title: string;

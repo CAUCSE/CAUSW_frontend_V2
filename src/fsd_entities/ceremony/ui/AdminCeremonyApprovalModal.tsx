@@ -1,5 +1,5 @@
 import { MESSAGES } from '@/fsd_shared';
-import { Modal } from '@/shared';
+import { Modal } from '@/fsd_shared';
 
 export const CeremonyApprovalModal = ({ closeModal, ceremonyTitle }: Ceremony.CeremonyApprovalModalProps) => {
   return (

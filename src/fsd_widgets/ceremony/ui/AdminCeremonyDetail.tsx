@@ -66,12 +66,12 @@ export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageP
           <CeremonyDateTile title={MESSAGES.CEREMONY.END_DATE} date={ceremonyDetails.endDate} />
         </div>
         <CeremonyImageTile imageList={ceremonyDetails.imageList} />
-        <div className="fixed bottom-20 left-0 z-50 flex w-full justify-center gap-5 md:pt-0 lg:gap-11 xl:left-auto xl:w-[calc(100%-29rem)]">
+        <div className="fixed bottom-20 left-0 z-10 flex w-full justify-center gap-5 md:pt-0 lg:gap-11 xl:left-auto xl:w-[calc(100%-29rem)]">
           <CeremonyApprovalButton color="BLUE" onClick={handleClickApprove} text={MESSAGES.CEREMONY.APPROVAL} />
           <CeremonyApprovalButton color="GRAY" onClick={handleClickReject} text={MESSAGES.CEREMONY.REJECTION} />
         </div>
       </div>
-      {isModalOpen && <CeremonyApprovalModal closeModal={closeModal} occasionTitle={ceremonyDetails.title} />}
+      {isModalOpen && <CeremonyApprovalModal closeModal={closeModal} ceremonyTitle={ceremonyDetails.title} />}
     </>
   );
 };
