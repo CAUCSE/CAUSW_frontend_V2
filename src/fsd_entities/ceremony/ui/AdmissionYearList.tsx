@@ -1,12 +1,6 @@
 'use client';
 
-interface AdmissionYearListProps {
-  years: number[];
-  onRemove: (year: number) => void;
-  isAllSelected?: boolean;
-}
-
-export const AdmissionYearList = ({ years, onRemove, isAllSelected }: AdmissionYearListProps) => {
+export const AdmissionYearList = ({ years, onRemove, isAllSelected }: Ceremony.AdmissionYearListProps) => {
   return (
     <div
       className={`h-72 w-72 overflow-y-auto rounded-xl border border-black p-5 ${

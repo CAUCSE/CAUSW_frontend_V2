@@ -6,11 +6,11 @@ import toast from 'react-hot-toast';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
-import { getAdminCeremonyAwaitList, getAdminCeremonyDetail } from '../api/get';
+import { getAdminCeremonyAwaitList, getAdminCeremonyDetail } from '../api';
 
-export const useCeremonyData = (occasionId?: string) => {
+export const useCeremonyData = (ceremonyId?: string) => {
   const [ceremonyList, setCeremonyList] = useState<Ceremony.Ceremony[]>([]);
-  const [occasionDetails, setOccasionDetails] = useState({
+  const [ceremonyDetails, setCeremonyDetails] = useState({
     title: '',
     type: '',
     register: '',
@@ -35,22 +35,22 @@ export const useCeremonyData = (occasionId?: string) => {
   }, []);
 
   useEffect(() => {
-    if (occasionId) {
+    if (ceremonyId) {
       const fetchCeremonyDetail = async () => {
         try {
-          const OccasionContent = await getAdminCeremonyDetail(occasionId);
-          const matchedOccasion = ceremonyList.find((item) => item.id === occasionId);
+          const cermonyContent = await getAdminCeremonyDetail(ceremonyId);
+          const matchedCeremony = ceremonyList.find((item) => item.id === ceremonyId);
 
-          setOccasionDetails({
-            title: matchedOccasion ? matchedOccasion.title : OccasionContent.description,
-            type: OccasionContent.category,
-            register: OccasionContent.ceremonyState,
-            content: OccasionContent.description,
-            startDate: OccasionContent.startDate,
-            endDate: OccasionContent.endDate,
-            imageList: OccasionContent.attachedImageUrlList,
-            applicantName: OccasionContent.applicantName,
-            applicantStudentId: OccasionContent.applicantStudentId,
+          setCeremonyDetails({
+            title: matchedCeremony ? matchedCeremony.title : cermonyContent.description,
+            type: cermonyContent.category,
+            register: cermonyContent.ceremonyState,
+            content: cermonyContent.description,
+            startDate: cermonyContent.startDate,
+            endDate: cermonyContent.endDate,
+            imageList: cermonyContent.attachedImageUrlList,
+            applicantName: cermonyContent.applicantName,
+            applicantStudentId: cermonyContent.applicantStudentId,
           });
         } catch (error) {
           toast.error(`${MESSAGES.CEREMONY.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
@@ -59,7 +59,7 @@ export const useCeremonyData = (occasionId?: string) => {
 
       fetchCeremonyDetail();
     }
-  }, [occasionId, ceremonyList]);
+  }, [ceremonyId, ceremonyList]);
 
-  return { ceremonyList, occasionDetails };
+  return { ceremonyList, ceremonyDetails };
 };

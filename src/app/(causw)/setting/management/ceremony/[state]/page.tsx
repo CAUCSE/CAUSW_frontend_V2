@@ -5,7 +5,7 @@ import { MESSAGES } from '@/fsd_shared';
 const firstNavigation = {
   name: '등록 신청 경조사',
   state: 'request',
-  router: '/setting/management/occasion/request',
+  router: '/setting/management/ceremony/request',
 };
 
 // 추가 탭이 필요할 경우 추가
@@ -16,14 +16,6 @@ const navigation: {
 }[] = [];
 
 const Occasion = ({ params: { state } }: { params: { state: string } }) => {
-  let isFirstNavigation;
-  if (!state) {
-    isFirstNavigation = true;
-  } else if (navigation.length > 0) {
-    isFirstNavigation = navigation.findIndex((element) => element.state === state) === -1;
-  } else {
-    isFirstNavigation = false;
-  }
   return (
     <AdminCeremonyManagement
       state={state}

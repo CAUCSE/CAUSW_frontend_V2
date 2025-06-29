@@ -9,23 +9,7 @@ import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 import MailIcon from '../../../public/icons/envelope_icon.svg';
 import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';
 
-export interface ListBoxItem {
-  id: string;
-  title: string;
-  body: string;
-  isRead?: boolean;
-  targetId?: string; // 게시글 id
-  notificationLogId?: string;
-  targetParentId?: string; //게시판 id
-}
-
-interface ListBoxProps {
-  data: ListBoxItem[];
-  alarm?: string; //general | ceremony
-  loadMore?: () => void;
-}
-
-export const ListBox = ({ data, alarm, loadMore }: ListBoxProps) => {
+export const ListBox = ({ data, alarm, loadMore }: Ceremony.ListBoxProps) => {
   const router = useRouter();
   const markAsRead = useNotificationStore((state) => state.markAsRead);
 

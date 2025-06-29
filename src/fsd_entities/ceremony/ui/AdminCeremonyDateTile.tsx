@@ -1,8 +1,4 @@
-const dateFormat = {
-  0: '년 ',
-  1: '월 ',
-  2: '일 ',
-};
+import { dateFormat } from '@/fsd_shared';
 
 export const CeremonyDateTile = ({ title, date }: Ceremony.CeremonyDateTileProps) => {
   const formattedDate = date.split('-');

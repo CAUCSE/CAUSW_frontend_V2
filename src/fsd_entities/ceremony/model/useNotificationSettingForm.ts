@@ -4,19 +4,11 @@ import { useEffect, useState } from 'react';
 
 import toast from 'react-hot-toast';
 
-import { CeremonyNotificationSettingDto, getCeremonyNotificationSetting } from '@/fsd_entities/notification/api/get';
-import { createCeremonyNotificationSetting } from '@/fsd_entities/notification/api/post';
-import { updateCeremonySetting } from '@/fsd_entities/notification/api/put';
-
-interface NotificationSettingPayload {
-  subscribedAdmissionYears: number[] | null;
-  setAll: boolean;
-  notificationActive: boolean;
-}
+import { createCeremonyNotificationSetting, getCeremonyNotificationSetting, updateCeremonySetting } from '../api';
 
 export const useNotificationSettingForm = () => {
   const [years, setYears] = useState<number[]>([]);
-  const [existingSetting, setExistingSetting] = useState<CeremonyNotificationSettingDto | null>(null);
+  const [existingSetting, setExistingSetting] = useState<Ceremony.CeremonyNotificationSettingDto | null>(null);
   const [setAll, setSetAllValue] = useState(false);
   const setAllYearsSelected = (value: boolean) => {
     setSetAllValue(value);
@@ -53,7 +45,7 @@ export const useNotificationSettingForm = () => {
   };
 
   const onSubmit = async () => {
-    const payload: NotificationSettingPayload = {
+    const payload: Ceremony.NotificationSettingPayload = {
       subscribedAdmissionYears: years,
       setAll,
       notificationActive: true,

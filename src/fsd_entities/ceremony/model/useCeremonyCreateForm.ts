@@ -2,7 +2,7 @@
 
 import { toast } from 'react-hot-toast';
 
-import { useAddCeremonyMutation } from '../hooks';
+import { useAddCeremonyMutation } from '@/fsd_entities/notification';
 
 export const useCeremonyCreateForm = () => {
   const { mutate: addCeremony } = useAddCeremonyMutation({

@@ -96,4 +96,78 @@ declare namespace Ceremony {
     targetCeremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE';
     rejectMessage?: string;
   }
+  interface ListBoxItem {
+    id: string;
+    title: string;
+    body: string;
+    isRead?: boolean;
+    targetId?: string; // 게시글 id
+    notificationLogId?: string;
+    targetParentId?: string; //게시판 id
+  }
+
+  interface ListBoxProps {
+    data: ListBoxItem[];
+    alarm?: string; //general | ceremony
+    loadMore?: () => void;
+  }
+  interface CreateCeremonyPayload {
+    description: string;
+    startDate: string;
+    endDate: string;
+    category: CeremonyCategory;
+    imageFileList?: FileList;
+  }
+  type CeremonyCategory = '' | 'MARRIAGE' | 'FUNERAL' | 'GRADUATION' | 'ETC';
+  interface CeremonyResponse {
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    content: Ceremony[];
+    number: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+  }
+  interface AdmissionYearInputProps {
+    onAdd: (year: number) => void;
+    disabled: boolean;
+  }
+  interface AdmissionYearListProps {
+    years: number[];
+    onRemove: (year: number) => void;
+    isAllSelected?: boolean;
+  }
+  interface AllYearToggleProps {
+    checked: boolean;
+    onChange: (val: boolean) => void;
+  }
+  interface CeremonyNotificationSettingDto {
+    subscribedAdmissionYears: number[] | null;
+    setAll: boolean;
+    notificationActive: boolean;
+  }
+  interface NotificationSettingPayload {
+    subscribedAdmissionYears: number[] | null;
+    setAll: boolean;
+    notificationActive: boolean;
+  }
 }

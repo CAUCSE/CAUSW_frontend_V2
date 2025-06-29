@@ -2,16 +2,15 @@
 
 import { useMutation } from '@tanstack/react-query';
 
-import { addCeremony } from '@/fsd_entities/notification/api/post';
-import { CeremonyResponse, CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
+import { addCeremony } from '../../api';
 
 interface UseAddCeremonyMutationProps {
-  onSuccess?: (data: CeremonyResponse) => void;
+  onSuccess?: (data: Ceremony.CeremonyResponse) => void;
   onError?: (error: unknown) => void;
 }
 
 export const useAddCeremonyMutation = ({ onSuccess, onError }: UseAddCeremonyMutationProps = {}) => {
-  return useMutation<CeremonyResponse, unknown, CreateCeremonyPayload>({
+  return useMutation<Ceremony.CeremonyResponse, unknown, Ceremony.CreateCeremonyPayload>({
     mutationFn: addCeremony,
     onSuccess,
     onError,

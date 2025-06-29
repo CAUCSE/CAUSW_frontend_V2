@@ -4,3 +4,4 @@ export { CeremonyCreateWidget } from './CeremonyCreateWidget';
 export { AdminCeremonyManagement } from './AdminCeremonyManagement';
 export { AdminCeremonyList } from './AdminCeremonyList';
 export { AdminCeremonyDetail } from './AdminCeremonyDetail';
+export { NotificationSettingWidget } from './NotificationSettingWidget';

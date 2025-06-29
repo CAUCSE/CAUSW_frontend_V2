@@ -2,14 +2,9 @@
 
 import { useState } from 'react';
 
-import { Button } from '@/fsd_shared/ui/Button';
+import { Button } from '@/fsd_shared';
 
-interface AdmissionYearInputProps {
-  onAdd: (year: number) => void;
-  disabled: boolean;
-}
-
-export const AdmissionYearInput = ({ onAdd, disabled }: AdmissionYearInputProps) => {
+export const AdmissionYearInput = ({ onAdd, disabled }: Ceremony.AdmissionYearInputProps) => {
   const [year, setYear] = useState('');
 
   const handleAdd = () => {

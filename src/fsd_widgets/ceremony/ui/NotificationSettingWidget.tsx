@@ -1,11 +1,13 @@
 'use client';
 
-import { useNotificationSettingForm } from '@/fsd_entities/notification/model/useNotificationSettingForm';
-import { AdmissionYearInput } from '@/fsd_entities/notification/ui/AdmissionYearInput';
-import { AdmissionYearList } from '@/fsd_entities/notification/ui/AdmissionYearList';
-import { AllYearToggle } from '@/fsd_entities/notification/ui/AllYearToggle';
+import {
+  AdmissionYearInput,
+  AdmissionYearList,
+  AllYearToggle,
+  useNotificationSettingForm,
+} from '@/fsd_entities/ceremony';
 
-import { Button } from '@/fsd_shared/ui/Button';
+import { Button } from '@/fsd_shared';
 
 export const NotificationSettingWidget = () => {
   const { years, setAll, setAllYearsSelected, addYear, removeYear, onSubmit } = useNotificationSettingForm();

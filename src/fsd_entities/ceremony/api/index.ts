@@ -1,6 +1,5 @@
 //post
-export { cancelCeremonyRegist } from './post';
-export { updateAdminCeremonyState } from './post';
+export * from './post';
 //get
-export { getAdminCeremonyAwaitList } from './get';
-export { getAdminCeremonyDetail } from './get';
+export * from './get';
+export * from './put';
