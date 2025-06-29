@@ -6,10 +6,10 @@ import toast from 'react-hot-toast';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
-import { getCeremonyAwaitList, getCeremonyDetail } from '../api/get';
+import { getAdminCeremonyAwaitList, getAdminCeremonyDetail } from '../api/get';
 
 export const useCeremonyData = (occasionId?: string) => {
-  const [ceremonyList, setCeremonyList] = useState<Occasion.Occasion[]>([]);
+  const [ceremonyList, setCeremonyList] = useState<Ceremony.Ceremony[]>([]);
   const [occasionDetails, setOccasionDetails] = useState({
     title: '',
     type: '',
@@ -23,10 +23,10 @@ export const useCeremonyData = (occasionId?: string) => {
   });
   const fetchCeremonyList = async () => {
     try {
-      const data = await getCeremonyAwaitList(0, 10);
+      const data = await getAdminCeremonyAwaitList(0, 10);
       setCeremonyList(data);
     } catch (error) {
-      toast.error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
+      toast.error(`${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
     }
   };
 
@@ -38,7 +38,7 @@ export const useCeremonyData = (occasionId?: string) => {
     if (occasionId) {
       const fetchCeremonyDetail = async () => {
         try {
-          const OccasionContent = await getCeremonyDetail(occasionId);
+          const OccasionContent = await getAdminCeremonyDetail(occasionId);
           const matchedOccasion = ceremonyList.find((item) => item.id === occasionId);
 
           setOccasionDetails({
@@ -53,7 +53,7 @@ export const useCeremonyData = (occasionId?: string) => {
             applicantStudentId: OccasionContent.applicantStudentId,
           });
         } catch (error) {
-          toast.error(`${MESSAGES.OCCASION.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
+          toast.error(`${MESSAGES.CEREMONY.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
         }
       };
 

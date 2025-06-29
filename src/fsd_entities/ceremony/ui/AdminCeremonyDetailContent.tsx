@@ -1,4 +1,4 @@
-export const OccasionDetailContent = ({ title, description }: Occasion.OccasionDetailContentProps) => {
+export const CeremonyDetailContent = ({ title, description }: Ceremony.CeremonyDetailContentProps) => {
   return (
     <div className="grid grid-cols-3 gap-8 md:flex md:flex-col md:gap-2">
       <h1 className="text-lg font-bold whitespace-nowrap md:text-2xl">{title}</h1>

@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-export const OccasionList = ({ list, firstNavigation, navigation, state }: Occasion.OccasionListProps) => {
+export const AdminCeremonyList = ({ list, firstNavigation, navigation, state }: Ceremony.CeremonyListProps) => {
   return (
     <div className="mt-6 ml-2 flex flex-col">
-      {list.map((element: Occasion.Occasion) => (
+      {list.map((element: Ceremony.Ceremony) => (
         <Link
           href={
             (firstNavigation ? firstNavigation.router : navigation!.find((el: any) => el.state === state)?.router) +

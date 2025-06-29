@@ -2,11 +2,11 @@ import clsx from 'clsx';
 
 import { MESSAGES } from '@/fsd_shared';
 
-export const OccasionSectionTitle = ({ title, occasionContent }: Occasion.OccasionSectionTitleProps) => {
+export const CeremonySectionTitle = ({ title, ceremonyContent }: Ceremony.CeremonySectionTitleProps) => {
   return (
     <div
       className={clsx(
-        title === MESSAGES.OCCASION.DETAIL_CONTENTS
+        title === MESSAGES.CEREMONY.DETAIL_CONTENTS
           ? 'flex flex-col gap-y-2'
           : 'grid grid-cols-[auto_1fr] gap-x-2 md:block md:gap-y-2',
       )}
@@ -16,12 +16,12 @@ export const OccasionSectionTitle = ({ title, occasionContent }: Occasion.Occasi
       <p
         className={clsx(
           'text-xl font-medium break-keep whitespace-pre-line text-[#888888] md:text-[#000000]',
-          title === MESSAGES.OCCASION.DETAIL_CONTENTS
+          title === MESSAGES.CEREMONY.DETAIL_CONTENTS
             ? 'rounded-2xl border border-[#000000] p-6 md:border-[#d9d9d9]'
             : 'border-b border-[#000000] md:border-none',
         )}
       >
-        {occasionContent}
+        {ceremonyContent}
       </p>
     </div>
   );

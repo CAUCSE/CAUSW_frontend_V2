@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export const OccasionImageTile = ({ imageList }: Occasion.OccasionImageTileProps) => {
+export const CeremonyImageTile = ({ imageList }: Ceremony.CeremonyImageTileProps) => {
   return (
     <div className="flex flex-col gap-2">
       <h1 className="text-lg font-bold md:text-2xl">사진</h1>

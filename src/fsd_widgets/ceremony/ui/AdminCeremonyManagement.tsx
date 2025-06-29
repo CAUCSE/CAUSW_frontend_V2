@@ -4,18 +4,18 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { useCeremonyData } from '@/fsd_entities/ocaasion';
+import { useCeremonyData } from '@/fsd_entities/ceremony';
 
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
-import { OccasionList } from './OccasionList';
+import { AdminCeremonyList } from './AdminCeremonyList';
 
-export const OccasionRequestManagement = ({
+export const AdminCeremonyManagement = ({
   state,
   title,
   firstNavigation,
   navigation,
-}: Occasion.OccasionRequestManagementProps) => {
+}: Ceremony.CeremonyRequestManagementProps) => {
   const { ceremonyList } = useCeremonyData();
   const isFirstNavigation = (() => {
     if (!state) return true;
@@ -50,7 +50,12 @@ export const OccasionRequestManagement = ({
 
         <Line />
 
-        <OccasionList list={ceremonyList} firstNavigation={firstNavigation} navigation={navigation} state={state} />
+        <AdminCeremonyList
+          list={ceremonyList}
+          firstNavigation={firstNavigation}
+          navigation={navigation}
+          state={state}
+        />
       </div>
     </div>
   );

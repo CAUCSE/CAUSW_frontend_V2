@@ -4,7 +4,7 @@ const dateFormat = {
   2: '일 ',
 };
 
-export const OccasionDateTile = ({ title, date }: Occasion.OccasionDateTileProps) => {
+export const CeremonyDateTile = ({ title, date }: Ceremony.CeremonyDateTileProps) => {
   const formattedDate = date.split('-');
 
   return (

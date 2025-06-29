@@ -1,4 +1,4 @@
-import { OccasionRequestManagement } from '@/fsd_widgets/occasion';
+import { AdminCeremonyManagement } from '@/fsd_widgets/ceremony';
 
 import { MESSAGES } from '@/fsd_shared';
 
@@ -25,9 +25,9 @@ const Occasion = ({ params: { state } }: { params: { state: string } }) => {
     isFirstNavigation = false;
   }
   return (
-    <OccasionRequestManagement
+    <AdminCeremonyManagement
       state={state}
-      title={MESSAGES.OCCASION.REGISTRATION_LIST}
+      title={MESSAGES.CEREMONY.REGISTRATION_LIST}
       firstNavigation={firstNavigation}
       navigation={navigation}
     />
