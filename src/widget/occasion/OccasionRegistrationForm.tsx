@@ -26,7 +26,7 @@ export const OccasionRegistrationForm = () => {
   const { registerOccasion } = OccasionService();
 
   const handleSubmit = async () => {
-    const data: Occasion.CreateCeremonyRequestDto = {
+    const data: Ceremony.CreateCeremonyRequestDto = {
       category: category,
       startDate: startDate,
       endDate: endDate,

@@ -9,11 +9,11 @@ import { API } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
-export const getNotifications = async (): Promise<Notification[]> => {
+export const getNotifications = async (): Promise<Notification.Notification[]> => {
   const URI = `/api/v1/notifications/log/general/top4`;
 
   try {
-    const response: AxiosResponse<Notification[]> = await API.get(URI, {
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
       headers: { Authorization: getRccAccess() },
     });
 
@@ -24,11 +24,11 @@ export const getNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getCeremonyNotifications = async (): Promise<Notification[]> => {
+export const getCeremonyNotifications = async (): Promise<Notification.Notification[]> => {
   const URI = `/api/v1/notifications/log/ceremony/top4`;
 
   try {
-    const response: AxiosResponse<Notification[]> = await API.get(URI, {
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
       headers: { Authorization: getRccAccess() },
     });
 

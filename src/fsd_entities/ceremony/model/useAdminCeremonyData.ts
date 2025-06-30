@@ -9,7 +9,7 @@ import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { getAdminCeremonyAwaitList, getAdminCeremonyDetail } from '../api';
 
 export const useCeremonyData = (ceremonyId?: string) => {
-  const [ceremonyList, setCeremonyList] = useState<Ceremony.Ceremony[]>([]);
+  const [ceremonyList, setCeremonyList] = useState<Ceremony.CeremonyItem[]>([]);
   const [ceremonyDetails, setCeremonyDetails] = useState({
     title: '',
     type: '',

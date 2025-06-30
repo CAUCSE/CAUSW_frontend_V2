@@ -2,15 +2,13 @@ declare namespace Ceremony {
   interface CeremonyDetailPageProps {
     ceremonyId: string;
   }
-}
-declare namespace Ceremony {
-  export interface CreateCeremonyRequestDto {
+  interface CreateCeremonyRequestDto {
     description: string;
     startDate: string;
     endDate: string;
     category: 'MARRIAGE' | 'FUNERAL' | 'ETC';
   }
-  interface Ceremony {
+  interface CeremonyItem {
     id: string;
     body: string;
     title: string;
@@ -56,7 +54,7 @@ declare namespace Ceremony {
   }
 
   type CeremonyListProps = {
-    list: Ceremony[];
+    list: CeremonyItem[];
     firstNavigation: NavigationItem;
     navigation?: NavigationItem[];
     state: string | undefined;
@@ -123,7 +121,7 @@ declare namespace Ceremony {
     totalElements: number;
     totalPages: number;
     size: number;
-    content: Ceremony[];
+    content: CeremonyItem[];
     number: number;
     sort: {
       empty: boolean;
