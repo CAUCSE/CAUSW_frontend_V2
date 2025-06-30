@@ -6,15 +6,14 @@ import { useShallow } from 'zustand/react/shallow';
 import { useLockerRegistration } from '../api';
 import { useLockerSelectionStore } from './useLockerSelectionStore';
 
-export const useRegisterLocker = () => {
+export const useRegisterLocker = ({ onSuccess }: { onSuccess?: () => void }) => {
   const { clickedLockerId, clickedLockerStatus } = useLockerSelectionStore(
     useShallow((state) => ({
       clickedLockerId: state.clickedLockerId,
       clickedLockerStatus: state.clickedLockerStatus,
     })),
   );
-
-  const { mutate: registerLocker } = useLockerRegistration();
+  const { mutate: registerLocker } = useLockerRegistration({ onSuccess });
 
   const handleRegisterLocker = () => {
     if (!clickedLockerStatus || !clickedLockerId) {

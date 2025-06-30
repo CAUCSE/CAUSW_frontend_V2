@@ -27,7 +27,7 @@ export const useLockerExtenstion = () => {
     },
   });
 };
-export const useLockerRegistration = () => {
+export const useLockerRegistration = ({ onSuccess }: { onSuccess?: () => void }) => {
   const setClickedLockerStatus = useLockerSelectionStore((state) => state.setClickedLockerStatus);
 
   const queryClient = useQueryClient();
@@ -41,7 +41,8 @@ export const useLockerRegistration = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: lockerQueryKey.all });
       setClickedLockerStatus('isMine');
-      toast.success('사물함 등록이 완료되었습니다.');
+      // toast.success('사물함 등록이 완료되었습니다.');
+      onSuccess?.();
     },
     onError: () => {
       toast.error('사물함 등록에 실패했습니다.');
