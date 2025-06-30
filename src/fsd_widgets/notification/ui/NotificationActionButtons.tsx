@@ -13,7 +13,7 @@ export const NotificationActionButtons = () => {
       <Link href={`/ceremony/list`}>
         <MenuIcon />
       </Link>
-      <Link href={`/setting/occasion-alarm-setting`}>
+      <Link href={`/ceremony/setting`}>
         <SettingIcon />
       </Link>
     </div>
