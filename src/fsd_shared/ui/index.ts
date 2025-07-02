@@ -22,3 +22,4 @@ export { InputBox } from './InputBox';
 export { LoadingScreen } from './LoadingScreen';
 export { CommonTabs } from './CommonTabs';
 export { ListBox } from './ListBox';
+export { CardBox } from './CardBox';
