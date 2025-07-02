@@ -1,28 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { useRouter } from 'next/navigation';
 
-import { cancelCeremonyRegist } from '@/fsd_entities/ceremony';
-import '@/fsd_entities/ocaasion';
-import { useCeremonyData } from '@/fsd_entities/ocaasion';
-import { OccasionDateTile, OccasionImageTile, OccasionSectionTitle } from '@/fsd_entities/ocaasion';
+import {
+  cancelCeremonyRegist,
+  CeremonyDateTile,
+  CeremonyImageTile,
+  CeremonySectionTitle,
+  useCeremonyData,
+} from '@/fsd_entities/ceremony';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
-import { UserService, useUserStore } from '@/shared';
 
-const ceremonyTypeMap: Record<string, string> = {
-  MARRIAGE: '결혼',
-  FUNERAL: '장례식',
-  GRADUATION: '졸업',
-  ETC: '기타',
-};
+import { ceremonyTypeMap } from '../config';
+
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
-  const { occasionDetails } = useCeremonyData(ceremonyId);
+  const { ceremonyDetails } = useCeremonyData(ceremonyId);
   const router = useRouter();
 
-  const ceremonyType = ceremonyTypeMap[occasionDetails.type];
+  const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];
   const handleClickReject = async () => {
     try {
       await cancelCeremonyRegist({
@@ -37,21 +33,21 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
     <>
       <div className="flex flex-col gap-3 pt-8 pb-10 md:gap-6">
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionSectionTitle title={MESSAGES.OCCASION.CATEGORY} occasionContent={ceremonyType} />
-          <OccasionSectionTitle
-            title={MESSAGES.OCCASION.REGISTRANT}
-            occasionContent={`${occasionDetails.applicantName}/${occasionDetails.applicantStudentId}`}
+          <CeremonySectionTitle title={MESSAGES.CEREMONY.CATEGORY} ceremonyContent={ceremonyType} />
+          <CeremonySectionTitle
+            title={MESSAGES.CEREMONY.REGISTRANT}
+            ceremonyContent={`${ceremonyDetails.applicantName}/${ceremonyDetails.applicantStudentId}`}
           />
         </div>
-        <OccasionSectionTitle title={MESSAGES.OCCASION.DETAIL_CONTENTS} occasionContent={occasionDetails.content} />
+        <CeremonySectionTitle title={MESSAGES.CEREMONY.DETAIL_CONTENTS} ceremonyContent={ceremonyDetails.content} />
         <div className="grid grid-cols-1 gap-3 md:gap-8 lg:grid-cols-2 lg:gap-32">
-          <OccasionDateTile title={MESSAGES.OCCASION.START_DATE} date={occasionDetails.startDate} />
-          <OccasionDateTile title={MESSAGES.OCCASION.END_DATE} date={occasionDetails.endDate} />
+          <CeremonyDateTile title={MESSAGES.CEREMONY.START_DATE} date={ceremonyDetails.startDate} />
+          <CeremonyDateTile title={MESSAGES.CEREMONY.END_DATE} date={ceremonyDetails.endDate} />
         </div>
-        <OccasionImageTile imageList={occasionDetails.imageList} />
-        {occasionDetails.register === 'AWAIT' && (
+        <CeremonyImageTile imageList={ceremonyDetails.imageList} />
+        {ceremonyDetails.register === 'AWAIT' && (
           <div className="fixed bottom-24 left-1/2 z-50 w-full max-w-[270px] -translate-x-1/2 rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold">
-            <div onClick={handleClickReject}>{MESSAGES.OCCASION.CANCEL_REGIST}</div>
+            <div onClick={handleClickReject}>{MESSAGES.CEREMONY.CANCEL_REGIST}</div>
           </div>
         )}
       </div>

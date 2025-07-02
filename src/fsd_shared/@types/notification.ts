@@ -45,4 +45,20 @@ declare namespace Notification {
     last: boolean;
     empty: boolean;
   }
+  interface Notification {
+    targetId: string;
+    title: string;
+    noticeType: string;
+    body: string;
+    isRead: boolean;
+    notificationLogId: string;
+  }
+
+  interface NotificationState {
+    notifications: Notification.Notification[];
+    ceremonyNotifications: Notification.Notification[];
+    loadNotifications: () => Promise<void>;
+    loadCeremonyNotifications: () => Promise<void>;
+    markAsRead: (id: string) => Promise<void>;
+  }
 }

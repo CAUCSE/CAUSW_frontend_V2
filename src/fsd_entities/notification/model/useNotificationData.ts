@@ -16,7 +16,7 @@ export const useNotificationData = () => {
       const data = await getNotificationData(0);
       setNotificationData(data.content);
     } catch (error) {
-      toast.error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
+      toast.error(`${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
     }
   };
 
@@ -33,7 +33,7 @@ export const useCeremonyNotificationData = () => {
       const data = await getCeremonyNotificationData(0);
       setCeremonyNotificationData(data.content);
     } catch (error) {
-      toast.error(`${MESSAGES.OCCASION.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
+      toast.error(`${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
     }
   };
 

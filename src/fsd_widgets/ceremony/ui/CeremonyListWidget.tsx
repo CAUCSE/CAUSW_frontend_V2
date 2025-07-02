@@ -4,18 +4,11 @@ import { useEffect, useState } from 'react';
 
 import { InfiniteData } from '@tanstack/react-query';
 
-import { CeremonyState } from '@/fsd_entities/notification/api';
-import { CeremonyResponse } from '@/fsd_entities/notification/config/types';
-import { useCeremonyListQuery } from '@/fsd_entities/notification/hooks/queries/useCeremonyListQuery';
+import { useCeremonyListQuery } from '@/fsd_entities/notification';
 
-import { CommonTabs } from '@/fsd_shared/ui/CommonTabs';
-import { ListBox, ListBoxItem } from '@/fsd_shared/ui/ListBox';
+import { CommonTabs, ListBox } from '@/fsd_shared';
 
-const tabItems: { label: string; key: CeremonyState }[] = [
-  { label: '등록 완료', key: CeremonyState.ACCEPT },
-  { label: '등록 거부', key: CeremonyState.REJECT },
-  { label: '등록 대기 중', key: CeremonyState.AWAIT },
-];
+import { tabItems } from '../config';
 
 export const CeremonyListWidget = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -27,9 +20,9 @@ export const CeremonyListWidget = () => {
     refetch();
   }, [ceremonyState, refetch]);
 
-  const infiniteData = data as InfiniteData<CeremonyResponse> | undefined;
+  const infiniteData = data as InfiniteData<Ceremony.CeremonyResponse> | undefined;
 
-  const items: ListBoxItem[] = infiniteData?.pages
+  const items: Ceremony.ListBoxItem[] = infiniteData?.pages
     ? infiniteData.pages.flatMap((page) =>
         page.content.map((item) => ({
           id: item.id,

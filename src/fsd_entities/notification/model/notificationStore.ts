@@ -3,17 +3,8 @@ import { create } from 'zustand';
 
 import { getCeremonyNotifications, getNotifications } from '../api/get';
 import { markAsRead } from '../api/post';
-import { Notification } from '../config/types';
 
-interface NotificationState {
-  notifications: Notification[];
-  ceremonyNotifications: Notification[];
-  loadNotifications: () => Promise<void>;
-  loadCeremonyNotifications: () => Promise<void>;
-  markAsRead: (id: string) => Promise<void>;
-}
-
-export const useNotificationStore = create<NotificationState>((set) => ({
+export const useNotificationStore = create<Notification.NotificationState>((set) => ({
   notifications: [],
   ceremonyNotifications: [],
 
