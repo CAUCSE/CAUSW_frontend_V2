@@ -2,18 +2,30 @@
 
 import { useRouter } from 'next/navigation';
 
-import PreviousIcon from '../../../public/icons/previous_icon.svg';
+import { ChevronLeft } from 'lucide-react';
 
-export const PreviousButton = ({ routeCallback }: { routeCallback?: () => void }) => {
+import { Button } from '@/shadcn/components/ui';
+import { cn } from '@/shadcn/lib/utils';
+
+interface PreviousButtonProps {
+  routeCallback?: () => void;
+  className?: string;
+}
+
+export const PreviousButton = ({ routeCallback, className }: PreviousButtonProps) => {
   const router = useRouter();
   return (
-    <div className="absolute top-0 left-0 m-4">
-      <button type="button" onClick={() => (routeCallback ? routeCallback() : router.back())} className="w-full">
-        <div className="flex items-center gap-3">
-          <PreviousIcon className="h-8 w-8" />
-          <p className="text-base md:text-lg">이전</p>
-        </div>
-      </button>
-    </div>
+    <Button
+      variant="ghost"
+      onClick={() => (routeCallback ? routeCallback() : router.back())}
+      className={cn('flex w-fit cursor-pointer items-center gap-2 hover:bg-transparent', className)}
+      style={{
+        // shadcn 버튼 기본 패딩 제거
+        padding: 0,
+      }}
+    >
+      <ChevronLeft className="size-8" />
+      <p className="text-base md:text-lg">이전</p>
+    </Button>
   );
 };

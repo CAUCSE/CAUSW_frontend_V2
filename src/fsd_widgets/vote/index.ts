@@ -1,1 +1,1 @@
-export { VoteCreationForm } from './ui';
+export { VoteCreationForm, VoteSection } from './ui';

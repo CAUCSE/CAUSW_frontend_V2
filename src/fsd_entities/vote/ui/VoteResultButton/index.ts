@@ -1,0 +1,1 @@
+export { VoteResultButton } from './VoteResultButton';

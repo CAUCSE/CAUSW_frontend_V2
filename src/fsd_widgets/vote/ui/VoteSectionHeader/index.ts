@@ -1,0 +1,1 @@
+export { VoteSectionHeader } from './VoteSectionHeader';

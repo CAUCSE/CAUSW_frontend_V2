@@ -16,8 +16,8 @@ export const useGetPostList = ({ boardId }: { boardId: string }) => {
       return lastPage.post.last ? null : lastPage.post.number + 1;
     },
     select: (data) => {
-      const result = { boardName: data.pages[0].boardName };
-      return { ...result, postList: data.pages.flatMap((page) => page.post.content) };
+      const { post, ...rest } = data.pages[0];
+      return { ...rest, postList: data.pages.flatMap((page) => page.post.content) };
     },
   });
 };

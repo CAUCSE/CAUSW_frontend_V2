@@ -4,12 +4,19 @@ import { useEffect } from 'react';
 
 import Link from 'next/link';
 
+import { Bell, LogOut } from 'lucide-react';
+
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
 import { ProfileImage, SubHeader } from '@/entities';
+import { Button } from '@/shadcn/components/ui';
 import { AuthRscService, UserService, useUserStore } from '@/shared';
 
-export const SideBar = () => {
+interface SideBarProps {
+  className?: string;
+}
+
+export const SideBar = ({ className }: SideBarProps) => {
   const { getMe } = UserService();
   const { signout } = AuthRscService();
 
@@ -27,27 +34,32 @@ export const SideBar = () => {
   }, []);
 
   return (
-    <div className="fixed -top-1 right-0 flex h-[55px] w-full items-center justify-end space-y-4 pr-4 xl:h-screen xl:w-72 xl:flex-col xl:justify-center">
-      <div className="absolute top-4 left-3 flex flex-col items-center text-black xl:top-11 xl:left-52">
-        <span
-          className="icon-[codicon--sign-out] text-2xl xl:text-4xl"
-          onClick={() => {
-            handleNoRefresh();
-          }}
-        ></span>
-        <span className="hidden text-xs text-black underline xl:block xl:text-sm">로그아웃</span>
-      </div>
+    <aside className={className}>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="absolute top-3 left-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:top-4 xl:right-4 xl:left-auto"
+        onClick={handleNoRefresh}
+      >
+        <LogOut className="size-6 xl:size-8" />
+        <p className="hidden text-xs font-light xl:block xl:text-sm">로그아웃</p>
+      </Button>
 
-      <div className="absolute top-0 left-12 flex flex-col items-center text-black xl:hidden">
+      <Button
+        size="icon"
+        variant="ghost"
+        className="absolute top-3 left-12 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
+        asChild
+      >
         <Link href="/setting/notification">
-          <span className="text-black-400 icon-[codicon--bell] text-2xl"></span>
+          <Bell className="size-6" />
         </Link>
-      </div>
+      </Button>
 
       <div className="max-xl:hidden">
         <ProfileImage src={profileImage} />
       </div>
-      <div className="mr-2 flex flex-col items-end xl:mr-0 xl:items-center">
+      <div className="mr-2 flex flex-col items-center xl:mr-0 xl:items-center">
         <SubHeader big>{name}</SubHeader>
         <SubHeader gray>{email}</SubHeader>
       </div>
@@ -57,6 +69,6 @@ export const SideBar = () => {
       </div>
 
       <NotificationWidget />
-    </div>
+    </aside>
   );
 };

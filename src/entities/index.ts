@@ -19,8 +19,6 @@ export { CircleApplyOnButton } from './element/CircleApplyButton';
 export { ExcelExport } from './export/ExcelExport';
 
 export { CustomCheckBox } from './board/form/CustomCheckBox';
-export { Option } from './board/form/Option';
-export { Question } from './board/form/Question';
 export { ObjectiveOption } from './board/form/ObjectiveOption';
 export { SubjectiveOption } from './board/form/SubjectiveOption';
 export { SummaryToggleBtn } from './board/form/SummaryToggleBtn';
@@ -31,16 +29,6 @@ export { FormSummaryResultQuestionHeader } from './board/form/FormSummaryResultQ
 export { ObjectiveQuestionSummaryResult } from './board/form/ObjectiveQuestionSummaryResult';
 export { SubjectiveQuestionSummaryResult } from './board/form/SubjectiveQuestionSummaryResult';
 export { DetailFormResultHeader } from './board/form/DetailFormResultHeader';
-
-export { PostCard } from './board/post/PostCard';
-export { CommentCard } from './board/post/CommentCard';
-export { ChildCommentCard } from './board/post/ChildCommentCard';
-export { PopupMenu } from './board/post/PopupMenu';
-export { CommentInput } from './board/post/CommentInput';
-
-export { VotingForm } from './board/post/create/VotingForm';
-export { CreatePostFooter } from './board/post/create/CreatePostFooter';
-export { FilePreview } from './board/post/create/FilePreview';
 
 export { FormErrorMessage } from './layout/FormErrorMessage';
 

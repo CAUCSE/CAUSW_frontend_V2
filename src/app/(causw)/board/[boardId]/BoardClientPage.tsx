@@ -15,7 +15,7 @@ export const BoardClientPage = () => {
     boardId: boardId as string,
   });
 
-  if (isLoading && !data) {
+  if (isLoading) {
     return <LoadingScreen />;
   }
 
@@ -24,8 +24,8 @@ export const BoardClientPage = () => {
   }
 
   return (
-    <div className="h-full w-full">
-      <BoardHeader boardName={data?.boardName!} />
+    <div className="flex h-full w-full flex-col gap-2">
+      <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
       <BoardPostList
         postList={data?.postList!}
         isFetchingNextPage={isFetchingNextPage}
