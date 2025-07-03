@@ -4,26 +4,15 @@ import { useState } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
-import { CeremonyCategory } from '@/fsd_entities/notification/config/types';
-import { useCeremonyCreateForm } from '@/fsd_entities/notification/model/useCelemonyCreateForm';
+import { useCeremonyCreateForm } from '@/fsd_entities/ceremony';
 
-import { ImageUploadField } from '@/fsd_shared/ui/ImageUploadField';
-import { InputBox } from '@/fsd_shared/ui/InputBox';
-import { SelectBox } from '@/fsd_shared/ui/SelectBox';
+import { Button, ImageUploadField, InputBox, SelectBox } from '@/fsd_shared';
+import { formatDateInput } from '@/utils';
 
-import { Button } from '@/fsd_shared';
-import { formatDateInput } from '@/utils/inputFormatters';
-
-const categoryOptions: { label: string; value: CeremonyCategory }[] = [
-  { label: '결혼', value: 'MARRIAGE' },
-  { label: '장례식', value: 'FUNERAL' },
-  { label: '졸업', value: 'GRADUATION' },
-  { label: '기타', value: 'ETC' },
-];
+import { categoryOptions } from '../config/ceremonyType';
 
 export const CeremonyCreateWidget = () => {
-  const methods = useForm<CreateCeremonyPayload>({
+  const methods = useForm<Ceremony.CreateCeremonyPayload>({
     defaultValues: {
       category: '',
       startDate: '',
@@ -50,7 +39,7 @@ export const CeremonyCreateWidget = () => {
           <SelectBox
             options={categoryOptions}
             value={methods.watch('category')}
-            onChange={(value) => methods.setValue('category', value as CreateCeremonyPayload['category'])}
+            onChange={(value) => methods.setValue('category', value as Ceremony.CreateCeremonyPayload['category'])}
             hint="-선택해주세요-"
             width="w-64"
             height="h-12"

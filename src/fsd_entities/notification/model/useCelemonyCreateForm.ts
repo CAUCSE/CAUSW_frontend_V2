@@ -2,8 +2,7 @@
 
 import { toast } from 'react-hot-toast';
 
-import { CreateCeremonyPayload } from '@/fsd_entities/notification/config/types';
-import { useAddCeremonyMutation } from '@/fsd_entities/notification/hooks/mutations/useAddCeremonyMutation';
+import { useAddCeremonyMutation } from '../hooks';
 
 export const useCeremonyCreateForm = () => {
   const { mutate: addCeremony } = useAddCeremonyMutation({
@@ -15,7 +14,7 @@ export const useCeremonyCreateForm = () => {
     },
   });
 
-  const onSubmit = (formValues: CreateCeremonyPayload) => {
+  const onSubmit = (formValues: Ceremony.CreateCeremonyPayload) => {
     addCeremony(formValues);
   };
 

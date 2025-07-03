@@ -3,17 +3,8 @@ import { create } from 'zustand';
 
 import { getCeremonyNotifications, getNotifications } from '../api/get';
 import { markAsRead } from '../api/post';
-import { Notification } from '../config/types';
 
-interface NotificationState {
-  notifications: Notification[];
-  ceremonyNotifications: Notification[];
-  loadNotifications: () => Promise<void>;
-  loadCeremonyNotifications: () => Promise<void>;
-  markAsRead: (id: string) => Promise<void>;
-}
-
-export const useNotificationStore = create<NotificationState>((set) => ({
+export const useNotificationStore = create<Notification.NotificationState>((set) => ({
   notifications: [],
   ceremonyNotifications: [],
 
@@ -44,7 +35,6 @@ export const useNotificationStore = create<NotificationState>((set) => ({
           n.notificationLogId === id ? { ...n, isRead: true } : n,
         ),
       }));
-      toast.success(`알림 ${id} 읽음 처리 성공`);
     } catch (error) {
       toast.error('알림 읽음 처리 실패: 서버 응답 오류');
     }

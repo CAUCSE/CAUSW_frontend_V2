@@ -2,10 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import unReadMessage from '../../../../public/icons/unread_message.png';
-import { Notification } from '../config/types';
 
 interface NotificationListProps {
-  notifications: Notification[];
+  notifications: Notification.Notification[];
   linkPrefix: string;
   markAsRead: (id: string) => void;
 }
