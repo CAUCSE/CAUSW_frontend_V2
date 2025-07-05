@@ -7,3 +7,9 @@ export const PAGE_SIZE = 300;
 
 // 유저 리펙 TODO: 식별자 꼬라지 개선 필요.
 export { uiEntities as managementDetailEntities } from './AdmissionManagementDetailEntities';
+
+// 유저 리펙 TODO: 각 파일 식별자 같음 레전드
+/* export * from './AddPayerEntities';
+export * from './CouncilFeeManagementDetailEntities'; */
+
+export * from './queryKey';

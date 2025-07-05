@@ -1,15 +1,15 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
-import { API, setRscHeader, settingQueryKey } from '@/fsd_shared';
+import { API, setRscHeader } from '@/fsd_shared';
 import { BASEURL } from '@/fsd_shared';
 
 import { FEE_URL, PAGE_SIZE, URL } from '../config';
+import { settingQueryKey } from '../config';
 
 const SSR_URL = BASEURL + URL;
 
-// CSR API Method
-
+// CSR API Method.
 export const getMyInfo = async () => {
   try {
     const response = (await API.get(`${URL}/me`)) as AxiosResponse<User.UserDto>; // 서버로부터 유저 정보를 가져옴

@@ -17,7 +17,7 @@ import { Header, PreviousButton } from '@/fsd_shared';
 import { useUserStore } from '@/shared';
 
 import { updateInfo } from '../../api/put';
-import { userQueryKey } from '../../config/userQueryKey';
+import { userQueryKey } from '../../config/queryKey/userQueryKey';
 import { ProfileEditForm } from './forms/ProfileEditForm';
 import { UserInfoContainer } from './UserInfoContainer';
 
