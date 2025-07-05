@@ -1,6 +1,8 @@
+/**
+ * useMyInfoStore.ts
+ * - 유저 본인 정보 관리 스코어
+ */
 import { create } from 'zustand';
-
-// 유저 리펙 TODO: 기존 useUserStore 스토어 전부 대체 필요.
 
 export const useMyInfoStore = create<User.UseUserStore>((set, get) => ({
   id: '',

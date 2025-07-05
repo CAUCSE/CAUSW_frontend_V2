@@ -12,7 +12,7 @@ declare namespace User {
     state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT' | 'REJECT';
     nickname: string;
     studentId: string;
-    academicStatus: 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED' | 'UNDETERMINED';
+    academicStatus: AcademicStatus;
     major: string;
     currentCompletedSemester: number | null;
     graduationYear: string | null;
@@ -31,6 +31,8 @@ declare namespace User {
     description: string;
     images: FileList;
   }
+
+  export type AcademicStatus = 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED' | 'UNDETERMINED' | 'UNDEFINED'; // undefined는 신규 사용자자;
 
   export type Role =
     | 'ADMIN'

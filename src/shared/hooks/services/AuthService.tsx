@@ -9,14 +9,12 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { getMyInfo } from '@/fsd_entities/user/api';
 
-import { API, BASEURL, setRccToken, setRscToken, useFindAccountStore, useLayoutStore, useUserStore } from '@/shared';
+import { API, BASEURL, setRccToken, setRscToken, useFindAccountStore, useLayoutStore } from '@/shared';
 
 export const AuthService = () => {
   const URI = '/api/v1/users';
   const router = useRouter();
-  const setUserStore = useUserStore((state) => state.setUserStore);
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
-  const state = useUserStore((state) => state.state);
 
   const signin = async (body: User.SignInRequestDto) => {
     try {

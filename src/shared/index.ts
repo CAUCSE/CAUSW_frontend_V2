@@ -33,7 +33,6 @@ export { CalendarService } from './hooks/services/CalendarService';
 export { BannerService } from './hooks/services/BannerService';
 //Store
 export { useLayoutStore } from './hooks/stores/useLayoutStore';
-export { useUserStore, userRoleCodes } from './hooks/stores/useUserStore';
 
 export { useBoardStore } from './hooks/stores/board/useBoardStore';
 export { usePopup } from './hooks/stores/post/usePopup';

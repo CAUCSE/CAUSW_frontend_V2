@@ -9,10 +9,11 @@ import { Bell, LogOut } from 'lucide-react';
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
 import { useUserInfo } from '@/fsd_entities/user/model';
+import { useMyInfoStore } from '@/fsd_entities/user/model';
 
 import { ProfileImage, SubHeader } from '@/entities';
 import { Button } from '@/shadcn/components/ui';
-import { AuthRscService, useUserStore } from '@/shared';
+import { AuthRscService } from '@/shared';
 
 interface SideBarProps {
   className?: string;
@@ -22,9 +23,9 @@ export const SideBar = ({ className }: SideBarProps) => {
   const { signout } = AuthRscService();
   const { updateMyInfoStore } = useUserInfo();
 
-  const name = useUserStore((state) => state.name);
-  const email = useUserStore((state) => state.email);
-  const profileImage = useUserStore((state) => state.profileImageUrl);
+  const name = useMyInfoStore((state) => state.name);
+  const email = useMyInfoStore((state) => state.email);
+  const profileImage = useMyInfoStore((state) => state.profileImageUrl);
 
   const handleNoRefresh = async () => {
     await signout();

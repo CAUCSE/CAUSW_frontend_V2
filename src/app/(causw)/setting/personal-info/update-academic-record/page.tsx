@@ -4,10 +4,10 @@ import React from 'react';
 
 import { AcademicRecordForm } from '@/fsd_widgets/auth';
 
-import { useUserStore } from '@/shared';
+import { useMyInfoStore } from '@/fsd_entities/user/model';
 
 const UpdataeAcademicRecordPage = () => {
-  const curAcademicStatus = useUserStore((state) => state.academicStatus);
+  const curAcademicStatus = useMyInfoStore((state) => state.academicStatus);
   return <AcademicRecordForm curAcademicStatus={curAcademicStatus} />;
 };
 

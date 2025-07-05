@@ -14,10 +14,10 @@ import toast from 'react-hot-toast';
 import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
 
 import { Header, PreviousButton } from '@/fsd_shared';
-import { useUserStore } from '@/shared';
 
 import { updateInfo } from '../../api';
 import { userQueryKey } from '../../config/queryKey/userQueryKey';
+import { useMyInfoStore } from '../../model';
 import { ProfileEditForm } from './forms/ProfileEditForm';
 import { UserInfoContainer } from './UserInfoContainer';
 
@@ -43,7 +43,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
   } = useForm<User.userUpdateDto>();
 
   const queryClient = useQueryClient();
-  const setUserStore = useUserStore((state) => state.setUserStore);
+  const setUserStore = useMyInfoStore((state) => state.setUserStore);
   // 프로필 이미지 변경
   const [profileImagePreview, setProfileImagePreview] = React.useState(
     userData.profileImageUrl ?? '/images/default_profile.png',

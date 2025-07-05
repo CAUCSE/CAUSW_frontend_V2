@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { userRoleCodes, useUserStore } from '@/shared';
+import { useMyInfoStore, userRoleCodes } from '@/fsd_entities/user/model';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,
@@ -13,7 +13,7 @@ const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms
 
 const SettingsPage = () => {
   const { roles, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader } =
-    useUserStore((state) => ({
+    useMyInfoStore((state) => ({
       roles: state.roles,
       isStudent: state.isStudent,
       isProfessor: state.isProfessor,
@@ -37,8 +37,8 @@ const SettingsPage = () => {
     isAlumniLeader(),
   );
 
-  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
-  const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
+  const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
+  const circleNameIfLeader = useMyInfoStore((state) => state.circleNameIfLeader);
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
   const roleItems: {
     name: string;

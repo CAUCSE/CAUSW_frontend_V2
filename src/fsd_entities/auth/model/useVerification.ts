@@ -3,8 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { getMyInfo } from '@/fsd_entities/user/api/get';
-
-import { useUserStore } from '@/shared';
+import { useMyInfoStore } from '@/fsd_entities/user/model';
 
 import { checkIsAcademicRecordSubmitted, getUserAdmissionInfo } from '../api/get';
 
@@ -14,7 +13,7 @@ export const useVerification = () => {
   const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] = useState<User.StatusType>('BANNED');
   const [admissionRejectMessage, setAdmissionRejectMessage] = useState('');
   const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState('');
-  const setEmail = useUserStore((state) => state.setEmail);
+  const setEmail = useMyInfoStore((state) => state.setEmail);
   const getInfo = async () => {
     try {
       const response = await getMyInfo();
