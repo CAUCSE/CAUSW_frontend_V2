@@ -14,10 +14,10 @@ import toast from 'react-hot-toast';
 import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
 
 import { Header, PreviousButton } from '@/fsd_shared';
+import { useUserStore } from '@/shared';
 
 import { updateInfo } from '../../api/put';
 import { userQueryKey } from '../../config/userQueryKey';
-import { useUserStore } from '../../model';
 import { ProfileEditForm } from './forms/ProfileEditForm';
 import { UserInfoContainer } from './UserInfoContainer';
 

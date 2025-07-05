@@ -8,7 +8,7 @@ import { Bell, LogOut } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
-import { getMe } from '@/fsd_entities/user/api/get';
+import { useUserInfo } from '@/fsd_entities/user/model';
 
 import { ProfileImage, SubHeader } from '@/entities';
 import { Button } from '@/shadcn/components/ui';
@@ -20,6 +20,7 @@ interface SideBarProps {
 
 export const SideBar = ({ className }: SideBarProps) => {
   const { signout } = AuthRscService();
+  const { updateMyInfoStore } = useUserInfo();
 
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
@@ -31,7 +32,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   };
 
   useEffect(() => {
-    getMe();
+    updateMyInfoStore();
   }, []);
 
   return (

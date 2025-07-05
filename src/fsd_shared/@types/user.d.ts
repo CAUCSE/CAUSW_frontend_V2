@@ -9,10 +9,10 @@ declare namespace User {
     admissionYear: number;
     profileImageUrl: string | null;
     roles: Role[];
-    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT';
+    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT' | 'REJECT';
     nickname: string;
     studentId: string;
-    academicStatus: 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED';
+    academicStatus: 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED' | 'UNDETERMINED';
     major: string;
     currentCompletedSemester: number | null;
     graduationYear: string | null;
@@ -23,6 +23,7 @@ declare namespace User {
     /** ISO date string */
     updatedAt: string;
     isV2: boolean;
+    rejectionOrDropReason: string;
   }
 
   export interface UserAdmissionCreateRequestDto {

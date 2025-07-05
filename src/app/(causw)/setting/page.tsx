@@ -2,10 +2,14 @@
 
 import React, { useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { UseTerms } from '@/fsd_shared';
 import { userRoleCodes, useUserStore } from '@/shared';
+
+const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
+  ssr: false,
+});
 
 const SettingsPage = () => {
   const { roles, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader } =
@@ -21,6 +25,17 @@ const SettingsPage = () => {
       isStudentLeader: state.isStudentLeader,
       isAlumniLeader: state.isAlumniLeader,
     }));
+
+  console.log(
+    roles,
+    isAdmin(),
+    isPresidents(),
+    isVicePresidents(),
+    isCircleLeader(),
+    isCouncil(),
+    isStudentLeader(),
+    isAlumniLeader(),
+  );
 
   const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
   const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);

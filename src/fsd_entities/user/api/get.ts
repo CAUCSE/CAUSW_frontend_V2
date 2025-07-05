@@ -12,7 +12,10 @@ const SSR_URL = BASEURL + URL;
 
 export const getMyInfo = async () => {
   try {
-    const response = await API.get(`${URL}/me`); // 서버로부터 유저 정보를 가져옴
+    const response = (await API.get(`${URL}/me`)) as AxiosResponse<User.UserDto>; // 서버로부터 유저 정보를 가져옴
+
+    console.log('getMyInfo', response);
+
     return response;
   } catch (error) {
     throw error;
@@ -158,19 +161,6 @@ const setGetMethod = (endpoint: string) => {
       throw error;
     }
   };
-};
-
-export const getMe = async () => {
-  try {
-    const headers = await setRscHeader();
-    const response = (await fetch(`${SSR_URL}/me`, { headers: headers }).then((res) => res.json())) as User.UserDto;
-
-    if (response.errorCode) throw new Error(response.errorCode);
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
 };
 
 export const getUser = async (id: string) => {

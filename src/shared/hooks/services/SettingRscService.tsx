@@ -3,6 +3,8 @@ import { BASEURL, setRscHeader } from '@/shared';
 //페이징 적용시, 한 페이지 정도 (현재 미적용)
 const SIZE = 300;
 
+// 유저 리펙 TODO: 제거 필요.
+
 //함수 생성자
 const useGetMethod = (endpoint: string) => {
   return async (page: number = 0, size: number = SIZE) => {

@@ -22,6 +22,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   checkVTwo: true,
   updatedAt: '',
   isV2: true,
+  rejectionOrDropReason: '',
 
   setUserStore: (props) => {
     set(() => ({

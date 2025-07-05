@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 
 import toast from 'react-hot-toast';
 
+import { getUser } from '@/fsd_entities/user/api/get';
 import { convertDataToTableEntity, titleMapping } from '@/fsd_entities/user/config/AddPayerEntities';
 import { ManagementDetailInfoTable } from '@/fsd_entities/user/ui';
 
-import { Button, SettingRscService, UserRscService } from '@/shared';
+import { Button, SettingRscService } from '@/shared';
 
 export default function AddPayerPage({ params: { userId } }: { params: { userId: string } }) {
-  const { getUser } = UserRscService();
   const { addPayer } = SettingRscService();
   const [user, setUser] = useState<User.UserDto | null>(null);
   const [payNum, setPayNum] = useState<number | undefined>(8);

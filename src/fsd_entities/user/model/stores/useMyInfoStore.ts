@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 
-export const useUserStore = create<User.UseUserStore>((set, get) => ({
+// 유저 리펙 TODO: 기존 useUserStore 스토어 전부 대체 필요.
+
+export const useMyInfoStore = create<User.UseUserStore>((set, get) => ({
   id: '',
   email: '',
   name: '',
@@ -20,8 +22,11 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   phoneNumber: '',
   createdAt: '',
   checkVTwo: true,
+  updatedAt: '',
+  isV2: true,
+  rejectionOrDropReason: '',
 
-  setUserStore: props => {
+  setUserStore: (props) => {
     set(() => ({
       id: props.id,
       email: props.email,
@@ -43,6 +48,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
       phoneNumber: props.phoneNumber,
       createdAt: props.createdAt,
       checkVTwo: props.isV2,
+      rejectionOrDropReason: props.rejectionOrDropReason,
     }));
   },
   setEmail: (email: string) => {
@@ -50,7 +56,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
   roleTxt: () => {
     return get()
-      .roles.map(element => userRoleCodes[element])
+      .roles.map((element) => userRoleCodes[element])
       .join(' / ');
   },
 
@@ -108,6 +114,7 @@ export const useUserStore = create<User.UseUserStore>((set, get) => ({
   },
 }));
 
+// 유저 리펙 TODO: 타입으로 이동 필요.
 export const userRoleCodes: {
   [key in User.Role]: string;
 } = {
