@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { getUserByName } from '@/fsd_entities/user/api/get';
-import { updateRole } from '@/fsd_entities/user/api/put';
+import { getUserByName } from '@/fsd_entities/user/api';
+import { updateRole } from '@/fsd_entities/user/api';
 
 import { Header, Line, SubHeader } from '@/entities';
 import { userRoleCodes, useUserStore } from '@/shared';

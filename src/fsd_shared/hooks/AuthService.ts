@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { AxiosResponse } from 'axios';
 
-import { getMyInfo } from '@/fsd_entities/user/api/get';
+import { getMyInfo } from '@/fsd_entities/user/api';
 
 import { API, setRccToken, setRscToken, useLayoutStore } from '@/shared';
 

@@ -3,7 +3,7 @@
 // 유저 리펙 TODO: useMyInfoStore로 변경.
 import { useUserStore } from '@/shared';
 
-import { getMyInfo } from '../../api/get';
+import { getMyInfo } from '../../api';
 
 export const useUserInfo = () => {
   const setUserStore = useUserStore((state) => state.setUserStore);

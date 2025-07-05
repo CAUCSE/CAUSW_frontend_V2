@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { submitAdmissionsApplication } from '@/fsd_entities/user/api/post';
+import { submitAdmissionsApplication } from '@/fsd_entities/user/api';
 
 import { NoButtonModal, PreviousButton } from '@/shared';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetMyPosts } from '@/fsd_entities/user/api/get';
+import { useGetMyPosts } from '@/fsd_entities/user/api';
 import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 
 const MyPostsPage = () => {

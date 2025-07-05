@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import toast from 'react-hot-toast';
 
-import { getUser } from '@/fsd_entities/user/api/get';
+import { getUser } from '@/fsd_entities/user/api';
 import { convertDataToTableEntity, titleMapping } from '@/fsd_entities/user/config/AddPayerEntities';
 import { ManagementDetailInfoTable } from '@/fsd_entities/user/ui';
 

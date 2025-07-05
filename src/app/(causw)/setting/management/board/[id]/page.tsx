@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { getApplyBoards } from '@/fsd_entities/user/api/get';
-import { acceptApplyBoards, rejectApplyBoards } from '@/fsd_entities/user/api/put';
+import { getApplyBoards } from '@/fsd_entities/user/api';
+import { acceptApplyBoards, rejectApplyBoards } from '@/fsd_entities/user/api';
 
 import { LoadingComponent } from '@/entities';
 

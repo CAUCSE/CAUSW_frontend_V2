@@ -7,7 +7,7 @@ import axios, { AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { getMyInfo } from '@/fsd_entities/user/api/get';
+import { getMyInfo } from '@/fsd_entities/user/api';
 
 import { API, BASEURL, setRccToken, setRscToken, useFindAccountStore, useLayoutStore, useUserStore } from '@/shared';
 

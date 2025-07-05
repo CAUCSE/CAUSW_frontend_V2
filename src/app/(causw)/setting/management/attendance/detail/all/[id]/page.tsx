@@ -4,8 +4,8 @@ import { useRef } from 'react';
 
 import Link from 'next/link';
 
-import { useGetAttendanceUser } from '@/fsd_entities/user/api/get';
-import { updateAttendanceUserNote } from '@/fsd_entities/user/api/put';
+import { useGetAttendanceUser } from '@/fsd_entities/user/api';
+import { updateAttendanceUserNote } from '@/fsd_entities/user/api';
 
 import { Header, LoadingComponent, SubHeader } from '@/entities';
 

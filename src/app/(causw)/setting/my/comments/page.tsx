@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetMyCommentPosts } from '@/fsd_entities/user/api/get';
+import { useGetMyCommentPosts } from '@/fsd_entities/user/api';
 import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 
 const MyCommentsPage = () => {

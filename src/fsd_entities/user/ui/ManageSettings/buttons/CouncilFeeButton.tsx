@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { Button, Modal } from '@/fsd_shared';
 
-import { deleteUserCouncilFeeInfo } from '../../../api/delete';
+import { deleteUserCouncilFeeInfo } from '../../../api';
 
 export function CouncilFeeButtons({
   params: { councilFeeId, isRefunded },

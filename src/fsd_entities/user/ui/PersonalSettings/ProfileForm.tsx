@@ -16,7 +16,7 @@ import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
 import { Header, PreviousButton } from '@/fsd_shared';
 import { useUserStore } from '@/shared';
 
-import { updateInfo } from '../../api/put';
+import { updateInfo } from '../../api';
 import { userQueryKey } from '../../config/queryKey/userQueryKey';
 import { ProfileEditForm } from './forms/ProfileEditForm';
 import { UserInfoContainer } from './UserInfoContainer';

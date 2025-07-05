@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 
-import { updateInfo, updateVTwo } from '@/fsd_entities/user/api/put';
+import { updateInfo, updateVTwo } from '@/fsd_entities/user/api';
 
 import { Header, Line, SubHeader } from '@/entities';
 import { AuthService, useUserStore } from '@/shared';

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { getMyCouncilFeeInfo, getMyInfo } from '@/fsd_entities/user/api/get';
+import { getMyCouncilFeeInfo, getMyInfo } from '@/fsd_entities/user/api';
 import { userQueryKey } from '@/fsd_entities/user/config';
 import { ProfileForm } from '@/fsd_entities/user/ui';
 
