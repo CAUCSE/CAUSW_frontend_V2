@@ -1,6 +1,6 @@
 export const MESSAGES = Object.freeze({
   PREVIOUS_BUTTON_TEXT: '이전',
-  OCCASION: {
+  CEREMONY: {
     REGISTRATION_LIST: '경조사 등록 신청 관리',
     CATEGORY: '경조사 분류',
     DETAIL_CONTENT_TITLE: '경조사 등록 신청 정보',

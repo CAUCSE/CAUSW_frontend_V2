@@ -25,6 +25,8 @@ declare namespace Locker {
     lockerPeriod: TLockerPeriod;
     lockerList: LockerResponseDto[];
   }
-
+  interface RegistSuccessModalProps {
+    onClose: () => void;
+  }
   export type TLockerPeriod = 'LOCKER_ACCESS' | 'LOCKER_EXTEND' | 'NULL';
 }

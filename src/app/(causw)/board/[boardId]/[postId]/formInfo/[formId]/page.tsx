@@ -1,6 +1,7 @@
 'use client';
 
-import { PreviousButton, useFormResultStore } from '@/shared';
+import { PreviousButton } from '@/fsd_shared';
+import { useFormResultStore } from '@/shared';
 import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widget';
 
 const FormInfoPage = () => {

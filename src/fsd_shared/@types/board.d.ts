@@ -23,6 +23,7 @@ declare namespace Board {
     boardName: string;
     writeable: boolean;
     isFavorite: boolean;
+    isBoardSubscribed: boolean;
     post: Post.PostResponseDtoList;
   }
 
@@ -44,5 +45,11 @@ declare namespace Board {
     description: string;
     isAnonymousAllowed: boolean;
     circleId?: string;
+  }
+
+  export interface ActiveBoardNotificationResponseDto {
+    boardId: string;
+    userId: string;
+    isSubscribe: boolean;
   }
 }

@@ -4,11 +4,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export const NavigationBar = () => {
+import clsx from 'clsx';
+import { House, Settings } from 'lucide-react';
+
+import BoardIcon from '../../../public/icons/board_icon.svg';
+
+interface NavigationBarProps {
+  className?: string;
+}
+
+export const NavigationBar = ({ className }: NavigationBarProps) => {
   const firstRouter = `/${usePathname().split('/')[1]}`;
 
   return (
-    <div className="bg-default fixed bottom-0 left-0 flex h-16 w-full items-start justify-evenly space-x-3 rounded-t-2xl pt-[3px] xl:top-0 xl:h-screen xl:w-40 xl:flex-col xl:items-end xl:space-y-10 xl:rounded-tl-none xl:rounded-r-3xl">
+    <div className={className}>
       <Image
         src="/images/cau-logo.png"
         alt="cau logo"
@@ -16,30 +25,30 @@ export const NavigationBar = () => {
         height={54}
         className="absolute top-6 left-1/2 -translate-x-1/2 transform max-xl:hidden"
       />
-
-      {icons.map((iconClass) => (
-        <Link
-          key={iconClass.href}
-          href={iconClass.href}
-          className={`h-[50px] w-[210px] ${
-            firstRouter === iconClass.href ? 'bg-[#F8F8F8]' : 'bg-default'
-          } border-default flex flex-col items-center justify-center rounded-xl border-[5px] xl:mr-0 xl:mb-0 xl:h-24 xl:w-11/12 xl:rounded-l-2xl xl:rounded-r-none xl:border-0`}
-        >
-          <span
-            className={`${iconClass.icon} ${
-              firstRouter === iconClass.href ? 'text-default' : 'bg-[#F8F8F8]'
-            } text-3xl xl:mr-3 xl:text-6xl`}
-          />
-        </Link>
-      ))}
+      <nav className="bg-default flex h-full w-full items-center justify-evenly rounded-t-2xl py-3 xl:flex-col xl:items-end xl:rounded-none xl:rounded-tr-3xl xl:rounded-br-3xl xl:py-0">
+        {icons.map((iconClass) => (
+          <Link
+            key={iconClass.href}
+            href={iconClass.href}
+            className={clsx('h-full w-full px-4 md:px-8 xl:h-24 xl:w-11/12 xl:px-0')}
+          >
+            <span
+              className={clsx(
+                'flex h-full w-full items-center justify-center rounded-xl xl:rounded-none xl:rounded-tl-2xl xl:rounded-bl-2xl',
+                firstRouter === iconClass.href ? 'text-default bg-[#F8F8F8]' : 'bg-default text-white',
+              )}
+            >
+              {iconClass.icon({ className: 'h-6 w-6 xl:h-10 xl:w-10' })}
+            </span>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 };
 
-//TODO: 동아리 제외
 const icons = [
-  { href: '/home', icon: 'icon-[iconamoon--home]' },
-  { href: '/board', icon: 'icon-[material-symbols--post-add-rounded]' },
-  //{ href: "/circle", icon: "icon-[bi--people]" },
-  { href: '/setting', icon: 'icon-[ep--setting]' },
+  { href: '/home', icon: ({ className }: { className: string }) => <House className={className} /> },
+  { href: '/board', icon: ({ className }: { className: string }) => <BoardIcon className={className} /> },
+  { href: '/setting', icon: ({ className }: { className: string }) => <Settings className={className} /> },
 ];

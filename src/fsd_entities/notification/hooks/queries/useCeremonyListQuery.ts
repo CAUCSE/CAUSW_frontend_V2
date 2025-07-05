@@ -2,9 +2,11 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { CeremonyState, getCeremonyData } from '@/fsd_entities/notification/api';
+import { CeremonyState } from '@/fsd_widgets/ceremony';
 
 import { ceremonyQueryKey } from '@/fsd_shared';
+
+import { getCeremonyData } from '../../api';
 
 export const useCeremonyListQuery = (ceremonyState: CeremonyState) => {
   return useInfiniteQuery({

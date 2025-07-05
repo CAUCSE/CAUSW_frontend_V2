@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { CeremonyListWidget } from '@/fsd_widgets/ceremony';
 
-import { PreviousButton } from '@/fsd_shared/ui/previousButton';
+import { PreviousButton } from '@/fsd_shared';
 
 export default function CeremonyListPage() {
   const [queryClient] = useState(() => new QueryClient());

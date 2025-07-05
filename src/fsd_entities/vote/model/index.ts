@@ -1,1 +1,1 @@
-export { useCreateVote } from './queries';
+export { useCreateVote, useRestartVote, useEndVote } from './queries';

@@ -39,3 +39,10 @@ export const createCommonBoard = async (payload: CreateCommonBoardDto): Promise<
     throw new Error('게시판 생성에 실패했습니다');
   }
 };
+
+export const activeBoardNotification = async ({ boardId }: { boardId: string }) => {
+  const { data }: { data: Board.ActiveBoardNotificationResponseDto } = await API.post(
+    `/api/v1/boards/subscribe/${boardId}`,
+  );
+  return data;
+};

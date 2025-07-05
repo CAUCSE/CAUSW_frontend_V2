@@ -7,7 +7,7 @@ declare namespace User {
     id: string;
     name: string;
     admissionYear: number;
-    profileImageUrl: string;
+    profileImageUrl: string | null;
     roles: Role[];
     state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT';
     nickname: string;
@@ -18,7 +18,11 @@ declare namespace User {
     graduationYear: string | null;
     graduationType: string | null;
     phoneNumber: string | null;
+    /** ISO date string */
     createdAt: string;
+    /** ISO date string */
+    updatedAt: string;
+    isV2: boolean;
   }
 
   export interface UserAdmissionCreateRequestDto {
