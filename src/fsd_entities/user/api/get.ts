@@ -35,10 +35,7 @@ const setGetMethod = (endpoint: string) => {
 
 export const getMyInfo = async () => {
   try {
-    const response = (await API.get(`${URL}/me`)) as AxiosResponse<User.UserDto>; // 서버로부터 유저 정보를 가져옴
-
-    console.log('getMyInfo', response);
-
+    const response = (await API.get(`${USERS_ENDPOINT}/me`)) as AxiosResponse<User.UserDto>; // 서버로부터 유저 정보를 가져옴
     return response;
   } catch (error) {
     throw error;
@@ -47,7 +44,7 @@ export const getMyInfo = async () => {
 
 export const getUserInfo = async (userId: string) => {
   try {
-    const response = await API.get(`${URL}/${userId}`);
+    const response = await API.get(`${USERS_ENDPOINT}/${userId}`);
     return response;
   } catch (error) {
     throw error;
@@ -55,13 +52,13 @@ export const getUserInfo = async (userId: string) => {
 };
 
 export const getUserAdmissionInfo = async () => {
-  const response = await API.get(`${URL}/admissions/self`);
+  const response = await API.get(`${USERS_ENDPOINT}/admissions/self`);
   return response;
 };
 
 export const checkCurrentAcademicStatus = async () => {
   try {
-    const response = (await API.get(`${URL}/academic-record/current`)) as AxiosResponse;
+    const response = (await API.get(`${USERS_ENDPOINT}/academic-record/current`)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -70,7 +67,7 @@ export const checkCurrentAcademicStatus = async () => {
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {
-    const response = (await API.get(`${URL}/academic-record/current/not-accepted`)) as AxiosResponse;
+    const response = (await API.get(`${USERS_ENDPOINT}/academic-record/current/not-accepted`)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -78,7 +75,7 @@ export const checkIsAcademicRecordSubmitted = async () => {
 };
 
 export const getUserByName = async (name: string) => {
-  const { data } = (await API.get(`${URL}/name/${name}`)) as AxiosResponse<User.User[]>;
+  const { data } = (await API.get(`${USERS_ENDPOINT}/name/${name}`)) as AxiosResponse<User.User[]>;
 
   return data;
 };
@@ -88,7 +85,7 @@ export const useGetAttendanceUser = (id: string) => {
     queryKey: ['attendanceUser', id],
     queryFn: async () => {
       const { data } = (await API.get(
-        `${URL}/academic-record/record/${id}`,
+        `${USERS_ENDPOINT}/academic-record/record/${id}`,
       )) as AxiosResponse<Setting.GetAttendanceUserResponseDto>;
 
       return data;
@@ -102,7 +99,7 @@ export const useGetWaitingUser = (userId: string, applicationId: string) => {
     queryKey: ['waitingUser', userId, applicationId],
     queryFn: async () => {
       const { data } = (await API.get(
-        `${URL}/academic-record/application/${userId}/${applicationId}`,
+        `${USERS_ENDPOINT}/academic-record/application/${userId}/${applicationId}`,
       )) as AxiosResponse<Setting.GetWaitingUserResponseDto>;
 
       return data;
@@ -115,7 +112,9 @@ export const useGetMyPosts = () => {
   return useInfiniteQuery({
     queryKey: settingQueryKey.myPost(),
     queryFn: async ({ pageParam }) => {
-      const { data }: { data: User.UserPostsResponseDto } = await API.get(`${URL}/posts/written?pageNum=${pageParam}`);
+      const { data }: { data: User.UserPostsResponseDto } = await API.get(
+        `${USERS_ENDPOINT}/posts/written?pageNum=${pageParam}`,
+      );
       return data;
     },
     initialPageParam: 0,
@@ -133,7 +132,7 @@ export const useGetMyCommentPosts = () => {
     queryKey: settingQueryKey.myCommentPost(),
     queryFn: async ({ pageParam }) => {
       const { data }: { data: User.UserPostsResponseDto } = await API.get(
-        `${URL}/comments/written?pageNum=${pageParam}`,
+        `${USERS_ENDPOINT}/comments/written?pageNum=${pageParam}`,
       );
       return data;
     },
@@ -151,7 +150,9 @@ export const useGetMyFavoritePosts = () => {
   return useInfiniteQuery({
     queryKey: settingQueryKey.myFavoritePost(),
     queryFn: async ({ pageParam }) => {
-      const { data }: { data: User.UserPostsResponseDto } = await API.get(`${URL}/posts/favorite?pageNum=${pageParam}`);
+      const { data }: { data: User.UserPostsResponseDto } = await API.get(
+        `${USERS_ENDPOINT}/posts/favorite?pageNum=${pageParam}`,
+      );
       return data;
     },
     initialPageParam: 0,
