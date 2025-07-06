@@ -14,7 +14,7 @@ import { Header } from '@/fsd_shared';
 import { getYearOptions, MONTH_OPTIONS, SEMESTER_OPTIONS, STATUS_OPTIONS } from '../config/academicRecord';
 
 interface AcademicRecordFormProps {
-  curAcademicStatus: 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED' | 'UNDEFINED'; // undefined는 신규 사용자자
+  curAcademicStatus: User.AcademicStatus;
   onClose?: () => void;
   rejectionReason?: string;
 }

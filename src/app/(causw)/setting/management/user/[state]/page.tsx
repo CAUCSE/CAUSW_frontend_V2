@@ -1,5 +1,5 @@
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getAllAdmissions, getByState } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const navigation: {
   name: string;
@@ -40,8 +40,6 @@ const UserManagement = async ({
   params: { state: string };
   searchParams: { page?: string };
 }) => {
-  const { getByState, getAllAdmissions } = SettingRscService();
-
   const nowNavigation = navigation.find((element) => element.state === state);
   let data;
 
@@ -70,7 +68,7 @@ const UserManagement = async ({
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
         title="유저 관리"
         firstNavigation={{

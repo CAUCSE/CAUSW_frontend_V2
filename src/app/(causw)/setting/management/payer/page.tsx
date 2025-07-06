@@ -1,11 +1,9 @@
 import Link from 'next/link';
 
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getPayers } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const PayerManagement = async () => {
-  const { getPayers } = SettingRscService();
-
   const data = await getPayers();
 
   return (
@@ -16,7 +14,7 @@ const PayerManagement = async () => {
       >
         납부자 추가
       </Link>
-      <Management
+      <ManagementPanel
         state={undefined}
         title="학생회비 관리"
         firstNavigation={{

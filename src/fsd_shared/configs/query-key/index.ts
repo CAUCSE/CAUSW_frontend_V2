@@ -3,7 +3,5 @@ export { eventQueryKey } from './eventQueryKey';
 export { formQueryKey } from './formQueryKey';
 export { lockerQueryKey } from './lockerQueryKey';
 export { postQueryKey } from './postQueryKey';
-export { settingQueryKey } from './settingQueryKey';
-export { userQueryKey } from './userQueryKey';
 export { ceremonyQueryKey } from './ceremonyQueryKey';
 export { bannerQueryKey } from './bannerQueryKey';

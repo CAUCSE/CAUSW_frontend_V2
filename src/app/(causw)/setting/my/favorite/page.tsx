@@ -1,17 +1,16 @@
 'use client';
 
-import { SettingService } from '@/shared';
-import { MyPageHeader, MyPostList } from '@/widget';
+import { useGetMyFavoritePosts } from '@/fsd_entities/user/api';
+import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 
 const MyFavoritePostsPage = () => {
-  const { useGetMyFavoritePosts } = SettingService();
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyFavoritePosts();
 
   return (
     <div className="h-full w-full">
       <>
-        <MyPageHeader pageName="내가 찜한 게시글" />
-        <MyPostList
+        <MyRecordHeader pageName="내가 찜한 게시글" />
+        <MyRecordList
           data={data!}
           isLoading={isLoading}
           isFetchingNextPage={isFetchingNextPage}

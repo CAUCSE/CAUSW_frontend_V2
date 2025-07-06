@@ -1,5 +1,5 @@
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getPrivilegedUsers } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const navigation = [
   {
@@ -41,8 +41,6 @@ const navigation = [
 ];
 
 const RoleManagement = async ({ params: { state } }: { params: { state: string } }) => {
-  const { getPrivilegedUsers } = SettingRscService();
-
   const allRoles = await getPrivilegedUsers();
 
   //TODO: 가독성 수정 필요
@@ -61,7 +59,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
         title="권한 관리"
         firstNavigation={{

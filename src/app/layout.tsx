@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import Script from 'next/script';
 
 import { ErrorMessage } from '@/entities';
@@ -8,6 +9,22 @@ import '@/firebase-messaging-sw';
 import { GA, WindowSizeListener } from '@/fsd_shared';
 
 import './globals.css';
+
+const font = localFont({
+  src: [
+    {
+      path: './font/SpoqaHanSansNeo-Medium.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './font/SpoqaHanSansNeo-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-spoqa',
+});
 
 export default function RootLayout({
   children,
@@ -44,7 +61,7 @@ export default function RootLayout({
             }}
           />
         </head>
-        <body>
+        <body className={`${font.variable} font-sans`}>
           {/* 초기 페이지 진입 시 GA에 페이지 정보를 전송 */}
           <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`} />
           <Script
@@ -82,7 +99,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: 'favicons/favicon-96x96.png', rel: 'icon' },
+      { url: '/favicons/favicon-96x96.png', rel: 'icon' },
       {
         url: '/favicons/apple-icon-57x57.png',
         sizes: '57x57',

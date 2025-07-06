@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
+import { getMyCouncilFeeInfo, getMyInfo } from '@/fsd_entities/user/api';
+import { userQueryKey } from '@/fsd_entities/user/config';
+import { ProfileForm } from '@/fsd_entities/user/ui';
+
 import { LoadingComponent } from '@/entities';
-import { UserCouncilFeeService, userQueryKey, UserService } from '@/shared';
-import ProfileForm from '@/widget/setting/ProfileForm';
 
 const PersonalInfoPage = () => {
   const [feeInfo, setFeeInfo] = useState({
@@ -14,9 +16,6 @@ const PersonalInfoPage = () => {
     paidFeeSemesters: '',
     remainingFeeSemesters: '',
   });
-
-  const { getUserCouncilFeeInfo } = UserCouncilFeeService();
-  const { getMyInfo } = UserService();
 
   // 유저 정보 가져오기
   const {
@@ -34,7 +33,7 @@ const PersonalInfoPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const responseUserCouncilFeeData = await getUserCouncilFeeInfo();
+        const responseUserCouncilFeeData = await getMyCouncilFeeInfo();
         const userCouncilFeeData = responseUserCouncilFeeData.data;
 
         setFeeInfo({

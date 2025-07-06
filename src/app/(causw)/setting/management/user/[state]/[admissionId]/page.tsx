@@ -1,9 +1,10 @@
-import { ManagementDetail, ManagementState } from '@/widget';
+import { ManagementState } from '@/fsd_entities/user/model/types';
+import { AdmissionManagementDetail } from '@/fsd_entities/user/ui';
 
 const UserManagementDetail = async ({ params }: { params: { state: string; admissionId: string } }) => {
   const { state, admissionId } = params;
 
-  return <ManagementDetail state={state as ManagementState} admissionId={admissionId} />;
+  return <AdmissionManagementDetail state={state as ManagementState} admissionId={admissionId} />;
 };
 
 export default UserManagementDetail;

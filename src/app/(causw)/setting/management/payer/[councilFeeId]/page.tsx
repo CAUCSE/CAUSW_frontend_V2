@@ -1,11 +1,8 @@
-import { convertDataToTableEntity } from '@/entities/home/setting/management/CouncilFeeManagementDetailEntities';
-
-import { SettingRscService } from '@/shared';
-import CouncilFeeDetail from '@/widget/CouncilFeeManagementDetail';
+import { getUserCouncilFeeInfo } from '@/fsd_entities/user/api';
+import { CouncilFeeManagementDetail } from '@/fsd_entities/user/ui';
 
 export default async function CouncilFeeDetailPage({ params }: { params: { councilFeeId: string } }) {
   const { councilFeeId } = params;
-  const { getUserCouncilFeeInfo } = SettingRscService();
   let userCouncilFeeInfo: Setting.UserCouncilFeeInfoDTO | undefined;
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);
@@ -13,8 +10,7 @@ export default async function CouncilFeeDetailPage({ params }: { params: { counc
 
   return (
     <div className="mb-4">
-      <CouncilFeeDetail councilFeeId={councilFeeId}></CouncilFeeDetail>
-      <></>
+      <CouncilFeeManagementDetail councilFeeId={councilFeeId} />
     </div>
   );
 }

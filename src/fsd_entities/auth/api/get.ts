@@ -57,15 +57,6 @@ export const checkStudentIdDuplicate = async (studentId: string): Promise<boolea
   }
 };
 
-export const getMyInfo = async () => {
-  try {
-    const response = await API.get(`${URI}/me`); // 서버로부터 유저 정보를 가져옴
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
 export const getUserAdmissionInfo = async () => {
   await API.get(`${URI}/admissions/self`);
 };
