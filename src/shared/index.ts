@@ -60,7 +60,6 @@ export { ToastWithMax } from './ui/ToastWithMax';
 export { ImageModal } from './ui/ImageModal';
 export { PaginationButtons } from './ui/PaginationButtons';
 export { CustomSelect } from './ui/CustomSelect';
-export { EmptyComponent } from './ui/EmptyComponent';
 export { PortalModal } from './ui/PortalModal';
 
 //Custom Hooks
