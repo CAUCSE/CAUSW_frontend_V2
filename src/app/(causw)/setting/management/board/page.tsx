@@ -1,12 +1,12 @@
 import { getApplyBoards } from '@/fsd_entities/user/api';
-import { Management } from '@/fsd_entities/user/ui';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const BoardManagement = async () => {
   const data = (await getApplyBoards()) as Setting.BoardList;
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={undefined}
         title="게시판 생성 신청 관리"
         firstNavigation={{

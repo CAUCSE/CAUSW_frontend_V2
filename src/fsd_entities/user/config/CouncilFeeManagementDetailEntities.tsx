@@ -1,3 +1,4 @@
+// 유저 리펙 TODO: 식별자 및 구조 리펙토링 필요.
 export type InfoTableEntity = {
   email: string;
   major: string;

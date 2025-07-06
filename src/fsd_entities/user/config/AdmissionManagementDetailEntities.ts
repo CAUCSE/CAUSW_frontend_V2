@@ -1,3 +1,4 @@
+// 유저 리펙 TODO: 식별자 및 구조 리펙토링 필요.
 import toast from 'react-hot-toast';
 
 import { acceptAdmission, restoreUser } from '../api';

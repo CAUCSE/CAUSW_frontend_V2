@@ -1,5 +1,5 @@
 import { getPrivilegedUsers } from '@/fsd_entities/user/api';
-import { Management } from '@/fsd_entities/user/ui';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const navigation = [
   {
@@ -59,7 +59,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
         title="권한 관리"
         firstNavigation={{

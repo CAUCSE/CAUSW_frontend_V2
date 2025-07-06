@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { getPayers } from '@/fsd_entities/user/api';
-import { Management } from '@/fsd_entities/user/ui';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const PayerManagement = async () => {
   const data = await getPayers();
@@ -14,7 +14,7 @@ const PayerManagement = async () => {
       >
         납부자 추가
       </Link>
-      <Management
+      <ManagementPanel
         state={undefined}
         title="학생회비 관리"
         firstNavigation={{

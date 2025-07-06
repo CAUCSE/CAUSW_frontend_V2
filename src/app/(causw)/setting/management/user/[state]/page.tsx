@@ -1,5 +1,5 @@
 import { getAllAdmissions, getByState } from '@/fsd_entities/user/api';
-import { Management } from '@/fsd_entities/user/ui';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const navigation: {
   name: string;
@@ -68,7 +68,7 @@ const UserManagement = async ({
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
         title="유저 관리"
         firstNavigation={{

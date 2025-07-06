@@ -32,7 +32,7 @@ interface Prop {
   currentPage?: number;
 }
 
-export const Management = ({
+export const ManagementPanel = ({
   state,
   title,
   firstNavigation,
@@ -62,13 +62,13 @@ export const Management = ({
       <Header bold big>
         {title}
       </Header>
-      <div className="scrollbar-hide mb-[-18px] h-[86px] w-full overflow-x-auto md:mb-0 md:h-[70px]">
+      <div className="scrollbar-hide mt-3 mb-[-18px] w-full overflow-x-auto md:mb-0">
         <div
-          className={`mt-8 flex ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-evenly'} flex-row md:mb-1 md:justify-evenly lg:w-full`}
+          className={`flex ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-evenly'} flex-row md:mb-1 md:justify-evenly lg:w-full`}
         >
           <Link
             href={firstNavigation.state}
-            className={`${isFirstNavigation ? 'border-b-focus border-b-4' : ''} h-18 text-xl`}
+            className={`${isFirstNavigation ? 'border-b-focus border-b-4' : ''} h-8 text-xl`}
           >
             {firstNavigation.name}
           </Link>
@@ -77,7 +77,7 @@ export const Management = ({
                 <Link
                   key={element.state}
                   href={element.state}
-                  className={`${state === element.state ? 'border-b-focus border-b-4' : ''} h-18 text-xl`}
+                  className={`${state === element.state ? 'border-b-focus border-b-4' : ''} h-8 text-xl`}
                 >
                   {element.name}
                 </Link>

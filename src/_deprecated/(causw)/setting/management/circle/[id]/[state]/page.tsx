@@ -1,4 +1,4 @@
-import { Management } from '@/fsd_entities/user/ui';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 import { CircleRscService } from '@/shared';
 
@@ -9,7 +9,7 @@ const CircleManagement = async ({ params: { state, id } }: { params: { state: st
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
         title="동아리원 관리"
         firstNavigation={{
