@@ -28,7 +28,6 @@ export { PostService } from './hooks/services/PostService';
 export { BoardService } from './hooks/services/BoardService';
 export { FormService } from './hooks/services/FormService';
 export { AcademicRecordService } from './hooks/services/AcademicRecordService';
-export { CalendarService } from './hooks/services/CalendarService';
 export { BannerService } from './hooks/services/BannerService';
 //Store
 export { useLayoutStore } from './hooks/stores/useLayoutStore';
