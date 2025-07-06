@@ -59,7 +59,6 @@ export { NoButtonModal } from './ui/noButtonModal';
 export { ToastWithMax } from './ui/ToastWithMax';
 export { ImageModal } from './ui/ImageModal';
 export { PaginationButtons } from './ui/PaginationButtons';
-export { CustomSelect } from './ui/CustomSelect';
 export { PortalModal } from './ui/PortalModal';
 
 //Custom Hooks
