@@ -89,8 +89,7 @@ export { useReturnLocker } from './hooks/lockers/useReturnLocker';
 export { useExtendLocker } from './hooks/lockers/useExtendLocker';
 
 //Calendar
-export { useDeleteCalendarModal } from './hooks/calendar/useDeleteCalendarModal';
-export { useAddCalendarModal } from './hooks/calendar/useAddCalendarModal';
+
 
 // Banner
 export { useEditBanner } from './hooks/banner/useEditBanner';

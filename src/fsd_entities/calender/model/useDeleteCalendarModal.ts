@@ -2,7 +2,8 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CalendarService, useCalendarStore } from '@/shared';
+import { CalendarService } from '@/fsd_shared';
+import { useCalendarStore } from '@/fsd_entities/calender';
 
 export const useDeleteCalendarModal = () => {
   const { calendarId, calendarMonth, calendarYear, closeDeleteModal } = useCalendarStore(
