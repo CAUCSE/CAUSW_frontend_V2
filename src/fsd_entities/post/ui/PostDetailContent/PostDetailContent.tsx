@@ -1,6 +1,12 @@
+'use client';
+
+import DOMPurify from 'dompurify';
+
 interface PostDetailContentProps {
   postContent: Post.PostDto['content'];
 }
 export const PostDetailContent = ({ postContent }: PostDetailContentProps) => {
-  return <p className="text-base break-words whitespace-pre-line select-text">{postContent}</p>;
+  const sanitizedContent = DOMPurify.sanitize(postContent);
+
+  return <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
 };
