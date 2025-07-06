@@ -1,4 +1,4 @@
-'use client';
+/* 'use client';
 
 import { CircleMemberManagementDetail } from '@/widget';
 
@@ -21,4 +21,4 @@ const CircleMemberManagement = ({
   );
 };
 
-export default CircleMemberManagement;
+export default CircleMemberManagement; */
