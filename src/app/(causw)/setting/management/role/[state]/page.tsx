@@ -1,6 +1,5 @@
+import { getPrivilegedUsers } from '@/fsd_entities/user/api';
 import { Management } from '@/fsd_entities/user/ui';
-
-import { SettingRscService } from '@/shared';
 
 const navigation = [
   {
@@ -42,8 +41,6 @@ const navigation = [
 ];
 
 const RoleManagement = async ({ params: { state } }: { params: { state: string } }) => {
-  const { getPrivilegedUsers } = SettingRscService();
-
   const allRoles = await getPrivilegedUsers();
 
   //TODO: 가독성 수정 필요

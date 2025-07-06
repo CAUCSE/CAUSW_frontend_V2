@@ -4,12 +4,35 @@ import { AxiosResponse } from 'axios';
 import { API, setRscHeader } from '@/fsd_shared';
 import { BASEURL } from '@/fsd_shared';
 
-import { FEE_URL, PAGE_SIZE, URL } from '../config';
+import { PAGE_SIZE, USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
 import { settingQueryKey } from '../config';
 
-const SSR_URL = BASEURL + URL;
+const SSR_URL = BASEURL + USERS_ENDPOINT;
 
-// CSR API Method.
+// factory function.
+////////////////////////////////////////////////////////////////
+
+const setGetMethod = (endpoint: string) => {
+  return async (page: number = 0, size: number = PAGE_SIZE) => {
+    try {
+      const headers = await setRscHeader();
+
+      const response = await fetch(`${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`, {
+        headers: headers,
+      }).then((res) => res.json());
+
+      if (response.errorCode) throw new Error(response.errorCode);
+
+      return response.content;
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+// csr api method.
+////////////////////////////////////////////////////////////////
+
 export const getMyInfo = async () => {
   try {
     const response = (await API.get(`${URL}/me`)) as AxiosResponse<User.UserDto>; // 서버로부터 유저 정보를 가져옴
@@ -54,7 +77,6 @@ export const checkIsAcademicRecordSubmitted = async () => {
   }
 };
 
-// 전 SettingService 리펙
 export const getUserByName = async (name: string) => {
   const { data } = (await API.get(`${URL}/name/${name}`)) as AxiosResponse<User.User[]>;
 
@@ -142,26 +164,25 @@ export const useGetMyFavoritePosts = () => {
   });
 };
 
-// SSR API Method
+export const getApplyBoardById = async (id: string) => {
+  const { data } = (await API.get(`/api/v1/boards/apply/${id}`)) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
 
-//함수 생성자
-const setGetMethod = (endpoint: string) => {
-  return async (page: number = 0, size: number = PAGE_SIZE) => {
-    try {
-      const headers = await setRscHeader();
-
-      const response = await fetch(`${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`, {
-        headers: headers,
-      }).then((res) => res.json());
-
-      if (response.errorCode) throw new Error(response.errorCode);
-
-      return response.content;
-    } catch (error) {
-      throw error;
-    }
-  };
+  return data;
 };
+
+export const getMyCouncilFeeInfo = async () => {
+  try {
+    const response = (await API.get(
+      `${USER_COUNCIL_FEE_ENDPOINT}/isCurrentSemesterApplied/self/info`,
+    )) as AxiosResponse;
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ssr api method.
+////////////////////////////////////////////////////////////////
 
 export const getUser = async (id: string) => {
   try {
@@ -207,7 +228,7 @@ export const getMyCircles = async () => {
   }
 };
 
-//유저 상태 조회
+// 유저 상태 조회.
 export const getByState = async (state: User.UserDto['state'], name: string | null, page: number) => {
   try {
     const headers = await setRscHeader();
@@ -228,7 +249,7 @@ export const getByState = async (state: User.UserDto['state'], name: string | nu
   }
 };
 
-//특수 권한 조회
+// 특수 권한 조회.
 export const getPrivilegedUsers = async () => {
   try {
     const headers = await setRscHeader();
@@ -245,7 +266,7 @@ export const getPrivilegedUsers = async () => {
   }
 };
 
-//가입 대기 유저 조회
+// 가입 대기 유저 조회.
 export const getAllAdmissions = async (name: string | null, page: number) => {
   try {
     const headers = await setRscHeader();
@@ -278,25 +299,25 @@ export const getAdmission = async (userId: string) => {
   return data;
 };
 
-//납부자 조회
+// 납부자 조회.
 export const getPayers = setGetMethod('user-council-fee/list') as (
   page?: number,
   size?: number,
 ) => Promise<Setting.Payer[]>;
 
-//학적 인증 전체 조회
+// 학적 인증 전체 조회.
 export const getAllAttendanceUsers = setGetMethod('users/academic-record/list/active-users') as (
   page?: number,
   size?: number,
 ) => Promise<Setting.UserElement[]>;
 
-//학적 인증 요청 사용자 조회
+// 학적 인증 요청 사용자 조회.
 export const getWaitingUsers = setGetMethod('users/academic-record/list/await') as (
   page?: number,
   size?: number,
 ) => Promise<Setting.WaitingUsers[]>;
 
-//게시판 신청 목록 조회
+// 게시판 신청 목록 조회.
 export const getApplyBoardList = async () => {
   try {
     const headers = await setRscHeader();
@@ -313,24 +334,7 @@ export const getApplyBoardList = async () => {
   }
 };
 
-export const getApplyBoards = async (id: string) => {
-  const { data } = (await API.get(`/api/v1/boards/apply/${id}`)) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
-
-  return data;
-};
-
-// 전 UserCouncilFeeService 리펙
-
-export const getMyCouncilFeeInfo = async () => {
-  try {
-    const response = (await API.get(`${FEE_URL}/isCurrentSemesterApplied/self/info`)) as AxiosResponse;
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-// 납부자 상세 조회
+// 납부자 상세 조회.
 export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   const headers = await setRscHeader();
   const response = await fetch(`${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`, {
@@ -343,17 +347,18 @@ export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   return (await response.json()) as Setting.UserCouncilFeeInfoDTO;
 };
 
-export const checkIsCurrentSemesterApplied = async (userId: string) => {
+export const getApplyBoards = async () => {
   try {
-    const response =
-      (await API.get(`${FEE_URL}/isCurrentSemesterApplied`),
-      {
-        headers: {
-          params: userId,
-        },
-      });
+    const headers = await setRscHeader();
+
+    const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
+      headers: headers,
+    }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
+
+    if (response.errorCode) throw new Error(response.errorCode);
+
     return response;
   } catch (error) {
-    return false;
+    throw error;
   }
 };

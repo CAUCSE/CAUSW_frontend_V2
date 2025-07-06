@@ -1,10 +1,7 @@
+import { getAllAttendanceUsers, getWaitingUsers } from '@/fsd_entities/user/api';
 import { Management } from '@/fsd_entities/user/ui';
 
-import { SettingRscService } from '@/shared';
-
 const AttendanceManagement = async ({ params: { state } }: { params: { state: string } }) => {
-  const { getAllAttendanceUsers, getWaitingUsers } = SettingRscService();
-
   const data =
     state === 'waiting'
       ? await getWaitingUsers().then((data) =>

@@ -1,6 +1,5 @@
+import { getAllAdmissions, getByState } from '@/fsd_entities/user/api';
 import { Management } from '@/fsd_entities/user/ui';
-
-import { SettingRscService } from '@/shared';
 
 const navigation: {
   name: string;
@@ -41,8 +40,6 @@ const UserManagement = async ({
   params: { state: string };
   searchParams: { page?: string };
 }) => {
-  const { getByState, getAllAdmissions } = SettingRscService();
-
   const nowNavigation = navigation.find((element) => element.state === state);
   let data;
 

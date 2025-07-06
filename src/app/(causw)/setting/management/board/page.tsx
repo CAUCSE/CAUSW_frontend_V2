@@ -1,10 +1,7 @@
+import { getApplyBoards } from '@/fsd_entities/user/api';
 import { Management } from '@/fsd_entities/user/ui';
 
-import { SettingRscService } from '@/shared';
-
 const BoardManagement = async () => {
-  const { getApplyBoards } = SettingRscService();
-
   const data = (await getApplyBoards()) as Setting.BoardList;
 
   return (

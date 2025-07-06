@@ -1,12 +1,9 @@
 import toast from 'react-hot-toast';
 
-import { SettingRscService } from '@/shared';
-
-type state = 'admission' | 'reject' | 'active' | 'drop' | 'inactive';
+import { acceptAdmission, restoreUser } from '../api';
+import { ManagementState } from '../model';
 
 const admitTarget = async (userId) => {
-  const { acceptAdmission } = SettingRscService();
-
   try {
     await acceptAdmission(userId);
     toast.success('승인이 완료되었습니다.');
@@ -19,8 +16,6 @@ const admitTarget = async (userId) => {
 };
 
 const restoreTarget = async (userId) => {
-  const { restoreUser } = SettingRscService();
-
   try {
     await restoreUser(userId);
     toast.success('사용자가 복구되었습니다다.');
@@ -33,7 +28,7 @@ const restoreTarget = async (userId) => {
 };
 
 export const uiEntities: Record<
-  state,
+  ManagementState,
   {
     titleSuffix: string;
     buttons: {

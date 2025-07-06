@@ -3,7 +3,10 @@ import { AxiosResponse } from 'axios';
 import { API, BASEURL, FORMAPI, setRscHeader } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
-import { FEE_URL, URL } from '../config';
+import { USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
+
+// csr api method.
+////////////////////////////////////////////////////////////////
 
 export const submitAdmissionsApplication = async (
   data: User.AdmissionCreateRequestDto, // FileList 타입 사용
@@ -21,7 +24,7 @@ export const submitAdmissionsApplication = async (
       'userAdmissionAttachImageList',
     );
 
-    const response = await FORMAPI.post(URL + '/admissions/apply', formData);
+    const response = await FORMAPI.post(USERS_ENDPOINT + '/admissions/apply', formData);
 
     return response.data; //
   } catch (error) {
@@ -31,12 +34,15 @@ export const submitAdmissionsApplication = async (
 
 export const registerCouncilFee = async (body: any) => {
   try {
-    const response = (await API.post(`${FEE_URL}/create-user`, body)) as AxiosResponse;
+    const response = (await API.post(`${USER_COUNCIL_FEE_ENDPOINT}/create-user`, body)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
   }
 };
+
+// ssr api method.
+////////////////////////////////////////////////////////////////
 
 export const addPayer = async (
   userId: string,

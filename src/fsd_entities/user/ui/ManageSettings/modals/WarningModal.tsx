@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import toast from 'react-hot-toast';
 
-import { expelUser, rejectAdmission } from '../../../api';
+import { deleteUser, expelUser, rejectAdmission } from '../../../api';
 
 export function WarningModal({
   isOpen,
@@ -37,7 +37,6 @@ export function WarningModal({
   };
 
   const deleteTarget = async (userId) => {
-    const { deleteUser } = SettingRscService();
     try {
       await deleteUser(userId);
       toast.success('사용자가 영구 삭제되었습니다.');

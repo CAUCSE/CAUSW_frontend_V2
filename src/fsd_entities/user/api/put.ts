@@ -3,13 +3,16 @@ import { AxiosResponse } from 'axios';
 import { API, BASEURL, FORMAPI, setRscHeader } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
-import { URL } from '../config';
+import { USERS_ENDPOINT } from '../config';
 
-const SSR_URL = BASEURL + URL;
+const SSR_URL = BASEURL + USERS_ENDPOINT;
+
+// csr api method.
+////////////////////////////////////////////////////////////////
 
 export const updateUserAcademicInfo = async (data: any) => {
   try {
-    const response = (await API.put(`${URL}/academic-record/application/update`, data)) as AxiosResponse;
+    const response = (await API.put(`${USERS_ENDPOINT}/academic-record/application/update`, data)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -18,7 +21,7 @@ export const updateUserAcademicInfo = async (data: any) => {
 
 export const allowUser = async (param: string) => {
   try {
-    const response = (await API.put(`${URL}/admissions/${param}/accept`)) as AxiosResponse;
+    const response = (await API.put(`${USERS_ENDPOINT}/admissions/${param}/accept`)) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
@@ -75,6 +78,20 @@ export const updateAttendanceUserNote = async (id: string, note: string) => {
   await API.put(`/api/v1/users/academic-record/record/${id}`, note);
 };
 
+export const updateRole = async (id: string, role: User.Role, circleId: string | null) => {
+  await API.put(`${USERS_ENDPOINT}/${id}/role`, {
+    role: role,
+    circleId: circleId,
+  });
+};
+
+export const updateVTwo = async () => {
+  await API.put(`${USERS_ENDPOINT}/update/isV2`);
+};
+
+// ssr api method.
+////////////////////////////////////////////////////////////////
+
 // 사용자 추방
 export const expelUser = async (userId: string, expelReason: string) => {
   const headers = await setRscHeader();
@@ -123,15 +140,4 @@ export const rejectAdmission = async (userId: string, rejectReason: string) => {
 
   if (!response.ok) throw new Error(response.statusText);
   return true;
-};
-
-export const updateRole = async (id: string, role: User.Role, circleId: string | null) => {
-  await API.put(`${URL}/${id}/role`, {
-    role: role,
-    circleId: circleId,
-  });
-};
-
-export const updateVTwo = async () => {
-  await API.put(`${URL}/update/isV2`);
 };

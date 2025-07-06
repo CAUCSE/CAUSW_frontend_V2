@@ -1,12 +1,9 @@
 import Link from 'next/link';
 
+import { getPayers } from '@/fsd_entities/user/api';
 import { Management } from '@/fsd_entities/user/ui';
 
-import { SettingRscService } from '@/shared';
-
 const PayerManagement = async () => {
-  const { getPayers } = SettingRscService();
-
   const data = await getPayers();
 
   return (

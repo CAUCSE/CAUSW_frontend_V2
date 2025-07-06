@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { getApplyBoards } from '@/fsd_entities/user/api';
+import { getApplyBoardById } from '@/fsd_entities/user/api';
 import { acceptApplyBoards, rejectApplyBoards } from '@/fsd_entities/user/api';
 
 import { LoadingComponent } from '@/entities';
@@ -16,7 +16,7 @@ const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) =
   const [data, setData] = useState<undefined | Setting.GetApplyBoardResponseDto>();
 
   useEffect(() => {
-    getApplyBoards(id).then((res) => setData(res));
+    getApplyBoardById(id).then((res) => setData(res));
   }, []);
 
   if (!data) return <LoadingComponent />;
