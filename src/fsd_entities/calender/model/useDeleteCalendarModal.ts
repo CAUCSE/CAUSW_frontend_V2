@@ -2,8 +2,7 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CalendarService } from '@/fsd_shared';
-import { useCalendarStore } from '@/fsd_entities/calender';
+import { useCalendarStore, useDeleteCalendar } from '@/fsd_entities/calender';
 
 export const useDeleteCalendarModal = () => {
   const { calendarId, calendarMonth, calendarYear, closeDeleteModal } = useCalendarStore(
@@ -15,7 +14,6 @@ export const useDeleteCalendarModal = () => {
     })),
   );
 
-  const { useDeleteCalendar } = CalendarService();
   const { mutate } = useDeleteCalendar();
 
   const cancelDelete = () => {
