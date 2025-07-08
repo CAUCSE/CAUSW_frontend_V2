@@ -5,17 +5,18 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useGetWaitingUser } from '@/fsd_entities/user/api';
+import { changeAttendanceUserState } from '@/fsd_entities/user/api';
+
 import { ImageList } from '@/shared/ui/ImageList';
 
 import { Header, Line, LoadingComponent, SubHeader } from '@/entities';
-import { ImageModal, Modal, SettingService } from '@/shared';
+import { ImageModal, Modal } from '@/shared';
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const idArray = id.split('%26%26%26');
   const userId = idArray[0];
   const applicationId = idArray[1];
-
-  const { useGetWaitingUser, changeAttendanceUserState } = SettingService();
 
   const { data, isLoading } = useGetWaitingUser(userId, applicationId);
 

@@ -4,12 +4,13 @@ import { useRouter } from 'next/navigation';
 
 import { AxiosResponse } from 'axios';
 
-import { API, setRccToken, setRscToken, useLayoutStore, UserService } from '@/shared';
+import { getMyInfo } from '@/fsd_entities/user/api';
+
+import { API, setRccToken, setRscToken, useLayoutStore } from '@/shared';
 
 const URI = '/api/v1/users';
-export const AuthService = () => {
-  const { getMyInfo } = UserService();
 
+export const AuthService = () => {
   const router = useRouter();
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
 

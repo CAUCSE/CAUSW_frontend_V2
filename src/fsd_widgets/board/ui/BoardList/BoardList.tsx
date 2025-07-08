@@ -1,16 +1,13 @@
 import Link from 'next/link';
 
 import { fetchBoardList } from '@/fsd_entities/board';
-
-import { useUserStore } from '@/shared';
+import { useMyInfoStore } from '@/fsd_entities/user/model';
 
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';
 
-// TODO useUserStore 변경 시 리팩토링 진행
-
 export const BoardList = async () => {
-  const roles = useUserStore.getState().roles;
+  const roles = useMyInfoStore.getState().roles;
   const { sortedBoardList, defaultBoardForAdmin, defaultBoardForCommon, customBoardForAdmin, customBoardForCommon } =
     await fetchBoardList();
 

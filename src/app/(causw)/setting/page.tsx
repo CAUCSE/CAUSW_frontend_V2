@@ -2,14 +2,18 @@
 
 import React, { useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { UseTerms } from '@/fsd_shared';
-import { userRoleCodes, useUserStore } from '@/shared';
+import { useMyInfoStore, userRoleCodes } from '@/fsd_entities/user/model';
+
+const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
+  ssr: false,
+});
 
 const SettingsPage = () => {
   const { roles, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader } =
-    useUserStore((state) => ({
+    useMyInfoStore((state) => ({
       roles: state.roles,
       isStudent: state.isStudent,
       isProfessor: state.isProfessor,
@@ -22,8 +26,19 @@ const SettingsPage = () => {
       isAlumniLeader: state.isAlumniLeader,
     }));
 
-  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
-  const circleNameIfLeader = useUserStore((state) => state.circleNameIfLeader);
+  console.log(
+    roles,
+    isAdmin(),
+    isPresidents(),
+    isVicePresidents(),
+    isCircleLeader(),
+    isCouncil(),
+    isStudentLeader(),
+    isAlumniLeader(),
+  );
+
+  const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
+  const circleNameIfLeader = useMyInfoStore((state) => state.circleNameIfLeader);
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
   const roleItems: {
     name: string;
@@ -54,9 +69,9 @@ const SettingsPage = () => {
       { name: '이용약관', link: '/setting/useterms' },
     ],
     records: [
-      { name: '내가 쓴 글', link: '/setting/my/posts' },
+      { name: '내가 쓴 게시글', link: '/setting/my/posts' },
       { name: '내가 쓴 댓글', link: '/setting/my/comments' },
-      { name: '내가 찜한 글', link: '/setting/my/favorite' },
+      { name: '내가 찜한 게시글', link: '/setting/my/favorite' },
     ],
     managementAlumniPresident: [{ name: '유저 관리', link: '/' }],
     managementAdmin: [

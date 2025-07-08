@@ -7,8 +7,11 @@ import { useRouter } from 'next/navigation';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { getUserByName } from '@/fsd_entities/user/api';
+import { updateRole } from '@/fsd_entities/user/api';
+import { useMyInfoStore, userRoleCodes } from '@/fsd_entities/user/model';
+
 import { Header, Line, SubHeader } from '@/entities';
-import { SettingService, userRoleCodes, useUserStore } from '@/shared';
 
 interface IFormInput {
   searchContent: string;
@@ -23,9 +26,7 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const circleIdIfLeader = useUserStore((state) => state.circleIdIfLeader);
-
-  const { getUserByName, updateRole } = SettingService();
+  const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     getUserByName(data.searchContent).then((res) => setDate(res));

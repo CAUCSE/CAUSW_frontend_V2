@@ -1,15 +1,12 @@
 export * from './configs';
 
-//TODO: entities 이사 예정
-//Service
-
-//Listener
+// Listener
 export * from './listener';
 
-//Ui
+// Ui
 export * from './ui';
 
-//Custom Hooks
+// Custom Hooks
 export * from './hooks';
 
 export * from './model';

@@ -16,8 +16,6 @@ export * from './configs/query-key';
 export { AuthRscService } from './hooks/services/AuthRscService';
 export { HomeRscService } from './hooks/services/HomeRscService';
 export { CircleRscService } from './hooks/services/CircleRscSevice';
-export { UserRscService } from './hooks/services/UserRscService';
-export { SettingRscService } from './hooks/services/SettingRscService';
 export { VoteRscService } from './hooks/services/VoteRscService';
 export { PostRscService } from './hooks/services/PostRscService';
 export { AuthService } from './hooks/services/AuthService';
@@ -25,9 +23,6 @@ export { BoardRscService } from './hooks/services/BoardRscService';
 export { ChildCommentRscService } from './hooks/services/ChildCommentRscService';
 export { CircleService } from './hooks/services/CircleService';
 export { CommentRscService } from './hooks/services/CommentRscService';
-export { SettingService } from './hooks/services/SettingService';
-export { UserCouncilFeeService } from './hooks/services/UserCouncilFeeService';
-export { UserService } from './hooks/services/UserService';
 export { LockerService } from './hooks/services/LockerService';
 export { PostService } from './hooks/services/PostService';
 export { BoardService } from './hooks/services/BoardService';
@@ -37,7 +32,6 @@ export { CalendarService } from './hooks/services/CalendarService';
 export { BannerService } from './hooks/services/BannerService';
 //Store
 export { useLayoutStore } from './hooks/stores/useLayoutStore';
-export { useUserStore, userRoleCodes } from './hooks/stores/useUserStore';
 
 export { useBoardStore } from './hooks/stores/board/useBoardStore';
 export { usePopup } from './hooks/stores/post/usePopup';

@@ -61,6 +61,9 @@ module.exports = {
         'comment-bw': '1px',
         'post-title-input': '1px',
       },
+      fontFamily: {
+        sans: ['var(--font-spoqa)'],
+      },
     },
   },
   plugins: [addDynamicIconSelectors(), require('tailwind-scrollbar-hide')],
