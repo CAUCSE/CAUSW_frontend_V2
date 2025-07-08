@@ -8,7 +8,7 @@ import { createFormData } from '@/utils/formDataUtil';
 // 유틸 함수 가져오기
 
 export const OccasionService = () => {
-  const registerOccasion = async (data: Occasion.CreateCeremonyRequestDto, files: File[]): Promise<any> => {
+  const registerOccasion = async (data: Ceremony.CreateCeremonyRequestDto, files: File[]): Promise<any> => {
     const URI = `${BASEURL}/api/v1/ceremony`;
     try {
       const formData = createFormData(

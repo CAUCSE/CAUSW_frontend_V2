@@ -36,23 +36,23 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <>
       {onModal ? (
-        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
-            <button className="absolute left-0 top-0 p-2" onClick={closeModal}>
+            <button className="absolute top-0 left-0 p-2" onClick={closeModal}>
               <Image src="/images/modal_close_icon.png" alt="modal-close-btn" width={15} height={15} />
             </button>
             <SubHeader bold big>
               거부 사유
             </SubHeader>
             <textarea
-              onChange={event => {
+              onChange={(event) => {
                 rejectMessage.current = event.target.value;
               }}
               className="h-24 min-h-24 w-full rounded-md border-2 p-3"
               placeholder="거부 사유를 작성해주세요."
             ></textarea>
             <button
-              className="mt-5 h-10 w-full rounded bg-red-500 text-white"
+              className="mt-5 h-10 w-full rounded-sm bg-red-500 text-white"
               onClick={() => {
                 changeAttendanceUserState(userId, applicationId, 'REJECT', rejectMessage.current).then(() => {
                   window.location.href = '/setting/management/attendance/waiting';
@@ -65,7 +65,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         </div>
       ) : null}
       <main className="flex h-full flex-col gap-2">
-        <div className="relative mb-3 mt-6 flex w-full justify-center">
+        <div className="relative mt-6 mb-3 flex w-full justify-center">
           <Link href=".." className="absolute left-0 text-lg">
             <span className="icon-[tabler--x] mr-6 text-3xl font-bold"></span>
           </Link>
@@ -98,7 +98,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
                 window.location.href = '/setting/management/attendance/waiting';
               });
             }}
-            className="mb-3 flex h-12 w-[49%] items-center justify-center rounded-xl bg-focus text-lg text-white"
+            className="bg-focus mb-3 flex h-12 w-[49%] items-center justify-center rounded-xl text-lg text-white"
           >
             승인하기
           </div>

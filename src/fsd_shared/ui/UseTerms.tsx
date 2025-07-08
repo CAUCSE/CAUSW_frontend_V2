@@ -5,7 +5,7 @@ interface UseTermsProps {
 export const UseTerms = ({ closeModal }: UseTermsProps) => {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50"
+      className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black"
       onClick={closeModal}
     >
       <div className="h-5/6 w-5/6 max-w-3xl overflow-y-auto rounded-lg bg-white p-8">
@@ -463,13 +463,13 @@ export const UseTerms = ({ closeModal }: UseTermsProps) => {
                 5. 개인정보 제공 거부 시 불이익 : 서비스 이용 제한
               </div>
             </div>
-            <div className="ml-4 mt-4 flex items-center">
+            <div className="mt-4 ml-4 flex items-center">
               <label htmlFor="terms"></label>
             </div>
           </>
         </div>
         <div className="flex w-full items-center justify-center">
-          <button onClick={closeModal} className="mt-4 rounded-lg bg-focus px-4 py-2 text-white hover:bg-blue-400">
+          <button onClick={closeModal} className="bg-focus mt-4 rounded-lg px-4 py-2 text-white hover:bg-blue-400">
             닫기
           </button>
         </div>

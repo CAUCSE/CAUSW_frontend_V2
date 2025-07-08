@@ -5,3 +5,4 @@ export { FORM_CONSTANT } from './form/constant';
 export { isValidDate, isPastDate, isStartDateBeforeEndDate } from './validation';
 export { createFormData } from './formDataUtil';
 export { LOCKER_CONSTANT } from './locker/constant';
+export { formatDateInput } from './inputFormatters';

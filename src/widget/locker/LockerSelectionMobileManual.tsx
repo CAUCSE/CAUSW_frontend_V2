@@ -38,7 +38,7 @@ export const LockerSelectionMobileManual = ({ lockerPeriod }: LockerSelectionMob
             return (
               <div key={idx} className="flex items-center gap-2">
                 <div className={`h-4 w-4 ${example.color} sm:h-6 sm:w-6`}></div>
-                <p className="text-nowrap text-sm">: {example.content}</p>
+                <p className="text-sm text-nowrap">: {example.content}</p>
               </div>
             );
           })}

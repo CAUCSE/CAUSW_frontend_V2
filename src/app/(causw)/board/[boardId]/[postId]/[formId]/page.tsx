@@ -5,7 +5,8 @@ import { notFound, useParams } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { LoadingComponent } from '@/entities';
-import { FormService, Modal, PreviousButton, useHandleApplySubmit, useResponseFormStore } from '@/shared';
+import { PreviousButton } from '@/fsd_shared';
+import { FormService, Modal, useHandleApplySubmit, useResponseFormStore } from '@/shared';
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widget';
 
 const ApplyPage = () => {
@@ -17,7 +18,7 @@ const ApplyPage = () => {
       questionReplyRequestDtoList: [],
     },
   });
-  const form = useResponseFormStore(state => state.form);
+  const form = useResponseFormStore((state) => state.form);
 
   const { setError } = methods;
   const { useGetFormResponseInfo } = FormService();

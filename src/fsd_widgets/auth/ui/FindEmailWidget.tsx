@@ -9,7 +9,7 @@ import { FindEmailResult } from './FindEmailResult';
 
 export const FindEmailWidget = () => {
   const { email, resetFindAccountStore } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       email: state.email,
       resetFindAccountStore: state.resetFindAccountStore,
     })),
@@ -17,7 +17,7 @@ export const FindEmailWidget = () => {
 
   return (
     <div
-      className="flex min-h-screen flex-col items-center justify-center bg-boardPageBackground px-4 sm:px-0"
+      className="bg-board-page-background flex min-h-screen flex-col items-center justify-center px-4 sm:px-0"
       ref={useCallback(() => {
         resetFindAccountStore();
       }, [])}

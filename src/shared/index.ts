@@ -40,10 +40,7 @@ export { useLayoutStore } from './hooks/stores/useLayoutStore';
 export { useUserStore, userRoleCodes } from './hooks/stores/useUserStore';
 
 export { useBoardStore } from './hooks/stores/board/useBoardStore';
-export { useChildCommentStore } from './hooks/stores/post/useChildCommentStore';
-export { useCommentStore } from './hooks/stores/post/useCommentStore';
 export { usePopup } from './hooks/stores/post/usePopup';
-export { usePostDetail } from './hooks/stores/post/usePostDetail';
 export { usePostStore } from './hooks/stores/post/usePostStore';
 export { useVoteStore } from './hooks/stores/post/useVoteStore';
 export { useCreatePostStore } from './hooks/stores/post/create/useCreatePostStore';
@@ -74,11 +71,6 @@ export { CustomSelect } from './ui/CustomSelect';
 export { EmptyComponent } from './ui/EmptyComponent';
 export { PortalModal } from './ui/PortalModal';
 
-//Boards
-
-export { useGetBoardList } from './hooks/boards/useGetBoardList';
-export { useCreateBoard } from './hooks/boards/useCreateBoard';
-
 //Custom Hooks
 
 export { useInfiniteScroll } from './hooks/useInfiniteScroll';
@@ -87,10 +79,8 @@ export { useIsWindowLg } from './hooks/useIsWindowLg';
 export { useTruncateParagraph } from './hooks/useTruncateParagraph';
 
 //Posts
-export { useSearchPost } from './hooks/posts/useSearchPost';
 export { usePostForm } from './hooks/posts/usePostForm';
 export { usePostInteraction } from './hooks/posts/usePostInteraction';
-export { useCommentInteraction } from './hooks/posts/comment/useCommentInteraction';
 
 //Form
 export { useCreateApply } from './hooks/posts/form/useCreateApply';

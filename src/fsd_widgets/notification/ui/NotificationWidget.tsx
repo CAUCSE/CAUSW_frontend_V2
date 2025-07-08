@@ -14,7 +14,7 @@ import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
   const { notifications, ceremonyNotifications, loadNotifications, loadCeremonyNotifications, markAsRead } =
-    useNotificationStore(state => ({
+    useNotificationStore((state) => ({
       notifications: state.notifications,
       ceremonyNotifications: state.ceremonyNotifications,
       loadNotifications: state.loadNotifications,
@@ -30,8 +30,8 @@ export const NotificationWidget = () => {
   const { notificationData } = useNotificationData();
   const { boards } = useGetBoardList();
 
-  const matchedBoardPairs = notificationData.map(alarm => {
-    const matchedBoard = boards.find(board => board.boardName === alarm.title);
+  const matchedBoardPairs = notificationData.map((alarm) => {
+    const matchedBoard = boards.find((board) => board.boardName === alarm.title);
     return {
       notificationLogId: alarm.notificationLogId,
       boardId: matchedBoard?.boardId ?? '',

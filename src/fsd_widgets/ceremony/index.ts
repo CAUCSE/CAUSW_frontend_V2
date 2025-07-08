@@ -1,6 +1,4 @@
 // config
-
+export * from './config';
 // ui
-export { CeremonyCreateWidget } from './ui/CeremonyCreateWidget';
-
-export { CeremonyListWidget } from './ui/CeremonyListWidget';
+export * from './ui';

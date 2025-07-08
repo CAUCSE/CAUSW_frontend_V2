@@ -10,7 +10,7 @@ export const LockerSelectionHeader = ({ lockerList }: LockerSelectionHeaderProps
   const { floor } = LOCKER_CONSTANT();
 
   let availableLockerCount = 0;
-  lockerList.lockerList.forEach(locker => {
+  lockerList.lockerList.forEach((locker) => {
     if (locker.isActive) {
       availableLockerCount++;
     }

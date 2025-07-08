@@ -31,7 +31,7 @@ export const AcademicStatusSelect = <T extends FieldValues>({
         className="mb-1 w-full rounded-md border border-gray-300 p-2 sm:w-96"
       >
         <option value="">-- 선택해주세요 --</option>
-        {options.map(opt => (
+        {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}
           </option>

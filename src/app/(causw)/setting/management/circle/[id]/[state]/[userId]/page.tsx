@@ -44,7 +44,7 @@ const CircleApplyManagement = ({
 
   return (
     <>
-      <div className="relative left-1/2 mb-10 mt-10 flex w-3/4 min-w-[280px] -translate-x-1/2 transform flex-col gap-3 sm:min-w-[530px]">
+      <div className="relative left-1/2 mt-10 mb-10 flex w-3/4 min-w-[280px] -translate-x-1/2 transform flex-col gap-3 sm:min-w-[530px]">
         <Link href={'/setting/management/circle/' + id + '/apply'} className="flex items-center text-lg">
           <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
           이전
@@ -56,7 +56,7 @@ const CircleApplyManagement = ({
       <div className="flex w-full flex-col items-center gap-8 overflow-y-auto">
         {application.map((question: Post.QuestionResponseDto) => {
           const userReply = data.replyQuestionResponseDtoList.filter(
-            reply => reply.questionId === question.questionId,
+            (reply) => reply.questionId === question.questionId,
           )[0];
           return (
             <div key={question.questionId} className="w-3/4 min-w-[280px] sm:min-w-[530px]">
@@ -69,7 +69,7 @@ const CircleApplyManagement = ({
                 {question.questionType === 'OBJECTIVE' ? (
                   question.optionResponseDtoList
                     .sort((a, b) => a.optionNumber - b.optionNumber)
-                    .map(option => {
+                    .map((option) => {
                       return (
                         <div key={option.optionId} className="flex gap-2">
                           {question.isMultiple ? (
@@ -102,7 +102,7 @@ const CircleApplyManagement = ({
         })}
         <div className="flex w-full flex-col justify-center gap-3 md:flex-row">
           <button
-            className="flex h-10 w-80 items-center justify-center rounded-xl bg-default text-lg text-white md:h-16 lg:text-xl"
+            className="bg-default flex h-10 w-80 items-center justify-center rounded-xl text-lg text-white md:h-16 lg:text-xl"
             onClick={() => {
               acceptApplyUser(applicationId).then(() => {
                 window.location.href = '/setting/management/circle/' + id + '/apply';

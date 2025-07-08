@@ -1,8 +1,7 @@
 'use client';
 
-import { Badge, Tab, Tabs } from '@mui/material';
-
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
+import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui/tabs';
 
 import { NotificationActionButtons } from './NotificationActionButtons';
 
@@ -15,84 +14,36 @@ interface Props {
   };
 }
 
-export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) => (
-  <Tabs
-    value={activeTab}
-    TabIndicatorProps={{
-      style: {
-        height: '5px',
-        backgroundColor: '#6bbeec',
-        borderRadius: '20px',
-      },
-    }}
-    sx={{
-      display: 'flex',
-      width: '100%',
-      justifyContent: 'flex-start',
-      padding: '8px 8px 4px 16px',
-      borderBottom: '3px solid #bababa',
-      marginBottom: '24px',
-    }}
-  >
-    <Tab
-      label={
-        <div style={{ display: 'flex', gap: 4 }}>
-          {hasUnread.alarm && (
-            <span
-              style={{
-                display: 'flex',
-                marginTop: '4px',
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: 'red',
-              }}
-            />
-          )}
-          <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.GENERAL}</span>
+export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) => {
+  return (
+    <div className="mt-8 mb-6 w-full border-b-[3px] border-[#bababa] px-2 pb-1 md:px-8">
+      <Tabs defaultValue={String(activeTab)} onValueChange={(val) => setActiveTab(Number(val))} className="w-full">
+        <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between md:gap-0">
+          <TabsList className="w-full justify-start gap-4 overflow-x-auto overflow-y-hidden px-4 py-2 whitespace-nowrap md:w-auto">
+            <TabsTrigger
+              value={String(NOTIFICATION_TAB.GENERAL)}
+              className="min-w-[120px] px-4 py-2 text-center leading-normal"
+            >
+              <div className="flex items-center gap-1">
+                {hasUnread.alarm && <span className="mt-1 h-2.5 w-2.5 rounded-full bg-red-500" />}
+                <span className="leading-normal whitespace-nowrap">{MESSAGES.NOTIFICATION.GENERAL}</span>
+              </div>
+            </TabsTrigger>
+            <TabsTrigger
+              value={String(NOTIFICATION_TAB.CEREMONY)}
+              className="min-w-[120px] px-4 py-2 text-center leading-normal"
+            >
+              <div className="flex items-center gap-1">
+                {hasUnread.ceremony && <span className="mt-1 h-2.5 w-2.5 rounded-full bg-red-500" />}
+                <span className="leading-normal whitespace-nowrap">{MESSAGES.NOTIFICATION.CEREMONY}</span>
+              </div>
+            </TabsTrigger>
+          </TabsList>
+          <div className="hidden md:block">
+            {activeTab === NOTIFICATION_TAB.CEREMONY && <NotificationActionButtons />}
+          </div>
         </div>
-      }
-      disableRipple
-      onClick={() => setActiveTab(0)}
-      sx={{
-        textTransform: 'none',
-        color: '#000',
-        '&.Mui-selected': {
-          color: '#000',
-        },
-        fontSize: '20px',
-        fontWeight: '500',
-      }}
-    />
-    <Tab
-      label={
-        <div style={{ display: 'flex', gap: 4 }}>
-          {hasUnread.ceremony && (
-            <span
-              style={{
-                display: 'flex',
-                marginTop: '4px',
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                backgroundColor: 'red',
-              }}
-            />
-          )}
-          <span style={{ fontSize: '20px', fontWeight: 500 }}>{MESSAGES.NOTIFICATION.CEREMONY}</span>
-        </div>
-      }
-      disableRipple
-      onClick={() => setActiveTab(1)}
-      sx={{
-        textTransform: 'none',
-        color: '#000',
-        '&.Mui-selected': {
-          color: '#000',
-        },
-        fontSize: '20px',
-      }}
-    />
-    {activeTab === 1 && <NotificationActionButtons />}
-  </Tabs>
-);
+      </Tabs>
+    </div>
+  );
+};

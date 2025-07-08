@@ -6,8 +6,8 @@ interface ResponseFormStore {
   clearForm: () => void;
 }
 
-export const useResponseFormStore = create<ResponseFormStore>(set => ({
+export const useResponseFormStore = create<ResponseFormStore>((set) => ({
   form: null,
-  setForm: form => set(() => ({ form })),
+  setForm: (form) => set(() => ({ form })),
   clearForm: () => set(() => ({ form: null })),
 }));

@@ -18,7 +18,7 @@ export const ResetPasswordForm = () => {
       onSubmit={handleSubmit(onSubmit, onInvalid)}
       className="flex w-1/2 min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8"
     >
-      <PreviousButton variant="bg-boardPageBackground"></PreviousButton>
+      <PreviousButton variant="bg-board-page-background"></PreviousButton>
       <AuthInput
         register={register}
         name="originPassword"

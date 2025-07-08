@@ -1,6 +1,6 @@
 'use client';
 
-export const ProfileImage = ({ src }: { src?: string }) => {
+export const ProfileImage = ({ src }: { src?: string | null }) => {
   return (
     <div className="h-[45px] w-[45px] overflow-hidden rounded-full shadow-2xl xl:h-24 xl:w-24">
       <div

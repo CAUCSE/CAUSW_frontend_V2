@@ -19,6 +19,7 @@ declare namespace Post {
     isPostFavorite: boolean;
     isPostVote: boolean;
     isPostForm: boolean;
+    isPostSubscribed:boolean;
     isOwner: boolean;
     updatable: boolean;
     deletable: boolean;
@@ -27,7 +28,7 @@ declare namespace Post {
     commentList: CommentListDto;
     boardName: string;
     formResponseDto: FormResponseDto | null;
-    voteResponseDto: VoteResponseDto | null;
+    voteResponseDto: Vote.VoteResponseDto | null;
   }
 
   export interface PostResponseDtoList extends Pagination.PageableObject {
@@ -239,4 +240,10 @@ declare namespace Post {
     | "SEVENTH_SEMESTER"
     | "EIGHTH_SEMESTER"
     | "ABOVE_NINTH_SEMESTER";
+
+  export interface PostSubscribeResponseDto {
+    postId: string;
+    userId: string;
+    isSubscribed: boolean;
+  }
 }

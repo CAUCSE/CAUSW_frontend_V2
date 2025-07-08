@@ -1,0 +1,1 @@
+export { VoteResultSectionFooter } from './VoteResultSectionFooter';

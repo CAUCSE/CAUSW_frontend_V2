@@ -7,7 +7,7 @@ interface LockerListHeaderProps {
 export const LockerListHeader = ({ lockerLocations }: LockerListHeaderProps) => {
   let availableLockerCount = 0,
     totalLockerCount = 0;
-  lockerLocations.lockerLocations.forEach(lockerLocation => {
+  lockerLocations.lockerLocations.forEach((lockerLocation) => {
     availableLockerCount += lockerLocation.enableLockerCount;
     totalLockerCount += lockerLocation.totalLockerCount;
   });
@@ -37,7 +37,7 @@ export const LockerListHeader = ({ lockerLocations }: LockerListHeaderProps) => 
         </div>
       </div>
       <div className="mb-4 flex-col sm:flex">
-        <p className="mb-2 text-nowrap font-normal text-[#8B8B8B] md:mb-0">
+        <p className="mb-2 font-normal text-nowrap text-[#8B8B8B] md:mb-0">
           잔여 {availableLockerCount}개 / 전체 {totalLockerCount}개
         </p>
         <div className="flex items-center gap-4 text-nowrap md:hidden">

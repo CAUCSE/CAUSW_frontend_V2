@@ -22,7 +22,7 @@ export const BannerService = () => {
   const useCreateBanner = () => {
     const queryClient = useQueryClient();
     const { closeEditBannerModal, resetSelectedBanner } = useBannerStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         closeEditBannerModal: state.closeEditBannerModal,
         resetSelectedBanner: state.resetSelectedBanner,
       })),
@@ -55,7 +55,7 @@ export const BannerService = () => {
   const useUpdateBanner = () => {
     const queryClient = useQueryClient();
     const { closeEditBannerModal, resetSelectedBanner } = useBannerStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         closeEditBannerModal: state.closeEditBannerModal,
         resetSelectedBanner: state.resetSelectedBanner,
       })),
@@ -88,7 +88,7 @@ export const BannerService = () => {
   const useDeleteBanner = () => {
     const queryClient = useQueryClient();
     const { closeDeleteBannerModal, resetSelectedBanner } = useBannerStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         closeDeleteBannerModal: state.closeDeleteBannerModal,
         resetSelectedBanner: state.resetSelectedBanner,
       })),

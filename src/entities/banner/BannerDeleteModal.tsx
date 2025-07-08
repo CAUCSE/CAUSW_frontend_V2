@@ -6,7 +6,7 @@ import { BannerService, PortalModal, useBannerStore } from '@/shared';
 
 export const BannerDeleteModal = () => {
   const { selectedBannerId, closeDeleteBannerModal, resetSelectedBanner } = useBannerStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       selectedBannerId: state.selectedBannerId,
       closeDeleteBannerModal: state.closeDeleteBannerModal,
       resetSelectedBanner: state.resetSelectedBanner,

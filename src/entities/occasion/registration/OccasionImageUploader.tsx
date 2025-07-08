@@ -12,19 +12,19 @@ export const OccasionImageUploader = ({ onUpload }: ImageUploaderProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      const newFiles = Array.from(files).map(file => ({
+      const newFiles = Array.from(files).map((file) => ({
         file,
         url: URL.createObjectURL(file),
       }));
-      setPreviews(prev => [...prev, ...newFiles]);
-      onUpload([...previews.map(item => item.file), ...newFiles.map(item => item.file)]);
+      setPreviews((prev) => [...prev, ...newFiles]);
+      onUpload([...previews.map((item) => item.file), ...newFiles.map((item) => item.file)]);
     }
   };
 
   const handleRemove = (index: number) => {
     const updatedPreviews = previews.filter((_, i) => i !== index);
     setPreviews(updatedPreviews);
-    onUpload(updatedPreviews.map(item => item.file));
+    onUpload(updatedPreviews.map((item) => item.file));
   };
 
   return (
@@ -43,7 +43,7 @@ export const OccasionImageUploader = ({ onUpload }: ImageUploaderProps) => {
           {/* 삭제 버튼 */}
           <button
             onClick={() => handleRemove(index)}
-            className="absolute right-0 top-0 flex h-3 w-3 items-center justify-center rounded-full border border-gray-400 bg-white text-sm font-bold"
+            className="absolute top-0 right-0 flex h-3 w-3 items-center justify-center rounded-full border border-gray-400 bg-white text-sm font-bold"
           >
             ×
           </button>

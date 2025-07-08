@@ -1,0 +1,1 @@
+export { VoteResultSectionMain } from './VoteResultSectionMain';

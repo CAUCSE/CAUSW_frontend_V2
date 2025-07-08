@@ -34,14 +34,14 @@ export const SignInInput = <T extends FieldValues>({ register, name, rules, ...r
     {...register(name, rules)}
     {...rest}
     id="specificInput"
-    className="peer mt-1 h-10 w-56 rounded-xl border-2 border-focus bg-black text-center text-sm text-white opacity-60 placeholder:text-center placeholder:text-xs autofill:bg-black autofill:text-white autofill:shadow-none sm:w-80 sm:placeholder:text-sm"
+    className="peer border-focus mt-1 h-10 w-56 rounded-xl border-2 bg-black text-center text-sm text-white opacity-60 placeholder:text-center placeholder:text-xs autofill:bg-black autofill:text-white autofill:shadow-none sm:w-80 sm:placeholder:text-sm"
   />
 );
 
 export const SignInSubmitButton = () => (
   <button
     type="submit"
-    className="text-mb mt-3 flex h-10 w-56 flex-row items-center justify-center rounded-xl border-2 border-focus bg-zinc-800 pl-2 text-center text-focus sm:w-80"
+    className="text-mb border-focus text-focus mt-3 flex h-10 w-56 flex-row items-center justify-center rounded-xl border-2 bg-zinc-800 pl-2 text-center sm:w-80"
   >
     로그인
     <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>

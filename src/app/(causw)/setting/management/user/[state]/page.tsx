@@ -42,7 +42,7 @@ const UserManagement = async ({
 }) => {
   const { getByState, getAllAdmissions } = SettingRscService();
 
-  const nowNavigation = navigation.find(element => element.state === state);
+  const nowNavigation = navigation.find((element) => element.state === state);
   let data;
 
   const currentPage = Number(searchParams.page) || 1;
@@ -52,18 +52,18 @@ const UserManagement = async ({
         nowNavigation.exportType!.replace('_USERS', '').trim() as User.UserDto['state'],
         null,
         currentPage - 1,
-      ).then(res => {
+      ).then((res) => {
         data = {
-          content: res.content.map(element => ({
+          content: res.content.map((element) => ({
             ...element,
             userName: element.name,
           })),
           totalPages: res.totalPages,
         };
       })
-    : await getAllAdmissions(null, currentPage - 1).then(res => {
+    : await getAllAdmissions(null, currentPage - 1).then((res) => {
         data = {
-          content: res.content.map(element => ({ ...element })),
+          content: res.content.map((element) => ({ ...element })),
           totalPages: res.totalPages,
         };
       });
@@ -82,7 +82,7 @@ const UserManagement = async ({
         totalPages={data.totalPages}
         currentPage={currentPage}
         navigation={navigation}
-        data={data.content.map(element => ({
+        data={data.content.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.id,

@@ -19,7 +19,7 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
 
   return (
     <main className="flex h-full flex-col gap-2">
-      <div className="relative mb-3 mt-6 flex w-full justify-center">
+      <div className="relative mt-6 mb-3 flex w-full justify-center">
         <Link href=".." className="absolute left-0 text-lg">
           <span className="icon-[tabler--x] mr-6 text-3xl font-bold"></span>
         </Link>
@@ -34,7 +34,7 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
       <div>
         {/* <input
           type="number"
-          className="ml-1 w-12 border-b-2 bg-boardPageBackground"
+          className="ml-1 w-12 border-b-2 bg-board-page-background"
           placeholder={data?.currentCompleteSemester + ""}
         ></input> */}
         {data?.academicStatus === 'ENROLLED' && <>재학</>}
@@ -49,7 +49,7 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
       <div>
         {/* <input
           type="number"
-          className="ml-1 w-12 border-b-2 bg-boardPageBackground"
+          className="ml-1 w-12 border-b-2 bg-board-page-background"
           placeholder={data?.currentCompleteSemester + ""}
         ></input> */}
         {data?.currentCompleteSemester ? data?.currentCompleteSemester + '차 학기' : '등록이 완료되지 않았습니다.'}
@@ -59,20 +59,20 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
         비고
       </SubHeader>
       <textarea
-        onChange={event => {
+        onChange={(event) => {
           note.current = event.target.value;
         }}
         className="h-24 min-h-24 w-full rounded-md border-2 p-3 placeholder:text-stone-500"
         placeholder={data?.note ? data?.note : '특이사항을 입력해주세요'}
       ></textarea>
 
-      <div className="mb-2 mt-2 h-1/3 w-full overflow-y-auto rounded-md border-2 bg-white lg:h-1/2">
-        {data?.userAcademicRecordApplicationResponseDtoList.map(element => (
+      <div className="mt-2 mb-2 h-1/3 w-full overflow-y-auto rounded-md border-2 bg-white lg:h-1/2">
+        {data?.userAcademicRecordApplicationResponseDtoList.map((element) => (
           <div key={element.changeDate} className="flex h-24 w-full items-center justify-evenly border-b-2 font-bold">
             <span className="text-center">{element.changeDate.split('T')[0]}</span>
             <span className="w-1/5 text-center">{element.targetAcademicStatus}</span>
             <div className="flex w-2/5 justify-center gap-2 overflow-x-auto">
-              {element.attachedImageUrlList.map(element => (
+              {element.attachedImageUrlList.map((element) => (
                 <div key={element} className="h-20 min-w-20 overflow-hidden">
                   <div
                     className="h-20 w-20 bg-contain bg-cover bg-center"
@@ -92,7 +92,7 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
             //window.location.href = "/setting/management/attendance/all";
           });
         }}
-        className="mb-3 flex h-12 items-center justify-center rounded-xl bg-focus text-lg text-white"
+        className="bg-focus mb-3 flex h-12 items-center justify-center rounded-xl text-lg text-white"
       >
         저장하기
       </div>

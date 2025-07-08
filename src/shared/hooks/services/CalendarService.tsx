@@ -20,14 +20,14 @@ export const CalendarService = () => {
   };
 
   const useDeleteCalendar = () => {
-    const closeDeleteModal = useCalendarStore(state => state.closeDeleteModal);
+    const closeDeleteModal = useCalendarStore((state) => state.closeDeleteModal);
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: async ({ calendarId, calendarYear }: { calendarId: string; calendarYear: number }) => {
         await API.delete(`/api/v1/calendars/${calendarId}`);
         return calendarYear;
       },
-      onSuccess: data => {
+      onSuccess: (data) => {
         queryClient.invalidateQueries({
           queryKey: calendarQueryKey.year(data),
         });
@@ -43,7 +43,7 @@ export const CalendarService = () => {
   };
 
   const useCreateCalendar = () => {
-    const closeAddModal = useCalendarStore(state => state.closeAddModal);
+    const closeAddModal = useCalendarStore((state) => state.closeAddModal);
     const queryClient = useQueryClient();
     return useMutation({
       mutationFn: async ({ calendarImg, year, month }: { calendarImg: File; year: number; month: number }) => {
@@ -59,14 +59,14 @@ export const CalendarService = () => {
         await FORMAPI.post('/api/v1/calendars', formData);
         return year;
       },
-      onSuccess: year => {
+      onSuccess: (year) => {
         queryClient.invalidateQueries({
           queryKey: calendarQueryKey.year(year),
         });
         toast.success('캘린더가 추가되었습니다');
         closeAddModal();
       },
-      onError: error => {
+      onError: (error) => {
         if (error.message.includes('code 400')) {
           toast.error('해당 년도와 월의 캘린더가 이미 존재합니다.');
           return;

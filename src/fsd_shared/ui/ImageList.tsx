@@ -28,7 +28,7 @@ export const ImageList = ({ images, imageSize = 80 }: ImageListProps) => {
   };
 
   return (
-    <div className="grid w-full grid-cols-3 gap-1 overflow-x-auto pb-3 scrollbar-hide md:grid-cols-5 md:gap-4">
+    <div className="scrollbar-hide grid w-full grid-cols-3 gap-1 overflow-x-auto pb-3 md:grid-cols-5 md:gap-4">
       {images.map((image, index) => (
         <div
           key={index}

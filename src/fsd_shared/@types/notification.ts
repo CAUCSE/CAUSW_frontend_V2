@@ -6,6 +6,16 @@ declare namespace Notification {
     body: string;
     isRead: boolean;
     notificationLogId: string;
+    targetParentId: string;
+  }
+  interface GeneralAlarmItem {
+    id: string;
+    title: string;
+    body: string;
+    isRead?: boolean;
+    targetId?: string;
+    noticeType?: string;
+    targetParentId?: string;
   }
   interface NotificationResponse {
     totalElements: number;
@@ -34,5 +44,21 @@ declare namespace Notification {
     first: boolean;
     last: boolean;
     empty: boolean;
+  }
+  interface Notification {
+    targetId: string;
+    title: string;
+    noticeType: string;
+    body: string;
+    isRead: boolean;
+    notificationLogId: string;
+  }
+
+  interface NotificationState {
+    notifications: Notification.Notification[];
+    ceremonyNotifications: Notification.Notification[];
+    loadNotifications: () => Promise<void>;
+    loadCeremonyNotifications: () => Promise<void>;
+    markAsRead: (id: string) => Promise<void>;
   }
 }

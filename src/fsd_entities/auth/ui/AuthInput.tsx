@@ -40,14 +40,14 @@ export const AuthInput = <T extends FieldValues>({
           {...rest}
           type={isPassword && showPassword ? 'text' : type}
           id={rest.id || name}
-          className={`w-full rounded-md border border-gray-300 bg-white p-2 pr-10 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          className={`w-full rounded-md border border-gray-300 bg-white p-2 pr-10 text-black placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-hidden`}
         />
 
         {isPassword && (
           <button
             type="button"
-            onClick={() => setShowPassword(prev => !prev)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 hover:text-black focus:outline-none"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-700 hover:text-black focus:outline-hidden"
           >
             {showPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
           </button>

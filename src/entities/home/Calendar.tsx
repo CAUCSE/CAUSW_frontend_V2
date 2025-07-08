@@ -45,7 +45,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
   }, [selectedYear]);
 
   const handlePrevMonth = () => {
-    setSelectedMonth(prev => {
+    setSelectedMonth((prev) => {
       if (prev === 0) {
         setSelectedYear(selectedYear - 1);
         return 11;
@@ -55,7 +55,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
   };
 
   const handleNextMonth = () => {
-    setSelectedMonth(prev => {
+    setSelectedMonth((prev) => {
       if (prev === 11) {
         setSelectedYear(selectedYear + 1);
         return 0;
@@ -89,7 +89,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
         }
         width={2070}
         height={2070}
-        className="h-full w-full border-b-[1px] object-cover"
+        className="h-full w-full border-b object-cover"
         alt="캘린더"
       /> */}
       <div
@@ -97,14 +97,14 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
         style={{
           backgroundImage: `url(${
             calendars
-              ? (calendars.find(c => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
-                ? (calendars.find(c => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+              ? (calendars.find((c) => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+                ? (calendars.find((c) => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
                 : '/images/puang-proud.png'
               : '/images/puang-proud.png'
           })`,
         }}
       ></div>
-      <hr className="w-full border-[1px] border-[#E0E0E0]" />
+      <hr className="w-full border border-[#E0E0E0]" />
       <Link
         // TODO : href 연결
         href={`/board/${deliveredId}`}

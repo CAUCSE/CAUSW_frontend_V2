@@ -31,7 +31,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
       />
       <label
         htmlFor="profileImage"
-        className="text-black-500 flex w-32 cursor-pointer justify-center rounded-3xl bg-focus p-3 text-sm text-white hover:bg-blue-400 lg:w-40"
+        className="text-black-500 bg-focus flex w-32 cursor-pointer justify-center rounded-3xl p-3 text-sm text-white hover:bg-blue-400 lg:w-40"
       >
         프로필 사진 수정
       </label>
@@ -62,14 +62,14 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           <div className="w-full lg:w-full">
             <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">학적 상태</label>
             <div className="flex w-full flex-row flex-wrap rounded-md sm:flex-nowrap lg:w-5/6">
-              <div className="mb-2 mr-2 w-full rounded-md border border-gray-300 p-2 text-center lg:w-3/6">
+              <div className="mr-2 mb-2 w-full rounded-md border border-gray-300 p-2 text-center lg:w-3/6">
                 {userData.academicStatus === 'ENROLLED' && <>재학</>}
                 {userData.academicStatus === 'LEAVE_OF_ABSENCE' && <>휴학</>}
                 {userData.academicStatus === 'GRADUATED' && <>졸업</>}
               </div>
               <button
                 onClick={() => (window.location.href = '/setting/personal-info/update-academic-record')}
-                className="mb-2 mr-2 w-full rounded-md border border-gray-300 bg-focus p-2 text-center text-white hover:bg-blue-400 lg:w-5/6"
+                className="bg-focus mr-2 mb-2 w-full rounded-md border border-gray-300 p-2 text-center text-white hover:bg-blue-400 lg:w-5/6"
               >
                 학적 상태 수정
               </button>

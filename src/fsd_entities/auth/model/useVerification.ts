@@ -13,7 +13,7 @@ export const useVerification = () => {
   const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] = useState<User.StatusType>('BANNED');
   const [admissionRejectMessage, setAdmissionRejectMessage] = useState('');
   const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState('');
-  const setEmail = useUserStore(state => state.setEmail);
+  const setEmail = useUserStore((state) => state.setEmail);
   const getInfo = async () => {
     try {
       const response = await getMyInfo();

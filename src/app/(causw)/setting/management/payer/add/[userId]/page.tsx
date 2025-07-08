@@ -42,7 +42,7 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
                 className="w-5 border-b bg-transparent text-center"
                 type="number"
                 value={payNum}
-                onChange={e => {
+                onChange={(e) => {
                   if (e.target.value === '') return setPayNum(undefined);
                   setPayNum(+e.target.value);
                 }}

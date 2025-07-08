@@ -23,7 +23,7 @@ export const useFormDetailResult = () => {
   let totalDetailPage = 0;
 
   if (totalFormResult) {
-    responseUserInfos.push(...totalFormResult.map(result => result.replyResponseDtoPage.content).flat());
+    responseUserInfos.push(...totalFormResult.map((result) => result.replyResponseDtoPage.content).flat());
     totalDetailPage = totalFormResult.reduce((acc, result) => acc + result.replyResponseDtoPage.content.length, 0);
   }
 

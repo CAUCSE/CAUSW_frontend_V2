@@ -17,7 +17,7 @@ export function CircleManagementButtons({
   const [isSuccessModal, setIsSuccessModal] = useState(false);
   const { dropMember } = CircleService();
   const router = useRouter();
-  const myId = useUserStore(state => state.id);
+  const myId = useUserStore((state) => state.id);
 
   const deleteAndNavigateAndReload = async () => {
     try {
@@ -61,7 +61,7 @@ export function CircleManagementButtons({
       )}
 
       {isOpenModal && (
-        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <p className="text-md mb-2 font-bold lg:text-xl">
               {name}({studentId})을 동아리에서 추방
@@ -99,7 +99,7 @@ export function CircleManagementButtons({
       )}
 
       {isErrorModal && (
-        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <p className="text-md mb-2 font-bold lg:text-xl">알 수 없는 오류가 발생했습니다.</p>
             <Button
@@ -116,7 +116,7 @@ export function CircleManagementButtons({
         </div>
       )}
       {isSuccessModal && (
-        <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-4">
+        <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <p className="text-md mb-2 font-bold lg:text-xl">{name}이 추방되었습니다.</p>
             <Button

@@ -6,8 +6,8 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
 
   const data =
     state === 'waiting'
-      ? await getWaitingUsers().then(data =>
-          data.map(element => ({
+      ? await getWaitingUsers().then((data) =>
+          data.map((element) => ({
             userName: element.userName,
             studentId: element.studentId,
             userId: `${element.userId}&&&${element.userAcademicRecordApplicationId}`,
@@ -17,7 +17,7 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
 
   return (
     <>
-      <div className="absolute right-4 top-6 flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg md:right-52 md:top-16">
+      <div className="absolute top-6 right-4 flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg md:top-16 md:right-52">
         재학 인증 일괄 요청
       </div>
       <Management
@@ -37,7 +37,7 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
             router: '/setting/management/attendance/detail/waiting',
           },
         ]}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.userId,

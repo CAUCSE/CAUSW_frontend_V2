@@ -22,7 +22,7 @@ const VerificationPage: React.FC = () => {
   const router = useRouter();
 
   return (
-    <div className="flex h-screen items-center justify-center bg-boardPageBackground p-4">
+    <div className="bg-board-page-background flex h-screen items-center justify-center p-4">
       <div className="w-full max-w-lg rounded-lg bg-white p-8 text-center shadow-md">
         <PreviousButton
           routeCallback={() => {
@@ -32,7 +32,7 @@ const VerificationPage: React.FC = () => {
         <VerificationHeader />
 
         {(admissionRejectMessage || academicRecordRejectMessage) && (
-          <p className="break-words font-bold text-error">
+          <p className="text-error font-bold break-words">
             {' '}
             {academicRecordRejectMessage === '' ? '가입 신청서' : '재학 증빙 서류'} 거절 사유 :{' '}
             {admissionRejectMessage || academicRecordRejectMessage}

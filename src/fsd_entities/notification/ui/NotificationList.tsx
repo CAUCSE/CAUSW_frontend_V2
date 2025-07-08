@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import unReadMessage from '../../../../public/icons/unread_message.png';
-import { Notification } from '../config/types';
 
 interface NotificationListProps {
   notifications: Notification[];
@@ -20,7 +19,7 @@ const getNotificationRoute = (
   notification: Notification,
   matchedBoards: { notificationLogId: string; boardId: string; targetId: string }[],
 ) => {
-  const match = matchedBoards.find(m => m.notificationLogId === notification.notificationLogId);
+  const match = matchedBoards.find((m) => m.notificationLogId === notification.notificationLogId);
 
   if (notification.noticeType === 'BOARD' && match?.boardId) {
     return `/board/${match.boardId}/${notification.targetId}`;
@@ -35,7 +34,7 @@ const getNotificationRoute = (
 export const NotificationList = ({ notifications, markAsRead, matchedBoards }: NotificationListProps) => {
   return (
     <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
-      {notifications.map(notification => {
+      {notifications.map((notification) => {
         const matchedBoard = getNotificationRoute(notification, matchedBoards);
 
         return (

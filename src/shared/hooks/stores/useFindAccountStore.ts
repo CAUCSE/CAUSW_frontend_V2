@@ -10,14 +10,14 @@ interface FindAccountStore {
   resetFindAccountStore: () => void;
 }
 
-export const useFindAccountStore = create<FindAccountStore>(set => ({
+export const useFindAccountStore = create<FindAccountStore>((set) => ({
   studentId: '',
   name: '',
   email: '',
-  setStudentId: studentId => set({ studentId }),
-  setName: name => set({ name }),
+  setStudentId: (studentId) => set({ studentId }),
+  setName: (name) => set({ name }),
 
-  setEmail: email => set({ email }),
+  setEmail: (email) => set({ email }),
   resetFindAccountStore: () =>
     set({
       studentId: '',

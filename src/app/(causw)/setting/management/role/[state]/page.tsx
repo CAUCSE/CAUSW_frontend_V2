@@ -52,7 +52,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
       : state === 'council'
         ? allRoles.councilUsers
         : state === 'leader_1' || state === 'leader_2' || state === 'leader_3' || state === 'leader_4'
-          ? allRoles.leaderGradeUsers.filter(element => element.roles.includes(state.toUpperCase() as User.Role))
+          ? allRoles.leaderGradeUsers.filter((element) => element.roles.includes(state.toUpperCase() as User.Role))
           : state === 'circleleader'
             ? allRoles.leaderCircleUsers
             : state === 'alumunileader'
@@ -70,7 +70,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
           router: '/setting/mandate/president',
         }}
         navigation={navigation}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.name,
           studentId: element.studentId,
           id: element.id,

@@ -1,44 +1,21 @@
 import axios, { AxiosResponse, isAxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 
+import { CeremonyState } from '@/fsd_widgets/ceremony';
+
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
-import { API } from '@/fsd_shared';
-
-import { CeremonyResponse, Notification } from '../config/types';
+import { API } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
-export interface CeremonyNotificationSettingDto {
-  subscribedAdmissionYears: number[] | null;
-  setAll: boolean;
-  notificationActive: boolean;
-}
-
-export const getCeremonyNotificationSetting = async (): Promise<CeremonyNotificationSettingDto | string> => {
-  try {
-    const { data } = await API.get(`${CEREMONY_URI}/notification-setting`);
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return error.response?.data?.message || '알림 설정 조회에 실패했습니다.';
-    } else {
-      return '알 수 없는 오류가 발생했습니다.';
-    }
-  }
-};
-
-export const getNotifications = async (): Promise<Notification[]> => {
+export const getNotifications = async (): Promise<Notification.Notification[]> => {
   const URI = `/api/v1/notifications/log/general/top4`;
 
   try {
-    const response: AxiosResponse<Notification[]> = await API.get(URI, {
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
       headers: { Authorization: getRccAccess() },
     });
-
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch notifications');
-    }
 
     return response.data;
   } catch (error) {
@@ -47,17 +24,13 @@ export const getNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getCeremonyNotifications = async (): Promise<Notification[]> => {
+export const getCeremonyNotifications = async (): Promise<Notification.Notification[]> => {
   const URI = `/api/v1/notifications/log/ceremony/top4`;
 
   try {
-    const response: AxiosResponse<Notification[]> = await API.get(URI, {
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
       headers: { Authorization: getRccAccess() },
     });
-
-    if (response.status !== 200) {
-      throw new Error('Failed to fetch ceremony notifications');
-    }
 
     return response.data;
   } catch (error) {
@@ -66,12 +39,12 @@ export const getCeremonyNotifications = async (): Promise<Notification[]> => {
   }
 };
 
-export const getCeremonies = async (
-  ceremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE' = 'ACCEPT',
+export const getCeremonyData = async (
+  ceremonyState: CeremonyState = CeremonyState.ACCEPT,
   pageNum: number = 0,
-): Promise<CeremonyResponse> => {
+): Promise<Ceremony.CeremonyResponse> => {
   try {
-    const response: AxiosResponse<CeremonyResponse> = await API.get(CEREMONY_URI, {
+    const response = await API.get(CEREMONY_URI, {
       params: {
         ceremonyState,
         pageNum,
@@ -80,7 +53,11 @@ export const getCeremonies = async (
 
     return response.data;
   } catch (error) {
-    toast.error('경조사 목록 가져오기 실패');
+    if (isAxiosError(error)) {
+      toast.error('경조사 데이터를 불러오는데 실패했습니다.', error.response?.data);
+    } else {
+      toast.error('알 수 없는 오류가 발생했습니다.');
+    }
     throw error;
   }
 };
@@ -106,10 +83,6 @@ export const getNotificationData = async (pageNum: number = 0): Promise<Notifica
       },
     });
 
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
-
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -129,10 +102,6 @@ export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<
         pageNum,
       },
     });
-
-    if (response.status !== 200) {
-      throw new Error(`Error: ${response.status}`);
-    }
 
     return response.data;
   } catch (error) {

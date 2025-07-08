@@ -6,7 +6,7 @@ import { CalendarService, useCalendarStore } from '@/shared';
 
 export const useDeleteCalendarModal = () => {
   const { calendarId, calendarMonth, calendarYear, closeDeleteModal } = useCalendarStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       calendarId: state.calendarId,
       calendarYear: state.calendarYear,
       calendarMonth: state.calendarMonth,

@@ -42,8 +42,8 @@ export const getRccRefresh = (): string | null => {
 };
 
 API.interceptors.response.use(
-  response => response,
-  async error => {
+  (response) => response,
+  async (error) => {
     const { signout } = AuthRscService();
     const { updateAccess } = AuthRscService();
 
@@ -75,13 +75,13 @@ API.interceptors.response.use(
         handleNoRefresh();
       }
     }
-    throw new Error(`${error}`);
+    throw error;
   },
 );
 
 FORMAPI.interceptors.response.use(
-  response => response,
-  async error => {
+  (response) => response,
+  async (error) => {
     const { signout } = AuthRscService();
     const { updateAccess } = AuthRscService();
 
@@ -113,6 +113,6 @@ FORMAPI.interceptors.response.use(
         handleNoRefresh();
       }
     }
-    throw new Error(`${error}`);
+    throw error;
   },
 );
