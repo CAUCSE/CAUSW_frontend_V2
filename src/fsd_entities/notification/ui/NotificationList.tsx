@@ -38,7 +38,7 @@ export const NotificationList = ({ notifications, notificationType, markAsRead }
               <Image src={unReadMessage} alt="읽지 않은 알림 아이콘" className="h-5 w-6 pt-1 pl-1" />
               <div className="flex flex-col text-sm text-gray-600">
                 <p className="text-l text-black">{notification.title}</p>
-                <p>{notification.body}</p>
+                <p className="line-clamp-3 text-sm text-gray-600">{notification.body}</p>
               </div>
             </div>
           </li>
