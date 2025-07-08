@@ -52,6 +52,7 @@ declare namespace Notification {
     body: string;
     isRead: boolean;
     notificationLogId: string;
+    targetParentId: string;
   }
 
   interface NotificationState {
