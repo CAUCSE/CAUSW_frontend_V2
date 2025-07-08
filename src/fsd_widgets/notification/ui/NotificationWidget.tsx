@@ -5,39 +5,22 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useNotificationData, useNotificationStore } from '@/fsd_entities/notification';
+import { useNotificationStore } from '@/fsd_entities/notification';
 import { NotificationList } from '@/fsd_entities/notification';
-
-import { useGetBoardList } from '@/shared';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
-  const { notifications, ceremonyNotifications, loadNotifications, loadCeremonyNotifications, markAsRead } =
-    useNotificationStore((state) => ({
-      notifications: state.notifications,
-      ceremonyNotifications: state.ceremonyNotifications,
-      loadNotifications: state.loadNotifications,
-      loadCeremonyNotifications: state.loadCeremonyNotifications,
-      markAsRead: state.markAsRead,
-    }));
+  const notifications = useNotificationStore((state) => state.notifications);
+  const ceremonyNotifications = useNotificationStore((state) => state.ceremonyNotifications);
+  const loadNotifications = useNotificationStore((state) => state.loadNotifications);
+  const loadCeremonyNotifications = useNotificationStore((state) => state.loadCeremonyNotifications);
+  const markAsRead = useNotificationStore((state) => state.markAsRead);
 
   useEffect(() => {
     loadNotifications();
     loadCeremonyNotifications();
-  }, []); // 주기적으로 새로고침을 해야 하는지 확인 필요
-
-  const { notificationData } = useNotificationData();
-  const { boards } = useGetBoardList();
-
-  const matchedBoardPairs = notificationData.map((alarm) => {
-    const matchedBoard = boards.find((board) => board.boardName === alarm.title);
-    return {
-      notificationLogId: alarm.notificationLogId,
-      boardId: matchedBoard?.boardId ?? '',
-      targetId: alarm.targetId,
-    };
-  });
+  }, []);
 
   return (
     <div className="mt-6 hidden w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md xl:block">
@@ -48,7 +31,7 @@ export const NotificationWidget = () => {
           <span>알림</span>
         </div>
       </Link>
-      <NotificationList notifications={notifications} markAsRead={markAsRead} matchedBoards={matchedBoardPairs} />
+      <NotificationList notifications={notifications} notificationType="general" markAsRead={markAsRead} />
 
       {/* 경조사 알림 */}
       <Link href="/setting/notification?tab=ceremony">
@@ -57,11 +40,7 @@ export const NotificationWidget = () => {
           <span>최근 경조사 알림</span>
         </div>
       </Link>
-      <NotificationList
-        notifications={ceremonyNotifications}
-        markAsRead={markAsRead}
-        matchedBoards={matchedBoardPairs}
-      />
+      <NotificationList notifications={ceremonyNotifications} notificationType="ceremony" markAsRead={markAsRead} />
     </div>
   );
 };
