@@ -1,13 +1,12 @@
-'use client';
-
-import DOMPurify from 'dompurify';
+import { createDomPurify } from '@/fsd_shared';
 
 interface PostCardContentProps {
   post: Post.PostResponseDto;
 }
 
 export const PostCardContent = ({ post }: PostCardContentProps) => {
-  const sanitizedContent = DOMPurify.sanitize(post.content, {
+  const purify = createDomPurify();
+  const sanitizedContent = purify.sanitize(post.content, {
     // 기본적으로 허용된 태그에 목록, 링크, 코드 관련 태그 추가 h태그는 제목이라서 제외함
     ALLOWED_TAGS: [
       'p',
