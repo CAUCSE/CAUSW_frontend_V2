@@ -8,5 +8,5 @@ interface PostDetailContentProps {
 export const PostDetailContent = ({ postContent }: PostDetailContentProps) => {
   const sanitizedContent = DOMPurify.sanitize(postContent);
 
-  return <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
+  return <div className="break-all" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
 };
