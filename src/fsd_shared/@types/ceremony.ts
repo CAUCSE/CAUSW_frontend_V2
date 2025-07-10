@@ -108,6 +108,7 @@ declare namespace Ceremony {
     data: ListBoxItem[];
     alarm?: string; //general | ceremony
     loadMore?: () => void;
+    emptyMessage?: string;
   }
   interface CreateCeremonyPayload {
     description: string;

@@ -93,7 +93,11 @@ export const CeremonyCreateWidget = () => {
           />
         </div>
 
-        <Button variant="BLUE" type="submit" className="px-20 py-1 text-lg font-bold">
+        <Button
+          variant="BLUE"
+          type="submit"
+          className="self-center px-28 py-1 text-lg font-bold md:px-52"
+        >
           저장
         </Button>
       </form>

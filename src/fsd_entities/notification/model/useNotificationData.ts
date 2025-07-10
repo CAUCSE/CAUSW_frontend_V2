@@ -1,44 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import toast from 'react-hot-toast';
-
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { useQuery } from '@tanstack/react-query';
 
 import { getCeremonyNotificationData, getNotificationData } from '../api';
+import { notificationQueryKey } from '../hooks/queries/notificationQueryKey';
 
-export const useNotificationData = () => {
-  const [notificationData, setNotificationData] = useState<Notification.NotificationData[]>([]);
-
-  const fetchNotificationData = async () => {
-    try {
-      const data = await getNotificationData(0);
-      setNotificationData(data.content);
-    } catch (error) {
-      toast.error(`${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
-    }
-  };
-
-  useEffect(() => {
-    fetchNotificationData();
-  }, []);
-  return { notificationData };
+type NotificationResponse = {
+  content: Notification.NotificationData[];
 };
-export const useCeremonyNotificationData = () => {
-  const [ceremonyNotificationData, setCeremonyNotificationData] = useState<Notification.NotificationData[]>([]);
 
-  const fetchCeremonyNotificationData = async () => {
-    try {
-      const data = await getCeremonyNotificationData(0);
-      setCeremonyNotificationData(data.content);
-    } catch (error) {
-      toast.error(`${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
-    }
-  };
+export const useNotificationData = () =>
+  useQuery<NotificationResponse, Error, Notification.NotificationData[]>({
+    queryKey: notificationQueryKey.general(),
+    queryFn: () => getNotificationData(0),
+    select: (data) => data.content,
+  });
 
-  useEffect(() => {
-    fetchCeremonyNotificationData();
-  }, []);
-  return { ceremonyNotificationData };
-};
+export const useCeremonyNotificationData = () =>
+  useQuery<NotificationResponse, Error, Notification.NotificationData[]>({
+    queryKey: notificationQueryKey.ceremony(),
+    queryFn: () => getCeremonyNotificationData(0),
+    select: (data) => data.content,
+  });

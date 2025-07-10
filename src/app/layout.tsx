@@ -8,7 +8,9 @@ import { ErrorMessage } from '@/entities';
 import '@/firebase-messaging-sw';
 import { GA, WindowSizeListener } from '@/fsd_shared';
 
+import { Providers } from './providers';
 import './globals.css';
+import { Toaster } from 'react-hot-toast';
 
 const font = localFont({
   src: [
@@ -78,13 +80,15 @@ export default function RootLayout({
             `,
             }}
           />
-          {/* 클라이언트 라우팅으로 페이지 이동 감지 */}
-          <Suspense>
-            <GA />
-          </Suspense>
-          <WindowSizeListener />
-          <ErrorMessage />
-          {children}
+          <Providers>
+            <Suspense>
+              <GA />
+            </Suspense>
+            <WindowSizeListener />
+            <ErrorMessage />
+            {children}
+          </Providers>
+          <Toaster />
         </body>
       </html>
     </>

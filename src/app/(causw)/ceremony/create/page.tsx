@@ -1,23 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
 import { CeremonyCreateWidget } from '@/fsd_widgets/ceremony';
-
 import { PreviousButton } from '@/fsd_shared';
 
 export default function CeremonyCreatePage() {
-  const [queryClient] = useState(() => new QueryClient());
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <PreviousButton />
-      <div className="p-12">
-        <h1 className="mb-14 text-center text-3xl font-semibold">경조사 등록 신청</h1>
-        <CeremonyCreateWidget />
+    <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)] pb-12">
+      <PreviousButton className="mb-8" />
+      <div className="mb-14 text-center text-2xl font-medium md:text-3xl">
+        경조사 등록 신청
       </div>
-    </QueryClientProvider>
+      <CeremonyCreateWidget />
+    </div>
   );
 }

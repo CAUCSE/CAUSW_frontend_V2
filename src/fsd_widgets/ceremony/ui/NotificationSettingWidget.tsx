@@ -4,13 +4,13 @@ import {
   AdmissionYearInput,
   AdmissionYearList,
   AllYearToggle,
-  useNotificationSettingForm,
+  useCeremonySettingForm,
 } from '@/fsd_entities/ceremony';
 
 import { Button } from '@/fsd_shared';
 
 export const NotificationSettingWidget = () => {
-  const { years, setAll, setAllYearsSelected, addYear, removeYear, onSubmit } = useNotificationSettingForm();
+  const { years, setAll, setAllYearsSelected, addYear, removeYear, onSubmit } = useCeremonySettingForm();
 
   return (
     <div className="flex flex-col items-center gap-16">
