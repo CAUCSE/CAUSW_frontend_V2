@@ -3,10 +3,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import unReadMessage from '../../../../public/icons/unread_message.png';
+import { NotificationType } from '../model';
 
 interface NotificationListProps {
   notifications: Notification.Notification[];
-  notificationType: 'general' | 'ceremony';
+  notificationType: NotificationType;
   markAsRead: (id: string) => void;
 }
 
@@ -17,7 +18,7 @@ export const NotificationList = ({ notifications, notificationType, markAsRead }
     <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
       {notifications.map((notification) => {
         const targetLink =
-          notificationType === 'general'
+          notificationType === NotificationType.GENERAL
             ? `/board/${notification.targetParentId}/${notification.targetId}`
             : notification.targetId
               ? `/ceremony/${notification.targetId}`

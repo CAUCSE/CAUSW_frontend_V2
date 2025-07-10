@@ -7,6 +7,7 @@ export { useNotificationSettingForm } from '../ceremony/model/useNotificationSet
 export { useNotificationData } from './model';
 export { useCeremonyNotificationData } from './model';
 export { useNotificationTabParam } from './model/useNotificationTabParam';
+export { NotificationType } from './model/notificationType';
 
 // ui
 export { AdmissionYearInput } from '../ceremony/ui/AdmissionYearInput';
