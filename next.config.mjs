@@ -36,16 +36,14 @@ const nextConfig = {
     });
 
     if (!isServer) {
-      config.resolve = {
-        ...config.resolve,
-        fallback: {
-          net: false,
-          dns: false,
-          tls: false,
-          assert: false,
-          fs: false,
-          child_process: false,
-        },
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        net: false,
+        dns: false,
+        tls: false,
+        fs: false,
+        child_process: false,
+        canvas: false,
       };
     }
     return config;
