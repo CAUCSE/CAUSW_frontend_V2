@@ -8,8 +8,8 @@ import { Bell, LogOut } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
-import { useUserInfo } from '@/fsd_entities/user/model/hooks';
-import { useMyInfoStore } from '@/fsd_entities/user/model/stores';
+import { useUserInfo } from '@/fsd_entities/user';
+import { useMyInfoStore } from '@/fsd_entities/user';
 
 import { ProfileImage, SubHeader } from '@/entities';
 import { Button } from '@/shadcn/components/ui';
@@ -41,7 +41,7 @@ export const SideBar = ({ className }: SideBarProps) => {
       <Button
         size="icon"
         variant="ghost"
-        className="absolute left-3 top-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:left-auto xl:right-4 xl:top-4"
+        className="absolute top-3 left-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:top-4 xl:right-4 xl:left-auto"
         onClick={handleNoRefresh}
       >
         <LogOut className="size-6 xl:size-8" />
@@ -51,7 +51,7 @@ export const SideBar = ({ className }: SideBarProps) => {
       <Button
         size="icon"
         variant="ghost"
-        className="absolute left-12 top-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
+        className="absolute top-3 left-12 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
         asChild
       >
         <Link href="/setting/notification">
