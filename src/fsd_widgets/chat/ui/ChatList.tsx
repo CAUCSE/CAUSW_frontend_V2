@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { EllipsisVertical } from 'lucide-react';
 
@@ -60,6 +60,19 @@ export const chatDummyData: ChatItem[] = [
 //채팅 api 연결 + 무한 스크롤 + ui 통일
 export const ChatList = () => {
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenuId(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = (id: string) => {
     setOpenMenuId((prev) => (prev === id ? null : id));
@@ -71,14 +84,14 @@ export const ChatList = () => {
         <FullLine />
         {chatDummyData.map((chat) => (
           <div key={chat.id} className="w-full">
-            <div className="bg-#F8F8F8 flex items-center gap-4 px-1 py-4">
+            <div className="bg-#F8F8F8 flex items-center gap-3 px-1 py-4">
               <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
                 <img src={chat.profileImage} alt={`${chat.title}의 프로필`} className="h-full w-full object-cover" />
               </div>
               <div className="flex flex-1 flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium text-gray-900">{chat.title}</h3>
-                  <span className="text-sm text-gray-400">{chat.time}</span>
+                  <span className="mr-[-4px] text-sm text-gray-400">{chat.time}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="max-w-[220px] truncate text-[15px] text-gray-700">{chat.preview}</p>
@@ -90,15 +103,18 @@ export const ChatList = () => {
                 </div>
               </div>
 
-              <button onClick={() => toggleMenu(chat.id)} className="mb-auto pt-1 text-gray-500 hover:text-black">
-                <EllipsisVertical size={18} />
-              </button>
-              {openMenuId === chat.id && (
-                <div className="absolute top-14 right-4 z-10 w-28 rounded-md border bg-white shadow-md">
-                  <button className="w-full px-4 py-2 text-sm hover:bg-gray-100">상단 고정</button>
-                  <button className="w-full px-4 py-2 text-sm text-red-500 hover:bg-red-50">삭제</button>
-                </div>
-              )}
+              <div className="relative mb-auto pt-1" ref={openMenuId === chat.id ? menuRef : null}>
+                <button onClick={() => toggleMenu(chat.id)} className="text-gray-500 hover:text-black">
+                  <EllipsisVertical size={18} />
+                </button>
+
+                {openMenuId === chat.id && (
+                  <div className="absolute top-full right-0 z-10 w-28 rounded-md border bg-white shadow-md">
+                    <button className="w-full px-4 py-2 text-sm hover:bg-gray-100">상단 고정</button>
+                    <button className="w-full px-4 py-2 text-sm text-red-500 hover:bg-red-50">삭제</button>
+                  </div>
+                )}
+              </div>
             </div>
             <FullLine />
           </div>
