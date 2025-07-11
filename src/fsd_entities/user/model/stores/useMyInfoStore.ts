@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * useMyInfoStore.ts
  * - 유저 본인 정보 관리 스코어

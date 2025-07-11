@@ -2,10 +2,21 @@
  * CouncilFeeManagementDetail.tsx
  * - "환경설정"-"관리"-"학생회비 납부자 관리"-유저 선택
  */
+import dynamic from 'next/dynamic';
+
 import { getUserCouncilFeeInfo } from '../../api';
 import { convertDataToTableEntity, titleMapping } from '../../config/CouncilFeeManagementDetailEntities';
-import { CouncilFeeButtons } from './buttons';
-import { ManagementDetailInfoTable } from './ManagementDetailInfoTable';
+
+const CouncilFeeButtons = dynamic(() => import('./buttons').then((mod) => mod.CouncilFeeButtons), {
+  ssr: false,
+});
+
+const ManagementDetailInfoTable = dynamic(
+  () => import('./ManagementDetailInfoTable').then((mod) => mod.ManagementDetailInfoTable),
+  {
+    ssr: false,
+  },
+);
 
 export async function CouncilFeeManagementDetail({ councilFeeId }: { councilFeeId: string }) {
   let userCouncilFeeInfo: Setting.UserCouncilFeeInfoDTO | undefined;
