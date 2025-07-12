@@ -2,11 +2,15 @@
  * MyRecordHeader.tsx
  * - "환경설정"-"기록"-이하 페이지 헤더
  */
-import { PreviousButton } from '@/fsd_shared';
+import dynamic from 'next/dynamic';
 
 interface MyRecordHeaderProps {
   pageName: string;
 }
+
+const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+  ssr: false,
+});
 
 export const MyRecordHeader = ({ pageName }: MyRecordHeaderProps) => {
   return (

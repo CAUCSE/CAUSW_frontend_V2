@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * ProfileEditForm.tsx
  * - "환경설정"-"개인정보 관리"-정보 수정 가능 영역

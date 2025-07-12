@@ -10,7 +10,6 @@ import { convertDataToTableEntity, titleMapping } from '../../config/CouncilFeeM
 const CouncilFeeButtons = dynamic(() => import('./buttons').then((mod) => mod.CouncilFeeButtons), {
   ssr: false,
 });
-
 const ManagementDetailInfoTable = dynamic(
   () => import('./ManagementDetailInfoTable').then((mod) => mod.ManagementDetailInfoTable),
   {

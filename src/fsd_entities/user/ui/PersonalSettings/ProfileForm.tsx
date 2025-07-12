@@ -6,6 +6,8 @@
  */
 import React, { useEffect } from 'react';
 
+import dynamic from 'next/dynamic';
+
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -13,13 +15,9 @@ import toast from 'react-hot-toast';
 // 유저 리펙 TODO: 엔티티 간 import 배제 필요
 import { checkNicknameDuplicate } from '@/fsd_entities/auth/api/get';
 
-import { Header, PreviousButton } from '@/fsd_shared';
-
 import { updateInfo } from '../../api';
 import { userQueryKey } from '../../config/queryKeys/userQueryKey';
 import { useMyInfoStore } from '../../model';
-import { ProfileEditForm } from './forms/ProfileEditForm';
-import { UserInfoContainer } from './UserInfoContainer';
 
 interface FeeInfoProps {
   studentCouncilFeeStatus: string;
@@ -31,6 +29,19 @@ interface ProfileFormProps {
   userData: any;
   feeInfo: FeeInfoProps;
 }
+
+const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+  ssr: false,
+});
+const Header = dynamic(() => import('@/fsd_shared').then((mod) => mod.Header), {
+  ssr: false,
+});
+const UserInfoContainer = dynamic(() => import('./UserInfoContainer').then((mod) => mod.UserInfoContainer), {
+  ssr: false,
+});
+const ProfileEditForm = dynamic(() => import('./forms/ProfileEditForm').then((mod) => mod.ProfileEditForm), {
+  ssr: false,
+});
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
   const {
