@@ -2,8 +2,6 @@ import { API, BASEURL, setRscHeader } from '@/fsd_shared';
 
 import { USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
 
-const SSR_URL = BASEURL + USERS_ENDPOINT;
-
 // csr api method.
 ////////////////////////////////////////////////////////////////
 
@@ -27,7 +25,7 @@ export const deleteUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
 // 사용자 영구 삭제.
 export const deleteUser = async (userId: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${SSR_URL}/${userId}/delete`, {
+  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}/${userId}/delete`, {
     method: 'DELETE',
     headers: headers,
   });

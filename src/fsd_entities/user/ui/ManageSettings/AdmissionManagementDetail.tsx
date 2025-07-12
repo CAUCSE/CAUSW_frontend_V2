@@ -2,6 +2,8 @@
  * AdmissionManagementDetail.tsx
  * - "환경설정"-"관리"-"유저 관리"-유저 선택
  */
+import dynamic from 'next/dynamic';
+
 import { getAdmission, getUser, getUserAcademicRecord } from '../../api';
 import { managementDetailEntities } from '../../config';
 import {
@@ -12,8 +14,17 @@ import {
   titleMappingForUser,
 } from '../../config/AdmissionManagementDetailEntities';
 import { ManagementState } from '../../model/types';
-import { ManagementDetailButtons } from './buttons';
-import { ManagementDetailInfoTable } from './ManagementDetailInfoTable';
+
+const ManagementDetailButtons = dynamic(() => import('./buttons').then((mod) => mod.ManagementDetailButtons), {
+  ssr: false,
+});
+
+const ManagementDetailInfoTable = dynamic(
+  () => import('./ManagementDetailInfoTable').then((mod) => mod.ManagementDetailInfoTable),
+  {
+    ssr: false,
+  },
+);
 
 interface ManagementDetailProp {
   state: ManagementState;

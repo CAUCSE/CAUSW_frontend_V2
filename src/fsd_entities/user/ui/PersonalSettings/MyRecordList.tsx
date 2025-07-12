@@ -1,9 +1,12 @@
+'use client';
+
 /**
  * MyPageList.tsx
  * - "환경설정"-"기록"-이하 페이지 데이터 리스트
  */
-import { LoadingComponent, PostItem } from '@/entities';
-import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
+import dynamic from 'next/dynamic';
+
+import { useInfiniteScroll } from '@/fsd_shared';
 
 interface MyRecordListProps {
   data: Post.PostResponseDto[];
@@ -12,6 +15,16 @@ interface MyRecordListProps {
   hasNextPage: boolean;
   fetchNextPage: () => void;
 }
+
+const LoadingComponent = dynamic(() => import('@/entities').then((mod) => mod.LoadingComponent), {
+  ssr: false,
+});
+const PostItem = dynamic(() => import('@/entities').then((mod) => mod.PostItem), {
+  ssr: false,
+});
+const LoadingSpinner = dynamic(() => import('@/fsd_shared').then((mod) => mod.LoadingSpinner), {
+  ssr: false,
+});
 
 export const MyRecordList = ({
   data: postList,
