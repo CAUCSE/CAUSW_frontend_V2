@@ -185,6 +185,19 @@ export const getMyCouncilFeeInfo = async () => {
 // ssr api method.
 ////////////////////////////////////////////////////////////////
 
+export const getMyRoles = async () => {
+  try {
+    const headers = await setRscHeader();
+    const response = (await fetch(`${SSR_URL}/me`, { headers: headers }).then((res) => res.json())) as User.UserDto;
+
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response.roles;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getUser = async (id: string) => {
   try {
     const headers = await setRscHeader();

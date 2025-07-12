@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
 import { fetchBoardList } from '@/fsd_entities/board';
-import { useMyInfoStore } from '@/fsd_entities/user/model';
+import { getMyRoles } from '@/fsd_entities/user/api';
 
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';
 
 export const BoardList = async () => {
-  const roles = useMyInfoStore.getState().roles;
+  const roles = await getMyRoles();
   const { sortedBoardList, defaultBoardForAdmin, defaultBoardForCommon, customBoardForAdmin, customBoardForCommon } =
     await fetchBoardList();
 
