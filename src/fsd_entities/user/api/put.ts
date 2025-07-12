@@ -5,8 +5,6 @@ import { createFormData } from '@/utils';
 
 import { USERS_ENDPOINT } from '../config';
 
-const SSR_URL = BASEURL + USERS_ENDPOINT;
-
 // csr api method.
 ////////////////////////////////////////////////////////////////
 
@@ -94,6 +92,7 @@ export const updateVTwo = async () => {
 
 // 사용자 추방
 export const expelUser = async (userId: string, expelReason: string) => {
+  const SSR_URL = BASEURL + USERS_ENDPOINT;
   const headers = await setRscHeader();
   const response = await fetch(`${SSR_URL}/${userId}/drop`, {
     method: 'PUT',
@@ -107,6 +106,7 @@ export const expelUser = async (userId: string, expelReason: string) => {
 
 // 사용자 복구
 export const restoreUser = async (userId: string) => {
+  const SSR_URL = BASEURL + USERS_ENDPOINT;
   const headers = await setRscHeader();
   const response = await fetch(`${SSR_URL}/restore/${userId}`, {
     method: 'PUT',
@@ -119,6 +119,7 @@ export const restoreUser = async (userId: string) => {
 
 //가입 승인
 export const acceptAdmission = async (admissionId: string) => {
+  const SSR_URL = BASEURL + USERS_ENDPOINT;
   const headers = await setRscHeader();
   const response = await fetch(`${SSR_URL}/admissions/${admissionId}/accept`, {
     method: 'PUT',
@@ -131,6 +132,7 @@ export const acceptAdmission = async (admissionId: string) => {
 
 //가입 거부
 export const rejectAdmission = async (userId: string, rejectReason: string) => {
+  const SSR_URL = BASEURL + USERS_ENDPOINT;
   const headers = await setRscHeader();
   const response = await fetch(`${SSR_URL}/admissions/${userId}/reject`, {
     method: 'PUT',

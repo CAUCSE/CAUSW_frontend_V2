@@ -7,8 +7,6 @@ import { BASEURL } from '@/fsd_shared';
 import { PAGE_SIZE, USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
 import { settingQueryKey } from '../config';
 
-const SSR_URL = BASEURL + USERS_ENDPOINT;
-
 // factory function.
 ////////////////////////////////////////////////////////////////
 
@@ -187,6 +185,7 @@ export const getMyCouncilFeeInfo = async () => {
 
 export const getMyRoles = async () => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
     const response = (await fetch(`${SSR_URL}/me`, { headers: headers }).then((res) => res.json())) as User.UserDto;
 
@@ -200,6 +199,7 @@ export const getMyRoles = async () => {
 
 export const getUser = async (id: string) => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
     const response = (await fetch(`${SSR_URL}/${id}`, { headers: headers }).then((res) => res.json())) as User.UserDto;
 
@@ -213,6 +213,7 @@ export const getUser = async (id: string) => {
 
 export const getUserAcademicRecord = async (id: string) => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
     const response = (await fetch(`${SSR_URL}/academic-record/record/${id}`, { headers: headers }).then((res) =>
       res.json(),
@@ -228,6 +229,7 @@ export const getUserAcademicRecord = async (id: string) => {
 
 export const getMyCircles = async () => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
 
     const response = (await fetch(`${SSR_URL}/circles`, {
@@ -245,6 +247,7 @@ export const getMyCircles = async () => {
 // 유저 상태 조회.
 export const getByState = async (state: User.UserDto['state'], name: string | null, page: number) => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
 
     const response = name
@@ -266,6 +269,7 @@ export const getByState = async (state: User.UserDto['state'], name: string | nu
 // 특수 권한 조회.
 export const getPrivilegedUsers = async () => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
 
     const response = (await fetch(`${SSR_URL}/privileged`, {
@@ -283,6 +287,7 @@ export const getPrivilegedUsers = async () => {
 // 가입 대기 유저 조회.
 export const getAllAdmissions = async (name: string | null, page: number) => {
   try {
+    const SSR_URL = BASEURL + USERS_ENDPOINT;
     const headers = await setRscHeader();
 
     const response = name
@@ -302,6 +307,7 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
 };
 
 export const getAdmission = async (userId: string) => {
+  const SSR_URL = BASEURL + USERS_ENDPOINT;
   const header = await setRscHeader();
   const response = await fetch(`${SSR_URL}/admissions/${userId}`, {
     method: 'GET',
