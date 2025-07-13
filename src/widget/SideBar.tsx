@@ -28,8 +28,8 @@ export const SideBar = ({ className }: SideBarProps) => {
   const profileImage = useMyInfoStore((state) => state.profileImageUrl);
 
   const handleNoRefresh = async () => {
-    await signout();
-    location.href = '/auth/signin';
+    // await signout();
+    // location.href = '/auth/signin';
   };
 
   useEffect(() => {

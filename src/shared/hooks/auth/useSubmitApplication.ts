@@ -24,9 +24,9 @@ export const useSubmitAcademicRecord = (onClose: () => void, academicStatus: str
     },
     onSuccess: () => {
       toast.success('학적 증빙 서류 제출이 완료되었습니다.');
-      setTimeout(() => {
-        academicStatus === 'ENROLLED' ? onClose() : router.push('/auth/signin');
-      }, 500);
+      // setTimeout(() => {
+      //   academicStatus === 'ENROLLED' ? onClose() : router.push('/auth/signin');
+      // }, 500);
     },
     onError: (error: any) => {
       toast.error(error.response?.data?.message || '학적 증빙 서류 제출에 실패했습니다.');

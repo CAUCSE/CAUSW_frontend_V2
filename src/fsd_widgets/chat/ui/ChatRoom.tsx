@@ -134,7 +134,7 @@ export const ChatRoom = () => {
   };
   return (
     <>
-      <div className="fixed top-[55px] left-0 z-20 flex h-13 w-full items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4">
+      <div className="fixed top-[55px] right-0 left-0 z-20 flex h-13 w-full items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:max-w-[80%] xl:top-0 xl:right-30 xl:bottom-0 xl:max-w-[60%]">
         <button onClick={() => router.back()}>
           <ChevronLeft className="size-7 text-gray-700" />
         </button>
@@ -144,7 +144,7 @@ export const ChatRoom = () => {
         </div>
         <div className="w-6" />
       </div>
-      <div className="mt-20 flex w-full flex-col gap-4 px-4 pb-24">
+      <div className="mt-20 flex w-full flex-col gap-4 px-4 pb-24 md:mx-auto md:max-w-[80%]">
         {chatData.map((msg, index) => {
           const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
           const dateLabel = getDateLabel(index);
@@ -197,8 +197,8 @@ export const ChatRoom = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="fixed right-0 bottom-16 left-0 z-10 bg-[#f8f8f8] px-6 py-5">
-        <div className="items-cetter flex rounded-2xl bg-[#f4f4f4] p-3">
+      <div className="fixed right-0 bottom-16 left-0 z-10 bg-[#f8f8f8] px-6 py-5 md:mx-auto md:max-w-[80%] xl:right-30 xl:bottom-0 xl:max-w-[60%]">
+        <div className="flex items-center rounded-2xl bg-[#f4f4f4] p-3">
           <button className="mr-2">
             <AddIcon />
           </button>
@@ -220,27 +220,3 @@ export const ChatRoom = () => {
     </>
   );
 };
-
-const SendButton = styled.div<{ disabled?: boolean }>`
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-  background: #0fbad1;
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ConnectionStatus = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 8px 16px;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e5e5eb;
-  z-index: 10;
-  margin: 0 auto;
-`;

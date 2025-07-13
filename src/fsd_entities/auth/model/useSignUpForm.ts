@@ -31,9 +31,9 @@ export const useSignUpForm = () => {
     mutationFn: signup,
     onSuccess: () => {
       toast.success('회원가입이 완료되었습니다!');
-      setTimeout(() => {
-        router.push('/auth/signin');
-      }, 500);
+      // setTimeout(() => {
+      //   router.push('/auth/signin');
+      // }, 500);
     },
     onError: (error: any) => {
       toast.error('회원가입 실패: ' + (error.message || '오류가 발생했습니다.'));

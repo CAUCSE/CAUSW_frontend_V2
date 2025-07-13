@@ -48,7 +48,7 @@ export const useFindPasswordForm = () => {
   };
 
   const handleRouterToSignIn = () => {
-    router.push('/auth/signin');
+    // router.push('/auth/signin');
     resetFindAccountStore();
   };
   return { register, handleSubmit, formState: { errors }, onSubmit, handleRouterToSignIn, isSuccess };
