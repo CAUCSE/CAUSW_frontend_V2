@@ -69,3 +69,43 @@
             ├── axiosInstance.ts
             └── Constants
 ```
+
+### **4. Import Convention**
+
+- When referencing from upper layers to lower layers, only allow up to 2 depth.
+
+**bad🚫**
+
+```tsx
+import { useCustomHook } from '@entity/board/model';
+import { Component } from '@entity/board/ui';
+```
+
+**good👍**
+
+```tsx
+import { Component, useCustomHook } from '@entity/board';
+```
+
+- When referencing within the same slice, allow imports up to 2 depth using relative paths.
+
+**bad🚫**
+
+```tsx
+// Within the same board slice
+import { useCustomHook } from '@entity/board/model';
+import { Component } from '@entity/board/ui';
+```
+
+**good👍**
+
+```tsx
+// Within the same board slice
+import { useCustomHook } from '../model';
+import { Component } from '../ui';
+```
+
+### **5. Design System**
+
+- Use Shadcn UI components whenever possible if they are supported.
+- Use utility functions like cn, clsx for conditional styling with tailwindcss.
