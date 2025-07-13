@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -36,6 +36,7 @@ export const ChatRoom = () => {
   const [chatData, setChatData] = useState<ChatMessage[]>([]);
   const [comment, setComment] = useState('');
   const [currentUserIdx, setCurrentUserIdx] = useState<number | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const dummyMessages: ChatMessage[] = [
@@ -98,7 +99,9 @@ export const ChatRoom = () => {
 
     setChatData(dummyMessages);
   }, []);
-
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   // 더미용이라 api연동 후 삭제 예정
   const getDateLabel = (index: number): string | null => {
     const today = index === 0 ? '2024.03.07' : index < 6 ? '2024.03.07' : '2024.03.08';
@@ -121,6 +124,7 @@ export const ChatRoom = () => {
 
     setChatData((prev) => [...prev, newMessage]);
     setComment('');
+    setTimeout(scrollToBottom, 50);
   };
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -190,6 +194,7 @@ export const ChatRoom = () => {
             </div>
           );
         })}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="fixed right-0 bottom-16 left-0 z-10 bg-[#f8f8f8] px-6 py-5">
