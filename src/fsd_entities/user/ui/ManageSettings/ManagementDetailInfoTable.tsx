@@ -6,9 +6,15 @@
  */
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
-import { ImageModal, PreviousButton } from '@/fsd_shared';
+const ImageModal = dynamic(() => import('@/fsd_shared').then((mod) => mod.ImageModal), {
+  ssr: false,
+});
+const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+  ssr: false,
+});
 
 const TableUnit = ({
   title,

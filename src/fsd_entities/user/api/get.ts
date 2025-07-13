@@ -7,8 +7,6 @@ import { BASEURL } from '@/fsd_shared';
 import { PAGE_SIZE, USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
 import { settingQueryKey } from '../config';
 
-const SSR_URL = BASEURL + USERS_ENDPOINT;
-
 // factory function.
 ////////////////////////////////////////////////////////////////
 
@@ -185,10 +183,27 @@ export const getMyCouncilFeeInfo = async () => {
 // ssr api method.
 ////////////////////////////////////////////////////////////////
 
+export const getMyRoles = async () => {
+  try {
+    const headers = await setRscHeader();
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, { headers: headers }).then((res) =>
+      res.json(),
+    )) as User.UserDto;
+
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response.roles;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getUser = async (id: string) => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${SSR_URL}/${id}`, { headers: headers }).then((res) => res.json())) as User.UserDto;
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/${id}`, { headers: headers }).then((res) =>
+      res.json(),
+    )) as User.UserDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -201,9 +216,9 @@ export const getUser = async (id: string) => {
 export const getUserAcademicRecord = async (id: string) => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${SSR_URL}/academic-record/record/${id}`, { headers: headers }).then((res) =>
-      res.json(),
-    )) as any;
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/academic-record/record/${id}`, {
+      headers: headers,
+    }).then((res) => res.json())) as any;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -217,7 +232,7 @@ export const getMyCircles = async () => {
   try {
     const headers = await setRscHeader();
 
-    const response = (await fetch(`${SSR_URL}/circles`, {
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/circles`, {
       headers: headers,
     }).then((res) => res.json())) as Circle.CirclesRequestDto;
 
@@ -235,10 +250,10 @@ export const getByState = async (state: User.UserDto['state'], name: string | nu
     const headers = await setRscHeader();
 
     const response = name
-      ? ((await fetch(`${SSR_URL}/state/${state}?name=${name}&pageNum=${page}`, {
+      ? ((await fetch(`${BASEURL}${USERS_ENDPOINT}/state/${state}?name=${name}&pageNum=${page}`, {
           headers: headers,
         }).then((res) => res.json())) as Setting.GetByStateResponseDto)
-      : ((await fetch(`${SSR_URL}/state/${state}?pageNum=${page}`, {
+      : ((await fetch(`${BASEURL}${USERS_ENDPOINT}/state/${state}?pageNum=${page}`, {
           headers: headers,
         }).then((res) => res.json())) as Setting.GetByStateResponseDto);
 
@@ -255,7 +270,7 @@ export const getPrivilegedUsers = async () => {
   try {
     const headers = await setRscHeader();
 
-    const response = (await fetch(`${SSR_URL}/privileged`, {
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/privileged`, {
       headers: headers,
     }).then((res) => res.json())) as Setting.GetPrivilegedUsersResponseDto;
 
@@ -273,10 +288,10 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
     const headers = await setRscHeader();
 
     const response = name
-      ? ((await fetch(`${SSR_URL}/admissions?name=${name}&pageNum=${page}`, {
+      ? ((await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions?name=${name}&pageNum=${page}`, {
           headers: headers,
         }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto)
-      : ((await fetch(`${SSR_URL}/admissions?pageNum=${page}`, {
+      : ((await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions?pageNum=${page}`, {
           headers: headers,
         }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
@@ -290,7 +305,7 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
 
 export const getAdmission = async (userId: string) => {
   const header = await setRscHeader();
-  const response = await fetch(`${SSR_URL}/admissions/${userId}`, {
+  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions/${userId}`, {
     method: 'GET',
     headers: header,
   });

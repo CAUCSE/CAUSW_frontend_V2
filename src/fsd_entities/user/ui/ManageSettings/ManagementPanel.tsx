@@ -5,11 +5,21 @@
  * - "환경설정"-"관리" 이하
  * - 유저 리스트 및 내부 네비게이션 바 포함
  */
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { Header, Line, PaginationButtons } from '@/fsd_shared';
-
-import { ExcelExportButton } from './buttons';
+const ExcelExportButton = dynamic(() => import('./buttons').then((mod) => mod.ExcelExportButton), {
+  ssr: false,
+});
+const PaginationButtons = dynamic(() => import('@/fsd_shared').then((mod) => mod.PaginationButtons), {
+  ssr: false,
+});
+const Line = dynamic(() => import('@/fsd_shared').then((mod) => mod.Line), {
+  ssr: false,
+});
+const Header = dynamic(() => import('@/fsd_shared').then((mod) => mod.Header), {
+  ssr: false,
+});
 
 interface Prop {
   state: string | undefined;
