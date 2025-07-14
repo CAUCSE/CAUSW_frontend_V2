@@ -29,11 +29,23 @@ const nextConfig = {
       'caucse-s3-bucket-prod.s3.ap-northeast-2.amazonaws.com',
     ], // S3 버킷 도메인 허용
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        net: false,
+        dns: false,
+        tls: false,
+        fs: false,
+        child_process: false,
+        canvas: false,
+      };
+    }
     return config;
   },
 };

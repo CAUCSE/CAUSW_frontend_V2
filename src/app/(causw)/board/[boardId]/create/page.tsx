@@ -177,20 +177,18 @@ const CreatePostPage = () => {
   });
 
   return (
-    <>
-      <div className="flex h-full w-full flex-col py-3">
-        <PreviousButton routeCallback={handleBack} />
-        <div className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">
-          <FormProvider {...methods}>
-            <PostCreationForm />
-            {isVote && <VoteCreationForm />}
-            {isApply && <FormCreationForm />}
-            {selectedFileList.length > 0 && <UploadFilePreview />}
-          </FormProvider>
-        </div>
+    <div className="grid h-full w-full grid-rows-[40px_1fr_auto] p-2">
+      <PreviousButton routeCallback={handleBack} />
+      <div className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">
+        <FormProvider {...methods}>
+          <PostCreationForm />
+          {isVote && <VoteCreationForm />}
+          {isApply && <FormCreationForm />}
+          {selectedFileList.length > 0 && <UploadFilePreview />}
+        </FormProvider>
       </div>
       <PostCreationFormButtonGroup handleSubmit={handleSubmit} />
-    </>
+    </div>
   );
 };
 

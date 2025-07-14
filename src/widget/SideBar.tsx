@@ -8,8 +8,8 @@ import { Bell, LogOut } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
-import { useUserInfo } from '@/fsd_entities/user/model';
-import { useMyInfoStore } from '@/fsd_entities/user/model';
+import { useUserInfo } from '@/fsd_entities/user';
+import { useMyInfoStore } from '@/fsd_entities/user';
 
 import { ProfileImage, SubHeader } from '@/entities';
 import { Button } from '@/shadcn/components/ui';

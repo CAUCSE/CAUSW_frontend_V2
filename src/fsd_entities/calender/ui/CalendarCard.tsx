@@ -2,11 +2,11 @@ import Image from 'next/image';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CardBox } from '@/entities/home';
+import { CardBox } from '@/fsd_shared/ui/CardBox';
 
-import { useCalendarStore } from '@/shared';
+import { useCalendarStore } from '@/fsd_entities/calender/model';
 
-import DeleteIcon from '../../../public/icons/delete_icon.svg';
+import DeleteIcon from '../../../../public/icons/delete_icon.svg';
 
 interface CalendarCardProps {
   id: string;

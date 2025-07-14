@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
 
-import { CalendarAddModal } from '@/entities';
-import { CustomSelect, useCalendarStore } from '@/shared';
+import { CustomSelect } from '@/fsd_shared';
+import { useCalendarStore } from '@/fsd_entities/calender';
+import { CalendarAddModal } from '@/fsd_widgets/calender';
 
-import AddIcon from '../../../public/icons/add_icon.svg';
+import AddIcon from '../../../../public/icons/add_icon.svg';
 
 export const CalendarListHeader = () => {
   const { setCalendarYear, isAddModalOpen, openAddModal } = useCalendarStore(
