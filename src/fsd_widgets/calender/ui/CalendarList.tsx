@@ -2,8 +2,9 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CalendarCard, CalendarDeleteModal, LoadingComponent } from '@/entities';
-import { CalendarService, EmptyComponent, useCalendarStore } from '@/shared';
+import { CalendarCard, useCalendarStore, useGetCalendarList } from '@/fsd_entities/calender';
+import { EmptyComponent, LoadingComponent } from '@/fsd_shared';
+import { CalendarDeleteModal } from './CalendarDeleteModal';
 
 export const CalendarList = () => {
   const { calendarYear, isDeleteModalOpen } = useCalendarStore(
@@ -12,11 +13,10 @@ export const CalendarList = () => {
       isDeleteModalOpen: state.isDeleteModalOpen,
     })),
   );
-  const { useGetCalendarList } = CalendarService();
   const { data, isLoading } = useGetCalendarList({ year: calendarYear });
   const calendars = data?.calendars;
   if (isLoading) {
-    return <LoadingComponent />;
+    return <LoadingComponent variant='full-opacity' />;
   }
   return (
     <>

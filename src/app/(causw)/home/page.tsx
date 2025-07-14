@@ -1,8 +1,9 @@
 import Link from 'next/link';
 
 import { FCMTokenChecker } from '@/fsd_widgets/notification';
+import { Calendar } from '@/fsd_widgets/calender';
 
-import { Banner, Calendar, CardBox, HomeCard } from '@/entities/home';
+import { Banner, CardBox, HomeCard } from '@/entities/home';
 
 import { HomeRscService } from '@/shared';
 

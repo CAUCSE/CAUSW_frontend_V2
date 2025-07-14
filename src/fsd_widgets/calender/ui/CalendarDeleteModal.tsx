@@ -1,6 +1,7 @@
 'use client';
 
-import { PortalModal, useDeleteCalendarModal } from '@/shared';
+import { useDeleteCalendarModal } from '@/fsd_entities/calender';
+import { PortalModal } from '@/fsd_shared';
 
 export const CalendarDeleteModal = () => {
   const { calendarYear, calendarMonth, cancelDelete, deleteCalendar, closeDeleteModal } = useDeleteCalendarModal();
