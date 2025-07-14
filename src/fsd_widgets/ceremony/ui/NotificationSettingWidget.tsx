@@ -14,8 +14,8 @@ export const NotificationSettingWidget = () => {
 
   return (
     <div className="flex flex-col items-center gap-16">
-      <div className="flex">
-        <div className="mr-10">
+      <div className="flex flex-col items-center md:flex-row md:items-start">
+        <div className="mb-10 text-center md:mr-10 md:mb-0 md:text-left">
           <p className="mb-3 text-xl font-semibold">경조사 알림을 받을 학번 설정</p>
           <div className="mb-2">
             <AdmissionYearInput onAdd={addYear} disabled={setAll} />
