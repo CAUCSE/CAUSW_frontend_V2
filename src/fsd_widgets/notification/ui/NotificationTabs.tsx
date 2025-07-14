@@ -1,7 +1,7 @@
 'use client';
 
 import { MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
-import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui';
 import { NotificationActionButtons } from '@/fsd_widgets/notification';
 
 interface Props {

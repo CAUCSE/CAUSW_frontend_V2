@@ -4,13 +4,11 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { ErrorMessage } from '@/entities';
+import { ErrorMessage, Providers } from '@/entities';
 import '@/firebase-messaging-sw';
-import { GA, WindowSizeListener } from '@/fsd_shared';
+import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
 
-import { Providers } from './providers';
 import './globals.css';
-import { Toaster } from 'react-hot-toast';
 
 const font = localFont({
   src: [
@@ -87,8 +85,8 @@ export default function RootLayout({
             <WindowSizeListener />
             <ErrorMessage />
             {children}
+            <ToastWithMax />
           </Providers>
-          <Toaster />
         </body>
       </html>
     </>

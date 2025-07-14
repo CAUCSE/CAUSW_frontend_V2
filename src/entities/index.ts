@@ -2,6 +2,7 @@ export { ErrorMessage } from './layout/ErrorMessage';
 export { LoadingComponent } from './layout/LoadingComponent';
 export { NavigationBar } from './layout/NavigationBar';
 export { ProfileImage } from './layout/ProfileImage';
+export { Providers } from './layout/Providers';
 
 export { ImageBackground } from './background/ImageBackground';
 export { VideoBackground } from './background/VideoBackground';

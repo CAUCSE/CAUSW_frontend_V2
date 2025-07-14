@@ -1,6 +1,6 @@
 'use client';
 
-import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui';
 
 interface TabItem {
   label: string;

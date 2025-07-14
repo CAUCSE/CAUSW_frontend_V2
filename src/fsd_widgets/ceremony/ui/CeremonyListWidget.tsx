@@ -9,7 +9,7 @@ import { useCeremonyListQuery } from '@/fsd_entities/notification';
 import { ListBox } from '@/fsd_shared';
 
 import { tabItems } from '../config';
-import { CeremonyTabs} from '@/fsd_widgets/ceremony';
+import { CeremonyTabs } from '@/fsd_widgets/ceremony';
 
 export const CeremonyListWidget = () => {
   const [activeTab, setActiveTab] = useState(0);

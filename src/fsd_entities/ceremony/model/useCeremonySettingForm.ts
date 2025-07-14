@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import toast from 'react-hot-toast';
 
@@ -9,10 +9,13 @@ import { createCeremonyNotificationSetting, getCeremonyNotificationSetting, upda
 export const useCeremonySettingForm = () => {
   const [persistedYears, setPersistedYears] = useState<number[]>([]);
   const [existingSetting, setExistingSetting] = useState<Ceremony.CeremonyNotificationSettingDto | null>(null);
-
   const [setAll, setSetAllValue] = useState(false);
 
-  const yearsToDisplay = setAll ? [] : persistedYears;
+  const sortedPersistedYears = useMemo(() => {
+    return [...persistedYears].sort((a, b) => a - b);
+  }, [persistedYears]);
+
+  const yearsToDisplay = setAll ? [] : sortedPersistedYears;
 
   const setAllYearsSelected = (value: boolean) => {
     setSetAllValue(value);
@@ -33,13 +36,12 @@ export const useCeremonySettingForm = () => {
         toast.error('알림 설정을 불러오는 데 실패했습니다.');
       }
     };
-
     fetchSettings();
   }, []);
 
   const addYear = (year: number) => {
     if (!persistedYears.includes(year)) {
-      setPersistedYears((prev) => [...prev, year].sort());
+      setPersistedYears((prev) => [...prev, year]);
     }
   };
 
@@ -49,7 +51,7 @@ export const useCeremonySettingForm = () => {
 
   const onSubmit = async () => {
     const payload: Ceremony.NotificationSettingPayload = {
-      subscribedAdmissionYears: persistedYears,
+      subscribedAdmissionYears: sortedPersistedYears,
       setAll,
       notificationActive: true,
     };
