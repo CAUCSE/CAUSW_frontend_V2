@@ -8,14 +8,15 @@ export const AdmissionYearList = ({ years, onRemove, isAllSelected }: Ceremony.A
       }`}
     >
       {years.map((year) => (
-        <div
+        <button
           key={year}
           onClick={() => onRemove(year)}
-          className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 hover:bg-gray-100"
+          type="button"
+          className="flex w-full cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-left hover:bg-gray-100"
         >
           <span>{year}학번</span>
           <div className="h-0.5 w-4 scale-150 transform rounded-2xl bg-black"></div>
-        </div>
+        </button>
       ))}
     </div>
   );

@@ -2,76 +2,49 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import toast from 'react-hot-toast';
-
-import { createCeremonyNotificationSetting, getCeremonyNotificationSetting, updateCeremonySetting } from '../api';
+import { useCeremonySettingQuery, useCeremonySettingMutation } from '@/fsd_entities/notification';
 
 export const useCeremonySettingForm = () => {
-  const [persistedYears, setPersistedYears] = useState<number[]>([]);
-  const [existingSetting, setExistingSetting] = useState<Ceremony.CeremonyNotificationSettingDto | null>(null);
+  const { data: existingSetting } = useCeremonySettingQuery();
+  const isUpdate = !!(existingSetting && typeof existingSetting !== 'string');
+  const { mutate: submitSettings } = useCeremonySettingMutation(isUpdate);
+  const [years, setYears] = useState<number[]>([]);
   const [setAll, setSetAllValue] = useState(false);
 
-  const sortedPersistedYears = useMemo(() => {
-    return [...persistedYears].sort((a, b) => a - b);
-  }, [persistedYears]);
-
-  const yearsToDisplay = setAll ? [] : sortedPersistedYears;
-
-  const setAllYearsSelected = (value: boolean) => {
-    setSetAllValue(value);
-  };
-
   useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const result = await getCeremonyNotificationSetting();
-        if (typeof result !== 'string') {
-          setExistingSetting(result);
-          setPersistedYears(result.subscribedAdmissionYears ?? []);
-          setSetAllValue(result.setAll);
-        } else {
-          toast.error(result);
-        }
-      } catch (e) {
-        toast.error('알림 설정을 불러오는 데 실패했습니다.');
-      }
-    };
-    fetchSettings();
-  }, []);
+    if (isUpdate) {
+      setYears(existingSetting.subscribedAdmissionYears ?? []);
+      setSetAllValue(existingSetting.setAll);
+    }
+  }, [existingSetting, isUpdate]);
+
+  const sortedYears = useMemo(() => {
+    return [...years].sort((a, b) => a - b);
+  }, [years]);
 
   const addYear = (year: number) => {
-    if (!persistedYears.includes(year)) {
-      setPersistedYears((prev) => [...prev, year]);
+    if (!years.includes(year)) {
+      setYears((prev) => [...prev, year]);
     }
   };
 
   const removeYear = (year: number) => {
-    setPersistedYears((prev) => prev.filter((y) => y !== year));
+    setYears((prev) => prev.filter((y) => y !== year));
   };
 
-  const onSubmit = async () => {
-    const payload: Ceremony.NotificationSettingPayload = {
-      subscribedAdmissionYears: sortedPersistedYears,
+  const onSubmit = () => {
+    const payload = {
+      subscribedAdmissionYears: sortedYears,
       setAll,
       notificationActive: true,
     };
-
-    try {
-      if (existingSetting) {
-        await updateCeremonySetting(payload);
-      } else {
-        await createCeremonyNotificationSetting(payload);
-      }
-      toast.success('설정이 저장되었습니다.');
-    } catch (error) {
-      toast.error('알림 설정 저장에 실패했습니다.');
-    }
+    submitSettings(payload);
   };
 
   return {
-    years: yearsToDisplay,
+    years: setAll ? [] : sortedYears,
     setAll,
-    setAllYearsSelected,
+    setAllYearsSelected: setSetAllValue,
     addYear,
     removeYear,
     onSubmit,

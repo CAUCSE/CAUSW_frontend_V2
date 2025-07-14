@@ -52,6 +52,7 @@ export const updateAdminCeremonyState = async ({
     throw error;
   }
 };
+
 export const createCeremonyNotificationSetting = async (payload: Ceremony.NotificationSettingPayload) => {
   try {
     const { data } = await API.post(`${CEREMONY_URI}/notification-setting`, payload);
