@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { SignInFooter } from '@/fsd_widgets/auth';
 
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
+import { useMyInfoStore } from '@/fsd_entities/user/model';
 
 import { ImageBackground, LoadingComponent, VideoBackground } from '@/entities';
 import '@/firebase-messaging-sw';
@@ -24,6 +25,7 @@ const routes = [
 
 const SignInPage = () => {
   const router = useRouter();
+  const academicStatus = useMyInfoStore((state) => state.academicStatus);
 
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const { signin } = AuthService();
@@ -54,7 +56,11 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    if (getRccRefresh()) router.replace('/home');
+    if (getRccRefresh() || academicStatus === 'GRADUATED') {
+      router.replace('/graduate-home');
+    } else {
+      router.replace('/home');
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
     }
