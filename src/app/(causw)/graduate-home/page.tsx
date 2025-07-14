@@ -1,14 +1,15 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Banner } from '@/entities/home';
 
 import { HomeRscService } from '@/shared';
 
 const boards = [
-  { name: '크자회 공지 게시판', icon: '/homeicons/크자회_공지_게시판.svg' },
-  { name: '소통 게시판', icon: '/homeicons/크자회_소통_게시판.svg' },
-  { name: '동문수첩', icon: '/homeicons/동문수첩.svg' },
-  { name: '경조사', icon: '/homeicons/경조사.svg' },
+  { name: '크자회 공지 게시판', icon: '/homeicons/크자회_공지_게시판.svg', href: '/notice' }, // 크자회 공지 게시판 경로 수정 예정
+  { name: '소통 게시판', icon: '/homeicons/크자회_소통_게시판.svg', href: '/talk' }, // 소통 게시판 경로 수정 예정
+  { name: '동문수첩', icon: '/homeicons/동문수첩.svg', href: '/directory' }, // 동문수첩 경로 수정 예정
+  { name: '경조사', icon: '/homeicons/경조사.svg', href: '/ceremony/create' },
 ];
 
 const notices = [
@@ -50,8 +51,9 @@ export default async function GraduateHomePage() {
           <h2 className="md:text-2xl md:font-bold 2xl:mt-2 2xl:ml-10">바로가기 메뉴</h2>
           <div className="grid grid-cols-2 gap-5 2xl:p-8">
             {boards.map((board) => (
-              <div
+              <Link
                 key={board.name}
+                href={board.href}
                 className="relative aspect-square w-full rounded-2xl bg-white p-4 shadow-sm hover:shadow-md md:rounded-4xl"
               >
                 <span className="text-sm leading-tight font-semibold text-black sm:text-base md:text-lg">
@@ -64,7 +66,7 @@ export default async function GraduateHomePage() {
                   height={40}
                   className="absolute right-4 bottom-4 h-8 w-8 object-contain sm:h-10 sm:w-10 md:h-12 md:w-12"
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </div>
