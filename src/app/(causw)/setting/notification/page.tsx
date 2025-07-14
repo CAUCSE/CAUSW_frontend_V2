@@ -1,11 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notification';
 import {
-  useCeremonyNotificationData,
-  useNotificationData,
+  useCeremonyNotificationQuery,
+  useNotificationQuery,
   useNotificationTabParam,
 } from '@/fsd_entities/notification';
 
@@ -20,10 +18,20 @@ import {
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 
 const Notification = () => {
-  const router = useRouter();
   const { activeTab, setActiveTab } = useNotificationTabParam();
-  const { data: notificationData } = useNotificationData();
-  const { data: ceremonyNotificationData } = useCeremonyNotificationData();
+  const {
+    data: notificationData,
+    fetchNextPage: fetchNextGeneral,
+    hasNextPage: hasNextGeneral,
+    isFetchingNextPage: loadingGeneral,
+  } = useNotificationQuery();
+
+  const {
+    data: ceremonyNotificationData,
+    fetchNextPage: fetchNextCeremony,
+    hasNextPage: hasNextCeremony,
+    isFetchingNextPage: loadingCeremony,
+  } = useCeremonyNotificationQuery();
 
   const alarmData: Notification.GeneralAlarmItem[] = (notificationData ?? []).map(
     ({ notificationLogId, title, body, isRead, targetId, noticeType, targetParentId }) => ({
@@ -58,12 +66,22 @@ const Notification = () => {
         data={alarmData}
         alarm="general"
         emptyMessage={ERROR_MESSAGES.NOTIFICATION.EMPTY_GENERAL_ALARM}
+        loadMore={() => {
+          if (hasNextGeneral && !loadingGeneral) {
+            fetchNextGeneral();
+          }
+        }}
       />
     ),
     [NOTIFICATION_TAB.CEREMONY]: () => (
       <ListBox
         data={ceremonyData}
         emptyMessage={ERROR_MESSAGES.NOTIFICATION.EMPTY_CEREMONY_ALARM}
+        loadMore={() => {
+          if (hasNextCeremony && !loadingCeremony) {
+            fetchNextCeremony();
+          }
+        }}
       />
     ),
   };

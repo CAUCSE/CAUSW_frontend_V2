@@ -28,6 +28,8 @@ export const ListBox = ({ data, alarm, loadMore, emptyMessage }: Ceremony.ListBo
           <div className="flex h-20 items-center justify-center">{emptyMessage || "목록이 없습니다."}</div>
         ) : (
           data.map((item, index) => {
+            const isItemRead = item.isRead ?? true;
+
             const targetLink =
               alarm === 'general'
                 ? `/board/${item.targetParentId}/${item.targetId}`
@@ -37,7 +39,7 @@ export const ListBox = ({ data, alarm, loadMore, emptyMessage }: Ceremony.ListBo
             return (
               <div
                 onClick={() => {
-                  if (!item.isRead) {
+                  if (!isItemRead) {
                     markAsRead(item.id);
                   }
                   router.push(targetLink);
@@ -45,7 +47,7 @@ export const ListBox = ({ data, alarm, loadMore, emptyMessage }: Ceremony.ListBo
                 key={`item.id-${index}`}
                 className="relative flex items-center gap-4 rounded-xl bg-[#F4F4F4] p-4 shadow-sm"
               >
-                {!item.isRead && (
+                {!isItemRead && (
                   <span
                     style={{
                       position: 'absolute',
@@ -60,7 +62,7 @@ export const ListBox = ({ data, alarm, loadMore, emptyMessage }: Ceremony.ListBo
                 )}
 
                 <div className="text-gray-600">
-                  {item.isRead ? <MailOpendIcon size={32} /> : <MailIcon size={32} />}
+                  {isItemRead ? <MailOpendIcon size={32} /> : <MailIcon size={32} />}
                 </div>
                 <div className="text-left">
                   <div className="font-medium text-[#212323]">{item.title}</div>
