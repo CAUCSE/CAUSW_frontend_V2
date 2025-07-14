@@ -58,7 +58,7 @@ const SignInPage = () => {
   useEffect(() => {
     if (getRccRefresh() || academicStatus === 'GRADUATED') {
       router.replace('/graduate-home');
-    } else {
+    } else if (getRccRefresh()) {
       router.replace('/home');
     }
     if ('serviceWorker' in navigator) {
