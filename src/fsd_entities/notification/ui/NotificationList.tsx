@@ -1,32 +1,50 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import unReadMessage from '../../../../public/icons/unread_message.png';
+import { NotificationType } from '../model';
 
 interface NotificationListProps {
   notifications: Notification.Notification[];
-  linkPrefix: string;
+  notificationType: NotificationType;
   markAsRead: (id: string) => void;
 }
 
-export const NotificationList = ({ notifications, linkPrefix, markAsRead }: NotificationListProps) => {
+export const NotificationList = ({ notifications, notificationType, markAsRead }: NotificationListProps) => {
+  const router = useRouter();
+
   return (
     <ul className="mt-3 space-y-2 rounded-lg bg-gray-200 p-1">
-      {notifications.map((notification) => (
-        <li key={notification.notificationLogId} className="rounded-lg bg-white p-1">
-          <Link
-            href={`${linkPrefix}/${notification.notificationLogId}`}
-            className="flex items-center gap-3"
-            onClick={() => markAsRead(notification.notificationLogId)}
+      {notifications.map((notification) => {
+        const targetLink =
+          notificationType === NotificationType.GENERAL
+            ? `/board/${notification.targetParentId}/${notification.targetId}`
+            : notification.targetId
+              ? `/ceremony/${notification.targetId}`
+              : `/ceremony/${notification.notificationLogId}`;
+
+        return (
+          <li
+            key={notification.notificationLogId}
+            className="cursor-pointer rounded-lg bg-white p-1"
+            onClick={() => {
+              if (!notification.isRead) {
+                markAsRead(notification.notificationLogId);
+              }
+              router.push(targetLink);
+            }}
           >
-            <Image src={unReadMessage} alt="읽지 않은 알림 아이콘" className="h-5 w-6 pt-1 pl-1" />
-            <div className="flex flex-col text-sm text-gray-600">
-              <p className="text-l text-black">{notification.title}</p>
-              <p>{notification.body}</p>
+            <div className="flex items-center gap-3">
+              <Image src={unReadMessage} alt="읽지 않은 알림 아이콘" className="h-5 w-6 pt-1 pl-1" />
+              <div className="flex flex-col text-sm text-gray-600">
+                <p className="text-l text-black">{notification.title}</p>
+                <p className="line-clamp-3 text-sm text-gray-600">{notification.body}</p>
+              </div>
             </div>
-          </Link>
-        </li>
-      ))}
+          </li>
+        );
+      })}
     </ul>
   );
 };
