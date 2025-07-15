@@ -1,13 +1,14 @@
 'use client';
 
-import { LoadingComponent, useGetBannerList } from '@/fsd_entities/banner';
+import { useGetBannerList } from '@/fsd_entities/banner';
+import { LoadingComponent } from '@/fsd_shared';
 import { BannerList, BannerSettingHeader } from '@/fsd_widgets/banner';
 
 const EventSetting = () => {
   const { data, isLoading } = useGetBannerList();
   const bannerList = data?.events;
   if (isLoading) {
-    return <LoadingComponent />;
+    return <LoadingComponent variant='background-only' />;
   }
   return (
     <div className="flex h-full w-full flex-col gap-4 p-4 md:p-8">

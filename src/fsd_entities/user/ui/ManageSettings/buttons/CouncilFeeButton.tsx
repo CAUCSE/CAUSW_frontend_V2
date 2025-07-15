@@ -20,7 +20,7 @@ export function CouncilFeeButtons({
 
   const deleteAndNavigateAndReload = async () => {
     try {
-      await router.push('./'); // 페이지 이동
+      await router.push('/setting/management/payer'); // 페이지 이동
       setTimeout(() => {
         window.location.reload(); // 페이지 새로고침
       }, 1000);
@@ -29,7 +29,7 @@ export function CouncilFeeButtons({
 
   const deleteUser = async (councilFeeId: string) => {
     try {
-      const response = deleteUserCouncilFeeInfo(councilFeeId);
+      await deleteUserCouncilFeeInfo(councilFeeId);
       setIsSuccessModalOpen(true);
     } catch (error) {
       setIsErrorModalOpen(true);

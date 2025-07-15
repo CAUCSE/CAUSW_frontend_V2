@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useNotificationStore } from '@/fsd_entities/notification';
+import { NotificationType, useNotificationStore } from '@/fsd_entities/notification';
 import { NotificationList } from '@/fsd_entities/notification';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
@@ -31,7 +31,11 @@ export const NotificationWidget = () => {
           <span>알림</span>
         </div>
       </Link>
-      <NotificationList notifications={notifications} linkPrefix="/setting/notification" markAsRead={markAsRead} />
+      <NotificationList
+        notifications={notifications}
+        notificationType={NotificationType.GENERAL}
+        markAsRead={markAsRead}
+      />
 
       {/* 경조사 알림 */}
       <Link href="/setting/notification?tab=ceremony">
@@ -42,7 +46,7 @@ export const NotificationWidget = () => {
       </Link>
       <NotificationList
         notifications={ceremonyNotifications}
-        linkPrefix="/setting/notification"
+        notificationType={NotificationType.CEREMONY}
         markAsRead={markAsRead}
       />
     </div>

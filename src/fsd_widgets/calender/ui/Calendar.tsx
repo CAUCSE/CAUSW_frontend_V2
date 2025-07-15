@@ -2,27 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { HomeRscService } from '@/shared';
 
-import { CardBox } from './card/CardBox';
+import { CardBox } from '@/fsd_shared/ui/CardBox';
+import { MONTHS } from '../config';
 
-const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 interface CalendarProps {
   deliveredId: string | undefined;
 }

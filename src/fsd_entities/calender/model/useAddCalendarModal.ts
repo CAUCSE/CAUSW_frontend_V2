@@ -3,11 +3,9 @@
 import { useRef, useState } from 'react';
 
 import toast from 'react-hot-toast';
-
-import { CalendarService } from '@/shared/hooks/services/CalendarService';
+import { useCreateCalendar } from '@/fsd_entities/calender/api/post';
 
 export const useAddCalendarModal = () => {
-  const { useCreateCalendar } = CalendarService();
   const { mutate: createCalendar } = useCreateCalendar();
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(1);

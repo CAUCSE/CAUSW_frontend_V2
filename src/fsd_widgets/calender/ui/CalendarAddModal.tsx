@@ -2,9 +2,10 @@
 
 import Image from 'next/image';
 
-import { CustomSelect, PortalModal, useAddCalendarModal, useCalendarStore } from '@/shared';
+import { CustomSelect, PortalModal } from '@/fsd_shared';
+import { useAddCalendarModal, useCalendarStore } from '@/fsd_entities/calender';
 
-import ImageIcon from '../../../public/icons/image_icon.svg';
+import ImageIcon from '../../../../public/icons/image_icon.svg';
 
 interface AddModalBodyProps {
   clickUploadBtn: () => void;

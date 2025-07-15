@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Loading from '@/app/loading';
 
+import { Calendar } from '@/fsd_widgets/calender';
 import { FCMTokenChecker } from '@/fsd_widgets/notification';
 
 import { useMyInfoStore } from '@/fsd_entities/user/model';
