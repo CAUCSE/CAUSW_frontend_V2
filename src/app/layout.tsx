@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
 import { ErrorMessage } from '@/entities';
@@ -21,7 +21,6 @@ export default function RootLayout({
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-          <meta name="theme-color" content="#ffffff" />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -155,4 +154,8 @@ export const metadata: Metadata = {
       },
     ],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
 };
