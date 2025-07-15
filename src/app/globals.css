@@ -64,3 +64,15 @@ input {
 main {
   scrollbar-gutter: both-edges stable;
 }
+
+
+:root {
+  --background: #ffffff !important;
+  --foreground: #000000 !important;
+  color-scheme: light only !important;
+}
+
+* {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
