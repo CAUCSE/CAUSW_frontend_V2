@@ -1,17 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Banner } from '@/entities/home';
-
-import { useMyInfoStore } from '@/fsd_entities/user/model';
-
-import { HomeRscService } from '@/shared';
-
-import NoPermission from '../no-permission/page';
 
 const boards = [
   { name: '크자회 공지 게시판', icon: '/homeicons/크자회_공지_게시판.svg', href: '/notice' }, // 크자회 공지 게시판 경로 수정 예정
@@ -34,14 +26,7 @@ const talks = [
   { title: '최신 글의 제목', author: '관리자', date: '05.27' },
 ];
 
-export default async function GraduateHomePage({ events }) {
-  const academicStatus = useMyInfoStore((state) => state.academicStatus);
-  const hasPermission = academicStatus === 'GRADUATED';
-
-  if (!hasPermission) {
-    return <NoPermission />;
-  }
-
+export default function GraduateHomePage({ events }) {
   return (
     <div className="flex w-full flex-col justify-center gap-4 bg-white px-4 py-4 2xl:h-full 2xl:rounded-4xl">
       {/* 상단 배너 */}
