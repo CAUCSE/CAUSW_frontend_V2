@@ -6,7 +6,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useCeremonyCreateForm } from '@/fsd_entities/ceremony';
 
-import { Button, ImageUploadField, InputBox, SelectBox } from '@/fsd_shared';
+import { ImageUploadField, InputBox, SelectBox } from '@/fsd_shared';
+import { Button } from '@/shadcn/components/ui';
 import { formatDateInput } from '@/utils';
 
 import { categoryOptions } from '../config/ceremonyType';
@@ -25,7 +26,7 @@ export const CeremonyCreateWidget = () => {
   const { onSubmit } = useCeremonyCreateForm();
   const [resetImageUploader, setResetImageUploader] = useState(false);
   const handleFormSubmit = methods.handleSubmit(async (data) => {
-    await onSubmit(data);
+    onSubmit(data);
     methods.reset();
     setResetImageUploader(true);
     setTimeout(() => setResetImageUploader(false), 0);
@@ -92,8 +93,12 @@ export const CeremonyCreateWidget = () => {
             resetTrigger={resetImageUploader}
           />
         </div>
-
-        <Button variant="BLUE" type="submit" className="px-20 py-1 text-lg font-bold">
+        <Button
+          type="submit"
+          variant="default"
+          size="lg"
+          className="self-center bg-[rgba(107,190,236,1)] px-28 text-lg font-bold hover:bg-[rgba(107,190,236,0.9)] md:px-52"
+        >
           저장
         </Button>
       </form>

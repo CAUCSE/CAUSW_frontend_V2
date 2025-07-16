@@ -1,12 +1,9 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-
 import { CeremonyState } from '@/fsd_widgets/ceremony';
-
-import { ceremonyQueryKey } from '@/fsd_shared';
-
-import { getCeremonyData } from '../../api';
+import { ceremonyQueryKey } from './ceremonyQueryKey';
+import { getCeremonyData } from '@/fsd_entities/notification';
 
 export const useCeremonyListQuery = (ceremonyState: CeremonyState) => {
   return useInfiniteQuery({
@@ -16,6 +13,6 @@ export const useCeremonyListQuery = (ceremonyState: CeremonyState) => {
     getNextPageParam: (lastPage) => {
       return lastPage.last ? undefined : lastPage.number + 1;
     },
-    staleTime: 0,
+    select: (data) => data.pages.flatMap((page) => page.content),
   });
 };

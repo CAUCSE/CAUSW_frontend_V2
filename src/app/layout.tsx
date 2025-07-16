@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { ErrorMessage } from '@/entities';
+import { ErrorMessage, Providers } from '@/entities';
 import '@/firebase-messaging-sw';
-import { GA, WindowSizeListener } from '@/fsd_shared';
+import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
 
 import './globals.css';
 
@@ -78,13 +78,15 @@ export default function RootLayout({
             `,
             }}
           />
-          {/* 클라이언트 라우팅으로 페이지 이동 감지 */}
-          <Suspense>
-            <GA />
-          </Suspense>
-          <WindowSizeListener />
-          <ErrorMessage />
-          {children}
+          <Providers>
+            <Suspense>
+              <GA />
+            </Suspense>
+            <WindowSizeListener />
+            <ErrorMessage />
+            {children}
+            <ToastWithMax />
+          </Providers>
         </body>
       </html>
     </>

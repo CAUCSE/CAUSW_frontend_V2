@@ -17,3 +17,4 @@ export {
   DropdownMenuSubContent,
 } from './dropdown-menu';
 export { Badge } from './badge';
+export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';

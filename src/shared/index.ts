@@ -56,7 +56,6 @@ export { Modal } from './ui/modal';
 export { PreviousButton } from './ui/previousButton';
 export { RedirectModal } from './ui/redirectModal';
 export { NoButtonModal } from './ui/noButtonModal';
-export { ToastWithMax } from './ui/ToastWithMax';
 export { ImageModal } from './ui/ImageModal';
 export { PaginationButtons } from './ui/PaginationButtons';
 export { PortalModal } from './ui/PortalModal';

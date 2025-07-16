@@ -1,3 +1,3 @@
 export { useCeremonyData } from './useAdminCeremonyData';
 export { useCeremonyCreateForm } from './useCeremonyCreateForm';
-export { useNotificationSettingForm } from './useNotificationSettingForm';
+export { useCeremonySettingForm } from './useCeremonySettingForm';

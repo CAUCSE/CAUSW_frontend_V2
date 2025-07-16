@@ -3,9 +3,9 @@ export * from './api';
 // model
 export { useNotificationStore } from './model/notificationStore';
 export { usePushNotification } from './model/usePushNotification';
-export { useNotificationSettingForm } from '../ceremony/model/useNotificationSettingForm';
-export { useNotificationData } from './model';
-export { useCeremonyNotificationData } from './model';
+export { useCeremonySettingForm } from '../ceremony/model/useCeremonySettingForm';
+export { useNotificationQuery } from './model';
+export { useCeremonyNotificationQuery } from './model';
 export { useNotificationTabParam } from './model/useNotificationTabParam';
 export { NotificationType } from './model/notificationType';
 
