@@ -9,10 +9,8 @@ import { useForm } from 'react-hook-form';
 import { SignInFooter } from '@/fsd_widgets/auth';
 
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
-
-import { ImageBackground, VideoBackground } from '@/entities';
+import { ImageBackground, VideoBackground } from '@/fsd_widgets/auth';
 import '@/firebase-messaging-sw';
-import { onClickAlert } from '@/shared';
 import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
 
 const routes = [

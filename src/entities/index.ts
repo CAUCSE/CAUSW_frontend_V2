@@ -4,9 +4,6 @@ export { NavigationBar } from './layout/NavigationBar';
 export { ProfileImage } from './layout/ProfileImage';
 export { Providers } from './layout/Providers';
 
-export { ImageBackground } from './background/ImageBackground';
-export { VideoBackground } from './background/VideoBackground';
-
 export { FormInput, FormSubmitButton, SignInInput, SignInSubmitButton } from './input/FormInput';
 
 export { Header } from './header/Header';
