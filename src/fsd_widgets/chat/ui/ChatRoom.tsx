@@ -134,88 +134,96 @@ export const ChatRoom = () => {
   };
   return (
     <>
-      <div className="fixed top-[55px] right-0 left-0 z-20 flex h-13 w-full items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:max-w-[80%] xl:top-0 xl:right-30 xl:bottom-0 xl:max-w-[60%]">
-        <button onClick={() => router.back()}>
-          <ChevronLeft className="size-7 text-gray-700" />
+      <div className="flex w-full max-w-[1000px] flex-row items-start md:mx-auto md:gap-20">
+        <button onClick={() => router.back()} className="flex items-center gap-x-2">
+          <ChevronLeft className="hidden size-12 text-gray-700 md:relative md:z-20 md:mt-4 md:block" />
+          <div className="hidden md:z-20 md:flex md:pt-4 md:text-xl md:whitespace-nowrap">이전</div>
         </button>
+        <div>
+          <div className="fixed top-[55px] right-0 left-0 z-10 flex h-13 w-full max-w-[800px] items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:h-18 xl:top-0 xl:right-30 xl:bottom-0">
+            <button onClick={() => router.back()}>
+              <ChevronLeft className="size-7 text-gray-700 md:hidden" />
+            </button>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15px] font-medium">
-          게시글제목 or 김재학
-        </div>
-        <div className="w-6" />
-      </div>
-      <div className="mt-20 flex w-full flex-col gap-4 px-4 pb-24 md:mx-auto md:max-w-[80%]">
-        {chatData.map((msg, index) => {
-          const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
-          const dateLabel = getDateLabel(index);
-
-          return (
-            <div key={msg.id}>
-              {dateLabel && (
-                <div className="mx-auto my-1 w-[106px] rounded-3xl bg-[#848888] py-1 text-center text-sm font-normal text-[#f4f4f4]">
-                  {dateLabel}
-                </div>
-              )}
-
-              <div className={`flex w-full flex-row gap-3 ${msg.isMine ? 'justify-end' : 'justify-start'} `}>
-                {!msg.isMine && (
-                  <div style={{ width: '30px', height: '30px', marginBottom: '22px' }}>
-                    {showAvatar ? (
-                      <Avatar
-                        src={msg.sender_profile ?? undefined}
-                        sx={{ width: '30px', height: '30px', borderRadius: '50%' }}
-                      />
-                    ) : null}
-                  </div>
-                )}
-                <div className={`flex w-full flex-col gap-2 ${msg.isMine ? 'justify-end' : 'justify-start'}`}>
-                  {showAvatar && <div className="text-[15px] font-medium text-black">김재학</div>}
-                  <div className={`flex w-full flex-row gap-1 ${msg.isMine ? 'justify-end' : 'justify-start'}`}>
-                    {msg.isMine ? (
-                      <>
-                        <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
-                        <div className="max-w-[70%] rounded-tl-[20px] rounded-b-[20px] border border-gray-400 px-3 py-2 text-sm font-normal whitespace-pre-line text-black">
-                          {msg.message}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div
-                          className={`max-w-[70%] rounded-tr-[20px] rounded-b-[20px] bg-gray-200 px-3 py-2 text-left text-sm font-normal whitespace-pre-line text-black ${showAvatar ? '' : 'ml-[20px]'}`}
-                        >
-                          {msg.message}
-                        </div>
-                        <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15px] font-medium md:text-lg">
+              게시글제목 or 김재학
             </div>
-          );
-        })}
-        <div ref={messagesEndRef} />
-      </div>
+            <div className="w-6" />
+          </div>
+          <div className="mt-20 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto md:mt-25">
+            {chatData.map((msg, index) => {
+              const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
+              const dateLabel = getDateLabel(index);
 
-      <div className="fixed right-0 bottom-16 left-0 z-10 bg-[#f8f8f8] px-6 py-5 md:mx-auto md:max-w-[80%] xl:right-30 xl:bottom-0 xl:max-w-[60%]">
-        <div className="flex items-center rounded-2xl bg-[#f4f4f4] p-3">
-          <button className="mr-2">
-            <AddIcon />
-          </button>
+              return (
+                <div key={msg.id}>
+                  {dateLabel && (
+                    <div className="mx-auto my-1 w-[106px] rounded-3xl bg-[#848888] py-1 text-center text-sm font-normal text-[#f4f4f4]">
+                      {dateLabel}
+                    </div>
+                  )}
 
-          <input
-            type="text"
-            placeholder="채팅을 입력해주세요"
-            className="flex-1 bg-transparent text-sm outline-none"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
+                  <div className={`flex w-full flex-row gap-3 ${msg.isMine ? 'justify-end' : 'justify-start'} `}>
+                    {!msg.isMine && (
+                      <div style={{ width: '30px', height: '30px', marginBottom: '22px' }}>
+                        {showAvatar ? (
+                          <Avatar
+                            src={msg.sender_profile ?? undefined}
+                            sx={{ width: '30px', height: '30px', borderRadius: '50%' }}
+                          />
+                        ) : null}
+                      </div>
+                    )}
+                    <div className={`flex w-full flex-col gap-2 ${msg.isMine ? 'justify-end' : 'justify-start'}`}>
+                      {showAvatar && <div className="text-[15px] font-medium text-black">김재학</div>}
+                      <div className={`flex w-full flex-row gap-1 ${msg.isMine ? 'justify-end' : 'justify-start'}`}>
+                        {msg.isMine ? (
+                          <>
+                            <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
+                            <div className="max-w-[70%] rounded-tl-[20px] rounded-b-[20px] border border-gray-400 px-3 py-2 text-sm font-normal whitespace-pre-line text-black">
+                              {msg.message}
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              className={`max-w-[70%] rounded-tr-[20px] rounded-b-[20px] bg-gray-200 px-3 py-2 text-left text-sm font-normal whitespace-pre-line text-black ${showAvatar ? '' : 'ml-[20px]'}`}
+                            >
+                              {msg.message}
+                            </div>
+                            <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </div>
+          <div className="fixed right-0 bottom-16 left-0 z-10 max-w-[800px] bg-[#f8f8f8] px-6 py-5 md:mx-auto xl:right-30 xl:bottom-0">
+            <div className="flex items-center rounded-2xl bg-[#f4f4f4] p-3">
+              <button className="mr-2">
+                <AddIcon />
+              </button>
 
-          <button className="ml-2 disabled:opacity-50" disabled={!comment.trim()} onClick={handleSend}>
-            <SendIcon />
-          </button>
+              <input
+                type="text"
+                placeholder="채팅을 입력해주세요"
+                className="flex-1 bg-transparent text-sm outline-none"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
+
+              <button className="ml-2 disabled:opacity-50" disabled={!comment.trim()} onClick={handleSend}>
+                <SendIcon />
+              </button>
+            </div>
+          </div>
         </div>
+        <div className="w-12"></div>
       </div>
     </>
   );
