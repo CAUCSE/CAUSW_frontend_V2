@@ -10,7 +10,7 @@ import { SignInFooter } from '@/fsd_widgets/auth';
 
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 
-import { ImageBackground, LoadingComponent, VideoBackground } from '@/entities';
+import { ImageBackground, VideoBackground } from '@/entities';
 import '@/firebase-messaging-sw';
 import { onClickAlert } from '@/shared';
 import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
@@ -62,7 +62,6 @@ const SignInPage = () => {
 
   return (
     <>
-      {false ? <LoadingComponent /> : null}
       <VideoBackground src="/videos/signin-background.mp4" />
       <ImageBackground src="/images/signin-logo.png" alt="sign in page background img" darkBackground />
       <div className="absolute top-[35%] left-1/2 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
