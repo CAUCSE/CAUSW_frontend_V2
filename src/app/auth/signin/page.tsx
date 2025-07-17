@@ -11,7 +11,9 @@ import { SignInFooter } from '@/fsd_widgets/auth';
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 import { ImageBackground, VideoBackground } from '@/fsd_widgets/auth';
 import '@/firebase-messaging-sw';
-import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
+import { AuthService, getRccRefresh } from '@/shared';
+import { emailRegex } from '@/fsd_shared';
+import toast from 'react-hot-toast';
 
 const routes = [
   { name: '회원가입하기', route: '/auth/signup' },
@@ -23,7 +25,6 @@ const routes = [
 const SignInPage = () => {
   const router = useRouter();
 
-  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const { signin } = AuthService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
@@ -39,16 +40,17 @@ const SignInPage = () => {
   const onSubmit = (data: User.SignInRequestDto) => {
     if (!enterEmail) {
       if (emailRegex.test(data.email)) setEnterEmail(true);
-      else setErrorMessage('이메일을 올바른 형식으로 입력해주세요!');
+      else toast.error('이메일을 올바른 형식으로 입력해주세요!');
       return;
     }
 
     if (!data.password) {
-      setErrorMessage('비밀번호를 입력해주세요!');
+      toast.error('비밀번호를 입력해주세요!');
       return;
     }
 
     signin(data);
+    toast.success('로그인 성공!');
   };
 
   useEffect(() => {
