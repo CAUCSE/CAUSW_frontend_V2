@@ -10,6 +10,7 @@ import { Avatar, Typography } from '@mui/material';
 import { ChevronLeft } from 'lucide-react';
 
 import AddIcon from '../../../../public/icons/add-gray.svg';
+import ActiveSendIcon from '../../../../public/icons/pink_send_icon.svg';
 import SendIcon from '../../../../public/icons/send.svg';
 
 interface ChatMessage {
@@ -158,7 +159,7 @@ export const ChatRoom = () => {
               return (
                 <div key={msg.id}>
                   {dateLabel && (
-                    <div className="mx-auto my-1 w-[106px] rounded-3xl bg-[#848888] py-1 text-center text-sm font-normal text-[#f4f4f4]">
+                    <div className="mx-auto my-1 w-[106px] rounded-3xl bg-[#848888] py-1 text-center text-sm font-normal text-[#f4f4f4] md:w-[212px] md:bg-gray-200 md:text-[#616464]">
                       {dateLabel}
                     </div>
                   )}
@@ -180,14 +181,14 @@ export const ChatRoom = () => {
                         {msg.isMine ? (
                           <>
                             <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
-                            <div className="max-w-[70%] rounded-tl-[20px] rounded-b-[20px] border border-gray-400 px-3 py-2 text-sm font-normal whitespace-pre-line text-black">
+                            <div className="max-w-[70%] rounded-tl-[20px] rounded-b-[20px] border border-gray-400 px-3 py-2 text-sm font-normal whitespace-pre-line text-[#333333]">
                               {msg.message}
                             </div>
                           </>
                         ) : (
                           <>
                             <div
-                              className={`max-w-[70%] rounded-tr-[20px] rounded-b-[20px] bg-gray-200 px-3 py-2 text-left text-sm font-normal whitespace-pre-line text-black ${showAvatar ? '' : 'ml-[20px]'}`}
+                              className={`max-w-[70%] rounded-tr-[20px] rounded-b-[20px] bg-gray-200 px-3 py-2 text-left text-sm font-normal whitespace-pre-line text-[#333333] ${showAvatar ? '' : 'ml-[20px]'}`}
                             >
                               {msg.message}
                             </div>
@@ -217,8 +218,8 @@ export const ChatRoom = () => {
                 onKeyDown={handleKeyPress}
               />
 
-              <button className="ml-2 disabled:opacity-50" disabled={!comment.trim()} onClick={handleSend}>
-                <SendIcon />
+              <button className="ml-2" disabled={!comment.trim()} onClick={handleSend}>
+                {comment.trim() ? <ActiveSendIcon /> : <SendIcon />}
               </button>
             </div>
           </div>
