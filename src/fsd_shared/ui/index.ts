@@ -27,3 +27,4 @@ export { CustomSelect } from './CustomSelect';
 export { EmptyComponent } from './EmptyComponent';
 export { LoadingComponent } from './LoadingComponent';
 export { FullLine } from './FullLine';
+export { DateLabel } from './DateLabel';

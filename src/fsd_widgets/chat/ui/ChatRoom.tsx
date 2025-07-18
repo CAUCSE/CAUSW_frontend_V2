@@ -9,6 +9,10 @@ import styled from '@emotion/styled';
 import { Avatar, Typography } from '@mui/material';
 import { ChevronLeft } from 'lucide-react';
 
+import { MessageItem } from '@/fsd_entities/chat/MessageItem';
+
+import { DateLabel } from '@/fsd_shared';
+
 import AddIcon from '../../../../public/icons/add-gray.svg';
 import ActiveSendIcon from '../../../../public/icons/pink_send_icon.svg';
 import SendIcon from '../../../../public/icons/send.svg';
@@ -21,13 +25,6 @@ interface ChatMessage {
   isMine: boolean;
   user_idx?: number;
   sender_profile?: string | null;
-}
-
-interface OpponentUser {
-  user_idx: number;
-  user_id: string;
-  name: string;
-  user_image?: string;
 }
 
 export const ChatRoom = () => {
@@ -96,6 +93,23 @@ export const ChatRoom = () => {
         isMine: false,
         sender_profile: '/images/puang_profile.svg',
       },
+      {
+        id: 16,
+        sender: '나',
+        message:
+          '저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!저는 요즘 선풍기랑 에어컨 둘 다 켜놓고 있어요!',
+        timestamp: '18:20',
+        isMine: true,
+      },
+      // 날짜 변경
+      {
+        id: 17,
+        sender: '상대방',
+        message: '어제는 더 시원했는데 말이죠!',
+        timestamp: '10:05',
+        isMine: false,
+        sender_profile: '/images/puang_profile.svg',
+      },
     ];
 
     setChatData(dummyMessages);
@@ -135,22 +149,21 @@ export const ChatRoom = () => {
   };
   return (
     <>
-      <div className="flex w-full max-w-[1000px] flex-row items-start md:mx-auto md:gap-20">
-        <button onClick={() => router.back()} className="flex items-center gap-x-2">
-          <ChevronLeft className="hidden size-12 text-gray-700 md:relative md:z-20 md:mt-4 md:block" />
-          <div className="hidden md:z-20 md:flex md:pt-4 md:text-xl md:whitespace-nowrap">이전</div>
-        </button>
-        <div>
-          <div className="fixed top-[55px] right-0 left-0 z-10 flex h-13 w-full max-w-[800px] items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:h-18 xl:top-0 xl:right-30 xl:bottom-0">
-            <button onClick={() => router.back()}>
-              <ChevronLeft className="size-7 text-gray-700 md:hidden" />
-            </button>
-
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15px] font-medium md:text-lg">
-              게시글제목 or 김재학
-            </div>
-            <div className="w-6" />
+      <div>
+        <div className="sticky right-0 left-0 z-10 flex h-13 w-full max-w-[800px] items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:h-18 xl:bottom-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15px] font-medium md:text-lg">
+            게시글제목 or 김재학
           </div>
+          <div className="w-6" />
+        </div>
+        <div>
+          <button
+            onClick={() => router.back()}
+            className="fixed top-20 z-20 mr-8 flex items-center gap-x-2 md:top-16 md:left-12 xl:top-3 xl:left-50"
+          >
+            <ChevronLeft className="absolute size-7 text-gray-700 md:relative md:z-20 md:block md:size-12" />
+            <div className="z-20 hidden md:flex md:text-xl md:whitespace-nowrap">이전</div>
+          </button>
           <div className="mt-20 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto md:mt-25">
             {chatData.map((msg, index) => {
               const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
@@ -203,28 +216,28 @@ export const ChatRoom = () => {
             })}
             <div ref={messagesEndRef} />
           </div>
-          <div className="fixed right-0 bottom-16 left-0 z-10 max-w-[800px] bg-[#f8f8f8] px-6 py-5 md:mx-auto xl:right-30 xl:bottom-0">
-            <div className="flex items-center rounded-2xl bg-[#f4f4f4] p-3">
-              <button className="mr-2">
-                <AddIcon />
-              </button>
+          <div className="w-12"></div>
+        </div>
+        <div className="fixed right-0 bottom-16 left-0 z-10 max-w-[800px] bg-[#f8f8f8] px-6 py-5 md:mx-auto xl:right-30 xl:bottom-0">
+          <div className="flex items-center rounded-2xl bg-[#f4f4f4] p-3">
+            <button className="mr-2">
+              <AddIcon />
+            </button>
 
-              <input
-                type="text"
-                placeholder="채팅을 입력해주세요"
-                className="flex-1 bg-transparent text-sm outline-none"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                onKeyDown={handleKeyPress}
-              />
+            <input
+              type="text"
+              placeholder="채팅을 입력해주세요"
+              className="flex-1 bg-transparent text-sm outline-none"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
 
-              <button className="ml-2" disabled={!comment.trim()} onClick={handleSend}>
-                {comment.trim() ? <ActiveSendIcon /> : <SendIcon />}
-              </button>
-            </div>
+            <button className="ml-2" disabled={!comment.trim()} onClick={handleSend}>
+              {comment.trim() ? <ActiveSendIcon /> : <SendIcon />}
+            </button>
           </div>
         </div>
-        <div className="w-12"></div>
       </div>
     </>
   );

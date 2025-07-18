@@ -10,4 +10,17 @@ declare namespace Chat {
   interface ChatItemProps {
     chatData: ChatItem;
   }
+  interface ChatMessage {
+    id: string | number;
+    sender: string;
+    message: string;
+    timestamp: string;
+    isMine: boolean;
+    user_idx?: number;
+    sender_profile?: string | null;
+  }
+  interface MessageItemProps {
+    msg: ChatMessage;
+    showAvatar: boolean;
+  }
 }
