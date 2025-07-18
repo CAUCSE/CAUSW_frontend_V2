@@ -5,13 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import styled from '@emotion/styled';
-import { Avatar, Typography } from '@mui/material';
 import { ChevronLeft } from 'lucide-react';
 
 import { MessageItem } from '@/fsd_entities/chat/MessageItem';
-
-import { DateLabel } from '@/fsd_shared';
 
 import AddIcon from '../../../../public/icons/add-gray.svg';
 import ActiveSendIcon from '../../../../public/icons/pink_send_icon.svg';
@@ -150,8 +146,8 @@ export const ChatRoom = () => {
   return (
     <>
       <div>
-        <div className="sticky right-0 left-0 z-10 flex h-13 w-full max-w-[800px] items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:h-18 xl:bottom-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15px] font-medium md:text-lg">
+        <div className="fixed top-[55px] right-0 left-0 z-10 flex h-13 w-full max-w-[800px] items-center justify-between rounded-tl-3xl rounded-tr-3xl border-b-1 border-gray-600 bg-[#F8F8F8] px-4 md:mx-auto md:h-18 xl:top-0 xl:left-[-126px]">
+          <div className="relative top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15px] font-medium md:text-lg">
             게시글제목 or 김재학
           </div>
           <div className="w-6" />
@@ -164,7 +160,7 @@ export const ChatRoom = () => {
             <ChevronLeft className="absolute size-7 text-gray-700 md:relative md:z-20 md:block md:size-12" />
             <div className="z-20 hidden md:flex md:text-xl md:whitespace-nowrap">이전</div>
           </button>
-          <div className="mt-6 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto">
+          <div className="mt-18 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto md:mt-24">
             {chatData.map((msg, index) => {
               const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
               const dateLabel = getDateLabel(index);
@@ -177,40 +173,7 @@ export const ChatRoom = () => {
                     </div>
                   )}
 
-                  <div className={`flex w-full flex-row gap-3 ${msg.isMine ? 'justify-end' : 'justify-start'} `}>
-                    {!msg.isMine && (
-                      <div style={{ width: '30px', height: '30px', marginBottom: '22px' }}>
-                        {showAvatar ? (
-                          <Avatar
-                            src={msg.sender_profile ?? undefined}
-                            sx={{ width: '30px', height: '30px', borderRadius: '50%' }}
-                          />
-                        ) : null}
-                      </div>
-                    )}
-                    <div className={`flex w-full flex-col gap-2 ${msg.isMine ? 'justify-end' : 'justify-start'}`}>
-                      {showAvatar && <div className="text-[15px] font-medium text-black">김재학</div>}
-                      <div className={`flex w-full flex-row gap-1 ${msg.isMine ? 'justify-end' : 'justify-start'}`}>
-                        {msg.isMine ? (
-                          <>
-                            <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
-                            <div className="max-w-[70%] rounded-tl-[20px] rounded-b-[20px] border border-gray-400 px-3 py-2 text-sm font-normal whitespace-pre-line text-[#333333]">
-                              {msg.message}
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div
-                              className={`max-w-[70%] rounded-tr-[20px] rounded-b-[20px] bg-gray-200 px-3 py-2 text-left text-sm font-normal whitespace-pre-line text-[#333333] ${showAvatar ? '' : 'ml-[20px]'}`}
-                            >
-                              {msg.message}
-                            </div>
-                            <div className="mt-auto text-xs font-normal text-gray-400">{msg.timestamp}</div>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                  <MessageItem msg={msg} showAvatar={showAvatar} />
                 </div>
               );
             })}

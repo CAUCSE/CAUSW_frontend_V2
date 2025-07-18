@@ -35,7 +35,6 @@ export { VerificationStatus } from './application/VerificationStatus';
 
 // Calendar
 
-
 // Event
 export { BannerSettingHeader } from './banner/BannerSettingHeader';
 export { BannerList } from './banner/BannerList';
