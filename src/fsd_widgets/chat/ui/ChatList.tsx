@@ -123,7 +123,7 @@ export const ChatList = () => {
   };
   return (
     <>
-      <div className="fixed top-[55px] left-0 z-20 flex h-18 w-full items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-[#F8F8F8] px-4">
+      <div className="sticky top-0 z-20 flex h-18 w-full items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-[#F8F8F8] px-4">
         <button onClick={() => router.back()}>
           <ChevronLeft className="size-10 text-gray-700" />
         </button>
@@ -131,7 +131,7 @@ export const ChatList = () => {
         <div className="w-6" />
       </div>
 
-      <div className="mt-18 flex w-full flex-col items-center overflow-x-hidden">
+      <div className="flex w-full flex-col items-center overflow-x-hidden">
         <FullLine />
         {chatDummyData.map((chat) => (
           <div key={chat.id} className="w-full" onClick={() => router.push(`/chat/${chat.id}`)}>
@@ -155,13 +155,19 @@ export const ChatList = () => {
               </div>
 
               <div className="relative mb-auto pt-1" ref={openMenuId === chat.id ? menuRef : null}>
-                <button onClick={() => toggleMenu(chat.id)} className="text-gray-500 hover:text-black">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleMenu(chat.id);
+                  }}
+                  className="text-gray-500 hover:text-black"
+                >
                   <EllipsisVertical size={18} />
                 </button>
 
                 {openMenuId === chat.id && (
-                  <div className="absolute top-full right-0 z-10 w-28 rounded-md border bg-white shadow-md">
-                    <button className="w-full px-4 py-2 text-sm hover:bg-gray-100">상단 고정</button>
+                  <div className="absolute top-full right-0 z-10 w-24 rounded-md border bg-white shadow-md">
+                    <button className="w-full px-4 py-4 text-sm hover:bg-gray-100">상단 고정</button>
                     <button className="w-full px-4 py-2 text-sm text-red-500 hover:bg-red-50">삭제</button>
                   </div>
                 )}
