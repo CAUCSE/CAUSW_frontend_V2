@@ -164,7 +164,7 @@ export const ChatRoom = () => {
             <ChevronLeft className="absolute size-7 text-gray-700 md:relative md:z-20 md:block md:size-12" />
             <div className="z-20 hidden md:flex md:text-xl md:whitespace-nowrap">이전</div>
           </button>
-          <div className="mt-20 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto md:mt-25">
+          <div className="mt-6 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto">
             {chatData.map((msg, index) => {
               const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
               const dateLabel = getDateLabel(index);
