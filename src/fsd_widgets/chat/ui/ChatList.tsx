@@ -1,24 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-
 import { useRouter } from 'next/navigation';
 
-import { ChevronLeft, EllipsisVertical } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 import { FullLine } from '@/fsd_shared/ui';
-import { PreviousButton } from '@/fsd_shared/ui';
 
-export interface ChatItem {
-  id: string;
-  title: string;
-  profileImage: string;
-  preview: string;
-  unreadCount: number;
-  time: string;
-}
+import { ChatListItem } from './ChatListItem';
 
-export const chatDummyData: ChatItem[] = [
+export const chatDummyData: Chat.ChatItem[] = [
   {
     id: '1',
     title: '게시글제목',
@@ -102,25 +92,8 @@ export const chatDummyData: ChatItem[] = [
 ];
 //채팅 api 연결 + 무한 스크롤 + ui 통일
 export const ChatList = () => {
-  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
-  const menuRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setOpenMenuId(null);
-      }
-    };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const toggleMenu = (id: string) => {
-    setOpenMenuId((prev) => (prev === id ? null : id));
-  };
   return (
     <>
       <div className="sticky top-0 z-20 flex h-18 w-full items-center justify-between rounded-tl-3xl rounded-tr-3xl bg-[#F8F8F8] px-4">
@@ -134,47 +107,7 @@ export const ChatList = () => {
       <div className="flex w-full flex-col items-center overflow-x-hidden">
         <FullLine />
         {chatDummyData.map((chat) => (
-          <div key={chat.id} className="w-full" onClick={() => router.push(`/chat/${chat.id}`)}>
-            <div className="flex items-center gap-3 px-1 py-4">
-              <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
-                <img src={chat.profileImage} alt={`${chat.title}의 프로필`} className="h-full w-full object-cover" />
-              </div>
-              <div className="flex flex-1 flex-col gap-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-medium text-gray-900">{chat.title}</h3>
-                  <span className="mr-[-4px] text-sm text-gray-400">{chat.time}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="max-w-[220px] truncate text-[15px] text-gray-700">{chat.preview}</p>
-                  {chat.unreadCount > 0 && (
-                    <span className="ml-2 h-[20px] min-w-[20px] rounded-full bg-red-500 px-1.5 py-0.5 text-center text-xs text-white">
-                      {chat.unreadCount}
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="relative mb-auto pt-1" ref={openMenuId === chat.id ? menuRef : null}>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleMenu(chat.id);
-                  }}
-                  className="text-gray-500 hover:text-black"
-                >
-                  <EllipsisVertical size={18} />
-                </button>
-
-                {openMenuId === chat.id && (
-                  <div className="absolute top-full right-0 z-10 w-24 rounded-md border bg-white shadow-md">
-                    <button className="w-full px-4 py-4 text-sm hover:bg-gray-100">상단 고정</button>
-                    <button className="w-full px-4 py-2 text-sm text-red-500 hover:bg-red-50">삭제</button>
-                  </div>
-                )}
-              </div>
-            </div>
-            <FullLine />
-          </div>
+          <ChatListItem key={chat.id} chatData={chat} />
         ))}
       </div>
     </>
