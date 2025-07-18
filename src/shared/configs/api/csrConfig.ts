@@ -48,8 +48,8 @@ API.interceptors.response.use(
     const { updateAccess } = AuthRscService();
 
     const handleNoRefresh = async () => {
-      // await signout();
-      // location.href = '/auth/signin';
+      await signout();
+      location.href = '/auth/signin';
     };
 
     if (error.response) {
@@ -63,13 +63,13 @@ API.interceptors.response.use(
       //Access token 재발급 과정
       if (noAccessTokenCode.includes(errorCode)) {
         const refresh = getRccRefresh();
-        // if (!refresh) {
-        //   location.href = '/auth/signin';
-        // } else {
-        //   const accessToken = await updateAccess(refresh);
-        //   config.headers['Authorization'] = `Bearer ${accessToken}`;
-        //   return API.request(config);
-        // }
+        if (!refresh) {
+          location.href = '/auth/signin';
+        } else {
+          const accessToken = await updateAccess(refresh);
+          config.headers['Authorization'] = `Bearer ${accessToken}`;
+          return API.request(config);
+        }
       } else if (noPermissionCode.includes(error.message)) location.href = '/no-permission';
       else if (noRefreshTokenCode.includes(error.message)) {
         handleNoRefresh();
@@ -86,8 +86,8 @@ FORMAPI.interceptors.response.use(
     const { updateAccess } = AuthRscService();
 
     const handleNoRefresh = async () => {
-      // await signout();
-      // location.href = '/auth/signin';
+      await signout();
+      location.href = '/auth/signin';
     };
 
     if (error.response) {
@@ -101,13 +101,13 @@ FORMAPI.interceptors.response.use(
       //Access token 재발급 과정
       if (noAccessTokenCode.includes(errorCode)) {
         const refresh = getRccRefresh();
-        // if (!refresh) {
-        //   location.href = '/auth/signin';
-        // } else {
-        //   const accessToken = await updateAccess(refresh);
-        //   config.headers['Authorization'] = `Bearer ${accessToken}`;
-        //   return API.request(config);
-        // }
+        if (!refresh) {
+          location.href = '/auth/signin';
+        } else {
+          const accessToken = await updateAccess(refresh);
+          config.headers['Authorization'] = `Bearer ${accessToken}`;
+          return API.request(config);
+        }
       } else if (noPermissionCode.includes(error.message)) location.href = '/no-permission';
       else if (noRefreshTokenCode.includes(error.message)) {
         handleNoRefresh();
