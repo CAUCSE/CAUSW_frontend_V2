@@ -73,7 +73,7 @@ export const usePushNotification = () => {
         return;
       }
       localStorage.setItem(FCM_CHECKED_KEY, 'true');
-
+      
       // 알림 권한 요청
       await Notification.requestPermission();
 
@@ -95,6 +95,7 @@ export const usePushNotification = () => {
       // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
       if (!fcmToken.includes(clientFCMToken)) {
         await updateFCMToken(clientFCMToken);
+        toast.success('알림 설정을 허용하였습니다.');
       }
     } catch (error) {
       toast.error('FCM 토큰 동기화 실패: 서버 응답 오류');
