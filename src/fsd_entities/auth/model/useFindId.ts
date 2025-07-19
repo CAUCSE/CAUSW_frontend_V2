@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/shared';
+import { useFindAccountStore } from './stores';
 
 import { findId } from '../api/post';
 

@@ -2,10 +2,10 @@ import { useCallback } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/shared';
 
 import { FindEmailForm } from './FindEmailForm';
 import { FindEmailResult } from './FindEmailResult';
+import { useFindAccountStore } from '@/fsd_entities/auth/model/stores';
 
 export const FindEmailWidget = () => {
   const { email, resetFindAccountStore } = useFindAccountStore(
