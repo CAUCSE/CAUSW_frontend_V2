@@ -32,15 +32,6 @@ export const submitAdmissionsApplication = async (
   }
 };
 
-export const registerCouncilFee = async (body: any) => {
-  try {
-    const response = (await API.post(`${USER_COUNCIL_FEE_ENDPOINT}/create-user`, body)) as AxiosResponse;
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
 // ssr api method.
 ////////////////////////////////////////////////////////////////
 

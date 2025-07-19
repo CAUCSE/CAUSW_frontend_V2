@@ -8,24 +8,6 @@ import { USERS_ENDPOINT } from '../config';
 // csr api method.
 ////////////////////////////////////////////////////////////////
 
-export const updateUserAcademicInfo = async (data: any) => {
-  try {
-    const response = (await API.put(`${USERS_ENDPOINT}/academic-record/application/update`, data)) as AxiosResponse;
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const allowUser = async (param: string) => {
-  try {
-    const response = (await API.put(`${USERS_ENDPOINT}/admissions/${param}/accept`)) as AxiosResponse;
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
 export const updateInfo = async (
   data: User.userUpdateDto, // FileList 타입 사용
 ): Promise<any> => {
