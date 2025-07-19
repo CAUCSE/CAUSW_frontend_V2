@@ -7,7 +7,7 @@ export const VTwoForm = () => {
   const { register, handleSubmit, errors, onSubmit, checkVTwo, checkNicknameDuplicate } = useV2Form();
 
   if (checkVTwo) return null;
-
+  
   return (
     <>
       <div className="bg-opacity-50 fixed inset-0 z-40 flex items-center justify-center overflow-y-auto bg-black p-16"></div>

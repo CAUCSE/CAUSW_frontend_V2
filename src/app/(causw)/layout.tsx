@@ -1,5 +1,6 @@
-import { NavigationBar, VTwoForm } from '@/entities';
+import { NavigationBar } from '@/entities';
 import { SideBar } from '@/widget';
+import { VTwoForm } from '@/fsd_widgets/auth/ui';
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
