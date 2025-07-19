@@ -37,8 +37,6 @@ export { PostItemContent } from './board/postList/PostItemContent';
 export { CircleApplyQuestion } from './board/form/CircleApplyQuestion';
 export { CircleApplyOption } from './board/form/CircleApplyOption';
 
-export { VTwoForm } from './layout/VTwoForm';
-
 export * from './modal/Modal';
 
 export { OccasionDetail } from './occasion/OccasionDetail';
@@ -59,8 +57,6 @@ export { LockerSelect } from './locker/LockerSelect';
 export { LockerRegisterBtn } from './locker/LockerRegisterBtn';
 export { LockerReturnBtn } from './locker/LockerReturnBtn';
 export { LockerExtendBtn } from './locker/LockerExtendBtn';
-
-export { StatusButton } from './auth/StatusButton';
 
 export { BannerEditModal } from './banner/BannerEditModal';
 export { BannerDeleteModal } from './banner/BannerDeleteModal';

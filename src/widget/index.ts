@@ -30,9 +30,6 @@ export { LockerSelectionDesktopManual } from './locker/LockerSelectionDesktopMan
 export { LockerMobileActionBtn } from './locker/LockerMobileActionBtn';
 export { LockerDesktopActionBtn } from './locker/LockerDesktopActionBtn';
 
-// Application
-export { VerificationStatus } from './application/VerificationStatus';
-
 // Calendar
 
 

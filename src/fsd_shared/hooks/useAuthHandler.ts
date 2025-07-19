@@ -1,3 +1,4 @@
+'use client';
 import { useMyInfoStore } from "@/fsd_entities/user";
 import { useRouter } from "next/navigation";
 import { usePushNotification } from "@/fsd_entities/notification";
