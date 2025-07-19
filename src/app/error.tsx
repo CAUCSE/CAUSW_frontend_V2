@@ -12,12 +12,11 @@ import {
   noAccessTokenCode,
   noPermissionCode,
 } from '@/fsd_shared';
-import { AuthRscService } from '@/shared';
-import { useAuthHandler } from '@/fsd_shared/hooks';
+import { useAuthHandler, useTokenHandler } from '@/fsd_shared';
 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();
-  const { updateAccess } = AuthRscService();
+  const { updateAccess } = useTokenHandler();
   const { redirectToLogin } = useAuthHandler();
 
   const handleNoAccesss = async () => {
