@@ -1,6 +1,4 @@
-import { BarLoader } from 'react-spinners';
-
-import { LoadingComponent } from '@/entities';
+import { LoadingComponent } from '@/fsd_shared/ui';
 
 const Loading = () => {
   return <LoadingComponent />;
