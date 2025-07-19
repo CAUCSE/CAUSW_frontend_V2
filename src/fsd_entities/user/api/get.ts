@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
-import { API, setRscHeader } from '@/shared';
+import { API, setRscHeader } from '@/fsd_shared';
 import { BASEURL } from '@/fsd_shared';
 
 import { PAGE_SIZE, USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
@@ -40,37 +40,6 @@ export const getMyInfo = async () => {
   }
 };
 
-export const getUserInfo = async (userId: string) => {
-  try {
-    const response = await API.get(`${USERS_ENDPOINT}/${userId}`);
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getUserAdmissionInfo = async () => {
-  const response = await API.get(`${USERS_ENDPOINT}/admissions/self`);
-  return response;
-};
-
-export const checkCurrentAcademicStatus = async () => {
-  try {
-    const response = (await API.get(`${USERS_ENDPOINT}/academic-record/current`)) as AxiosResponse;
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const checkIsAcademicRecordSubmitted = async () => {
-  try {
-    const response = (await API.get(`${USERS_ENDPOINT}/academic-record/current/not-accepted`)) as AxiosResponse;
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
 
 export const getUserByName = async (name: string) => {
   const { data } = (await API.get(`${USERS_ENDPOINT}/name/${name}`)) as AxiosResponse<User.User[]>;
@@ -228,21 +197,6 @@ export const getUserAcademicRecord = async (id: string) => {
   }
 };
 
-export const getMyCircles = async () => {
-  try {
-    const headers = await setRscHeader();
-
-    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/circles`, {
-      headers: headers,
-    }).then((res) => res.json())) as Circle.CirclesRequestDto;
-
-    if (response.errorCode) throw new Error(response.errorCode);
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
 
 // 유저 상태 조회.
 export const getByState = async (state: User.UserDto['state'], name: string | null, page: number) => {
@@ -333,22 +287,6 @@ export const getWaitingUsers = setGetMethod('users/academic-record/list/await') 
   size?: number,
 ) => Promise<Setting.WaitingUsers[]>;
 
-// 게시판 신청 목록 조회.
-export const getApplyBoardList = async () => {
-  try {
-    const headers = await setRscHeader();
-
-    const response = (await fetch(`${BASEURL}/api/v1/boards/apply/list`, {
-      headers: headers,
-    }).then((res) => res.json())) as Setting.GetApplyBoardsResponseDto;
-
-    if (response.errorCode) throw new Error(response.errorCode);
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
 
 // 납부자 상세 조회.
 export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
