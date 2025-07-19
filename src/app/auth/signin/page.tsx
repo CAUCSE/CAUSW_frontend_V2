@@ -11,9 +11,9 @@ import { SignInFooter } from '@/fsd_widgets/auth';
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 import { ImageBackground, VideoBackground } from '@/fsd_widgets/auth';
 import '@/firebase-messaging-sw';
-import { AuthService } from '@/shared';
 import { emailRegex, getRccRefresh } from '@/fsd_shared';
 import toast from 'react-hot-toast';
+import { useLogin } from '@/fsd_entities/auth/model/hooks/useLogin';
 
 const routes = [
   { name: '회원가입하기', route: '/auth/signup' },
@@ -24,8 +24,7 @@ const routes = [
 
 const SignInPage = () => {
   const router = useRouter();
-
-  const { signin } = AuthService();
+  const login = useLogin();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
@@ -49,7 +48,7 @@ const SignInPage = () => {
       return;
     }
 
-    signin(data);
+    login.mutate(data);
   };
 
   useEffect(() => {

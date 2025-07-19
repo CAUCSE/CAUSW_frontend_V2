@@ -2,7 +2,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 
-import { API } from '@/shared';
+import { API, getRccAccess } from '@/fsd_shared';
 
 const URI = '/api/v1/users';
 
@@ -72,7 +72,11 @@ export const checkCurrentAcademicStatus = async () => {
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {
-    const response = (await API.get(`${URI}/academic-record/current/not-accepted`)) as AxiosResponse;
+    const response = (await axios.get(`${URI}/academic-record/current/not-accepted`, {
+      headers: {
+        'Authorization': `Bearer ${getRccAccess()}`
+      }
+    })) as AxiosResponse;
     return response;
   } catch (error) {
     throw error;
