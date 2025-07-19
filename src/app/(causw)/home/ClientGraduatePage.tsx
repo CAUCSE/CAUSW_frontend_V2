@@ -41,18 +41,17 @@ export default function GraduateHomePage({ events }) {
       </div>
 
       {/* 공통 콘텐츠: PC는 좌우, 모바일은 세로 */}
-      <div className="flex w-full flex-col items-center gap-6 p-4 sm:grid sm:grid-cols-2 sm:rounded-md 2xl:gap-20 2xl:rounded-xl 2xl:p-20 2xl:shadow-sm">
+      <div className="flex w-full flex-col items-center gap-6 p-4 sm:grid sm:grid-cols-2 sm:rounded-md 2xl:gap-20 2xl:rounded-xl">
         {/* 바로가기 메뉴 */}
-        <div className="mb-4 text-lg font-bold sm:text-xl 2xl:rounded-2xl 2xl:bg-gray-50 2xl:p-8">
-          <h2 className="md:text-2xl md:font-bold 2xl:mt-2 2xl:ml-10">바로가기 메뉴</h2>
+        <div className="mb-4 text-lg font-bold sm:text-xl 2xl:rounded-2xl 2xl:bg-gray-50 2xl:p-4">
           <div className="grid grid-cols-2 gap-5 2xl:p-8">
             {boards.map((board) => (
               <Link
                 key={board.name}
                 href={board.href}
-                className="relative aspect-square w-full rounded-2xl bg-white p-4 shadow-sm hover:shadow-md md:rounded-4xl"
+                className="relative aspect-square w-full rounded-2xl bg-white p-6 shadow-sm hover:shadow-md md:rounded-4xl"
               >
-                <span className="text-sm leading-tight font-semibold text-black sm:text-base md:text-lg">
+                <span className="text-sm leading-tight font-semibold text-black sm:text-base md:text-lg 2xl:text-xl">
                   {board.name}
                 </span>
                 <Image
@@ -60,7 +59,7 @@ export default function GraduateHomePage({ events }) {
                   alt="icon"
                   width={40}
                   height={40}
-                  className="absolute right-4 bottom-4 h-8 w-8 object-contain sm:h-10 sm:w-10 md:h-12 md:w-12"
+                  className="absolute right-4 bottom-4 h-8 w-8 object-contain sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20"
                 />
               </Link>
             ))}
