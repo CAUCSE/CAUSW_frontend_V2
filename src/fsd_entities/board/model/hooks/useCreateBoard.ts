@@ -2,14 +2,14 @@
 
 import { toast } from 'react-hot-toast';
 
-import { useHasAuth } from '@/fsd_shared';
+import { useAuthHandler } from '@/fsd_shared';
 
 import { useCreateCommonBoard, useCreateNoticeBoard } from '../queries';
 import { useBoardCreationStore } from '../stores';
 
 export const useCreateBoard = () => {
   const boardName = useBoardCreationStore((state) => state.boardName);
-  const hasAuth = useHasAuth();
+  const { hasAuth } = useAuthHandler();
   const { mutate: createNoticeBoard } = useCreateNoticeBoard();
   const { mutate: createCommonBoard } = useCreateCommonBoard();
 
@@ -18,7 +18,7 @@ export const useCreateBoard = () => {
       toast.error('게시판 이름을 입력해주세요.');
       return;
     }
-    hasAuth ? createNoticeBoard() : createCommonBoard();
+    hasAuth() ? createNoticeBoard() : createCommonBoard();
   };
 
   return { handleSubmit, hasAuth };
