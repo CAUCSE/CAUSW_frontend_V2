@@ -11,8 +11,8 @@ import { SignInFooter } from '@/fsd_widgets/auth';
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 import { ImageBackground, VideoBackground } from '@/fsd_widgets/auth';
 import '@/firebase-messaging-sw';
-import { AuthService, getRccRefresh } from '@/shared';
-import { emailRegex } from '@/fsd_shared';
+import { AuthService } from '@/shared';
+import { emailRegex, getRccRefresh } from '@/fsd_shared';
 import toast from 'react-hot-toast';
 
 const routes = [
@@ -50,7 +50,6 @@ const SignInPage = () => {
     }
 
     signin(data);
-    toast.success('로그인 성공!');
   };
 
   useEffect(() => {

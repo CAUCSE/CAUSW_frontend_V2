@@ -39,8 +39,9 @@ export const AuthService = () => {
           router.push('/home');
         }
       }
+      toast.success('로그인 성공!');
     } catch (error) {
-      setErrorMessage('로그인 정보가 일치하지 않습니다!');
+      toast.error('로그인 정보가 일치하지 않습니다!');
     }
   };
 

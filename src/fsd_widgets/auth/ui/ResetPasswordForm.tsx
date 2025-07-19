@@ -3,9 +3,11 @@
 import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
 import { useResetPasswordForm } from '@/fsd_entities/auth/model/useResetPasswordForm';
 
-import { PreviousButton } from '@/shared';
+import { PreviousButton } from '@/fsd_shared';
+import { useRouter } from 'next/navigation';
 
 export const ResetPasswordForm = () => {
+  const router = useRouter();
   const validatePasswordMatch = (value: string) => {
     const password = watch('updatedPassword');
     return value === password || '새로운 비밀번호가 일치하지 않습니다';
@@ -14,11 +16,13 @@ export const ResetPasswordForm = () => {
   const { register, handleSubmit, errors, onSubmit, onInvalid, watch } = useResetPasswordForm();
 
   return (
+    <div className="flex h-screen w-full min-w-80 flex-col rounded-md p-2">
+      <PreviousButton routeCallback={() => router.back()} />
+    <div className="flex h-full w-full min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8">
     <form
       onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className="flex w-1/2 min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8"
+      className="flex w-full min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8"
     >
-      <PreviousButton variant="bg-board-page-background"></PreviousButton>
       <AuthInput
         register={register}
         name="originPassword"
@@ -49,8 +53,10 @@ export const ResetPasswordForm = () => {
         placeholder="새로운 비밀번호를 다시 입력해주세요"
         errorMessage={errors.confirmPassword?.message}
       />
-      <AuthFormSubmitButton content="비밀번호 변경" />
-    </form>
+        <AuthFormSubmitButton content="비밀번호 변경" />
+      </form>
+      </div>
+    </div>
   );
 };
 
