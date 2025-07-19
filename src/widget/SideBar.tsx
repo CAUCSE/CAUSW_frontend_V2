@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import Link from 'next/link';
 
-import { Bell, LogOut } from 'lucide-react';
+import { Bell, LogOut, Mail } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
@@ -59,6 +59,16 @@ export const SideBar = ({ className }: SideBarProps) => {
         </Link>
       </Button>
 
+      <Button
+        size="icon"
+        variant="ghost"
+        className="absolute top-3 left-22 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
+        asChild
+      >
+        <Link href="/chat">
+          <Mail className="size-6" />
+        </Link>
+      </Button>
       <div className="max-xl:hidden">
         <ProfileImage src={profileImage} />
       </div>

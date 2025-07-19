@@ -37,9 +37,9 @@ export const useAcademicRecordForm = ({ curAcademicStatus }: userInfoProps) => {
     }
     submitAcademicRecord(data as User.CreateUserAcademicRecordApplicationRequestDto);
     setTimeout(() => {
-      router.push(
-        curAcademicStatus === 'UNDEFINED' && data.targetAcademicStatus !== 'ENROLLED' ? '/auth/signin' : './',
-      );
+      // router.push(
+      //   curAcademicStatus === 'UNDEFINED' && data.targetAcademicStatus !== 'ENROLLED' ? '/auth/signin' : './',
+      // );
       // UNDEFINED -> 휴학, 졸업일 경우 바로 로그인 가능하므로 로그인인 페이지로 보냄
     }, 500);
   };
