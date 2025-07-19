@@ -27,3 +27,4 @@ export { CustomSelect } from './CustomSelect';
 export { EmptyComponent } from './EmptyComponent';
 export { LoadingComponent } from './LoadingComponent';
 export { ProfileImage } from './ProfileImage';
+export { Providers } from './Providers';
