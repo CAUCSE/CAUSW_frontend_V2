@@ -2,6 +2,7 @@ import { getMessaging, getToken } from 'firebase/messaging';
 
 import { getFCMToken } from '../api/get';
 import { updateFCMToken } from '../api/post';
+import { toast } from 'react-hot-toast';
 
 const FCM_CHECKED_KEY = 'fcm_checked';
 
@@ -48,7 +49,6 @@ export const usePushNotification = () => {
       const currentToken = await getToken(messaging, {
         vapidKey: process.env.NEXT_PUBLIC_FB_VAPID_KEY,
       });
-
       if (!currentToken) {
         return null;
       }
@@ -90,13 +90,15 @@ export const usePushNotification = () => {
       }
 
       // 서버에서 현재 사용자의 토큰 조회
-      const serverFCMToken = await getFCMToken();
+      const { fcmToken } = await getFCMToken();
 
       // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
-      if (!serverFCMToken || !serverFCMToken.includes(clientFCMToken)) {
+      if (!fcmToken.includes(clientFCMToken)) {
         await updateFCMToken(clientFCMToken);
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error('FCM 토큰 동기화 실패: 서버 응답 오류');
+    }
   };
 
   // 토큰 상태 초기화 함수 (로그아웃 시 사용)

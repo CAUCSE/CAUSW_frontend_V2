@@ -62,15 +62,10 @@ export const getCeremonyData = async (
   }
 };
 
-export const getFCMToken = async (): Promise<string | null> => {
+export const getFCMToken = async (): Promise<User.FCMTokenResponseDto> => {
   const URI = `/api/v1/users/fcm`;
-
-  try {
-    const response: AxiosResponse<string> = await API.get(URI);
-    return response.data;
-  } catch (error) {
-    return null;
-  }
+  const response = await API.get(URI);
+  return response.data;
 };
 
 export const getNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
