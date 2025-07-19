@@ -18,7 +18,7 @@ export const useCreateBoard = () => {
       toast.error('게시판 이름을 입력해주세요.');
       return;
     }
-    hasAuth() ? createNoticeBoard() : createCommonBoard();
+    hasAuth ? createNoticeBoard() : createCommonBoard();
   };
 
   return { handleSubmit, hasAuth };

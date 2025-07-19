@@ -25,7 +25,7 @@ export const RoleSelectSection = () => {
   return (
     <div className="my-2">
       <h1 className="mb-2 text-2xl xl:mb-4 xl:text-2xl">게시글 작성 권한 명단</h1>
-      {hasAuth() ? (
+      {hasAuth ? (
         <div className="text-md bg-notice-board-role rounded-2xl p-4 xl:text-lg">
           <div className="mb-2 flex items-center space-x-3">
             <CheckBox isChecked={selectedRoleList.includes('ALL')} onClick={handleToggleAll} />
