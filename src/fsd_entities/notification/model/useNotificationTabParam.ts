@@ -1,18 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export const useNotificationTabParam = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const tabParam = searchParams.get('tab');
-  const [activeTab, setActiveTab] = useState(0);
+  const activeTab = tabParam === 'ceremony' ? 1 : 0;
 
-  useEffect(() => {
-    const tabIndex = tabParam === 'ceremony' ? 1 : 0;
-    setActiveTab(tabIndex);
-  }, [tabParam]);
+  const setActiveTab = (tabIndex: number) => {
+    const tabKey = tabIndex === 1 ? 'ceremony' : 'general';
+    router.push(`${pathname}?tab=${tabKey}`, { scroll: false });
+  };
 
   return { activeTab, setActiveTab };
 };
