@@ -1,5 +1,4 @@
 export { LoadingComponent } from './layout/LoadingComponent';
-export { NavigationBar } from './layout/NavigationBar';
 
 export { FormInput, FormSubmitButton, SignInInput, SignInSubmitButton } from './input/FormInput';
 

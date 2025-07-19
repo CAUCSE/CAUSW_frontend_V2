@@ -1,4 +1,4 @@
-export { SideBar } from './SideBar';
+export { SideBar } from '../fsd_widgets/pageLayout/ui/SideBar';
 
 // Form
 export { ExpiredForm } from './form/ExpiredForm';

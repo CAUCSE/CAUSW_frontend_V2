@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { House, Settings } from 'lucide-react';
 
-import BoardIcon from '../../../public/icons/board_icon.svg';
+import BoardIcon from '../../../../public/icons/board_icon.svg';
 
 interface NavigationBarProps {
   className?: string;
