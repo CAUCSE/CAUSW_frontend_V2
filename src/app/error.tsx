@@ -2,40 +2,28 @@
 
 //TODO//
 //에러 페이지 JSX 업데이트 필요
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { LoadingComponent } from '@/entities';
+import { LoadingComponent } from '@/fsd_shared';
 import {
-  allErrorCode,
-  AuthRscService,
-  AuthService,
-  getRccRefresh,
-  getRscAccess,
   getRscRefresh,
   noAccessTokenCode,
   noPermissionCode,
-  noRefreshTokenCode,
-  setRscHeader,
-  setRscToken,
-} from '@/shared';
+} from '@/fsd_shared';
+import { AuthRscService } from '@/shared';
+import { useAuthHandler } from '@/fsd_shared/hooks';
 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();
-  const { signout } = AuthRscService();
   const { updateAccess } = AuthRscService();
-
-  const handleNoRefresh = async () => {
-    await signout();
-    location.href = '/auth/signin';
-  };
+  const { redirectToLogin } = useAuthHandler();
 
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {
-      handleNoRefresh();
+      redirectToLogin();
     } else {
       try {
         await updateAccess(refresh);
@@ -44,7 +32,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
         }, 1000);
         return () => clearTimeout(timer);
       } catch {
-        handleNoRefresh();
+        redirectToLogin();
       }
     }
   };
@@ -54,7 +42,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
       handleNoAccesss();
     } else if (noPermissionCode.includes(error.message)) router.push('/no-permission');
     else {
-      handleNoRefresh();
+      redirectToLogin();
     }
   }, [error]);
 
