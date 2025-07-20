@@ -12,19 +12,30 @@ const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms
 });
 
 const SettingsPage = () => {
-  const { roles, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader } =
-    useMyInfoStore((state) => ({
-      roles: state.roles,
-      isStudent: state.isStudent,
-      isProfessor: state.isProfessor,
-      isAdmin: state.isAdmin,
-      isPresidents: state.isPresidents,
-      isVicePresidents: state.isVicePresidents,
-      isCircleLeader: state.isCircleLeader,
-      isCouncil: state.isCouncil,
-      isStudentLeader: state.isStudentLeader,
-      isAlumniLeader: state.isAlumniLeader,
-    }));
+  const {
+    roles,
+    isAdmin,
+    isPresidents,
+    isVicePresidents,
+    isCircleLeader,
+    isCouncil,
+    isStudentLeader,
+    isAlumniLeader,
+    isStudent,
+    isGraduate,
+  } = useMyInfoStore((state) => ({
+    roles: state.roles,
+    isStudent: state.isStudent,
+    isProfessor: state.isProfessor,
+    isAdmin: state.isAdmin,
+    isPresidents: state.isPresidents,
+    isVicePresidents: state.isVicePresidents,
+    isCircleLeader: state.isCircleLeader,
+    isCouncil: state.isCouncil,
+    isStudentLeader: state.isStudentLeader,
+    isAlumniLeader: state.isAlumniLeader,
+    isGraduate: state.isGraduate,
+  }));
 
   console.log(
     roles,
@@ -35,6 +46,7 @@ const SettingsPage = () => {
     isCouncil(),
     isStudentLeader(),
     isAlumniLeader(),
+    isGraduate(),
   );
 
   const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
