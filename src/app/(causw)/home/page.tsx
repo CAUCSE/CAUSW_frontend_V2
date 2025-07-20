@@ -1,46 +1,16 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-
-import Loading from '@/app/loading';
-
-import { FCMTokenChecker } from '@/fsd_widgets/notification';
-
-import { useMyInfoStore } from '@/fsd_entities/user/model';
-
 import { HomeRscService } from '@/shared';
 
-import ClientGraduatePage from './ClientGraduatePage';
-import ClientHomePage from './ClientPage';
+import ClientGate from './ClientGate';
 
-export default function HomePage() {
-  const isGraduated = useMyInfoStore((state) => state.isGraduate());
-  const [events, setEvents] = useState<Home.GetEventsResponseDto | null>(null);
-  const [homePosts, setHomePosts] = useState<Home.GetHomePostsResponseDto | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { getHomePosts, getEvents } = HomeRscService();
-      const eventsRes = await getEvents();
-      const postsRes = await getHomePosts();
-
-      setEvents(eventsRes);
-      setHomePosts(postsRes);
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
+export default async function HomePage() {
+  const { getHomePosts, getEvents } = HomeRscService();
+  const events = await getEvents();
+  const homePosts = await getHomePosts();
 
   return (
     <>
-      <FCMTokenChecker />
-      {isGraduated ? <ClientGraduatePage events={events} /> : <ClientHomePage events={events} homePosts={homePosts} />}
+      {/* 사용자 academicStatus는 클라이언트에서 판단 */}
+      <ClientGate events={events} homePosts={homePosts} />
     </>
   );
 }
