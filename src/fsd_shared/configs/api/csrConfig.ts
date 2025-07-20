@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { AuthRscService, noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/shared';
+import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode, useAuthHandler, useTokenHandler } from '@/fsd_shared';
 
 import { BASEURL } from './url';
 
@@ -44,11 +44,11 @@ export const getRccRefresh = (): string | null => {
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { signout } = AuthRscService();
-    const { updateAccess } = AuthRscService();
+    const { redirectToLogin } = useAuthHandler();
+    const { updateAccess } = useTokenHandler();
 
     const handleNoRefresh = async () => {
-      await signout();
+      await redirectToLogin();
       location.href = '/auth/signin';
     };
 
@@ -82,11 +82,11 @@ API.interceptors.response.use(
 FORMAPI.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { signout } = AuthRscService();
-    const { updateAccess } = AuthRscService();
+    const { redirectToLogin } = useAuthHandler();
+    const { updateAccess } = useTokenHandler();
 
     const handleNoRefresh = async () => {
-      await signout();
+      await redirectToLogin();
       location.href = '/auth/signin';
     };
 
