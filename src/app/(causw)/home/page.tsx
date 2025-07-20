@@ -14,12 +14,10 @@ import ClientGraduatePage from './ClientGraduatePage';
 import ClientHomePage from './ClientPage';
 
 export default function HomePage() {
-  const academicStatus = useMyInfoStore((state) => state.academicStatus);
+  const isGraduated = useMyInfoStore((state) => state.isGraduate());
   const [events, setEvents] = useState<Home.GetEventsResponseDto | null>(null);
   const [homePosts, setHomePosts] = useState<Home.GetHomePostsResponseDto | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const isGraduated = academicStatus === 'GRADUATED';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +33,7 @@ export default function HomePage() {
     fetchData();
   }, []);
 
-  if (loading || !academicStatus) {
+  if (loading) {
     return <Loading />;
   }
 
