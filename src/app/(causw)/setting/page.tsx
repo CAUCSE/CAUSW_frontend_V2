@@ -112,6 +112,8 @@ const SettingsPage = () => {
     boardManagement: [{ name: '게시판 생성 신청 관리', link: '/setting/management/board' }],
 
     occasionManagement: [{ name: '경조사 관리', link: '/setting/management/ceremony/request' }],
+
+    occasionUserManagement: [{ name: '내 경조사 목록 보기', link: '/ceremony/list' }],
   };
 
   const MenuItem: React.FC<{
@@ -140,6 +142,15 @@ const SettingsPage = () => {
         <MenuItem title="기록" items={menuItems.records} />
 
         {/* 권한을 갖는 유저들에게 나타나는 UI */}
+
+        {/* 학생 또는 졸업생인 경우 */}
+        {(isStudent() || isGraduate()) && (
+          <>
+            <MenuItem title="경조사 관리" items={menuItems.occasionUserManagement} />
+          </>
+        )}
+
+        {/* 교수인 경우 */}
 
         {/* 학생회에만 소속 */}
         {(isCouncil() && !isCircleLeader()) ||
