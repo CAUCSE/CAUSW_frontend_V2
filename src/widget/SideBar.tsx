@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { Bell, LogOut } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
+import { getNotificationCount } from '@/fsd_entities/notification';
 import { useUserInfo } from '@/fsd_entities/user';
 import { useMyInfoStore } from '@/fsd_entities/user';
 
@@ -28,7 +28,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const email = useMyInfoStore((state) => state.email);
   const profileImage = useMyInfoStore((state) => state.profileImageUrl);
 
-  const alarmCount: number = 12;
+  const [alarmCount, setAlarmCount] = useState<number>(0);
   const messageCount: number = 0;
 
   const handleNoRefresh = async () => {
@@ -38,6 +38,15 @@ export const SideBar = ({ className }: SideBarProps) => {
 
   useEffect(() => {
     updateMyInfoStore();
+  }, []);
+
+  useEffect(() => {
+    const fetchNotificationCount = async () => {
+      const count = await getNotificationCount();
+      setAlarmCount(count);
+    };
+
+    fetchNotificationCount();
   }, []);
 
   return (
