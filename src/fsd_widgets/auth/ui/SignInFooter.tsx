@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export const SignInFooter = () => (
   <div className="flex w-full flex-col items-center">
-    <span className="mt-2 mr-1 text-sm">중앙대학교 소프트웨어학부 ICT 위원회</span>
+    <span className="font-pretendard text-sm font-normal">중앙대학교 소프트웨어학부 ICT 위원회</span>
     <div className="mt-2 flex flex-row justify-between gap-6 md:mr-4">
       <Image
         onClick={() => {

@@ -13,7 +13,7 @@ export const SignInInput = <T extends FieldValues>({ register, name, rules, ...r
   <input
     {...register(name, rules)}
     {...rest}
-    id="specificInput"
-    className="peer focus:border-focus mb-1 w-full rounded-xl border-2 border-[#e9ebeb] bg-white px-6 py-2 text-start text-xs placeholder:text-[#999]"
+    id={name}
+    className="peer focus:border-focus mb-1 w-full border-2 border-[#e9ebeb] bg-white px-6 py-3 text-start text-xs placeholder:text-[#999] autofill:text-black autofill:shadow-none"
   />
 );
