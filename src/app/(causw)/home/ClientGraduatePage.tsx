@@ -51,7 +51,7 @@ export default function GraduateHomePage({ events }) {
                 href={board.href}
                 className="relative aspect-square w-full rounded-2xl bg-white p-6 shadow-sm hover:shadow-md md:rounded-4xl"
               >
-                <span className="text-sm leading-tight font-semibold text-black sm:text-base md:text-lg 2xl:text-xl">
+                <span className="text-sm leading-tight font-semibold break-keep whitespace-normal text-black sm:text-base md:text-lg 2xl:text-xl">
                   {board.name}
                 </span>
                 <Image
