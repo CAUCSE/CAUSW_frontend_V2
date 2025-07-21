@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { useForm } from 'react-hook-form';
@@ -63,25 +64,30 @@ const SignInPage = () => {
   return (
     <>
       {false ? <LoadingComponent /> : null}
-      <VideoBackground src="/videos/signin-background.mp4" />
-      <ImageBackground src="/images/signin-logo.png" alt="sign in page background img" darkBackground />
+      <div className="flex flex-col items-center justify-between pt-22">
+        <div className="flex w-full flex-col items-center">
+          <Image src={'/images/chungang_logo.svg'} width={250} height={34} alt="chuan-ang unviersity logo" />
+          <div
+            onClick={() => {
+              setEnterEmail(false);
+            }}
+            className="mt-3 text-xs"
+          >
+            함께라면 더 밝은 미래로, 우리들의
+          </div>
+          <div
+            onClick={() => {
+              setEnterEmail(false);
+            }}
+            className="mt-2 mb-2 text-center text-sm font-bold tracking-widest sm:mb-8 sm:text-5xl"
+          >
+            동문네트워크
+          </div>
+        </div>
+      </div>
+      {/* <VideoBackground src="/videos/signin-background.mp4" /> */}
+      {/* <ImageBackground src="/images/signin-logo.png" alt="sign in page background img" darkBackground /> */}
       <div className="absolute top-[35%] left-1/2 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
-        <div
-          onClick={() => {
-            setEnterEmail(false);
-          }}
-          className="text-md text-white sm:mb-3 sm:text-2xl"
-        >
-          함께라면 더 밝은 미래로
-        </div>
-        <div
-          onClick={() => {
-            setEnterEmail(false);
-          }}
-          className="mb-3 text-center text-2xl font-bold tracking-widest text-white sm:mb-8 sm:text-5xl"
-        >
-          우리들의 동문 네트워크
-        </div>
         <form onSubmit={handleSubmit(onSubmit)} className="mb-1 flex flex-col items-center justify-center gap-1">
           <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요"></SignInInput>
 
