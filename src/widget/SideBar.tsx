@@ -79,7 +79,8 @@ export const SideBar = ({ className }: SideBarProps) => {
         </Link>
       </Button>
 
-      <Button
+      {/* 쪽지 기능 구현될 때까지 주석 처리 */}
+      {/* <Button
         size="icon"
         variant="ghost"
         className="absolute top-3 left-22 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
@@ -101,7 +102,7 @@ export const SideBar = ({ className }: SideBarProps) => {
             )}
           </div>
         </Link>
-      </Button>
+      </Button> */}
 
       <div className="max-xl:hidden">
         <ProfileImage src={profileImage} />
