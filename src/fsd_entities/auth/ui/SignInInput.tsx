@@ -14,6 +14,6 @@ export const SignInInput = <T extends FieldValues>({ register, name, rules, ...r
     {...register(name, rules)}
     {...rest}
     id={name}
-    className="peer focus:border-focus mb-1 w-full border-2 border-[#e9ebeb] bg-white px-6 py-3 text-start text-xs placeholder:text-[#999] autofill:text-black autofill:shadow-none"
+    className="font-pretendard peer focus:border-focus mb-1 w-full border-2 border-[#e9ebeb] bg-white px-6 py-3 text-start text-xs placeholder:text-[#999] autofill:text-black autofill:shadow-none"
   />
 );

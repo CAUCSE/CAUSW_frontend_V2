@@ -64,14 +64,22 @@ const SignInPage = () => {
   return (
     <>
       {false ? <LoadingComponent /> : null}
-      <div className="flex h-screen w-full flex-1 flex-col items-center justify-between px-8 py-22">
-        <div className="flex w-full flex-col items-center">
-          <Image src={'/images/chungang_logo.svg'} width={250} height={34} alt="chuan-ang unviersity logo" priority />
+      <div className="mx-auto flex h-screen w-full max-w-[502px] flex-1 flex-col items-center justify-between gap-5 px-8 py-18 sm:px-5">
+        <div className="flex w-full flex-col items-center gap-1.5 sm:gap-3">
+          <div className="relative h-[34px] w-[250px] sm:h-[68px] sm:w-[500px]">
+            <Image
+              src="/images/chungang_logo.svg"
+              alt="chungang university logo"
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          </div>{' '}
           <div
             onClick={() => {
               setEnterEmail(false);
             }}
-            className="font-pretendard mt-3 text-xs"
+            className="font-pretendard text-xs font-normal sm:text-2xl sm:font-medium"
           >
             함께라면 더 밝은 미래로, 우리들의
           </div>
@@ -79,27 +87,21 @@ const SignInPage = () => {
             onClick={() => {
               setEnterEmail(false);
             }}
-            className="font-pretendard mt-1 mb-2 text-center text-sm font-bold tracking-widest sm:mb-8 sm:text-5xl"
+            className="font-pretendard mb-2 text-center text-sm font-bold tracking-widest sm:mt-[-4px] sm:text-[26px]"
           >
             동문네트워크
           </div>
         </div>
-        <div className="flex w-full flex-col items-center justify-center bg-[#eef1f1] px-4 pt-3 pb-6">
+        <div className="flex w-full flex-col items-center justify-center bg-[#eef1f1] p-[15px] sm:p-7.5">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="mb-1 flex w-full flex-col items-center justify-center gap-1"
+            className="mb-1 flex w-full flex-col items-center justify-center gap-1 sm:gap-3.5"
           >
             <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요" />
             <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
-            {/* <div className="mt-1 flex w-full items-center gap-2">
-              <label htmlFor="auto" className="ml-1 text-xs font-thin sm:text-[16px]">
-                자동로그인
-              </label>
-              <Switch id="attendance-type" {...register('auto')} />
-            </div>
-             */}
+
             <div className="mt-1 flex w-full items-center gap-2">
-              <label htmlFor="auto" className="ml-1 text-xs font-thin sm:text-[16px]">
+              <label htmlFor="auto" className="text-xs font-medium">
                 자동로그인
               </label>
               <Controller
@@ -113,7 +115,7 @@ const SignInPage = () => {
             <SignInSubmitButton />
 
             <div className="mt-2 flex w-full items-center justify-center">
-              <div className="flex flex-col items-center gap-3">
+              <div className="mb-4 flex flex-col items-center gap-2.5 sm:gap-5">
                 {routes.map((route) => (
                   <div
                     key={route.name}
