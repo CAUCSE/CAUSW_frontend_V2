@@ -92,7 +92,7 @@ const SignInPage = () => {
             동문네트워크
           </div>
         </div>
-        <div className="flex w-full flex-col items-center justify-center bg-[#eef1f1] p-[15px] sm:p-7.5">
+        <div className="flex w-full flex-col items-center justify-center rounded-[20px] bg-[#eef1f1] p-[15px] sm:p-7.5">
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="mb-1 flex w-full flex-col items-center justify-center gap-1 sm:gap-3.5"
@@ -122,7 +122,7 @@ const SignInPage = () => {
                     onClick={() => {
                       router.push(route.route);
                     }}
-                    className="font-boerder text-xs"
+                    className="text-[9px] font-medium sm:text-xs sm:font-normal"
                   >
                     {route.name}
                   </div>
