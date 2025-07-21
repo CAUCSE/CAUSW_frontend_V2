@@ -17,9 +17,9 @@ import { onClickAlert } from '@/shared';
 import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
 
 const routes = [
-  { name: '회원가입하기', route: '/auth/signup' },
-  { name: '아이디 찾기', route: '/auth/findemail' },
-  { name: '비밀번호 찾기', route: '/auth/findpassword' },
+  { name: '아이디찾기', route: '/auth/findemail' },
+  { name: '비밀번호찾기', route: '/auth/findpassword' },
+  { name: '회원가입', route: '/auth/signup' },
   // { name: "알림 허용하기", route: "/auth/test", handler: onClickAlert },
 ];
 
@@ -64,7 +64,7 @@ const SignInPage = () => {
   return (
     <>
       {false ? <LoadingComponent /> : null}
-      <div className="flex flex-col items-center justify-between pt-22">
+      <div className="flex h-screen w-full flex-1 flex-col items-center justify-between px-8 py-22">
         <div className="flex w-full flex-col items-center">
           <Image src={'/images/chungang_logo.svg'} width={250} height={34} alt="chuan-ang unviersity logo" />
           <div
@@ -79,67 +79,48 @@ const SignInPage = () => {
             onClick={() => {
               setEnterEmail(false);
             }}
-            className="mt-2 mb-2 text-center text-sm font-bold tracking-widest sm:mb-8 sm:text-5xl"
+            className="mt-1 mb-2 text-center text-sm font-bold tracking-widest sm:mb-8 sm:text-5xl"
           >
             동문네트워크
           </div>
         </div>
-      </div>
-      {/* <VideoBackground src="/videos/signin-background.mp4" /> */}
-      {/* <ImageBackground src="/images/signin-logo.png" alt="sign in page background img" darkBackground /> */}
-      <div className="absolute top-[35%] left-1/2 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-1 flex flex-col items-center justify-center gap-1">
-          <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요"></SignInInput>
+        <div className="flex w-full flex-col items-center justify-center rounded-xl bg-[#eef1f1] px-4 pt-3 pb-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mb-1 flex w-full flex-col items-center justify-center gap-1"
+          >
+            <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요"></SignInInput>
 
-          {enterEmail ? (
-            <>
-              <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
-              <SignInSubmitButton />
-            </>
-          ) : (
-            <>
-              <div className="mt-1 flex w-full items-start justify-between pr-1 pl-1">
-                <div className="flex items-center">
-                  <input type="checkbox" id="auto" {...register('auto')} />
-                  <label htmlFor="auto" className="ml-1 text-xs font-thin text-white sm:text-[16px]">
-                    자동 로그인
-                  </label>
-                </div>
-                <div className="flex flex-col items-end">
-                  {routes.map((route) => (
-                    <div
-                      key={route.name}
-                      // onClick={() => {
-                      //   if (route.handler) route.handler();
-                      //   router.push(route.route);
-                      // }}
-                      className="border-b-2-white font-boerder mb-2 border-b text-xs text-white sm:text-[16px] md:mt-1 md:hidden"
-                    >
-                      {route.name}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-        </form>
-
-        {!enterEmail &&
-          routes.map((route) => (
-            <div
-              key={route.name}
-              onClick={() => {
-                // if (route.handler) route.handler();
-                router.push(route.route);
-              }}
-              className="border-b-2-white font-boerder mt-2 hidden border-b text-white md:mt-1 md:block"
-            >
-              {route.name}
+            <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
+            <div className="flex items-center">
+              <input type="checkbox" id="auto" {...register('auto')} />
+              <label htmlFor="auto" className="ml-1 text-xs font-thin sm:text-[16px]">
+                자동 로그인
+              </label>
             </div>
-          ))}
-      </div>
-      <div className="absolute bottom-3 flex w-full justify-end md:bottom-5">
-        <SignInFooter></SignInFooter>
+            <SignInSubmitButton />
+
+            <div className="mt-1 flex w-full items-center justify-center">
+              <div className="flex flex-col items-center">
+                {routes.map((route) => (
+                  <div
+                    key={route.name}
+                    onClick={() => {
+                      // if (route.handler) route.handler();
+                      router.push(route.route);
+                    }}
+                    className="font-boerder mb-2 border-b text-xs sm:text-[16px] md:mt-1 md:hidden"
+                  >
+                    {route.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className="flex w-full">
+          <SignInFooter></SignInFooter>
+        </div>
       </div>
     </>
   );

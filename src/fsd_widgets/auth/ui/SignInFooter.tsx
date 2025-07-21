@@ -1,11 +1,9 @@
 import Image from 'next/image';
 
 export const SignInFooter = () => (
-  <div className="flex flex-row items-center">
-    <span className="mt-2 mr-1 text-end text-sm font-bold text-white sm:text-lg">
-      중앙대학교 소프트웨어학부 <br /> ICT 위원회
-    </span>
-    <div className="mt-2 mr-3 flex flex-row justify-between md:mr-4">
+  <div className="flex w-full flex-col items-center">
+    <span className="mt-2 mr-1 text-sm">중앙대학교 소프트웨어학부 ICT 위원회</span>
+    <div className="mt-2 flex flex-row justify-between gap-6 md:mr-4">
       <Image
         onClick={() => {
           window.location.href = 'https://pf.kakao.com/_HYxjFj';
