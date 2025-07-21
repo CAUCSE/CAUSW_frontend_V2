@@ -13,6 +13,7 @@ import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
 
 import { ImageBackground, LoadingComponent, VideoBackground } from '@/entities';
 import '@/firebase-messaging-sw';
+import { Switch } from '@/shadcn/components/ui';
 import { onClickAlert } from '@/shared';
 import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
 
@@ -92,11 +93,12 @@ const SignInPage = () => {
             <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요"></SignInInput>
 
             <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
-            <div className="flex items-center">
-              <input type="checkbox" id="auto" {...register('auto')} />
+            <div className="mt-1 flex w-full items-center gap-2">
+              {/* <input type="checkbox" id="auto" {...register('auto')} /> */}
               <label htmlFor="auto" className="ml-1 text-xs font-thin sm:text-[16px]">
                 자동 로그인
               </label>
+              <Switch id="attendance-type" {...register('auto')} />
             </div>
             <SignInSubmitButton />
 
