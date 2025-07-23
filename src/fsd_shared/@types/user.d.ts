@@ -308,6 +308,10 @@ declare namespace User {
     confirmPassword: string;
   }
 
+  export interface FCMTokenResponseDto {
+    fcmToken: string[];
+  }
+
   //Store
   export interface UseUserStore extends User {
     setUserStore: (props: User.User & { isV2: boolean }) => void;

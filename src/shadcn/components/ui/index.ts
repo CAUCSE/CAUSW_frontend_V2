@@ -18,3 +18,4 @@ export {
 } from './dropdown-menu';
 export { Badge } from './badge';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
+export { Switch } from './switch';

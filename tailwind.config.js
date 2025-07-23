@@ -63,6 +63,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-spoqa)'],
+        pretendard: ['Pretendard'],
       },
     },
   },

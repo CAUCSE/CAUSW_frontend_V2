@@ -22,7 +22,7 @@ export const markAsRead = async (id: string): Promise<void> => {
 };
 
 export const updateFCMToken = async (token: string): Promise<void> => {
-  const URI = `/api/v1/users/fcm?token=${token}`;
+  const URI = `/api/v1/users/fcm?fcmToken=${token}`;
   try {
     await API.post(URI);
   } catch (error) {
