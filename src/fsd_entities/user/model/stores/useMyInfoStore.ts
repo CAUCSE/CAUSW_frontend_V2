@@ -116,6 +116,10 @@ export const useMyInfoStore = create<User.UseUserStore>((set, get) => ({
   isAlumniLeader: () => {
     return get().roles.includes('LEADER_ALUMNI');
   },
+
+  isGraduate: () => {
+    return get().academicStatus === 'GRADUATED';
+  },
 }));
 
 // 유저 리펙 TODO: 타입으로 이동 필요.

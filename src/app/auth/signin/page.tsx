@@ -56,7 +56,9 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    if (getRccRefresh()) router.replace('/home');
+    if (getRccRefresh()) {
+      router.replace('/home');
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
     }

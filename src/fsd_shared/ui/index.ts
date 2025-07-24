@@ -28,3 +28,5 @@ export { EmptyComponent } from './EmptyComponent';
 export { LoadingComponent } from './LoadingComponent';
 export { ProfileImage } from './ProfileImage';
 export { Providers } from '../../fsd_widgets/pageLayout/ui/Providers';
+export { FullLine } from './FullLine';
+export { DateLabel } from './DateLabel';
