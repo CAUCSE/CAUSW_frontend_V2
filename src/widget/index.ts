@@ -13,10 +13,3 @@ export { FormRespondentInfo } from './form/FormRespondentInfo';
 export { FormResponseResult } from './form/FormResponseResult';
 export { EmptyResponseResult } from './form/EmptyResponseResult';
 
-// Occasion
-export { OccasionManagement } from './occasion/OccasionManagement';
-export { OccasionManagementDetail } from './occasion/OccasionManagementDetail';
-export { OccasionRegistrationForm } from './occasion/OccasionRegistrationForm';
-export { OccasionNotification } from './notification/OccasionNotification';
-export { OccasionNotificationDetail } from './notification/OccasionNotificationDetail';
-
