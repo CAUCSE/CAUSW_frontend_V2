@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
 import { lockerQueryKey } from '@/fsd_shared';
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 import { useLockerSelectionStore } from '../model';
 

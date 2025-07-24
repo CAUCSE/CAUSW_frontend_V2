@@ -2,7 +2,7 @@
 
 import { AxiosResponse } from 'axios';
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 export const ExcelExport = ({ exportType, id }: { exportType: Setting.ExportType; id?: string }) => {
   return (

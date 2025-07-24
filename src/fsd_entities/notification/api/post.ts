@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
-import { API, FORMAPI } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
 const CEREMONY_URI = '/api/v1/ceremony';

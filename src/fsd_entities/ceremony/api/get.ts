@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 

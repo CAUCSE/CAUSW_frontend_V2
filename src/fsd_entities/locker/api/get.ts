@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { lockerQueryKey } from '@/fsd_shared';
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 export const useGetLockerLocations = () => {
   return useQuery({

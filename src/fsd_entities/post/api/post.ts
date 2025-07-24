@@ -1,4 +1,4 @@
-import { API, FORMAPI } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
 
 export interface CreatePostParams {
   postData: Post.CreatePostDto;
