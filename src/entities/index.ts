@@ -10,7 +10,6 @@ export { Line } from './header/Line';
 export { CircleElement } from './element/CircleElement';
 export { CircleApplyOnButton } from './element/CircleApplyButton';
 
-export { ExcelExport } from './export/ExcelExport';
 
 export { CustomCheckBox } from './board/form/CustomCheckBox';
 export { ObjectiveOption } from './board/form/ObjectiveOption';
