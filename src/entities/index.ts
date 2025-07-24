@@ -45,13 +45,3 @@ export { OccasionImageUploader } from './occasion/registration/OccasionImageUplo
 export { OccasionSubmitButton } from './occasion/registration/OccasionSubmitButton';
 export { OccasionTextArea } from './occasion/registration/OccasionTextArea';
 export { OccasionTypeDropdown } from './occasion/registration/OccasionTypeDropdown';
-
-export { LockerInfoByFloor } from './locker/LockerInfoByFloor';
-export { LockerSelect } from './locker/LockerSelect';
-export { LockerRegisterBtn } from './locker/LockerRegisterBtn';
-export { LockerReturnBtn } from './locker/LockerReturnBtn';
-export { LockerExtendBtn } from './locker/LockerExtendBtn';
-
-export { BannerEditModal } from './banner/BannerEditModal';
-export { BannerDeleteModal } from './banner/BannerDeleteModal';
-export { BannerCard } from './banner/BannerCard';
