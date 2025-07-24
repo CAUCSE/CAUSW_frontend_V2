@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -8,6 +8,7 @@ import { Bell, LogOut, Mail } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
+import { getNotificationCount } from '@/fsd_entities/notification';
 import { useUserInfo } from '@/fsd_entities/user';
 import { useMyInfoStore } from '@/fsd_entities/user';
 
@@ -27,6 +28,9 @@ export const SideBar = ({ className }: SideBarProps) => {
   const email = useMyInfoStore((state) => state.email);
   const profileImage = useMyInfoStore((state) => state.profileImageUrl);
 
+  const [alarmCount, setAlarmCount] = useState<number>(0);
+  const messageCount: number = 0;
+
   const handleNoRefresh = async () => {
     await signout();
     location.href = '/auth/signin';
@@ -34,6 +38,15 @@ export const SideBar = ({ className }: SideBarProps) => {
 
   useEffect(() => {
     updateMyInfoStore();
+  }, []);
+
+  useEffect(() => {
+    const fetchNotificationCount = async () => {
+      const count = await getNotificationCount();
+      setAlarmCount(count);
+    };
+
+    fetchNotificationCount();
   }, []);
 
   return (
@@ -55,7 +68,14 @@ export const SideBar = ({ className }: SideBarProps) => {
         asChild
       >
         <Link href="/setting/notification">
-          <Bell className="size-6" />
+          <div className="relative">
+            <Bell className="size-6" />
+            {alarmCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 px-[2px] text-[10px] font-bold text-white">
+                {alarmCount > 9 ? '9+' : alarmCount}
+              </span>
+            )}
+          </div>
         </Link>
       </Button>
 

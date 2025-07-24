@@ -2,35 +2,39 @@
 
 import { useEffect, useState } from 'react';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { Controller } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
 import { SignInFooter } from '@/fsd_widgets/auth';
 
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
+import { useMyInfoStore } from '@/fsd_entities/user/model';
 
-import { ImageBackground, LoadingComponent, VideoBackground } from '@/entities';
+import { LoadingComponent } from '@/entities';
 import '@/firebase-messaging-sw';
-import { onClickAlert } from '@/shared';
+import { Switch } from '@/shadcn/components/ui';
 import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
 
 const routes = [
-  { name: '회원가입하기', route: '/auth/signup' },
-  { name: '아이디 찾기', route: '/auth/findemail' },
-  { name: '비밀번호 찾기', route: '/auth/findpassword' },
+  { name: '아이디찾기', route: '/auth/findemail' },
+  { name: '비밀번호찾기', route: '/auth/findpassword' },
+  { name: '회원가입', route: '/auth/signup' },
   // { name: "알림 허용하기", route: "/auth/test", handler: onClickAlert },
 ];
 
 const SignInPage = () => {
   const router = useRouter();
+  const academicStatus = useMyInfoStore((state) => state.academicStatus);
 
   const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
   const { signin } = AuthService();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
-  const { register, handleSubmit } = useForm<User.SignInRequestDto>({
+  const { register, handleSubmit, control } = useForm<User.SignInRequestDto>({
     defaultValues: {
       email: '',
       password: '',
@@ -54,86 +58,86 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    if (getRccRefresh()) router.replace('/home');
+    if (getRccRefresh()) {
+      router.replace('/home');
+    }
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
     }
   }, []);
-
   return (
     <>
       {false ? <LoadingComponent /> : null}
-      <VideoBackground src="/videos/signin-background.mp4" />
-      <ImageBackground src="/images/signin-logo.png" alt="sign in page background img" darkBackground />
-      <div className="absolute top-[35%] left-1/2 flex w-full -translate-x-1/2 transform flex-col items-center justify-center">
-        <div
-          onClick={() => {
-            setEnterEmail(false);
-          }}
-          className="text-md text-white sm:mb-3 sm:text-2xl"
-        >
-          함께라면 더 밝은 미래로
+      <div className="mx-auto flex h-screen w-full max-w-[502px] flex-1 flex-col items-center justify-between gap-5 px-8 py-18 sm:px-5">
+        <div className="flex w-full flex-col items-center gap-1.5 sm:gap-3">
+          <div className="relative h-[34px] w-[250px] sm:h-[68px] sm:w-[500px]">
+            <Image
+              src="/images/chungang_logo.svg"
+              alt="chungang university logo"
+              fill
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          </div>{' '}
+          <div
+            onClick={() => {
+              setEnterEmail(false);
+            }}
+            className="font-pretendard text-xs font-normal sm:text-2xl sm:font-medium"
+          >
+            함께라면 더 밝은 미래로, 우리들의
+          </div>
+          <div
+            onClick={() => {
+              setEnterEmail(false);
+            }}
+            className="font-pretendard mb-2 text-center text-sm font-bold tracking-widest sm:mt-[-4px] sm:text-[26px]"
+          >
+            동문네트워크
+          </div>
         </div>
-        <div
-          onClick={() => {
-            setEnterEmail(false);
-          }}
-          className="mb-3 text-center text-2xl font-bold tracking-widest text-white sm:mb-8 sm:text-5xl"
-        >
-          우리들의 동문 네트워크
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-1 flex flex-col items-center justify-center gap-1">
-          <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요"></SignInInput>
+        <div className="flex w-full flex-col items-center justify-center rounded-[20px] bg-[#eef1f1] p-[15px] sm:p-7.5">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mb-1 flex w-full flex-col items-center justify-center gap-1 sm:gap-3.5"
+          >
+            <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요" />
+            <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
 
-          {enterEmail ? (
-            <>
-              <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
-              <SignInSubmitButton />
-            </>
-          ) : (
-            <>
-              <div className="mt-1 flex w-full items-start justify-between pr-1 pl-1">
-                <div className="flex items-center">
-                  <input type="checkbox" id="auto" {...register('auto')} />
-                  <label htmlFor="auto" className="ml-1 text-xs font-thin text-white sm:text-[16px]">
-                    자동 로그인
-                  </label>
-                </div>
-                <div className="flex flex-col items-end">
-                  {routes.map((route) => (
-                    <div
-                      key={route.name}
-                      // onClick={() => {
-                      //   if (route.handler) route.handler();
-                      //   router.push(route.route);
-                      // }}
-                      className="border-b-2-white font-boerder mb-2 border-b text-xs text-white sm:text-[16px] md:mt-1 md:hidden"
-                    >
-                      {route.name}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-        </form>
-
-        {!enterEmail &&
-          routes.map((route) => (
-            <div
-              key={route.name}
-              onClick={() => {
-                // if (route.handler) route.handler();
-                router.push(route.route);
-              }}
-              className="border-b-2-white font-boerder mt-2 hidden border-b text-white md:mt-1 md:block"
-            >
-              {route.name}
+            <div className="mt-1 flex w-full items-center gap-2">
+              <label htmlFor="auto" className="text-xs font-medium">
+                자동로그인
+              </label>
+              <Controller
+                name="auto"
+                control={control}
+                render={({ field }) => (
+                  <Switch id="auto" checked={field.value ?? false} onCheckedChange={field.onChange} />
+                )}
+              />
             </div>
-          ))}
-      </div>
-      <div className="absolute bottom-3 flex w-full justify-end md:bottom-5">
-        <SignInFooter></SignInFooter>
+            <SignInSubmitButton />
+
+            <div className="mt-2 flex w-full items-center justify-center">
+              <div className="mb-4 flex flex-col items-center gap-2.5 sm:gap-5">
+                {routes.map((route) => (
+                  <div
+                    key={route.name}
+                    onClick={() => {
+                      router.push(route.route);
+                    }}
+                    className="text-[9px] font-medium sm:text-xs sm:font-normal"
+                  >
+                    {route.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className="flex w-full">
+          <SignInFooter></SignInFooter>
+        </div>
       </div>
     </>
   );

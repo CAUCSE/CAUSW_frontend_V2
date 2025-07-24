@@ -1,9 +1,8 @@
 export const SignInSubmitButton = () => (
   <button
     type="submit"
-    className="text-mb border-focus text-focus mt-3 flex h-10 w-56 flex-row items-center justify-center rounded-xl border-2 bg-zinc-800 pl-2 text-center sm:w-80"
+    className="mt-2 flex w-full max-w-[75%] flex-row items-center justify-center rounded-[10px] bg-[#616464] py-2 pl-2 text-center text-sm font-medium text-white sm:text-2xl"
   >
     로그인
-    <span className="icon-[iconamoon--arrow-right-2-fill] text-3xl"></span>
   </button>
 );
