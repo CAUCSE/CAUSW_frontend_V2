@@ -30,7 +30,7 @@ export const tokenManager = () => {
         method: 'PUT',
       }).then((res) => res.json())) as User.UpdateAccessTokenRequestDto;
 
-      if (response.errorCode) return null;
+      if (response.errorCode) signoutAndRedirect();
 
       await setRscToken(response.accessToken, refresh);
       setRccToken(response.accessToken, refresh);
