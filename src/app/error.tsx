@@ -12,17 +12,16 @@ import {
   noAccessTokenCode,
   noPermissionCode,
 } from '@/fsd_shared';
-import { useAuthHandler, useTokenHandler } from '@/fsd_shared';
+import { tokenManager } from '@/fsd_shared';
 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();
-  const { updateAccess } = useTokenHandler();
-  const { redirectToLogin } = useAuthHandler();
-
+  const { signoutAndRedirect, updateAccess } = tokenManager();
+  
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {
-      redirectToLogin();
+      signoutAndRedirect();
     } else {
       try {
         await updateAccess(refresh);
@@ -31,7 +30,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
         }, 1000);
         return () => clearTimeout(timer);
       } catch {
-        redirectToLogin();
+        signoutAndRedirect();
       }
     }
   };
@@ -41,7 +40,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
       handleNoAccesss();
     } else if (noPermissionCode.includes(error.message)) router.push('/no-permission');
     else {
-      redirectToLogin();
+      signoutAndRedirect();
     }
   }, [error]);
 

@@ -1,10 +1,22 @@
-import { useAuthHandler } from "./useAuthHandler";
-import { BASEURL, setRccToken, setRscToken } from "../configs";
+'use client';
+import { BASEURL, removeRccAccess, removeRccRefresh, removeRscAccess, removeRscRefresh, setRccToken, setRscToken } from "@/fsd_shared/configs";
 
-export const useTokenHandler = () => {
-  const { redirectToLogin } = useAuthHandler();
+export const tokenManager = () => {
+
 
   const URI = BASEURL + '/api/v1/users';
+
+  const signoutAndRedirect = () => {
+    removeAllTokens();
+    location.href = '/auth/signin';
+  };
+
+  const removeAllTokens = () => {
+    removeRccRefresh();
+    removeRccAccess();
+    removeRscRefresh();
+    removeRscAccess();
+  };
 
   const updateAccess = async (refresh: string) => {
     try {
@@ -16,16 +28,16 @@ export const useTokenHandler = () => {
         method: 'PUT',
       }).then((res) => res.json())) as User.UpdateAccessTokenRequestDto;
 
-      if (response.errorCode) throw new Error(response.errorCode);
+      if (response.errorCode) return null;
 
       await setRscToken(response.accessToken, refresh);
       setRccToken(response.accessToken, refresh);
 
       return response.accessToken;
     } catch (error) {
-      redirectToLogin();
+      return null;
     }
   };
 
-  return { updateAccess };
+  return { updateAccess, signoutAndRedirect };
 }
