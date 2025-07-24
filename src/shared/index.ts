@@ -13,7 +13,6 @@ export * from './configs/query-key';
 
 //TODO: entities 이사 예정
 //Service
-export { AuthRscService } from './hooks/services/AuthRscService';
 export { HomeRscService } from './hooks/services/HomeRscService';
 export { CircleRscService } from './hooks/services/CircleRscSevice';
 export { VoteRscService } from './hooks/services/VoteRscService';
