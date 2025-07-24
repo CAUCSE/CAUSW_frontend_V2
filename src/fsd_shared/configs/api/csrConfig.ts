@@ -29,8 +29,6 @@ interface RetryQueueItem {
 const refreshAndRetryQueue: RetryQueueItem[] = [];
 let isRefreshing = false;
 
-
-
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
 
 export const setRccToken = (access: string, refresh: string | false) => {
@@ -56,14 +54,6 @@ export const getRccRefresh = (): string | null => {
 
 const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
   const { updateAccess, signoutAndRedirect } = tokenManager();
-
-  if (error.response) {
-    const {
-      response: {
-        data: { errorCode },
-      },
-    } = error;
-  }
 
   if (error.response) {
     const {
@@ -116,7 +106,6 @@ const refreshTokenWithQueue = async (config: any, axiosInstance: typeof API | ty
   return new Promise((resolve, reject) => {
     refreshAndRetryQueue.push({ config, resolve, reject });
   });
-
 };
 
 API.interceptors.response.use(
@@ -128,4 +117,3 @@ FORMAPI.interceptors.response.use(
   (response) => response,
   (error) => handleError(error, FORMAPI),
 );
-
