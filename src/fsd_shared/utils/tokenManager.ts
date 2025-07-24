@@ -11,11 +11,13 @@ export const tokenManager = () => {
     location.href = '/auth/signin';
   };
 
-  const removeAllTokens = () => {
-    removeRccRefresh();
-    removeRccAccess();
-    removeRscRefresh();
-    removeRscAccess();
+  const removeAllTokens = async () => {
+    Promise.all([
+      removeRccRefresh(),
+      removeRccAccess(),
+      removeRscRefresh(),
+      removeRscAccess(),
+    ]);
   };
 
   const updateAccess = async (refresh: string) => {
@@ -35,7 +37,7 @@ export const tokenManager = () => {
 
       return response.accessToken;
     } catch (error) {
-      return null;
+      await signoutAndRedirect();
     }
   };
 

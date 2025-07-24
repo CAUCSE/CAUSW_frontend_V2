@@ -21,7 +21,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {
-      signoutAndRedirect();
+      await signoutAndRedirect();
     } else {
       try {
         await updateAccess(refresh);
@@ -30,7 +30,7 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
         }, 1000);
         return () => clearTimeout(timer);
       } catch {
-        signoutAndRedirect();
+        await signoutAndRedirect();
       }
     }
   };
