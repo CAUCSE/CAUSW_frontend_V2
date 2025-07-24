@@ -330,6 +330,7 @@ declare namespace User {
     isCouncil: () => boolean;
     isStudentLeader: () => boolean;
     isAlumniLeader: () => boolean;
+    isGraduate: () => boolean;
   }
 
   //DTO
