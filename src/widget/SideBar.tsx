@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { Bell, LogOut } from 'lucide-react';
+import { Bell, LogOut, Mail } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
@@ -79,31 +79,16 @@ export const SideBar = ({ className }: SideBarProps) => {
         </Link>
       </Button>
 
-      {/* 쪽지 기능 구현될 때까지 주석 처리 */}
-      {/* <Button
+      <Button
         size="icon"
         variant="ghost"
         className="absolute top-3 left-22 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
         asChild
       >
-        <Link
-          href="#"
-          onClick={(e) => {
-            e.preventDefault(); // 이동 막기
-            alert('⚠️ 개발 중인 기능입니다.');
-          }}
-        >
-          <div className="relative">
-            <img src={'/icons/message_icon.svg'} alt="message" className="h-6 w-6 object-contain" />
-            {messageCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 px-[2px] text-[10px] font-bold text-white">
-                {messageCount > 9 ? '9+' : messageCount}
-              </span>
-            )}
-          </div>
+        <Link href="/chat">
+          <Mail className="size-6" />
         </Link>
-      </Button> */}
-
+      </Button>
       <div className="max-xl:hidden">
         <ProfileImage src={profileImage} />
       </div>
