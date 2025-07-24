@@ -5,7 +5,7 @@ import { CeremonyState } from '@/fsd_widgets/ceremony';
 
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -13,9 +13,7 @@ export const getNotifications = async (): Promise<Notification.Notification[]> =
   const URI = `/api/v1/notifications/log/general/top4`;
 
   try {
-    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
-      headers: { Authorization: getRccAccess() },
-    });
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI);
 
     return response.data;
   } catch (error) {
@@ -28,9 +26,7 @@ export const getCeremonyNotifications = async (): Promise<Notification.Notificat
   const URI = `/api/v1/notifications/log/ceremony/top4`;
 
   try {
-    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
-      headers: { Authorization: getRccAccess() },
-    });
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI);
 
     return response.data;
   } catch (error) {

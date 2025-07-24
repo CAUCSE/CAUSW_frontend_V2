@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/fsd_shared';
 
@@ -18,6 +18,18 @@ export const FORMAPI = axios.create({
     'Content-Type': 'multipart/form-data',
   },
 });
+
+// 토큰 재발급 대기열
+interface RetryQueueItem {
+  resolve: (value?: any) => void;
+  reject: (error?: any) => void;
+  config: AxiosRequestConfig;
+}
+
+const refreshAndRetryQueue: RetryQueueItem[] = [];
+let isRefreshing = false;
+
+
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
 
@@ -67,17 +79,44 @@ const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAP
       if (!refresh) {
         location.href = '/auth/signin';
       } else {
-        const accessToken = await updateAccess(refresh);
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-        return axiosInstance.request(config);
+        return refreshTokenWithQueue(config, axiosInstance, refresh);
       }
-    } else if (noPermissionCode.includes(error.message)) location.href = '/no-permission';
-    else if (noRefreshTokenCode.includes(error.message)) {
-      signoutAndRedirect();
-    }
+    } 
+    else if (noPermissionCode.includes(error.message)) signoutAndRedirect();
+    else if (noRefreshTokenCode.includes(error.message)) signoutAndRedirect();
   }
 
   throw new Error(`${error}`);
+};
+
+const refreshTokenWithQueue = async (config: any, axiosInstance: typeof API | typeof FORMAPI, refreshToken: string) => {
+  const { updateAccess, signoutAndRedirect } = tokenManager();
+
+  if (!isRefreshing) {
+    isRefreshing = true;
+    try {
+    const accessToken = await updateAccess(refreshToken);
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+    refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
+      axiosInstance
+        .request(config)
+        .then((response) => resolve(response))
+        .catch((err) => reject(err));
+    });
+    refreshAndRetryQueue.length = 0;
+    return axiosInstance.request(config);
+    }
+    catch (err) {
+      signoutAndRedirect();
+    } finally {
+      isRefreshing = false;
+    }
+  }
+  // 토큰 재발급 대기열에 추가
+  return new Promise((resolve, reject) => {
+    refreshAndRetryQueue.push({ config, resolve, reject });
+  });
+
 };
 
 API.interceptors.response.use(
