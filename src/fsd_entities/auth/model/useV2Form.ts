@@ -2,12 +2,11 @@ import { useForm } from 'react-hook-form';
 
 import { updateInfo, updateVTwo } from '@/fsd_entities/user/api';
 import { useMyInfoStore } from '@/fsd_entities/user/model';
+import { checkNicknameDuplicate } from '../api/get';
 
-import { AuthService } from '@/shared';
 
 export const useV2Form = () => {
   const checkVTwo = useMyInfoStore((state) => state.checkVTwo);
-  const { checkNicknameDuplicate } = AuthService();
   const {
     register,
     handleSubmit,

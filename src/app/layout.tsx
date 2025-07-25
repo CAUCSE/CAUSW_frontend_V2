@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { ErrorMessage, Providers } from '@/entities';
+import { Providers } from '@/fsd_shared/ui';
 import '@/firebase-messaging-sw';
 import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
 
@@ -84,7 +84,6 @@ export default function RootLayout({
               <GA />
             </Suspense>
             <WindowSizeListener />
-            <ErrorMessage />
             {children}
             <ToastWithMax />
           </Providers>

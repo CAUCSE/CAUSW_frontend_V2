@@ -1,6 +1,6 @@
 import { isAxiosError } from 'axios';
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 interface CreateNoticeBoardDto {
   boardName: string;

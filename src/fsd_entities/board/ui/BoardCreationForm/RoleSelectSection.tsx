@@ -1,6 +1,6 @@
 'use client';
 
-import { roles, useHasAuth } from '@/fsd_shared';
+import { roles, useAuthHandler } from '@/fsd_shared';
 
 import CheckedIcon from '../../../../../public/icons/checked_icon.svg';
 import NonCheckedIcon from '../../../../../public/icons/not_checked_icon.svg';
@@ -20,7 +20,7 @@ const CheckBox = ({ isChecked, onClick }: CheckBoxProps) => {
 };
 
 export const RoleSelectSection = () => {
-  const hasAuth = useHasAuth();
+  const { hasAuth } = useAuthHandler();
   const { selectedRoleList, handleToggleAll, handleToggleRole } = useSelectRole();
   return (
     <div className="my-2">

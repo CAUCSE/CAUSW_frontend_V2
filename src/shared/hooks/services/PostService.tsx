@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { API, FORMAPI, useCreatePostStore, useCreateVoteStore, useFileUploadStore } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
+import { useCreatePostStore, useCreateVoteStore, useFileUploadStore } from '@/shared';
 
 export const PostService = () => {
   const useCreatePost = () => {

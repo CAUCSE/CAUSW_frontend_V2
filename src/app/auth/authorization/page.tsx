@@ -8,7 +8,7 @@ import { VerificationHeader, VerificationStatus } from '@/fsd_widgets/auth';
 
 import { useVerification } from '@/fsd_entities/auth';
 
-import { PreviousButton } from '@/shared';
+import { PreviousButton } from '@/fsd_shared';
 
 const VerificationPage: React.FC = () => {
   const {
@@ -23,12 +23,10 @@ const VerificationPage: React.FC = () => {
 
   return (
     <div className="bg-board-page-background flex h-screen items-center justify-center p-4">
+      <div className="absolute top-4 left-4">
+        <PreviousButton routeCallback={() => router.push('./signin')} />
+      </div>
       <div className="w-full max-w-lg rounded-lg bg-white p-8 text-center shadow-md">
-        <PreviousButton
-          routeCallback={() => {
-            router.push('./signin');
-          }}
-        />
         <VerificationHeader />
 
         {(admissionRejectMessage || academicRecordRejectMessage) && (

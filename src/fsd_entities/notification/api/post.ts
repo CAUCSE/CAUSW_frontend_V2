@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
-import { API, FORMAPI } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
 const CEREMONY_URI = '/api/v1/ceremony';
@@ -26,7 +26,6 @@ export const updateFCMToken = async (token: string): Promise<void> => {
   try {
     await API.post(URI);
   } catch (error) {
-    toast.error('FCM 토큰 업데이트 실패: 서버 응답 오류');
     throw error;
   }
 };

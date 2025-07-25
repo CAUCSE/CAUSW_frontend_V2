@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, setRscHeader } from '@/shared';
+import { BASEURL, setRscHeader } from '@/fsd_shared';
 
 export const BoardRscService = () => {
   /**

@@ -1,4 +1,4 @@
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 import type { EndVoteParam, RestartVoteParam, SubmitVoteRequestDto } from '../type';
 

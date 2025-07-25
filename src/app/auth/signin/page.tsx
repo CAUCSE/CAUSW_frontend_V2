@@ -1,4 +1,5 @@
 'use client';
+import '@/firebase-messaging-sw';
 
 import { useEffect, useState } from 'react';
 
@@ -11,12 +12,12 @@ import { useForm } from 'react-hook-form';
 import { SignInFooter } from '@/fsd_widgets/auth';
 
 import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
-import { useMyInfoStore } from '@/fsd_entities/user/model';
-
-import { LoadingComponent } from '@/entities';
-import '@/firebase-messaging-sw';
 import { Switch } from '@/shadcn/components/ui';
-import { AuthService, emailRegex, getRccRefresh, useLayoutStore } from '@/shared';
+
+import { emailRegex, getRccRefresh } from '@/fsd_shared';
+import toast from 'react-hot-toast';
+import { useLogin } from '@/fsd_entities/auth/model/hooks/useLogin';
+
 
 const routes = [
   { name: '아이디찾기', route: '/auth/findemail' },
@@ -27,10 +28,7 @@ const routes = [
 
 const SignInPage = () => {
   const router = useRouter();
-  const academicStatus = useMyInfoStore((state) => state.academicStatus);
-
-  const setErrorMessage = useLayoutStore((state) => state.setErrorMessage);
-  const { signin } = AuthService();
+  const login = useLogin();
 
   const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
@@ -45,16 +43,16 @@ const SignInPage = () => {
   const onSubmit = (data: User.SignInRequestDto) => {
     if (!enterEmail) {
       if (emailRegex.test(data.email)) setEnterEmail(true);
-      else setErrorMessage('이메일을 올바른 형식으로 입력해주세요!');
+      else toast.error('이메일을 올바른 형식으로 입력해주세요!');
       return;
     }
 
     if (!data.password) {
-      setErrorMessage('비밀번호를 입력해주세요!');
+      toast.error('비밀번호를 입력해주세요!');
       return;
     }
 
-    signin(data);
+    login.mutate(data);
   };
 
   useEffect(() => {
@@ -67,7 +65,6 @@ const SignInPage = () => {
   }, []);
   return (
     <>
-      {false ? <LoadingComponent /> : null}
       <div className="mx-auto flex h-screen w-full max-w-[502px] flex-1 flex-col items-center justify-between gap-5 px-8 py-18 sm:px-5">
         <div className="flex w-full flex-col items-center gap-1.5 sm:gap-3">
           <div className="relative h-[34px] w-[250px] sm:h-[68px] sm:w-[500px]">

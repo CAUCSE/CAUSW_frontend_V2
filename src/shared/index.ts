@@ -1,4 +1,3 @@
-export * from './configs/api';
 
 export { Loading } from './ui/Loading';
 export { IconButton } from './ui/IconButton';
@@ -13,12 +12,10 @@ export * from './configs/query-key';
 
 //TODO: entities 이사 예정
 //Service
-export { AuthRscService } from './hooks/services/AuthRscService';
 export { HomeRscService } from './hooks/services/HomeRscService';
 export { CircleRscService } from './hooks/services/CircleRscSevice';
 export { VoteRscService } from './hooks/services/VoteRscService';
 export { PostRscService } from './hooks/services/PostRscService';
-export { AuthService } from './hooks/services/AuthService';
 export { BoardRscService } from './hooks/services/BoardRscService';
 export { ChildCommentRscService } from './hooks/services/ChildCommentRscService';
 export { CircleService } from './hooks/services/CircleService';
@@ -27,7 +24,6 @@ export { LockerService } from './hooks/services/LockerService';
 export { PostService } from './hooks/services/PostService';
 export { BoardService } from './hooks/services/BoardService';
 export { FormService } from './hooks/services/FormService';
-export { AcademicRecordService } from './hooks/services/AcademicRecordService';
 export { BannerService } from './hooks/services/BannerService';
 //Store
 export { useLayoutStore } from './hooks/stores/useLayoutStore';

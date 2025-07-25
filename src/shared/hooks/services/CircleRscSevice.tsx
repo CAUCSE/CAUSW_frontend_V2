@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from '@/shared';
+import { BASEURL, setRscHeader } from '@/fsd_shared';
 
 export const CircleRscService = () => {
   const URI = BASEURL + '/api/v1/circles';
