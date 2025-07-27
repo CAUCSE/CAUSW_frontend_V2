@@ -117,10 +117,3 @@ export const getNotificationCount = async (): Promise<number> => {
     return 0; // 실패 시 기본값 0으로 처리
   }
 };
-
-// 서버액션
-// mutation
-
-// 로그인 -> 서버의 response (accessToken, refreshToken) : body
-// -> cookie.set('CAUCSE_JWT_ACCESS', accessToken), cookie.set('CAUCSE_JWT_REFRESH', refreshToken)
-// =
