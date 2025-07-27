@@ -21,8 +21,9 @@ import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { ceremonyTypeMap } from '../config';
 
 export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
-  const { ceremonyDetails } = useCeremonyData(ceremonyId);
+  const ceremonyDetails = useCeremonyData(ceremonyId);
   const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];
+
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const closeModal = () => {

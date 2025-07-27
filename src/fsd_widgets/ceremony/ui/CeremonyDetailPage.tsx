@@ -9,7 +9,7 @@ import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { ceremonyTypeMap } from '../config';
 
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
-  const { ceremonyDetails } = useCeremonyData(ceremonyId);
+  const ceremonyDetails = useCeremonyData(ceremonyId);
   const router = useRouter();
 
   const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];

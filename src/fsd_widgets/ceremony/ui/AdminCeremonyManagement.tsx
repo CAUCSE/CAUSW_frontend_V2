@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { useCeremonyData } from '@/fsd_entities/ceremony';
+import { useAdminCeremonyData } from '@/fsd_entities/ceremony';
 
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
@@ -16,7 +16,7 @@ export const AdminCeremonyManagement = ({
   firstNavigation,
   navigation,
 }: Ceremony.CeremonyRequestManagementProps) => {
-  const { ceremonyList } = useCeremonyData();
+  const ceremonyList = useAdminCeremonyData();
   const isFirstNavigation = (() => {
     if (!state) return true;
     if (!navigation) return false;
