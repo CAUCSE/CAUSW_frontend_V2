@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import { NotificationType, useNotificationStore } from '@/fsd_entities/notification';
 import { NotificationList } from '@/fsd_entities/notification';
+import { useMyInfoStore } from '@/fsd_entities/user';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
@@ -17,10 +18,14 @@ export const NotificationWidget = () => {
   const loadCeremonyNotifications = useNotificationStore((state) => state.loadCeremonyNotifications);
   const markAsRead = useNotificationStore((state) => state.markAsRead);
 
+  const userId = useMyInfoStore((state) => state.id);
+
   useEffect(() => {
+    if (!userId) return;
+
     loadNotifications();
     loadCeremonyNotifications();
-  }, []);
+  }, [userId]);
 
   return (
     <div className="mt-6 hidden w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md xl:block">
