@@ -149,15 +149,18 @@ declare namespace Ceremony {
   interface AdmissionYearInputProps {
     onAdd: (year: number) => void;
     disabled: boolean;
+    isSettingPage?: boolean;
   }
   interface AdmissionYearListProps {
     years: number[];
     onRemove: (year: number) => void;
     isAllSelected?: boolean;
+    isSettingPage?: boolean;
   }
   interface AllYearToggleProps {
     checked: boolean;
     onChange: (val: boolean) => void;
+    isSettingPage?: boolean;
   }
   interface CeremonyNotificationSettingDto {
     subscribedAdmissionYears: number[] | null;
