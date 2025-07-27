@@ -13,7 +13,7 @@ export const BoardList = async () => {
 
   return (
     <>
-      <div className="h-full w-full py-3">
+      <div className="h-full w-full py-2">
         <div className="flex flex-col items-center">
           {sortedBoardList.filter((board) => board.isDefault).length > 0 &&
             (roles.includes('ADMIN') ? (
@@ -29,8 +29,8 @@ export const BoardList = async () => {
         </div>
       </div>
       <Link href={`/board/create`}>
-        <button className="fixed right-[9px] bottom-[70px] w-32 transform rounded-xl bg-red-500 px-6 py-3 font-bold text-white shadow-lg xl:bottom-10 xl:left-1/2 xl:-translate-x-1/2">
-          게시판 생성
+        <button className="fixed right-6 bottom-24 h-16 w-16 transform rounded-[50px] bg-[#7AB6C1] px-6 py-3 text-3xl font-normal text-white shadow-lg hover:bg-[#5F8E97] xl:right-96 xl:bottom-10 xl:h-24 xl:w-24">
+          +
         </button>
       </Link>
     </>
