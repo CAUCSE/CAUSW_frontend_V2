@@ -109,9 +109,7 @@ export const getNotificationCount = async (): Promise<number> => {
   const URI = `/api/v1/notifications/log/count`;
 
   try {
-    const response: AxiosResponse<{ notificationLogCount: number }> = await API.get(URI, {
-      headers: { Authorization: getRccAccess() },
-    });
+    const response: AxiosResponse<{ notificationLogCount: number }> = await API.get(URI);
 
     return response.data.notificationLogCount;
   } catch (error) {
@@ -119,3 +117,10 @@ export const getNotificationCount = async (): Promise<number> => {
     return 0; // 실패 시 기본값 0으로 처리
   }
 };
+
+// 서버액션
+// mutation
+
+// 로그인 -> 서버의 response (accessToken, refreshToken) : body
+// -> cookie.set('CAUCSE_JWT_ACCESS', accessToken), cookie.set('CAUCSE_JWT_REFRESH', refreshToken)
+// =
