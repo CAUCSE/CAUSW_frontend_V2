@@ -109,6 +109,7 @@ declare namespace Ceremony {
     alarm?: string; //general | ceremony
     loadMore?: () => void;
     emptyMessage?: string;
+    hideNotificationYearList?: boolean;
   }
   interface CreateCeremonyPayload {
     description: string;
