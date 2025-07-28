@@ -27,11 +27,26 @@ export const fetchBoardList = async () => {
   const defaultBoardForCommon = sortedBoardList.filter(
     (board) => board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
   );
+  const defaultBoardForGraduate = sortedBoardList.filter(
+    (board) => board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted && board.boardName.includes('크자회'),
+  );
 
   const customBoardForAdmin = sortedBoardList.filter((board) => !board.isDefault);
   const customBoardForCommon = sortedBoardList.filter(
     (board) => !board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
   );
+  const customBoardForGraduate = sortedBoardList.filter(
+    (board) => !board.isDefault,
+    // && board.boardName.includes('크자회')
+  );
 
-  return { sortedBoardList, defaultBoardForAdmin, defaultBoardForCommon, customBoardForAdmin, customBoardForCommon };
+  return {
+    sortedBoardList,
+    defaultBoardForAdmin,
+    defaultBoardForCommon,
+    customBoardForAdmin,
+    customBoardForCommon,
+    defaultBoardForGraduate,
+    customBoardForGraduate,
+  };
 };
