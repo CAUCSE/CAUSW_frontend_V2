@@ -26,10 +26,9 @@ export const useCeremonyData = (ceremonyId?: string) => {
       const fetchCeremonyDetail = async () => {
         try {
           const cermonyContent = await getAdminCeremonyDetail(ceremonyId);
-          // const matchedCeremony = ceremonyList.find((item) => item.id === ceremonyId);
 
           setCeremonyDetails({
-            title: '결혼',
+            title: cermonyContent.title,
             type: cermonyContent.category,
             register: cermonyContent.ceremonyState,
             content: cermonyContent.description,
