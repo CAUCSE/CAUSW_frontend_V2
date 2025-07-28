@@ -2,12 +2,7 @@
 
 import { AdmissionYearInput, AdmissionYearList, AllYearToggle, useCeremonySettingForm } from '@/fsd_entities/ceremony';
 
-import { Button } from '@/fsd_shared';
-
-interface NotificationSettingWidgetAltProps {
-  view?: boolean;
-}
-export const NotificationSettingWidgetAlt = ({ view = false }: NotificationSettingWidgetAltProps) => {
+export const NotificationYearListBox = () => {
   const { years, setAll, setAllYearsSelected, addYear, removeYear, onSubmit } = useCeremonySettingForm();
 
   return (

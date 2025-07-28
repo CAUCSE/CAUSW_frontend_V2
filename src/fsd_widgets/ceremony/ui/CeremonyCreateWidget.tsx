@@ -11,7 +11,7 @@ import { Button } from '@/shadcn/components/ui';
 import { formatDateInput } from '@/utils';
 
 import { categoryOptions } from '../config/ceremonyType';
-import { NotificationSettingWidgetAlt } from './NotificationSettingWidgetAlt';
+import { NotificationSettingWidget } from './NotificationSettingWidget';
 
 export const CeremonyCreateWidget = () => {
   const methods = useForm<Ceremony.CreateCeremonyPayload>({
@@ -87,7 +87,7 @@ export const CeremonyCreateWidget = () => {
 
         <div className="flex flex-col gap-2.5">
           <p className="text-xl font-medium">경조사 알림 보낼 학번 설정</p>
-          <NotificationSettingWidgetAlt />
+          <NotificationSettingWidget />
         </div>
 
         <div className="flex flex-col gap-2.5">
