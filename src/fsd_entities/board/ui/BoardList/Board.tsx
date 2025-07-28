@@ -15,6 +15,7 @@ const boardStyles: Record<string, { icon: string }> = {
   '학생회 공지 게시판': {
     icon: '/icons/alumni_notice.svg',
   },
+  // '딜리버드' 인데 ESLint가 '딜리버드'를 인식하지 못하는 경우가 있음
   딜리버드: {
     icon: '/icons/deliver_notice.svg',
   },
@@ -39,10 +40,10 @@ const boardStyles: Record<string, { icon: string }> = {
 export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) => {
   const style = boardStyles[boardName] ?? boardStyles.default;
   return (
-    <Link href={`/board/${boardId}`} className="block w-full">
+    <div className="block w-full">
       <div className="min-h-[193.58px] rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md">
         {/* 헤더 */}
-        <div className="flex items-center justify-between border-b-2 border-gray-200 pb-2">
+        <Link href={`/board/${boardId}`} className="flex items-center justify-between border-b-2 border-gray-200 pb-2">
           <div className="flex items-center gap-2">
             <div className="h-6 w-6 lg:h-8 lg:w-8">
               <Image src={style.icon} alt="icon" width={37} height={37} className="h-full w-full object-contain" />
@@ -50,13 +51,14 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
             <h2 className="text-sm font-semibold">{boardName}</h2>
           </div>
           <ChevronRight className="h-4 w-4 text-gray-400 lg:h-6 lg:w-6" />
-        </div>
+        </Link>
 
         {/* 게시글 미리보기 */}
         <div className="mt-2 flex flex-col gap-2">
           {contents.length > 0 ? (
             contents.slice(0, 3).map((content) => (
-              <div
+              <Link
+                href={`/board/${boardId}/${content.contentId}`}
                 key={content.contentId}
                 className="flex flex-col rounded-md bg-gray-100 px-3 py-2 text-sm text-gray-700"
               >
@@ -64,13 +66,13 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
                 <div className="text-xs text-gray-400">
                   {content.writerName ?? '작성자 없음'} ・ {new Date(content.createdAt).toLocaleDateString('ko-KR')}
                 </div>
-              </div>
+              </Link>
             ))
           ) : (
             <EmptyBoard />
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
