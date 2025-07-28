@@ -114,7 +114,7 @@ function NoticeSection({
         {items.length > 0 ? (
           items.map((post) => (
             <Link
-              href={`/board/${boardId}/post/${post.id}`}
+              href={`/board/${boardId}/${post.id}`}
               key={post.id}
               className="flex items-center justify-between border-b px-4 py-3 text-sm hover:bg-gray-50 sm:text-base"
             >
