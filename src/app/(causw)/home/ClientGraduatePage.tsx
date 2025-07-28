@@ -24,6 +24,9 @@ export default async function GraduateHomePage({ events }) {
   const noticePosts = noticeBoard?.posts?.content?.slice(0, 4) ?? [];
   const talkPosts = talkBoard?.posts?.content?.slice(0, 4) ?? [];
 
+  const noticeBoardId = noticeBoard?.board.id ?? '';
+  const talkBoardId = talkBoard?.board.id ?? '';
+
   return (
     <div className="flex w-full flex-col justify-center gap-4 bg-white px-4 py-4 2xl:h-full 2xl:rounded-4xl">
       {/* 상단 배너 */}
@@ -65,8 +68,18 @@ export default async function GraduateHomePage({ events }) {
 
         {/* 최신 공지 + 소통글 */}
         <div className="flex w-full flex-col gap-6">
-          <NoticeSection title="최신 공지글" items={noticePosts} icon="/homeicons/크자회_공지_게시판.svg" />
-          <NoticeSection title="최신 소통글" items={talkPosts} icon="/homeicons/크자회_소통_게시판.svg" />
+          <NoticeSection
+            boardId={noticeBoardId}
+            title="최신 공지글"
+            items={noticePosts}
+            icon="/homeicons/크자회_공지_게시판.svg"
+          />
+          <NoticeSection
+            boardId={talkBoardId}
+            title="최신 소통글"
+            items={talkPosts}
+            icon="/homeicons/크자회_소통_게시판.svg"
+          />
         </div>
       </div>
     </div>
@@ -74,10 +87,12 @@ export default async function GraduateHomePage({ events }) {
 }
 
 function NoticeSection({
+  boardId,
   title,
   items,
   icon,
 }: {
+  boardId: string;
   title: string;
   items: {
     id: string;
@@ -88,14 +103,18 @@ function NoticeSection({
 }) {
   return (
     <div>
-      <div className="flex items-center gap-2 border-b bg-gray-100 px-4 py-2 text-sm font-bold sm:text-base">
+      <Link
+        href={`/board/${boardId}`}
+        className="flex items-center gap-2 border-b bg-gray-100 px-4 py-2 text-sm font-bold sm:text-base"
+      >
         <Image src={icon} alt="icon" width={20} height={20} />
         <span>{title}</span>
-      </div>
+      </Link>
       <div className="overflow-hidden border-t border-gray-200">
         {items.length > 0 ? (
           items.map((post) => (
-            <div
+            <Link
+              href={`/board/${boardId}/post/${post.id}`}
               key={post.id}
               className="flex items-center justify-between border-b px-4 py-3 text-sm hover:bg-gray-50 sm:text-base"
             >
@@ -103,7 +122,7 @@ function NoticeSection({
               <div className="flex shrink-0 items-center gap-2 text-xs text-gray-500 sm:text-sm">
                 <span>{new Date(post.createdAt).toLocaleDateString()}</span>
               </div>
-            </div>
+            </Link>
           ))
         ) : (
           <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
