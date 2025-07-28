@@ -19,6 +19,7 @@ import {
 import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 import { ceremonyTypeMap } from '../config';
+import { NotificationYearListBox } from './NotificationYearListBox';
 
 export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
   const ceremonyDetails = useCeremonyData(ceremonyId);
@@ -70,6 +71,9 @@ export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageP
           <CeremonyDateTile title={MESSAGES.CEREMONY.START_DATE} date={ceremonyDetails.startDate} />
           <CeremonyDateTile title={MESSAGES.CEREMONY.END_DATE} date={ceremonyDetails.endDate} />
         </div>
+
+        <h1 className="text-lg font-medium md:text-2xl">{MESSAGES.NOTIFICATION.YEAR_LIST}</h1>
+        <NotificationYearListBox />
 
         <CommonImageList images={ceremonyDetails.imageList} />
 
