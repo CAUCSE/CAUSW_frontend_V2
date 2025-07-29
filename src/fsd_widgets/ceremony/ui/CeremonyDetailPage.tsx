@@ -2,15 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
-import {
-  cancelCeremonyRegist,
-  CeremonyDateTile,
-  CeremonyImageTile,
-  CeremonySectionTitle,
-  useCeremonyData,
-} from '@/fsd_entities/ceremony';
+import { cancelCeremonyRegist, CeremonyDateTile, CeremonySectionTitle, useCeremonyData } from '@/fsd_entities/ceremony';
 
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 import { ceremonyTypeMap } from '../config';
 
@@ -44,7 +38,8 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
           <CeremonyDateTile title={MESSAGES.CEREMONY.START_DATE} date={ceremonyDetails.startDate} />
           <CeremonyDateTile title={MESSAGES.CEREMONY.END_DATE} date={ceremonyDetails.endDate} />
         </div>
-        <CeremonyImageTile imageList={ceremonyDetails.imageList} />
+
+        <CommonImageList images={ceremonyDetails.imageList} />
         {ceremonyDetails.register === 'AWAIT' && (
           <div className="fixed bottom-24 left-1/2 z-50 w-full max-w-[270px] -translate-x-1/2 rounded-md bg-[#d9d9d9] py-2 text-center text-xl font-semibold">
             <div onClick={handleClickReject}>{MESSAGES.CEREMONY.CANCEL_REGIST}</div>
