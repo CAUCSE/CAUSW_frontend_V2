@@ -11,9 +11,11 @@ import { NotificationWidget } from '@/fsd_widgets/notification';
 import { getNotificationCount } from '@/fsd_entities/notification';
 import { useUserInfo } from '@/fsd_entities/user';
 import { useMyInfoStore } from '@/fsd_entities/user';
+
+import { ProfileImage } from '@/fsd_shared/ui';
+
 import { SubHeader, tokenManager } from '@/fsd_shared';
 import { Button } from '@/shadcn/components/ui';
-import { ProfileImage } from '@/fsd_shared/ui';
 
 interface SideBarProps {
   className?: string;
@@ -30,19 +32,26 @@ export const SideBar = ({ className }: SideBarProps) => {
   const [alarmCount, setAlarmCount] = useState<number>(0);
   const messageCount: number = 0;
 
-
   useEffect(() => {
     updateMyInfoStore();
   }, []);
 
+  const userId = useMyInfoStore((state) => state.id);
+
   useEffect(() => {
+    if (!userId) return;
+
     const fetchNotificationCount = async () => {
-      const count = await getNotificationCount();
-      setAlarmCount(count);
+      try {
+        const count = await getNotificationCount();
+        setAlarmCount(count);
+      } catch (e) {
+        console.error('Failed to fetch notification count:', e);
+      }
     };
 
     fetchNotificationCount();
-  }, []);
+  }, [userId]);
 
   return (
     <aside className={className}>

@@ -1,9 +1,9 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Banner } from '@/entities/home';
+
+import { HomeRscService } from '@/shared';
 
 const boards = [
   { name: '크자회 공지 게시판', icon: '/homeicons/크자회_공지_게시판.svg', href: '/notice' }, // 크자회 공지 게시판 경로 수정 예정
@@ -12,21 +12,21 @@ const boards = [
   { name: '경조사', icon: '/homeicons/경조사.svg', href: '/ceremony/create' },
 ];
 
-const notices = [
-  { title: '최신 공지글의 제목', author: '관리자', date: '05.27' },
-  { title: '최신 공지글의 제목이 좀길어도 이건 데스크탑이니까 그냥 여기까진...', author: '관리자', date: '05.27' },
-  { title: '최신 공지글의 제목', author: '관리자', date: '05.27' },
-  { title: '최신 공지글의 제목', author: '관리자', date: '05.27' },
-];
+export default async function GraduateHomePage({ events }) {
+  const { getGraduateHomePosts } = HomeRscService();
+  const homePosts = await getGraduateHomePosts();
 
-const talks = [
-  { title: '최신 소통글의 제목', author: '관리자', date: '05.27' },
-  { title: '최신 글의 제목이 좀길어도 이건 데스크탑이니까 그냥 여기까진...', author: '관리자', date: '05.27' },
-  { title: '최신 글의 제목', author: '관리자', date: '05.27' },
-  { title: '최신 글의 제목', author: '관리자', date: '05.27' },
-];
+  // 크자회 공지 게시판
+  const noticeBoard = homePosts.find((b) => b.board.name.includes('크자회 공지 게시판'));
+  // 크자회 소통 게시판
+  const talkBoard = homePosts.find((b) => b.board.name.includes('크자회 소통 게시판'));
 
-export default function GraduateHomePage({ events }) {
+  const noticePosts = noticeBoard?.posts?.content?.slice(0, 4) ?? [];
+  const talkPosts = talkBoard?.posts?.content?.slice(0, 4) ?? [];
+
+  const noticeBoardId = noticeBoard?.board.id ?? '';
+  const talkBoardId = talkBoard?.board.id ?? '';
+
   return (
     <div className="flex w-full flex-col justify-center gap-4 bg-white px-4 py-4 2xl:h-full 2xl:rounded-4xl">
       {/* 상단 배너 */}
@@ -68,33 +68,71 @@ export default function GraduateHomePage({ events }) {
 
         {/* 최신 공지 + 소통글 */}
         <div className="flex w-full flex-col gap-6">
-          <NoticeSection title="최신 공지글" items={notices} icon="/homeicons/크자회_공지_게시판.svg" />
-          <NoticeSection title="최신 소통글" items={talks} icon="/homeicons/크자회_소통_게시판.svg" />
+          <NoticeSection
+            boardId={noticeBoardId}
+            title="최신 공지글"
+            items={noticePosts}
+            icon="/homeicons/크자회_공지_게시판.svg"
+          />
+          <NoticeSection
+            boardId={talkBoardId}
+            title="최신 소통글"
+            items={talkPosts}
+            icon="/homeicons/크자회_소통_게시판.svg"
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function NoticeSection({ title, items, icon }: { title: string; items: any[]; icon: string }) {
+function NoticeSection({
+  boardId,
+  title,
+  items,
+  icon,
+}: {
+  boardId: string;
+  title: string;
+  items: {
+    id: string;
+    title: string;
+    createdAt: string;
+  }[];
+  icon: string;
+}) {
   return (
     <div>
-      <div className="flex items-center gap-2 border-b bg-gray-100 px-4 py-2 text-sm font-bold sm:text-base">
+      <Link
+        href={`/board/${boardId}`}
+        className="flex items-center gap-2 border-b bg-gray-100 px-4 py-2 text-sm font-bold sm:text-base"
+      >
         <Image src={icon} alt="icon" width={20} height={20} />
         <span>{title}</span>
-      </div>
+      </Link>
       <div className="overflow-hidden border-t border-gray-200">
-        {items.map((post, idx) => (
-          <div
-            key={idx}
-            className="flex items-center justify-between border-b px-4 py-3 text-sm hover:bg-gray-50 sm:text-base"
-          >
-            <div className="w-3/5 truncate font-medium sm:w-4xl">{post.title}</div>
-            <div className="flex shrink-0 items-center gap-2 text-xs text-gray-500 sm:text-sm">
-              <span>{post.date}</span>
-            </div>
+        {items.length > 0 ? (
+          items.map((post) => (
+            <Link
+              href={`/board/${boardId}/${post.id}`}
+              key={post.id}
+              className="flex items-center justify-between border-b px-4 py-3 text-sm hover:bg-gray-50 sm:text-base"
+            >
+              <div className="w-3/5 truncate font-medium sm:w-4xl">{post.title}</div>
+              <div className="flex shrink-0 items-center gap-2 text-xs text-gray-500 sm:text-sm">
+                <span>{new Date(post.createdAt).toLocaleDateString('ko-KR')}</span>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className="overflow-hidden border-t border-gray-200">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="px-4 py-3 text-sm text-gray-400">
+                게시글이 없습니다.
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

@@ -109,9 +109,7 @@ export const getNotificationCount = async (): Promise<number> => {
   const URI = `/api/v1/notifications/log/count`;
 
   try {
-    const response: AxiosResponse<{ notificationLogCount: number }> = await API.get(URI, {
-      headers: { Authorization: getRccAccess() },
-    });
+    const response: AxiosResponse<{ notificationLogCount: number }> = await API.get(URI);
 
     return response.data.notificationLogCount;
   } catch (error) {
