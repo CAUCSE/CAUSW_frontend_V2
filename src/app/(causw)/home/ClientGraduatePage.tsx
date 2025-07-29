@@ -120,7 +120,7 @@ function NoticeSection({
             >
               <div className="w-3/5 truncate font-medium sm:w-4xl">{post.title}</div>
               <div className="flex shrink-0 items-center gap-2 text-xs text-gray-500 sm:text-sm">
-                <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                <span>{new Date(post.createdAt).toLocaleDateString('ko-KR')}</span>
               </div>
             </Link>
           ))
