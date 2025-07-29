@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { useMyInfoStore } from '@/fsd_entities/user/model';
+import { useMyInfoStore } from '@/fsd_entities/user';
 
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';
