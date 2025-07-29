@@ -207,7 +207,7 @@ const SettingsPage = () => {
 
   return (
     <div className="flex min-h-screen items-start justify-center">
-      <div className="w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-6xl px-4 pb-6 sm:px-6 lg:px-8">
         <h1 className="mt-8 mb-8 text-3xl font-bold">환경설정</h1>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">{renderMenuItems()}</div>
         {isUseTermsOpen && <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>}
