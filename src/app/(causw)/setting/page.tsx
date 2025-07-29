@@ -49,6 +49,8 @@ const SettingsPage = () => {
     isGraduate(),
   );
 
+  const isPureGraduate = isGraduate() && !isAlumniLeader();
+
   const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
   const circleNameIfLeader = useMyInfoStore((state) => state.circleNameIfLeader);
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
@@ -97,6 +99,7 @@ const SettingsPage = () => {
       { name: '이벤트 배너 관리', link: '/setting/home/banner' },
       { name: '캘린더 관리', link: '/setting/home/calendar' },
     ],
+    homeManagementAlumniLeader: [{ name: '이벤트 배너 관리', link: '/setting/home/banner' }],
 
     /* clubManagement: (circleId: string) => [
       {
@@ -111,7 +114,10 @@ const SettingsPage = () => {
 
     boardManagement: [{ name: '게시판 생성 신청 관리', link: '/setting/management/board' }],
 
-    occasionManagement: [{ name: '경조사 관리', link: '/setting/management/ceremony/request' }],
+    occasionManagement: [
+      { name: '내 경조사 목록 보기', link: '/ceremony/list' },
+      { name: '경조사 관리', link: '/setting/management/ceremony/request' },
+    ],
 
     occasionUserManagement: [{ name: '내 경조사 목록 보기', link: '/ceremony/list' }],
   };
@@ -144,7 +150,7 @@ const SettingsPage = () => {
         {/* 권한을 갖는 유저들에게 나타나는 UI */}
 
         {/* 학생 또는 졸업생인 경우 */}
-        {(isStudent() || isGraduate()) && (
+        {(isStudent() || isPureGraduate) && (
           <>
             <MenuItem title="경조사 관리" items={menuItems.occasionUserManagement} />
           </>
@@ -179,8 +185,9 @@ const SettingsPage = () => {
         {/* 동문회장 */}
         {isAlumniLeader() && (
           <>
-            <MenuItem title="관리" items={menuItems.managementAlumniPresident} />
-            <MenuItem title="권한 위임" items={menuItems.delegation} />
+            {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
+            <MenuItem title="홈 화면 관리" items={menuItems.homeManagementAlumniLeader} />
+            <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
           </>
         )}
 
