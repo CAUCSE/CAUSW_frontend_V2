@@ -64,7 +64,8 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
               >
                 <span className="truncate">{content.title}</span>
                 <div className="text-xs text-gray-400">
-                  {content.writerNickName ?? '작성자 없음'} ・ {new Date(content.createdAt).toLocaleDateString('ko-KR')}
+                  {content.isAnonymous ? '익명' : content.writerNickname} ・{' '}
+                  {new Date(content.createdAt).toLocaleDateString('ko-KR')}
                 </div>
               </Link>
             ))
