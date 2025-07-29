@@ -126,10 +126,11 @@ function NoticeSection({
           ))
         ) : (
           <div className="overflow-hidden border-t border-gray-200">
-            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
-            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
-            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
-            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="px-4 py-3 text-sm text-gray-400">
+                게시글이 없습니다.
+              </div>
+            ))}
           </div>
         )}
       </div>
