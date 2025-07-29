@@ -30,7 +30,7 @@ declare namespace Board {
   export interface BoardContentDto {
     title: string;
     contentId: string;
-    writerName: string | null;
+    writerNickName: string | null;
     createdAt: string;
   }
   export interface CreateBoardDto {

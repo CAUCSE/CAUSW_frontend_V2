@@ -16,7 +16,7 @@ const boardStyles: Record<string, { icon: string }> = {
     icon: '/icons/alumni_notice.svg',
   },
   // '딜리버드' 인데 ESLint가 '딜리버드'를 인식하지 못하는 경우가 있음
-  딜리버드: {
+  '딜리버드 게시판': {
     icon: '/icons/deliver_notice.svg',
   },
   '건의/오류 제보 게시판': {
@@ -64,7 +64,7 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
               >
                 <span className="truncate">{content.title}</span>
                 <div className="text-xs text-gray-400">
-                  {content.writerName ?? '작성자 없음'} ・ {new Date(content.createdAt).toLocaleDateString('ko-KR')}
+                  {content.writerNickName ?? '작성자 없음'} ・ {new Date(content.createdAt).toLocaleDateString('ko-KR')}
                 </div>
               </Link>
             ))
