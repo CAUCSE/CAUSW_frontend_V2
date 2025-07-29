@@ -17,9 +17,9 @@ export default async function GraduateHomePage({ events }) {
   const homePosts = await getGraduateHomePosts();
 
   // 크자회 공지 게시판
-  const noticeBoard = homePosts.find((b) => b.board.name.includes('소프트웨어학부 학부 공지'));
-  // 소통 게시판
-  const talkBoard = homePosts.find((b) => b.board.name.includes('서비스 공지'));
+  const noticeBoard = homePosts.find((b) => b.board.name.includes('크자회 공지 게시판'));
+  // 크자회 소통 게시판
+  const talkBoard = homePosts.find((b) => b.board.name.includes('크자회 소통 게시판'));
 
   const noticePosts = noticeBoard?.posts?.content?.slice(0, 4) ?? [];
   const talkPosts = talkBoard?.posts?.content?.slice(0, 4) ?? [];
@@ -125,7 +125,12 @@ function NoticeSection({
             </Link>
           ))
         ) : (
-          <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
+          <div className="overflow-hidden border-t border-gray-200">
+            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
+            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
+            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
+            <div className="px-4 py-3 text-sm text-gray-400">게시글이 없습니다.</div>
+          </div>
         )}
       </div>
     </div>
