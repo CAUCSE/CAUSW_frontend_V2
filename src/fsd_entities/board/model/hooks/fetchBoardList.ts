@@ -16,6 +16,8 @@ export const fetchBoardList = async () => {
     '딜리버드',
   ];
 
+  const graduateBoardNames = ['서비스 공지', '크자회 공지 게시판', '크자회 소통 게시판', '건의/오류 게시판'];
+
   const sortedBoardList = [
     ...boardList
       .filter((board) => priorityOrder.includes(board.boardName))
@@ -28,7 +30,8 @@ export const fetchBoardList = async () => {
     (board) => board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
   );
   const defaultBoardForGraduate = sortedBoardList.filter(
-    (board) => board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted && board.boardName.includes('크자회'),
+    (board) =>
+      board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted && graduateBoardNames.includes(board.boardName),
   );
 
   const customBoardForAdmin = sortedBoardList.filter((board) => !board.isDefault);
@@ -36,8 +39,7 @@ export const fetchBoardList = async () => {
     (board) => !board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
   );
   const customBoardForGraduate = sortedBoardList.filter(
-    (board) => !board.isDefault,
-    // && board.boardName.includes('크자회')
+    (board) => !board.isDefault && graduateBoardNames.includes(board.boardName),
   );
 
   return {
