@@ -56,7 +56,7 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
         {/* 게시글 미리보기 */}
         <div className="mt-2 flex flex-col gap-2">
           {contents.length > 0 ? (
-            contents.slice(0, 3).map((content) => (
+            contents.map((content) => (
               <Link
                 href={`/board/${boardId}/${content.contentId}`}
                 key={content.contentId}
