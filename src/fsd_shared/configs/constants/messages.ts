@@ -20,5 +20,6 @@ export const MESSAGES = Object.freeze({
     ALL: '전체 알림',
     GENERAL: '알림',
     CEREMONY: '경조사',
+    YEAR_LIST: '경조사 알림 대상 학번',
   },
 });

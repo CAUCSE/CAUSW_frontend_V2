@@ -1,18 +1,22 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { cancelCeremonyRegist, CeremonyDateTile, CeremonySectionTitle, useCeremonyData } from '@/fsd_entities/ceremony';
 
 import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 import { ceremonyTypeMap } from '../config';
+import { NotificationYearListBox } from './NotificationYearListBox';
 
 export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
-  const { ceremonyDetails } = useCeremonyData(ceremonyId);
+  const ceremonyDetails = useCeremonyData(ceremonyId);
   const router = useRouter();
 
   const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];
+  const searchParams = useSearchParams();
+  const hideNotificationYearList = searchParams.get('hideList');
+
   const handleClickReject = async () => {
     try {
       await cancelCeremonyRegist({
@@ -38,6 +42,12 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
           <CeremonyDateTile title={MESSAGES.CEREMONY.START_DATE} date={ceremonyDetails.startDate} />
           <CeremonyDateTile title={MESSAGES.CEREMONY.END_DATE} date={ceremonyDetails.endDate} />
         </div>
+        {!hideNotificationYearList && (
+          <>
+            <h1 className="text-lg font-medium md:text-2xl">{MESSAGES.NOTIFICATION.YEAR_LIST}</h1>
+            <NotificationYearListBox />
+          </>
+        )}
 
         <CommonImageList images={ceremonyDetails.imageList} />
         {ceremonyDetails.register === 'AWAIT' && (
