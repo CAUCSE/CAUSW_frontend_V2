@@ -18,27 +18,33 @@ export const fetchBoardList = async () => {
     '딜리버드 게시판',
   ];
 
-  const graduateBoardNames = ['서비스 공지', '크자회 공지 게시판', '크자회 소통 게시판', '건의/오류 게시판'];
+  const excludeFromNonGraduate = ['크자회 공지 게시판', '크자회 소통 게시판'];
+  const graduateBoardNames = ['서비스 공지', '크자회 공지 게시판', '크자회 소통 게시판', '건의/오류 제보 게시판'];
 
   const sortedBoardList = [
     ...boardList
       .filter((board) => priorityOrder.includes(board.boardName))
-      .sort((a, b) => priorityOrder.indexOf(a.boardName) - priorityOrder.indexOf(b.boardName)), // 순서 유지
-    ...boardList.filter((board) => !priorityOrder.includes(board.boardName)), // 나머지 보드 추가
+      .sort((a, b) => priorityOrder.indexOf(a.boardName) - priorityOrder.indexOf(b.boardName)),
+    ...boardList.filter((board) => !priorityOrder.includes(board.boardName)),
   ];
 
-  const defaultBoardForAdmin = sortedBoardList.filter((board) => board.isDefault);
-  const defaultBoardForCommon = sortedBoardList.filter(
+  // 일반 사용자 및 관리자에게 보여줄 게시판에서 '크자회' 게시판 제외
+  const nonGraduateBoardList = sortedBoardList.filter((board) => !excludeFromNonGraduate.includes(board.boardName));
+
+  // 일반/관리자용 게시판
+  const defaultBoardForAdmin = nonGraduateBoardList.filter((board) => board.isDefault);
+  const defaultBoardForCommon = nonGraduateBoardList.filter(
     (board) => board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
   );
+  const customBoardForAdmin = nonGraduateBoardList.filter((board) => !board.isDefault);
+  const customBoardForCommon = nonGraduateBoardList.filter(
+    (board) => !board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
+  );
+
+  // 졸업생 전용 게시판 (크자회 포함된 고정 목록)
   const defaultBoardForGraduate = sortedBoardList.filter(
     (board) =>
       board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted && graduateBoardNames.includes(board.boardName),
-  );
-
-  const customBoardForAdmin = sortedBoardList.filter((board) => !board.isDefault);
-  const customBoardForCommon = sortedBoardList.filter(
-    (board) => !board.isDefault && !boardInfoMap.get(board.boardId)?.isDeleted,
   );
   const customBoardForGraduate = sortedBoardList.filter(
     (board) => !board.isDefault && graduateBoardNames.includes(board.boardName),
