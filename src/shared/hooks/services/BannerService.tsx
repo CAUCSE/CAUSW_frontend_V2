@@ -6,7 +6,8 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { bannerQueryKey } from '@/shared/configs/query-key';
 
-import { API, FORMAPI, useBannerStore } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
+import { useBannerStore } from '@/fsd_entities/banner';
 
 export const BannerService = () => {
   const useGetBannerList = () => {

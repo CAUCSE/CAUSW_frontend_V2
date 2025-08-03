@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
-import { AuthRscService, noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/shared';
+import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/fsd_shared';
 
 import { BASEURL } from './url';
+import { tokenManager } from '@/fsd_shared';
 
 export const API = axios.create({
   baseURL: BASEURL,
@@ -17,6 +18,16 @@ export const FORMAPI = axios.create({
     'Content-Type': 'multipart/form-data',
   },
 });
+
+// 토큰 재발급 대기열
+interface RetryQueueItem {
+  resolve: (value?: any) => void;
+  reject: (error?: any) => void;
+  config: AxiosRequestConfig;
+}
+
+const refreshAndRetryQueue: RetryQueueItem[] = [];
+let isRefreshing = false;
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
 
@@ -41,78 +52,68 @@ export const getRccRefresh = (): string | null => {
   return localStorage.getItem(storageRefreshKey);
 };
 
+const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
+  const { updateAccess, signoutAndRedirect } = tokenManager();
+
+  if (error.response) {
+    const {
+      response: {
+        data: { errorCode },
+      },
+      config,
+    } = error;
+
+    //Access token 재발급 과정
+    if (noAccessTokenCode.includes(errorCode)) {
+      const refresh = getRccRefresh();
+      if (!refresh) {
+        location.href = '/auth/signin';
+      } else {
+        return refreshTokenWithQueue(config, axiosInstance, refresh);
+      }
+    } 
+    else if (noPermissionCode.includes(error.message)) signoutAndRedirect();
+    else if (noRefreshTokenCode.includes(error.message)) signoutAndRedirect();
+  }
+
+  throw new Error(`${error}`);
+};
+
+const refreshTokenWithQueue = async (config: any, axiosInstance: typeof API | typeof FORMAPI, refreshToken: string) => {
+  const { updateAccess, signoutAndRedirect } = tokenManager();
+
+  if (!isRefreshing) {
+    isRefreshing = true;
+    try {
+    const accessToken = await updateAccess(refreshToken);
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+    refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
+      axiosInstance
+        .request(config)
+        .then((response) => resolve(response))
+        .catch((err) => reject(err));
+    });
+    refreshAndRetryQueue.length = 0;
+    return axiosInstance.request(config);
+    }
+    catch (err) {
+      signoutAndRedirect();
+    } finally {
+      isRefreshing = false;
+    }
+  }
+  // 토큰 재발급 대기열에 추가
+  return new Promise((resolve, reject) => {
+    refreshAndRetryQueue.push({ config, resolve, reject });
+  });
+};
+
 API.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    const { signout } = AuthRscService();
-    const { updateAccess } = AuthRscService();
-
-    const handleNoRefresh = async () => {
-      await signout();
-      location.href = '/auth/signin';
-    };
-
-    if (error.response) {
-      const {
-        response: {
-          data: { errorCode },
-        },
-        config,
-      } = error;
-
-      //Access token 재발급 과정
-      if (noAccessTokenCode.includes(errorCode)) {
-        const refresh = getRccRefresh();
-        if (!refresh) {
-          location.href = '/auth/signin';
-        } else {
-          const accessToken = await updateAccess(refresh);
-          config.headers['Authorization'] = `Bearer ${accessToken}`;
-          return API.request(config);
-        }
-      } else if (noPermissionCode.includes(error.message)) location.href = '/no-permission';
-      else if (noRefreshTokenCode.includes(error.message)) {
-        handleNoRefresh();
-      }
-    }
-    throw new Error(`${error}`);
-  },
+  (error) => handleError(error, API),
 );
 
 FORMAPI.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    const { signout } = AuthRscService();
-    const { updateAccess } = AuthRscService();
-
-    const handleNoRefresh = async () => {
-      await signout();
-      location.href = '/auth/signin';
-    };
-
-    if (error.response) {
-      const {
-        response: {
-          data: { errorCode },
-        },
-        config,
-      } = error;
-
-      //Access token 재발급 과정
-      if (noAccessTokenCode.includes(errorCode)) {
-        const refresh = getRccRefresh();
-        if (!refresh) {
-          location.href = '/auth/signin';
-        } else {
-          const accessToken = await updateAccess(refresh);
-          config.headers['Authorization'] = `Bearer ${accessToken}`;
-          return API.request(config);
-        }
-      } else if (noPermissionCode.includes(error.message)) location.href = '/no-permission';
-      else if (noRefreshTokenCode.includes(error.message)) {
-        handleNoRefresh();
-      }
-    }
-    throw new Error(`${error}`);
-  },
+  (error) => handleError(error, FORMAPI),
 );

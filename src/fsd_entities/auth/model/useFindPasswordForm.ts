@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/shared';
+import { useFindAccountStore } from './stores';
 
 import { useFindPassword } from './useFindPassword';
 

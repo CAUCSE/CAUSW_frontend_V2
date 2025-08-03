@@ -2,7 +2,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, setRscHeader } from '@/shared';
+import { BASEURL, setRscHeader } from '@/fsd_shared';
 import { createFormData } from '@/utils/formDataUtil';
 
 // 유틸 함수 가져오기

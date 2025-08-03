@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from '@/shared';
+import { BASEURL, setRscHeader } from '@/fsd_shared';
 
 export const HomeRscService = () => {
   const URI = BASEURL + '/api/v1/home';

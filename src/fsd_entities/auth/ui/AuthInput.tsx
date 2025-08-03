@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';

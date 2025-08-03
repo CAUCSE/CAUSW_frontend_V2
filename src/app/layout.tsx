@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { ErrorMessage, Providers } from '@/entities';
+import { Providers } from '@/fsd_shared/ui';
 import '@/firebase-messaging-sw';
 import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
 
@@ -38,6 +38,7 @@ export default function RootLayout({
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <meta name="mobile-web-app-capable" content="yes" />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -83,7 +84,6 @@ export default function RootLayout({
               <GA />
             </Suspense>
             <WindowSizeListener />
-            <ErrorMessage />
             {children}
             <ToastWithMax />
           </Providers>

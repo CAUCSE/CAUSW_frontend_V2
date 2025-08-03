@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { API, boardQueryKey } from '@/shared';
+import { API, boardQueryKey } from '@/fsd_shared';
 
 export const BoardService = () => {
   const useGetBoardName = (boardId: string) => {

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/shared';
+import { useFindAccountStore } from './stores';
 
 import { useFindId } from './useFindId';
 

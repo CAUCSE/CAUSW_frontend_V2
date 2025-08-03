@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, setRscHeader } from '@/shared';
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
+import { BASEURL, setRscHeader } from '@/fsd_shared';
 
 export const VoteRscService = () => {
   const getVoteById = async (voteId: string): Promise<Post.VoteResponseDto> => {

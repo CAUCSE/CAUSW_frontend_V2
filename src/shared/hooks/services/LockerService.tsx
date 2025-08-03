@@ -4,7 +4,9 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { API, lockerQueryKey, useLockerSelectionStore } from '@/shared';
+import { API } from '@/fsd_shared';
+import { lockerQueryKey } from '@/fsd_entities/locker';
+import { useLockerSelectionStore } from '@/fsd_entities/locker/model';
 
 export const LockerService = () => {
   const useGetLockerLocations = () => {

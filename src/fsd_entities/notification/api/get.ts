@@ -5,7 +5,7 @@ import { CeremonyState } from '@/fsd_widgets/ceremony';
 
 import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
@@ -13,9 +13,7 @@ export const getNotifications = async (): Promise<Notification.Notification[]> =
   const URI = `/api/v1/notifications/log/general/top4`;
 
   try {
-    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
-      headers: { Authorization: getRccAccess() },
-    });
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI);
 
     return response.data;
   } catch (error) {
@@ -28,9 +26,7 @@ export const getCeremonyNotifications = async (): Promise<Notification.Notificat
   const URI = `/api/v1/notifications/log/ceremony/top4`;
 
   try {
-    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI, {
-      headers: { Authorization: getRccAccess() },
-    });
+    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI);
 
     return response.data;
   } catch (error) {
@@ -62,15 +58,10 @@ export const getCeremonyData = async (
   }
 };
 
-export const getFCMToken = async (): Promise<string | null> => {
+export const getFCMToken = async (): Promise<User.FCMTokenResponseDto> => {
   const URI = `/api/v1/users/fcm`;
-
-  try {
-    const response: AxiosResponse<string> = await API.get(URI);
-    return response.data;
-  } catch (error) {
-    return null;
-  }
+  const response = await API.get(URI);
+  return response.data;
 };
 
 export const getNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
@@ -111,5 +102,20 @@ export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<
       toast.error('General error');
     }
     throw error;
+  }
+};
+
+export const getNotificationCount = async (): Promise<number> => {
+  const URI = `/api/v1/notifications/log/count`;
+
+  try {
+    const response: AxiosResponse<{ notificationLogCount: number }> = await API.get(URI, {
+      headers: { Authorization: getRccAccess() },
+    });
+
+    return response.data.notificationLogCount;
+  } catch (error) {
+    toast.error('알림 개수 가져오기 실패: 서버 응답 오류');
+    return 0; // 실패 시 기본값 0으로 처리
   }
 };

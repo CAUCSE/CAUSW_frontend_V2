@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { signup } from '../api/post';
+import { signup } from '@/fsd_entities/auth/api/post';
 
 const allowedKeys = [
   'email',

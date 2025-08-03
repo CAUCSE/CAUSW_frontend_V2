@@ -2,7 +2,7 @@
 
 import { AxiosResponse } from 'axios';
 
-import { API, FORMAPI } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
 
 //import { useRouter } from "next/navigation";
 

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import { API } from '@/shared';
+import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
