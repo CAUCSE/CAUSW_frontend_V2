@@ -11,9 +11,11 @@ import { NotificationWidget } from '@/fsd_widgets/notification';
 import { getNotificationCount } from '@/fsd_entities/notification';
 import { useUserInfo } from '@/fsd_entities/user';
 import { useMyInfoStore } from '@/fsd_entities/user';
+
+import { ProfileImage } from '@/fsd_shared/ui';
+
 import { SubHeader, tokenManager } from '@/fsd_shared';
 import { Button } from '@/shadcn/components/ui';
-import { ProfileImage } from '@/fsd_shared/ui';
 
 interface SideBarProps {
   className?: string;
@@ -29,7 +31,6 @@ export const SideBar = ({ className }: SideBarProps) => {
 
   const [alarmCount, setAlarmCount] = useState<number>(0);
   const messageCount: number = 0;
-
 
   useEffect(() => {
     updateMyInfoStore();
@@ -74,7 +75,8 @@ export const SideBar = ({ className }: SideBarProps) => {
         </Link>
       </Button>
 
-      <Button
+      {/* 20250803 기획 중단으로 주석처리 */}
+      {/* <Button
         size="icon"
         variant="ghost"
         className="absolute top-3 left-22 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
@@ -83,7 +85,7 @@ export const SideBar = ({ className }: SideBarProps) => {
         <Link href="/chat">
           <Mail className="size-6" />
         </Link>
-      </Button>
+      </Button> */}
       <div className="max-xl:hidden">
         <ProfileImage src={profileImage} />
       </div>
