@@ -177,8 +177,8 @@ const CreatePostPage = () => {
   });
 
   return (
-    <div className="grid h-full w-full grid-rows-[40px_1fr_auto] p-2">
-      <PreviousButton routeCallback={handleBack} />
+    <div className="grid h-full w-full grid-rows-[40px_1fr_auto] pt-3">
+      <PreviousButton routeCallback={handleBack} className="pl-5" />
       <div className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">
         <FormProvider {...methods}>
           <PostCreationForm />
