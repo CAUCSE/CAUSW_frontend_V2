@@ -9,13 +9,11 @@ import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { ceremonyTypeMap } from '../config';
 import { NotificationYearListBox } from './NotificationYearListBox';
 
-export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
-  const ceremonyDetails = useCeremonyData(ceremonyId);
+export const CeremonyDetailPage = ({ ceremonyId, context }: Ceremony.CeremonyDetailPageProps) => {
+  const ceremonyDetails = useCeremonyData({ ceremonyId, context });
   const router = useRouter();
 
   const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];
-  const searchParams = useSearchParams();
-  const hideNotificationYearList = searchParams.get('hideList');
 
   const handleClickReject = async () => {
     try {
@@ -42,10 +40,10 @@ export const CeremonyDetailPage = ({ ceremonyId }: Ceremony.CeremonyDetailPagePr
           <CeremonyDateTile title={MESSAGES.CEREMONY.START_DATE} date={ceremonyDetails.startDate} />
           <CeremonyDateTile title={MESSAGES.CEREMONY.END_DATE} date={ceremonyDetails.endDate} />
         </div>
-        {!hideNotificationYearList && (
+        {context !== 'general' && (
           <>
             <h1 className="text-lg font-medium md:text-2xl">{MESSAGES.NOTIFICATION.YEAR_LIST}</h1>
-            <NotificationYearListBox />
+            <NotificationYearListBox years={ceremonyDetails.targetAdmissionYears} />
           </>
         )}
 

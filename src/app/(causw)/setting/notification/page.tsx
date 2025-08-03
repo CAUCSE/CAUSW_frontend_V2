@@ -77,7 +77,7 @@ const Notification = () => {
             fetchNextCeremony();
           }
         }}
-        hideNotificationYearList={true}
+        context="general"
       />
     ),
   };

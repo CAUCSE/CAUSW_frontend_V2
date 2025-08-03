@@ -31,8 +31,8 @@ export const getAdminCeremonyAwaitList = async (page: number, size: number, sort
   }
 };
 
-export const getAdminCeremonyDetail = async (idx: string) => {
-  const URI = `/api/v1/ceremony/${idx}`;
+export const getAdminCeremonyDetail = async ({ ceremonyId, context }: Ceremony.CeremonyDetailDataPros) => {
+  const URI = `/api/v1/ceremony/${ceremonyId}?context=${context}`;
 
   try {
     const response = await API.get(URI);

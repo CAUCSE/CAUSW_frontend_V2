@@ -21,8 +21,8 @@ import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 import { ceremonyTypeMap } from '../config';
 import { NotificationYearListBox } from './NotificationYearListBox';
 
-export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageProps) => {
-  const ceremonyDetails = useCeremonyData(ceremonyId);
+export const AdminCeremonyDetail = ({ ceremonyId, context }: Ceremony.CeremonyDetailPageProps) => {
+  const ceremonyDetails = useCeremonyData({ ceremonyId, context });
   const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];
 
   const router = useRouter();
@@ -35,6 +35,7 @@ export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageP
     try {
       await updateAdminCeremonyState({
         ceremonyId,
+
         targetCeremonyState: 'ACCEPT',
       });
       setIsModalOpen(true);
@@ -73,7 +74,7 @@ export const AdminCeremonyDetail = ({ ceremonyId }: Ceremony.CeremonyDetailPageP
         </div>
 
         <h1 className="text-lg font-medium md:text-2xl">{MESSAGES.NOTIFICATION.YEAR_LIST}</h1>
-        <NotificationYearListBox />
+        <NotificationYearListBox years={ceremonyDetails.targetAdmissionYears} />
 
         <CommonImageList images={ceremonyDetails.imageList} />
 

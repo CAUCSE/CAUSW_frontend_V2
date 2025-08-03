@@ -17,7 +17,7 @@ const OccasionRequestDetailPage = () => {
         <Header bold big>
           {MESSAGES.CEREMONY.DETAIL_CONTENT_TITLE}
         </Header>
-        <AdminCeremonyDetail ceremonyId={ceremonyId} />
+        <AdminCeremonyDetail ceremonyId={ceremonyId} context="admin" />
       </div>
     </div>
   );

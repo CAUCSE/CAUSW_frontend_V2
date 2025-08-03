@@ -8,7 +8,7 @@ import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
 import { getAdminCeremonyDetail } from '../api';
 
-export const useCeremonyData = (ceremonyId?: string) => {
+export const useCeremonyData = ({ context, ceremonyId }: Ceremony.CeremonyDetailDataPros) => {
   const [ceremonyDetails, setCeremonyDetails] = useState({
     title: '',
     type: '',
@@ -19,13 +19,15 @@ export const useCeremonyData = (ceremonyId?: string) => {
     imageList: [] as string[],
     applicantName: '',
     applicantStudentId: '',
+    isSetAll: false,
+    targetAdmissionYears: [] as number[],
   });
 
   useEffect(() => {
     if (ceremonyId) {
       const fetchCeremonyDetail = async () => {
         try {
-          const cermonyContent = await getAdminCeremonyDetail(ceremonyId);
+          const cermonyContent = await getAdminCeremonyDetail({ ceremonyId, context });
 
           setCeremonyDetails({
             title: cermonyContent.title,
@@ -37,6 +39,8 @@ export const useCeremonyData = (ceremonyId?: string) => {
             imageList: cermonyContent.attachedImageUrlList,
             applicantName: cermonyContent.applicantName,
             applicantStudentId: cermonyContent.applicantStudentId,
+            isSetAll: cermonyContent.isSetAll,
+            targetAdmissionYears: cermonyContent.targetAdmissionYears,
           });
         } catch (error) {
           toast.error(`${MESSAGES.CEREMONY.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
