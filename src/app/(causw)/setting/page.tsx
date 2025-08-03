@@ -37,18 +37,6 @@ const SettingsPage = () => {
     isGraduate: state.isGraduate,
   }));
 
-  console.log(
-    roles,
-    isAdmin(),
-    isPresidents(),
-    isVicePresidents(),
-    isCircleLeader(),
-    isCouncil(),
-    isStudentLeader(),
-    isAlumniLeader(),
-    isGraduate(),
-  );
-
   const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
   const circleNameIfLeader = useMyInfoStore((state) => state.circleNameIfLeader);
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);

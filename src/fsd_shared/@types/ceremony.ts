@@ -59,6 +59,7 @@ declare namespace Ceremony {
     firstNavigation: NavigationItem;
     navigation?: NavigationItem[];
     state: string | undefined;
+    loadMore: () => void;
   };
   interface CeremonyDetailPageProps {
     ceremonyId: string;
