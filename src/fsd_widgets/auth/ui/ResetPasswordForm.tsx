@@ -3,8 +3,6 @@
 import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
 import { useResetPasswordForm } from '@/fsd_entities/auth/model/useResetPasswordForm';
 
-import { PreviousButton } from '@/shared';
-
 export const ResetPasswordForm = () => {
   const validatePasswordMatch = (value: string) => {
     const password = watch('updatedPassword');
@@ -18,7 +16,6 @@ export const ResetPasswordForm = () => {
       onSubmit={handleSubmit(onSubmit, onInvalid)}
       className="flex w-1/2 min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8"
     >
-      <PreviousButton variant="bg-board-page-background"></PreviousButton>
       <AuthInput
         register={register}
         name="originPassword"
