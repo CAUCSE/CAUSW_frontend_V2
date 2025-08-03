@@ -32,10 +32,9 @@ const PostDetailPage = ({ params }: { params: { boardId: string; postId: string 
   }
 
   return (
-    <div className="grid h-full w-full grid-rows-[auto_1fr_auto]">
-      <div className="flex items-center py-2">
-        <PreviousButton routeCallback={routerCallback} />
-      </div>
+    <div className="grid h-full w-full grid-rows-[auto_1fr_auto] pt-3">
+      <PreviousButton routeCallback={routerCallback} className="pl-5" />
+
       <div className="flex w-full flex-col gap-3 overflow-y-auto px-3">
         <PostDetailSection postData={postDetail} />
         <CommentCardList postId={postId} />
