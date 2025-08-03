@@ -14,7 +14,7 @@ export const NotificationYearListBox = ({ years }: Ceremony.NotificationYearList
           </button>
         ))
       ) : (
-        <span>전체 학번</span>
+        <span className="text-xl">전체 학번</span>
       )}
     </div>
   );
