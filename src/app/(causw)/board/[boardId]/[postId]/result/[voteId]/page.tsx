@@ -19,10 +19,8 @@ const VoteStatusPage = () => {
   }
 
   return (
-    <div className="h-full w-full">
-      <div className="w-full flex-col items-center py-2">
-        <PreviousButton />
-      </div>
+    <div className="h-full w-full pt-3">
+      <PreviousButton className="pl-5" />
       <div className="flex h-full flex-col p-5">
         <h1 className="mb-3 text-[32px]">투표 현황</h1>
         {vote.options.map((option, index) => (
