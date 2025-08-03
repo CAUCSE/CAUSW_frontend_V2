@@ -74,7 +74,7 @@ export const AdminCeremonyDetail = ({ ceremonyId, context }: Ceremony.CeremonyDe
         </div>
 
         <h1 className="text-lg font-medium md:text-2xl">{MESSAGES.NOTIFICATION.YEAR_LIST}</h1>
-        <NotificationYearListBox years={ceremonyDetails.targetAdmissionYears} />
+        <NotificationYearListBox years={ceremonyDetails.targetAdmissionYears} isSetAll={ceremonyDetails.isSetAll} />
 
         <CommonImageList images={ceremonyDetails.imageList} />
 

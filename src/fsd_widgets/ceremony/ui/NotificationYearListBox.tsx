@@ -1,9 +1,11 @@
 'use client';
 
-export const NotificationYearListBox = ({ years }: Ceremony.NotificationYearListBoxProps) => {
+export const NotificationYearListBox = ({ years, isSetAll }: Ceremony.NotificationYearListBoxProps) => {
   return (
     <div className="h-40 w-full overflow-y-auto rounded-xl border border-black bg-white p-5 sm:max-w-85">
-      {years.length > 0 ? (
+      {isSetAll ? (
+        <span className="text-xl">전체 학번</span>
+      ) : years.length > 0 ? (
         years.map((year) => (
           <button
             key={year}
@@ -13,9 +15,7 @@ export const NotificationYearListBox = ({ years }: Ceremony.NotificationYearList
             <span>{year}학번</span>
           </button>
         ))
-      ) : (
-        <span className="text-xl">전체 학번</span>
-      )}
+      ) : null}
     </div>
   );
 };

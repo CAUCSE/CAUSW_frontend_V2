@@ -177,6 +177,7 @@ declare namespace Ceremony {
   }
   interface NotificationYearListBoxProps {
     years: number[];
+    isSetAll: boolean;
   }
   interface CeremonyDetailDataPros {
     ceremonyId?: string;
