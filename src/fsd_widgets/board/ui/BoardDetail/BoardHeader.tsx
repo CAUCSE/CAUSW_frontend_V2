@@ -12,9 +12,9 @@ interface BoardHeaderProps {
 
 export const BoardHeader = ({ boardName, isNotificationActive }: BoardHeaderProps) => {
   return (
-    <div className="flex h-24 w-full flex-col gap-2 px-5 pt-3">
+    <header className="flex h-24 w-full flex-col gap-2 pt-3">
       <PreviousButton />
-      <div className="z-10 flex w-full items-center justify-between">
+      <div className="flex w-full items-center justify-between px-5">
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">{boardName}</div>
         <div className="flex items-center gap-2 sm:gap-4">
           <CreatePostButton />
@@ -22,6 +22,6 @@ export const BoardHeader = ({ boardName, isNotificationActive }: BoardHeaderProp
           <SearchPostButton />
         </div>
       </div>
-    </div>
+    </header>
   );
 };

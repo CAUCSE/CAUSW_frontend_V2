@@ -18,11 +18,7 @@ export const PreviousButton = ({ routeCallback, className }: PreviousButtonProps
     <Button
       variant="ghost"
       onClick={() => (routeCallback ? routeCallback() : router.back())}
-      className={cn('flex w-fit cursor-pointer items-center gap-2 hover:bg-transparent', className)}
-      style={{
-        // shadcn 버튼 기본 패딩 제거
-        padding: 0,
-      }}
+      className={cn('flex w-fit cursor-pointer items-center gap-2 p-0 hover:bg-transparent', className)}
     >
       <ChevronLeft className="size-8" />
       <p className="text-base md:text-lg">이전</p>

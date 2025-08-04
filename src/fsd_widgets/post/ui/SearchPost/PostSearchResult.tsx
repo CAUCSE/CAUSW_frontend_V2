@@ -13,11 +13,9 @@ export const PostSearchResult = ({ postList }: PostSearchResultProps) => {
         <PostSearchNotFound />
       ) : (
         <div className="flex flex-col gap-4 pb-4">
-          {postList!
-            .filter((post) => !post.isDeleted)
-            .map((post: Post.PostResponseDto) => (
-              <PostCard key={post.id} post={post} targetUrl={`/board/search/${post.id}`} />
-            ))}
+          {postList!.map((post: Post.PostResponseDto) => (
+            <PostCard key={post.id} post={post} targetUrl={`/board/search/${post.id}`} />
+          ))}
         </div>
       )}
     </>

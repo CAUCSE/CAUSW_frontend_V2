@@ -23,10 +23,8 @@ export const PostSearch = () => {
   } = useSearchPost();
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-[20px]">
-      <div className="h-[50px] w-full bg-[#F8F8F8]">
-        <PreviousButton />
-      </div>
+    <div className="flex h-full w-full flex-col items-center gap-5 pt-3 pb-5">
+      <PreviousButton className="self-start pl-5" />
       {hasEverSearched ? (
         <div className="h-full w-full overflow-y-auto p-4">
           {isLoading ? (
@@ -49,7 +47,6 @@ export const PostSearch = () => {
       ) : (
         <PostSearchIntro />
       )}
-
       <PostSearchInput
         handleInputTextChange={handleInputTextChange}
         handleEnterKey={handleEnterKey}
