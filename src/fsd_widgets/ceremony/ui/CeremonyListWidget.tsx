@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 
+import { CeremonyTabs } from '@/fsd_widgets/ceremony';
+
 import { useCeremonyListQuery } from '@/fsd_entities/notification';
 
 import { ListBox } from '@/fsd_shared';
 
 import { tabItems } from '../config';
-import { CeremonyTabs } from '@/fsd_widgets/ceremony';
 
 export const CeremonyListWidget = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -26,6 +27,7 @@ export const CeremonyListWidget = () => {
       <CeremonyTabs tabItems={tabItems} activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="mt-4">
         <ListBox
+          context="my"
           data={items}
           loadMore={() => {
             if (hasNextPage && !isFetchingNextPage) {

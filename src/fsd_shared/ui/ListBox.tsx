@@ -9,7 +9,7 @@ import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 import MailIcon from '../../../public/icons/envelope_icon.svg';
 import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';
 
-export const ListBox = ({ data, alarm, loadMore, emptyMessage, hideNotificationYearList }: Ceremony.ListBoxProps) => {
+export const ListBox = ({ data, alarm, loadMore, emptyMessage, context }: Ceremony.ListBoxProps) => {
   const router = useRouter();
   const markAsRead = useNotificationStore((state) => state.markAsRead);
   const { targetRef } = useInfiniteScroll({
@@ -33,8 +33,8 @@ export const ListBox = ({ data, alarm, loadMore, emptyMessage, hideNotificationY
               alarm === 'general'
                 ? `/board/${item.targetParentId}/${item.targetId}`
                 : item.targetId
-                  ? `/ceremony/${item.targetId}${hideNotificationYearList ? '?hideList=true' : ''}`
-                  : `/ceremony/${item.id}${hideNotificationYearList ? '?hideList=true' : ''}`;
+                  ? `/ceremony/${item.targetId}?context=${context}`
+                  : `/ceremony/${item.id}?context=${context}`;
             return (
               <div
                 onClick={() => {

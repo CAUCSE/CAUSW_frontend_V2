@@ -1,6 +1,7 @@
 declare namespace Ceremony {
   interface CeremonyDetailPageProps {
     ceremonyId: string;
+    context: 'my' | 'general' | 'admin';
   }
   interface CreateCeremonyRequestDto {
     description: string;
@@ -58,6 +59,7 @@ declare namespace Ceremony {
     firstNavigation: NavigationItem;
     navigation?: NavigationItem[];
     state: string | undefined;
+    loadMore: () => void;
   };
   interface CeremonyDetailPageProps {
     ceremonyId: string;
@@ -109,7 +111,7 @@ declare namespace Ceremony {
     alarm?: string; //general | ceremony
     loadMore?: () => void;
     emptyMessage?: string;
-    hideNotificationYearList?: boolean;
+    context?: 'my' | 'general';
   }
   interface CreateCeremonyPayload {
     description: string;
@@ -172,5 +174,13 @@ declare namespace Ceremony {
     subscribedAdmissionYears: number[] | null;
     setAll: boolean;
     notificationActive: boolean;
+  }
+  interface NotificationYearListBoxProps {
+    years: number[];
+    isSetAll: boolean;
+  }
+  interface CeremonyDetailDataPros {
+    ceremonyId?: string;
+    context: string;
   }
 }

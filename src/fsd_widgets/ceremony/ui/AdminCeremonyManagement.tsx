@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { useAdminCeremonyData } from '@/fsd_entities/ceremony';
+import { useAdminCeremonyAwaitListQuery } from '@/fsd_entities/notification/hooks/queries/useAdminCeremonyAwaitListQuery';
 
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 
@@ -16,7 +16,7 @@ export const AdminCeremonyManagement = ({
   firstNavigation,
   navigation,
 }: Ceremony.CeremonyRequestManagementProps) => {
-  const ceremonyList = useAdminCeremonyData();
+  const { data: ceremonyList = [], fetchNextPage, hasNextPage, isFetchingNextPage } = useAdminCeremonyAwaitListQuery();
   const isFirstNavigation = (() => {
     if (!state) return true;
     if (!navigation) return false;
@@ -55,6 +55,9 @@ export const AdminCeremonyManagement = ({
           firstNavigation={firstNavigation}
           navigation={navigation}
           state={state}
+          loadMore={() => {
+            if (hasNextPage && !isFetchingNextPage) fetchNextPage();
+          }}
         />
       </div>
     </div>

@@ -2,21 +2,21 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { useCeremonySettingQuery, useCeremonySettingMutation } from '@/fsd_entities/notification';
+import { useCeremonySettingMutation, useCeremonySettingQuery } from '@/fsd_entities/notification';
 
-export const useCeremonySettingForm = () => {
+export const useCeremonySettingForm = (useExistingSetting = true) => {
   const { data: existingSetting } = useCeremonySettingQuery();
-  const isUpdate = !!(existingSetting && typeof existingSetting !== 'string');
+  const isUpdate = useExistingSetting && !!(existingSetting && typeof existingSetting !== 'string');
   const { mutate: submitSettings } = useCeremonySettingMutation(isUpdate);
   const [years, setYears] = useState<number[]>([]);
   const [setAll, setSetAllValue] = useState(false);
 
   useEffect(() => {
-    if (isUpdate) {
+    if (useExistingSetting && isUpdate) {
       setYears(existingSetting.subscribedAdmissionYears ?? []);
       setSetAllValue(existingSetting.setAll);
     }
-  }, [existingSetting, isUpdate]);
+  }, [existingSetting, isUpdate, useExistingSetting]);
 
   const sortedYears = useMemo(() => {
     return [...years].sort((a, b) => a - b);
@@ -40,7 +40,10 @@ export const useCeremonySettingForm = () => {
     };
     submitSettings(payload);
   };
-
+  const reset = () => {
+    setYears([]);
+    setSetAllValue(false);
+  };
   return {
     years: setAll ? [] : sortedYears,
     setAll,
@@ -48,5 +51,6 @@ export const useCeremonySettingForm = () => {
     addYear,
     removeYear,
     onSubmit,
+    reset,
   };
 };

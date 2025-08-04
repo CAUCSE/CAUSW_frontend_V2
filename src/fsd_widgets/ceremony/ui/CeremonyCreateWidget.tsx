@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useCeremonyCreateForm } from '@/fsd_entities/ceremony';
+import { useCeremonyCreateForm, useCeremonySettingForm } from '@/fsd_entities/ceremony';
 
 import { ImageUploadField, InputBox, SelectBox } from '@/fsd_shared';
 import { Button } from '@/shadcn/components/ui';
@@ -25,10 +25,17 @@ export const CeremonyCreateWidget = () => {
   });
 
   const { onSubmit } = useCeremonyCreateForm();
+  const settingForm = useCeremonySettingForm(false);
   const [resetImageUploader, setResetImageUploader] = useState(false);
   const handleFormSubmit = methods.handleSubmit(async (data) => {
-    onSubmit(data);
+    const fullPayload = {
+      ...data,
+      isSetAll: settingForm.setAll,
+      targetAdmissionYears: settingForm.setAll ? null : settingForm.years,
+    };
+    onSubmit(fullPayload);
     methods.reset();
+    settingForm.reset();
     setResetImageUploader(true);
     setTimeout(() => setResetImageUploader(false), 0);
   });
@@ -87,7 +94,13 @@ export const CeremonyCreateWidget = () => {
 
         <div className="flex flex-col gap-2.5">
           <p className="text-xl font-medium">경조사 알림 보낼 학번 설정</p>
-          <NotificationSettingWidget />
+          <NotificationSettingWidget
+            years={settingForm.years}
+            setAll={settingForm.setAll}
+            addYear={settingForm.addYear}
+            removeYear={settingForm.removeYear}
+            setAllYearsSelected={settingForm.setAllYearsSelected}
+          />
         </div>
 
         <div className="flex flex-col gap-2.5">
