@@ -23,7 +23,7 @@ export const CommonImageList = ({ images }: CommonImageListProps) => {
     setIsViewerOpen(false);
     setSelectedIndex(null);
   };
-
+  if (images.length === 0) return;
   return (
     <div className="flex flex-col gap-2">
       <h1 className="text-lg font-bold md:text-2xl">사진</h1>

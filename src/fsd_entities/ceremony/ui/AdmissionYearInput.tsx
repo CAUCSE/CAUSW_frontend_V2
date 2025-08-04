@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 
+import clsx from 'clsx';
+
 import { Button } from '@/fsd_shared';
 
-export const AdmissionYearInput = ({ onAdd, disabled }: Ceremony.AdmissionYearInputProps) => {
+export const AdmissionYearInput = ({ onAdd, disabled, isSettingPage = false }: Ceremony.AdmissionYearInputProps) => {
   const [year, setYear] = useState('');
 
   const handleAdd = () => {
@@ -21,10 +23,13 @@ export const AdmissionYearInput = ({ onAdd, disabled }: Ceremony.AdmissionYearIn
         type="number"
         value={year}
         onChange={(e) => setYear(e.target.value)}
-        className="w-10 border-b border-b-black bg-transparent px-1"
+        className={clsx(
+          'border-b border-b-black bg-transparent px-1',
+          isSettingPage ? 'w-10 border-b border-b-black bg-transparent px-1' : 'w-13 text-2xl',
+        )}
         disabled={disabled}
       />
-      <span className="mr-14 text-2xl">학번</span>
+      <span className={clsx(isSettingPage ? 'mr-14 text-2xl' : 'mr-9 text-xl')}>학번</span>
       <Button
         variant="BLUE"
         action={handleAdd}

@@ -9,6 +9,7 @@ import { PreviousButton } from '@/fsd_shared';
 
 const OccasionNotificationDetailPage = () => {
   const { ceremonyId } = useParams<{ ceremonyId: string }>();
+
   return (
     <div className="w-full p-6">
       <PreviousButton />
