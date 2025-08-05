@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { signup } from '@/fsd_entities/auth/api/post';
+import { parseErrorMessage } from '@/fsd_shared';
 
 const allowedKeys = [
   'email',
@@ -36,7 +37,8 @@ export const useSignUpForm = () => {
       }, 500);
     },
     onError: (error: any) => {
-      toast.error('회원가입 실패: ' + (error.message || '오류가 발생했습니다.'));
+      const errorMessage = parseErrorMessage(error, '회원가입 중 오류가 발생했습니다.');
+      toast.error(errorMessage);
     },
   });
 
