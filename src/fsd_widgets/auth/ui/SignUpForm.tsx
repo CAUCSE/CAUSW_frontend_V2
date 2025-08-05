@@ -17,7 +17,7 @@ export const SignUpForm = () => {
       <PreviousButton routeCallback={() => router.back()} />
       <form
         onSubmit={handleSubmit(onSubmit, onInvalid)}
-        className="flex w-full min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8"
+        className="flex w-full min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-2"
       >
       <Header bold>회원가입</Header>
       <SignUpFormFields register={register} errors={errors} watch={watch} />

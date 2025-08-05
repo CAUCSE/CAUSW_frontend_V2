@@ -35,7 +35,7 @@ export const AuthInput = <T extends FieldValues>({
         </label>
       )}
 
-      <div className="relative mr-8">
+      <div className="relative">
         <input
           {...register(name, rules)}
           {...rest}
