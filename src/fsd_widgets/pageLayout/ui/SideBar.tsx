@@ -36,14 +36,22 @@ export const SideBar = ({ className }: SideBarProps) => {
     updateMyInfoStore();
   }, []);
 
+  const userId = useMyInfoStore((state) => state.id);
+
   useEffect(() => {
+    if (!userId) return;
+
     const fetchNotificationCount = async () => {
-      const count = await getNotificationCount();
-      setAlarmCount(count);
+      try {
+        const count = await getNotificationCount();
+        setAlarmCount(count);
+      } catch (e) {
+        console.error('Failed to fetch notification count:', e);
+      }
     };
 
     fetchNotificationCount();
-  }, []);
+  }, [userId]);
 
   return (
     <aside className={className}>

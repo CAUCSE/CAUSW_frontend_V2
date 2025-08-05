@@ -4,6 +4,8 @@ import { Calendar } from '@/fsd_widgets/calender';
 
 import { Banner, CardBox, HomeCard } from '@/entities/home';
 
+import { HomeRscService } from '@/shared';
+
 const cardsEntities = [
   {
     title: 'Team Project Room',
@@ -28,7 +30,10 @@ const cardsEntities = [
   },
 ];
 
-export default function ClientHomePage({ events, homePosts }) {
+export default async function ClientHomePage({ events }) {
+  const { getHomePosts } = HomeRscService();
+  const homePosts = await getHomePosts();
+
   const mainBoards = [
     homePosts.find((board) => board.board.name.includes('서비스 공지')),
     homePosts.find((board) => board.board.name.includes('학부 공지')),

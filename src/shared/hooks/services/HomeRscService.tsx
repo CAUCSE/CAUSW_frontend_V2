@@ -2,6 +2,7 @@ import { BASEURL, setRscHeader } from '@/fsd_shared';
 
 export const HomeRscService = () => {
   const URI = BASEURL + '/api/v1/home';
+  const GURI = BASEURL + '/api/v1/home/alumni';
 
   const getHomePosts = async () => {
     const headers = await setRscHeader();
@@ -77,10 +78,24 @@ export const HomeRscService = () => {
     return true;
   };
 
+  const getGraduateHomePosts = async () => {
+    const headers = await setRscHeader();
+
+    const response = (await fetch(GURI, {
+      method: 'GET',
+      headers: headers,
+    }).then((res) => res.json())) as Home.GetHomePostsResponseDto & Error.ApiErrorResponse;
+
+    if (response.errorCode) throw new Error(response.errorCode);
+
+    return response as Home.GetHomePostsResponseDto;
+  };
+
   return {
     getHomePosts,
     getEvents,
     getCalendars,
     getCalendar,
+    getGraduateHomePosts,
   };
 };

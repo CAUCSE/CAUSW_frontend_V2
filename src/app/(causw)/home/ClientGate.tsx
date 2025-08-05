@@ -13,12 +13,8 @@ const ClientHomePage = dynamic(() => import('./ClientPage'), { ssr: false, loadi
 // 졸업생 전용 페이지 컴포넌트
 const ClientGraduatePage = dynamic(() => import('./ClientGraduatePage'), { ssr: false, loading: () => <Loading /> });
 
-export default function ClientGate({ events, homePosts }) {
+export default function ClientGate({ events }) {
   const isGraduated = useMyInfoStore((state) => state.isGraduate());
 
-  return isGraduated ? (
-    <ClientGraduatePage events={events} />
-  ) : (
-    <ClientHomePage events={events} homePosts={homePosts} />
-  );
+  return isGraduated ? <ClientGraduatePage events={events} /> : <ClientHomePage events={events} />;
 }
