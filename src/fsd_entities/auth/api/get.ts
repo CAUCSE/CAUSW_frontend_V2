@@ -26,11 +26,7 @@ export const checkEmailDuplicate = async (email: string): Promise<string | boole
 export const checkNicknameDuplicate = async (nickname: string): Promise<string | boolean> => {
   try {
     const response = (await API.get(`${URI}/${nickname}/is-duplicated-nickname`)) as AxiosResponse<any>; // 타입 변경
-    if (response.data.result === false) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.data.result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '닉네임 중복검사에 실패했습니다.';
