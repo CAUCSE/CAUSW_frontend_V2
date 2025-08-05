@@ -36,6 +36,7 @@ const SettingsPage = () => {
     isAlumniLeader: state.isAlumniLeader,
     isGraduate: state.isGraduate,
   }));
+  const isPureGraduate = isGraduate() && !isAlumniLeader();
 
   const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
   const circleNameIfLeader = useMyInfoStore((state) => state.circleNameIfLeader);
