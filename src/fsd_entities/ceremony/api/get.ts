@@ -5,13 +5,11 @@ import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
-export const getAdminCeremonyAwaitList = async (page: number, size: number, sort?: string[]) => {
+export const getAdminCeremonyAwaitList = async (page: number) => {
   const URI = `/api/v1/ceremony/list/await`;
 
   const params = {
-    page: page.toString(),
-    size: size.toString(),
-    ...(sort && { sort: sort.join(',') }),
+    pageNum: page.toString(),
   };
 
   try {
@@ -20,7 +18,7 @@ export const getAdminCeremonyAwaitList = async (page: number, size: number, sort
     if (response.status !== 200) {
       throw new Error(`Error: ${response.status}`);
     }
-    return response.data?.content?.length ? response.data.content : [];
+    return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
       toast.error('Axios error:', error.response?.data);
@@ -31,8 +29,8 @@ export const getAdminCeremonyAwaitList = async (page: number, size: number, sort
   }
 };
 
-export const getAdminCeremonyDetail = async (idx: string) => {
-  const URI = `/api/v1/ceremony/${idx}`;
+export const getAdminCeremonyDetail = async ({ ceremonyId, context }: Ceremony.CeremonyDetailDataPros) => {
+  const URI = `/api/v1/ceremony/${ceremonyId}?context=${context}`;
 
   try {
     const response = await API.get(URI);

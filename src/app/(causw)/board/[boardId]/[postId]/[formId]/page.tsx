@@ -36,8 +36,8 @@ const ApplyPage = () => {
   const canReply = data[1];
 
   return (
-    <>
-      <PreviousButton />
+    <div className="h-full w-full pt-3">
+      <PreviousButton className="pl-5" />
       {form?.isClosed ? (
         <ExpiredForm />
       ) : !canReply ? (
@@ -55,7 +55,7 @@ const ApplyPage = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

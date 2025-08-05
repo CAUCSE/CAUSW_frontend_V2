@@ -29,7 +29,7 @@ export const VoteActionDropdown = ({ voteId, isEnd }: VoteActionDropdownProps) =
   const { postId } = useParams() as { postId: string };
 
   const handleViewResult = () => {
-    router.push(`${path}/result`);
+    router.push(`${path}/result/${voteId}`);
   };
 
   const inProgressVoteDropdownItemMetaData: { label: string; onClick: () => void }[] = [

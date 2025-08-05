@@ -1,19 +1,14 @@
 'use client';
 
 import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notification';
+
 import {
   useCeremonyNotificationQuery,
   useNotificationQuery,
   useNotificationTabParam,
 } from '@/fsd_entities/notification';
 
-import {
-  ERROR_MESSAGES,
-  ListBox,
-  MESSAGES,
-  NOTIFICATION_TAB,
-  PreviousButton,
-} from '@/fsd_shared';
+import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/fsd_shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 
@@ -82,6 +77,7 @@ const Notification = () => {
             fetchNextCeremony();
           }
         }}
+        context="general"
       />
     ),
   };
