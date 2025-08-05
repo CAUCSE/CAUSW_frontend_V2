@@ -34,13 +34,10 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     validate: (value, formValues) => value === formValues.password || '비밀번호가 일치하지 않습니다.',
   },
   studentId: {
-    required: '학번을 입력해주세요.',
-    pattern: {
-      value: /^[0-9]{8}$/,
-      message: '학번은 8자리 숫자여야 합니다.',
-    },
     validate: async (value) => {
-      if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
+      if (!value) return true;
+      if (typeof value !== 'string') return '학번은 문자열이어야 합니다.';
+      if (!/^[0-9]{8}$/.test(value)) return '학번은 8자리 숫자여야 합니다.';
       const isAvailable = await checkStudentIdDuplicate(value);
       return isAvailable || '이미 사용 중인 학번입니다다.';
     },

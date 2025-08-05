@@ -148,7 +148,7 @@ declare namespace User {
     name: string;
     password: string;
     pwConfirm: string;
-    studentId: string;
+    studentId?: string;
     admissionYearString: string;
     nickname: string;
     major: string;
@@ -161,7 +161,7 @@ declare namespace User {
     email: string;
     name: string;
     password: string;
-    studentId: string;
+    studentId?: string;
     admissionYear: number;
     nickname: string;
     major: string;

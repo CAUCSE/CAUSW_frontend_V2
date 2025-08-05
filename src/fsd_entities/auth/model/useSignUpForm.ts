@@ -48,6 +48,9 @@ export const useSignUpForm = () => {
 
     const newPostData = allowedKeys.reduce(
       (acc, key) => {
+        if (key === 'studentId' && !postData[key]) {
+          return acc;
+        }
         acc[key] = postData[key];
         return acc;
       },

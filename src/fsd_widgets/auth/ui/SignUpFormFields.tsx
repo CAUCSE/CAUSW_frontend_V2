@@ -66,8 +66,8 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           register={register}
           name="studentId"
           rules={signUpValidationRules.studentId}
-          label="학번"
-          placeholder="학번 8자리를 입력해주세요"
+          label="학번 (선택사항)"
+          placeholder="학번 8자리를 입력해주세요 (선택사항)"
           errorMessage={errors.studentId?.message}
         />
 
