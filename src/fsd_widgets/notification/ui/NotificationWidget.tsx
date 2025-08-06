@@ -5,13 +5,10 @@ import Link from 'next/link';
 
 import { NotificationType, useNotifications, useCeremonyNotifications, useMarkAsRead } from '@/fsd_entities/notification';
 import { NotificationList } from '@/fsd_entities/notification';
-import { useUserProfile } from '@/fsd_entities/user';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
-  const { data: userInfo } = useUserProfile();
-  const userId = userInfo?.id || '';
   
   const { data: notifications = [] } = useNotifications();
   const { data: ceremonyNotifications = [] } = useCeremonyNotifications();

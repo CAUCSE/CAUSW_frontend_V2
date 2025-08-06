@@ -26,9 +26,7 @@ export const SideBar = ({ className }: SideBarProps) => {
   const email = userInfo?.email || '';
   const profileImage = userInfo?.profileImageUrl || '';
 
-  const userId = userInfo?.id || '';
   const { data: alarmCount = 0 } = useNotificationCount();
-  const messageCount: number = 0;
 
   return (
     <aside className={className}>
