@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { updateInfo, updateVTwo } from '@/fsd_entities/user/api';
 import { useUserProfile } from '@/fsd_entities/user/model';
-import { checkNicknameDuplicate } from '../api/get';
+import { checkNicknameDuplicate } from '../../api/get';
 
 
 export const useV2Form = () => {

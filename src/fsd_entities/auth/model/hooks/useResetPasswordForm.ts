@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { resetPassword } from '../api/post';
+import { resetPassword } from '../../api/post';
 
 export const useResetPasswordForm = () => {
   const {

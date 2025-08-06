@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { findPassword } from '../api/post';
+import { findPassword } from '../../api/post';
 
 export const useFindPassword = () => {
   return useMutation({

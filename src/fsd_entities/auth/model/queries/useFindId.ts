@@ -2,9 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from './stores';
+import { useFindAccountStore } from '../stores';
 
-import { findId } from '../api/post';
+import { findId } from '../../api/post';
 
 export const useFindId = () => {
   const { setEmail, resetFindAccountStore } = useFindAccountStore(

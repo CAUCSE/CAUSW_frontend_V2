@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { getMyInfo } from '@/fsd_entities/user/api/get';
 
-import { checkIsAcademicRecordSubmitted, getUserAdmissionInfo } from '../api/get';
+import { checkIsAcademicRecordSubmitted, getUserAdmissionInfo } from '../../api/get';
 
 export const useVerification = () => {
   const [emailValue, setEmailValue] = useState('');

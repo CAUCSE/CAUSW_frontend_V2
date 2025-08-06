@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 import { useUserProfile } from '@/fsd_entities/user/model';
 
-import { submitAdmissionsApplication } from '../api/post';
+import { submitAdmissionsApplication } from '../../api/post';
 
 export const useAdmissionForm = () => {
   const router = useRouter();

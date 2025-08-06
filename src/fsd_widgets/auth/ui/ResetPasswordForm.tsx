@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
-import { useResetPasswordForm } from '@/fsd_entities/auth/model/useResetPasswordForm';
+import { useResetPasswordForm } from '@/fsd_entities/auth/model/hooks';
 
 import { PreviousButton } from '@/fsd_shared';
 
