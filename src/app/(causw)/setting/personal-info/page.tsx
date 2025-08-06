@@ -53,9 +53,7 @@ const PersonalInfoPage = () => {
   if (error) return <p>에러 발생</p>;
 
   return (
-    <div className="p-3">
-      <ProfileForm userData={userData} feeInfo={feeInfo} />
-    </div>
+    <ProfileForm userData={userData} feeInfo={feeInfo} />
   );
 };
 

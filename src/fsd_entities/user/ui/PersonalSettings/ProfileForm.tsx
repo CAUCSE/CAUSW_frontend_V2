@@ -108,9 +108,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
     setValue('profileImage', null);
   }, []);
   return (
+    <>
+    <PreviousButton />
+
     <form onSubmit={handleSubmit(onSubmit)} className="p-3">
       <div className="mb-2 h-12">
-        <PreviousButton />
       </div>
       <Header big bold>
         개인정보 관리
@@ -135,5 +137,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
         </button>
       </div>
     </form>
+    </>
   );
 };
