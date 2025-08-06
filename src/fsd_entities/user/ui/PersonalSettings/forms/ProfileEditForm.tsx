@@ -56,7 +56,17 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">닉네임</label>
           <input
             type="text"
-            {...register('nickname', { required: true })}
+            {...register('nickname', { 
+              required: '닉네임을 입력해주세요.',
+              minLength: {
+                value: 1,
+                message: '닉네임은 1글자 이상 입력해주세요.'
+              },
+              maxLength: {
+                value: 16,
+                message: '닉네임은 16글자 이내로 입력해주세요.'
+              }
+            })}
             onBlur={handleNicknameBlur}
             className="w-full rounded-md border border-gray-300 p-2 lg:w-5/6"
           />
@@ -73,12 +83,12 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
                 {userData.academicStatus === 'LEAVE_OF_ABSENCE' && <>휴학</>}
                 {userData.academicStatus === 'GRADUATED' && <>졸업</>}
               </div>
-              <button
+              <div
                 onClick={() => (window.location.href = '/setting/personal-info/update-academic-record')}
                 className="bg-focus mr-2 mb-2 w-full rounded-md border border-gray-300 p-2 text-center text-white hover:bg-blue-400 lg:w-5/6"
               >
                 학적 상태 수정
-              </button>
+              </div>
             </div>
           </div>
         </div>

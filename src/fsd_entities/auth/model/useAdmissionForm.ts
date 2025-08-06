@@ -4,14 +4,15 @@ import { useMutation } from '@tanstack/react-query';
 import { set, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { useMyInfoStore } from '@/fsd_entities/user/model';
+import { useUserProfile } from '@/fsd_entities/user/model';
 
 import { submitAdmissionsApplication } from '../api/post';
 
 export const useAdmissionForm = () => {
   const router = useRouter();
+  const { data: userInfo } = useUserProfile();
 
-  const email = useMyInfoStore((state) => state.email);
+  const email = userInfo?.email || '';
   const {
     register,
     handleSubmit,

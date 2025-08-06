@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { useMyInfoStore } from '@/fsd_entities/user';
+import { useUserAcademic, isGraduate } from '@/fsd_entities/user';
 
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';
@@ -19,7 +19,8 @@ export const BoardListClient = ({
   customBoardForGraduate,
   sortedBoardList,
 }) => {
-  const isGraduated = useMyInfoStore((state) => state.isGraduate());
+  const { data: userInfo } = useUserAcademic();
+  const isGraduated = userInfo ? isGraduate(userInfo.academicStatus) : false;
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);

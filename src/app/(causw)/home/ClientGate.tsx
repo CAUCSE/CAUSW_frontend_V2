@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 // 클라이언트에서 비동기적으로 로드되는 동안 로딩 컴포넌트를 보여줍니다.
 import Loading from '@/app/loading';
 
-import { useMyInfoStore } from '@/fsd_entities/user/model';
+import { useUserAcademic, isGraduate } from '@/fsd_entities/user/model';
 
 // 클라이언트 전용 페이지 컴포넌트
 const ClientHomePage = dynamic(() => import('./ClientPage'), { ssr: false, loading: () => <Loading /> });
@@ -14,7 +14,11 @@ const ClientHomePage = dynamic(() => import('./ClientPage'), { ssr: false, loadi
 const ClientGraduatePage = dynamic(() => import('./ClientGraduatePage'), { ssr: false, loading: () => <Loading /> });
 
 export default function ClientGate({ events }) {
-  const isGraduated = useMyInfoStore((state) => state.isGraduate());
+  const { data: userAcademicInfo } = useUserAcademic();
+  
+  if (!userAcademicInfo) return <Loading />;
+  
+  const isGraduated = isGraduate(userAcademicInfo.academicStatus);
 
   return isGraduated ? <ClientGraduatePage events={events} /> : <ClientHomePage events={events} />;
 }

@@ -9,8 +9,7 @@ import { Bell, LogOut, Mail } from 'lucide-react';
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
 import { getNotificationCount } from '@/fsd_entities/notification';
-import { useUserInfo } from '@/fsd_entities/user';
-import { useMyInfoStore } from '@/fsd_entities/user';
+import { useUserProfile } from '@/fsd_entities/user';
 
 import { ProfileImage } from '@/fsd_shared/ui';
 
@@ -22,21 +21,17 @@ interface SideBarProps {
 }
 
 export const SideBar = ({ className }: SideBarProps) => {
-  const { updateMyInfoStore } = useUserInfo();
+  const { data: userInfo } = useUserProfile();
   const { signoutAndRedirect } = tokenManager();
 
-  const name = useMyInfoStore((state) => state.name);
-  const email = useMyInfoStore((state) => state.email);
-  const profileImage = useMyInfoStore((state) => state.profileImageUrl);
+  const name = userInfo?.name || '';
+  const email = userInfo?.email || '';
+  const profileImage = userInfo?.profileImageUrl || '';
 
   const [alarmCount, setAlarmCount] = useState<number>(0);
   const messageCount: number = 0;
 
-  useEffect(() => {
-    updateMyInfoStore();
-  }, []);
-
-  const userId = useMyInfoStore((state) => state.id);
+  const userId = userInfo?.id || '';
 
   useEffect(() => {
     if (!userId) return;
