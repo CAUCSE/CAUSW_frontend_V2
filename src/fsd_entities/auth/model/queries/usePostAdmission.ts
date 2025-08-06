@@ -7,21 +7,21 @@ import toast from 'react-hot-toast';
 
 import { parseErrorMessage } from '@/fsd_shared';
 
-import { signup } from '../../api/post';
+import { submitAdmissionsApplication } from '../../api/post';
 
-export const usePostSignUp = () => {
+export const usePostAdmission = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: signup,
+    mutationFn: submitAdmissionsApplication,
     onSuccess: () => {
-      toast.success('회원가입이 완료되었습니다!');
+      toast.success('가입 신청서 제출이 완료되었습니다!');
       setTimeout(() => {
-        router.push('/auth/signin');
+        router.push('/auth/authorization');
       }, 500);
     },
-    onError: (error: Error.ApiErrorResponse) => {
-      toast.error(parseErrorMessage(error, '회원가입 중 오류가 발생했습니다.'));
+    onError: (error: any) => {
+      toast.error(parseErrorMessage(error, '가입 신청서 제출 실패: '));
     },
   });
 };
