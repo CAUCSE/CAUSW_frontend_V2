@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import Loading from '@/app/loading';
 
 import { useUserAcademic, isGraduate } from '@/fsd_entities/user/model';
+import { notFound } from 'next/navigation';
 
 // 클라이언트 전용 페이지 컴포넌트
 const ClientHomePage = dynamic(() => import('./ClientPage'), { ssr: false, loading: () => <Loading /> });
@@ -14,9 +15,10 @@ const ClientHomePage = dynamic(() => import('./ClientPage'), { ssr: false, loadi
 const ClientGraduatePage = dynamic(() => import('./ClientGraduatePage'), { ssr: false, loading: () => <Loading /> });
 
 export default function ClientGate({ events }) {
-  const { data: userAcademicInfo } = useUserAcademic();
+  const { data: userAcademicInfo, isLoading } = useUserAcademic();
   
-  if (!userAcademicInfo) return <Loading />;
+  if (isLoading) return <Loading />;
+  if (!userAcademicInfo) return notFound();
   
   const isGraduated = isGraduate(userAcademicInfo.academicStatus);
 
