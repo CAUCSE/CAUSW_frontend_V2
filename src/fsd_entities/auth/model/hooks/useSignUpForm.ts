@@ -1,11 +1,7 @@
-import { useRouter } from 'next/navigation';
-
-import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { signup } from '../../api/post';
-import { parseErrorMessage } from '@/fsd_shared';
+import { usePostSignUp } from '../queries';
 
 const allowedKeys = [
   'email',
@@ -19,8 +15,6 @@ const allowedKeys = [
 ] as const;
 
 export const useSignUpForm = () => {
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -28,19 +22,7 @@ export const useSignUpForm = () => {
     formState: { errors },
   } = useForm<User.SignUpForm>({ mode: 'onBlur' });
 
-  const mutation = useMutation({
-    mutationFn: signup,
-    onSuccess: () => {
-      toast.success('회원가입이 완료되었습니다!');
-      setTimeout(() => {
-        router.push('/auth/signin');
-      }, 500);
-    },
-    onError: (error: any) => {
-      const errorMessage = parseErrorMessage(error, '회원가입 중 오류가 발생했습니다.');
-      toast.error(errorMessage);
-    },
-  });
+  const submitSignUp = usePostSignUp();
 
   const onSubmit = (data: User.SignUpForm) => {
     const postData = {
@@ -58,7 +40,7 @@ export const useSignUpForm = () => {
       },
       {} as Record<string, any>,
     );
-    mutation.mutate(newPostData as User.SignUpFormPost);
+    submitSignUp.mutate(newPostData as User.SignUpFormPost);
   };
 
   const onInvalid = () => {
