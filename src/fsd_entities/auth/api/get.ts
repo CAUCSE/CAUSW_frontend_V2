@@ -60,11 +60,7 @@ export const checkCurrentAcademicStatus = async () => {
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {
-    const response = (await axios.get(`${URI}/academic-record/current/not-accepted`, {
-      headers: {
-        'Authorization': `Bearer ${getRccAccess()}`
-      }
-    })) as AxiosResponse;
+    const response = await API.get(`${URI}/academic-record/current/not-accepted`);
     return response;
   } catch (error) {
     throw error;
