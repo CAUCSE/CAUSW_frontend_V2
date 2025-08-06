@@ -1,29 +1,28 @@
 declare namespace User {
   export interface User {
+    id: string;
+    email: string;
+    name: string;
+    studentId: string;
     admissionYear: number;
+    roles: Role[];
+    profileImageUrl: string | null;
+    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT' | 'REJECT';
     circleIdIfLeader: string[] | null;
     circleNameIfLeader: string[] | null;
-    email: string;
-    id: string;
-    name: string;
-    admissionYear: number;
-    profileImageUrl: string | null;
-    roles: Role[];
-    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT' | 'REJECT';
     nickname: string;
-    studentId: string;
-    academicStatus: AcademicStatus;
     major: string;
+    academicStatus: AcademicStatus;
     currentCompletedSemester: number | null;
-    graduationYear: string | null;
-    graduationType: string | null;
+    graduationYear: number | null; // 숫자 타입으로 수정
+    graduationType: 'FEBRUARY' | 'AUGUST' | null;
     phoneNumber: string | null;
+    rejectionOrDropReason: string | null;
     /** ISO date string */
     createdAt: string;
     /** ISO date string */
     updatedAt: string;
     isV2: boolean;
-    rejectionOrDropReason: string;
   }
 
   export interface UserAdmissionCreateRequestDto {
@@ -312,26 +311,7 @@ declare namespace User {
     fcmToken: string[];
   }
 
-  //Store
-  export interface UseUserStore extends User {
-    setUserStore: (props: User.User & { isV2: boolean }) => void;
-    setEmail: (email: string) => void;
-    checkVTwo: boolean;
-    roleTxt: () => string;
-    nameWithAdmission: () => string;
-    profileImageSrc: () => string;
-    isAdmin: () => boolean;
-    isStudent: () => boolean;
-    isProfessor: () => boolean;
-    isAdmin: () => boolean;
-    isPresidents: () => boolean;
-    isVicePresidents: () => boolean;
-    isCircleLeader: () => boolean;
-    isCouncil: () => boolean;
-    isStudentLeader: () => boolean;
-    isAlumniLeader: () => boolean;
-    isGraduate: () => boolean;
-  }
+  // Zustand store types removed - using React Query instead
 
   //DTO
   export type UserDto = User & Error.ApiErrorResponse;
