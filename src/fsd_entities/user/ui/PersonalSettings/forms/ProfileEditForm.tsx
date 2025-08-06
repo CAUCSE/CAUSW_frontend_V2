@@ -5,6 +5,7 @@
  * - "환경설정"-"개인정보 관리"-정보 수정 가능 영역
  */
 import { UseFormRegister } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
 interface ProfileEditFormProps {
   profileImagePreview: string;
@@ -27,6 +28,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
   errors,
   userData,
 }) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-center lg:flex lg:items-center lg:justify-center">
       {/* 프로필 사진 */}
@@ -84,7 +86,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
                 {userData.academicStatus === 'GRADUATED' && <>졸업</>}
               </div>
               <div
-                onClick={() => (window.location.href = '/setting/personal-info/update-academic-record')}
+                onClick={() => router.push('/setting/personal-info/update-academic-record')}
                 className="bg-focus mr-2 mb-2 w-full rounded-md border border-gray-300 p-2 text-center text-white hover:bg-blue-400 lg:w-5/6"
               >
                 학적 상태 수정
