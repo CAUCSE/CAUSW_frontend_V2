@@ -1,8 +1,10 @@
 import { useRouter } from 'next/navigation';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+
+import { userQueryKey } from '@/fsd_entities/user/config/queryKeys/userQueryKey';
 
 import { postAcademicRecord } from '../api/post';
 
@@ -12,6 +14,7 @@ interface userInfoProps {
 
 export const useAcademicRecordForm = ({ curAcademicStatus }: userInfoProps) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -24,6 +27,7 @@ export const useAcademicRecordForm = ({ curAcademicStatus }: userInfoProps) => {
     mutationFn: postAcademicRecord,
     onSuccess: () => {
       toast.success('증빙 서류 제출이 완료되었습니다!');
+      queryClient.invalidateQueries({ queryKey: userQueryKey.all });
     },
     onError: (error: any) => {
       toast.error(error.message || '증빙 서류 제출 도중 오류가 발생했습니다.');
