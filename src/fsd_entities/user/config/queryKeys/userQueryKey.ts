@@ -1,3 +1,3 @@
 export const userQueryKey = {
-  all: ['userInfo'] as const,
+  all: ['user'] as const,
 };
