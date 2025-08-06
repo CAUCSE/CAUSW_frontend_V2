@@ -50,7 +50,7 @@ export const AuthInput = <T extends FieldValues>({
             onClick={() => setShowPassword((prev) => !prev)}
             className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-700 hover:text-black focus:outline-hidden"
           >
-            {showPassword ? <FaEyeSlash size={16} /> : <FaEye size={16} />}
+            {showPassword ? <FaEye size={16} /> : <FaEyeSlash size={16} />}
           </button>
         )}
       </div>
