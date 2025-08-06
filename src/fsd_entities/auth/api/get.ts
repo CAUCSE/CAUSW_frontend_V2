@@ -9,11 +9,7 @@ const URI = '/api/v1/users';
 export const checkEmailDuplicate = async (email: string): Promise<string | boolean> => {
   try {
     const response = (await API.get(`${URI}/${email}/is-duplicated`)) as AxiosResponse<any>; // 타입 변경
-    if (response.data.result === false) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.data.result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '이메일 중복검사에 실패했습니다.';
@@ -39,11 +35,7 @@ export const checkNicknameDuplicate = async (nickname: string): Promise<string |
 export const checkStudentIdDuplicate = async (studentId: string): Promise<boolean | string> => {
   try {
     const response = (await API.get(`${URI}/${studentId}/is-duplicated-student-id`)) as AxiosResponse<any>; // 타입 변경
-    if (response.data.result === false) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.data.result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '학번 중복검사에 실패했습니다.';
