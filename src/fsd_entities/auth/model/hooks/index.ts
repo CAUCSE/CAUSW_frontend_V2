@@ -1,5 +1,4 @@
 export * from './useLogin';
-export * from './useSubmitAcademicRecord';
 export * from './useResetPasswordForm';
 export * from './useFindEmailForm';
 export * from './useFindPasswordForm';

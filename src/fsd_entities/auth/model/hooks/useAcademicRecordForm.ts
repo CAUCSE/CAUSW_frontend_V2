@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { useSubmitAcademicRecord } from './useSubmitAcademicRecord';
+import { useSubmitAcademicRecord } from '../queries';
 
 interface userInfoProps {
   curAcademicStatus: string;
