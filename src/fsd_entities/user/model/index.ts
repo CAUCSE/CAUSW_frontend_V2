@@ -1,3 +1,3 @@
-export * from './stores';
+export * from './queries';
 export * from './hooks';
 export * from './types';
