@@ -90,7 +90,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
   // 제출 핸들러
   const onSubmit = async (data: User.userUpdateDto, event: any) => {
     try {
-      event.preventDefault();
       await updateInfo(data);
       toast.success('변경 사항이 저장되었습니다.');
       queryClient.invalidateQueries({ queryKey: userQueryKey.all });

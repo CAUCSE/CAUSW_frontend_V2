@@ -11,7 +11,11 @@ const UpdataeAcademicRecordPage = () => {
   
   if (!userInfo) return <div>Loading...</div>;
   
-  return <AcademicRecordForm curAcademicStatus={userInfo.academicStatus} />;
+  return (
+    <div className="p-3">
+      <AcademicRecordForm curAcademicStatus={userInfo.academicStatus} />
+    </div>
+  );
 };
 
 export default UpdataeAcademicRecordPage;
