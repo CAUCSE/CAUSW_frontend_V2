@@ -87,11 +87,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
     }
   };
 
-  const refreshSideBar = (profileImageUrl: File) => {
-    // React Query will automatically refetch and update the cache
-    // when queryClient.invalidateQueries is called
-  };
-
   // 제출 핸들러
   const onSubmit = async (data: User.userUpdateDto, event: any) => {
     try {
@@ -99,9 +94,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
       await updateInfo(data);
       toast.success('변경 사항이 저장되었습니다.');
       queryClient.invalidateQueries({ queryKey: userQueryKey.all });
-      if (data.profileImage) {
-        refreshSideBar(data.profileImage);
-      }
     } catch (error: any) {
       if (error.status === 400) {
         toast.error('중복된 닉네임입니다.');
