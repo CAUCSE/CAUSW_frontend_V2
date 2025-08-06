@@ -6,17 +6,17 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import { useMyInfo, userRoleCodes, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader, isStudent, isGraduate } from '@/fsd_entities/user/model';
+import { LoadingComponent } from '@/fsd_shared/ui';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,
 });
 
 const SettingsPage = () => {
-  const { data: userInfo, isLoading } = useMyInfo();
+  const { data: userInfo } = useMyInfo();
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
   
-  if (isLoading || !userInfo) return <div>Loading...</div>;
-  
+  if (!userInfo) return <LoadingComponent />;
   const roles = userInfo.roles;
   const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles);
 
@@ -109,6 +109,7 @@ const SettingsPage = () => {
   );
 
   const renderMenuItems = () => {
+
     return (
       <>
         {/* 기본 유저들에게 나타나는 UI */}
