@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useNotificationStore } from '@/fsd_entities/notification';
+import { useMarkAsRead } from '@/fsd_entities/notification';
 
 import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 
@@ -11,7 +11,7 @@ import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';
 
 export const ListBox = ({ data, alarm, loadMore, emptyMessage, context }: Ceremony.ListBoxProps) => {
   const router = useRouter();
-  const markAsRead = useNotificationStore((state) => state.markAsRead);
+  const markAsRead = useMarkAsRead();
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
       if (entry.isIntersecting && loadMore) {
@@ -39,7 +39,7 @@ export const ListBox = ({ data, alarm, loadMore, emptyMessage, context }: Ceremo
               <div
                 onClick={() => {
                   if (!isItemRead) {
-                    markAsRead(item.id);
+                    markAsRead.mutate(item.id);
                   }
                   router.push(targetLink);
                 }}

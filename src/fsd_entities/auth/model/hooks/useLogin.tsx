@@ -15,12 +15,12 @@ export const useLogin = () => {
         await setRscToken(accessToken, refreshToken);
         await setRccToken(accessToken, refreshToken);
 
-        const AdmissionResponse = await getMyInfo();
+        const response = await getMyInfo();
     
-        if (AdmissionResponse.data.state === 'AWAIT') {
+        if (response.state === 'AWAIT') {
           router.push('/auth/authorization');
         } else {
-          if (AdmissionResponse.data.academicStatus == 'UNDETERMINED') {
+          if (response.academicStatus == 'UNDETERMINED') {
             router.push('/auth/authorization');
           } else {
             router.push('/home');

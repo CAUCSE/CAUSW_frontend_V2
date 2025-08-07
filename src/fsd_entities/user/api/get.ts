@@ -31,10 +31,10 @@ const setGetMethod = (endpoint: string) => {
 // csr api method.
 ////////////////////////////////////////////////////////////////
 
-export const getMyInfo = async () => {
+export const getMyInfo = async (): Promise<User.User> => {
   try {
-    const response = (await API.get(`${USERS_ENDPOINT}/me`)) as AxiosResponse<User.UserDto>; // 서버로부터 유저 정보를 가져옴
-    return response;
+    const response = (await API.get(`${USERS_ENDPOINT}/me`)) as AxiosResponse<User.User>; // 서버로부터 유저 정보를 가져옴
+    return response.data;
   } catch (error) {
     throw error;
   }

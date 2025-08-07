@@ -1,8 +1,10 @@
 'use client';
-import { useMyInfoStore } from '@/fsd_entities/user';
+import { useUserRoles } from '@/fsd_entities/user';
 
 export const useAuthHandler = () => {
-  const userRole = useMyInfoStore((state) => state.roles);
+  const { data: userInfo } = useUserRoles();
+  
+  const userRole = userInfo?.roles || [];
 
   const hasAuth = userRole.includes('ADMIN') || 
                  userRole.includes('PRESIDENT') || 

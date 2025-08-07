@@ -5,42 +5,26 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { useMyInfoStore, userRoleCodes } from '@/fsd_entities/user/model';
+import { useMyInfo, userRoleCodes, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader, isStudent, isGraduate } from '@/fsd_entities/user/model';
+import { LoadingComponent } from '@/fsd_shared/ui';
+import { notFound } from 'next/navigation';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,
 });
 
 const SettingsPage = () => {
-  const {
-    roles,
-    isAdmin,
-    isPresidents,
-    isVicePresidents,
-    isCircleLeader,
-    isCouncil,
-    isStudentLeader,
-    isAlumniLeader,
-    isStudent,
-    isGraduate,
-  } = useMyInfoStore((state) => ({
-    roles: state.roles,
-    isStudent: state.isStudent,
-    isProfessor: state.isProfessor,
-    isAdmin: state.isAdmin,
-    isPresidents: state.isPresidents,
-    isVicePresidents: state.isVicePresidents,
-    isCircleLeader: state.isCircleLeader,
-    isCouncil: state.isCouncil,
-    isStudentLeader: state.isStudentLeader,
-    isAlumniLeader: state.isAlumniLeader,
-    isGraduate: state.isGraduate,
-  }));
-  const isPureGraduate = isGraduate() && !isAlumniLeader();
-
-  const circleIdIfLeader = useMyInfoStore((state) => state.circleIdIfLeader);
-  const circleNameIfLeader = useMyInfoStore((state) => state.circleNameIfLeader);
+  const { data: userInfo, isLoading } = useMyInfo();
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
+  
+  if (isLoading) return <LoadingComponent />;
+  if (!userInfo) return notFound();
+  
+  const roles = userInfo.roles;
+  const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles);
+
+  const circleIdIfLeader = userInfo.circleIdIfLeader;
+  const circleNameIfLeader = userInfo.circleNameIfLeader;
   const roleItems: {
     name: string;
     link: string;
@@ -128,6 +112,7 @@ const SettingsPage = () => {
   );
 
   const renderMenuItems = () => {
+
     return (
       <>
         {/* 기본 유저들에게 나타나는 UI */}
@@ -137,7 +122,7 @@ const SettingsPage = () => {
         {/* 권한을 갖는 유저들에게 나타나는 UI */}
 
         {/* 학생 또는 졸업생인 경우 */}
-        {(isStudent() || isPureGraduate) && (
+        {(isStudent(roles) || isPureGraduate) && (
           <>
             <MenuItem title="경조사 관리" items={menuItems.occasionUserManagement} />
           </>
@@ -146,8 +131,8 @@ const SettingsPage = () => {
         {/* 교수인 경우 */}
 
         {/* 학생회에만 소속 */}
-        {(isCouncil() && !isCircleLeader()) ||
-          (isStudentLeader() && !isCircleLeader && (
+        {(isCouncil(roles) && !isCircleLeader(roles)) ||
+          (isStudentLeader(roles) && !isCircleLeader(roles) && (
             <>
               <MenuItem title="권한 위임" items={menuItems.delegation} />
             </>
@@ -170,7 +155,7 @@ const SettingsPage = () => {
         )} */}
 
         {/* 동문회장 */}
-        {isAlumniLeader() && (
+        {isAlumniLeader(roles) && (
           <>
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagementAlumniLeader} />
@@ -179,7 +164,7 @@ const SettingsPage = () => {
         )}
 
         {/* 관리자, 학생회장, 부학생회장 */}
-        {(isAdmin() || isPresidents() || isVicePresidents()) && (
+        {(isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles)) && (
           <>
             <MenuItem title="관리" items={menuItems.managementAdmin} />
             <MenuItem title="권한 위임" items={menuItems.delegation} />

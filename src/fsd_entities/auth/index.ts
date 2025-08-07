@@ -6,16 +6,8 @@ export { academicRecordValidationRules } from './config/academicRecordValidation
 export { admissionValidationRules } from './config/admissionValidation';
 
 //model
-export { useSignUpForm } from './model/useSignUpForm';
-export { useAcademicRecordForm } from './model/useAcademicRecordForm';
-export { useAdmissionForm } from './model/useAdmissionForm';
-export { useVerification } from './model/useVerification';
-export { useFindId } from './model/useFindId';
-export { useFindPassword } from './model/useFindPassword';
-export { useResetPasswordForm } from './model/useResetPasswordForm';
-export { useFindEmailForm } from './model/useFindEmailForm';
-export { useFindPasswordForm } from './model/useFindPasswordForm';
-export { useV2Form } from './model/useV2Form';
+export * from './model';
+
 //ui
 export { SignInInput } from './ui/SignInInput';
 export { SignInSubmitButton } from './ui/SignInSubmitButton';

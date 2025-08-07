@@ -1,16 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import Link from 'next/link';
 
 import { Bell, LogOut, Mail } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
-import { getNotificationCount } from '@/fsd_entities/notification';
-import { useUserInfo } from '@/fsd_entities/user';
-import { useMyInfoStore } from '@/fsd_entities/user';
+import { useNotificationCount } from '@/fsd_entities/notification';
+import { useUserProfile } from '@/fsd_entities/user';
 
 import { ProfileImage } from '@/fsd_shared/ui';
 
@@ -22,36 +19,14 @@ interface SideBarProps {
 }
 
 export const SideBar = ({ className }: SideBarProps) => {
-  const { updateMyInfoStore } = useUserInfo();
+  const { data: userInfo } = useUserProfile();
   const { signoutAndRedirect } = tokenManager();
 
-  const name = useMyInfoStore((state) => state.name);
-  const email = useMyInfoStore((state) => state.email);
-  const profileImage = useMyInfoStore((state) => state.profileImageUrl);
+  const name = userInfo?.name || '';
+  const email = userInfo?.email || '';
+  const profileImage = userInfo?.profileImageUrl || '';
 
-  const [alarmCount, setAlarmCount] = useState<number>(0);
-  const messageCount: number = 0;
-
-  useEffect(() => {
-    updateMyInfoStore();
-  }, []);
-
-  const userId = useMyInfoStore((state) => state.id);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    const fetchNotificationCount = async () => {
-      try {
-        const count = await getNotificationCount();
-        setAlarmCount(count);
-      } catch (e) {
-        console.error('Failed to fetch notification count:', e);
-      }
-    };
-
-    fetchNotificationCount();
-  }, [userId]);
+  const { data: alarmCount = 0 } = useNotificationCount();
 
   return (
     <aside className={className}>

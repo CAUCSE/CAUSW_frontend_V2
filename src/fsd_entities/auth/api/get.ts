@@ -9,11 +9,7 @@ const URI = '/api/v1/users';
 export const checkEmailDuplicate = async (email: string): Promise<string | boolean> => {
   try {
     const response = (await API.get(`${URI}/${email}/is-duplicated`)) as AxiosResponse<any>; // 타입 변경
-    if (response.data.result === false) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.data.result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '이메일 중복검사에 실패했습니다.';
@@ -26,11 +22,7 @@ export const checkEmailDuplicate = async (email: string): Promise<string | boole
 export const checkNicknameDuplicate = async (nickname: string): Promise<string | boolean> => {
   try {
     const response = (await API.get(`${URI}/${nickname}/is-duplicated-nickname`)) as AxiosResponse<any>; // 타입 변경
-    if (response.data.result === false) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.data.result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '닉네임 중복검사에 실패했습니다.';
@@ -43,11 +35,7 @@ export const checkNicknameDuplicate = async (nickname: string): Promise<string |
 export const checkStudentIdDuplicate = async (studentId: string): Promise<boolean | string> => {
   try {
     const response = (await API.get(`${URI}/${studentId}/is-duplicated-student-id`)) as AxiosResponse<any>; // 타입 변경
-    if (response.data.result === false) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.data.result;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return error.response?.data?.message || '학번 중복검사에 실패했습니다.';
@@ -72,11 +60,7 @@ export const checkCurrentAcademicStatus = async () => {
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {
-    const response = (await axios.get(`${URI}/academic-record/current/not-accepted`, {
-      headers: {
-        'Authorization': `Bearer ${getRccAccess()}`
-      }
-    })) as AxiosResponse;
+    const response = await API.get(`${URI}/academic-record/current/not-accepted`);
     return response;
   } catch (error) {
     throw error;

@@ -72,11 +72,10 @@ const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAP
         return refreshTokenWithQueue(config, axiosInstance, refresh);
       }
     } 
-    else if (noPermissionCode.includes(error.message)) signoutAndRedirect();
-    else if (noRefreshTokenCode.includes(error.message)) signoutAndRedirect();
+    else if (noPermissionCode.includes(errorCode)) signoutAndRedirect();
+    else if (noRefreshTokenCode.includes(errorCode)) signoutAndRedirect();
   }
-
-  throw new Error(`${error}`);
+  throw error;
 };
 
 const refreshTokenWithQueue = async (config: any, axiosInstance: typeof API | typeof FORMAPI, refreshToken: string) => {

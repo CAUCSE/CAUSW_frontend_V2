@@ -1,31 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { NotificationType, useNotificationStore } from '@/fsd_entities/notification';
+import { NotificationType, useNotifications, useCeremonyNotifications, useMarkAsRead } from '@/fsd_entities/notification';
 import { NotificationList } from '@/fsd_entities/notification';
-import { useMyInfoStore } from '@/fsd_entities/user';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
-  const notifications = useNotificationStore((state) => state.notifications);
-  const ceremonyNotifications = useNotificationStore((state) => state.ceremonyNotifications);
-  const loadNotifications = useNotificationStore((state) => state.loadNotifications);
-  const loadCeremonyNotifications = useNotificationStore((state) => state.loadCeremonyNotifications);
-  const markAsRead = useNotificationStore((state) => state.markAsRead);
-
-  const userId = useMyInfoStore((state) => state.id);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    loadNotifications();
-    loadCeremonyNotifications();
-  }, [userId]);
+  
+  const { data: notifications = [] } = useNotifications();
+  const { data: ceremonyNotifications = [] } = useCeremonyNotifications();
+  const markAsRead = useMarkAsRead();
 
   return (
     <div className="mt-6 hidden w-full flex-col rounded-lg border border-yellow-500 bg-white px-3 py-3 shadow-md xl:block">
@@ -39,7 +26,7 @@ export const NotificationWidget = () => {
       <NotificationList
         notifications={notifications}
         notificationType={NotificationType.GENERAL}
-        markAsRead={markAsRead}
+        markAsRead={markAsRead.mutate}
       />
 
       {/* 경조사 알림 */}
@@ -52,7 +39,7 @@ export const NotificationWidget = () => {
       <NotificationList
         notifications={ceremonyNotifications}
         notificationType={NotificationType.CEREMONY}
-        markAsRead={markAsRead}
+        markAsRead={markAsRead.mutate}
       />
     </div>
   );

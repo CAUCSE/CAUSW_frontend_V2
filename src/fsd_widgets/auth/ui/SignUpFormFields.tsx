@@ -13,7 +13,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
 
   return (
     <>
-      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-y-2 p-8 lg:grid lg:grid-cols-2">
+      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-y-2 gap-x-8 lg:p-8 lg:grid lg:grid-cols-2">
         <AuthInput
           register={register}
           name="email"
@@ -39,17 +39,6 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="8자리 이상, 영어/숫자/특수 문자"
           errorMessage={errors.password?.message}
         />
-        <SignUpSelect
-          register={register}
-          name="admissionYearString"
-          label="입학년도"
-          rules={{ required: '입학 년도를 선택해주세요' }}
-          errorMessage={errors.admissionYearString?.message}
-          options={Array.from({ length: 100 }, (_, i) => {
-            const year = new Date().getFullYear() - i;
-            return { value: `${year}`, label: `${year}` };
-          })}
-        />
         <AuthInput
           register={register}
           name="pwConfirm"
@@ -62,12 +51,23 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="8자리 이상, 영어/숫자/특수 문자"
           errorMessage={errors.pwConfirm?.message}
         />
+                <SignUpSelect
+          register={register}
+          name="admissionYearString"
+          label="입학년도"
+          rules={{ required: '입학 년도를 선택해주세요' }}
+          errorMessage={errors.admissionYearString?.message}
+          options={Array.from({ length: 100 }, (_, i) => {
+            const year = new Date().getFullYear() - i;
+            return { value: `${year}`, label: `${year}` };
+          })}
+        />
         <AuthInput
           register={register}
           name="studentId"
           rules={signUpValidationRules.studentId}
-          label="학번"
-          placeholder="학번 8자리를 입력해주세요"
+          label="학번 (선택사항)"
+          placeholder="학번 8자리를 입력해주세요 (선택사항)"
           errorMessage={errors.studentId?.message}
         />
 

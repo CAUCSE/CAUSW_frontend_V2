@@ -11,8 +11,7 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     },
     validate: async (value) => {
       if (typeof value !== 'string') return '이메일은 문자열이어야 합니다.';
-      const isAvailable = await checkEmailDuplicate(value);
-      return isAvailable || '이미 사용 중인 이메일입니다다.';
+      return !(await checkEmailDuplicate(value)) || '이미 사용 중인 이메일입니다.';
     },
   },
   name: {
@@ -34,15 +33,11 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     validate: (value, formValues) => value === formValues.password || '비밀번호가 일치하지 않습니다.',
   },
   studentId: {
-    required: '학번을 입력해주세요.',
-    pattern: {
-      value: /^[0-9]{8}$/,
-      message: '학번은 8자리 숫자여야 합니다.',
-    },
     validate: async (value) => {
-      if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
-      const isAvailable = await checkStudentIdDuplicate(value);
-      return isAvailable || '이미 사용 중인 학번입니다다.';
+      if (!value) return true;
+      if (typeof value !== 'string') return '학번은 문자열이어야 합니다.';
+      if (!/^[0-9]{8}$/.test(value)) return '학번은 8자리 숫자여야 합니다.';
+      return !(await checkStudentIdDuplicate(value)) || '이미 사용 중인 학번입니다다.';
     },
   },
   admissionYearString: {
@@ -53,8 +48,7 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     validate: async (value) => {
       if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
       if (!value.trim()) return '올바른 닉네임이 아닙니다.';
-      const isAvailable = await checkNicknameDuplicate(value);
-      return isAvailable || '이미 사용 중인 닉네임입니다.';
+      return !(await checkNicknameDuplicate(value)) || '이미 사용 중인 닉네임입니다.';
     },
   },
   major: {

@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from './stores';
+import { useFindAccountStore } from '../stores';
 
-import { useFindPassword } from './useFindPassword';
+import { useFindPassword } from '../queries';
 
 interface FormData {
   name: string;

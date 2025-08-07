@@ -28,11 +28,13 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
   const targetAcademicStatus = watch('targetAcademicStatus');
 
   return (
+    <>
+    <PreviousButton></PreviousButton>
+
     <form
       onSubmit={handleSubmit(onSubmit, onInvalid)}
       className="items-left justify-left bg-board-page-background flex min-h-screen flex-col gap-y-4 p-8 sm:p-16"
     >
-      <PreviousButton></PreviousButton>
       <Header bold>학부 재학 증빙 서류 제출</Header>
       <p className="hidden text-gray-600 lg:block">
         재학 중일 시 학부 사무실, 동문회 등의 사업/행사 신청을 위한 증빙 절차입니다. 증빙이 되지 않으면 휴학/졸업이 아닌
@@ -99,5 +101,6 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
       )}
       <AuthFormSubmitButton content="제출" />
     </form>
+    </>
   );
 };

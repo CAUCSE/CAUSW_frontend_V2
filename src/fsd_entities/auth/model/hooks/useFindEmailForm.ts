@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from './stores';
+import { useFindAccountStore } from '../stores';
 
-import { useFindId } from './useFindId';
+import { useFindId } from '../queries';
 
 interface FormData {
   studentId: string;

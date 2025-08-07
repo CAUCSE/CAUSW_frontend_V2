@@ -24,10 +24,7 @@ const PersonalInfoPage = () => {
     error,
   } = useQuery({
     queryKey: userQueryKey.all,
-    queryFn: async () => {
-      const response = await getMyInfo();
-      return response.data;
-    },
+    queryFn: getMyInfo,
   });
 
   useEffect(() => {
