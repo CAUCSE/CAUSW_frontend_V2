@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import clsx from 'clsx';
-import { House, Settings } from 'lucide-react';
+import { House, Settings, Users } from 'lucide-react';
 
 import BoardIcon from '../../../../public/icons/board_icon.svg';
 
@@ -50,5 +50,6 @@ export const NavigationBar = ({ className }: NavigationBarProps) => {
 const icons = [
   { href: '/home', icon: ({ className }: { className: string }) => <House className={className} /> },
   { href: '/board', icon: ({ className }: { className: string }) => <BoardIcon className={className} /> },
+  { href: '/contacts', icon: ({ className }: { className: string }) => <Users className={className} /> },
   { href: '/setting', icon: ({ className }: { className: string }) => <Settings className={className} /> },
 ];
