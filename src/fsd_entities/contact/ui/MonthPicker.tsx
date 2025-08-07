@@ -46,7 +46,7 @@ export function MonthPicker({ value, onChange, placeholder }: MonthPickerProps) 
       setPositionStyle({
         top: `${topPosition}px`,
         left: `${rect.left}px`,
-        minWidth: `${rect.width}px`,
+        width: '300px',
       });
     }
   }, [open]);
@@ -57,7 +57,7 @@ export function MonthPicker({ value, onChange, placeholder }: MonthPickerProps) 
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} modal={false}>
       <div style={{ position: 'relative' }}>
         <DialogTrigger asChild>
           <Button
@@ -76,7 +76,10 @@ export function MonthPicker({ value, onChange, placeholder }: MonthPickerProps) 
           </Button>
         </DialogTrigger>
         {open && (
-          <DialogContent className="p-0" positionStyle={positionStyle}>
+          <DialogContent
+            positionStyle={positionStyle}
+            className="p-0 w-[140px] sm:w-[250px]"
+          >
             <MonthGridView
               selectedDate={stringToDate(value)}
               onSelectMonth={handleMonthSelect}

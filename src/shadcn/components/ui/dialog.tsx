@@ -19,7 +19,7 @@ const DialogContent = React.forwardRef<
       ...positionStyle,
     }}
     className={cn(
-      'grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg',
+      'grid w-full gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg',
       className,
     )}
     {...props}

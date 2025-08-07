@@ -18,7 +18,6 @@ export interface Contact {
   notionLink: string;
   instagramLink: string;
   isPhoneNumberVisible: boolean;
-  profileImage?: FileList;
 }
 
 export interface UserCareer {

@@ -2,9 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
-import { getContactById } from '@/fsd_entities/contact/api/get';
-import type { Contact } from '@/fsd_entities/contact/config/types';
+import { useGetContactByIdQuery } from '@/fsd_entities/contact';
 import { ContactDetail } from '@/fsd_widgets/contact/ui/ContactDetail';
 import { ContactInfoTabs } from '@/fsd_widgets/contact/ui/ContactInfoTabs';
 import { PreviousButton } from '@/fsd_shared';
@@ -14,27 +12,17 @@ import toast from 'react-hot-toast';
 
 export default function ContactDetailPage() {
   const params = useParams();
-  const [contact, setContact] = useState<Contact | null>(null);
+  const userId = params.userId as string;
   const [isMobile, setIsMobile] = useState(false);
+  const { data: contact, isLoading, isError } = useGetContactByIdQuery(userId);
 
   useEffect(() => {
     setIsMobile(/Mobi|Android/i.test(navigator.userAgent));
+  }, []);
 
-    const userId = params.userId as string;
-    if (!userId) return;
-
-    const fetchContact = async () => {
-      try {
-        const data = await getContactById(userId);
-        setContact(data);
-      } catch (error) {
-        console.error('사용자 정보를 가져오는 데 실패했습니다:', error);
-        setContact(null);
-      }
-    };
-
-    fetchContact();
-  }, [params.userId]);
+  if (!contact) {
+    return <div></div>;
+  }
 
   const handleCall = () => {
     if (isMobile) {
@@ -52,17 +40,21 @@ export default function ContactDetailPage() {
     }
   };
 
-  if (!contact) {
-    return <div></div>;
-  }
-
   const actionButtons = !contact.isPhoneNumberVisible ? (
     <div className="flex w-full items-center justify-center gap-4 pt-4 md:pt-10">
-      <Button variant="neutral" className="flex-1 rounded-lg" onClick={handleCall}>
+      <Button
+        variant="neutral"
+        className="flex-1 rounded-lg"
+        onClick={handleCall}
+      >
         <Phone size={16} className="mr-2" />
         전화
       </Button>
-      <Button variant="neutral" className="flex-1 rounded-lg" onClick={handleMessage}>
+      <Button
+        variant="neutral"
+        className="flex-1 rounded-lg"
+        onClick={handleMessage}
+      >
         <MessageSquare size={16} className="mr-2" />
         메세지
       </Button>
