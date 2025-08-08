@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
 import { EmptyBoard } from './EmptyBoard';
+import { formatDateToYyyyMmDd } from '@/utils/format';
 
 const boardStyles: Record<string, { icon: string }> = {
   '서비스 공지': {
@@ -65,7 +66,7 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
                 <span className="truncate">{content.title}</span>
                 <div className="text-xs text-gray-400">
                   {content.isAnonymous ? '익명' : content.writerNickname} ・{' '}
-                  {new Date(content.createdAt).toLocaleDateString('ko-KR')}
+                  {formatDateToYyyyMmDd(content.createdAt)}
                 </div>
               </Link>
             ))

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { getTimeDifference } from '@/fsd_shared';
+import { getTimeDifference } from '@/utils/format';
 
 interface CommentInfoSectionProps {
   writerProfileImage: Comment.CommentDto['writerProfileImage'];
