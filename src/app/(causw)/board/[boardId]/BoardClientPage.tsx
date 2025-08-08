@@ -25,7 +25,11 @@ export const BoardClientPage = () => {
 
   return (
     <div className="flex h-full w-full flex-col gap-2">
-      <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
+      <BoardHeader
+        boardName={data?.boardName!}
+        isNotificationActive={data?.isBoardSubscribed!}
+        isWritable={data?.writeable!}
+      />
       <BoardPostList
         postList={data?.postList!}
         isFetchingNextPage={isFetchingNextPage}
