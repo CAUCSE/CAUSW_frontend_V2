@@ -6,11 +6,10 @@ import { useRouter } from 'next/navigation';
 import { UserCircle } from 'lucide-react';
 
 import { ImageViewer } from '@/fsd_shared/ui';
-import type { Contact } from '../config/types';
 import { useGetMyProfileQuery } from '@/fsd_entities/contact';
 
 interface ContactCardProps {
-  contact: Contact;
+  contact: Contact.Contact;
 }
 
 export const ContactCard = ({ contact }: ContactCardProps) => {

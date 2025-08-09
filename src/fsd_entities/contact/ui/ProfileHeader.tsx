@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { UserCircle, Mail } from 'lucide-react';
-import type { Contact } from '@/fsd_entities/contact/config/types';
 import { Badge } from '@/shadcn/components/ui/badge';
 import { ImageViewer } from '@/fsd_shared/ui';
 
@@ -24,7 +23,7 @@ const rolesMap = {
 } as const;
 
 interface ProfileHeaderProps {
-  contact: Contact;
+  contact: Contact.Contact ;
 }
 
 export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
