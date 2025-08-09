@@ -69,17 +69,16 @@ export const SideBar = ({ className }: SideBarProps) => {
           <Mail className="size-6" />
         </Link>
       </Button> */}
-      <div className="max-xl:hidden">
+      <Link href="/profile" className="max-xl:hidden cursor-pointer">
         <ProfileImage src={profileImage} />
-      </div>
-      <div className="mr-2 flex flex-col items-center xl:mr-0 xl:items-center">
+      </Link>
+      <Link href="/profile" className="mr-2 flex flex-col items-center xl:mr-0 xl:items-center cursor-pointer">
         <SubHeader big>{name}</SubHeader>
         <SubHeader gray>{email}</SubHeader>
-      </div>
-
-      <div className="xl:hidden">
+      </Link>
+      <Link href="/profile" className="xl:hidden cursor-pointer">
         <ProfileImage src={profileImage} />
-      </div>
+      </Link>
 
       <NotificationWidget />
     </aside>

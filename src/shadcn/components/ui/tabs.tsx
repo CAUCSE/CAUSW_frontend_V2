@@ -15,7 +15,7 @@ function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimi
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        'text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]',
+        'text-muted-foreground flex h-auto w-full flex-shrink-0 items-center justify-start overflow-x-auto',
         className,
       )}
       {...props}
@@ -28,7 +28,7 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        'relative mb-4 px-4 py-2 text-sm leading-normal font-medium text-black sm:px-6 sm:text-base md:px-8',
+        'relative px-4 py-2 text-sm font-medium leading-normal text-black sm:px-6 sm:text-base md:px-8',
         'after:absolute after:bottom-0 after:left-1/2 after:h-[5px] after:w-full after:-translate-x-1/2 after:rounded-[20px] after:bg-[#6bbeec] after:transition-all after:duration-300',
         'data-[state=active]:after:opacity-100 data-[state=inactive]:after:opacity-0',
         className,
@@ -37,7 +37,6 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
     />
   );
 }
-
 function TabsContent({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) {
   return <TabsPrimitive.Content data-slot="tabs-content" className={cn('flex-1 outline-none', className)} {...props} />;
 }
