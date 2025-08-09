@@ -1,2 +1,3 @@
 export { contactQueryKey } from './queryKey';
-export * from './types';
+export * from './profile.schema';
+export * from './profile.mapper';

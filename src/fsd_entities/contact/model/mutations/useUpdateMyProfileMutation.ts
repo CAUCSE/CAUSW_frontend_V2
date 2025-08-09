@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { updateMyProfile, contactQueryKey, ContactUpdatePayload } from '@/fsd_entities/contact';
+import { updateMyProfile, contactQueryKey } from '@/fsd_entities/contact';
 
 export const useUpdateMyProfileMutation = () => {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ export const useUpdateMyProfileMutation = () => {
                    userInfoUpdateDto,
                    profileImage,
                  }: {
-      userInfoUpdateDto: ContactUpdatePayload;
+      userInfoUpdateDto: Contact.ContactUpdatePayload;
       profileImage?: File;
     }) => updateMyProfile({ userInfoUpdateDto, profileImage }),
 

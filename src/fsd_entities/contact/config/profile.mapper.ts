@@ -1,4 +1,3 @@
-import { Contact, ContactUpdatePayload } from '../config/types';
 import { ProfileFormData } from './profile.schema';
 
 /**
@@ -6,7 +5,7 @@ import { ProfileFormData } from './profile.schema';
  * @param contact API에서 받은 원본 contact 데이터
  * @returns react-hook-form의 reset() 함수에 사용될 폼 데이터
  */
-export const contactToFormData = (contact: Contact): Partial<ProfileFormData> => {
+export const contactToFormData = (contact: Contact.Contact): Partial<ProfileFormData> => {
   return {
     ...contact,
     profileImage: null,
@@ -41,7 +40,7 @@ export const formDataToPayload = (formData: ProfileFormData) => {
     c => c.description?.trim() !== '' || c.periodStart?.trim() !== '' || c.periodEnd?.trim() !== ''
   ) || [];
 
-  const payload: Omit<ContactUpdatePayload, 'profileImage'> = {
+  const payload: Omit<Contact.ContactUpdatePayload, 'profileImage'> = {
     ...userInfoUpdateDto,
     phoneNumber: formData.phoneNumber ?? '', // null/undefined 방지
     isPhoneNumberVisible: formData.isPhoneNumberVisible ?? false, // null 방지

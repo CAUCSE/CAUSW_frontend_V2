@@ -1,6 +1,6 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { profileSchema, ProfileFormData } from '../profile.schema';
+import { ProfileFormData, profileSchema } from '@/fsd_entities/contact';
 
 export const useProfileForm = () => {
   const methods = useForm<ProfileFormData>({

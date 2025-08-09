@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useGetContactByIdQuery } from '@/fsd_entities/contact';
-import { ContactDetail } from '@/fsd_widgets/contact/ui/ContactDetail';
-import { ContactInfoTabs } from '@/fsd_widgets/contact/ui/ContactInfoTabs';
+import { ContactDetail } from '@/fsd_widgets/contact';
+import { ContactInfoTabs } from '@/fsd_widgets/contact';
 import { PreviousButton } from '@/fsd_shared';
 import { Button } from '@/shadcn/components/ui/button';
 import { Phone, MessageSquare, PhoneOff } from 'lucide-react';

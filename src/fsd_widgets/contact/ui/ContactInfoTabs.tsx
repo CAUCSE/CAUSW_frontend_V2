@@ -1,6 +1,5 @@
 'use client';
 
-import type { Contact, UserCareer } from "@/fsd_entities/contact/config/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/components/ui';
 import React from "react";
 import GithubIcon from '../../../../public/icons/github-icon.svg';
@@ -10,7 +9,7 @@ import NotionIcon from '../../../../public/icons/notion-icon.svg';
 import InstagramIcon from '../../../../public/icons/instagram-icon.svg';
 
 interface ContactInfoTabsProps {
-  contact: Contact;
+  contact: Contact.Contact;
 }
 
 const socialLinks = [
@@ -46,7 +45,7 @@ const socialLinks = [
   },
 ];
 
-const formatPeriod = (career: UserCareer) => {
+const formatPeriod = (career: Contact.UserCareer) => {
   const { startYear, startMonth, endYear, endMonth } = career;
 
   const formattedStart = `${startYear}.${startMonth}`;
@@ -89,7 +88,7 @@ export const ContactInfoTabs = ({ contact }: ContactInfoTabsProps) => {
         <div className="h-85 w-full overflow-y-auto rounded-md border bg-gray-50 p-6">
           <div className="flex flex-col gap-3">
             {socialLinks.map((link) => {
-              const url = contact[link.key as keyof Contact] as string | undefined;
+              const url = contact[link.key as keyof Contact.Contact] as string | undefined;
               if (!url) return null;
 
               return (

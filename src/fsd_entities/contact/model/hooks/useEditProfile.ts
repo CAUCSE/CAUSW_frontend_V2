@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useProfileForm, Contact, useUpdateMyProfileMutation, contactToFormData, formDataToPayload, ProfileFormData } from '@/fsd_entities/contact';
+import { useProfileForm, useUpdateMyProfileMutation, contactToFormData, formDataToPayload, ProfileFormData } from '@/fsd_entities/contact';
 
 const defaultCareerItem = { id: null, description: "", periodStart: "", periodEnd: "" };
 
-export const useEditProfile = (contact: Contact | undefined) => {
+export const useEditProfile = (contact: Contact.Contact | undefined) => {
   const { methods, fields, append, remove } = useProfileForm();
   const { mutate: updateProfile, isPending } = useUpdateMyProfileMutation();
 

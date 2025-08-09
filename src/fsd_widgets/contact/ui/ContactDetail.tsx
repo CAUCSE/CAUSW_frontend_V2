@@ -1,10 +1,9 @@
 'use client';
 
 import { ProfileHeader } from '@/fsd_entities/contact/ui/ProfileHeader';
-import type { Contact } from '@/fsd_entities/contact/config/types';
 
 interface ContactDetailProps {
-  contact: Contact;
+  contact: Contact.Contact;
   actionButtons?: React.ReactNode;
   infoSection?: React.ReactNode;
 }

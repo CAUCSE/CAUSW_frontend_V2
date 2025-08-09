@@ -1,10 +1,9 @@
 import { API } from '@/fsd_shared';
-import type { Contact, PaginatedContactsResponse } from '../config/types';
 
 const USER_INFO_URI = '/api/v1/users-info';
 
 // 일반 전체 조회
-export const getAllContacts = async (pageNum: number): Promise<PaginatedContactsResponse> => {
+export const getAllContacts = async (pageNum: number): Promise<Contact.PaginatedContactsResponse> => {
   const response = await API.get(USER_INFO_URI, { params: { pageNum } });
   return response.data;
 };
@@ -13,12 +12,12 @@ export const getAllContacts = async (pageNum: number): Promise<PaginatedContacts
  * 동문수첩 목록 조회 (검색 기능 포함)
  */
 export const getContacts = async ({
-                                    pageNum = 0,
-                                    keyword,
-                                  }: {
+  pageNum = 0,
+  keyword,
+}: {
   pageNum: number;
   keyword?: string;
-}): Promise<PaginatedContactsResponse> => {
+}): Promise<Contact.PaginatedContactsResponse> => {
   try {
     const response = await API.get(keyword ? `${USER_INFO_URI}/search` : USER_INFO_URI, {
       params: { pageNum, keyword },
@@ -32,7 +31,7 @@ export const getContacts = async ({
 /**
  * 내 프로필 상세 정보 조회
  */
-export const getMyProfile = async (): Promise<Contact> => {
+export const getMyProfile = async (): Promise<Contact.Contact> => {
   try {
     const response = await API.get(`${USER_INFO_URI}/me`);
     return response.data;
@@ -45,7 +44,7 @@ export const getMyProfile = async (): Promise<Contact> => {
  * 다른 사용자 프로필 상세 정보 조회
  * @param userId - 조회할 사용자의 ID
  */
-export const getContactById = async (userId: string): Promise<Contact> => {
+export const getContactById = async (userId: string): Promise<Contact.Contact> => {
   try {
     const response = await API.get(`${USER_INFO_URI}/${userId}`);
     return response.data;

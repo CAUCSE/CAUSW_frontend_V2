@@ -3,7 +3,7 @@ import { FormProvider, Controller } from 'react-hook-form';
 import { Plus, Trash2 } from 'lucide-react';
 
 import { useEditProfile } from '@/fsd_entities/contact';
-import { ProfileFormData, Contact, FormField, MonthPicker, ProfileHeader } from '@/fsd_entities/contact';
+import { ProfileFormData, FormField, MonthPicker, ProfileHeader } from '@/fsd_entities/contact';
 import { ProfileImageUploader } from "@/fsd_shared/ui";
 import { formatPhoneNumber } from '@/fsd_shared';
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
@@ -17,7 +17,7 @@ const socialLinksConfig: { name: keyof ProfileFormData; label: string; placehold
 ];
 
 interface ProfileEditProps {
-  contact: Contact | undefined;
+  contact: Contact.Contact | undefined;
 }
 
 export const ProfileEdit = ({ contact }: ProfileEditProps) => {

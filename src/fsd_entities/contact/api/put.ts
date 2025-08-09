@@ -1,5 +1,4 @@
 import { API } from '@/fsd_shared';
-import type { Contact, ContactUpdatePayload } from '../config/types';
 
 const USER_INFO_URI = '/api/v1/users-info';
 
@@ -10,9 +9,9 @@ export const updateMyProfile = async ({
                                         userInfoUpdateDto,
                                         profileImage,
                                       }: {
-  userInfoUpdateDto: ContactUpdatePayload;
+  userInfoUpdateDto: Contact.ContactUpdatePayload;
   profileImage?: File;
-}): Promise<Contact> => {
+}): Promise<Contact.Contact> => {
   const formData = new FormData();
 
   const dtoBlob = new Blob([JSON.stringify(userInfoUpdateDto)], {
