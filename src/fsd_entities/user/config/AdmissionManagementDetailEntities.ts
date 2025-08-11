@@ -167,19 +167,19 @@ export const convertAdmissionDataToTableEntity = (data: Setting.GetAdmissionResp
   };
 
   return {
-    email,
-    major,
-    name,
-    studentId,
-    leftPayedSemester: `${8 - currentCompletedSemester}차 학기`,
-    admissionYear: admissionYear.toString(),
-    nickname,
-    graduateYearMonth: `${graduationYear}/${+graduationType < 10 ? '0' + graduationType : graduationType}`,
-    academicStatus: academicStatusMap[academicStatus],
-    enrolledSemester: `${currentCompletedSemester}차 학기`,
-    phoneNumber,
-    requestedAt: requestedAt.split('T')[0].replaceAll('-', '.'),
-    evidentImg,
+    email: email ?? '-',
+    major: major ?? '-',
+    name: name ?? '-',
+    studentId: studentId ?? '-',
+    leftPayedSemester: currentCompletedSemester ? `${8 - currentCompletedSemester}차 학기` : '-',
+    admissionYear: admissionYear ? admissionYear.toString() : '-',
+    nickname: nickname ?? '-',
+    graduateYearMonth: `${graduationYear ?? '-'}/${graduationType ? (+graduationType < 10 ? '0' + graduationType : graduationType) : '-'} `,
+    academicStatus: academicStatus ? academicStatusMap[academicStatus] : '-',
+    enrolledSemester: currentCompletedSemester ? `${currentCompletedSemester}차 학기` : '-',
+    phoneNumber: phoneNumber ?? '-',
+    requestedAt: requestedAt ? requestedAt.split('T')[0].replaceAll('-', '.') : '-',
+    evidentImg: evidentImg ?? '-',
   };
 };
 
