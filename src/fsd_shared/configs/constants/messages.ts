@@ -22,4 +22,9 @@ export const MESSAGES = Object.freeze({
     CEREMONY: '경조사',
     YEAR_LIST: '경조사 알림 대상 학번',
   },
+  MANAGEMENT: {
+    PAYERS: '학생회비 관리',
+    ATTENDANCE: '학적 상태 관리',
+    USER: '유저 관리',
+  },
 });
