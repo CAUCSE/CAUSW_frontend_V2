@@ -51,7 +51,7 @@ export const MyRecordList = ({
   }
 
   return (
-    <div className="mt-4 flex flex-1 flex-col gap-4 overflow-y-auto px-[5px] pb-4 pl-5">
+    <div className="xs:px-5 mt-4 flex flex-1 flex-col gap-4 overflow-y-auto px-[5px] pb-4 pl-5">
       {postList?.length === 0 ? (
         <div className="flex h-full w-full items-center justify-center text-2xl">게시글이 없습니다.</div>
       ) : (

@@ -16,7 +16,7 @@ export const PostItem = ({ post, boardId, targetUrl }: PostItemProps) => {
 
   return (
     <div
-      className="flex max-h-44 w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+      className="flex max-h-44 w-full min-w-65 items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
       onClick={() => {
         targetUrl ? router.push(targetUrl) : router.push(`/board/${boardId}/${post.id}`);
       }}
