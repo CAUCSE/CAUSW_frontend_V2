@@ -102,6 +102,8 @@ const SettingsPage = () => {
     occasionManagement: [
       { name: '내 경조사 목록 보기', link: '/ceremony/list' },
       { name: '경조사 관리', link: '/setting/management/ceremony/request' },
+      { name: '내 경조사 신청', link: '/ceremony/create' },
+      { name: '경조사 알림 설정', link: '/ceremony/setting' },
     ],
 
     occasionUserManagement: [{ name: '내 경조사 목록 보기', link: '/ceremony/list' }],
