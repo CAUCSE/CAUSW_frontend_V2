@@ -113,7 +113,7 @@ export const ManagementPanel = ({
               <>{element.userName}</>
             ) : (
               <>
-                {element.userName}({element.studentId})
+                {element.userName}
               </>
             )}
           </Link>
