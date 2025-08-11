@@ -6,9 +6,9 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { roles } from '@/fsd_shared';
 import { createNoticeBoard } from '../../api';
 import { useBoardCreationStore } from '../stores';
+import { ALL_ROLES } from '@/fsd_entities/board/model/hooks';
 
 export const useCreateNoticeBoard = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ export const useCreateNoticeBoard = () => {
     allowAnonymous,
     isAlumni,
     selectedRoleList,
-    resetBoardCreation
+    resetBoardCreation,
   } = useBoardCreationStore(
     useShallow((state) => ({
       boardName: state.boardName,
@@ -31,7 +31,7 @@ export const useCreateNoticeBoard = () => {
   );
 
   const roleList: User.Role[] = selectedRoleList.includes('ALL')
-    ? Object.values(roles).flat()
+    ? ALL_ROLES
     : (selectedRoleList as User.Role[]);
 
   return useMutation({

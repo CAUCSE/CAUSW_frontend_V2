@@ -12,7 +12,7 @@ const getAllRoles = (): User.Role[] => {
   return Array.from(new Set([...rolesFromGroups, ...rolesFromLabels]));
 };
 
-const ALL_ROLES = getAllRoles();
+export const ALL_ROLES = getAllRoles();
 
 export const useSelectRole = () => {
   const { selectedRoleList, setSelectedRoleList } = useBoardCreationStore(
