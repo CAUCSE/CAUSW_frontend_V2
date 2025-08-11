@@ -56,7 +56,7 @@ export const VoteForm = ({ voteData }: VoteFormProps) => {
 
   const canSubmit = methods.formState.isValid;
   const allOptionIds = voteData.options.map((option) => option.id);
-  console.log('voteData', voteData);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">

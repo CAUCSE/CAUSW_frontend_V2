@@ -35,7 +35,6 @@ interface ManagementDetailProp {
 
 export async function AdmissionManagementDetail({ state, admissionId }: ManagementDetailProp) {
   const entities = managementDetailEntities[state];
-  console.log(entities, state);
 
   const { titleSuffix } = entities;
 
@@ -63,8 +62,6 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
 
   let name;
   let studentId;
-
-  console.log(admission, userInfo);
 
   // 가입 신청서 조회도 안되고 유저 정보 조회도 안 될 경우에
   if (!admission && !userInfo) return <div>가입 신청서 조회 실패</div>;
