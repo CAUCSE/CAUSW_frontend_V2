@@ -31,7 +31,7 @@ export const AdminCeremonyList = ({
               className="mb-3 text-lg"
               key={element.id}
             >
-              {element.title}
+              {element.writer} - {element.category}
             </Link>
           ))}
           <div ref={targetRef} className="h-[1px]" />

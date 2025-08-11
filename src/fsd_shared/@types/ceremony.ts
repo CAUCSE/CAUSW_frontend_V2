@@ -11,8 +11,11 @@ declare namespace Ceremony {
   }
   interface CeremonyItem {
     id: string;
-    body: string;
-    title: string;
+    writer: string;
+    category: string;
+    date: string;
+    description: string;
+    createdAt: string;
   }
   interface Ceremony {
     content: Ceremony[];
