@@ -15,7 +15,7 @@ interface BoardHeaderProps {
 
 export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: BoardHeaderProps) => {
   const handleCreatePost = (e: React.MouseEvent) => {
-    if (!isWritable) {
+    if (isWritable !== undefined && !isWritable) {
       e.preventDefault();
       toast.error('게시글 작성 권한이 없습니다.');
       return;
