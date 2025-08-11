@@ -1,8 +1,18 @@
-import { AllowAnonymousToggle, BoardCreateButton, BoardDetailForm, RoleSelectSection } from '@/fsd_entities/board';
+'use client';
 
-import { PreviousButton } from '@/fsd_shared';
+import {
+  AllowAnonymousToggle,
+  BoardCreateButton,
+  BoardDetailForm,
+  RoleSelectSection,
+  AllowAlumniToggle,
+} from '@/fsd_entities/board';
+
+import { PreviousButton, useAuthHandler } from '@/fsd_shared';
 
 export const BoardCreationForm = () => {
+  const { hasAuth } = useAuthHandler();
+
   return (
     <div className="relative top-3 left-4 w-[calc(100%-2rem)] pb-12 md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <header>
@@ -13,6 +23,7 @@ export const BoardCreationForm = () => {
         <BoardDetailForm />
         <RoleSelectSection />
         <AllowAnonymousToggle />
+        {hasAuth && <AllowAlumniToggle />}
       </div>
       <BoardCreateButton />
     </div>
