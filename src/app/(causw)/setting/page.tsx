@@ -4,10 +4,23 @@ import React, { useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-
-import { useMyInfo, userRoleCodes, isAdmin, isPresidents, isVicePresidents, isCircleLeader, isCouncil, isStudentLeader, isAlumniLeader, isStudent, isGraduate } from '@/fsd_entities/user/model';
-import { LoadingComponent } from '@/fsd_shared/ui';
 import { notFound } from 'next/navigation';
+
+import {
+  isAdmin,
+  isAlumniLeader,
+  isCircleLeader,
+  isCouncil,
+  isGraduate,
+  isPresidents,
+  isStudent,
+  isStudentLeader,
+  isVicePresidents,
+  useMyInfo,
+  userRoleCodes,
+} from '@/fsd_entities/user/model';
+
+import { LoadingComponent } from '@/fsd_shared/ui';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,
@@ -16,10 +29,10 @@ const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms
 const SettingsPage = () => {
   const { data: userInfo, isLoading } = useMyInfo();
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
-  
+
   if (isLoading) return <LoadingComponent />;
   if (!userInfo) return notFound();
-  
+
   const roles = userInfo.roles;
   const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles);
 
@@ -86,6 +99,11 @@ const SettingsPage = () => {
 
     boardManagement: [{ name: '게시판 생성 신청 관리', link: '/setting/management/board' }],
 
+    report: [
+      { name: '신고 콘텐츠 목록', link: '/setting/management/report/content' },
+      { name: '신고 유저 관리', link: '/setting/management/report/user' },
+    ],
+
     occasionManagement: [
       { name: '내 경조사 목록 보기', link: '/ceremony/list' },
       { name: '경조사 관리', link: '/setting/management/ceremony/request' },
@@ -113,7 +131,6 @@ const SettingsPage = () => {
   );
 
   const renderMenuItems = () => {
-
     return (
       <>
         {/* 기본 유저들에게 나타나는 UI */}
@@ -172,6 +189,7 @@ const SettingsPage = () => {
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagement} />
             <MenuItem title="게시판 관리" items={menuItems.boardManagement} />
             <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
+            <MenuItem title="신고" items={menuItems.report} />
           </>
         )}
       </>
