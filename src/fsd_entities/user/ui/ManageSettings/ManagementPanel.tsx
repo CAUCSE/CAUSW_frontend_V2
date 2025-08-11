@@ -94,7 +94,7 @@ export const ManagementPanel = ({
 
       <div className="scrollbar-hide mt-3 mb-[-18px] w-full overflow-x-auto md:mb-0">
         <div
-          className={`flex ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-evenly'} flex-row md:mb-1 md:justify-evenly lg:w-full`}
+          className={`flex ${navigation && navigation.length > 5 ? 'mb-5 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-5 w-[600px] justify-between' : 'mb-5 w-full justify-evenly'} flex-row md:mb-1 md:justify-evenly lg:w-full`}
         >
           <Link
             href={firstNavigation.state}
