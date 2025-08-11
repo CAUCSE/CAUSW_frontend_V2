@@ -1,14 +1,21 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
 import { useInfiniteScroll } from '@/fsd_shared';
+import { CeremonyListItem } from '@/fsd_widgets/ceremony';
+
+interface AdminCeremonyListProps extends Ceremony.CeremonyListProps {
+  context?: string; // 선택적 query string 추가
+}
 
 export const AdminCeremonyList = ({
-  list,
-  firstNavigation,
-  navigation,
-  state,
-  loadMore,
-}: Ceremony.CeremonyListProps) => {
+                                    list,
+                                    firstNavigation,
+                                    navigation,
+                                    state,
+                                    loadMore,
+                                    context,
+                                  }: AdminCeremonyListProps) => {
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
       if (entry.isIntersecting && loadMore) {
@@ -18,26 +25,27 @@ export const AdminCeremonyList = ({
   });
 
   return (
-    <div className="mt-6 ml-2 flex flex-col">
+    <div className="mt-4 flex flex-col">
       {list.length > 0 ? (
         <>
-          {list.map((element: Ceremony.CeremonyItem) => (
-            <Link
-              href={
-                (firstNavigation ? firstNavigation.router : navigation?.find((el: any) => el.state === state)?.router) +
-                '/' +
-                element.id
-              }
-              className="mb-3 text-lg"
-              key={element.id}
-            >
-              {element.writer} - {element.category}
-            </Link>
-          ))}
+          {list.map((element: Ceremony.CeremonyItem) => {
+            const basePath =
+              (firstNavigation
+                ? firstNavigation.router
+                : navigation?.find((el: any) => el.state === state)?.router) ?? '';
+            const href = `${basePath}/${element.id}${context ? `?context=${context}` : ''}`;
+            return (
+              <Link href={href} key={element.id}>
+                <CeremonyListItem item={element} />
+              </Link>
+            );
+          })}
           <div ref={targetRef} className="h-[1px]" />
         </>
       ) : (
-        <div>신청된 경조사가 없습니다.</div>
+        <div className="mt-10 text-center text-gray-500">
+          신청된 경조사가 없습니다.
+        </div>
       )}
     </div>
   );

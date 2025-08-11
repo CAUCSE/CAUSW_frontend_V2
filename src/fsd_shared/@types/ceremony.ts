@@ -46,8 +46,8 @@ declare namespace Ceremony {
     empty: boolean;
   }
   interface NavigationItem {
-    name: string;
-    state: string;
+    name?: string;
+    state?: string;
     router: string;
   }
   interface CeremonyRequestManagementProps {
