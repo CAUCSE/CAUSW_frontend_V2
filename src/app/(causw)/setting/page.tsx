@@ -57,6 +57,7 @@ const SettingsPage = () => {
       { name: '내가 쓴 게시글', link: '/setting/my/posts' },
       { name: '내가 쓴 댓글', link: '/setting/my/comments' },
       { name: '내가 찜한 게시글', link: '/setting/my/favorite' },
+      { name: '내 동문수첩', link: '/profile' },
     ],
     managementAlumniPresident: [{ name: '유저 관리', link: '/' }],
     managementAdmin: [

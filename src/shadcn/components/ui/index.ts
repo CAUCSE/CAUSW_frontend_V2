@@ -1,3 +1,8 @@
+export { Input } from '@/shadcn/components/ui/input';
+export { Label } from '@/shadcn/components/ui/label';
+export { Switch } from '@/shadcn/components/ui/switch';
+export { Textarea } from '@/shadcn/components/ui/textarea';
+
 export { Button } from './button';
 export {
   DropdownMenu,
@@ -18,4 +23,4 @@ export {
 } from './dropdown-menu';
 export { Badge } from './badge';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
-export { Switch } from './switch';
+export * from './dialog';

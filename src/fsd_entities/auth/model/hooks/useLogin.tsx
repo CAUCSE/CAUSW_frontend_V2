@@ -3,7 +3,7 @@ import { signin } from "@/fsd_entities/auth/api/post";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { getMyInfo } from "@/fsd_entities/user/api/get";
-import { setRccToken, setRscToken } from "@/fsd_shared";
+import { parseErrorMessage, setRccToken, setRscToken } from "@/fsd_shared";
 
 export const useLogin = () => {
   const router = useRouter();
@@ -28,8 +28,8 @@ export const useLogin = () => {
         }
         toast.success('로그인 성공!');
         },
-    onError: () => {
-      toast.error('로그인 정보가 일치하지 않습니다!');
+    onError: (error: Error.ApiErrorResponse) => {
+      toast.error(parseErrorMessage(error, '로그인 정보가 일치하지 않습니다!'));
     },
   });
   
