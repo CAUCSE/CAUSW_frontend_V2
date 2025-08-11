@@ -11,7 +11,7 @@ interface PostCreationFormButtonGroupProps {
 }
 export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormButtonGroupProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { handleUploadFile } = useUploadFile();
+  const { handleUploadMultipleFiles } = useUploadFile();
 
   const handleFileUploadButtonClick = () => {
     if (fileInputRef.current) {
@@ -20,7 +20,9 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleUploadFile(e);
+    if (e.target.files) {
+      handleUploadMultipleFiles(e);
+    }
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -28,7 +30,14 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
 
   return (
     <div className="flex grow grid-cols-4 justify-center gap-2 py-2 xl:gap-4">
-      <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
+      <input
+        type="file"
+        accept="image/png, image/jpeg, image/jpg"
+        ref={fileInputRef}
+        className="hidden"
+        onChange={handleFileChange}
+        multiple
+      />
       <button
         className={`bg-comment-input flex w-16 items-center justify-center rounded-full md:w-20 md:p-3`}
         onClick={handleFileUploadButtonClick}

@@ -24,7 +24,7 @@ export const UploadFilePreview = () => {
 
   return (
     <div className="border-t-comment-bw border-file-preview-border mt-4 flex h-fit w-full shrink-0 grow gap-4 overflow-x-scroll p-4">
-      {selectedFileList.map((file, index) => (
+      {[...selectedFileList].reverse().map((file, index) => (
         <div key={index} className="relative h-24 w-24 shrink-0 border border-black bg-cover bg-center lg:h-32 lg:w-32">
           {isImageFile(file.name) ? (
             <Image
