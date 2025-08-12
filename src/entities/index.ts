@@ -1,11 +1,6 @@
 export { LoadingComponent } from './layout/LoadingComponent';
 
 
-export { Header } from './header/Header';
-
-export { SubHeader } from './header/SubHeader';
-export { Line } from './header/Line';
-
 
 export { CustomCheckBox } from './board/form/CustomCheckBox';
 export { ObjectiveOption } from './board/form/ObjectiveOption';
