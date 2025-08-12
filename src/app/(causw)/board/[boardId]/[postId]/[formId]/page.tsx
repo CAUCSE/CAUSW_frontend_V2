@@ -4,9 +4,9 @@ import { notFound, useParams } from 'next/navigation';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { LoadingComponent } from '@/fsd_shared';
+import { LoadingComponent, Modal } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
-import { FormService, Modal, useHandleApplySubmit, useResponseFormStore } from '@/shared';
+import { FormService, useHandleApplySubmit, useResponseFormStore } from '@/shared';
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widget';
 
 const ApplyPage = () => {

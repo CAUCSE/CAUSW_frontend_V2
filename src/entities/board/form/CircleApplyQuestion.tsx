@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { IconButton } from '@/shared';
+import { IconButton } from '@/fsd_shared';
 
 import { CircleApplyOption } from './CircleApplyOption';
 
