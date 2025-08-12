@@ -1,4 +1,3 @@
-export { LoadingComponent } from './layout/LoadingComponent';
 
 
 
