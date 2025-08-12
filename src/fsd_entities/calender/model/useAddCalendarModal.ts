@@ -1,9 +1,9 @@
 'use client';
 
 import { useRef, useState } from 'react';
-
 import toast from 'react-hot-toast';
 import { useCreateCalendar } from '@/fsd_entities/calender/api/post';
+import { generateYearList } from '@/fsd_shared';
 
 export const useAddCalendarModal = () => {
   const { mutate: createCalendar } = useCreateCalendar();
@@ -12,33 +12,30 @@ export const useAddCalendarModal = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // TODO 상수화 진행
-  const yearList: number[] = [];
-  for (let i = new Date().getFullYear(); i >= 1972; i--) {
-    yearList.push(i);
-  }
+  const yearList = generateYearList();
 
-  const monthList: number[] = [];
-  for (let i = 1; i <= 12; i++) {
-    monthList.push(i);
-  }
+  const monthList: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
 
   const clickUploadBtn = () => {
-    if (!fileInputRef.current) {
-      return;
-    }
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      return;
+    if (e.target.files && e.target.files[0]) {
+      // 10MB 크기 제한 체크
+      if (e.target.files[0].size > 10 * 1024 * 1024) {
+        toast.error('10MB 이하의 이미지만 업로드할 수 있습니다.');
+        return;
+      }
+      setSelectedImage(e.target.files[0]);
     }
-    setSelectedImage(e.target.files[0]);
   };
 
   const clearSelectedImage = () => {
     setSelectedImage(null);
+    if(fileInputRef.current) {
+      fileInputRef.current.value = ''; // input 값 초기화
+    }
   };
 
   const handleSubmit = () => {
@@ -57,6 +54,8 @@ export const useAddCalendarModal = () => {
     yearList,
     monthList,
     selectedImage,
+    selectedYear,
+    selectedMonth,
     fileInputRef,
     setSelectedYear,
     setSelectedMonth,

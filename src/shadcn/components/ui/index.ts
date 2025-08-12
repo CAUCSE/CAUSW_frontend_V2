@@ -24,3 +24,4 @@ export {
 export { Badge } from './badge';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export * from './dialog';
+export * from './select';

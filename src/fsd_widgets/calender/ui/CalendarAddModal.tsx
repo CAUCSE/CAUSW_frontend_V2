@@ -7,13 +7,16 @@ import { useAddCalendarModal, useCalendarStore } from '@/fsd_entities/calender';
 
 import ImageIcon from '../../../../public/icons/image_icon.svg';
 
-interface AddModalBodyProps {
+// ImageSelectionModalBody 컴포넌트는 변경 없습니다.
+const ImageSelectionModalBody = ({
+                                   clickUploadBtn,
+                                   clearSelectedImage,
+                                   selectedImage,
+                                 }: {
   clickUploadBtn: () => void;
   clearSelectedImage: () => void;
   selectedImage: File | null;
-}
-
-const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedImage }: AddModalBodyProps) => {
+}) => {
   return (
     <>
       {selectedImage ? (
@@ -52,12 +55,15 @@ const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedI
   );
 };
 
+
 export const CalendarAddModal = () => {
   const closeAddModal = useCalendarStore((state) => state.closeAddModal);
   const {
     yearList,
     monthList,
     selectedImage,
+    selectedYear,
+    selectedMonth,
     fileInputRef,
     setSelectedYear,
     setSelectedMonth,
@@ -66,6 +72,7 @@ export const CalendarAddModal = () => {
     handleFileChange,
     handleSubmit,
   } = useAddCalendarModal();
+
   return (
     <PortalModal
       className="mx-4 flex w-full flex-col items-center gap-5 rounded-lg bg-[#F8F9FA] py-8 lg:w-[768px]"
@@ -81,8 +88,24 @@ export const CalendarAddModal = () => {
           selectedImage={selectedImage}
         />
         <div className="flex w-full justify-center gap-4">
-          <CustomSelect<number> itemList={yearList} suffix="년" setSelectValue={setSelectedYear} />
-          <CustomSelect<number> itemList={monthList} suffix="월" setSelectValue={setSelectedMonth} />
+          {/* 👇 여기에 widthClass="w-28"을 명시적으로 추가합니다. */}
+          <CustomSelect
+            itemList={yearList}
+            suffix="년"
+            value={selectedYear}
+            onChange={setSelectedYear}
+            placeholder="년도 선택"
+            widthClass="w-28"
+          />
+          {/* 👇 여기에도 widthClass="w-28"을 명시적으로 추가합니다. */}
+          <CustomSelect
+            itemList={monthList}
+            suffix="월"
+            value={selectedMonth}
+            onChange={setSelectedMonth}
+            placeholder="월 선택"
+            widthClass="w-28"
+          />
         </div>
       </PortalModal.Body>
       <PortalModal.Footer className="flex w-full justify-center gap-8">
