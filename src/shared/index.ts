@@ -54,9 +54,7 @@ export { PortalModal } from './ui/PortalModal';
 
 //Custom Hooks
 
-export { useInfiniteScroll } from './hooks/useInfiniteScroll';
 export { usePreviousValue } from './hooks/usePreviousValue';
-export { useIsWindowLg } from './hooks/useIsWindowLg';
 export { useTruncateParagraph } from './hooks/useTruncateParagraph';
 
 //Posts
