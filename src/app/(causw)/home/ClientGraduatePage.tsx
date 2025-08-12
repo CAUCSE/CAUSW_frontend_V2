@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Banner } from '@/fsd_entities/home';
-
-import { HomeRscService } from '@/shared';
+import { Banner, fetchGraduateHomePosts } from '@/fsd_entities/home';
 
 const boards = [
   { name: '크자회 공지 게시판', icon: '/homeicons/크자회_공지_게시판.svg', href: '/notice' }, // 크자회 공지 게시판 경로 수정 예정
@@ -13,8 +11,7 @@ const boards = [
 ];
 
 export default async function GraduateHomePage({ events }) {
-  const { getGraduateHomePosts } = HomeRscService();
-  const homePosts = await getGraduateHomePosts();
+  const homePosts = await fetchGraduateHomePosts();
 
   // 크자회 공지 게시판
   const noticeBoard = homePosts.find((b) => b.board.name.includes('크자회 공지 게시판'));

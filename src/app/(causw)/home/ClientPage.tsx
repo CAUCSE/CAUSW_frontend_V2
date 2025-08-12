@@ -2,9 +2,7 @@ import Link from 'next/link';
 
 import { Calendar } from '@/fsd_widgets/calender';
 
-import { Banner, CardBox, HomeCard } from '@/fsd_entities/home';
-
-import { HomeRscService } from '@/shared';
+import { Banner, CardBox, HomeCard, fetchHomePosts } from '@/fsd_entities/home';
 
 const cardsEntities = [
   {
@@ -31,8 +29,7 @@ const cardsEntities = [
 ];
 
 export default async function ClientHomePage({ events }) {
-  const { getHomePosts } = HomeRscService();
-  const homePosts = await getHomePosts();
+  const homePosts = await fetchHomePosts();
 
   const mainBoards = [
     homePosts.find((board) => board.board.name.includes('서비스 공지')),
