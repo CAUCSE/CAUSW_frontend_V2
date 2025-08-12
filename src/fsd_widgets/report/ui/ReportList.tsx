@@ -4,9 +4,9 @@ import { useSearchParams } from 'next/navigation';
 
 import { useReportedList } from '@/fsd_entities/report';
 
-import ReportCard from './ReportCard';
+import { ReportCard } from './ReportCard';
 
-export default function ReportList() {
+export function ReportList() {
   const type = (useSearchParams().get('type') ?? 'post') as 'post' | 'comment';
   const { data, isLoading, isError } = useReportedList(type);
 

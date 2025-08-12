@@ -3,7 +3,7 @@ import { ReportedItem } from '@/fsd_entities/report';
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
-export default function ReportCard({ item }: { item: ReportedItem }) {
+export function ReportCard({ item }: { item: ReportedItem }) {
   const leftTop = item.kind === 'post' ? item.title : item.content;
   const rightTop = item.kind === 'post' ? item.boardName : item.parentPostTitle;
 
