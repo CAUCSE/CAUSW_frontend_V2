@@ -6,6 +6,8 @@ import Image from 'next/image';
 
 import { FieldValues, Path, UseFormSetValue } from 'react-hook-form';
 
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+
 import { ImageModal } from './ImageModal';
 
 interface Props<T extends FieldValues> {
@@ -76,7 +78,7 @@ export const ImageUploadField = <T extends FieldValues>({
       <div className="flex items-center gap-4 overflow-x-auto">
         <label className="flex h-28 min-h-28 w-28 min-w-28 shrink-0 cursor-pointer items-center justify-center rounded-lg border-2 border-gray-300 bg-white transition hover:bg-gray-50">
           <span className="text-6xl text-gray-400">+</span>
-          <input type="file" accept="image/*" multiple onChange={handleChange} className="hidden" />
+          <input type="file" accept={ACCEPTED_IMAGE_TYPES} multiple onChange={handleChange} className="hidden" />
         </label>
 
         {[...previews]

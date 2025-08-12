@@ -4,8 +4,13 @@
  * ProfileEditForm.tsx
  * - "환경설정"-"개인정보 관리"-정보 수정 가능 영역
  */
-import { UseFormRegister } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+
+import { UseFormRegister } from 'react-hook-form';
+
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+
+import { MESSAGES } from '@/fsd_shared';
 
 interface ProfileEditFormProps {
   profileImagePreview: string;
@@ -37,6 +42,8 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
         alt="프로필"
         className="mb-4 h-32 w-32 rounded-full object-cover lg:h-32 lg:w-32"
       />
+      <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
+
       <label
         htmlFor="profileImage"
         className="text-black-500 bg-focus flex w-32 cursor-pointer justify-center rounded-3xl p-3 text-sm text-white hover:bg-blue-400 lg:w-40"
@@ -47,7 +54,7 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
         type="file"
         id="profileImage"
         className="hidden"
-        accept="image/*"
+        accept={ACCEPTED_IMAGE_TYPES}
         {...register('profileImage')}
         onChange={handleProfileImageChange}
       />
@@ -58,16 +65,16 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
           <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">닉네임</label>
           <input
             type="text"
-            {...register('nickname', { 
+            {...register('nickname', {
               required: '닉네임을 입력해주세요.',
               minLength: {
                 value: 1,
-                message: '닉네임은 1글자 이상 입력해주세요.'
+                message: '닉네임은 1글자 이상 입력해주세요.',
               },
               maxLength: {
                 value: 16,
-                message: '닉네임은 16글자 이내로 입력해주세요.'
-              }
+                message: '닉네임은 16글자 이내로 입력해주세요.',
+              },
             })}
             onBlur={handleNicknameBlur}
             className="w-full rounded-md border border-gray-300 p-2 lg:w-5/6"

@@ -25,7 +25,9 @@ const ManagementDetailInfoTable = dynamic(
     ssr: false,
   },
 );
-
+const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+  ssr: false,
+});
 interface ManagementDetailProp {
   state: ManagementState;
   admissionId: string;
@@ -33,7 +35,6 @@ interface ManagementDetailProp {
 
 export async function AdmissionManagementDetail({ state, admissionId }: ManagementDetailProp) {
   const entities = managementDetailEntities[state];
-  console.log(entities, state);
 
   const { titleSuffix } = entities;
 
@@ -62,8 +63,6 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
   let name;
   let studentId;
 
-  console.log(admission, userInfo);
-
   // 가입 신청서 조회도 안되고 유저 정보 조회도 안 될 경우에
   if (!admission && !userInfo) return <div>가입 신청서 조회 실패</div>;
   if (admission && !userInfo) {
@@ -76,7 +75,8 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-8">
-      <p className="mt-8 text-[18px] font-semibold lg:text-[25px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
+      <PreviousButton className="mr-auto" />
+      <p className="text-[18px] font-semibold lg:text-[25px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
       {admission && (
         <>
           <ManagementDetailInfoTable data={convertAdmissionDataToTableEntity(admission)} titleMapping={titleMapping} />

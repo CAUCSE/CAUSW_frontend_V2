@@ -6,7 +6,7 @@ import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 const MyPostsPage = () => {
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyPosts();
   return (
-    <div className="h-full w-full">
+    <div className="flex h-full w-full flex-col">
       <MyRecordHeader pageName="내가 쓴 게시글" />
       <MyRecordList
         data={data!}

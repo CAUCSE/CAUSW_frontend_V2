@@ -11,7 +11,7 @@ export const ExcelExportButton = ({ exportType, id }: { exportType: Setting.Expo
       onClick={() => {
         getExcelFile(exportType, id);
       }}
-      className="absolute right-0 flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg md:top-2"
+      className="flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg"
     >
       Excel Export
     </div>

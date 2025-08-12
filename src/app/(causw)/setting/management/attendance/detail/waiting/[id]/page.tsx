@@ -76,7 +76,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         </div>
 
         <SubHeader bold big>
-          본 학기 등록 완료 하기 차수
+          본 학기 등록 완료 학기 차수
         </SubHeader>
         <div>{data?.targetCompletedSemester + ''}차 학기</div>
 

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 
 import { ApplicationFormToggle, useUploadFile, VoteToggle } from '@/fsd_entities/post';
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
 
 import ImageIcon from '../../../../../public/images/post/camera.svg';
 
@@ -11,7 +12,7 @@ interface PostCreationFormButtonGroupProps {
 }
 export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormButtonGroupProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { handleUploadFile } = useUploadFile();
+  const { handleUploadMultipleFiles } = useUploadFile();
 
   const handleFileUploadButtonClick = () => {
     if (fileInputRef.current) {
@@ -20,7 +21,9 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleUploadFile(e);
+    if (e.target.files) {
+      handleUploadMultipleFiles(e);
+    }
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -28,7 +31,14 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
 
   return (
     <div className="flex grow grid-cols-4 justify-center gap-2 py-2 xl:gap-4">
-      <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
+      <input
+        type="file"
+        accept={ACCEPTED_IMAGE_TYPES}
+        ref={fileInputRef}
+        className="hidden"
+        onChange={handleFileChange}
+        multiple
+      />
       <button
         className={`bg-comment-input flex w-16 items-center justify-center rounded-full md:w-20 md:p-3`}
         onClick={handleFileUploadButtonClick}

@@ -18,7 +18,6 @@ export const ResetPasswordForm = () => {
 
   return (
     <div className="flex h-screen w-full min-w-80 flex-col rounded-md p-2">
-      <PreviousButton routeCallback={() => router.back()} />
       <div className="flex h-full w-full min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-8">
         <form
           onSubmit={handleSubmit(onSubmit, onInvalid)}

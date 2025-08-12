@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 
-import { CustomSelect, PortalModal } from '@/fsd_shared';
 import { useAddCalendarModal, useCalendarStore } from '@/fsd_entities/calender';
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+
+import { CustomSelect, MESSAGES, PortalModal } from '@/fsd_shared';
 
 import ImageIcon from '../../../../public/icons/image_icon.svg';
 
@@ -45,6 +47,7 @@ const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedI
               캘린더 업로드
             </button>
             <p className="mt-4 text-xs text-[#B4B1B1]">10MB 이하의 이미지만 업로드할 수 있습니다.</p>
+            <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
           </div>
         </div>
       )}
@@ -100,7 +103,7 @@ export const CalendarAddModal = () => {
         </button>
         <input
           type="file"
-          accept="image/gif, image/jpeg, image/png"
+          accept={ACCEPTED_IMAGE_TYPES}
           className="hidden"
           onChange={handleFileChange}
           ref={fileInputRef}

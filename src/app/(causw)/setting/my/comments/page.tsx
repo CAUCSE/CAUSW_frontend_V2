@@ -6,7 +6,7 @@ import { MyRecordHeader, MyRecordList } from '@/fsd_entities/user/ui';
 const MyCommentsPage = () => {
   const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyCommentPosts();
   return (
-    <div className="h-full w-full">
+    <div className="flex h-full w-full flex-col">
       <MyRecordHeader pageName="내가 쓴 댓글" />
       <MyRecordList
         data={data!}

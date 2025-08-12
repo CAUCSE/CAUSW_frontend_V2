@@ -28,7 +28,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
   };
 
   // 이미지 다운로드
-  const downloadImage = () => {
+  const downloadImage = async () => {
     const imageUrl = images[currentIndex];
     const link = document.createElement('a');
     link.href = imageUrl;
@@ -37,6 +37,33 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
     link.click();
     document.body.removeChild(link);
   };
+
+  // cors 설정 완료되면 이미지 다운로드 로직 변경 예정 (보류)
+  // const downloadImages = async () => {
+  //   const imageUrl = images[currentIndex];
+  //   console.log('Downloading image:', imageUrl);
+
+  //   try {
+  //     const res = await fetch(imageUrl, { mode: 'cors' });
+
+  //     if (!res.ok) throw new Error('Network response was not ok');
+
+  //     const blob = await res.blob();
+  //     const url = URL.createObjectURL(blob);
+
+  //     const a = document.createElement('a');
+  //     a.href = url;
+  //     a.download = `image_${currentIndex + 1}.jpg`;
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     a.remove();
+
+  //     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  //   } catch (error) {
+  //     console.error('Download failed', error);
+  //     alert('파일 다운로드에 실패했습니다.');
+  //   }
+  // };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">

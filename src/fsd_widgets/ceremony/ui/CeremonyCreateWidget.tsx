@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { useCeremonyCreateForm, useCeremonySettingForm } from '@/fsd_entities/ceremony';
 
-import { ImageUploadField, InputBox, SelectBox } from '@/fsd_shared';
+import { ImageUploadField, InputBox, MESSAGES, SelectBox } from '@/fsd_shared';
 import { Button } from '@/shadcn/components/ui';
 import { formatDateInput } from '@/utils';
 
@@ -103,8 +103,9 @@ export const CeremonyCreateWidget = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col">
           <p className="text-xl font-medium">사진 등록</p>
+          <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
           <ImageUploadField
             name="imageFileList"
             setValue={methods.setValue}
