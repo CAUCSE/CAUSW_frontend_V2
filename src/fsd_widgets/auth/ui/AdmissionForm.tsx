@@ -8,7 +8,7 @@ import {
   useAdmissionForm,
 } from '@/fsd_entities/auth';
 
-import { ImageUploadField, PreviousButton } from '@/fsd_shared';
+import { ImageUploadField, MESSAGES, PreviousButton } from '@/fsd_shared';
 
 export const AdmissionForm = () => {
   const { register, handleSubmit, errors, onSubmit, onInvalid, setValue, email } = useAdmissionForm();
@@ -38,7 +38,7 @@ export const AdmissionForm = () => {
         maxFiles={1}
       >
         <p className="text-md text-error mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
-        <p className="mb-2 text-sm text-gray-400">jpg, jpeg, png 형식의 파일만 업로드할 수 있습니다</p>
+        <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
       </ImageUploadField>
       <AuthFormSubmitButton content="제출" />
     </form>

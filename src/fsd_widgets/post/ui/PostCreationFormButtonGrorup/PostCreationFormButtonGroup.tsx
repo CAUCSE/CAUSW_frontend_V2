@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 
 import { ApplicationFormToggle, useUploadFile, VoteToggle } from '@/fsd_entities/post';
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
 
 import ImageIcon from '../../../../../public/images/post/camera.svg';
 
@@ -32,7 +33,7 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
     <div className="flex grow grid-cols-4 justify-center gap-2 py-2 xl:gap-4">
       <input
         type="file"
-        accept="image/png, image/jpeg, image/jpg"
+        accept={ACCEPTED_IMAGE_TYPES}
         ref={fileInputRef}
         className="hidden"
         onChange={handleFileChange}

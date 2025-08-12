@@ -27,4 +27,5 @@ export const MESSAGES = Object.freeze({
     ATTENDANCE: '학적 상태 관리',
     USER: '유저 관리',
   },
+  FILE_TYPE_INFO: 'jpg, jpeg, png 형식의 파일만 업로드할 수 있습니다',
 });
