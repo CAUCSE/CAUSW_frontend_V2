@@ -73,14 +73,3 @@ export { useHandleApplySubmit } from './hooks/posts/form/useHandleApplySubmit';
 export { useFormResultPagination } from './hooks/posts/form/useFormResultPagination';
 export { useFormDetailResult } from './hooks/posts/form/useFormDetailResult';
 
-//Locker
-export { useSelectLocker } from './hooks/lockers/useSelectLocker';
-export { useRegisterLocker } from './hooks/lockers/useRegisterLocker';
-export { useReturnLocker } from './hooks/lockers/useReturnLocker';
-export { useExtendLocker } from './hooks/lockers/useExtendLocker';
-
-//Calendar
-
-
-// Banner
-export { useEditBanner } from './hooks/banner/useEditBanner';
