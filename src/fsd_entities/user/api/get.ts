@@ -152,6 +152,16 @@ export const getMyCouncilFeeInfo = async () => {
 // ssr api method.
 ////////////////////////////////////////////////////////////////
 
+export const fetchMyInfo = async (): Promise<User.User> => {
+  try {
+    const headers = await setRscHeader();
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, { headers: headers }).then((res) => res.json())) as User.User;
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getMyRoles = async () => {
   try {
     const headers = await setRscHeader();
