@@ -35,8 +35,10 @@ export const AdmissionForm = () => {
         name="attachImage"
         label="증빙 서류 업로드"
         errorMessage={errors.attachImage?.message}
+        maxFiles={1}
       >
         <p className="text-md text-error mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
+        <p className="mb-2 text-sm text-gray-400">jpg, jpeg, png 형식의 파일만 업로드할 수 있습니다</p>
       </ImageUploadField>
       <AuthFormSubmitButton content="제출" />
     </form>
