@@ -4,11 +4,11 @@ import { useParams } from 'next/navigation';
 
 import {
   FormSummaryResultQuestionHeader,
-  LoadingComponent,
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
 } from '@/entities';
 import { FormService, useFormResultStore } from '@/shared';
+import { LoadingComponent } from '@/fsd_shared';
 
 export const FormSummaryResult = () => {
   const params = useParams();
