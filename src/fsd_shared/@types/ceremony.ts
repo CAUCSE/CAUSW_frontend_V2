@@ -11,8 +11,11 @@ declare namespace Ceremony {
   }
   interface CeremonyItem {
     id: string;
-    body: string;
-    title: string;
+    writer: string;
+    category: string;
+    date: string;
+    description: string;
+    createdAt: string;
   }
   interface Ceremony {
     content: Ceremony[];
@@ -43,8 +46,8 @@ declare namespace Ceremony {
     empty: boolean;
   }
   interface NavigationItem {
-    name: string;
-    state: string;
+    name?: string;
+    state?: string;
     router: string;
   }
   interface CeremonyRequestManagementProps {

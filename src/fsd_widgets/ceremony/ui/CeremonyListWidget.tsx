@@ -2,11 +2,8 @@
 
 import { useState } from 'react';
 
-import { CeremonyTabs } from '@/fsd_widgets/ceremony';
-
+import { AdminCeremonyList, CeremonyTabs } from '@/fsd_widgets/ceremony';
 import { useCeremonyListQuery } from '@/fsd_entities/notification';
-
-import { ListBox } from '@/fsd_shared';
 
 import { tabItems } from '../config';
 
@@ -14,21 +11,31 @@ export const CeremonyListWidget = () => {
   const [activeTab, setActiveTab] = useState(0);
   const ceremonyState = tabItems[activeTab].key;
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCeremonyListQuery(ceremonyState);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useCeremonyListQuery(ceremonyState);
 
-  const items: Ceremony.ListBoxItem[] = (data ?? []).map((item) => ({
+  const items: Ceremony.CeremonyItem[] = (data ?? []).map((item) => ({
     id: item.id,
-    title: item.title,
-    body: item.body,
+    writer: item.writer,
+    category: item.category,
+    date: item.date,
+    description: item.description,
+    createdAt: item.createdAt,
   }));
 
   return (
     <div className="w-full">
-      <CeremonyTabs tabItems={tabItems} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <CeremonyTabs
+        tabItems={tabItems}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
       <div className="mt-4">
-        <ListBox
+        <AdminCeremonyList
+          list={items}
+          firstNavigation={{ router: '/ceremony' }}
+          state={ceremonyState}
           context="my"
-          data={items}
           loadMore={() => {
             if (hasNextPage && !isFetchingNextPage) {
               fetchNextPage();
