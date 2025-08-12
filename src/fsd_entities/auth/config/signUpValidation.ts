@@ -1,6 +1,6 @@
 import { RegisterOptions } from 'react-hook-form';
 
-import { checkEmailDuplicate, checkNicknameDuplicate, checkStudentIdDuplicate } from '../api/get';
+import { checkEmailDuplicate, checkNicknameDuplicate, checkPhoneNumberDuplicate, checkStudentIdDuplicate } from '../api/get';
 
 export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOptions<User.SignUpForm>> = {
   email: {
@@ -57,10 +57,10 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     required: '약관에 동의해주세요.',
   },
   phoneNumber: {
-    required: '휴대폰 번호를 입력해주세요.',
-    pattern: {
-      value: /^\d{3}-\d{3,4}-\d{4}$/,
-      message: 'ex) 010-1234-5678 형식으로 입력해주세요.',
+    validate: async (value) => {
+      if (!value) return '휴대폰 번호를 입력해주세요.';
+      if (typeof value !== 'string' || !/^\d{3}-\d{3,4}-\d{4}$/.test(value)) return 'ex) 010-1234-5678 형식으로 입력해주세요.';
+      return !(await checkPhoneNumberDuplicate(value)) || '이미 사용 중인 휴대폰 번호입니다.';
     },
   },
   agreeToPopup: {
