@@ -35,8 +35,7 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
   studentId: {
     validate: async (value) => {
       if (!value) return true;
-      if (typeof value !== 'string') return '학번은 문자열이어야 합니다.';
-      if (!/^[0-9]{8}$/.test(value)) return '학번은 8자리 숫자여야 합니다.';
+      if (typeof value !== 'string' || !/^\d+$/.test(value)) return '학번은 숫자여야 합니다.';
       return !(await checkStudentIdDuplicate(value)) || '이미 사용 중인 학번입니다다.';
     },
   },
