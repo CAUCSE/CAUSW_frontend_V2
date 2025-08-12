@@ -37,8 +37,6 @@ export { useFileUpload } from './hooks/stores/post/create/useFileUpload';
 export { useFileUploadStore } from './hooks/stores/post/create/useFileUploadStore';
 export { useResponseFormStore } from './hooks/stores/post/form/useResponseFormStore';
 export { useFormResultStore } from './hooks/stores/post/form/useFormResultStore';
-export { useLockerSelectionStore } from './hooks/stores/locker/useLockerSelectionStore';
-export { useBannerStore } from './hooks/stores/banner/useBannerStore';
 
 //Listener
 export { WindowSizeListener } from './listener/WindowSizeListener';
