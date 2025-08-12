@@ -1,7 +1,7 @@
 'use client';
 import '@/firebase-messaging-sw';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -30,7 +30,6 @@ const SignInPage = () => {
   const router = useRouter();
   const login = useLogin();
 
-  const [enterEmail, setEnterEmail] = useState<boolean>(false);
 
   const { register, handleSubmit, control } = useForm<User.SignInRequestDto>({
     defaultValues: {
@@ -41,9 +40,8 @@ const SignInPage = () => {
   });
 
   const onSubmit = (data: User.SignInRequestDto) => {
-    if (!enterEmail) {
-      if (emailRegex.test(data.email)) setEnterEmail(true);
-      else toast.error('이메일을 올바른 형식으로 입력해주세요!');
+    if (!emailRegex.test(data.email)) {
+      toast.error('이메일을 올바른 형식으로 입력해주세요!');
       return;
     }
 
@@ -77,17 +75,11 @@ const SignInPage = () => {
             />
           </div>{' '}
           <div
-            onClick={() => {
-              setEnterEmail(false);
-            }}
             className="font-pretendard text-xs font-normal sm:text-2xl sm:font-medium"
           >
             함께라면 더 밝은 미래로, 우리들의
           </div>
           <div
-            onClick={() => {
-              setEnterEmail(false);
-            }}
             className="font-pretendard mb-2 text-center text-sm font-bold tracking-widest sm:mt-[-4px] sm:text-[26px]"
           >
             동문네트워크
