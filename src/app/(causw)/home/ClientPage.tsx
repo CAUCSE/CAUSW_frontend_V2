@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Calendar } from '@/fsd_widgets/calender';
 
-import { Banner, CardBox, HomeCard } from '@/entities/home';
+import { Banner, CardBox, HomeCard } from '@/fsd_entities/home';
 
 import { HomeRscService } from '@/shared';
 

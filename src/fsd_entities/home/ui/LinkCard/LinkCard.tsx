@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { CardBox } from './CardBox';
+import { CardBox } from '../CardBox';
 
 interface CardProps {
   title: string;

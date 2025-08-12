@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { CardBox } from './CardBox';
+import { CardBox } from '../CardBox';
 
 export interface HomeCardProps {
   title: string;
