@@ -2,7 +2,8 @@
 
 import { useParams } from 'next/navigation';
 
-import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, LoadingComponent, SummaryToggleBtn } from '@/entities';
+import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities';
+import { LoadingComponent } from '@/fsd_shared';
 import { FormService, useFormResultStore } from '@/shared';
 
 export const FormResultHeader = () => {

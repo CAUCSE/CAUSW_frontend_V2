@@ -6,7 +6,7 @@
  */
 import dynamic from 'next/dynamic';
 
-import { useInfiniteScroll } from '@/fsd_shared';
+import { LoadingComponent, useInfiniteScroll } from '@/fsd_shared';
 
 interface MyRecordListProps {
   data: Post.PostResponseDto[];
