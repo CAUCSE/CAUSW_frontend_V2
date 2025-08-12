@@ -105,7 +105,7 @@ export const CommentInput = ({ postId }: CommentInputProps) => {
             checked={isAnonymous}
             onChange={(e) => setIsAnonymous(e.target.checked)}
           />
-          <div className="text-base text-gray-400">익명</div>
+          <div className="text-base text-gray-400 text-nowrap">익명</div>
         </label>
         <input
           type="text"
