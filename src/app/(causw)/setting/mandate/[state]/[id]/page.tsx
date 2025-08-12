@@ -11,7 +11,7 @@ import { getUserByName } from '@/fsd_entities/user/api';
 import { updateRole } from '@/fsd_entities/user/api';
 import { userRoleCodes } from '@/fsd_entities/user/model';
 
-import { Header, Line, SubHeader } from '@/entities';
+import { Header, Line, SubHeader } from '@/fsd_shared';
 
 interface IFormInput {
   searchContent: string;
