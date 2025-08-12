@@ -1,29 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-
 import { createPortal } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
-
-import { CustomSelect } from '@/fsd_shared';
 import { useCalendarStore } from '@/fsd_entities/calender';
 import { CalendarAddModal } from '@/fsd_widgets/calender';
+import { CustomSelect, generateYearList } from '@/fsd_shared';
 
 import AddIcon from '../../../../public/icons/add_icon.svg';
 
 export const CalendarListHeader = () => {
-  const { setCalendarYear, isAddModalOpen, openAddModal } = useCalendarStore(
+  const { calendarYear, setCalendarYear, isAddModalOpen, openAddModal } = useCalendarStore(
     useShallow((state) => ({
+      calendarYear: state.calendarYear,
       setCalendarYear: state.setCalendarYear,
       isAddModalOpen: state.isAddModalOpen,
       openAddModal: state.openAddModal,
     })),
   );
 
-  const yearList: number[] = [];
-  for (let i = new Date().getFullYear(); i >= 1972; i--) {
-    yearList.push(i);
-  }
+  const yearList = generateYearList();
 
   return (
     <>
@@ -41,18 +37,26 @@ export const CalendarListHeader = () => {
             <AddIcon />
           </button>
         </div>
-        <CustomSelect<number> itemList={yearList} suffix="년" setSelectValue={setCalendarYear} />
-        <>
-          {createPortal(
+        {/* 👇 widthClass prop을 사용하여 너비를 w-36으로 지정 */}
+        <CustomSelect
+          itemList={yearList}
+          suffix="년"
+          value={calendarYear}
+          onChange={setCalendarYear}
+          placeholder="년도 선택"
+          widthClass="w-36"
+        />
+        {typeof document !== 'undefined' &&
+          document.body &&
+          createPortal(
             <button
-              className="fixed right-14 bottom-28 h-12 w-12 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF] md:hidden"
+              className="fixed right-6 bottom-24 h-16 w-16 transform rounded-[50px] bg-[#7AB6C1] px-6 py-3 text-3xl font-normal text-white shadow-lg hover:bg-[#5F8E97] xl:right-80 xl:bottom-10 xl:h-24 xl:w-24 md:hidden"
               onClick={openAddModal}
             >
-              <AddIcon />
+              +
             </button>,
             document.body,
           )}
-        </>
       </header>
       {isAddModalOpen && <CalendarAddModal />}
     </>

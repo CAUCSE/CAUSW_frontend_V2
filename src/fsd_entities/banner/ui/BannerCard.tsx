@@ -60,12 +60,12 @@ export const BannerCard = ({
           width={1100}
           className="h-[150px] w-full rounded-t-2xl object-cover"
         />
-        <div className="flex items-center gap-2 py-3 pl-4 text-sm text-gray-500 md:text-base">
-          <LinkIcon />
-          <p className="">{url}</p>
+        <div className="flex min-w-0 items-center gap-2 py-3 pl-4 text-sm text-gray-500 md:text-base pr-2">
+          <LinkIcon className="flex-shrink-0" />
+          <p className="flex-1 break-all line-clamp-2">{url}</p>
         </div>
         <button
-          className="absolute top-2 right-2 h-8 w-8 place-items-center rounded-full border border-[#A0A0A0] bg-white text-[#A0A0A0] hover:bg-red-500 hover:text-white"
+          className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full border border-[#A0A0A0] bg-white text-[#A0A0A0] hover:bg-red-500 hover:text-white"
           onClick={handleDeleteEvent}
         >
           <DeleteIcon />
@@ -74,3 +74,4 @@ export const BannerCard = ({
     </div>
   );
 };
+
