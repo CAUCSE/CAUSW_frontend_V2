@@ -21,12 +21,14 @@ import {
 } from '@/fsd_entities/user/model';
 
 import { LoadingComponent } from '@/fsd_shared/ui';
+import { tokenManager } from '@/fsd_shared';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,
 });
 
 const SettingsPage = () => {
+  const { signoutAndRedirect } = tokenManager();
   const { data: userInfo, isLoading } = useMyInfo();
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
 
@@ -63,7 +65,7 @@ const SettingsPage = () => {
     account: [
       { name: '개인정보 관리', link: '/setting/personal-info' },
       { name: '비밀번호 변경', link: '/setting/resetpassword' },
-      { name: '로그아웃', link: '/auth/signin' },
+      { name: '로그아웃', onClick: signoutAndRedirect },
       { name: '이용약관', onClick: () => setIsUseTermsOpen(true) },
     ],
     records: [
