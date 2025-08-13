@@ -121,3 +121,15 @@ export const rejectAdmission = async (userId: string, rejectReason: string) => {
   if (!response.ok) throw new Error(response.statusText);
   return true;
 };
+
+// 사용자 추방
+const URI = '/api/v1/users';
+
+export const dropUser = async (userId: string, reason: string) => {
+  const res = await API.put<void>(`${URI}/${userId}/drop`, reason, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return res.data;
+};
