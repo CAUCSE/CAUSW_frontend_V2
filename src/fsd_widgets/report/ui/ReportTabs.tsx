@@ -23,7 +23,7 @@ export const ReportTabs = () => {
   return (
     <div className="border-b border-gray-200">
       <Tabs value={activeType} onValueChange={onChangeTab}>
-        <TabsList className="flex w-full gap-4 px-4 pb-2">
+        <TabsList className="flex w-full gap-2 px-4 pb-2 md:gap-4">
           {TABS_CONFIG.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>
               {tab.label}

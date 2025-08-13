@@ -12,7 +12,7 @@ export function ReportWidget() {
 
   return (
     <QueryClientProvider client={client}>
-      <div className="min-h-screen">
+      <div className="min-h-screen max-w-md">
         <ReportTabs />
         <ReportList />
       </div>
