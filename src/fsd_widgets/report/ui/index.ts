@@ -1,4 +1,4 @@
-export { ReportHeader } from './ReportHeader';
+export { ReportWidget } from './ReportWidget';
 export { ReportTabs } from './ReportTabs';
 export { ReportList } from './ReportList';
 export { ReportReasonDialog } from './ReportReasonDialog';

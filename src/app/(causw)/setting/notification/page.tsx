@@ -87,7 +87,7 @@ const Notification = () => {
       <PreviousButton className="mb-8" />
 
       <div className="flex flex-row items-center justify-between">
-        <div className="text-2xl font-medium md:text-3xl">
+        <div className="px-4 text-xl font-medium md:text-3xl">
           {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
         </div>
         {activeTab === NOTIFICATION_TAB.CEREMONY && (
