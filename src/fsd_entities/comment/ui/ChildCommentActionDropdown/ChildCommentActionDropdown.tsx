@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 
 import { ReportReasonDialog } from '@/fsd_widgets/report';
 
+import { getUserRole } from '@/fsd_entities/user';
+
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
 
@@ -24,6 +26,7 @@ interface ChildCommentActionDropdownProps {
 
 export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentActionDropdownProps) => {
   const queryClient = useQueryClient();
+  const isAdmin = getUserRole(['ADMIN']);
   const { postId } = useParams() as { postId: string };
 
   const { mutate: deleteChildComment } = useDeleteChildComment();
@@ -68,7 +71,7 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {isOwner && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
+        {(isOwner || isAdmin) && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
         {!isOwner && <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>}
       </DropdownMenuContent>
 

@@ -13,6 +13,7 @@ import { ReportReasonDialog } from '@/fsd_widgets/report';
 
 import { commentQueryKey } from '@/fsd_entities/comment/config';
 import { useDeleteComment, useSubscribeComment, useUnsubscribeComment } from '@/fsd_entities/comment/model';
+import { getUserRole } from '@/fsd_entities/user';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
@@ -25,6 +26,7 @@ interface CommentActionDropdownProps {
 
 export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed }: CommentActionDropdownProps) => {
   const queryClient = useQueryClient();
+  const isAdmin = getUserRole(['ADMIN']);
   const { postId } = useParams() as { postId: string };
   const { mutate: deleteComment } = useDeleteComment();
   const { mutate: unsubscribeComment } = useUnsubscribeComment();
@@ -101,7 +103,7 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {isOwner && <DropdownMenuItem onClick={handleDeleteComment}>댓글 삭제</DropdownMenuItem>}
+          {(isOwner || isAdmin) && <DropdownMenuItem onClick={handleDeleteComment}>댓글 삭제</DropdownMenuItem>}
           {isCommentSubscribed ? (
             <DropdownMenuItem onClick={handleUnsubscribeComment}>댓글 알림 해제</DropdownMenuItem>
           ) : (

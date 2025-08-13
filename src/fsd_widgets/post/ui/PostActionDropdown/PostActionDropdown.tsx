@@ -9,6 +9,7 @@ import { EllipsisVertical } from 'lucide-react';
 import { ReportReasonDialog } from '@/fsd_widgets/report';
 
 import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/fsd_entities/post';
+import { getUserRole } from '@/fsd_entities/user';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
@@ -30,6 +31,7 @@ export const PostActionDropdown = ({
 }: PostActionDropdownProps) => {
   const router = useRouter();
   const pathname = usePathname();
+  const isAdmin = getUserRole(['ADMIN']);
 
   const { mutate: deletePost } = useDeletePost();
   const { mutate: unsubscribePost } = useUnsubscribePost();
@@ -63,8 +65,8 @@ export const PostActionDropdown = ({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          {/* 글 삭제: 작성자만 */}
-          {isOwner && <DropdownMenuItem onClick={() => deletePost({ postId })}>삭제하기</DropdownMenuItem>}
+          {/* 글 삭제: 작성자와 관리자 */}
+          {(isOwner || isAdmin) && <DropdownMenuItem onClick={() => deletePost({ postId })}>삭제하기</DropdownMenuItem>}
 
           {/* 알림 on/off */}
           <DropdownMenuItem
