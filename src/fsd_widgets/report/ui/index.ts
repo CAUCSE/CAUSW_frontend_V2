@@ -4,3 +4,4 @@ export { ReportList } from './ReportList';
 export { ReportReasonDialog } from './ReportReasonDialog';
 export { ReportCard } from './ReportCard';
 export { RemoveMemberDialog } from './RemoveMemberDialog';
+export { UserReportWidget } from './UserReportWidget';
