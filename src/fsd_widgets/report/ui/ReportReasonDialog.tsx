@@ -4,7 +4,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { toast } from 'react-hot-toast';
 
-import { createReport, ReportReason, ReportReasonMeta, ReportTypeBE } from '@/fsd_entities/report';
+import { createReport, ReportReason, ReportReasonMeta, ReportTypeBE, useReportMutation } from '@/fsd_entities/report';
 
 import {
   AlertDialog,
@@ -43,6 +43,8 @@ export function ReportReasonDialog({
 
   const contentRef = useRef<HTMLDivElement>(null);
   const [measuredH, setMeasuredH] = useState(320); // fallback 높이
+
+  const { mutate: report } = useReportMutation();
 
   useLayoutEffect(() => {
     if (!open) return;
@@ -90,16 +92,17 @@ export function ReportReasonDialog({
     setConfirmOpen(true);
   };
 
-  const onConfirm = async () => {
+  const onConfirm = () => {
     if (!selected) return;
-    try {
-      await createReport({ reportType, targetId, reportReason: selected });
-      toast.success('신고가 접수되었습니다.');
-      setConfirmOpen(false);
-      onOpenChange(false);
-    } catch {
-      toast.error('신고 처리 중 오류가 발생했습니다.');
-    }
+    report(
+      { reportType, targetId, reportReason: selected },
+      {
+        onSuccess: () => {
+          setConfirmOpen(false);
+          onOpenChange(false);
+        },
+      },
+    );
   };
 
   return (
