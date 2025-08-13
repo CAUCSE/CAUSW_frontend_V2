@@ -1,4 +1,4 @@
-export * from './api/get';
+export * from './api';
 
 export * from './config';
 
