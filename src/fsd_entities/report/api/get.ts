@@ -1,10 +1,10 @@
 import {
+  adaptComment,
+  adaptPost,
   adaptReportedUser,
-  adaptUserReportedComment,
-  adaptUserReportedPost,
+  BE_ReportedComment,
+  BE_ReportedPost,
   BE_ReportedUser,
-  BE_UserReportedComment,
-  BE_UserReportedPost,
   ReportedUser,
 } from '@/fsd_entities/report';
 
@@ -44,16 +44,16 @@ export const getReportedUsers = async (pageNum = 0): Promise<ReportedUser[]> => 
 
 /** 신고된 유저의 신고 게시글 목록 */
 export const getUserReportedPosts = async (userId: string, pageNum = 0) => {
-  const res = await API.get<{ content: BE_UserReportedPost[] }>(`${URI}/users/${userId}/posts`, {
+  const res = await API.get<{ content: BE_ReportedPost[] }>(`${URI}/users/${userId}/posts`, {
     params: { pageNum },
   });
-  return res.data.content.map(adaptUserReportedPost);
+  return res.data.content.map(adaptPost);
 };
 
 /** 신고된 유저의 신고 댓글·대댓글 목록 */
 export const getUserReportedComments = async (userId: string, pageNum = 0) => {
-  const res = await API.get<{ content: BE_UserReportedComment[] }>(`${URI}/users/${userId}/comments`, {
+  const res = await API.get<{ content: BE_ReportedComment[] }>(`${URI}/users/${userId}/comments`, {
     params: { pageNum },
   });
-  return res.data.content.map(adaptUserReportedComment);
+  return res.data.content.map(adaptComment);
 };
