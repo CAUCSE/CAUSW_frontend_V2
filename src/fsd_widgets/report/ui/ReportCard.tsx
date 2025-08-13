@@ -11,18 +11,18 @@ export function ReportCard({ item }: { item: ReportedItem }) {
     <div className="mx-4 my-3 rounded-2xl bg-white p-5 shadow">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <div className="truncate text-lg font-semibold">{leftTop}</div>
-          <div className="mt-1 text-sm text-gray-600">{item.offenderName}</div>
+          <div className="truncate text-sm font-semibold md:text-lg">{leftTop}</div>
+          <div className="mt-1 text-xs text-gray-600 md:text-sm">{item.offenderName}</div>
         </div>
-        <div className="shrink-0 text-right text-gray-500">{rightTop}</div>
+        <div className="shrink-0 text-right text-xs text-gray-500">{rightTop}</div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-2 flex items-center justify-between md:mt-4">
         <div className="flex items-center gap-2">
-          <span className="text-gray-500">사유</span>
-          <span className="rounded-full bg-gray-100 px-3 py-1 text-sm">{item.reason}</span>
+          <span className="text-sm text-gray-500">사유</span>
+          <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold md:text-sm">{item.reason}</span>
         </div>
-        <div className="text-gray-500">{formatDate(item.createdAt)}</div>
+        <div className="text-sm text-gray-500">{formatDate(item.createdAt)}</div>
       </div>
     </div>
   );
