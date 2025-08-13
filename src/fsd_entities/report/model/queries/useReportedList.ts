@@ -1,20 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { ReportedItem, ReportType } from '@/fsd_entities/report';
+import { adaptComment, adaptPost, ReportedItem, ReportType } from '@/fsd_entities/report';
 
-import { adaptComment, adaptPost, getReportedComments, getReportedPosts } from '../../api/get';
+import { getReportedComments, getReportedPosts } from '../../api/get';
 import { reportQueryKey } from '../../config/queryKey';
 
-export const useReportedList = (type: ReportType) =>
+export const useReportedList = (type: ReportType, pageNum: number) =>
   useQuery<ReportedItem[]>({
-    queryKey: reportQueryKey.list(type),
+    queryKey: reportQueryKey.list(type, pageNum),
     queryFn: async ({ signal }) => {
-      if (type === 'post') {
-        const page = await getReportedPosts({ pageNum: 0, signal }); // ✅ 객체 인자
-        return page.content.map(adaptPost); // ✅ Page → UI 변환
-      }
-      const page = await getReportedComments({ pageNum: 0, signal }); // ✅ 객체 인자
-      return page.content.map(adaptComment); // ✅ Page → UI 변환
+      const data =
+        type === 'post'
+          ? await getReportedPosts({ pageNum, signal }).then((res) => res.content.map(adaptPost))
+          : await getReportedComments({ pageNum, signal }).then((res) => res.content.map(adaptComment));
+
+      return data; // ReportedItem[] 반환
     },
     staleTime: 30_000,
   });
