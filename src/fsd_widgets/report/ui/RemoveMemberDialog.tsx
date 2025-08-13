@@ -15,7 +15,7 @@ type Props = {
   defaultReasonPlaceholder?: string;
   targetId: string;
   reportType: ReportTypeBE; // 'POST' | 'COMMENT' | 'CHILD_COMMENT'
-  submitLabel?: string; // 기본: "신고하기"
+  submitLabel?: string;
   className?: string;
 };
 
