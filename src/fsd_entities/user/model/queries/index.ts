@@ -9,3 +9,6 @@ export * from './useUserRoles';
 
 // 학적 관련 Hooks
 export * from './useUserAcademic';
+
+// 유저 정보 관련 Hooks
+export * from './useUserInfo';
