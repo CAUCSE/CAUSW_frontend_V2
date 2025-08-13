@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { ReportTypeBE, useReportMutation } from '@/fsd_entities/report';
+import { useDropUser } from '@/fsd_entities/user';
 
 import { Button } from '@/shadcn/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from '@/shadcn/components/ui/dialog';
@@ -13,8 +13,7 @@ type Props = {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   defaultReasonPlaceholder?: string;
-  targetId: string;
-  reportType: ReportTypeBE; // 'POST' | 'COMMENT' | 'CHILD_COMMENT'
+  userId: string;
   submitLabel?: string;
   className?: string;
 };
@@ -23,13 +22,12 @@ export function RemoveMemberDialog({
   open,
   onOpenChange,
   defaultReasonPlaceholder = '추방 사유 작성',
-  targetId,
-  reportType,
+  userId,
   submitLabel = '추방하기',
   className,
 }: Props) {
   const [reason, setReason] = useState('');
-  const { mutate, isPending } = useReportMutation();
+  const { mutate, isPending } = useDropUser();
 
   useEffect(() => {
     if (!open) setReason('');
@@ -38,7 +36,7 @@ export function RemoveMemberDialog({
   const onSubmit = () => {
     if (!reason.trim()) return;
     mutate(
-      { reportType, targetId, reportReason: reason.trim() },
+      { userId, reason: reason.trim() },
       {
         onSuccess: () => onOpenChange(false),
       },
@@ -47,9 +45,14 @@ export function RemoveMemberDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={cn('max-w-[480px] rounded-2xl p-6 sm:p-8', className)}>
+      <DialogContent
+        className={cn(
+          'fixed top-1/3 left-1/2 max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-2xl p-6 sm:p-8',
+          className,
+        )}
+      >
         <DialogHeader>
-          <DialogTitle className="text-2xl font-extrabold">{'추방하기'}</DialogTitle>
+          <DialogTitle className="text-2xl font-extrabold">추방하기</DialogTitle>
         </DialogHeader>
 
         <div className="mt-2">
