@@ -5,6 +5,7 @@ export interface ReportItemBase {
   offenderName: string; // 작성자
   reason: string; // 사유 라벨 (예: 상업적 광고 및 판매)
   createdAt: string; // ISO
+  url: string; // 클릭 이동용 URL
 }
 
 export interface ReportedPost extends ReportItemBase {

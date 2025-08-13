@@ -14,6 +14,7 @@ export interface BE_ReportedPost {
   reportId: string;
   reportReasonDescription: string;
   writerName: string;
+  url: string;
 }
 export interface BE_ReportedComment {
   commentId: string;
@@ -22,6 +23,7 @@ export interface BE_ReportedComment {
   writerName: string;
   reportReasonDescription: string;
   reportCreatedAt: string;
+  url: string;
 }
 
 /** 어댑터: BE → UI */
@@ -33,6 +35,7 @@ export const adaptPost = (be: BE_ReportedPost): ReportedPost => ({
   offenderName: be.writerName,
   reason: be.reportReasonDescription,
   createdAt: be.reportCreatedAt,
+  url: be.url,
 });
 export const adaptComment = (be: BE_ReportedComment): ReportedComment => ({
   kind: 'comment',
@@ -42,6 +45,7 @@ export const adaptComment = (be: BE_ReportedComment): ReportedComment => ({
   offenderName: be.writerName,
   reason: be.reportReasonDescription,
   createdAt: be.reportCreatedAt,
+  url: be.url,
 });
 
 type GetPageArgs = { pageNum?: number; signal?: AbortSignal };

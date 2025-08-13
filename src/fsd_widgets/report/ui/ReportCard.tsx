@@ -1,14 +1,20 @@
+import { useRouter } from 'next/navigation';
+
 import { ReportedItem } from '@/fsd_entities/report';
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
 export function ReportCard({ item }: { item: ReportedItem }) {
+  const router = useRouter();
   const leftTop = item.kind === 'post' ? item.title : item.content;
   const rightTop = item.kind === 'post' ? item.boardName : item.parentPostTitle;
 
   return (
-    <div className="mx-4 my-3 rounded-2xl bg-white p-5 shadow">
+    <div
+      onClick={() => router.push(item.url)}
+      className="mx-4 my-3 cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:shadow-md"
+    >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="truncate text-sm font-semibold md:text-lg">{leftTop}</div>
