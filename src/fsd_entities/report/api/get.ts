@@ -58,7 +58,7 @@ export const getReportedPosts = async ({ pageNum = 0, signal }: GetPageArgs) => 
     params: { pageNum },
     signal,
   });
-  console.log('신고된 게시글 목록:', res.data);
+  // console.log('신고된 게시글 목록:', res.data);
   return res.data;
 };
 
@@ -68,6 +68,6 @@ export const getReportedComments = async ({ pageNum = 0, signal }: GetPageArgs) 
     params: { pageNum },
     signal,
   });
-  console.log('신고된 댓글·대댓글 목록:', res.data);
+  // console.log('신고된 댓글·대댓글 목록:', res.data);
   return res.data;
 };
