@@ -8,10 +8,7 @@ import Link from 'next/link';
 import { useGetWaitingUser } from '@/fsd_entities/user/api';
 import { changeAttendanceUserState } from '@/fsd_entities/user/api';
 
-import { ImageList } from '@/shared/ui/ImageList';
-
-import { Header, Line, LoadingComponent, SubHeader } from '@/entities';
-import { ImageModal, Modal } from '@/shared';
+import { Header, ImageList, ImageModal, LoadingComponent, SubHeader } from '@/fsd_shared';
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const idArray = id.split('%26%26%26');

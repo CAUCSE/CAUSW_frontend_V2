@@ -1,6 +1,7 @@
 'use client';
 
-import { DetailFormResultHeader, LoadingComponent } from '@/entities';
+import { DetailFormResultHeader } from '@/entities';
+import { LoadingComponent } from '@/fsd_shared';
 import { useFormDetailResult } from '@/shared';
 import { EmptyResponseResult, FormRespondentInfo, FormResponseResult } from '@/widget';
 

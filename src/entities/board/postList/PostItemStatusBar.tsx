@@ -1,4 +1,4 @@
-import { Icon } from '@/shared';
+import { Icon } from '@/fsd_shared';
 import { getTimeDifference } from '@/utils/format';
 
 interface PostItemStatusBarProps {

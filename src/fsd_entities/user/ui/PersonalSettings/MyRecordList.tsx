@@ -6,7 +6,7 @@
  */
 import dynamic from 'next/dynamic';
 
-import { useInfiniteScroll } from '@/fsd_shared';
+import { LoadingComponent, useInfiniteScroll } from '@/fsd_shared';
 
 interface MyRecordListProps {
   data: Post.PostResponseDto[];
@@ -16,9 +16,6 @@ interface MyRecordListProps {
   fetchNextPage: () => void;
 }
 
-const LoadingComponent = dynamic(() => import('@/entities').then((mod) => mod.LoadingComponent), {
-  ssr: false,
-});
 const PostItem = dynamic(() => import('@/entities').then((mod) => mod.PostItem), {
   ssr: false,
 });

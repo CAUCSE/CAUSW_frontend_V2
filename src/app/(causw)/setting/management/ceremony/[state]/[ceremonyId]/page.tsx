@@ -4,9 +4,7 @@ import { useParams } from 'next/navigation';
 
 import { AdminCeremonyDetail } from '@/fsd_widgets/ceremony';
 
-import { Header } from '@/entities';
-import { MESSAGES } from '@/fsd_shared';
-import { PreviousButton } from '@/fsd_shared';
+import { Header, MESSAGES, PreviousButton } from '@/fsd_shared';
 
 const OccasionRequestDetailPage = () => {
   const { ceremonyId } = useParams<{ ceremonyId: string }>();
