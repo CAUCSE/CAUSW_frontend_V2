@@ -19,7 +19,7 @@ type Props = {
   className?: string;
 };
 
-export function ReportDialog({
+export function RemoveMemberDialog({
   open,
   onOpenChange,
   defaultReasonPlaceholder = '추방 사유 작성',
