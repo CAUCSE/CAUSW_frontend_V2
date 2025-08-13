@@ -1,11 +1,15 @@
 'use client';
 
+import { useRef, useState } from 'react';
+
 import { useParams } from 'next/navigation';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { EllipsisVertical } from 'lucide-react';
 import toast from 'react-hot-toast';
+
+import { ReportReasonDialog } from '@/fsd_widgets/report';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
@@ -23,6 +27,15 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
   const { postId } = useParams() as { postId: string };
 
   const { mutate: deleteChildComment } = useDeleteChildComment();
+
+  const [reportOpen, setReportOpen] = useState(false);
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const openReport = () => {
+    setAnchorRect(triggerRef.current?.getBoundingClientRect() ?? null);
+    setReportOpen(true);
+  };
 
   const handleDeleteChildComment = () => {
     deleteChildComment(
@@ -47,13 +60,26 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className={buttonVariants({ variant: 'ghost', size: 'icon', className: 'h-fit w-fit cursor-pointer' })}>
+        <button
+          ref={triggerRef}
+          className={buttonVariants({ variant: 'ghost', size: 'icon', className: 'h-fit w-fit cursor-pointer' })}
+        >
           <EllipsisVertical className="size-4 text-[#B4B1B1]" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {isOwner && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
       </DropdownMenuContent>
+
+      <ReportReasonDialog
+        open={reportOpen}
+        onOpenChange={setReportOpen}
+        reportType="CHILD_COMMENT"
+        targetId={commentId}
+        anchorRect={anchorRect}
+        width={260}
+        offset={8}
+      />
     </DropdownMenu>
   );
 };
