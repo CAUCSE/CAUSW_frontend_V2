@@ -69,6 +69,7 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {isOwner && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
+        {!isOwner && <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>}
       </DropdownMenuContent>
 
       <ReportReasonDialog

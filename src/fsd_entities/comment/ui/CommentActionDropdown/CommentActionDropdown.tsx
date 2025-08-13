@@ -107,7 +107,7 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
           ) : (
             <DropdownMenuItem onClick={handleSubscribeComment}>댓글 알림 설정</DropdownMenuItem>
           )}
-          <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
+          {!isOwner && <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>}
         </DropdownMenuContent>
       </DropdownMenu>
 
