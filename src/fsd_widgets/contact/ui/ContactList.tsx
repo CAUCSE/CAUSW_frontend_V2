@@ -24,7 +24,20 @@ export const ContactList = () => {
     },
   });
 
-  const contacts = useMemo(() => data?.pages.flatMap((page) => page.content) ?? [], [data]);
+  const contacts = useMemo(() => {
+    const flatContacts = data?.pages.flatMap((page) => page.content) ?? [];
+    return flatContacts.sort((a, b) => {
+      const aHasInfo = (a.job && a.job.trim() !== '') || (a.description && a.description.trim() !== '');
+      const bHasInfo = (b.job && b.job.trim() !== '') || (b.description && b.description.trim() !== '');
+      if (aHasInfo && !bHasInfo) {
+        return -1;
+      }
+      if (!aHasInfo && bHasInfo) {
+        return 1;
+      }
+      return 0;
+    });
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-3">
