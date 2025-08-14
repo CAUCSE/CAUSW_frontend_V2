@@ -7,3 +7,4 @@ export { AdminCeremonyDetail } from './AdminCeremonyDetail';
 export { NotificationSettingWidget } from './NotificationSettingWidget';
 export { CeremonyTabs } from './CeremonyTabs';
 export { NotificationYearListBox } from './NotificationYearListBox';
+export { CeremonyListItem } from './CeremonyListItem';

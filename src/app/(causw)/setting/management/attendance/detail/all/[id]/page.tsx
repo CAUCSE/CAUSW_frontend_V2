@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useGetAttendanceUser } from '@/fsd_entities/user/api';
 import { updateAttendanceUserNote } from '@/fsd_entities/user/api';
 
-import { Header, LoadingComponent, SubHeader } from '@/entities';
+import { Header, LoadingComponent, SubHeader } from '@/fsd_shared';
 
 const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useGetAttendanceUser(id);

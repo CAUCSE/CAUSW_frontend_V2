@@ -3,8 +3,8 @@ export function formatDateString(dateString: string): string {
 
   // 연, 월, 일을 추출
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
-  const day = String(date.getDate()).padStart(2, '0'); // 날짜를 2자리로 맞춤
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
 
   // 원하는 형식으로 반환
   return `${year} / ${month} / ${day}`;
@@ -15,21 +15,31 @@ export const getTimeDifference = (ISOtime: string) => {
   const now = new Date();
   const diffMSec = now.getTime() - createdTime.getTime();
   const diffMin = Math.round(diffMSec / (60 * 1000));
+
   if (diffMin === 0) {
     return `방금 전`;
-  } else if (diffMin < 60) {
+  }
+  if (diffMin < 60) {
     return `${diffMin}분 전`;
-  } else if (
+  }
+  if (
     now.getFullYear() === createdTime.getFullYear() &&
     now.getMonth() === createdTime.getMonth() &&
     now.getDate() === createdTime.getDate()
   ) {
-    return `${createdTime.getHours()}:${createdTime.getMinutes()}`;
-  } else if (now.getFullYear() === createdTime.getFullYear()) {
-    return `${createdTime.getMonth() + 1}/${createdTime.getDate()}`;
-  } else {
-    return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
+    // 오늘 작성된 경우: "HH:mm" 형식
+    const hours = String(createdTime.getHours()).padStart(2, '0');
+    const minutes = String(createdTime.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
+  if (now.getFullYear() === createdTime.getFullYear()) {
+    // 올해 작성된 경우: "mm/dd" 형식으로 수정
+    const month = String(createdTime.getMonth() + 1).padStart(2, '0');
+    const day = String(createdTime.getDate()).padStart(2, '0');
+    return `${month}/${day}`;
+  }
+  // 작년 또는 그 이전에 작성된 경우
+  return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
 };
 
 export async function formatUrlToFile(url: string, fileName: string): Promise<File> {
@@ -54,4 +64,13 @@ export async function formatUrlToFile(url: string, fileName: string): Promise<Fi
 export const getTodayDate = (): string => {
   const today = new Date();
   return today.toISOString().split('T')[0]; // YYYY-MM-DD 형식 반환
+};
+
+// yyyy.mm.dd 형식
+export const formatDateToYyyyMmDd = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}.${month}.${day}`;
 };

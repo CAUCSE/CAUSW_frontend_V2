@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { HomeRscService } from '@/shared';
+import { fetchCalendar, fetchCalendars } from '@/fsd_entities/home';
 
 import { CardBox } from '@/fsd_shared/ui/CardBox';
 import { MONTHS } from '../config';
@@ -15,19 +15,18 @@ interface CalendarProps {
 
 export const Calendar = ({ deliveredId }: CalendarProps) => {
   const [calendars, setCalendars] = useState<Home.Calendar[]>();
-  const { getCalendars } = HomeRscService();
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   useEffect(() => {
-    const fetchCalendars = async () => {
+    const getCalendars = async () => {
       try {
-        const response = (await getCalendars(selectedYear)).calendars;
+        const response = (await fetchCalendars(selectedYear)).calendars;
         setCalendars(response);
       } catch (e: any) {}
     };
 
-    fetchCalendars();
+    getCalendars();
   }, [selectedYear]);
 
   const handlePrevMonth = () => {

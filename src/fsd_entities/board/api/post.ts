@@ -9,6 +9,7 @@ interface CreateNoticeBoardDto {
   createRoleList: User.Role[];
   isAnonymousAllowed: boolean;
   circleId?: string;
+  isAlumni: boolean;
 }
 
 export const createNoticeBoard = async (payload: CreateNoticeBoardDto): Promise<void> => {

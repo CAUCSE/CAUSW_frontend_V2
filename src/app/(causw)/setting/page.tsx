@@ -64,7 +64,7 @@ const SettingsPage = () => {
       { name: '개인정보 관리', link: '/setting/personal-info' },
       { name: '비밀번호 변경', link: '/setting/resetpassword' },
       { name: '로그아웃', link: '/auth/signin' },
-      { name: '이용약관', link: '/setting/useterms' },
+      { name: '이용약관', onClick: () => setIsUseTermsOpen(true) },
     ],
     records: [
       { name: '내가 쓴 게시글', link: '/setting/my/posts' },
@@ -106,24 +106,36 @@ const SettingsPage = () => {
 
     occasionManagement: [
       { name: '내 경조사 목록 보기', link: '/ceremony/list' },
+      { name: '내 경조사 신청', link: '/ceremony/create' },
+      { name: '경조사 알림 설정', link: '/ceremony/setting' },
       { name: '경조사 관리', link: '/setting/management/ceremony/request' },
     ],
 
-    occasionUserManagement: [{ name: '내 경조사 목록 보기', link: '/ceremony/list' }],
+    occasionUserManagement: [
+      { name: '내 경조사 목록 보기', link: '/ceremony/list' },
+      { name: '내 경조사 신청', link: '/ceremony/create' },
+      { name: '경조사 알림 설정', link: '/ceremony/setting' },
+    ],
   };
 
   const MenuItem: React.FC<{
     title: string;
-    items: { name: string; link: string }[];
+    items: { name: string; link?: string; onClick?: () => void }[];
   }> = ({ title, items }) => (
     <div className="rounded-lg bg-white p-6 shadow-md">
       <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
       <ul>
         {items.map((item, index) => (
           <li key={index} className="mb-2">
-            <Link href={item.link} className="text-black-500 hover:text-gray-500 hover:underline">
-              {item.name}
-            </Link>
+            {item.link ? (
+              <Link href={item.link} className="text-black-500 hover:text-gray-500 hover:underline">
+                {item.name}
+              </Link>
+            ) : (
+              <button onClick={item.onClick} className="text-black-500 text-left hover:text-gray-500 hover:underline">
+                {item.name}
+              </button>
+            )}
           </li>
         ))}
       </ul>

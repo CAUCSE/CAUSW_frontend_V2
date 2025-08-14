@@ -9,6 +9,14 @@ import { Button } from '@/fsd_shared';
 export const AdmissionYearInput = ({ onAdd, disabled, isSettingPage = false }: Ceremony.AdmissionYearInputProps) => {
   const [year, setYear] = useState('');
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 2) {
+      value = value.slice(0, 2);
+    }
+    setYear(value);
+  };
+
   const handleAdd = () => {
     const parsed = parseInt(year);
     if (!isNaN(parsed)) {
@@ -20,9 +28,9 @@ export const AdmissionYearInput = ({ onAdd, disabled, isSettingPage = false }: C
   return (
     <div className="flex items-center">
       <input
-        type="number"
+        type="text"
         value={year}
-        onChange={(e) => setYear(e.target.value)}
+        onChange={handleChange}
         className={clsx(
           'border-b border-b-black bg-transparent px-1',
           isSettingPage ? 'w-10 border-b border-b-black bg-transparent px-1' : 'w-13 text-2xl',

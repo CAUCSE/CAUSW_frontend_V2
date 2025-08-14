@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { Icon } from '@/shared';
+import { Icon } from '@/fsd_shared';
 
 export const CircleApplyOption = ({ questionIndex, optionIndex, removeOption }: Form.OptionProps) => {
   const {

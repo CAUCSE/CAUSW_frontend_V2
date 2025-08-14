@@ -40,7 +40,7 @@ export const AdminCeremonyManagement = ({
             )}
           >
             <Link
-              href={firstNavigation.state}
+              href={firstNavigation.router}
               className={clsx('text-xl', isFirstNavigation && 'border-b-focus border-b-4')}
             >
               {firstNavigation.name}

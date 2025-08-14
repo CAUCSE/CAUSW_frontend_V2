@@ -1,10 +1,9 @@
-import { HomeRscService } from '@/shared';
+import { fetchEvents } from '@/fsd_entities/home';
 
 import ClientGate from './ClientGate';
 
 export default async function HomePage() {
-  const { getEvents } = HomeRscService();
-  const events = await getEvents();
+  const events = await fetchEvents();
 
   return (
     <>

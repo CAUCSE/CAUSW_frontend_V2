@@ -1,6 +1,8 @@
 import { getAllAttendanceUsers, getWaitingUsers } from '@/fsd_entities/user/api';
 import { ManagementPanel } from '@/fsd_entities/user/ui';
 
+import { MESSAGES } from '@/fsd_shared';
+
 const AttendanceManagement = async ({ params: { state } }: { params: { state: string } }) => {
   const data =
     state === 'waiting'
@@ -15,12 +17,9 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
 
   return (
     <>
-      <div className="absolute top-6 right-4 flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg md:top-16 md:right-52">
-        재학 인증 일괄 요청
-      </div>
       <ManagementPanel
         state={state}
-        title="학적 상태 관리"
+        title={MESSAGES.MANAGEMENT.ATTENDANCE}
         firstNavigation={{
           name: '유저 목록',
           state: 'all',

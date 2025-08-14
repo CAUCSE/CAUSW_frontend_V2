@@ -11,7 +11,7 @@ import { getUserByName } from '@/fsd_entities/user/api';
 import { updateRole } from '@/fsd_entities/user/api';
 import { userRoleCodes } from '@/fsd_entities/user/model';
 
-import { Header, Line, SubHeader } from '@/entities';
+import { Header, Line, SubHeader } from '@/fsd_shared';
 
 interface IFormInput {
   searchContent: string;
@@ -25,7 +25,6 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>();
-
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     getUserByName(data.searchContent).then((res) => setDate(res));
@@ -109,7 +108,7 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
             router.back();
           });
         }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10"
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white xl:bottom-10"
       >
         권한 위임
       </button>

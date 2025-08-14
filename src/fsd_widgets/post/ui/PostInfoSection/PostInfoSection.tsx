@@ -1,6 +1,6 @@
 import { PostWriterProfileImage } from '@/fsd_entities/post';
 
-import { getTimeDifference } from '@/fsd_shared';
+import { getTimeDifference } from '@/utils/format';
 
 interface PostInfoSectionProps {
   writerProfileImage: Post.PostDto['writerProfileImage'];

@@ -40,7 +40,13 @@
     -moz-user-select: none;
     -ms-use-select: none;
     user-select: none;
+    overflow-x: hidden;
+    max-width: 100vw;  
   }
+
+  * {
+    box-sizing: border-box;
+  }  
 
   main {
     scrollbar-gutter: stable both-edges;

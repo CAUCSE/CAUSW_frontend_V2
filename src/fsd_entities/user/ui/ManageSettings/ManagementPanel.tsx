@@ -8,6 +8,8 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
+import { MESSAGES } from '@/fsd_shared';
+
 const ExcelExportButton = dynamic(() => import('./buttons').then((mod) => mod.ExcelExportButton), {
   ssr: false,
 });
@@ -68,13 +70,31 @@ export const ManagementPanel = ({
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
-      {exportType ? <ExcelExportButton exportType={exportType} id={circleId} /> : null}
-      <Header bold big>
-        {title}
-      </Header>
+      <div className="flex flex-col sm:flex-row sm:justify-between">
+        <Header bold big>
+          {title}
+        </Header>
+        <div className="mt-4 flex flex-row justify-end gap-4 sm:mt-0">
+          {title === MESSAGES.MANAGEMENT.PAYERS && (
+            <Link
+              href="/setting/management/payer/add"
+              className="bg-focus flex h-10 w-36 items-center justify-center rounded-2xl border-2 border-black text-lg text-white"
+            >
+              납부자 추가
+            </Link>
+          )}
+          {title === MESSAGES.MANAGEMENT.ATTENDANCE && (
+            <div className="flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg">
+              재학 인증 일괄 요청
+            </div>
+          )}
+          {exportType ? <ExcelExportButton exportType={exportType} id={circleId} /> : null}
+        </div>
+      </div>
+
       <div className="scrollbar-hide mt-3 mb-[-18px] w-full overflow-x-auto md:mb-0">
         <div
-          className={`flex ${navigation && navigation.length > 5 ? 'mb-1 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-1 w-[600px] justify-between' : 'mb-5 w-full justify-evenly'} flex-row md:mb-1 md:justify-evenly lg:w-full`}
+          className={`flex ${navigation && navigation.length > 5 ? 'mb-5 w-[1000px] justify-between' : navigation && navigation.length > 2 ? 'mb-5 w-[600px] justify-between' : 'mb-5 w-full justify-evenly'} flex-row md:mb-1 md:justify-evenly lg:w-full`}
         >
           <Link
             href={firstNavigation.state}
@@ -113,7 +133,7 @@ export const ManagementPanel = ({
               <>{element.userName}</>
             ) : (
               <>
-                {element.userName}({element.studentId})
+                {element.userName}
               </>
             )}
           </Link>

@@ -2,18 +2,23 @@
 
 import Image from 'next/image';
 
-import { CustomSelect, PortalModal } from '@/fsd_shared';
 import { useAddCalendarModal, useCalendarStore } from '@/fsd_entities/calender';
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+
+import { CustomSelect, MESSAGES, PortalModal } from '@/fsd_shared';
 
 import ImageIcon from '../../../../public/icons/image_icon.svg';
 
-interface AddModalBodyProps {
+// ImageSelectionModalBody 컴포넌트는 변경 없습니다.
+const ImageSelectionModalBody = ({
+                                   clickUploadBtn,
+                                   clearSelectedImage,
+                                   selectedImage,
+                                 }: {
   clickUploadBtn: () => void;
   clearSelectedImage: () => void;
   selectedImage: File | null;
-}
-
-const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedImage }: AddModalBodyProps) => {
+}) => {
   return (
     <>
       {selectedImage ? (
@@ -45,6 +50,7 @@ const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedI
               캘린더 업로드
             </button>
             <p className="mt-4 text-xs text-[#B4B1B1]">10MB 이하의 이미지만 업로드할 수 있습니다.</p>
+            <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
           </div>
         </div>
       )}
@@ -52,12 +58,15 @@ const ImageSelectionModalBody = ({ clickUploadBtn, clearSelectedImage, selectedI
   );
 };
 
+
 export const CalendarAddModal = () => {
   const closeAddModal = useCalendarStore((state) => state.closeAddModal);
   const {
     yearList,
     monthList,
     selectedImage,
+    selectedYear,
+    selectedMonth,
     fileInputRef,
     setSelectedYear,
     setSelectedMonth,
@@ -66,6 +75,7 @@ export const CalendarAddModal = () => {
     handleFileChange,
     handleSubmit,
   } = useAddCalendarModal();
+
   return (
     <PortalModal
       className="mx-4 flex w-full flex-col items-center gap-5 rounded-lg bg-[#F8F9FA] py-8 lg:w-[768px]"
@@ -81,8 +91,24 @@ export const CalendarAddModal = () => {
           selectedImage={selectedImage}
         />
         <div className="flex w-full justify-center gap-4">
-          <CustomSelect<number> itemList={yearList} suffix="년" setSelectValue={setSelectedYear} />
-          <CustomSelect<number> itemList={monthList} suffix="월" setSelectValue={setSelectedMonth} />
+          {/* 👇 여기에 widthClass="w-28"을 명시적으로 추가합니다. */}
+          <CustomSelect
+            itemList={yearList}
+            suffix="년"
+            value={selectedYear}
+            onChange={setSelectedYear}
+            placeholder="년도 선택"
+            widthClass="w-28"
+          />
+          {/* 👇 여기에도 widthClass="w-28"을 명시적으로 추가합니다. */}
+          <CustomSelect
+            itemList={monthList}
+            suffix="월"
+            value={selectedMonth}
+            onChange={setSelectedMonth}
+            placeholder="월 선택"
+            widthClass="w-28"
+          />
         </div>
       </PortalModal.Body>
       <PortalModal.Footer className="flex w-full justify-center gap-8">
@@ -100,7 +126,7 @@ export const CalendarAddModal = () => {
         </button>
         <input
           type="file"
-          accept="image/gif, image/jpeg, image/png"
+          accept={ACCEPTED_IMAGE_TYPES}
           className="hidden"
           onChange={handleFileChange}
           ref={fileInputRef}

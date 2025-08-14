@@ -52,10 +52,10 @@ export const BannerSettingHeader = ({ bannerList }: BannerSettingHeaderProps) =>
       </header>
       {createPortal(
         <button
-          className="fixed right-14 bottom-28 h-10 w-10 items-center justify-center rounded-full border border-[#007AFF] bg-[#007AFF] text-white hover:bg-white hover:text-[#007AFF] md:hidden"
+          className="fixed right-6 bottom-24 h-16 w-16 transform rounded-[50px] bg-[#7AB6C1] px-6 py-3 text-3xl font-normal text-white shadow-lg hover:bg-[#5F8E97] xl:right-80 xl:bottom-10 xl:h-24 xl:w-24 md:hidden"
           onClick={handleClickAddBanner}
         >
-          <AddIcon />
+          +
         </button>,
         document.body,
       )}

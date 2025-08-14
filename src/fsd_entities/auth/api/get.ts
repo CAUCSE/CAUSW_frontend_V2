@@ -45,9 +45,15 @@ export const checkStudentIdDuplicate = async (studentId: string): Promise<boolea
   }
 };
 
-export const getUserAdmissionInfo = async () => {
-  await API.get(`${URI}/admissions/self`);
+export const checkPhoneNumberDuplicate = async (phoneNumber: string): Promise<boolean | string> => {
+  try {
+    const response = (await API.get(`${URI}/${phoneNumber}/is-duplicated-phone-number`)) as AxiosResponse<any>; // 타입 변경
+    return response.data.result;
+  } catch (error) {
+    throw error;
+  }
 };
+
 
 export const checkCurrentAcademicStatus = async () => {
   try {
@@ -57,6 +63,12 @@ export const checkCurrentAcademicStatus = async () => {
     throw error;
   }
 };
+
+
+export const getUserAdmissionInfo = async () => {
+  await API.get(`${URI}/admissions/self`);
+};
+
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {

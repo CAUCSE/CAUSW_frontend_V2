@@ -1,6 +1,8 @@
 import { getAllAdmissions, getByState } from '@/fsd_entities/user/api';
 import { ManagementPanel } from '@/fsd_entities/user/ui';
 
+import { MESSAGES } from '@/fsd_shared';
+
 const navigation: {
   name: string;
   state: 'reject' | 'active' | 'drop' | 'inactive';
@@ -70,7 +72,7 @@ const UserManagement = async ({
     <>
       <ManagementPanel
         state={state}
-        title="유저 관리"
+        title={MESSAGES.MANAGEMENT.USER}
         firstNavigation={{
           name: '가입 대기 유저',
           state: 'admission',

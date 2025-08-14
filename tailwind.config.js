@@ -62,8 +62,8 @@ module.exports = {
         'post-title-input': '1px',
       },
       fontFamily: {
-        sans: ['var(--font-spoqa)'],
-        pretendard: ['Pretendard'],
+        sans: ['var(--font-spoqa)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        pretendard: ['Pretendard', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
     },
   },

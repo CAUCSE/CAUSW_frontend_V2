@@ -50,6 +50,7 @@ export const BoardDetailForm = () => {
           onChange={handleBoardDescriptionChange}
           placeholder="게시판 설명을 입력해주세요"
           ref={boardDescriptionRef}
+          rows={1}
         />
       </section>
     </div>
