@@ -38,6 +38,9 @@ export const AdmissionForm = () => {
         maxFiles={1}
       >
         <p className="text-md text-error mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
+        <p className="text-sm text-gray-500">
+          졸업생의 경우 졸업증명서, 학생증 등 중앙대학교 소프트웨어대학 출신임을 증명할 자료를 첨부해주세요.
+        </p>
         <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
       </ImageUploadField>
       <AuthFormSubmitButton content="제출" />

@@ -15,7 +15,7 @@ export const SearchBar = ({ value, onChange, placeholder }: SearchBarProps) => {
       <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-gray-400" size={20} />
       <Input
         type="search"
-        placeholder={placeholder || "찾는 동문의 어떤 정보든 입력하세요"}
+        placeholder={placeholder || "이름, 직업, 커리어(회사명)로 검색해 보세요."}
         className="w-full bg-gray-100 py-2 pl-10 pr-10 [&::-webkit-search-cancel-button]:hidden"
         value={value}
         onChange={(e) => onChange(e.target.value)}

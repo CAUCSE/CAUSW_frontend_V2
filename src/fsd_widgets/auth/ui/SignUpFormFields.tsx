@@ -1,6 +1,7 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
 import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/fsd_entities/auth';
+import { formatPhoneNumber } from '@/fsd_shared';
 
 interface Props {
   register: UseFormRegister<User.SignUpForm>;
@@ -87,14 +88,14 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="ex) 소프트웨어학부, 컴퓨터공학부"
           errorMessage={errors.major?.message}
         />
-
         <AuthInput
           register={register}
           name="phoneNumber"
           rules={signUpValidationRules.phoneNumber}
           label="연락처"
-          placeholder="-을 포함해서 작성해주세요. ex) 010-1234-5678"
+          placeholder="ex) 010-1234-5678"
           errorMessage={errors.phoneNumber?.message}
+          formatter={formatPhoneNumber}
         />
       </div>
       <SignUpCheckbox
