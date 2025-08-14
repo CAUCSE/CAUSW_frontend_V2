@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-
+import { useRouter } from 'next/navigation';
 import { resetPassword } from '../../api/post';
 
 export const useResetPasswordForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,6 +18,9 @@ export const useResetPasswordForm = () => {
       const { confirmPassword, ...submitData } = data;
       await resetPassword(submitData);
       toast.success('비밀번호가 성공적으로 변경되었습니다.');
+
+      router.push('/setting');
+
       setTimeout(() => {
         reset();
       }, 300);
