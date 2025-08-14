@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import {
   ContactCard,
   useSearchContactsQuery,
@@ -10,7 +11,10 @@ import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 import { Loader2 } from 'lucide-react';
 import { useDebounce } from '@/fsd_shared';
 
-import { PullToRefreshContainer } from '@/fsd_shared/ui/PullToRefreshContainer';
+const PullToRefreshContainer = dynamic(
+  () => import('@/fsd_shared/ui/PullToRefreshContainer').then((mod) => mod.PullToRefreshContainer),
+  { ssr: false }
+);
 
 export const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,15 +34,9 @@ export const ContactList = () => {
   const contacts = useMemo(() => {
     const flatContacts = data?.pages.flatMap((page) => page.content) ?? [];
     return flatContacts.sort((a, b) => {
-      const aHasInfo = (a.job && a.job.trim() !== '') || (a.description && a.description.trim() !== '');
-      const bHasInfo = (b.job && b.job.trim() !== '') || (b.description && b.description.trim() !== '');
-      if (aHasInfo && !bHasInfo) {
-        return -1;
-      }
-      if (!aHasInfo && bHasInfo) {
-        return 1;
-      }
-      return 0;
+      const aHasInfo = !!(a.job?.trim() || a.description?.trim());
+      const bHasInfo = !!(b.job?.trim() || b.description?.trim());
+      return Number(bHasInfo) - Number(aHasInfo);
     });
   }, [data]);
 
@@ -50,7 +48,6 @@ export const ContactList = () => {
     <div className="flex flex-col gap-3">
       <SearchBar value={searchTerm} onChange={setSearchTerm} />
 
-      {/* 4. 목록 영역을 PullToRefreshContainer로 감싸고 onRefresh 핸들러를 전달합니다. */}
       <PullToRefreshContainer onRefresh={handleRefresh}>
         <div className="flex flex-col divide-y divide-gray-200">
           {contacts.length > 0 ? (

@@ -1,10 +1,16 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
 import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
 import { useGetPostList } from '@/fsd_entities/post';
-import { LoadingScreen, PullToRefreshContainer } from '@/fsd_shared';
+import { LoadingScreen } from '@/fsd_shared';
+
+const PullToRefreshContainer = dynamic(
+  () => import('@/fsd_shared').then((mod) => mod.PullToRefreshContainer),
+  { ssr: false }
+);
 
 export const BoardClientPage = () => {
   const { boardId } = useParams();

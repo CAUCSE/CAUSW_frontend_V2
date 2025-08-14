@@ -2,7 +2,7 @@
 
 import { notFound, useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { PullToRefreshContainer } from '@/fsd_shared';
+import dynamic from 'next/dynamic';
 
 import { CommentCardList, CommentInput } from '@/fsd_widgets/comment';
 import { PostDetailSection } from '@/fsd_widgets/post';
@@ -10,6 +10,11 @@ import { PostDetailSection } from '@/fsd_widgets/post';
 import { useGetPostDetail, postQueryKey } from '@/fsd_entities/post';
 import { commentQueryKey } from '@/fsd_entities/comment/config';
 import { LoadingScreen, PreviousButton } from '@/fsd_shared';
+
+const PullToRefreshContainer = dynamic(
+  () => import('@/fsd_shared').then((mod) => mod.PullToRefreshContainer),
+  { ssr: false }
+);
 
 const PostDetailPage = ({ params }: { params: { boardId: string; postId: string } }) => {
   const { boardId, postId } = params;
