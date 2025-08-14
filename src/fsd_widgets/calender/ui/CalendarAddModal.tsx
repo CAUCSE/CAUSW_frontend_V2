@@ -9,7 +9,6 @@ import { CustomSelect, MESSAGES, PortalModal } from '@/fsd_shared';
 
 import ImageIcon from '../../../../public/icons/image_icon.svg';
 
-// ImageSelectionModalBody 컴포넌트는 변경 없습니다.
 const ImageSelectionModalBody = ({
                                    clickUploadBtn,
                                    clearSelectedImage,
@@ -40,7 +39,7 @@ const ImageSelectionModalBody = ({
           />
         </div>
       ) : (
-        <div className="mt-5 flex h-[280px] w-[280px] flex-col items-center justify-center rounded-md bg-[#E9ECEF]">
+        <div className="flex h-[280px] w-[280px] flex-col items-center justify-center rounded-md bg-[#E9ECEF]">
           <div className="flex flex-col items-center gap-2">
             <ImageIcon className="text-[#868E96]" />
             <button
@@ -49,8 +48,6 @@ const ImageSelectionModalBody = ({
             >
               캘린더 업로드
             </button>
-            <p className="mt-4 text-xs text-[#B4B1B1]">10MB 이하의 이미지만 업로드할 수 있습니다.</p>
-            <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
           </div>
         </div>
       )}
@@ -84,14 +81,18 @@ export const CalendarAddModal = () => {
       <PortalModal.Header>
         <h1 className="text-lg md:text-2xl">캘린더 추가</h1>
       </PortalModal.Header>
-      <PortalModal.Body className="flex flex-col items-center justify-center gap-5">
+      <PortalModal.Body className="flex flex-col items-center justify-center gap-4">
         <ImageSelectionModalBody
           clickUploadBtn={clickUploadBtn}
           clearSelectedImage={clearSelectedImage}
           selectedImage={selectedImage}
         />
+        <div className="text-center">
+          <p className="text-xs text-[#B4B1B1]">10MB 이하의 이미지만 업로드할 수 있습니다.</p>
+          <p className="text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
+        </div>
+
         <div className="flex w-full justify-center gap-4">
-          {/* 👇 여기에 widthClass="w-28"을 명시적으로 추가합니다. */}
           <CustomSelect
             itemList={yearList}
             suffix="년"
@@ -100,7 +101,6 @@ export const CalendarAddModal = () => {
             placeholder="년도 선택"
             widthClass="w-28"
           />
-          {/* 👇 여기에도 widthClass="w-28"을 명시적으로 추가합니다. */}
           <CustomSelect
             itemList={monthList}
             suffix="월"
@@ -111,7 +111,7 @@ export const CalendarAddModal = () => {
           />
         </div>
       </PortalModal.Body>
-      <PortalModal.Footer className="flex w-full justify-center gap-8">
+      <PortalModal.Footer className="mt-2 flex w-full justify-center gap-8">
         <button
           className="rounded-lg bg-[#007AFF] px-8 py-2 text-xl text-white hover:bg-[#0067D8] md:px-12"
           onClick={handleSubmit}
@@ -119,7 +119,7 @@ export const CalendarAddModal = () => {
           추가
         </button>
         <button
-          className="text rounded-lg bg-gray-200 px-8 py-2 text-xl text-gray-500 hover:bg-gray-300 md:px-12"
+          className="rounded-lg bg-gray-200 px-8 py-2 text-xl text-gray-500 hover:bg-gray-300 md:px-12"
           onClick={closeAddModal}
         >
           취소
