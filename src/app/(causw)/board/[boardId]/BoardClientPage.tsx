@@ -8,8 +8,8 @@ import { useGetPostList } from '@/fsd_entities/post';
 import { LoadingScreen } from '@/fsd_shared';
 
 const PullToRefreshContainer = dynamic(
-  () => import('@/fsd_shared').then((mod) => mod.PullToRefreshContainer),
-  { ssr: false }
+  () => import('@/fsd_shared/ui/PullToRefreshContainer').then((mod) => mod.PullToRefreshContainer),
+  { ssr: false },
 );
 
 export const BoardClientPage = () => {

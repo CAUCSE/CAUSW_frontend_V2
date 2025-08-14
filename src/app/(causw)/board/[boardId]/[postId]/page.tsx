@@ -12,8 +12,8 @@ import { commentQueryKey } from '@/fsd_entities/comment/config';
 import { LoadingScreen, PreviousButton } from '@/fsd_shared';
 
 const PullToRefreshContainer = dynamic(
-  () => import('@/fsd_shared').then((mod) => mod.PullToRefreshContainer),
-  { ssr: false }
+  () => import('@/fsd_shared/ui/PullToRefreshContainer').then((mod) => mod.PullToRefreshContainer),
+  { ssr: false },
 );
 
 const PostDetailPage = ({ params }: { params: { boardId: string; postId: string } }) => {

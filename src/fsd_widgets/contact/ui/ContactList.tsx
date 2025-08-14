@@ -13,7 +13,7 @@ import { useDebounce } from '@/fsd_shared';
 
 const PullToRefreshContainer = dynamic(
   () => import('@/fsd_shared/ui/PullToRefreshContainer').then((mod) => mod.PullToRefreshContainer),
-  { ssr: false }
+  { ssr: false },
 );
 
 export const ContactList = () => {
