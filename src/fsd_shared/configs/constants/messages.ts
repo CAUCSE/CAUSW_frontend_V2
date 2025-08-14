@@ -28,4 +28,5 @@ export const MESSAGES = Object.freeze({
     USER: '유저 관리',
   },
   FILE_TYPE_INFO: 'jpg, jpeg, png 형식의 파일만 업로드할 수 있습니다',
+  FILE_TYPE_INF_GIF: 'jpg, jpeg, png, gif 형식의 파일만 업로드할 수 있습니다',
 });
