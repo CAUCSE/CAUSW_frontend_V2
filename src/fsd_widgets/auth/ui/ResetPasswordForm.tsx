@@ -1,20 +1,19 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
 import { useResetPasswordForm } from '@/fsd_entities/auth/model/hooks';
 
-import { PreviousButton } from '@/fsd_shared';
-
 export const ResetPasswordForm = () => {
-  const router = useRouter();
+  const { register, handleSubmit, errors, onSubmit, onInvalid, watch } = useResetPasswordForm();
   const validatePasswordMatch = (value: string) => {
     const password = watch('updatedPassword');
-    return value === password || '새로운 비밀번호가 일치하지 않습니다';
+    return value === password || '새로운 비밀번호가 일치하지 않습니다.';
   };
 
-  const { register, handleSubmit, errors, onSubmit, onInvalid, watch } = useResetPasswordForm();
+  const validateNewPasswordIsNotOld = (value: string) => {
+    const oldPassword = watch('originPassword');
+    return value !== oldPassword || '기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.';
+  };
 
   return (
     <div className="flex h-screen w-full min-w-80 flex-col rounded-md p-2">
@@ -36,7 +35,10 @@ export const ResetPasswordForm = () => {
             register={register}
             name="updatedPassword"
             type="password"
-            rules={{ required: '새로운 비밀번호를 입력해주세요' }}
+            rules={{
+              required: '새로운 비밀번호를 입력해주세요',
+              validate: validateNewPasswordIsNotOld,
+            }}
             label="새로운 비밀번호"
             placeholder="새로운 비밀번호를 입력해주세요"
             errorMessage={errors.updatedPassword?.message}
