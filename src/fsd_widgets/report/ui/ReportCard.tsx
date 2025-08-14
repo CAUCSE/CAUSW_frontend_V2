@@ -13,7 +13,7 @@ export function ReportCard({ item }: { item: ReportedItem }) {
   return (
     <div
       onClick={() => router.push(item.url)}
-      className="mx-4 my-3 cursor-pointer rounded-2xl bg-white p-5 shadow transition hover:shadow-md"
+      className="mb-3 w-full rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
@@ -28,7 +28,7 @@ export function ReportCard({ item }: { item: ReportedItem }) {
           <span className="text-sm text-gray-500">사유</span>
           <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold md:text-sm">{item.reason}</span>
         </div>
-        <div className="text-sm text-gray-500">{formatDate(item.createdAt)}</div>
+        <div className="ml-4 text-xs text-gray-500">{formatDate(item.createdAt)}</div>
       </div>
     </div>
   );

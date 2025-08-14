@@ -1,3 +1,3 @@
 export * from './queries';
 
-export { ReportReason, ReportReasonMeta } from './reportReason';
+export { ReportReasonMeta } from '../config/reportReason';

@@ -19,7 +19,7 @@ export default function ReportedUserListPage() {
     <div className="relative top-3 left-2 w-[calc(100%-1rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <PreviousButton className="mb-8" />
       <div className="max-w-md px-4">
-        <h1 className="my-4 text-xl font-medium md:text-3xl">신고 유저 관리</h1>
+        <h1 className="my-4 text-xl font-bold md:text-3xl">신고 유저 관리</h1>
 
         {isLoading && <div className="py-6 text-gray-500">불러오는 중…</div>}
         {isError && <div className="py-6 text-red-500">목록을 불러오지 못했어요.</div>}

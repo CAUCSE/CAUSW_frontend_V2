@@ -13,7 +13,7 @@ export function ReportWidget() {
   const queryResult = useReportedList(type, pageNum);
 
   return (
-    <div className="min-h-screen max-w-md">
+    <div className="min-h-screen w-full">
       <ReportTabs />
       <ReportList {...queryResult} />
     </div>
