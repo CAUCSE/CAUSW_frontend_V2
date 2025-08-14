@@ -50,17 +50,17 @@ export const convertDataToTableEntity = (data: User.UserDto): InfoTableEntity =>
   };
 
   return {
-    email,
-    major,
-    name,
+    email: email || '-',
+    major: major || '-',
+    name: name || '-',
     // 본 학기 학생회비 적용 여부?
-    studentId,
-    nickname,
-    admissionYear: admissionYear.toString(),
-    academicStatus: academicStatusMap[academicStatus],
-    graduateYearMonth: graduationYear ? graduationYear.toString() + '/' + graduationType?.toString() : '',
-    phoneNumber: phoneNumber || '',
-    currentCompletedSemester: currentCompletedSemester ? currentCompletedSemester.toString() + '차 학기' : '',
-    createdAt: createdAt.split('T')[0].replaceAll('-', '.'),
+    studentId: studentId || '-',
+    nickname: nickname || '-',
+    admissionYear: admissionYear.toString() ?? '-',
+    academicStatus: academicStatusMap[academicStatus] ?? '-',
+    graduateYearMonth: graduationYear ? graduationYear.toString() + '/' + graduationType?.toString() : '-',
+    phoneNumber: phoneNumber || '-',
+    currentCompletedSemester: currentCompletedSemester ? currentCompletedSemester.toString() + '차 학기' : '-',
+    createdAt: createdAt.split('T')[0].replaceAll('-', '.') ?? '-',
   };
 };

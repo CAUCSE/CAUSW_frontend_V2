@@ -76,7 +76,7 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
   return (
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-8">
       <PreviousButton className="mr-auto" />
-      <p className="text-[18px] font-semibold lg:text-[25px]">{`${name}(${studentId})의 ${titleSuffix}`}</p>
+      <p className="text-[18px] font-semibold lg:text-[25px]">{`${name}${studentId ? `(${studentId})` : ''}의 ${titleSuffix} `}</p>
       {admission && (
         <>
           <ManagementDetailInfoTable data={convertAdmissionDataToTableEntity(admission)} titleMapping={titleMapping} />

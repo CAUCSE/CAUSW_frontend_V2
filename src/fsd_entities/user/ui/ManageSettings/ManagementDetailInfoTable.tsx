@@ -23,7 +23,7 @@ const TableUnit = ({
   setSelectedImage: Dispatch<SetStateAction<string | null>>;
 }) => {
   return (
-    <div className="flex flex-col text-[14px] lg:text-[20px]">
+    <div className="flex flex-col px-2 text-[14px] lg:text-[20px]">
       <p>{title}</p>
       {title === '학부 재적/졸업 증빙 자료' || title === '가입 신청서 첨부 이미지' ? (
         data ? (
@@ -36,7 +36,7 @@ const TableUnit = ({
             onClick={() => setSelectedImage(data)}
           />
         ) : (
-          <p className="h-[200px] text-[rgba(180,177,177,1)] max-lg:text-[14px]">첨부된 이미지가 없습니다.</p>
+          <p className="h-[200px] text-[rgba(180,177,177,1)] max-lg:text-[14px]"> -</p>
         )
       ) : (
         <p className="text-[rgba(180,177,177,1)] max-lg:text-[14px]">{data}</p>
