@@ -20,10 +20,6 @@ export const useResetPasswordForm = () => {
       toast.success('비밀번호가 성공적으로 변경되었습니다.');
 
       router.push('/setting');
-
-      setTimeout(() => {
-        reset();
-      }, 300);
     } catch (error: any) {
       toast.error(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
     }
