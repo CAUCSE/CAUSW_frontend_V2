@@ -27,7 +27,11 @@ const PostDetailPage = ({ params }: { params: { boardId: string; postId: string 
     return <LoadingScreen />;
   }
 
-  if (!postDetail) {
+  if (postDetail?.deleted) {
+    return notFound();
+  }
+
+  if (!postDetail?.data) {
     return notFound();
   }
 
@@ -36,7 +40,7 @@ const PostDetailPage = ({ params }: { params: { boardId: string; postId: string 
       <PreviousButton routeCallback={routerCallback} className="pl-5" />
 
       <div className="flex w-full flex-col gap-3 overflow-y-auto px-3">
-        <PostDetailSection postData={postDetail} />
+        <PostDetailSection postData={postDetail?.data} />
         <CommentCardList postId={postId} />
       </div>
       <div className="flex justify-center py-2">
