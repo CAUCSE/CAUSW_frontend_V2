@@ -23,7 +23,7 @@ export function UserReportWidget() {
 
   return (
     <QueryClientProvider client={client}>
-      <div className="min-h-screen max-w-md pb-24">
+      <div className="min-h-screen pb-24">
         <ReportTabs />
         <ReportList {...queryResult} />
 
