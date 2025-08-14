@@ -1,8 +1,8 @@
 import type { AxiosResponse } from 'axios';
 
-import { API } from '@/fsd_shared';
+import { CreateReportReq, CreateReportRes } from '@/fsd_shared/@types/report-ui';
 
-import { CreateReportReq, CreateReportRes } from '../config';
+import { API } from '@/fsd_shared';
 
 const URI = '/api/v1/reports';
 

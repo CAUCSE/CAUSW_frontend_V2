@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
+import { CreateReportReq } from '@/fsd_shared/@types/report-ui';
+
 import { createReport } from '../../api/post';
-import { CreateReportReq } from '../../config';
 
 export const useReportMutation = () => {
   const qc = useQueryClient();

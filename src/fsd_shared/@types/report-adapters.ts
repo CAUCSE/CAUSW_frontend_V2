@@ -1,5 +1,5 @@
-import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from './be.types';
-import { ReportedComment, ReportedPost, ReportedUser } from './ui.types';
+import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from './report-be';
+import { ReportedComment, ReportedPost, ReportedUser } from './report-ui';
 
 export const adaptPost = (be: BE_ReportedPost): ReportedPost => ({
   kind: 'post',

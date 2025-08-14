@@ -2,9 +2,9 @@
 
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { toast } from 'react-hot-toast';
+import { ReportReason, ReportReasonMeta, useReportMutation } from '@/fsd_entities/report';
 
-import { createReport, ReportReason, ReportReasonMeta, ReportTypeBE, useReportMutation } from '@/fsd_entities/report';
+import { ReportTypeBE } from '@/fsd_shared/@types/report-ui';
 
 import {
   AlertDialog,

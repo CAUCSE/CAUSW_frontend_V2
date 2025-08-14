@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 
-import { ReportedItem } from '@/fsd_entities/report';
+import { ReportedItem } from '@/fsd_shared/@types/report-ui';
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });

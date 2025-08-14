@@ -2,8 +2,9 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import { ReportedItem } from '@/fsd_shared/@types/report-ui';
+
 import { getUserReportedComments, getUserReportedPosts } from '../../api/get';
-import { ReportedItem } from '../../config';
 import { reportQueryKey } from '../../config/queryKey';
 
 type ReportType = 'post' | 'comment';

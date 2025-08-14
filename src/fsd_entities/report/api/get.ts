@@ -1,12 +1,6 @@
-import {
-  adaptComment,
-  adaptPost,
-  adaptReportedUser,
-  BE_ReportedComment,
-  BE_ReportedPost,
-  BE_ReportedUser,
-  ReportedUser,
-} from '@/fsd_entities/report';
+import { adaptComment, adaptPost, adaptReportedUser } from '@/fsd_shared/@types/report-adapters';
+import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from '@/fsd_shared/@types/report-be';
+import { ReportedUser } from '@/fsd_shared/@types/report-ui';
 
 import { API } from '@/fsd_shared';
 
