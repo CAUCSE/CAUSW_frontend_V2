@@ -1,8 +1,9 @@
 'use client';
 
+import { NotificationActionButtons } from '@/fsd_widgets/notification';
+
 import { MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
 import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui';
-import { NotificationActionButtons } from '@/fsd_widgets/notification';
 
 interface Props {
   activeTab: number;
@@ -28,14 +29,11 @@ const TABS_CONFIG = [
 
 export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) => {
   return (
-    <div className="relative mt-8 mb-6 w-full border-b-[3px] border-[#bababa]">
+    <div className="relative mt-2 mb-6 w-full border-b border-[#bababa]">
       <Tabs value={String(activeTab)} onValueChange={(val) => setActiveTab(Number(val))} className="w-full">
-        <TabsList className="flex w-full justify-start gap-4 overflow-x-auto overflow-y-hidden whitespace-nowrap px-4 py-2">
+        <TabsList className="flex w-full justify-start gap-1.5 overflow-x-auto px-4 py-2 md:gap-4 [&::-webkit-scrollbar]:hidden">
           {TABS_CONFIG.map((tab) => (
-            <TabsTrigger
-              key={tab.key}
-              value={String(tab.value)}
-            >
+            <TabsTrigger key={tab.key} value={String(tab.value)}>
               <div className="flex items-center gap-1.5">
                 {hasUnread[tab.key as keyof typeof hasUnread] && (
                   <span className="mb-1.5 h-2 w-2 rounded-full bg-red-500" />
@@ -46,7 +44,7 @@ export const NotificationTabs = ({ activeTab, setActiveTab, hasUnread }: Props) 
           ))}
         </TabsList>
       </Tabs>
-      <div className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 transform md:right-8">
+      <div className="absolute top-1/2 right-4 hidden -translate-y-1/2 transform md:right-8 md:block">
         {activeTab === NOTIFICATION_TAB.CEREMONY && <NotificationActionButtons />}
       </div>
     </div>

@@ -99,6 +99,11 @@ const SettingsPage = () => {
 
     boardManagement: [{ name: '게시판 생성 신청 관리', link: '/setting/management/board' }],
 
+    report: [
+      { name: '신고 콘텐츠 목록', link: '/setting/management/report/content' },
+      { name: '신고 유저 관리', link: '/setting/management/report/user' },
+    ],
+
     occasionManagement: [
       { name: '내 경조사 목록 보기', link: '/ceremony/list' },
       { name: '내 경조사 신청', link: '/ceremony/create' },
@@ -196,6 +201,7 @@ const SettingsPage = () => {
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagement} />
             <MenuItem title="게시판 관리" items={menuItems.boardManagement} />
             <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
+            <MenuItem title="신고" items={menuItems.report} />
           </>
         )}
       </>
