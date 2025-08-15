@@ -39,14 +39,3 @@ export const deleteUser = async (userId: string) => {
   if (!response.ok) throw new Error(response.statusText);
   return true;
 };
-
-// 사용자 '탈퇴' - SSR 용
-export const withdrawUser = async () => {
-  const headers = await setRscHeader();
-  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}`, {
-    method: 'DELETE',
-    headers,
-  });
-  if (!response.ok) throw new Error(response.statusText);
-  return true;
-};
