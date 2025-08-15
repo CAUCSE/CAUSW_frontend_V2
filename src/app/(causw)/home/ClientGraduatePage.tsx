@@ -1,5 +1,9 @@
+import { ReactNode } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { MdEmail, MdPermIdentity, MdTagFaces, MdVolumeUp } from 'react-icons/md';
 
 import { Banner, fetchGraduateHomePosts } from '@/fsd_entities/home';
 
@@ -21,16 +25,24 @@ export default async function GraduateHomePage({ events }) {
   const boards = [
     {
       name: '크자회 공지 게시판',
-      icon: '/homeicons/크자회_공지_게시판.svg',
+      icon: <MdVolumeUp className="h-8 w-8 text-[#E55992] sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20" />,
       href: `/board/${noticeBoardId}`,
     },
     {
       name: '소통 게시판',
-      icon: '/homeicons/크자회_소통_게시판.svg',
+      icon: <MdTagFaces className="h-8 w-8 text-[#7AB6C1] sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20" />,
       href: `/board/${talkBoardId}`,
     },
-    { name: '동문수첩', icon: '/homeicons/동문수첩.svg', href: '/contacts' },
-    { name: '경조사', icon: '/homeicons/경조사.svg', href: '/ceremony/create' },
+    {
+      name: '동문수첩',
+      icon: <MdPermIdentity className="h-8 w-8 text-[#568389] sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20" />,
+      href: '/contacts',
+    },
+    {
+      name: '경조사',
+      icon: <MdEmail className="h-8 w-8 text-[#C1A979] sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20" />,
+      href: '/ceremony/create',
+    },
   ];
 
   return (
@@ -60,13 +72,20 @@ export default async function GraduateHomePage({ events }) {
                 <span className="text-sm leading-tight font-semibold break-keep whitespace-normal text-black sm:text-base md:text-lg 2xl:text-xl">
                   {board.name}
                 </span>
-                <Image
-                  src={board.icon}
-                  alt="icon"
-                  width={40}
-                  height={40}
-                  className="absolute right-4 bottom-4 h-8 w-8 object-contain sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20"
-                />
+
+                {typeof board.icon === 'string' ? (
+                  <Image
+                    src={board.icon}
+                    alt="icon"
+                    width={40}
+                    height={40}
+                    className="absolute right-4 bottom-4 h-8 w-8 object-contain sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20"
+                  />
+                ) : (
+                  <div className="absolute right-4 bottom-4 text-gray-600">
+                    {board.icon} {/* React 아이콘 바로 출력 */}
+                  </div>
+                )}
               </Link>
             ))}
           </div>
@@ -78,13 +97,13 @@ export default async function GraduateHomePage({ events }) {
             boardId={noticeBoardId}
             title="최신 공지글"
             items={noticePosts}
-            icon="/homeicons/크자회_공지_게시판.svg"
+            icon={<MdVolumeUp className="h-5 w-5 text-[#E55992]" />}
           />
           <NoticeSection
             boardId={talkBoardId}
             title="최신 소통글"
             items={talkPosts}
-            icon="/homeicons/크자회_소통_게시판.svg"
+            icon={<MdTagFaces className="h-5 w-5 text-[#7AB6C1]" />}
           />
         </div>
       </div>
@@ -105,7 +124,7 @@ function NoticeSection({
     title: string;
     createdAt: string;
   }[];
-  icon: string;
+  icon: ReactNode;
 }) {
   return (
     <div>
@@ -113,7 +132,7 @@ function NoticeSection({
         href={`/board/${boardId}`}
         className="flex items-center gap-2 border-b bg-gray-100 px-4 py-2 text-sm font-bold sm:text-base"
       >
-        <Image src={icon} alt="icon" width={20} height={20} />
+        {icon}
         <span>{title}</span>
       </Link>
       <div className="overflow-hidden border-t border-gray-200">
