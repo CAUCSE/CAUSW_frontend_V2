@@ -83,7 +83,7 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
         <InfoTextArea
           register={register}
           name="note"
-          label="유저 작성 특이사항"
+          label="유저 작성 특이사항 (선택사항)"
           placeholder="특이사항을 작성해주세요. (500자 이내)"
           rules={academicRecordValidationRules.note}
           errorMessage={errors.note?.message}

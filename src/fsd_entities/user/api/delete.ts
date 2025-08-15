@@ -19,6 +19,12 @@ export const deleteUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   }
 };
 
+// 사용자 '탈퇴' - 본인 계정 탈퇴 (파라미터 없음, 토큰 필요)
+export const withdrawUserCSR = async () => {
+  const res = await API.delete(`${USERS_ENDPOINT}`);
+  return res.status >= 200 && res.status < 300;
+};
+
 // ssr api method.
 ////////////////////////////////////////////////////////////////
 

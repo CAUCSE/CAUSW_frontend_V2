@@ -8,8 +8,10 @@ export const admissionValidationRules: Record<
     required: '이메일을 입력해주세요',
   },
   description: {
-    required: '특이사항을 작성해주세요.',
-    maxLength: 500,
+    maxLength: {
+      value: 500,
+      message: '500자 이내로 입력해주세요.',
+    },
   },
   attachImage: {
     required: '이미지를 첨부해주세요.',

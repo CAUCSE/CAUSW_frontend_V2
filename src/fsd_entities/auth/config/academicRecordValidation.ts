@@ -17,8 +17,10 @@ export const academicRecordValidationRules: Record<
     required: '졸업 월을 입력해주세요.',
   },
   note: {
-    required: '특이사항을 작성해주세요.',
-    maxLength: 500,
+    maxLength: {
+      value: 500,
+      message: '500자 이내로 입력해주세요.',
+    },
   },
   images: {
     required: '이미지를 첨부해주세요.',
