@@ -9,16 +9,15 @@ export const fetchBoardList = async () => {
   });
 
   const priorityOrder = [
+    '서비스 공지',
+    '건의/오류 제보 게시판',
     '크자회 공지 게시판',
     '크자회 소통 게시판',
-    '서비스 공지',
     '학생회 공지 게시판',
     '소프트웨어학부 학부 공지',
-    '건의/오류 제보 게시판',
     '딜리버드 게시판',
   ];
 
-  const excludeFromNonGraduate = ['크자회 공지 게시판', '크자회 소통 게시판'];
   const graduateBoardNames = ['서비스 공지', '크자회 공지 게시판', '크자회 소통 게시판', '건의/오류 제보 게시판'];
 
   const sortedBoardList = [
@@ -29,7 +28,7 @@ export const fetchBoardList = async () => {
   ];
 
   // 일반 사용자 및 관리자에게 보여줄 게시판에서 '크자회' 게시판 제외
-  const nonGraduateBoardList = sortedBoardList.filter((board) => !excludeFromNonGraduate.includes(board.boardName));
+  const nonGraduateBoardList = sortedBoardList;
 
   // 일반/관리자용 게시판
   const defaultBoardForAdmin = nonGraduateBoardList.filter((board) => board.isDefault);

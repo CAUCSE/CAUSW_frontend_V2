@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Calendar } from '@/fsd_widgets/calender';
 
-import { Banner, CardBox, HomeCard, fetchHomePosts } from '@/fsd_entities/home';
+import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/fsd_entities/home';
 
 const cardsEntities = [
   {
@@ -34,7 +34,7 @@ export default async function ClientHomePage({ events }) {
   const mainBoards = [
     homePosts.find((board) => board.board.name.includes('서비스 공지')),
     homePosts.find((board) => board.board.name.includes('학부 공지')),
-    homePosts.find((board) => board.board.name.includes('동문회 공지')),
+    homePosts.find((board) => board.board.name.includes('크자회 공지')),
     homePosts.find((board) => board.board.name.includes('학생회 공지')),
   ];
 
@@ -89,7 +89,7 @@ export default async function ClientHomePage({ events }) {
                 <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
                   <span>❗️ 서비스 공지</span>
                   <span>📖️ 소프트웨어학부 공지</span>
-                  <span>🌍️ 동문회 공지 게시판</span>
+                  <span>🌍️ 크자회 공지 게시판</span>
                   <span>🏆️ 학생회 공지 게시판</span>
                 </div>
 
