@@ -5,6 +5,6 @@ export { useCreatePostWithForm } from './useCreatePostWithForm';
 export { useDeletePost } from './useDeletePost';
 export { useUnsubscribePost } from './useUnsubscribePost';
 export { useSubscribePost } from './useSubscribePost';
-export { useLikePost } from './useLikePost';
-export { useScrapPost } from './useScrapPost';
+export { useToggleLikePost } from './useToggleLikePost';
+export { useToggleScrapPost } from './useToggleScrapPost';
 export { useGetPostDetail } from './useGetPostDetail';

@@ -2,10 +2,13 @@
 
 import Image from 'next/image';
 
+import ImageIcon from '@icons/image_icon.svg';
+
 import { useEditBanner } from '@/fsd_entities/banner';
+
 import { PortalModal } from '@/fsd_shared/ui';
 
-import ImageIcon from '@icons/image_icon.svg';
+import { MESSAGES } from '@/fsd_shared';
 
 interface ImageSelectionProps {
   imageUrl?: string | null;
@@ -54,9 +57,11 @@ const ImageSelection = ({
         )}
       </div>
       <div className="mt-2 flex justify-end">
-        <p className="text-xs font-light text-[#B4B1B1]">
+        <p className="text-end text-xs font-light text-[#B4B1B1]">
           이미지는 1100 * 150 px 크기로 맞춰주세요. <br />
           10MB 이하의 이미지만 업로드할 수 있습니다.
+          <br />
+          {MESSAGES.FILE_TYPE_INF_GIF}
         </p>
       </div>
     </>
@@ -103,9 +108,10 @@ export const BannerEditModal = () => {
             value={url}
           />
         </div>
+
         <input
           type="file"
-          accept="image/png, image/jpeg, image/jpg"
+          accept="image/png, image/jpeg, image/jpg, image/gif"
           ref={inputRef}
           className="hidden"
           onChange={handleSelectImage}

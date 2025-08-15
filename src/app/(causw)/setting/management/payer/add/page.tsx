@@ -92,7 +92,7 @@ const AddPayer = () => {
           if (!selectId) return;
           router.push('/setting/management/payer/add/' + selectId);
         }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white lg:bottom-10"
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 transform rounded-3xl bg-red-500 px-6 py-3 font-bold text-white xl:bottom-10"
       >
         선택 완료
       </button>

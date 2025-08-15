@@ -22,6 +22,7 @@ declare namespace Comment {
     numLike: number;
     numChildComment: number;
     childCommentList: Comment.ChildCommentDto[];
+    isChildCommentLike: boolean;
   }
 
   export interface ChildCommentDto

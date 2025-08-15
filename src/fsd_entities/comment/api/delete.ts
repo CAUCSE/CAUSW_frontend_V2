@@ -13,3 +13,10 @@ export const deleteChildComment = async (param: DeleteChildCommentParam) => {
 export const unsubscribeComment = async (param: UnsubscribeCommentParam) => {
   return await API.delete(`/api/v1/comments/subscribe/${param.commentId}`);
 };
+
+export const unLikeComment = async (commentId: string) => {
+  return await API.delete(`/api/v1/comments/${commentId}/like`);
+};
+export const unLikeChildComment = async (childCommentId: string) => {
+  return await API.delete(`/api/v1/child-comments/${childCommentId}/like`);
+};

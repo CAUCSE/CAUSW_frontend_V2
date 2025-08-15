@@ -28,7 +28,7 @@ export const ChildCommentCard = ({ childComment }: ChildCommentCardProps) => {
       <div className="rounded-post-br shadow-post-sh flex w-full max-w-sm flex-col gap-2 border bg-white p-3">
         <ChildCommentCardHeader childComment={childComment} />
         <CommentCardMain content={childComment.content} isDeleted={childComment.isDeleted} />
-        <ChildCommentCardFooter childComment={childComment} />
+        <ChildCommentCardFooter childComment={childComment} isChildCommentLike={childComment.isChildCommentLike} />
       </div>
     </div>
   );

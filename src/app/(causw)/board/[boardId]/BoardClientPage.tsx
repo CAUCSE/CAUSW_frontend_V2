@@ -28,7 +28,7 @@ export const BoardClientPage = () => {
       <BoardHeader
         boardName={data?.boardName!}
         isNotificationActive={data?.isBoardSubscribed!}
-        isWritable={data?.writeable!}
+        isWritable={data?.writable!}
       />
       <BoardPostList
         postList={data?.postList!}

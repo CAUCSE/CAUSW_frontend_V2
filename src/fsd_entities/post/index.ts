@@ -33,4 +33,4 @@ export {
   useGetPostDetail,
 } from './model';
 export { postQueryKey, type PostSchema, postSchema } from './config';
-export { getPostListServer } from './api';
+export * from './api';

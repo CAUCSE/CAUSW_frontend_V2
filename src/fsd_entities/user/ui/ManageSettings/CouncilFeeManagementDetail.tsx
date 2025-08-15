@@ -28,7 +28,9 @@ export async function CouncilFeeManagementDetail({ councilFeeId }: { councilFeeI
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] px-2 py-4">
-      <p className="text-[18px] font-semibold lg:text-[40px]">{`${userCouncilFeeInfo.userName}(${userCouncilFeeInfo.studentId})의 정보`}</p>
+      <p className="text-[18px] font-semibold lg:text-[40px]">
+        {`${userCouncilFeeInfo.userName}${userCouncilFeeInfo.studentId ? `(${userCouncilFeeInfo.studentId})` : ''}의 정보`}
+      </p>
       <ManagementDetailInfoTable data={convertDataToTableEntity(userCouncilFeeInfo)} titleMapping={titleMapping} />
       <CouncilFeeButtons params={{ councilFeeId, isRefunded }}></CouncilFeeButtons>
     </div>

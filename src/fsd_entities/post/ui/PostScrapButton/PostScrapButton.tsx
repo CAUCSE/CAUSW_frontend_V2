@@ -6,18 +6,19 @@ import { Star } from 'lucide-react';
 
 import { Button } from '@/shadcn/components/ui';
 
-import { formatCount, useScrapPost } from '../../model';
+import { formatCount, useToggleScrapPost } from '../../model';
 
 interface PostScrapButtonProps {
   numFavorite: Post.PostDto['numFavorite'];
+  isPostFavorite: boolean;
 }
 
-export const PostScrapButton = ({ numFavorite }: PostScrapButtonProps) => {
+export const PostScrapButton = ({ numFavorite, isPostFavorite }: PostScrapButtonProps) => {
   const { postId } = useParams() as { postId: string };
-  const { mutate: handleScrapPost } = useScrapPost();
+  const { mutate: toggleScrapPost } = useToggleScrapPost();
 
   const handleClickScrapButton = () => {
-    handleScrapPost({ postId });
+    toggleScrapPost({ postId, isPostFavorite });
   };
 
   return (

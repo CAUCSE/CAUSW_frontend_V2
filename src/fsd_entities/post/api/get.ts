@@ -33,6 +33,13 @@ export const getPostListServer = async (boardId: string, page: number) => {
 };
 
 export const getPostDetail = async ({ postId }: { postId: string }) => {
-  const { data }: { data: Post.PostDto } = await API.get(`/api/v1/posts/${postId}`);
-  return data;
+  try {
+    const { data }: { data: Post.PostDto } = await API.get(`/api/v1/posts/${postId}`);
+    return { data, deleted: false };
+  } catch (err: any) {
+    if (err.response?.data?.errorCode === 4004) {
+      return { data: null, deleted: true };
+    }
+    throw err;
+  }
 };

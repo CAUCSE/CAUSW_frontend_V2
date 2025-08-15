@@ -1,26 +1,29 @@
 import { PostCommentCountBadge, PostFormWriteButton, PostLikeButton, PostScrapButton } from '@/fsd_entities/post';
 
 interface PostActionButtonGroupProps {
-  numLike: number;
-  numFavorite: number;
-  numComment: number;
-  isPostForm: boolean;
-  formResponseDto: Post.PostDto['formResponseDto'];
+  like: {
+    numLike: number;
+    isPostLiked: boolean;
+  };
+  favorite: {
+    numFavorite: number;
+    isPostFavorite: boolean;
+  };
+  comment: {
+    numComment: number;
+  };
+  form: {
+    isPostForm: boolean;
+    formResponseDto: Post.PostDto['formResponseDto'];
+  };
 }
-
-export const PostActionBar = ({
-  numLike,
-  numFavorite,
-  numComment,
-  isPostForm,
-  formResponseDto,
-}: PostActionButtonGroupProps) => {
+export const PostActionBar = ({ like, favorite, comment, form }: PostActionButtonGroupProps) => {
   return (
     <div className="flex gap-3 p-2">
-      <PostLikeButton numLike={numLike} />
-      <PostScrapButton numFavorite={numFavorite} />
-      <PostCommentCountBadge numComment={numComment} />
-      {isPostForm && formResponseDto?.formId && <PostFormWriteButton formId={formResponseDto.formId} />}
+      <PostLikeButton numLike={like.numLike} isPostLiked={like.isPostLiked} />
+      <PostScrapButton numFavorite={favorite.numFavorite} isPostFavorite={favorite.isPostFavorite} />
+      <PostCommentCountBadge numComment={comment.numComment} />
+      {form.isPostForm && form.formResponseDto?.formId && <PostFormWriteButton formId={form.formResponseDto.formId} />}
     </div>
   );
 };

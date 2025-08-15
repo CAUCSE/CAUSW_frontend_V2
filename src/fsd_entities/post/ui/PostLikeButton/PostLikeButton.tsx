@@ -6,18 +6,19 @@ import { ThumbsUp } from 'lucide-react';
 
 import { Button } from '@/shadcn/components/ui';
 
-import { formatCount, useLikePost } from '../../model';
+import { formatCount, useToggleLikePost } from '../../model';
 
 interface PostLikeButtonProps {
   numLike: Post.PostDto['numLike'];
+  isPostLiked: boolean;
 }
 
-export const PostLikeButton = ({ numLike }: PostLikeButtonProps) => {
+export const PostLikeButton = ({ numLike, isPostLiked }: PostLikeButtonProps) => {
   const { postId } = useParams() as { postId: string };
-  const { mutate: handleLikePost } = useLikePost();
+  const { mutate: toggleLikePost } = useToggleLikePost();
 
   const handleClickLikeButton = () => {
-    handleLikePost({ postId });
+    toggleLikePost({ postId, isPostLiked });
   };
   return (
     <Button

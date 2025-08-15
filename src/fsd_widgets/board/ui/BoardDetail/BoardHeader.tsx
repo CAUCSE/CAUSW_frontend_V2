@@ -15,7 +15,7 @@ interface BoardHeaderProps {
 
 export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: BoardHeaderProps) => {
   const handleCreatePost = (e: React.MouseEvent) => {
-    if (isWritable !== undefined && !isWritable) {
+    if (!isWritable) {
       e.preventDefault();
       toast.error('게시글 작성 권한이 없습니다.');
       return;
@@ -27,9 +27,11 @@ export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: Boa
       <div className="flex w-full items-center justify-between px-5">
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">{boardName}</div>
         <div className="flex items-center gap-2 sm:gap-4">
-          <div className="contents" onClick={handleCreatePost}>
-            <CreatePostButton />
-          </div>
+          {isWritable && (
+            <div className="contents" onClick={handleCreatePost}>
+              <CreatePostButton />
+            </div>
+          )}
 
           <BoardNotificationToggle isNotificationActive={isNotificationActive} />
           <SearchPostButton />

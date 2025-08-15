@@ -21,7 +21,7 @@ declare namespace Board {
   export interface BoardWithPostResponseDto {
     boardId: string;
     boardName: string;
-    writeable: boolean;
+    writable: boolean;
     isFavorite: boolean;
     isBoardSubscribed: boolean;
     post: Post.PostResponseDtoList;

@@ -5,7 +5,7 @@ export const FILE_UPLOAD_RULES = {
     'jpg',
     'jpeg',
     'png',
-    'gif',
+    // 'gif',
     // 'bmp',
     // 'mp4',
     // 'avi',
@@ -32,4 +32,4 @@ export const FILE_UPLOAD_RULES = {
     // 'alz',
   ],
 };
-export const ACCEPTED_IMAGE_TYPES = 'image/png, image/jpeg, image/jpg, image/PNG, image/JPEG, image/JPG, image/gif';
+export const ACCEPTED_IMAGE_TYPES = 'image/png, image/jpeg, image/jpg, image/PNG, image/JPEG, image/JPG';
