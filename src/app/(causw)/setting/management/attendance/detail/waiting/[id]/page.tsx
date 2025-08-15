@@ -34,7 +34,7 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <>
       {onModal ? (
-        <div className="bg-opacity-50 fixed top-0 left-0 flex h-full w-full items-center justify-center bg-black p-4">
+        <div className="bg-opacity-50 fixed top-0 left-0 z-10 flex h-full w-full items-center justify-center bg-black p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <button className="absolute top-0 left-0 p-2" onClick={closeModal}>
               <Image src="/images/modal_close_icon.png" alt="modal-close-btn" width={15} height={15} />
@@ -68,7 +68,8 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             <span className="icon-[tabler--x] mr-6 text-3xl font-bold"></span>
           </Link>
           <Header bold>
-            {data?.userName}({data?.studentId})
+            {data?.userName}
+            {data?.studentId ? `(${data?.studentId})` : ''}
           </Header>
         </div>
 
