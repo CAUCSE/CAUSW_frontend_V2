@@ -46,8 +46,6 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
-          console.log('댓글 삭제 성공');
-          console.log(queryClient.getQueryData(commentQueryKey.list({ postId })));
         },
         onError: (error: Error) => {
           if (isAxiosError(error)) {

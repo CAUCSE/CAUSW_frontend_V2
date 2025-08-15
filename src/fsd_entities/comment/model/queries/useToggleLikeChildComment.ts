@@ -22,7 +22,6 @@ export const useToggleLikeChildComment = () => {
       childCommentId: string;
       isChildCommentLike: boolean;
     }) => {
-      console.log('childCommentId', childCommentId);
       if (isChildCommentLike) {
         await unLikeChildComment(childCommentId);
       } else {
