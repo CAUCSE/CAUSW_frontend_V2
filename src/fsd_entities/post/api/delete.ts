@@ -12,6 +12,6 @@ export const unsubscribePost = async ({ postId }: { postId: Post.PostDto['id'] }
 export const unLikePost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
   return await API.delete(`/api/v1/posts/${postId}/like`);
 };
-export const unSrabPost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
+export const unSrapPost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
   return await API.delete(`/api/v1/posts/${postId}/favorite`);
 };

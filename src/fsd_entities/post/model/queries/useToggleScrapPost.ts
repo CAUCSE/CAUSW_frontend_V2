@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { scrapPost, unSrabPost } from '../../api';
+import { scrapPost, unSrapPost } from '../../api';
 import { postQueryKey } from '../../config';
 
 export const useToggleScrapPost = () => {
@@ -16,7 +16,7 @@ export const useToggleScrapPost = () => {
   return useMutation({
     mutationFn: async ({ postId, isPostFavorite }: { postId: Post.PostDto['id']; isPostFavorite: boolean }) => {
       if (isPostFavorite) {
-        await unSrabPost({ postId });
+        await unSrapPost({ postId });
       } else {
         await scrapPost({ postId });
       }
@@ -29,6 +29,7 @@ export const useToggleScrapPost = () => {
     onError: (error) => {
       if (isAxiosError(error)) {
         toast.error(error.response?.data.message ?? '즐겨찾기 관련 에러가 발생했습니다.');
+        return;
       }
       toast.error('즐겨찾기 관련 에러가 발생했습니다.');
     },
