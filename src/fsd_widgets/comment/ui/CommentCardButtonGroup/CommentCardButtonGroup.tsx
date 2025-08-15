@@ -7,9 +7,10 @@ import { Divider } from '@/fsd_shared';
 interface CommentCardButtonGroupProps {
   commentId: Comment.CommentDto['id'];
   isDeleted: Comment.CommentDto['isDeleted'];
+  isCommentLike: Comment.CommentDto['isCommentLike'];
 }
 
-export const CommentCardButtonGroup = ({ commentId, isDeleted }: CommentCardButtonGroupProps) => {
+export const CommentCardButtonGroup = ({ commentId, isDeleted, isCommentLike }: CommentCardButtonGroupProps) => {
   const childCommentActiveId = useCommentStore((state) => state.childCommentActiveId);
 
   return (
@@ -19,7 +20,7 @@ export const CommentCardButtonGroup = ({ commentId, isDeleted }: CommentCardButt
         childCommentActiveId === commentId ? 'bg-overlay-btn' : 'bg-comment-btn',
       )}
     >
-      <CommentLikeButton commentId={commentId} isDeleted={isDeleted} />
+      <CommentLikeButton commentId={commentId} isDeleted={isDeleted} isCommentLike={isCommentLike} />
       <Divider vertical className="bg-gray-400" />
       <ChildCommentActiveButton commentId={commentId} isDeleted={isDeleted} />
     </div>
