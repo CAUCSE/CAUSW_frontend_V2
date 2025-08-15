@@ -3,13 +3,6 @@ import Link from 'next/link';
 
 import { Banner, fetchGraduateHomePosts } from '@/fsd_entities/home';
 
-const boards = [
-  { name: '크자회 공지 게시판', icon: '/homeicons/크자회_공지_게시판.svg', href: '/notice' }, // 크자회 공지 게시판 경로 수정 예정
-  { name: '소통 게시판', icon: '/homeicons/크자회_소통_게시판.svg', href: '/talk' }, // 소통 게시판 경로 수정 예정
-  { name: '동문수첩', icon: '/homeicons/동문수첩.svg', href: '/directory' }, // 동문수첩 경로 수정 예정
-  { name: '경조사', icon: '/homeicons/경조사.svg', href: '/ceremony/create' },
-];
-
 export default async function GraduateHomePage({ events }) {
   const homePosts = await fetchGraduateHomePosts();
 
@@ -23,6 +16,22 @@ export default async function GraduateHomePage({ events }) {
 
   const noticeBoardId = noticeBoard?.board.id ?? '';
   const talkBoardId = talkBoard?.board.id ?? '';
+
+  // 📌 API 응답 기반 동적 boards 배열
+  const boards = [
+    {
+      name: '크자회 공지 게시판',
+      icon: '/homeicons/크자회_공지_게시판.svg',
+      href: `/board/${noticeBoardId}`,
+    },
+    {
+      name: '소통 게시판',
+      icon: '/homeicons/크자회_소통_게시판.svg',
+      href: `/board/${talkBoardId}`,
+    },
+    { name: '동문수첩', icon: '/homeicons/동문수첩.svg', href: '/contacts' },
+    { name: '경조사', icon: '/homeicons/경조사.svg', href: '/ceremony/create' },
+  ];
 
   return (
     <div className="flex w-full flex-col justify-center gap-4 bg-white px-4 py-4 2xl:h-full 2xl:rounded-4xl">
