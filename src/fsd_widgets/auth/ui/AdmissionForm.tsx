@@ -25,8 +25,8 @@ export const AdmissionForm = () => {
       <InfoTextArea
         register={register}
         name="description"
-        label="유저 작성 특이사항"
-        placeholder="(선택) 특이사항을 작성해주세요. (500자 이내)"
+        label="유저 작성 특이사항 (선택사항)"
+        placeholder="특이사항을 작성해주세요. (500자 이내)"
         rules={admissionValidationRules.description}
         errorMessage={errors.description?.message}
       />
