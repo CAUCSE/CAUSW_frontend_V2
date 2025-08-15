@@ -1,21 +1,43 @@
 'use client';
 
+import { useState } from 'react';
+
+import { withdrawUserCSR } from '@/fsd_entities/user';
+
+import { tokenManager } from '../utils';
+
 interface UseTermsProps {
   closeModal: () => void;
 }
 
 export const UseTerms = ({ closeModal }: UseTermsProps) => {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const { signoutAndRedirect } = tokenManager();
+
+  const handleDeleteAccount = async () => {
+    try {
+      await withdrawUserCSR();
+      signoutAndRedirect();
+    } catch (e) {
+    } finally {
+      closeModal();
+    }
+  };
+
   return (
     <div
-      className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50"
       onClick={closeModal}
     >
-      <div className="h-5/6 w-5/6 max-w-3xl overflow-y-auto rounded-lg bg-white p-8">
+      <div
+        className="h-5/6 w-5/6 max-w-3xl overflow-y-auto rounded-lg bg-white p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div>
           <>
             <div title="이용 약관" />
             <div className="">
-              <div className="">
+              <div className="mb-6">
                 <h2 className="mb-6 flex justify-center text-lg font-bold">서비스 이용약관</h2>
                 <h1 />
                 제1조(목적)
@@ -464,16 +486,55 @@ export const UseTerms = ({ closeModal }: UseTermsProps) => {
                 <br />
                 5. 개인정보 제공 거부 시 불이익 : 서비스 이용 제한
               </div>
+
+              <div className="flex w-full flex-col items-center gap-4">
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={closeModal}
+                  className="bg-focus mt-4 rounded-lg px-4 py-2 text-white hover:bg-blue-400"
+                >
+                  닫기
+                </button>
+
+                {/* 회원 탈퇴 버튼 */}
+                <button
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                >
+                  회원 탈퇴
+                </button>
+              </div>
+
+              {/* 탈퇴 확인 모달 */}
+              {showDeleteConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
+                  <div className="w-96 rounded-lg bg-white p-6 shadow-lg">
+                    <p className="mb-6 text-center text-lg font-semibold">
+                      정말 탈퇴하시겠습니까? <br />
+                      회원정보는 이용약관에 따라 탈퇴 처리됩니다.
+                    </p>
+                    <div className="flex justify-center gap-4">
+                      <button
+                        onClick={() => setShowDeleteConfirm(false)}
+                        className="rounded-lg bg-gray-300 px-4 py-2 hover:bg-gray-400"
+                      >
+                        취소
+                      </button>
+                      <button
+                        onClick={handleDeleteAccount}
+                        className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                      >
+                        확인
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="mt-4 ml-4 flex items-center">
               <label htmlFor="terms"></label>
             </div>
           </>
-        </div>
-        <div className="flex w-full items-center justify-center">
-          <button onClick={closeModal} className="bg-focus mt-4 rounded-lg px-4 py-2 text-white hover:bg-blue-400">
-            닫기
-          </button>
         </div>
       </div>
     </div>
