@@ -32,6 +32,7 @@ export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
       />
       <PostActionBar
         numLike={postData.numLike}
+        isPostLiked={postData.isPostLike}
         numFavorite={postData.numFavorite}
         numComment={postData.numComment}
         isPostForm={postData.isPostForm}

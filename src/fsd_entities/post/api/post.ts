@@ -54,6 +54,13 @@ export const likePost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
   return await API.post(`/api/v1/posts/${postId}/like`);
 };
 
+export const unLikePost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
+  return await API.delete(`/api/v1/posts/${postId}/like`);
+};
 export const scrapPost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
   return await API.post(`/api/v1/posts/${postId}/favorite`);
+};
+
+export const unSrabPost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
+  return await API.delete(`/api/v1/posts/${postId}/favorite`);
 };

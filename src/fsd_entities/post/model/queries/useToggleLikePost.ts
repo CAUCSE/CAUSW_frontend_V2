@@ -6,16 +6,20 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { likePost } from '../../api';
+import { likePost, unLikePost } from '../../api';
 import { postQueryKey } from '../../config';
 
-export const useLikePost = () => {
+export const useToggleLikePost = () => {
   const queryClient = useQueryClient();
   const { boardId } = useParams() as { boardId: string };
 
   return useMutation({
-    mutationFn: async ({ postId }: { postId: Post.PostDto['id'] }) => {
-      await likePost({ postId });
+    mutationFn: async ({ postId, isPostLiked }: { postId: Post.PostDto['id']; isPostLiked: boolean }) => {
+      if (isPostLiked) {
+        await unLikePost({ postId });
+      } else {
+        await likePost({ postId });
+      }
       return { postId };
     },
     onSuccess: ({ postId }) => {
@@ -24,9 +28,10 @@ export const useLikePost = () => {
     },
     onError: (error) => {
       if (isAxiosError(error)) {
-        toast.error(error.response?.data.message ?? '게시글 좋아요 도중 에러가 발생했습니다.');
+        toast.error(error.response?.data.message ?? `에러가 발생했습니다.`);
+        return;
       }
-      toast.error('게시글 좋아요 도중 에러가 발생했습니다.');
+      toast.error('에러가 발생했습니다.');
     },
   });
 };
