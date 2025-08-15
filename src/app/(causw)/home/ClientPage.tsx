@@ -87,10 +87,14 @@ export default async function ClientHomePage({ events }) {
               <p className="h-6 text-[24px] font-bold">🌟 빠른 공지 모아모아 🌟</p>
               <div className="flex h-[calc(100%-24px)] w-full justify-center">
                 <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
-                  <span>❗️ 서비스 공지</span>
-                  <span>📖️ 소프트웨어학부 공지</span>
-                  <span>🌍️ 크자회 공지 게시판</span>
-                  <span>🏆️ 학생회 공지 게시판</span>
+                  {mainBoards.map((board, idx) => (
+                    <Link key={idx} href={`/board/${board?.board.id}`} className="cursor-pointer">
+                      {idx === 0 && '❗️ 서비스 공지'}
+                      {idx === 1 && '📖️ 소프트웨어학부 공지'}
+                      {idx === 2 && '🌍️ 크자회 공지 게시판'}
+                      {idx === 3 && '🏆️ 학생회 공지 게시판'}
+                    </Link>
+                  ))}
                 </div>
 
                 <div className="flex h-80 w-5/6 flex-col items-center justify-around font-bold xl:text-lg 2xl:h-full 2xl:w-3/5">
