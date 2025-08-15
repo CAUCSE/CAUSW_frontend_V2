@@ -30,7 +30,7 @@ export default async function GraduateHomePage({ events }) {
     },
     {
       name: '소통 게시판',
-      icon: <MdTagFaces className="h-8 w-8 text-[#7AB6C1] sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20" />,
+      icon: <MdTagFaces className="h-8 w-8 text-[#5E9B4D] sm:h-10 sm:w-10 md:h-14 md:w-14 2xl:h-20 2xl:w-20" />,
       href: `/board/${talkBoardId}`,
     },
     {
@@ -103,7 +103,7 @@ export default async function GraduateHomePage({ events }) {
             boardId={talkBoardId}
             title="최신 소통글"
             items={talkPosts}
-            icon={<MdTagFaces className="h-5 w-5 text-[#7AB6C1]" />}
+            icon={<MdTagFaces className="h-5 w-5 text-[#5E9B4D]" />}
           />
         </div>
       </div>

@@ -8,9 +8,8 @@ import {
   MdCardTravel,
   MdDeliveryDining,
   MdFeedback,
-  MdLanguage,
   MdNewspaper,
-  MdNotifications,
+  MdTagFaces,
   MdVolumeUp,
   MdWysiwyg,
 } from 'react-icons/md';
@@ -43,7 +42,7 @@ const boardStyles: Record<string, { icon: ReactNode }> = {
     icon: <MdCardTravel className="h-6 w-6 rounded-sm bg-[#DBF4F8] p-1 text-[#7AB6C1] lg:h-8 lg:w-8" />,
   },
   '크자회 소통 게시판': {
-    icon: <MdLanguage className="h-6 w-6 rounded-sm bg-[#CFD5D6] p-1 text-[#616464] lg:h-8 lg:w-8" />,
+    icon: <MdTagFaces className="h-6 w-6 rounded-sm bg-[#DDEAD6] p-1 text-[#5E9B4D] lg:h-8 lg:w-8" />,
   },
   // 기본값
   default: {
