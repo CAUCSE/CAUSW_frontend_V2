@@ -6,5 +6,5 @@ export { useDeletePost } from './useDeletePost';
 export { useUnsubscribePost } from './useUnsubscribePost';
 export { useSubscribePost } from './useSubscribePost';
 export { useToggleLikePost } from './useToggleLikePost';
-export { useScrapPost } from './useScrapPost';
+export { useToggleScrapPost } from './useToggleScrapPost';
 export { useGetPostDetail } from './useGetPostDetail';

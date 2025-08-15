@@ -31,12 +31,10 @@ export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
         voteData={postData.voteResponseDto!}
       />
       <PostActionBar
-        numLike={postData.numLike}
-        isPostLiked={postData.isPostLike}
-        numFavorite={postData.numFavorite}
-        numComment={postData.numComment}
-        isPostForm={postData.isPostForm}
-        formResponseDto={postData.formResponseDto}
+        like={{ numLike: postData.numLike, isPostLiked: postData.isPostLike }}
+        favorite={{ numFavorite: postData.numFavorite, isPostFavorite: postData.isPostFavorite }}
+        comment={{ numComment: postData.numComment }}
+        form={{ isPostForm: postData.isPostForm, formResponseDto: postData.formResponseDto }}
       />
     </section>
   );

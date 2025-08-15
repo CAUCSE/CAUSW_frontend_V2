@@ -1,11 +1,3 @@
 export * from './get';
-export {
-  createPost,
-  type CreatePostParams,
-  type CreatePostResponse,
-  subscribePost,
-  likePost,
-  unLikePost,
-  scrapPost,
-} from './post';
-export { deletePost, unsubscribePost } from './delete';
+export { createPost, type CreatePostParams, type CreatePostResponse, subscribePost, likePost, scrapPost } from './post';
+export { deletePost, unsubscribePost, unLikePost, unSrabPost } from './delete';

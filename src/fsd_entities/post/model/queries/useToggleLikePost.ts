@@ -27,11 +27,12 @@ export const useToggleLikePost = () => {
       queryClient.invalidateQueries({ queryKey: postQueryKey.list(boardId) });
     },
     onError: (error) => {
+      console.log('er', error);
       if (isAxiosError(error)) {
-        toast.error(error.response?.data.message ?? `에러가 발생했습니다.`);
+        toast.error(error.response?.data.message ?? `게시글 좋아요 관련 에러가 발생했습니다.`);
         return;
       }
-      toast.error('에러가 발생했습니다.');
+      toast.error('게시글 좋아요 관련 발생했습니다.');
     },
   });
 };
