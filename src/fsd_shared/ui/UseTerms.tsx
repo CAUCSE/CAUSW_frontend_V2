@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import toast from 'react-hot-toast';
+
 import { withdrawUserCSR } from '@/fsd_entities/user';
 
 import { tokenManager } from '../utils';
@@ -19,6 +21,7 @@ export const UseTerms = ({ closeModal }: UseTermsProps) => {
       await withdrawUserCSR();
       signoutAndRedirect();
     } catch (e) {
+      toast.error('회원 탈퇴 실패: 잠시 후 다시 시도해주세요.');
     } finally {
       closeModal();
     }
