@@ -23,13 +23,18 @@ export const useCreatePost = () => {
   const boardId = useParams().boardId;
   const router = useRouter();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async ({ title, content, isAnonymous, isQuestion }: Omit<Post.CreatePostDto, 'boardId'>) =>
       await createPost({
         postData: { title, content, isAnonymous, isQuestion, boardId: boardId as string },
         attachImageList: selectedFileList,
       }),
-    onSuccess: (postId) => {
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
+    onSuccess: (postId, variables, context) => {
+      toast.dismiss(context);
+
       if (isVote) {
         return postId;
       }
@@ -46,4 +51,6 @@ export const useCreatePost = () => {
       }
     },
   });
+
+  return mutation;
 };

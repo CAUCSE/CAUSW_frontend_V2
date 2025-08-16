@@ -20,14 +20,19 @@ export const useCreatePostWithForm = () => {
   );
   const router = useRouter();
   const { boardId } = useParams() as { boardId: string };
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (postData: Omit<Post.PostCreateWithFormRequestDto, 'boardId'>) => {
       return await createPostWithForm({
         postData: { ...postData, boardId },
         attachImageList: selectedFileList,
       });
     },
-    onSuccess: (data) => {
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
+    onSuccess: (data, variables, context) => {
+      toast.dismiss(context);
+
       router.replace(`/board/${boardId}/${data}`);
       clearFileList();
       clearPost();
@@ -40,4 +45,5 @@ export const useCreatePostWithForm = () => {
       }
     },
   });
+  return mutation;
 };
