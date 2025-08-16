@@ -26,6 +26,9 @@ export const useCreateCommonBoard = () => {
         description,
         isAnonymousAllowed,
       }),
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
     onSuccess: () => {
       toast.success('게시판 생성 신청 성공');
       setTimeout(() => {

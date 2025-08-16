@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -44,10 +44,10 @@ const CreatePostPage = () => {
     clearFileList();
     router.back();
   };
-
+  const boardId = useParams().boardId;
   const { mutateAsync: createPost } = useCreatePost();
-  const { mutate: createVote } = useCreateVote();
-  const { mutate: createPostWithForm } = useCreatePostWithForm();
+  const { mutateAsync: createVote } = useCreateVote();
+  const { mutateAsync: createPostWithForm } = useCreatePostWithForm();
 
   const methods = useForm<PostSchema>({
     mode: 'all',
@@ -119,75 +119,98 @@ const CreatePostPage = () => {
       keepErrors: true,
     });
   }, [isVote, isApply, methods]);
+  const isSubmittingRef = useRef(false);
 
   const handleSubmit = methods.handleSubmit(async (data) => {
-    if (isApply) {
-      const { title, content, isAnonymous, isQuestion } = data;
-      let { formCreateRequestDto } = data;
-      if (formCreateRequestDto?.enrolledRegisteredSemesterList.includes('ALL_SEMESTER')) {
-        formCreateRequestDto.enrolledRegisteredSemesterList = [
-          'FIRST_SEMESTER',
-          'SECOND_SEMESTER',
-          'THIRD_SEMESTER',
-          'FOURTH_SEMESTER',
-          'FIFTH_SEMESTER',
-          'SIXTH_SEMESTER',
-          'SEVENTH_SEMESTER',
-          'EIGHTH_SEMESTER',
-          'ABOVE_NINTH_SEMESTER',
-        ];
-      }
-
-      if (formCreateRequestDto?.leaveOfAbsenceRegisteredSemesterList.includes('ALL_SEMESTER')) {
-        formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList = [
-          'FIRST_SEMESTER',
-          'SECOND_SEMESTER',
-          'THIRD_SEMESTER',
-          'FOURTH_SEMESTER',
-          'FIFTH_SEMESTER',
-          'SIXTH_SEMESTER',
-          'SEVENTH_SEMESTER',
-          'EIGHTH_SEMESTER',
-          'ABOVE_NINTH_SEMESTER',
-        ];
-      }
-
-      createPostWithForm({
-        title,
-        content,
-        isAnonymous,
-        isQuestion,
-        formCreateRequestDto: formCreateRequestDto as Post.PostCreateWithFormRequestDto['formCreateRequestDto'],
-      });
+    if (isSubmittingRef.current) {
       return;
     }
 
-    const { title, content, isAnonymous, isQuestion } = data;
-    const postId = await createPost({ title, content, isAnonymous, isQuestion });
-    if (isVote) {
-      const { title, options, allowAnonymous, allowMultiple } = data.voteCreateRequestDto as Post.CreateVoteDto;
-      createVote({
-        title,
-        allowAnonymous,
-        allowMultiple,
-        options,
-        postId,
-      });
+    isSubmittingRef.current = true;
+
+    try {
+      let postId: Post.PostDto['id'] | undefined;
+      if (isApply) {
+        const { title, content, isAnonymous, isQuestion } = data;
+        let { formCreateRequestDto } = data;
+        if (formCreateRequestDto?.enrolledRegisteredSemesterList.includes('ALL_SEMESTER')) {
+          formCreateRequestDto.enrolledRegisteredSemesterList = [
+            'FIRST_SEMESTER',
+            'SECOND_SEMESTER',
+            'THIRD_SEMESTER',
+            'FOURTH_SEMESTER',
+            'FIFTH_SEMESTER',
+            'SIXTH_SEMESTER',
+            'SEVENTH_SEMESTER',
+            'EIGHTH_SEMESTER',
+            'ABOVE_NINTH_SEMESTER',
+          ];
+        }
+
+        if (formCreateRequestDto?.leaveOfAbsenceRegisteredSemesterList.includes('ALL_SEMESTER')) {
+          formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList = [
+            'FIRST_SEMESTER',
+            'SECOND_SEMESTER',
+            'THIRD_SEMESTER',
+            'FOURTH_SEMESTER',
+            'FIFTH_SEMESTER',
+            'SIXTH_SEMESTER',
+            'SEVENTH_SEMESTER',
+            'EIGHTH_SEMESTER',
+            'ABOVE_NINTH_SEMESTER',
+          ];
+        }
+
+        postId = await createPostWithForm({
+          title,
+          content,
+          isAnonymous,
+          isQuestion,
+          formCreateRequestDto: formCreateRequestDto as Post.PostCreateWithFormRequestDto['formCreateRequestDto'],
+        });
+      } else {
+        const { title, content, isAnonymous, isQuestion } = data;
+
+        postId = await createPost({ title, content, isAnonymous, isQuestion });
+
+        if (isVote) {
+          const { title, options, allowAnonymous, allowMultiple } = data.voteCreateRequestDto as Post.CreateVoteDto;
+
+          postId = await createVote({
+            title,
+            allowAnonymous,
+            allowMultiple,
+            options,
+            postId,
+          });
+        }
+      }
+      if (postId) {
+        router.replace(`/board/${boardId}/${postId}`);
+        clearPost();
+        clearFileList();
+      }
+    } catch (error) {
+      isSubmittingRef.current = false;
     }
   });
+
+  const isSubmitting = isSubmittingRef.current;
 
   return (
     <div className="grid h-full w-full grid-rows-[40px_1fr_auto] pt-3">
       <PreviousButton routeCallback={handleBack} className="pl-5" />
-      <div className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">
-        <FormProvider {...methods}>
+
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit} className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">
           <PostCreationForm />
           {isVote && <VoteCreationForm />}
           {isApply && <FormCreationForm />}
           {selectedFileList.length > 0 && <UploadFilePreview />}
-        </FormProvider>
-      </div>
-      <PostCreationFormButtonGroup handleSubmit={handleSubmit} />
+
+          <PostCreationFormButtonGroup disabled={isSubmitting} />
+        </form>
+      </FormProvider>
     </div>
   );
 };

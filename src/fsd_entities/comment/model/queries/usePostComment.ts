@@ -1,12 +1,36 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 import { postComment } from '../../api';
+import { commentQueryKey } from '../../config';
 import type { PostCommentRequestDto } from '../../type';
 
-export const usePostComment = () => {
+export const usePostComment = ({
+  setChildCommentActiveId,
+  setCommentContent,
+  postId,
+}: Comment.PostChildCommentProps) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({ dto }: { dto: PostCommentRequestDto }) => postComment(dto),
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
+    onSuccess: (data, variables, context) => {
+      toast.dismiss(context);
+      queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
+      setCommentContent('');
+    },
+    onError: (error: Error) => {
+      if (isAxiosError(error)) {
+        toast.error(error.response?.data.message ?? '댓글 작성에 실패했습니다.');
+        return;
+      }
+      toast.error('댓글 작성에 실패했습니다.');
+    },
   });
 };

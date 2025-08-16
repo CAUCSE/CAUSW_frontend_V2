@@ -11,13 +11,17 @@ import { createVote } from '../../api';
 export const useCreateVote = () => {
   const router = useRouter();
   const { boardId } = useParams() as { boardId: string };
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (voteData: Post.CreateVoteDto) => {
       await createVote(voteData);
       return voteData.postId;
     },
-    onSuccess: (postId) => {
-      router.replace(`/board/${boardId}/${postId}`);
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
+    onSuccess: (postId, variables, context) => {
+      toast.dismiss(context);
+      return postId;
     },
     onError: (error: Error) => {
       if (isAxiosError(error)) {
@@ -27,4 +31,5 @@ export const useCreateVote = () => {
       }
     },
   });
+  return mutation;
 };

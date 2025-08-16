@@ -6,33 +6,26 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
+import { ALL_ROLES } from '@/fsd_entities/board/model/hooks';
+
 import { createNoticeBoard } from '../../api';
 import { useBoardCreationStore } from '../stores';
-import { ALL_ROLES } from '@/fsd_entities/board/model/hooks';
 
 export const useCreateNoticeBoard = () => {
   const router = useRouter();
-  const {
-    boardName,
-    boardDescription,
-    allowAnonymous,
-    isAlumni,
-    selectedRoleList,
-    resetBoardCreation,
-  } = useBoardCreationStore(
-    useShallow((state) => ({
-      boardName: state.boardName,
-      boardDescription: state.boardDescription,
-      allowAnonymous: state.allowAnonymous,
-      isAlumni: state.isAlumni,
-      selectedRoleList: state.selectedRoleList,
-      resetBoardCreation: state.resetBoardCreation,
-    })),
-  );
+  const { boardName, boardDescription, allowAnonymous, isAlumni, selectedRoleList, resetBoardCreation } =
+    useBoardCreationStore(
+      useShallow((state) => ({
+        boardName: state.boardName,
+        boardDescription: state.boardDescription,
+        allowAnonymous: state.allowAnonymous,
+        isAlumni: state.isAlumni,
+        selectedRoleList: state.selectedRoleList,
+        resetBoardCreation: state.resetBoardCreation,
+      })),
+    );
 
-  const roleList: User.Role[] = selectedRoleList.includes('ALL')
-    ? ALL_ROLES
-    : (selectedRoleList as User.Role[]);
+  const roleList: User.Role[] = selectedRoleList.includes('ALL') ? ALL_ROLES : (selectedRoleList as User.Role[]);
 
   return useMutation({
     mutationFn: () =>
@@ -44,6 +37,9 @@ export const useCreateNoticeBoard = () => {
         isAnonymousAllowed: allowAnonymous,
         isAlumni: isAlumni,
       }),
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
     onSuccess: () => {
       toast.success('게시판 생성 성공');
       setTimeout(() => {

@@ -33,4 +33,9 @@ declare namespace Comment {
     postId: string;
     isAnonymous: boolean;
   }
+  export interface PostChildCommentProps {
+    setChildCommentActiveId: (id: string | undefined) => void;
+    setCommentContent: (content: string) => void;
+    postId: string;
+  }
 }
