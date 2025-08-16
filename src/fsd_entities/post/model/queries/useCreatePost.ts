@@ -35,12 +35,6 @@ export const useCreatePost = () => {
     onSuccess: (postId, variables, context) => {
       toast.dismiss(context);
 
-      if (isVote) {
-        return postId;
-      }
-      router.replace(`/board/${boardId}/${postId}`);
-      clearPost();
-      clearFileList();
       return postId;
     },
     onError: (error: Error) => {

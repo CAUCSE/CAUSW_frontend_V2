@@ -21,8 +21,7 @@ export const useCreateVote = () => {
     },
     onSuccess: (postId, variables, context) => {
       toast.dismiss(context);
-
-      router.replace(`/board/${boardId}/${postId}`);
+      return postId;
     },
     onError: (error: Error) => {
       if (isAxiosError(error)) {

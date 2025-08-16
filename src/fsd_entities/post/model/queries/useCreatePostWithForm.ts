@@ -32,10 +32,7 @@ export const useCreatePostWithForm = () => {
     },
     onSuccess: (data, variables, context) => {
       toast.dismiss(context);
-
-      router.replace(`/board/${boardId}/${data}`);
-      clearFileList();
-      clearPost();
+      return data;
     },
     onError: (error: Error) => {
       if (isAxiosError(error)) {
