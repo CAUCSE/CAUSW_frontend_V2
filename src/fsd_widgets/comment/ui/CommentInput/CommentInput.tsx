@@ -26,63 +26,40 @@ export const CommentInput = ({ postId }: CommentInputProps) => {
   const [commentContent, setCommentContent] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
 
-  const { mutate: postComment } = usePostComment();
-  const { mutate: postChildComment } = usePostChildComment();
+  const { mutate: postComment, isPending: isChildComment } = usePostComment({
+    setChildCommentActiveId,
+    setCommentContent,
+    postId,
+  });
+  const { mutate: postChildComment, isPending: isPostingChildComment } = usePostChildComment({
+    setChildCommentActiveId,
+    setCommentContent,
+    postId,
+  });
 
   const handleSubmit = () => {
     if (commentContent.trim() === '') return;
 
     if (childCommentActiveId) {
-      postChildComment(
-        {
-          dto: {
-            content: commentContent,
-            isAnonymous,
-            parentCommentId: childCommentActiveId,
-          },
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
-            setChildCommentActiveId(undefined);
-            setCommentContent('');
-          },
-          onError: (error: Error) => {
-            if (isAxiosError(error)) {
-              toast.error(error.response?.data.message ?? '댓글 작성에 실패했습니다.');
-              return;
-            }
-            toast.error('댓글 작성에 실패했습니다.');
-          },
-        },
-      );
-      return;
-    }
-
-    postComment(
-      {
+      postChildComment({
         dto: {
           content: commentContent,
           isAnonymous,
-          postId,
+          parentCommentId: childCommentActiveId,
         },
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
-          setCommentContent('');
-        },
-        onError: (error: Error) => {
-          if (isAxiosError(error)) {
-            toast.error(error.response?.data.message ?? '댓글 작성에 실패했습니다.');
-            return;
-          }
-          toast.error('댓글 작성에 실패했습니다.');
-        },
-      },
-    );
-  };
+      });
+      return;
+    }
 
+    postComment({
+      dto: {
+        content: commentContent,
+        isAnonymous,
+        postId,
+      },
+    });
+  };
+  const isSubmitting = isChildComment || isPostingChildComment;
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -96,38 +73,40 @@ export const CommentInput = ({ postId }: CommentInputProps) => {
   };
 
   return (
-<div className="flex w-full items-center justify-center px-3">
-  <div className="rounded-comment-input-br bg-comment-input flex grow items-center justify-between p-4">
-    <label className="flex items-center space-x-2 pr-3 shrink-0">
-      <input
-        type="checkbox"
-        className="form-checkbox h-6 w-6 border-2 border-gray-300"
-        checked={isAnonymous}
-        onChange={(e) => setIsAnonymous(e.target.checked)}
-      />
-      <div className="text-base text-gray-400 text-nowrap">익명</div>
-    </label>
-    
-    {/* input을 div로 감싸서 overflow 제어 */}
-    <div className="flex grow min-w-0 overflow-hidden">
-      <input
-        type="text"
-        placeholder="댓글을 입력해주세요!"
-        className="bg-comment-input w-full border-none text-base text-black outline-none placeholder:truncate"
-        value={commentContent}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
+    <div className="flex w-full items-center justify-center px-3">
+      <div className="rounded-comment-input-br bg-comment-input flex grow items-center justify-between p-4">
+        <label className="flex shrink-0 items-center space-x-2 pr-3">
+          <input
+            type="checkbox"
+            className="form-checkbox h-6 w-6 border-2 border-gray-300"
+            checked={isAnonymous}
+            onChange={(e) => setIsAnonymous(e.target.checked)}
+          />
+          <div className="text-base text-nowrap text-gray-400">익명</div>
+        </label>
+
+        {/* input을 div로 감싸서 overflow 제어 */}
+        <div className="flex min-w-0 grow overflow-hidden">
+          <input
+            type="text"
+            placeholder="댓글을 입력해주세요!"
+            className="bg-comment-input w-full border-none text-base text-black outline-none placeholder:truncate"
+            value={commentContent}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="ml-2 flex h-fit w-fit shrink-0 cursor-pointer items-end text-red-500"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          <SendHorizontal className="size-5" />
+        </Button>
+      </div>
     </div>
-    
-    <Button
-      variant="ghost"
-      size="icon"
-      className="flex h-fit w-fit cursor-pointer items-end text-red-500 shrink-0 ml-2"
-      onClick={handleSubmit}
-    >
-      <SendHorizontal className="size-5" />
-    </Button>
-  </div>
-</div>  );
+  );
 };
