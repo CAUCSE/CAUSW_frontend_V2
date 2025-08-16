@@ -46,6 +46,7 @@ export const useCreateNoticeBoard = () => {
       }),
     onSuccess: () => {
       toast.success('게시판 생성 성공');
+      router.refresh();
       setTimeout(() => {
         router.back();
         resetBoardCreation();
