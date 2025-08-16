@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { useUserAcademic, isGraduate } from '@/fsd_entities/user';
+import { isGraduate, useUserAcademic } from '@/fsd_entities/user';
 
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';
@@ -15,9 +15,6 @@ export const BoardListClient = ({
   defaultBoardForCommon,
   customBoardForAdmin,
   customBoardForCommon,
-  defaultBoardForGraduate,
-  customBoardForGraduate,
-  sortedBoardList,
 }) => {
   const { data: userInfo } = useUserAcademic();
   const isGraduated = userInfo ? isGraduate(userInfo.academicStatus) : false;
@@ -27,15 +24,6 @@ export const BoardListClient = ({
   if (!mounted) return null;
 
   const renderBoard = () => {
-    if (isGraduated) {
-      return (
-        <>
-          <DefaultNoticeBoard boardInfos={defaultBoardForGraduate} />
-          <CustomBoard boardInfos={customBoardForGraduate} />
-        </>
-      );
-    }
-
     if (roles.includes('ADMIN')) {
       return (
         <>
