@@ -152,14 +152,9 @@ declare namespace Ceremony {
     last: boolean;
     empty: boolean;
   }
-  interface AdmissionYearInputProps {
-    onAdd: (year: number) => void;
-    disabled: boolean;
-    isSettingPage?: boolean;
-  }
   interface AdmissionYearListProps {
-    years: number[];
-    onRemove: (year: number) => void;
+    years: string[];
+    onRemove: (year: string) => void;
     isAllSelected?: boolean;
     isSettingPage?: boolean;
   }
@@ -169,17 +164,17 @@ declare namespace Ceremony {
     isSettingPage?: boolean;
   }
   interface CeremonyNotificationSettingDto {
-    subscribedAdmissionYears: number[] | null;
+    subscribedAdmissionYears: string[] | null;
     setAll: boolean;
     notificationActive: boolean;
   }
   interface NotificationSettingPayload {
-    subscribedAdmissionYears: number[] | null;
+    subscribedAdmissionYears: string[] | null;
     setAll: boolean;
     notificationActive: boolean;
   }
   interface NotificationYearListBoxProps {
-    years: number[];
+    years: string[];
     isSetAll: boolean;
   }
   interface CeremonyDetailDataPros {

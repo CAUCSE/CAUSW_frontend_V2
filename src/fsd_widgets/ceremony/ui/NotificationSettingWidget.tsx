@@ -8,10 +8,10 @@ import { Button } from '@/fsd_shared';
 
 interface NotificationSettingWidgetProps {
   isSettingPage?: boolean;
-  years?: number[];
+  years?: string[];
   setAll?: boolean;
-  addYear?: (year: number) => void;
-  removeYear?: (year: number) => void;
+  addYear?: (year: string) => void;
+  removeYear?: (year: string) => void;
   setAllYearsSelected?: (value: boolean) => void;
   onSubmit?: () => void;
 }
