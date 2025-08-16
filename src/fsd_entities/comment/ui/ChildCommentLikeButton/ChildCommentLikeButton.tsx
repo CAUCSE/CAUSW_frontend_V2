@@ -17,7 +17,7 @@ export const ChildCommentLikeButton = ({
   isDeleted,
   isChildCommentLike,
 }: ChildCommentLikeButtonProps) => {
-  const { mutate: toggleLikeChildComment } = useToggleLikeChildComment();
+  const { mutate: toggleLikeChildComment, isPending } = useToggleLikeChildComment();
 
   const handleLikeChildComment = () => {
     toggleLikeChildComment({ childCommentId, isChildCommentLike });
@@ -29,7 +29,7 @@ export const ChildCommentLikeButton = ({
       size="icon"
       className="bg-comment-btn h-fit w-fit rounded-3xl px-2.5 py-1.5"
       onClick={handleLikeChildComment}
-      disabled={isDeleted}
+      disabled={isDeleted || isPending}
     >
       <ThumbsUp className="size-4" />
     </Button>
