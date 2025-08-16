@@ -8,10 +8,10 @@ import { Button } from '@/fsd_shared';
 
 interface NotificationSettingWidgetProps {
   isSettingPage?: boolean;
-  years?: number[];
+  years?: string[];
   setAll?: boolean;
-  addYear?: (year: number) => void;
-  removeYear?: (year: number) => void;
+  addYear?: (year: string) => void;
+  removeYear?: (year: string) => void;
   setAllYearsSelected?: (value: boolean) => void;
   onSubmit?: () => void;
 }
@@ -50,11 +50,7 @@ export const NotificationSettingWidget = (props: NotificationSettingWidgetProps)
         >
           {props.isSettingPage && <p className="mb-3 text-xl font-semibold">경조사 알림을 받을 학번 설정</p>}
           <div className="mb-2">
-            <AdmissionYearInput
-              onAdd={(yearString) => addYear(Number(yearString))}
-              disabled={setAll}
-              isSettingPage={props.isSettingPage}
-            />
+            <AdmissionYearInput onAdd={addYear} disabled={setAll} isSettingPage={props.isSettingPage} />
           </div>
           <p className={clsx('mb-2 text-sm text-gray-400', props.isSettingPage ? '' : 'text-start')}>
             학번 입력 후 추가 버튼을 눌러주세요.

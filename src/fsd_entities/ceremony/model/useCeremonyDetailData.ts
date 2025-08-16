@@ -20,7 +20,7 @@ export const useCeremonyData = ({ context, ceremonyId }: Ceremony.CeremonyDetail
     applicantName: '',
     applicantStudentId: '',
     isSetAll: false,
-    targetAdmissionYears: [] as number[],
+    targetAdmissionYears: [] as string[],
   });
 
   useEffect(() => {

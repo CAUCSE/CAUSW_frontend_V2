@@ -53,7 +53,7 @@ export const AdmissionYearInput = ({
         variant="BLUE"
         action={handleAdd}
         className="px-4 py-1 text-sm"
-        disabled={disabled || year.length === 0 || isNaN(parseInt(year))}
+        disabled={disabled || isNaN(parseInt(year))}
       >
         추가
       </Button>
