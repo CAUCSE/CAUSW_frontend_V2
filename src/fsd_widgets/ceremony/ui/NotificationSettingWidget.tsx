@@ -50,7 +50,11 @@ export const NotificationSettingWidget = (props: NotificationSettingWidgetProps)
         >
           {props.isSettingPage && <p className="mb-3 text-xl font-semibold">경조사 알림을 받을 학번 설정</p>}
           <div className="mb-2">
-            <AdmissionYearInput onAdd={addYear} disabled={setAll} isSettingPage={props.isSettingPage} />
+            <AdmissionYearInput
+              onAdd={(yearString) => addYear(Number(yearString))}
+              disabled={setAll}
+              isSettingPage={props.isSettingPage}
+            />
           </div>
           <p className={clsx('mb-2 text-sm text-gray-400', props.isSettingPage ? '' : 'text-start')}>
             학번 입력 후 추가 버튼을 눌러주세요.
