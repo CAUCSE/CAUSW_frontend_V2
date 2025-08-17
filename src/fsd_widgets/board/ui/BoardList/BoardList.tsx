@@ -5,15 +5,8 @@ import { BoardListClient } from './BoardListClient';
 
 export const BoardList = async () => {
   const roles = await getMyRoles();
-  const {
-    defaultBoardForAdmin,
-    defaultBoardForCommon,
-    customBoardForAdmin,
-    customBoardForCommon,
-    defaultBoardForGraduate,
-    customBoardForGraduate,
-    sortedBoardList,
-  } = await fetchBoardList();
+  const { defaultBoardForAdmin, defaultBoardForCommon, customBoardForAdmin, customBoardForCommon } =
+    await fetchBoardList();
 
   return (
     <BoardListClient
@@ -22,9 +15,6 @@ export const BoardList = async () => {
       defaultBoardForCommon={defaultBoardForCommon}
       customBoardForAdmin={customBoardForAdmin}
       customBoardForCommon={customBoardForCommon}
-      defaultBoardForGraduate={defaultBoardForGraduate}
-      customBoardForGraduate={customBoardForGraduate}
-      sortedBoardList={sortedBoardList}
     />
   );
 };
