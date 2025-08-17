@@ -5,4 +5,5 @@ export const generalCeremonyQueryKey = {
   list: (ceremonyId: string) => [...generalCeremonyQueryKey.all, 'list', ceremonyId],
   regist: (ceremonyId: string) => [...generalCeremonyQueryKey.all, 'regist', ceremonyId],
   cancel: (ceremonyId: string) => [...generalCeremonyQueryKey.all, 'cancel', ceremonyId],
+  update: (ceremonyId: string) => [...generalCeremonyQueryKey.all, 'update', ceremonyId],
 };
