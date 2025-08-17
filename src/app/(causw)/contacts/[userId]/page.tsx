@@ -40,7 +40,7 @@ export default function ContactDetailPage() {
     }
   };
 
-  const actionButtons = !contact.isPhoneNumberVisible ? (
+  const actionButtons = !contact.isPhoneNumberVisible && contact.phoneNumber !== '전화번호 없음' ? (
     <div className="flex w-full items-center justify-center gap-4 pt-4 md:pt-10">
       <Button
         variant="neutral"
