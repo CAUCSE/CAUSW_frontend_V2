@@ -24,7 +24,7 @@ export const CeremonyCreateWidget = () => {
     },
   });
 
-  const { onSubmit } = useCeremonyCreateForm();
+  const { onSubmit, isPending } = useCeremonyCreateForm();
   const settingForm = useCeremonySettingForm(false);
   const [resetImageUploader, setResetImageUploader] = useState(false);
   const handleFormSubmit = methods.handleSubmit(async (data) => {
@@ -118,6 +118,7 @@ export const CeremonyCreateWidget = () => {
           variant="default"
           size="lg"
           className="self-center bg-[rgba(107,190,236,1)] px-28 text-lg font-bold hover:bg-[rgba(107,190,236,0.9)] md:px-52"
+          disabled={isPending}
         >
           저장
         </Button>
