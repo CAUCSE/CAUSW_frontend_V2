@@ -32,7 +32,7 @@ export const CeremonyDetailPage = ({ ceremonyId, context }: Ceremony.CeremonyDet
           <CeremonySectionTitle title={MESSAGES.CEREMONY.CATEGORY} ceremonyContent={ceremonyType} />
           <CeremonySectionTitle
             title={MESSAGES.CEREMONY.REGISTRANT}
-            ceremonyContent={`${ceremonyDetails.applicantName}/${ceremonyDetails.applicantStudentId}`}
+            ceremonyContent={`${ceremonyDetails.applicantName}${ceremonyDetails.applicantStudentId ? `/${ceremonyDetails.applicantStudentId}` : ''}`}
           />
         </div>
         <CeremonySectionTitle title={MESSAGES.CEREMONY.DETAIL_CONTENTS} ceremonyContent={ceremonyDetails.content} />
