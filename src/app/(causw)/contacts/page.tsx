@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { ContactList } from '@/fsd_widgets/contact';
 import { PreviousButton } from '@/fsd_shared';
 
@@ -7,10 +8,20 @@ export default function ContactPage() {
   return (
     <div className="relative top-3 left-4 w-[calc(100%-2rem)] pb-12 md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <PreviousButton className="mb-8" />
-      <div className="mb-14 text-center text-2xl font-medium md:text-3xl">
-        동문수첩
+      <div className="mb-4 text-center">
+        <h1 className="text-2xl font-medium md:text-3xl">동문수첩</h1>
       </div>
-      <ContactList />
+      <div>
+        <div className="mb-2 flex justify-end">
+          <Link
+            href="/profile"
+            className="rounded-md bg-slate-200 px-6 py-2 text-xs font-bold text-slate-700 hover:bg-slate-300 md:text-sm"
+          >
+            내 동문수첩
+          </Link>
+        </div>
+        <ContactList />
+      </div>
     </div>
   );
 }

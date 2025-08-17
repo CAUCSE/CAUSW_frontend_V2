@@ -22,8 +22,9 @@ interface ProfileEditProps {
 
 export const ProfileEdit = ({ contact }: ProfileEditProps) => {
   const { methods, isPending, fields, addCareer, removeCareer, handleFormSubmit } = useEditProfile(contact);
-  const { control, register, formState: { errors } } = methods;
+  const { control, register, formState: { errors }, watch } = methods;
 
+  const phoneNumberValue = watch('phoneNumber');
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleFormSubmit} className="flex w-full flex-col gap-8">
@@ -45,18 +46,23 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
               <FormField label="이메일">
                 <Input placeholder="이메일" {...register('email')} disabled />
               </FormField>
-              <FormField label="연락처" hint="연락처 정보는 공개범위 내 사용자만 볼 수 있습니다.">
-                <Controller
-                  control={control}
-                  name="phoneNumber"
-                  render={({ field }) => (
-                    <Input id="연락처" placeholder="010-1234-5678" onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))} value={field.value ?? ''} />
+              <FormField label="연락처">
+                <div>
+                  <Controller
+                    control={control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <Input id="연락처" placeholder="010-1234-5678" onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))} value={field.value ?? ''} />
+                    )}
+                  />
+                  <p className="mt-2 text-xs text-gray-500">연락처 정보는 공개범위 내 사용자만 볼 수 있습니다.</p>
+                  {phoneNumberValue === '전화번호 없음' && (
+                    <p className="mt-1 text-xs text-red-500">올바른 전화번호를 입력하지 않을 시 동문수첩 정보 수정이 불가합니다.</p>
                   )}
-                />
+                </div>
               </FormField>
             </div>
           </TabsContent>
-
           <TabsContent value="intro">
             <div className="flex h-[30rem] overflow-y-auto flex-col gap-6 rounded-md border bg-white p-6">
               <FormField label="한줄 소개">
