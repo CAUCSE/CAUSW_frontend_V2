@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import toast from 'react-hot-toast';
 
 import { getUser } from '@/fsd_entities/user/api';
@@ -14,7 +16,7 @@ import { Button } from '@/fsd_shared';
 export default function AddPayerPage({ params: { userId } }: { params: { userId: string } }) {
   const [user, setUser] = useState<User.UserDto | null>(null);
   const [payNum, setPayNum] = useState<number | undefined>(8);
-
+  const router = useRouter();
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -67,6 +69,7 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
               // throw new Error("납부자 추가 중 오류가 발생했습니다.");
             } else {
               toast.success('납부자 추가가 완료되었습니다.');
+              router.back();
             }
           } catch (error) {
             const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';
