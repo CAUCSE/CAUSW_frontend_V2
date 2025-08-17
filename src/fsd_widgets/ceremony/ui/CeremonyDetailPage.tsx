@@ -2,7 +2,13 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { cancelCeremonyRegist, CeremonyDateTile, CeremonySectionTitle, useCeremonyData } from '@/fsd_entities/ceremony';
+import {
+  cancelCeremonyRegist,
+  CeremonyDateTile,
+  CeremonySectionTitle,
+  useCancelCeremony,
+  useCeremonyData,
+} from '@/fsd_entities/ceremony';
 
 import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 
@@ -15,15 +21,9 @@ export const CeremonyDetailPage = ({ ceremonyId, context }: Ceremony.CeremonyDet
 
   const ceremonyType = ceremonyTypeMap[ceremonyDetails.type];
 
+  const { mutate: rejectCeremony } = useCancelCeremony();
   const handleClickReject = async () => {
-    try {
-      await cancelCeremonyRegist({
-        ceremonyId: ceremonyId,
-      });
-      router.push('/ceremony/list');
-    } catch (error) {
-      throw new Error(ERROR_MESSAGES.CANCEL_REGITSTERED_CEREMONY);
-    }
+    rejectCeremony({ ceremonyId });
   };
   return (
     <>
