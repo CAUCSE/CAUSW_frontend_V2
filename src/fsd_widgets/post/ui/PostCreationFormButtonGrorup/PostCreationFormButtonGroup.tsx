@@ -8,9 +8,9 @@ import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule'
 import ImageIcon from '../../../../../public/images/post/camera.svg';
 
 interface PostCreationFormButtonGroupProps {
-  handleSubmit: (data: any) => void;
+  disabled?: boolean;
 }
-export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormButtonGroupProps) => {
+export const PostCreationFormButtonGroup = ({ disabled }: PostCreationFormButtonGroupProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { handleUploadMultipleFiles } = useUploadFile();
 
@@ -48,8 +48,9 @@ export const PostCreationFormButtonGroup = ({ handleSubmit }: PostCreationFormBu
       <VoteToggle />
       <ApplicationFormToggle />
       <button
-        onClick={handleSubmit}
+        type="submit"
         className="rounded-full bg-[#F04C23] px-4 py-2 text-sm text-white shadow-md hover:bg-orange-600 focus:outline-hidden md:px-6 md:text-xl xl:ml-20 xl:px-8"
+        disabled={disabled}
       >
         글작성
       </button>

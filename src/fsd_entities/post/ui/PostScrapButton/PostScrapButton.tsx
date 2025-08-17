@@ -15,7 +15,7 @@ interface PostScrapButtonProps {
 
 export const PostScrapButton = ({ numFavorite, isPostFavorite }: PostScrapButtonProps) => {
   const { postId } = useParams() as { postId: string };
-  const { mutate: toggleScrapPost } = useToggleScrapPost();
+  const { mutate: toggleScrapPost, isPending } = useToggleScrapPost();
 
   const handleClickScrapButton = () => {
     toggleScrapPost({ postId, isPostFavorite });
@@ -26,6 +26,7 @@ export const PostScrapButton = ({ numFavorite, isPostFavorite }: PostScrapButton
       variant="ghost"
       className="bg-post-star text-post-star hover:bg-post-star hover:text-post-star flex cursor-pointer items-center rounded-2xl px-4 py-1 text-sm"
       onClick={handleClickScrapButton}
+      disabled={isPending}
     >
       <Star className="size-4" />
       <span>{formatCount(numFavorite)}</span>

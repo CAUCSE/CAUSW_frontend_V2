@@ -13,7 +13,7 @@ interface CommentLikeButtonProps {
 }
 
 export const CommentLikeButton = ({ commentId, isDeleted, isCommentLike }: CommentLikeButtonProps) => {
-  const { mutate: toggleLikeComment } = useToggleLikeComment();
+  const { mutate: toggleLikeComment, isPending } = useToggleLikeComment();
 
   const handleClickLikeButton = () => {
     toggleLikeComment({ commentId, isCommentLike });
@@ -25,7 +25,7 @@ export const CommentLikeButton = ({ commentId, isDeleted, isCommentLike }: Comme
       size="icon"
       className="h-fit w-fit cursor-pointer"
       onClick={handleClickLikeButton}
-      disabled={isDeleted}
+      disabled={isDeleted || isPending}
     >
       <ThumbsUp className="size-4" />
     </Button>
