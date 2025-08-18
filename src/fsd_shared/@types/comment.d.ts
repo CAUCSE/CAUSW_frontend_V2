@@ -10,6 +10,7 @@ declare namespace Comment {
     isDeleted: boolean;
     postId: Post.PostDto['id'];
     writerName: User.User['name'];
+    displayWriterNickname: string;
     writerNickname: User.User['nickname'];
     writerAdmissionYear: User.User['admissionYear'];
     writerProfileImage: User.User['profileImageUrl'];

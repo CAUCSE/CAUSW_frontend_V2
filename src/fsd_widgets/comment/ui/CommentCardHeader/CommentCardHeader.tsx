@@ -5,6 +5,7 @@ interface CommentCardHeaderProps {
     Comment.CommentDto,
     | 'id'
     | 'writerProfileImage'
+    | 'displayWriterNickname'
     | 'writerNickname'
     | 'isAnonymous'
     | 'createdAt'
@@ -19,7 +20,13 @@ export const CommentCardHeader = ({ comment }: CommentCardHeaderProps) => {
     <header className="flex items-center justify-between">
       <CommentInfoSection
         writerProfileImage={comment.writerProfileImage}
-        writerNickname={comment.writerNickname}
+        writerNickname={
+          comment.displayWriterNickname
+            ? comment.displayWriterNickname
+            : comment.isAnonymous
+              ? '익명'
+              : comment.writerNickname
+        }
         isAnonymous={comment.isAnonymous}
         createdAt={comment.createdAt}
       />
