@@ -3,7 +3,14 @@ import { ChildCommentActionDropdown, CommentInfoSection } from '@/fsd_entities/c
 interface ChildCommentCardHeaderProps {
   childComment: Pick<
     ChildComment.ChildCommentDto,
-    'writerProfileImage' | 'writerNickname' | 'createdAt' | 'isAnonymous' | 'id' | 'isOwner' | 'isDeleted'
+    | 'writerProfileImage'
+    | 'writerNickname'
+    | 'displayWriterNickname'
+    | 'createdAt'
+    | 'isAnonymous'
+    | 'id'
+    | 'isOwner'
+    | 'isDeleted'
   >;
 }
 
@@ -12,7 +19,13 @@ export const ChildCommentCardHeader = ({ childComment }: ChildCommentCardHeaderP
     <header className="flex items-center justify-between">
       <CommentInfoSection
         writerProfileImage={childComment.writerProfileImage}
-        writerNickname={childComment.writerNickname}
+        writerNickname={
+          childComment.displayWriterNickname
+            ? childComment.displayWriterNickname
+            : childComment.isAnonymous
+              ? '익명'
+              : childComment.writerNickname
+        }
         createdAt={childComment.createdAt}
         isAnonymous={childComment.isAnonymous}
       />
