@@ -1,9 +1,18 @@
+export type WriterState = 'ACTIVE' | 'INACTIVE' | 'DROP' | 'REJECT';
+export const WRITER_STATE = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  DROP: 'DROP',
+  REJECT: 'REJECT',
+} as const;
+
 // 신고된 게시글 (목록/사용자별 공통 DTO)
 export interface BE_ReportedPost {
   reportId: string;
   postId: string;
   postTitle: string;
   writerName: string;
+  writerState: WriterState;
   reportReasonDescription: string;
   reportCreatedAt: string;
   boardName: string;
@@ -17,6 +26,7 @@ export interface BE_ReportedComment {
   commentContent: string;
   parentPostTitle: string;
   writerName: string;
+  writerState: WriterState;
   reportReasonDescription: string;
   reportCreatedAt: string;
   url: string;
@@ -27,6 +37,7 @@ export interface BE_ReportedUser {
   userId: string;
   userName: string;
   userNickname: string;
+  writerState: WriterState;
   profileImage: string | null;
   totalReportCount: number;
 }
