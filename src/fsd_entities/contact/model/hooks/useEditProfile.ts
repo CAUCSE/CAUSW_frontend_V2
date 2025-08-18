@@ -1,11 +1,20 @@
 import { useEffect } from 'react';
-import { useProfileForm, useUpdateMyProfileMutation, contactToFormData, formDataToPayload, ProfileFormData } from '@/fsd_entities/contact';
 
-const defaultCareerItem = { id: null, description: "", periodStart: "", periodEnd: "" };
+import { checkPhoneNumberDuplicate } from '@/fsd_entities/auth/api/get';
+import {
+  contactToFormData,
+  formDataToPayload,
+  ProfileFormData,
+  useProfileForm,
+  useUpdateMyProfileMutation,
+} from '@/fsd_entities/contact';
+
+const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
 
 export const useEditProfile = (contact: Contact.Contact | undefined) => {
   const { methods, fields, append, remove } = useProfileForm();
   const { mutate: updateProfile, isPending } = useUpdateMyProfileMutation();
+  const { setError, clearErrors } = methods;
 
   useEffect(() => {
     if (contact) {
@@ -13,7 +22,20 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
     }
   }, [contact, methods.reset]);
 
-  const onSubmit = (formData: ProfileFormData) => {
+  const onSubmit = async (formData: ProfileFormData) => {
+    if (formData.phoneNumber && formData.phoneNumber !== contact?.phoneNumber) {
+      const isDuplicate = await checkPhoneNumberDuplicate(formData.phoneNumber);
+      if (isDuplicate) {
+        setError('phoneNumber', {
+          type: 'duplicate',
+          message: '이미 사용 중인 휴대폰 번호입니다.',
+        });
+        return;
+      } else {
+        clearErrors('phoneNumber');
+      }
+    }
+
     const { userInfoUpdateDto, profileImage } = formDataToPayload(formData);
     updateProfile({ userInfoUpdateDto, profileImage });
   };

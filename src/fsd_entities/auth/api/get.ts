@@ -50,10 +50,13 @@ export const checkPhoneNumberDuplicate = async (phoneNumber: string): Promise<bo
     const response = (await API.get(`${URI}/${phoneNumber}/is-duplicated-phone-number`)) as AxiosResponse<any>; // 타입 변경
     return response.data.result;
   } catch (error) {
-    throw error;
+    if (axios.isAxiosError(error)) {
+      return error.response?.data?.message || '연락처 중복 검사에 실패했습니다.';
+    } else {
+      return '알 수 없는 오류가 발생했습니다.';
+    }
   }
 };
-
 
 export const checkCurrentAcademicStatus = async () => {
   try {
@@ -64,11 +67,9 @@ export const checkCurrentAcademicStatus = async () => {
   }
 };
 
-
 export const getUserAdmissionInfo = async () => {
   await API.get(`${URI}/admissions/self`);
 };
-
 
 export const checkIsAcademicRecordSubmitted = async () => {
   try {
