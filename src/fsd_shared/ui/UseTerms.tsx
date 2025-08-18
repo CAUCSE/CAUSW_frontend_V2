@@ -1,32 +1,8 @@
-'use client';
-
-import { useState } from 'react';
-
-import toast from 'react-hot-toast';
-
-import { withdrawUserCSR } from '@/fsd_entities/user';
-
-import { tokenManager } from '../utils';
-
 interface UseTermsProps {
   closeModal: () => void;
 }
 
 export const UseTerms = ({ closeModal }: UseTermsProps) => {
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const { signoutAndRedirect } = tokenManager();
-
-  const handleDeleteAccount = async () => {
-    try {
-      await withdrawUserCSR();
-      signoutAndRedirect();
-    } catch (e) {
-      toast.error('회원 탈퇴 실패: 잠시 후 다시 시도해주세요.');
-    } finally {
-      closeModal();
-    }
-  };
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50"
@@ -498,41 +474,7 @@ export const UseTerms = ({ closeModal }: UseTermsProps) => {
                 >
                   닫기
                 </button>
-
-                {/* 회원 탈퇴 버튼 */}
-                <button
-                  onClick={() => setShowDeleteConfirm(true)}
-                  className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-                >
-                  회원 탈퇴
-                </button>
               </div>
-
-              {/* 탈퇴 확인 모달 */}
-              {showDeleteConfirm && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
-                  <div className="w-96 rounded-lg bg-white p-6 shadow-lg">
-                    <p className="mb-6 text-center text-lg font-semibold">
-                      정말 탈퇴하시겠습니까? <br />
-                      회원정보는 이용약관에 따라 탈퇴 처리됩니다.
-                    </p>
-                    <div className="flex justify-center gap-4">
-                      <button
-                        onClick={() => setShowDeleteConfirm(false)}
-                        className="rounded-lg bg-gray-300 px-4 py-2 hover:bg-gray-400"
-                      >
-                        취소
-                      </button>
-                      <button
-                        onClick={handleDeleteAccount}
-                        className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-                      >
-                        확인
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
             <div className="mt-4 ml-4 flex items-center">
               <label htmlFor="terms"></label>

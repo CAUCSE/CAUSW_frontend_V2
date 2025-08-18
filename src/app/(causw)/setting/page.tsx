@@ -6,6 +6,9 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import toast from 'react-hot-toast';
+
+import { withdrawUserCSR } from '@/fsd_entities/user';
 import {
   isAdmin,
   isAlumniLeader,
@@ -21,7 +24,8 @@ import {
 } from '@/fsd_entities/user/model';
 
 import { LoadingComponent } from '@/fsd_shared/ui';
-import { tokenManager } from '@/fsd_shared';
+
+import { onClickAlert, tokenManager } from '@/fsd_shared';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,
@@ -31,6 +35,7 @@ const SettingsPage = () => {
   const { signoutAndRedirect } = tokenManager();
   const { data: userInfo, isLoading } = useMyInfo();
   const [isUseTermsOpen, setIsUseTermsOpen] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   if (isLoading) return <LoadingComponent />;
   if (!userInfo) return notFound();
@@ -61,12 +66,25 @@ const SettingsPage = () => {
         }))
       : [];
 
+  const handleDeleteAccount = async () => {
+    try {
+      await withdrawUserCSR();
+      toast.success('회원 탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.');
+      signoutAndRedirect();
+    } catch (e) {
+      toast.error('회원 탈퇴 실패: 잠시 후 다시 시도해주세요.');
+    } finally {
+      setShowDeleteConfirm(false);
+    }
+  };
+
   const menuItems = {
     account: [
       { name: '개인정보 관리', link: '/setting/personal-info' },
       { name: '비밀번호 변경', link: '/setting/resetpassword' },
       { name: '로그아웃', onClick: signoutAndRedirect },
       { name: '이용약관', onClick: () => setIsUseTermsOpen(true) },
+      { name: '회원 탈퇴', onClick: () => setShowDeleteConfirm(true) },
     ],
     records: [
       { name: '내가 쓴 게시글', link: '/setting/my/posts' },
@@ -216,6 +234,30 @@ const SettingsPage = () => {
         <h1 className="mt-8 mb-8 text-3xl font-bold">환경설정</h1>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">{renderMenuItems()}</div>
         {isUseTermsOpen && <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>}
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
+            <div className="w-96 rounded-lg bg-white p-6 shadow-lg">
+              <p className="mb-6 text-center text-lg font-semibold">
+                정말 탈퇴하시겠습니까? <br />
+                회원정보는 이용약관에 따라 탈퇴 처리됩니다.
+              </p>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="rounded-lg bg-gray-300 px-4 py-2 hover:bg-gray-400"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleDeleteAccount}
+                  className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
