@@ -23,8 +23,8 @@ export const useCancelCeremony = () => {
     },
     onSuccess: (data, variables, context) => {
       toast.dismiss(context);
-      const { ceremonyId } = variables;
-      queryClient.invalidateQueries({ queryKey: generalCeremonyQueryKey.cancel(ceremonyId) });
+
+      queryClient.invalidateQueries({ queryKey: generalCeremonyQueryKey.all });
       toast.success('신청 취소 성공');
       router.push('/ceremony/list');
     },
