@@ -37,7 +37,7 @@ export interface BE_ReportedUser {
   userId: string;
   userName: string;
   userNickname: string;
-  writerState: WriterState;
+  userState: WriterState;
   profileImage: string | null;
   totalReportCount: number;
 }

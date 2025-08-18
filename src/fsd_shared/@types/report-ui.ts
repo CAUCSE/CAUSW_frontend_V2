@@ -13,8 +13,8 @@ export const writerStateLabel: Record<WriterState, string> = {
 
 export const writerStateColor: Record<WriterState, string> = {
   ACTIVE: 'bg-green-500',
-  INACTIVE: 'bg-orange-500',
-  DROP: 'bg-red-500',
+  INACTIVE: 'bg-[#FF7F00]',
+  DROP: 'bg-[#EB3323]',
   REJECT: 'bg-gray-400',
 };
 
@@ -50,7 +50,7 @@ export interface ReportedUser {
   id: string;
   name: string;
   nickname: string;
-  writerState: WriterState;
+  userState: WriterState;
   profileImage: string | null;
   totalCount: number; // 누적 신고 횟수
 }

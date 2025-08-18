@@ -34,7 +34,7 @@ export const adaptReportedUser = (be: BE_ReportedUser): ReportedUser => ({
   id: be.userId,
   name: be.userName,
   nickname: be.userNickname,
-  writerState: be.writerState,
+  userState: be.userState,
   profileImage: be.profileImage,
   totalCount: be.totalReportCount,
 });
