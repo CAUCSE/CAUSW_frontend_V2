@@ -24,7 +24,7 @@ export function ReportCard({ item }: { item: ReportedItem }) {
             {/* writerState 뱃지 */}
             {(item.writerState == 'INACTIVE' || item.writerState == 'DROP') && (
               <span
-                className={`inline-block rounded-full border-[1px] border-gray-300 px-3 text-xs font-semibold text-black ${writerStateColor[item.writerState]}`}
+                className={`rounded-full border-[1px] border-gray-300 px-3 text-xs font-semibold text-black md:text-sm ${writerStateColor[item.writerState]}`}
               >
                 {writerStateLabel[item.writerState]}
               </span>
@@ -37,7 +37,7 @@ export function ReportCard({ item }: { item: ReportedItem }) {
       <div className="mt-2 flex items-center justify-between md:mt-4">
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-500">사유</span>
-          <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold md:text-sm">{item.reason}</span>
+          <span className="text-xs font-semibold md:text-sm">{item.reason}</span>
         </div>
         <div className="ml-4 text-xs text-gray-500">{formatDate(item.createdAt)}</div>
       </div>
