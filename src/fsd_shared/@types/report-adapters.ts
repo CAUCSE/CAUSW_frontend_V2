@@ -4,8 +4,6 @@ import { WriterState } from '@/fsd_shared/@types/report-be';
 import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from './report-be';
 import { ReportedComment, ReportedPost, ReportedUser } from './report-ui';
 
-const normalizeState = (s: string): WriterState => (s || 'active').toLowerCase() as WriterState;
-
 export const adaptPost = (be: BE_ReportedPost): ReportedPost => ({
   kind: 'post',
   id: be.postId,

@@ -25,7 +25,7 @@ import {
 
 import { LoadingComponent } from '@/fsd_shared/ui';
 
-import { onClickAlert, tokenManager } from '@/fsd_shared';
+import { tokenManager } from '@/fsd_shared';
 
 const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
   ssr: false,

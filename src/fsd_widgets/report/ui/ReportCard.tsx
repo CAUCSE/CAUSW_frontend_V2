@@ -22,7 +22,7 @@ export function ReportCard({ item }: { item: ReportedItem }) {
             <span>{item.offenderName}</span>
 
             {/* writerState 뱃지 */}
-            {(item.writerState == 'INACTIVE' || item.writerState == 'DROP') && (
+            {(item.writerState === 'INACTIVE' || item.writerState === 'DROP') && (
               <span
                 className={`rounded-full border-[1px] border-gray-300 px-3 text-xs font-semibold text-black md:text-sm ${writerStateColor[item.writerState]}`}
               >
