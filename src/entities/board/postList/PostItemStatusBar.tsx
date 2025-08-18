@@ -30,7 +30,7 @@ export const PostItemStatusBar = ({ post }: PostItemStatusBarProps) => {
         {getTimeDifference(post.createdAt)}
       </div>
       <div className="sm:text-md flex items-center gap-2 px-2 text-center text-xs text-gray-300">
-        {post.isAnonymous ? '익명' : post.writerName}
+        {post.displayWriterNickname ? post.displayWriterNickname : post.isAnonymous ? '익명' : post.writerNickname}
       </div>
     </div>
   );
