@@ -9,7 +9,9 @@ export const useCeremonyCreateForm = () => {
     onSuccess: () => {
       toast.success('경조사가 성공적으로 등록되었습니다.');
     },
-
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
     onError: (error: any) => {
       toast.error(error?.message || '등록에 실패했습니다.');
     },
