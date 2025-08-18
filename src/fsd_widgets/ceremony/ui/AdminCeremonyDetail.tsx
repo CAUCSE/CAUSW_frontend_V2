@@ -11,7 +11,7 @@ import {
   CeremonyDateTile,
   CeremonySectionTitle,
 } from '@/fsd_entities/ceremony';
-import { useAdminUpdateCeremony } from '@/fsd_entities/ceremony/model/\buseAdminUpdateCeremony';
+import { useAdminUpdateCeremony } from '@/fsd_entities/ceremony/model/useAdminUpdateCeremony';
 
 import { CommonImageList, MESSAGES } from '@/fsd_shared';
 
