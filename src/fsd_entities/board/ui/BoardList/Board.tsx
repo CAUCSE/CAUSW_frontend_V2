@@ -75,7 +75,12 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
               >
                 <span className="truncate">{content.title}</span>
                 <div className="text-xs text-gray-400">
-                  {content.isAnonymous ? '익명' : content.writerNickname} ・ {formatDateToYyyyMmDd(content.createdAt)}
+                  {content.displayWriterNickname
+                    ? content.displayWriterNickname
+                    : content.isAnonymous
+                      ? '익명'
+                      : content.writerNickname}{' '}
+                  ・ {formatDateToYyyyMmDd(content.createdAt)}
                 </div>
               </Link>
             ))
