@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { useReportedUsers } from '@/fsd_entities/report/model/queries/useReportedUsers';
 
+import { writerStateColor, writerStateLabel } from '@/fsd_shared/@types/report-ui';
+
 import { PreviousButton } from '@/fsd_shared';
 
 export default function ReportedUserListPage() {
@@ -47,8 +49,15 @@ export default function ReportedUserListPage() {
               </div>
             </div>
 
-            {/* 오른쪽: 신고 누적 횟수 */}
-            <div className="rounded-lg border px-3 py-1 text-sm text-gray-600">신고 누적 {user.totalCount}회</div>
+            {user.userState === 'INACTIVE' || user.userState === 'DROP' ? (
+              <div
+                className={`rounded-lg border px-3 py-1 text-sm font-semibold text-white ${writerStateColor[user.userState]}`}
+              >
+                {user.userState === 'INACTIVE' ? '탈퇴한 사용자' : '추방된 사용자'}
+              </div>
+            ) : (
+              <div className="rounded-lg border px-3 py-1 text-sm text-gray-600">신고 누적 {user.totalCount}회</div>
+            )}
           </div>
         ))}
       </div>
