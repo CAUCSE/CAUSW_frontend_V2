@@ -56,20 +56,19 @@ export const usePushNotification = () => {
     }
   };
 
-  // 토큰 상태 초기화 함수 (로그아웃 시 사용)
-  const resetFCMToken = (): void => {
-    localStorage.removeItem(FCM_TOKEN_KEY);
-  };
-
-  // 로컬스토리지에서 FCM 토큰 가져오기
-  const getLocalFCMToken = (): string | null => {
-    return localStorage.getItem(FCM_TOKEN_KEY);
-  };
-
   return {
     requestPushPermission: requestNotificationPermission,
     compareFCMToken,
-    resetFCMToken,
-    getLocalFCMToken,
   };
+};
+
+
+// 토큰 상태 초기화 함수 (로그아웃 시 사용)
+export const resetFCMToken = (): void => {
+  localStorage.removeItem(FCM_TOKEN_KEY);
+};
+
+// 로컬스토리지에서 FCM 토큰 가져오기
+export const getLocalFCMToken = (): string | null => {
+  return localStorage.getItem(FCM_TOKEN_KEY);
 };
