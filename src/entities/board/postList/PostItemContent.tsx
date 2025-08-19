@@ -7,6 +7,7 @@ export const PostItemContent = ({ post }: PostItemContentProps) => {
     <div className="flex w-2/3 flex-col">
       <div className="flex-auto truncate">
         <p className="overflow-hidden text-ellipsis whitespace-nowrap pb-2 text-sm font-bold md:text-2xl">
+          {post.isQuestion ? '[질문] ' : ''}
           {post.title}
         </p>
       </div>

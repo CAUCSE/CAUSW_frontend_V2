@@ -4,11 +4,21 @@ import React from 'react';
 
 import { AcademicRecordForm } from '@/fsd_widgets/auth';
 
-import { useUserStore } from '@/shared';
+import { useUserAcademic } from '@/fsd_entities/user/model';
+import { LoadingComponent } from '@/fsd_shared/ui';
+import { notFound } from 'next/navigation';
 
 const UpdataeAcademicRecordPage = () => {
-  const curAcademicStatus = useUserStore(state => state.academicStatus);
-  return <AcademicRecordForm curAcademicStatus={curAcademicStatus} />;
+  const { data: userInfo, isLoading } = useUserAcademic();
+
+  if (isLoading) return <LoadingComponent />;
+  if (!userInfo) return notFound();
+  
+  return (
+    <div className="p-3">
+      <AcademicRecordForm curAcademicStatus={userInfo.academicStatus} />
+    </div>
+  );
 };
 
 export default UpdataeAcademicRecordPage;

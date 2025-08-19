@@ -5,15 +5,18 @@ interface UseTermsProps {
 export const UseTerms = ({ closeModal }: UseTermsProps) => {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50"
       onClick={closeModal}
     >
-      <div className="h-5/6 w-5/6 max-w-3xl overflow-y-auto rounded-lg bg-white p-8">
+      <div
+        className="h-5/6 w-5/6 max-w-3xl overflow-y-auto rounded-lg bg-white p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div>
           <>
             <div title="이용 약관" />
             <div className="">
-              <div className="">
+              <div className="mb-6">
                 <h2 className="mb-6 flex justify-center text-lg font-bold">서비스 이용약관</h2>
                 <h1 />
                 제1조(목적)
@@ -462,16 +465,21 @@ export const UseTerms = ({ closeModal }: UseTermsProps) => {
                 <br />
                 5. 개인정보 제공 거부 시 불이익 : 서비스 이용 제한
               </div>
+
+              <div className="flex w-full flex-col items-center gap-4">
+                {/* 닫기 버튼 */}
+                <button
+                  onClick={closeModal}
+                  className="bg-focus mt-4 rounded-lg px-4 py-2 text-white hover:bg-blue-400"
+                >
+                  닫기
+                </button>
+              </div>
             </div>
-            <div className="ml-4 mt-4 flex items-center">
+            <div className="mt-4 ml-4 flex items-center">
               <label htmlFor="terms"></label>
             </div>
           </>
-        </div>
-        <div className="flex w-full items-center justify-center">
-          <button onClick={closeModal} className="mt-4 rounded-lg bg-focus px-4 py-2 text-white hover:bg-blue-400">
-            닫기
-          </button>
         </div>
       </div>
     </div>

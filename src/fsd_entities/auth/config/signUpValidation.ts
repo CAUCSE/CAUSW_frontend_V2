@@ -1,6 +1,6 @@
 import { RegisterOptions } from 'react-hook-form';
 
-import { checkEmailDuplicate, checkNicknameDuplicate, checkStudentIdDuplicate } from '../api/get';
+import { checkEmailDuplicate, checkNicknameDuplicate, checkPhoneNumberDuplicate, checkStudentIdDuplicate } from '../api/get';
 
 export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOptions<User.SignUpForm>> = {
   email: {
@@ -9,10 +9,9 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
       value: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
       message: '올바른 이메일 형식이 아닙니다.',
     },
-    validate: async value => {
+    validate: async (value) => {
       if (typeof value !== 'string') return '이메일은 문자열이어야 합니다.';
-      const isAvailable = await checkEmailDuplicate(value);
-      return isAvailable || '이미 사용 중인 이메일입니다다.';
+      return !(await checkEmailDuplicate(value)) || '이미 사용 중인 이메일입니다.';
     },
   },
   name: {
@@ -34,15 +33,10 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     validate: (value, formValues) => value === formValues.password || '비밀번호가 일치하지 않습니다.',
   },
   studentId: {
-    required: '학번을 입력해주세요.',
-    pattern: {
-      value: /^[0-9]{8}$/,
-      message: '학번은 8자리 숫자여야 합니다.',
-    },
-    validate: async value => {
-      if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
-      const isAvailable = await checkStudentIdDuplicate(value);
-      return isAvailable || '이미 사용 중인 학번입니다다.';
+    validate: async (value) => {
+      if (!value) return true;
+      if (typeof value !== 'string' || !/^\d+$/.test(value)) return '학번은 숫자여야 합니다.';
+      return !(await checkStudentIdDuplicate(value)) || '이미 사용 중인 학번입니다다.';
     },
   },
   admissionYearString: {
@@ -50,11 +44,10 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
   },
   nickname: {
     required: '닉네임을 입력해주세요.',
-    validate: async value => {
+    validate: async (value) => {
       if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
       if (!value.trim()) return '올바른 닉네임이 아닙니다.';
-      const isAvailable = await checkNicknameDuplicate(value);
-      return isAvailable || '이미 사용 중인 닉네임입니다.';
+      return !(await checkNicknameDuplicate(value)) || '이미 사용 중인 닉네임입니다.';
     },
   },
   major: {
@@ -64,10 +57,10 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
     required: '약관에 동의해주세요.',
   },
   phoneNumber: {
-    required: '휴대폰 번호를 입력해주세요.',
-    pattern: {
-      value: /^\d{3}-\d{3,4}-\d{4}$/,
-      message: 'ex) 010-1234-5678 형식으로 입력해주세요.',
+    validate: async (value) => {
+      if (!value) return '휴대폰 번호를 입력해주세요.';
+      if (typeof value !== 'string' || !/^\d{3}-\d{3,4}-\d{4}$/.test(value)) return 'ex) 010-1234-5678 형식으로 입력해주세요.';
+      return !(await checkPhoneNumberDuplicate(value)) || '이미 사용 중인 휴대폰 번호입니다.';
     },
   },
   agreeToPopup: {

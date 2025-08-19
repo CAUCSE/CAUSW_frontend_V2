@@ -1,13 +1,13 @@
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getAllAttendanceUsers, getWaitingUsers } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
+
+import { MESSAGES } from '@/fsd_shared';
 
 const AttendanceManagement = async ({ params: { state } }: { params: { state: string } }) => {
-  const { getAllAttendanceUsers, getWaitingUsers } = SettingRscService();
-
   const data =
     state === 'waiting'
-      ? await getWaitingUsers().then(data =>
-          data.map(element => ({
+      ? await getWaitingUsers().then((data) =>
+          data.map((element) => ({
             userName: element.userName,
             studentId: element.studentId,
             userId: `${element.userId}&&&${element.userAcademicRecordApplicationId}`,
@@ -17,12 +17,9 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
 
   return (
     <>
-      <div className="absolute right-4 top-6 flex h-10 w-48 items-center justify-center rounded-2xl border-2 border-black text-lg md:right-52 md:top-16">
-        재학 인증 일괄 요청
-      </div>
-      <Management
+      <ManagementPanel
         state={state}
-        title="학적 상태 관리"
+        title={MESSAGES.MANAGEMENT.ATTENDANCE}
         firstNavigation={{
           name: '유저 목록',
           state: 'all',
@@ -37,7 +34,7 @@ const AttendanceManagement = async ({ params: { state } }: { params: { state: st
             router: '/setting/management/attendance/detail/waiting',
           },
         ]}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.userId,

@@ -1,0 +1,184 @@
+declare namespace Ceremony {
+  interface CeremonyDetailPageProps {
+    ceremonyId: string;
+    context: 'my' | 'general' | 'admin';
+  }
+  interface CreateCeremonyRequestDto {
+    description: string;
+    startDate: string;
+    endDate: string;
+    category: 'MARRIAGE' | 'FUNERAL' | 'ETC';
+  }
+  interface CeremonyItem {
+    id: string;
+    writer: string;
+    category: string;
+    date: string;
+    description: string;
+    createdAt: string;
+  }
+  interface Ceremony {
+    content: Ceremony[];
+    pageable: {
+      pageNumber: number;
+      pageSize: number;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      offset: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
+    totalElements: number;
+    totalPages: number;
+    last: boolean;
+    size: number;
+    number: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    numberOfElements: number;
+    first: boolean;
+    empty: boolean;
+  }
+  interface NavigationItem {
+    name?: string;
+    state?: string;
+    router: string;
+  }
+  interface CeremonyRequestManagementProps {
+    state: string | undefined;
+    title: string;
+    firstNavigation: NavigationItem;
+    navigation?: NavigationItem[];
+  }
+
+  type CeremonyListProps = {
+    list: CeremonyItem[];
+    firstNavigation: NavigationItem;
+    navigation?: NavigationItem[];
+    state: string | undefined;
+    loadMore: () => void;
+  };
+  interface CeremonyDetailPageProps {
+    ceremonyId: string;
+    user?: boolean;
+  }
+  interface CeremonyDetailContentProps {
+    title: string;
+    description: string;
+  }
+  interface CeremonyApprovalButtonProps {
+    color: 'BLUE' | 'GRAY';
+    onClick: () => void;
+    text: string;
+  }
+  interface CeremonyApprovalModalProps {
+    closeModal: () => void;
+    ceremonyTitle: string;
+  }
+  interface CeremonyDateTileProps {
+    title: string;
+    date: string;
+  }
+  interface CeremonySectionTitleProps {
+    title: string;
+    ceremonyContent: string;
+  }
+
+  interface CeremonyImageTileProps {
+    imageList: string[];
+  }
+
+  interface UpdateCeremonyStateProps {
+    ceremonyId: string;
+    targetCeremonyState: 'ACCEPT' | 'REJECT' | 'AWAIT' | 'CLOSE';
+    rejectMessage?: string;
+  }
+  interface ListBoxItem {
+    id: string;
+    title: string;
+    body: string;
+    isRead?: boolean;
+    targetId?: string; // 게시글 id
+    notificationLogId?: string;
+    targetParentId?: string; //게시판 id
+  }
+
+  interface ListBoxProps {
+    data: ListBoxItem[];
+    alarm?: string; //general | ceremony
+    loadMore?: () => void;
+    emptyMessage?: string;
+    context?: 'my' | 'general';
+  }
+  interface CreateCeremonyPayload {
+    description: string;
+    startDate: string;
+    endDate: string;
+    category: CeremonyCategory;
+    imageFileList?: FileList;
+  }
+  type CeremonyCategory = '' | 'MARRIAGE' | 'FUNERAL' | 'GRADUATION' | 'ETC';
+  interface CeremonyResponse {
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    content: CeremonyItem[];
+    number: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      sort: {
+        empty: boolean;
+        sorted: boolean;
+        unsorted: boolean;
+      };
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+  }
+  interface AdmissionYearListProps {
+    years: string[];
+    onRemove: (year: string) => void;
+    isAllSelected?: boolean;
+    isSettingPage?: boolean;
+  }
+  interface AllYearToggleProps {
+    checked: boolean;
+    onChange: (val: boolean) => void;
+    isSettingPage?: boolean;
+  }
+  interface CeremonyNotificationSettingDto {
+    subscribedAdmissionYears: string[] | null;
+    setAll: boolean;
+    notificationActive: boolean;
+  }
+  interface NotificationSettingPayload {
+    subscribedAdmissionYears: string[] | null;
+    setAll: boolean;
+    notificationActive: boolean;
+  }
+  interface NotificationYearListBoxProps {
+    years: string[];
+    isSetAll: boolean;
+  }
+  interface CeremonyDetailDataPros {
+    ceremonyId?: string;
+    context: string;
+  }
+}

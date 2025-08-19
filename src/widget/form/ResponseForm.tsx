@@ -10,7 +10,7 @@ interface ResponseFormProps {
 }
 
 export const ResponseForm = ({ onSubmit }: ResponseFormProps) => {
-  const form = useResponseFormStore(state => state.form);
+  const form = useResponseFormStore((state) => state.form);
   const { handleSubmit } = useFormContext();
 
   return (

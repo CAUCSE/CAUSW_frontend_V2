@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/shared';
+import { useFindAccountStore } from '@/fsd_entities/auth/model/stores';
 
 export const FindEmailResult = () => {
   const router = useRouter();
 
   const { email } = useFindAccountStore(
-    useShallow(state => ({
+    useShallow((state) => ({
       email: state.email,
     })),
   );
@@ -21,15 +21,15 @@ export const FindEmailResult = () => {
       <p className="text-lg">
         <span className="text-red-500">{email}</span> 입니다.
       </p>
-      <div className="mt-4 flex w-full justify-between px-4">
+      <div className="mt-4 flex w-full justify-between gap-1 px-4">
         <button
-          className="mt-6 h-10 w-40 rounded-lg bg-focus text-white hover:bg-blue-400"
+          className="bg-focus mt-6 h-10 w-40 cursor-pointer rounded-lg text-white hover:bg-blue-400"
           onClick={() => router.push('/auth/signin')}
         >
           로그인하기
         </button>
         <button
-          className="mt-6 h-10 w-40 rounded-lg bg-focus text-white hover:bg-blue-400"
+          className="bg-focus mt-6 h-10 w-40 cursor-pointer rounded-lg text-white hover:bg-blue-400"
           onClick={() => router.push('/auth/findpassword')}
         >
           비밀번호 찾기

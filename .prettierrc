@@ -5,7 +5,7 @@
   "tabWidth": 2,
   "printWidth": 120,
   "trailingComma": "all",
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "bracketSpacing": true,
   "quoteProps": "as-needed",
   "jsxSingleQuote": false,

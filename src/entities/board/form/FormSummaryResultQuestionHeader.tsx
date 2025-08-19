@@ -20,14 +20,14 @@ export const FormSummaryResultQuestionHeader = ({
       <div className="relative w-2/3 bg-[#D9D9D9] p-2 text-[#FF0000] sm:min-w-[200px]">
         <p
           className="truncate text-[14px] group-hover:block sm:text-xl"
-          ref={el => {
+          ref={(el) => {
             textRefs.current[questionIndex] = el;
           }}
         >
           {question.questionText}
         </p>
         {isTruncated[questionIndex] && (
-          <span className="absolute left-0 top-full hidden w-max bg-gray-800 p-1 text-xs text-white group-hover:block">
+          <span className="absolute top-full left-0 hidden w-max bg-gray-800 p-1 text-xs text-white group-hover:block">
             {question.questionText}
           </span>
         )}

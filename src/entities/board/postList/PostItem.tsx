@@ -16,7 +16,7 @@ export const PostItem = ({ post, boardId, targetUrl }: PostItemProps) => {
 
   return (
     <div
-      className="flex max-h-44 w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+      className="flex max-h-44 w-full min-w-65 items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
       onClick={() => {
         targetUrl ? router.push(targetUrl) : router.push(`/board/${boardId}/${post.id}`);
       }}
@@ -24,7 +24,7 @@ export const PostItem = ({ post, boardId, targetUrl }: PostItemProps) => {
       <div className="flex w-full flex-col">
         <div className="flex w-full items-center justify-between">
           <PostItemContent post={post} />
-          <div className="h-16 w-16 flex-shrink-0 overflow-hidden sm:h-24 sm:w-24">
+          <div className="h-16 w-16 shrink-0 overflow-hidden sm:h-24 sm:w-24">
             {post.postAttachImage && (
               <Image
                 src={post.postAttachImage}

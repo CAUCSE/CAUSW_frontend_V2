@@ -33,7 +33,7 @@ export const PortalModal = ({ children, className, closeModal }: PortalModalProp
 
   return createPortal(
     <div
-      className="fixed inset-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
+      className="bg-opacity-50 fixed inset-0 flex h-full w-full items-center justify-center bg-black"
       onClick={clickOutSide}
     >
       <div className={clsx('', className)}>{children}</div>

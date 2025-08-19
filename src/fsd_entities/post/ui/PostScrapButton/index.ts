@@ -1,0 +1,1 @@
+export { PostScrapButton } from './PostScrapButton';

@@ -1,5 +1,7 @@
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getAllAdmissions, getByState } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
+
+import { MESSAGES } from '@/fsd_shared';
 
 const navigation: {
   name: string;
@@ -40,9 +42,7 @@ const UserManagement = async ({
   params: { state: string };
   searchParams: { page?: string };
 }) => {
-  const { getByState, getAllAdmissions } = SettingRscService();
-
-  const nowNavigation = navigation.find(element => element.state === state);
+  const nowNavigation = navigation.find((element) => element.state === state);
   let data;
 
   const currentPage = Number(searchParams.page) || 1;
@@ -52,27 +52,27 @@ const UserManagement = async ({
         nowNavigation.exportType!.replace('_USERS', '').trim() as User.UserDto['state'],
         null,
         currentPage - 1,
-      ).then(res => {
+      ).then((res) => {
         data = {
-          content: res.content.map(element => ({
+          content: res.content.map((element) => ({
             ...element,
             userName: element.name,
           })),
           totalPages: res.totalPages,
         };
       })
-    : await getAllAdmissions(null, currentPage - 1).then(res => {
+    : await getAllAdmissions(null, currentPage - 1).then((res) => {
         data = {
-          content: res.content.map(element => ({ ...element })),
+          content: res.content.map((element) => ({ ...element })),
           totalPages: res.totalPages,
         };
       });
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
-        title="유저 관리"
+        title={MESSAGES.MANAGEMENT.USER}
         firstNavigation={{
           name: '가입 대기 유저',
           state: 'admission',
@@ -82,7 +82,7 @@ const UserManagement = async ({
         totalPages={data.totalPages}
         currentPage={currentPage}
         navigation={navigation}
-        data={data.content.map(element => ({
+        data={data.content.map((element) => ({
           userName: element.userName,
           studentId: element.studentId,
           id: element.id,

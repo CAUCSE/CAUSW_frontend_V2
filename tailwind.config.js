@@ -61,6 +61,10 @@ module.exports = {
         'comment-bw': '1px',
         'post-title-input': '1px',
       },
+      fontFamily: {
+        sans: ['var(--font-spoqa)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        pretendard: ['Pretendard', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+      },
     },
   },
   plugins: [addDynamicIconSelectors(), require('tailwind-scrollbar-hide')],

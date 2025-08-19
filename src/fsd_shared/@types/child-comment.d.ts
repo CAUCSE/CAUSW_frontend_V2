@@ -6,6 +6,7 @@ declare namespace ChildComment {
     updatedAt: string;
     isDeleted: boolean;
     writerName: string;
+    displayWriterNickname: string;
     writerNickname: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
@@ -17,6 +18,7 @@ declare namespace ChildComment {
     isChildCommentLike: boolean;
     numLike: number;
   }
+
   export interface CreateChildCommentDto {
     content: string;
     parentCommentId: string;

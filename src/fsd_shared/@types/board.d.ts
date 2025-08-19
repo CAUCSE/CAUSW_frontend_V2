@@ -21,14 +21,19 @@ declare namespace Board {
   export interface BoardWithPostResponseDto {
     boardId: string;
     boardName: string;
-    writeable: boolean;
+    writable: boolean;
     isFavorite: boolean;
+    isBoardSubscribed: boolean;
     post: Post.PostResponseDtoList;
   }
 
   export interface BoardContentDto {
     title: string;
     contentId: string;
+    writerNickname: string | null;
+    displayWriterNickname: string;
+    createdAt: string;
+    isAnonymous: boolean;
   }
   export interface CreateBoardDto {
     boardName: string;
@@ -44,5 +49,11 @@ declare namespace Board {
     description: string;
     isAnonymousAllowed: boolean;
     circleId?: string;
+  }
+
+  export interface ActiveBoardNotificationResponseDto {
+    boardId: string;
+    userId: string;
+    isSubscribe: boolean;
   }
 }

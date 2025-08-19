@@ -2,19 +2,21 @@
 
 import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import toast from 'react-hot-toast';
 
-import { convertDataToTableEntity, titleMapping } from '@/entities/home/setting/management/AddPayerEntities';
+import { getUser } from '@/fsd_entities/user/api';
+import { addPayer } from '@/fsd_entities/user/api';
+import { convertDataToTableEntity, titleMapping } from '@/fsd_entities/user/config/AddPayerEntities';
+import { ManagementDetailInfoTable } from '@/fsd_entities/user/ui';
 
-import { Button, SettingRscService, UserRscService } from '@/shared';
-import { ManagementDetailInfoTable } from '@/widget/ManagementDetailInfoTable';
+import { Button } from '@/fsd_shared';
 
 export default function AddPayerPage({ params: { userId } }: { params: { userId: string } }) {
-  const { getUser } = UserRscService();
-  const { addPayer } = SettingRscService();
   const [user, setUser] = useState<User.UserDto | null>(null);
   const [payNum, setPayNum] = useState<number | undefined>(8);
-
+  const router = useRouter();
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -42,7 +44,7 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
                 className="w-5 border-b bg-transparent text-center"
                 type="number"
                 value={payNum}
-                onChange={e => {
+                onChange={(e) => {
                   if (e.target.value === '') return setPayNum(undefined);
                   setPayNum(+e.target.value);
                 }}
@@ -56,19 +58,18 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
         variant={payNum ? 'BLUE' : 'GRAY'}
         action={async () => {
           if (!payNum) return;
+          if (user.currentCompletedSemester === null || user.currentCompletedSemester === undefined) {
+            toast.error('등록 완료 학기 정보가 없어 학생회비 납부자 등록이 불가합니다.');
+            return;
+          }
           try {
-            const res = await addPayer(
-              userId,
-              user.currentCompletedSemester ? 8 - user.currentCompletedSemester : 1,
-              payNum,
-              false,
-              0,
-            );
+            const res = await addPayer(userId, 8 - user.currentCompletedSemester, payNum, false, 0);
             if (!res) {
               toast.error('납부자 추가 중 오류가 발생했습니다.');
               // throw new Error("납부자 추가 중 오류가 발생했습니다.");
             } else {
               toast.success('납부자 추가가 완료되었습니다.');
+              router.back();
             }
           } catch (error) {
             const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';

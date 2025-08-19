@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 
-import { breakpoint, useLayoutStore } from '@/shared';
+import { breakpoint, useLayoutStore } from '@/fsd_shared';
 
 export const WindowSizeListener = () => {
-  const setBreakpoint = useLayoutStore(state => state.setBreakpoint);
+  const setBreakpoint = useLayoutStore((state) => state.setBreakpoint);
 
   useEffect(() => {
     const handleResize = () => {

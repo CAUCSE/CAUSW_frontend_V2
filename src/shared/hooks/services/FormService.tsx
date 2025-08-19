@@ -8,7 +8,8 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
 
-import { API, useFormResultStore, useResponseFormStore } from '@/shared';
+import { API } from '@/fsd_shared';
+import { useFormResultStore, useResponseFormStore } from '@/shared';
 
 export const FormService = () => {
   const getFormResponseDto = async (formId: string) => {
@@ -17,7 +18,7 @@ export const FormService = () => {
   };
 
   const useGetFormResponseInfo = (formId: string) => {
-    const setForm = useResponseFormStore(state => state.setForm);
+    const setForm = useResponseFormStore((state) => state.setForm);
     const { data, isPending, isError, isSuccess } = useQueries({
       queries: [
         {
@@ -32,12 +33,12 @@ export const FormService = () => {
           },
         },
       ],
-      combine: results => {
+      combine: (results) => {
         return {
-          data: results.map(result => result.data),
-          isPending: results.some(result => result.isPending),
-          isError: results.some(result => result.isError),
-          isSuccess: results.every(result => result.isSuccess),
+          data: results.map((result) => result.data),
+          isPending: results.some((result) => result.isPending),
+          isError: results.some((result) => result.isError),
+          isSuccess: results.every((result) => result.isSuccess),
         };
       },
     });
@@ -75,7 +76,7 @@ export const FormService = () => {
 
   const useGetFormInfo = (formId: string) => {
     const { formData, setFormData } = useFormResultStore(
-      useShallow(state => ({
+      useShallow((state) => ({
         formData: state.formData,
         setFormData: state.setFormData,
       })),
@@ -113,11 +114,11 @@ export const FormService = () => {
         return data;
       },
       initialPageParam: 0,
-      getNextPageParam: lastPage => {
+      getNextPageParam: (lastPage) => {
         return lastPage.replyResponseDtoPage.last ? null : lastPage.replyResponseDtoPage.pageable.pageNumber + 1;
       },
-      select: results => {
-        return results.pages.flatMap(result => result);
+      select: (results) => {
+        return results.pages.flatMap((result) => result);
       },
     });
   };
@@ -152,7 +153,7 @@ export const FormService = () => {
       mutationFn: async ({ formId }: { formId: string }) => {
         API.get(`/api/v1/forms/${formId}/export`, {
           responseType: 'blob',
-        }).then(response => {
+        }).then((response) => {
           const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement('a');
           link.href = downloadUrl;

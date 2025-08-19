@@ -1,24 +1,28 @@
 declare namespace User {
   export interface User {
+    id: string;
+    email: string;
+    name: string;
+    studentId: string;
     admissionYear: number;
+    roles: Role[];
+    profileImageUrl: string | null;
+    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT' | 'REJECT';
     circleIdIfLeader: string[] | null;
     circleNameIfLeader: string[] | null;
-    email: string;
-    id: string;
-    name: string;
-    admissionYear: number;
-    profileImageUrl: string;
-    roles: Role[];
-    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT';
     nickname: string;
-    studentId: string;
-    academicStatus: 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED';
     major: string;
+    academicStatus: AcademicStatus;
     currentCompletedSemester: number | null;
-    graduationYear: string | null;
-    graduationType: string | null;
+    graduationYear: number | null; // 숫자 타입으로 수정
+    graduationType: 'FEBRUARY' | 'AUGUST' | null;
     phoneNumber: string | null;
+    rejectionOrDropReason: string | null;
+    /** ISO date string */
     createdAt: string;
+    /** ISO date string */
+    updatedAt: string;
+    isV2: boolean;
   }
 
   export interface UserAdmissionCreateRequestDto {
@@ -26,6 +30,8 @@ declare namespace User {
     description: string;
     images: FileList;
   }
+
+  export type AcademicStatus = 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED' | 'UNDETERMINED' | 'UNDEFINED'; // undefined는 신규 사용자자;
 
   export type Role =
     | 'ADMIN'
@@ -72,7 +78,9 @@ declare namespace User {
   }
 
   // ---
-
+  export interface RecoverAccountRequestDto {
+    email: string;
+  }
   export interface SignInRequestDto {
     email: string;
     password: string;
@@ -133,6 +141,7 @@ declare namespace User {
   export interface SignOutRequestDto {
     accessToken: string;
     refreshToken: string;
+    fcmToken: string;
   }
 
   // Signup
@@ -141,7 +150,7 @@ declare namespace User {
     name: string;
     password: string;
     pwConfirm: string;
-    studentId: string;
+    studentId?: string;
     admissionYearString: string;
     nickname: string;
     major: string;
@@ -154,7 +163,7 @@ declare namespace User {
     email: string;
     name: string;
     password: string;
-    studentId: string;
+    studentId?: string;
     admissionYear: number;
     nickname: string;
     major: string;
@@ -276,7 +285,7 @@ declare namespace User {
   }
 
   export interface FindIdRequest {
-    studentId: string;
+    phoneNumber: string;
     name: string;
   }
 
@@ -286,7 +295,7 @@ declare namespace User {
 
   export interface FindPasswordRequest {
     name: string;
-    studentId: string;
+    phoneNumber: string;
     email: string;
   }
 
@@ -301,26 +310,11 @@ declare namespace User {
     confirmPassword: string;
   }
 
-  //Store
-  export interface UseUserStore extends User {
-    setUserStore: (props: User.User & { isV2: boolean }) => void;
-
-    checkVTwo: boolean;
-
-    roleTxt: () => string;
-    nameWithAdmission: () => string;
-    profileImageSrc: () => string;
-    isAdmin: () => boolean;
-    isStudent: () => boolean;
-    isProfessor: () => boolean;
-    isAdmin: () => boolean;
-    isPresidents: () => boolean;
-    isVicePresidents: () => boolean;
-    isCircleLeader: () => boolean;
-    isCouncil: () => boolean;
-    isStudentLeader: () => boolean;
-    isAlumniLeader: () => boolean;
+  export interface FCMTokenResponseDto {
+    fcmToken: string[];
   }
+
+  // Zustand store types removed - using React Query instead
 
   //DTO
   export type UserDto = User & Error.ApiErrorResponse;

@@ -1,14 +1,12 @@
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getApplyBoards } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const BoardManagement = async () => {
-  const { getApplyBoards } = SettingRscService();
-
   const data = (await getApplyBoards()) as Setting.BoardList;
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={undefined}
         title="게시판 생성 신청 관리"
         firstNavigation={{
@@ -16,7 +14,7 @@ const BoardManagement = async () => {
           state: '',
           router: '/setting/management/board',
         }}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.boardName,
           studentId: element.id,
           id: element.id,

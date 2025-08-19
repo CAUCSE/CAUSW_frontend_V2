@@ -1,0 +1,1 @@
+export { VoteInfoSection } from './VoteInfoSection';

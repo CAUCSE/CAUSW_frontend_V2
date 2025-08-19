@@ -2,7 +2,8 @@
 
 import { useParams } from 'next/navigation';
 
-import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, LoadingComponent, SummaryToggleBtn } from '@/entities';
+import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities';
+import { LoadingComponent } from '@/fsd_shared';
 import { FormService, useFormResultStore } from '@/shared';
 
 export const FormResultHeader = () => {
@@ -12,7 +13,7 @@ export const FormResultHeader = () => {
   const { useGetFormInfo } = FormService();
   const { isPending } = useGetFormInfo(formId as string);
 
-  const formData = useFormResultStore(state => state.formData);
+  const formData = useFormResultStore((state) => state.formData);
 
   if (isPending) {
     return <LoadingComponent />;

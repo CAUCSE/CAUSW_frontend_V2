@@ -1,13 +1,30 @@
 import { Suspense } from 'react';
 
 import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { ErrorMessage } from '@/entities';
+import { Providers } from '@/fsd_shared/ui';
 import '@/firebase-messaging-sw';
-import { GA, WindowSizeListener } from '@/fsd_shared';
+import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
 
 import './globals.css';
+
+const font = localFont({
+  src: [
+    {
+      path: './font/SpoqaHanSansNeo-Medium.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './font/SpoqaHanSansNeo-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-spoqa',
+});
 
 export default function RootLayout({
   children,
@@ -20,6 +37,8 @@ export default function RootLayout({
         <head>
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <meta name="mobile-web-app-capable" content="yes" />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -43,7 +62,7 @@ export default function RootLayout({
             }}
           />
         </head>
-        <body>
+        <body className={`${font.variable} font-sans`}>
           {/* 초기 페이지 진입 시 GA에 페이지 정보를 전송 */}
           <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`} />
           <Script
@@ -60,13 +79,14 @@ export default function RootLayout({
             `,
             }}
           />
-          {/* 클라이언트 라우팅으로 페이지 이동 감지 */}
-          <Suspense>
-            <GA />
-          </Suspense>
-          <WindowSizeListener />
-          <ErrorMessage />
-          {children}
+          <Providers>
+            <Suspense>
+              <GA />
+            </Suspense>
+            <WindowSizeListener />
+            {children}
+            <ToastWithMax />
+          </Providers>
         </body>
       </html>
     </>
@@ -81,7 +101,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: 'favicons/favicon-96x96.png', rel: 'icon' },
+      { url: '/favicons/favicon-96x96.png', rel: 'icon' },
       {
         url: '/favicons/apple-icon-57x57.png',
         sizes: '57x57',

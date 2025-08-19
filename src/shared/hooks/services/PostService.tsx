@@ -2,56 +2,17 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
-import { clear } from 'console';
+import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { API, FORMAPI, postQueryKey, useCreatePostStore, useCreateVoteStore, useFileUploadStore } from '@/shared';
+import { API, FORMAPI } from '@/fsd_shared';
+import { useCreatePostStore, useCreateVoteStore, useFileUploadStore } from '@/shared';
 
 export const PostService = () => {
-  const useGetPostList = boardId => {
-    return useInfiniteQuery({
-      queryKey: postQueryKey.list(boardId),
-      queryFn: async ({ pageParam }) => {
-        const { data }: { data: Board.BoardWithPostResponseDto } = await API.get(
-          `/api/v1/posts?boardId=${boardId}&pageNum=${pageParam}`,
-        );
-        return data;
-      },
-      initialPageParam: 0,
-      getNextPageParam: lastPage => {
-        return lastPage.post.last ? null : lastPage.post.number + 1;
-      },
-      select: data => {
-        return data.pages.flatMap(page => page.post.content);
-      },
-    });
-  };
-
-  const useGetSearchPostList = (boardId: string, keyword: string, isSearch: boolean) => {
-    return useInfiniteQuery({
-      queryKey: postQueryKey.searchResult(boardId, keyword),
-      queryFn: async ({ pageParam }) => {
-        const { data }: { data: Board.BoardWithPostResponseDto } = await API.get(
-          `/api/v1/posts/search?boardId=${boardId}&keyword=${encodeURIComponent(keyword)}&pageNum=${pageParam}`,
-        );
-        return data;
-      },
-      initialPageParam: 0,
-      getNextPageParam: lastPage => {
-        return lastPage.post.last ? null : lastPage.post.number + 1;
-      },
-      select: data => {
-        return data.pages.flatMap(page => page.post.content);
-      },
-      enabled: isSearch && keyword !== '',
-    });
-  };
-
   const useCreatePost = () => {
     const router = useRouter();
-    const clearPost = useCreatePostStore(state => state.clearPost);
-    const clearFiles = useFileUploadStore(state => state.clearFiles);
+    const clearPost = useCreatePostStore((state) => state.clearPost);
+    const clearFiles = useFileUploadStore((state) => state.clearFiles);
     return useMutation({
       mutationFn: async ({ postData, attachImageList }: { postData: Post.CreatePostDto; attachImageList: File[] }) => {
         const formData = new FormData();
@@ -71,7 +32,7 @@ export const PostService = () => {
           ),
         );
 
-        attachImageList.forEach(file => {
+        attachImageList.forEach((file) => {
           formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
         });
 
@@ -92,8 +53,8 @@ export const PostService = () => {
 
   const useCreatePostWithForm = () => {
     const router = useRouter();
-    const clearPost = useCreatePostStore(state => state.clearPost);
-    const clearFiles = useFileUploadStore(state => state.clearFiles);
+    const clearPost = useCreatePostStore((state) => state.clearPost);
+    const clearFiles = useFileUploadStore((state) => state.clearFiles);
     return useMutation({
       mutationFn: async ({
         postWithFormData,
@@ -110,7 +71,7 @@ export const PostService = () => {
           }),
         );
 
-        attachImageList.forEach(file => {
+        attachImageList.forEach((file) => {
           formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
         });
 
@@ -130,8 +91,8 @@ export const PostService = () => {
 
   const useCreatePostWithVote = () => {
     const router = useRouter();
-    const clearPost = useCreatePostStore(state => state.clearPost);
-    const clearFiles = useFileUploadStore(state => state.clearFiles);
+    const clearPost = useCreatePostStore((state) => state.clearPost);
+    const clearFiles = useFileUploadStore((state) => state.clearFiles);
     const { voteTitle, options, isMultipleChoice, allowAnonymous, clearVote } = useCreateVoteStore();
     return useMutation({
       mutationFn: async ({ postData, attachImageList }: { postData: Post.CreatePostDto; attachImageList: File[] }) => {
@@ -152,7 +113,7 @@ export const PostService = () => {
           ),
         );
 
-        attachImageList.forEach(file => {
+        attachImageList.forEach((file) => {
           formData.append('attachImageList', new Blob([file], { type: file.type }), file.name);
         });
 
@@ -182,8 +143,6 @@ export const PostService = () => {
   };
 
   return {
-    useGetPostList,
-    useGetSearchPostList,
     useCreatePost,
     useCreatePostWithForm,
     useCreatePostWithVote,

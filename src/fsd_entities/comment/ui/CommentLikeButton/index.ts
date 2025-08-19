@@ -1,0 +1,1 @@
+export { CommentLikeButton } from './CommentLikeButton';

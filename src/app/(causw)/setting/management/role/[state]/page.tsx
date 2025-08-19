@@ -1,5 +1,5 @@
-import { SettingRscService } from '@/shared';
-import { Management } from '@/widget';
+import { getPrivilegedUsers } from '@/fsd_entities/user/api';
+import { ManagementPanel } from '@/fsd_entities/user/ui';
 
 const navigation = [
   {
@@ -41,8 +41,6 @@ const navigation = [
 ];
 
 const RoleManagement = async ({ params: { state } }: { params: { state: string } }) => {
-  const { getPrivilegedUsers } = SettingRscService();
-
   const allRoles = await getPrivilegedUsers();
 
   //TODO: 가독성 수정 필요
@@ -52,7 +50,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
       : state === 'council'
         ? allRoles.councilUsers
         : state === 'leader_1' || state === 'leader_2' || state === 'leader_3' || state === 'leader_4'
-          ? allRoles.leaderGradeUsers.filter(element => element.roles.includes(state.toUpperCase() as User.Role))
+          ? allRoles.leaderGradeUsers.filter((element) => element.roles.includes(state.toUpperCase() as User.Role))
           : state === 'circleleader'
             ? allRoles.leaderCircleUsers
             : state === 'alumunileader'
@@ -61,7 +59,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
 
   return (
     <>
-      <Management
+      <ManagementPanel
         state={state}
         title="권한 관리"
         firstNavigation={{
@@ -70,7 +68,7 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
           router: '/setting/mandate/president',
         }}
         navigation={navigation}
-        data={data.map(element => ({
+        data={data.map((element) => ({
           userName: element.name,
           studentId: element.studentId,
           id: element.id,

@@ -7,7 +7,7 @@ export const AuthFormSubmitButton = ({ content }: Props) => {
     <div className="flex w-full justify-center">
       <button
         type="submit"
-        className="mb-4 mt-6 flex h-10 w-40 items-center justify-center rounded-lg bg-focus text-white hover:bg-blue-400"
+        className="bg-focus mt-6 mb-4 flex h-10 w-40 cursor-pointer items-center justify-center rounded-lg text-white hover:bg-blue-400"
       >
         {content}
       </button>

@@ -1,10 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
 import { FieldValues, Path, UseFormSetValue } from 'react-hook-form';
+
+import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
 
 import { ImageModal } from './ImageModal';
 
@@ -14,6 +16,7 @@ interface Props<T extends FieldValues> {
   errorMessage?: string;
   setValue: UseFormSetValue<T>;
   maxFiles?: number;
+  resetTrigger?: boolean;
   children?: React.ReactNode;
 }
 
@@ -23,11 +26,20 @@ export const ImageUploadField = <T extends FieldValues>({
   errorMessage,
   setValue,
   maxFiles = 5,
+  resetTrigger = false,
   children,
 }: Props<T>) => {
   const [previews, setPreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (resetTrigger) {
+      setPreviews([]);
+      setFiles([]);
+      setSelectedImage(null);
+    }
+  }, [resetTrigger]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newFiles = e.target.files ? Array.from(e.target.files) : [];
@@ -38,12 +50,12 @@ export const ImageUploadField = <T extends FieldValues>({
       return;
     }
 
-    const newPreviews = newFiles.map(file => URL.createObjectURL(file));
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
     setFiles(updated);
-    setPreviews(prev => [...prev, ...newPreviews]);
+    setPreviews((prev) => [...prev, ...newPreviews]);
 
     const dataTransfer = new DataTransfer();
-    updated.forEach(file => dataTransfer.items.add(file));
+    updated.forEach((file) => dataTransfer.items.add(file));
     setValue(name, dataTransfer.files as any, { shouldValidate: true });
   };
 
@@ -54,7 +66,7 @@ export const ImageUploadField = <T extends FieldValues>({
     setPreviews(updatedPreviews);
 
     const dataTransfer = new DataTransfer();
-    updatedFiles.forEach(file => dataTransfer.items.add(file));
+    updatedFiles.forEach((file) => dataTransfer.items.add(file));
     setValue(name, dataTransfer.files as any, { shouldValidate: true });
   };
 
@@ -66,7 +78,7 @@ export const ImageUploadField = <T extends FieldValues>({
       <div className="flex items-center gap-4 overflow-x-auto">
         <label className="flex h-28 min-h-28 w-28 min-w-28 shrink-0 cursor-pointer items-center justify-center rounded-lg border-2 border-gray-300 bg-white transition hover:bg-gray-50">
           <span className="text-6xl text-gray-400">+</span>
-          <input type="file" accept="image/*" multiple onChange={handleChange} className="hidden" />
+          <input type="file" accept={ACCEPTED_IMAGE_TYPES} multiple onChange={handleChange} className="hidden" />
         </label>
 
         {[...previews]
@@ -75,7 +87,7 @@ export const ImageUploadField = <T extends FieldValues>({
           .map((src, i) => (
             <div
               key={i}
-              className="relative h-28 min-h-28 w-28 min-w-28 flex-shrink-0 cursor-pointer overflow-hidden rounded border-gray-300"
+              className="relative h-28 min-h-28 w-28 min-w-28 shrink-0 cursor-pointer overflow-hidden rounded-sm border-gray-300"
             >
               <Image
                 src={src}
@@ -87,14 +99,13 @@ export const ImageUploadField = <T extends FieldValues>({
               <button
                 type="button"
                 onClick={() => handleDelete(previews.length - 1 - i)}
-                className="absolute right-1 top-1 rounded-full bg-red-500 px-1 text-xs text-white"
+                className="absolute top-1 right-1 rounded-full bg-red-500 px-1 text-xs text-white"
               >
                 ✕
               </button>
             </div>
           ))}
       </div>
-
       {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
       {errorMessage && <span className="text-error">{errorMessage}</span>}
     </div>

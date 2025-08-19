@@ -4,8 +4,9 @@ import { notFound, useParams } from 'next/navigation';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { LoadingComponent } from '@/entities';
-import { FormService, Modal, PreviousButton, useHandleApplySubmit, useResponseFormStore } from '@/shared';
+import { LoadingComponent, Modal } from '@/fsd_shared';
+import { PreviousButton } from '@/fsd_shared';
+import { FormService, useHandleApplySubmit, useResponseFormStore } from '@/shared';
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widget';
 
 const ApplyPage = () => {
@@ -17,7 +18,7 @@ const ApplyPage = () => {
       questionReplyRequestDtoList: [],
     },
   });
-  const form = useResponseFormStore(state => state.form);
+  const form = useResponseFormStore((state) => state.form);
 
   const { setError } = methods;
   const { useGetFormResponseInfo } = FormService();
@@ -35,8 +36,8 @@ const ApplyPage = () => {
   const canReply = data[1];
 
   return (
-    <>
-      <PreviousButton />
+    <div className="h-full w-full pt-3">
+      <PreviousButton className="pl-5" />
       {form?.isClosed ? (
         <ExpiredForm />
       ) : !canReply ? (
@@ -54,7 +55,7 @@ const ApplyPage = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

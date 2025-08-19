@@ -1,8 +1,8 @@
+import { UseTerms } from '@/fsd_shared';
 import { useState } from 'react';
 
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-import { UseTerms } from '@/shared/ui/useTerms';
 
 interface Props<T extends FieldValues> {
   register: UseFormRegister<T>;
@@ -22,7 +22,7 @@ export const SignUpCheckbox = <T extends FieldValues>({ register, name, label, r
           {label}
         </label>
       </div>
-      {errorMessage && <span className="text-sm text-error">{errorMessage}</span>}
+      {errorMessage && <span className="text-error text-sm">{errorMessage}</span>}
       {isModalOpen && (
         <div>
           <UseTerms
