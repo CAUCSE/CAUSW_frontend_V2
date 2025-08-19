@@ -55,7 +55,7 @@ export const changeAttendanceUserState = async (
 };
 
 export const updateAttendanceUserNote = async (id: string, note: string) => {
-  await API.put(`/api/v1/users/academic-record/record/${id}`, note);
+  await API.put(`/api/v1/users/academic-record/record/${id}`, { note: note });
 };
 
 export const updateRole = async (id: string, role: User.Role, circleId: string | null) => {
