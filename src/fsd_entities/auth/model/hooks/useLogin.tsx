@@ -19,18 +19,18 @@ export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }
       await setRscToken(accessToken, refreshToken);
       await setRccToken(accessToken, refreshToken);
 
-        const response = await getMyInfo();
-    
-        if (response.state === 'AWAIT') {
+      const response = await getMyInfo();
+
+      if (response.state === 'AWAIT') {
+        await router.push('/auth/authorization');
+      } else {
+        if (response.academicStatus == 'UNDETERMINED') {
           await router.push('/auth/authorization');
         } else {
-          if (response.academicStatus == 'UNDETERMINED') {
-            await router.push('/auth/authorization');
-          } else {
-            await router.push('/home');
-          }
+          await router.push('/home');
         }
       }
+
       toast.success('로그인 성공!');
     },
     onError: (error: Error.ApiErrorResponse) => {
