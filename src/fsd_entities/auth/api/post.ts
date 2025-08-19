@@ -38,6 +38,10 @@ export const submitAdmissionsApplication = async (
   return response.data;
 };
 
+export const signout = async (payload: User.SignOutRequestDto): Promise<void> => {
+  await API.post(`${URI}/sign-out`, payload);
+};
+
 export const postAcademicRecord = async (data: User.CreateUserAcademicRecordApplicationRequestDto): Promise<any> => {
   const payload = {
     ...data, // 기존 데이터 복사
