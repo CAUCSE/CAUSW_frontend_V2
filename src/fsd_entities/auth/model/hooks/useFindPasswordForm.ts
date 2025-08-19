@@ -5,21 +5,20 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '../stores';
-
 import { useFindPassword } from '../queries';
+import { useFindAccountStore } from '../stores';
 
 interface FormData {
   name: string;
-  studentId: string;
+  phoneNumber: string;
   email: string;
 }
 
 export const useFindPasswordForm = () => {
   const router = useRouter();
-  const { studentId, name, email, resetFindAccountStore } = useFindAccountStore(
+  const { phoneNumber, name, email, resetFindAccountStore } = useFindAccountStore(
     useShallow((state) => ({
-      studentId: state.studentId,
+      phoneNumber: state.phoneNumber,
       name: state.name,
       email: state.email,
       resetFindAccountStore: state.resetFindAccountStore,
@@ -31,7 +30,7 @@ export const useFindPasswordForm = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      studentId,
+      phoneNumber,
       name,
       email,
     },
@@ -42,7 +41,7 @@ export const useFindPasswordForm = () => {
   const onSubmit = async (data: FormData) => {
     findpassword({
       name: data.name,
-      studentId: data.studentId,
+      phoneNumber: data.phoneNumber,
       email: data.email,
     });
   };

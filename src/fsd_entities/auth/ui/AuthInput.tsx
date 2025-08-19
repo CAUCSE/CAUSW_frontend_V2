@@ -1,5 +1,7 @@
 'use client';
+
 import { useState } from 'react';
+
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -16,15 +18,15 @@ interface InputProps<T extends FieldValues> {
 }
 
 export const AuthInput = <T extends FieldValues>({
-                                                   register,
-                                                   name,
-                                                   rules,
-                                                   label,
-                                                   errorMessage,
-                                                   formatter,
-                                                   type = 'text',
-                                                   ...rest
-                                                 }: InputProps<T>) => {
+  register,
+  name,
+  rules,
+  label,
+  errorMessage,
+  formatter,
+  type = 'text',
+  ...rest
+}: InputProps<T>) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
   const { onChange: formOnChange, ...restOfRegister } = register(name, rules);

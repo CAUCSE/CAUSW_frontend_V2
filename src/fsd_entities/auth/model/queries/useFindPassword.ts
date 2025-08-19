@@ -5,8 +5,8 @@ import { findPassword } from '../../api/post';
 
 export const useFindPassword = () => {
   return useMutation({
-    mutationFn: async ({ name, studentId, email }: User.FindPasswordRequest) => {
-      await findPassword({ name, studentId, email });
+    mutationFn: async ({ name, phoneNumber, email }: User.FindPasswordRequest) => {
+      await findPassword({ name, phoneNumber, email });
     },
     onMutate: () => {
       toast.loading('비밀번호 찾는 중...');

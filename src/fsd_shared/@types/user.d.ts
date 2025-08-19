@@ -285,7 +285,7 @@ declare namespace User {
   }
 
   export interface FindIdRequest {
-    studentId: string;
+    phoneNumber: string;
     name: string;
   }
 
@@ -295,7 +295,7 @@ declare namespace User {
 
   export interface FindPasswordRequest {
     name: string;
-    studentId: string;
+    phoneNumber: string;
     email: string;
   }
 
