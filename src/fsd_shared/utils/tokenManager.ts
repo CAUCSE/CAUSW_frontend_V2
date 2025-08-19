@@ -24,7 +24,6 @@ export const tokenManager = () => {
       removeRccAccess(),
       removeRscRefresh(),
       removeRscAccess(),
-      resetFCMToken(),
     ]);
   };
 

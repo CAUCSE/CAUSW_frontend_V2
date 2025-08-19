@@ -62,7 +62,6 @@ export const usePushNotification = () => {
   };
 
   return {
-    requestPushPermission: requestNotificationPermission,
     compareFCMToken,
   };
 };
