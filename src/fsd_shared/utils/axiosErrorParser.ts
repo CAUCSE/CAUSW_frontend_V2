@@ -10,15 +10,17 @@ export const parseErrorMessage = (error: unknown, defaultMessage: string = '오�
   // Axios 에러인 경우
   if (axios.isAxiosError(error)) {
     const message = error.response?.data?.message;
+    console.error('Axios Error:', error);
     if (message) return message;
-    
+
     return error.message;
   }
-  
+
   // 일반 에러인 경우
   if (error instanceof Error) {
+    console.error('gen Error:', error);
     return error.message;
   }
-  
+
   return defaultMessage;
 };
