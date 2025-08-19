@@ -1,7 +1,7 @@
 import { getFCMToken } from '../api/get';
 import { updateFCMToken } from '../api/post';
 import { toast } from 'react-hot-toast';
-import { STORAGE_KEYS } from '@/fsd_shared/configs';
+import { getRccRefresh, STORAGE_KEYS } from '@/fsd_shared/configs';
 import { detectDeviceType, getClientFCMToken } from '@/fsd_shared/model';
 import { requestNotificationPermission } from '@/fsd_shared/utils';
 import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
@@ -9,7 +9,8 @@ import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
 const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
 
 export const usePushNotification = () => {
-
+  const updateFCMTokenMutation = useUpdateFCMToken();
+  
   // 토큰 동기화
   const compareFCMToken = async (): Promise<void> => {
     try {
@@ -17,7 +18,7 @@ export const usePushNotification = () => {
       if (deviceType === 'desktop') {
         return;
       }
-      
+
       // 알림 권한 허용되지 않은 경우
       if (Notification.permission === 'default') {
         const permission = await requestNotificationPermission();
@@ -27,7 +28,6 @@ export const usePushNotification = () => {
       } else if (Notification.permission === 'denied') {
         return;
       }
-
       // 이미 토큰 동기화 완료된 경우
       if (localStorage.getItem(FCM_TOKEN_KEY)) {
         return;
@@ -41,21 +41,14 @@ export const usePushNotification = () => {
         toast.error('알림 설정 실패');
         return;
       }
-
-      // 로컬스토리지에 저장된 토큰과 비교
-      const storedToken = localStorage.getItem(FCM_TOKEN_KEY);
       
-      // 이미 동일한 토큰이 저장되어 있으면 서버 확인 스킵
-      if (storedToken === clientFCMToken) {
-        return;
-      }
-
       // 서버에서 현재 사용자의 토큰 조회
       const { fcmToken } = await getFCMToken();
-      const updateFCMTokenMutation = useUpdateFCMToken();
+      const refreshToken = await getRccRefresh();
       // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
+
       if (!fcmToken.includes(clientFCMToken)) {
-        updateFCMTokenMutation.mutate(clientFCMToken);
+        updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
         // 로컬스토리지에 토큰 저장
       }
     } catch (error) {

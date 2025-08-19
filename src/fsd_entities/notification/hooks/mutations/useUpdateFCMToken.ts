@@ -7,7 +7,7 @@ import { updateFCMToken } from '@/fsd_entities/notification/api';
 export const useUpdateFCMToken = () => {
 
 	return useMutation({
-		mutationFn: (token: string) => updateFCMToken(token),
+		mutationFn: (payload: Notification.UpdateFCMTokenRequestDto) => updateFCMToken(payload),
 		onSuccess: () => {
 			toast.success('알림 설정을 허용하였습니다.');
 		},
