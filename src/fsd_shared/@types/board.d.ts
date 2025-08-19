@@ -31,6 +31,7 @@ declare namespace Board {
     title: string;
     contentId: string;
     writerNickname: string | null;
+    displayWriterNickname: string;
     createdAt: string;
     isAnonymous: boolean;
   }

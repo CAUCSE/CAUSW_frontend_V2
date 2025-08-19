@@ -1,11 +1,28 @@
+import { WriterState } from './report-be';
+
 // 신고 타입 (프론트/백엔드)
 export type ReportType = 'post' | 'comment';
 export type ReportTypeBE = 'POST' | 'COMMENT' | 'CHILD_COMMENT';
+
+export const writerStateLabel: Record<WriterState, string> = {
+  ACTIVE: '활성',
+  INACTIVE: '탈퇴',
+  DROP: '추방',
+  REJECT: '승인거절',
+};
+
+export const writerStateColor: Record<WriterState, string> = {
+  ACTIVE: 'bg-green-500',
+  INACTIVE: 'bg-[#FF7F00]',
+  DROP: 'bg-[#EB3323]',
+  REJECT: 'bg-gray-400',
+};
 
 // 공통 신고 아이템 Base
 export interface ReportItemBase {
   id: string;
   offenderName: string; // 작성자
+  writerState: WriterState;
   reason: string; // 사유 라벨 (예: 상업적 광고 및 판매)
   createdAt: string; // ISO
   url: string; // 클릭 이동용 URL
@@ -33,6 +50,7 @@ export interface ReportedUser {
   id: string;
   name: string;
   nickname: string;
+  userState: WriterState;
   profileImage: string | null;
   totalCount: number; // 누적 신고 횟수
 }

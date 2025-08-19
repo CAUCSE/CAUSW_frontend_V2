@@ -20,7 +20,13 @@ export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
       />
       <PostInfoSection
         writerProfileImage={postData.writerProfileImage ?? '/images/default_profile.png'}
-        writerNickname={postData.isAnonymous ? '익명' : postData.writerNickname}
+        writerNickname={
+          postData.displayWriterNickname
+            ? postData.displayWriterNickname
+            : postData.isAnonymous
+              ? '익명'
+              : postData.writerNickname
+        }
         updatedAt={postData.updatedAt}
       />
       <PostContentSection

@@ -43,7 +43,7 @@ export const PostCardStatusBar = ({ post }: PostCardStatusBarProps) => {
       </div>
       <Divider vertical />
       <div className="sm:text-md flex items-center pl-2 text-center text-xs text-gray-300 lg:pl-4">
-        {post.isAnonymous ? '익명' : post.writerNickname}
+        {post.displayWriterNickname ? post.displayWriterNickname : post.isAnonymous ? '익명' : post.writerNickname}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ declare namespace Post {
     content: string;
     isDeleted: boolean;
     writerName: string;
+    displayWriterNickname: string;
     writerNickname: string;
     writerAdmissionYear: number;
     writerProfileImage: string | null;
@@ -39,6 +40,7 @@ declare namespace Post {
     title: string;
     content: string;
     writerName: string;
+    displayWriterNickname: string;
     writerAdmissionYear: number;
     writerNickname: string;
     writerProfileImage: string | null;
@@ -61,6 +63,7 @@ declare namespace Post {
     content: string;
     isDeleted: boolean;
     writerName: string;
+    displayWriterNickname: string;
     writerAdmissionYear: number;
     writerNickname: string;
     writerProfileImage: string | null;
