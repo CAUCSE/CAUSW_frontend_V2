@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
-import { Controller } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -19,7 +17,6 @@ import { ActionModal } from '@/fsd_shared/ui/ActionModal';
 
 import '@/firebase-messaging-sw';
 import { emailRegex, getRccRefresh } from '@/fsd_shared';
-import { Switch } from '@/shadcn/components/ui';
 
 const routes = [
   { name: '아이디찾기', route: '/auth/findemail' },
@@ -121,16 +118,6 @@ const SignInPage = () => {
             <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
 
             <div className="mt-1 flex w-full items-center gap-2">
-              <label htmlFor="auto" className="text-xs font-medium">
-                자동로그인
-              </label>
-              <Controller
-                name="auto"
-                control={control}
-                render={({ field }) => (
-                  <Switch id="auto" checked={field.value ?? false} onCheckedChange={field.onChange} />
-                )}
-              />
             </div>
             <SignInSubmitButton />
 
