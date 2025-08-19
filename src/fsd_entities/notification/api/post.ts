@@ -23,10 +23,10 @@ export const markAsRead = async (id: string): Promise<void> => {
   }
 };
 
-export const updateFCMToken = async (token: string): Promise<void> => {
-  const URI = `/api/v1/users/fcm?fcmToken=${token}`;
-  await API.post(URI);
-  localStorage.setItem(FCM_TOKEN_KEY, token);
+export const updateFCMToken = async (payload: Notification.UpdateFCMTokenRequestDto): Promise<void> => {
+  const URI = `/api/v1/users/fcm`;
+  await API.post(URI, payload);
+  localStorage.setItem(FCM_TOKEN_KEY, payload.fcmToken);
 };
 
 export const addCeremony = async (payload: Ceremony.CreateCeremonyPayload): Promise<Ceremony.CeremonyResponse> => {
