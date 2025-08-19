@@ -3,6 +3,11 @@
 import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
 import { useFindPasswordForm } from '@/fsd_entities/auth';
 
+const formatPhoneNumber = (value: string) => {
+  if (!value) return '';
+  return value.replace(/[^0-9]/g, '').replace(/(^\d{3})(\d{3,4})(\d{4}$)/, '$1-$2-$3');
+};
+
 export const FindPasswordForm = () => {
   const {
     register,
@@ -26,19 +31,19 @@ export const FindPasswordForm = () => {
         />
 
         <AuthInput
-          name="studentId"
-          type="text"
-          label="학번"
-          placeholder="학번 8자리를 입력해주세요."
           register={register}
+          name="phoneNumber"
           rules={{
-            required: '학번을 입력해주세요.',
+            required: '휴대폰 번호를 입력해주세요.',
             pattern: {
-              value: /^\d{8}$/,
-              message: '학번은 8자리 숫자여야 합니다.',
+              value: /^\d{3}-\d{3,4}-\d{4}$/,
+              message: 'ex) 010-1234-5678 형식으로 입력해주세요.',
             },
           }}
-          errorMessage={errors.studentId?.message}
+          label="연락처"
+          placeholder="ex) 010-1234-5678"
+          errorMessage={errors.phoneNumber?.message}
+          formatter={formatPhoneNumber}
         />
 
         <AuthInput
@@ -65,6 +70,13 @@ export const FindPasswordForm = () => {
           <AuthFormSubmitButton content="확인" />
         )}
       </form>
+      <p className="mt-4 text-center text-sm text-gray-400">
+        비밀번호 찾기가 정상적으로 진행되지 않을 경우 관리자(
+        <a href="mailto:caucsedongne@gmail.com" className="text-gray-500 underline">
+          caucsedongne@gmail.com
+        </a>
+        )에게 문의해 주시기 바랍니다.
+      </p>
     </div>
   );
 };
