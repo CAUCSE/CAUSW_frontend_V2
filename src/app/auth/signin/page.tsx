@@ -51,7 +51,7 @@ const SignInPage = () => {
       return;
     }
 
-    await login.mutate(data);
+    await login.mutateAsync(data);
     await compareFCMToken();
   };
 
