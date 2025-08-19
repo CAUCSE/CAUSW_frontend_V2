@@ -1,4 +1,4 @@
 export const STORAGE_KEYS = {
-    FCM_CHECKED: 'fcm_checked',
+    FCM_TOKEN: 'fcm_token',
   } as const;
   

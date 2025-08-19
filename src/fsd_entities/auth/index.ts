@@ -1,4 +1,5 @@
 //api
+export * from './api';
 
 //config
 export { signUpValidationRules } from './config/signUpValidation';

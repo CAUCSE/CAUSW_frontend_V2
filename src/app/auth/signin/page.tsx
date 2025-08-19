@@ -17,6 +17,7 @@ import { Switch } from '@/shadcn/components/ui';
 import { emailRegex, getRccRefresh } from '@/fsd_shared';
 import toast from 'react-hot-toast';
 import { useLogin } from '@/fsd_entities/auth/model/hooks/useLogin';
+import { usePushNotification } from '@/fsd_entities/notification/model/usePushNotification';
 
 
 const routes = [
@@ -29,7 +30,7 @@ const routes = [
 const SignInPage = () => {
   const router = useRouter();
   const login = useLogin();
-
+  const { compareFCMToken } = usePushNotification();
 
   const { register, handleSubmit, control } = useForm<User.SignInRequestDto>({
     defaultValues: {
@@ -39,7 +40,7 @@ const SignInPage = () => {
     },
   });
 
-  const onSubmit = (data: User.SignInRequestDto) => {
+  const onSubmit = async (data: User.SignInRequestDto) => {
     if (!emailRegex.test(data.email)) {
       toast.error('이메일을 올바른 형식으로 입력해주세요!');
       return;
@@ -50,7 +51,8 @@ const SignInPage = () => {
       return;
     }
 
-    login.mutate(data);
+    await login.mutateAsync(data);
+    await compareFCMToken();
   };
 
   useEffect(() => {

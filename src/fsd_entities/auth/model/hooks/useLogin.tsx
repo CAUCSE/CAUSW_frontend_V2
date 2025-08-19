@@ -18,12 +18,12 @@ export const useLogin = () => {
         const response = await getMyInfo();
     
         if (response.state === 'AWAIT') {
-          router.push('/auth/authorization');
+          await router.push('/auth/authorization');
         } else {
           if (response.academicStatus == 'UNDETERMINED') {
-            router.push('/auth/authorization');
+            await router.push('/auth/authorization');
           } else {
-            router.push('/home');
+            await router.push('/home');
           }
         }
         toast.success('로그인 성공!');

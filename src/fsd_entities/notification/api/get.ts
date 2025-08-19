@@ -3,8 +3,6 @@ import { toast } from 'react-hot-toast';
 
 import { CeremonyState } from '@/fsd_widgets/ceremony';
 
-import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
-
 import { API } from '@/fsd_shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';

@@ -1,8 +1,11 @@
 'use client';
-import { BASEURL, removeRccAccess, removeRccRefresh, removeRscAccess, removeRscRefresh, setRccToken, setRscToken } from "@/fsd_shared/configs";
+import { BASEURL, getRccAccess, getRccRefresh, removeRccAccess, removeRccRefresh, removeRscAccess, removeRscRefresh, setRccToken, setRscToken } from "@/fsd_shared/configs";
+import { signout } from "@/fsd_entities/auth";
+import { STORAGE_KEYS } from "@/fsd_shared/configs";
+import { resetFCMToken, getLocalFCMToken } from "@/fsd_entities/notification/model/usePushNotification";
 
 export const tokenManager = () => {
-
+  const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
 
   const URI = BASEURL + '/api/v1/users';
 
@@ -12,7 +15,11 @@ export const tokenManager = () => {
   };
 
   const removeAllTokens = async () => {
+    const accessToken = getRccAccess();
+    const refreshToken = getRccRefresh();
+    const fcmToken = getLocalFCMToken();
     Promise.all([
+      signout({ accessToken: accessToken || '', refreshToken: refreshToken || '', fcmToken: fcmToken || '' }),
       removeRccRefresh(),
       removeRccAccess(),
       removeRscRefresh(),

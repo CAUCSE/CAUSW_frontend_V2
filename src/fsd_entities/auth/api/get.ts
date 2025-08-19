@@ -2,7 +2,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 
-import { API, getRccAccess } from '@/fsd_shared';
+import { API } from '@/fsd_shared';
 
 const URI = '/api/v1/users';
 

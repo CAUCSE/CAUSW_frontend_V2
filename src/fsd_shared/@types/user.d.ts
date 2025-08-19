@@ -139,6 +139,7 @@ declare namespace User {
   export interface SignOutRequestDto {
     accessToken: string;
     refreshToken: string;
+    fcmToken: string;
   }
 
   // Signup

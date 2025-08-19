@@ -42,7 +42,7 @@ export const removeRccAccess = () => {
   delete FORMAPI.defaults.headers['Authorization'];
 };
 
-export const getRccAccess = (): string => `${API.defaults.headers['Authorization']}`;
+export const getRccAccess = (): string => (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
 
 export const removeRccRefresh = (): void => {
   localStorage.removeItem(storageRefreshKey);
