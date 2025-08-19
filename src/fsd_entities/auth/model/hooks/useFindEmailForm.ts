@@ -1,12 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
+import { useFindId } from '../queries';
 import { useFindAccountStore } from '../stores';
 
-import { useFindId } from '../queries';
-
 interface FormData {
-  studentId: string;
+  phoneNumber: string;
   name: string;
 }
 
@@ -17,20 +16,20 @@ export const useFindEmailForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const { setName, setStudentId } = useFindAccountStore(
+  const { setName, setPhoneNumber } = useFindAccountStore(
     useShallow((state) => ({
       setName: state.setName,
-      setStudentId: state.setStudentId,
+      setPhoneNumber: state.setPhoneNumber,
     })),
   );
 
   const { mutate: findId } = useFindId();
   const onSubmit = async (data: FormData) => {
-    setStudentId(data.studentId);
+    setPhoneNumber(data.phoneNumber);
     setName(data.name);
 
     findId({
-      studentId: data.studentId,
+      phoneNumber: data.phoneNumber,
       name: data.name,
     });
   };

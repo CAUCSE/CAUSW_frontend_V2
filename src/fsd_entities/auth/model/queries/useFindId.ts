@@ -2,9 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '../stores';
-
 import { findId } from '../../api/post';
+import { useFindAccountStore } from '../stores';
 
 export const useFindId = () => {
   const { setEmail, resetFindAccountStore } = useFindAccountStore(
@@ -14,8 +13,8 @@ export const useFindId = () => {
     })),
   );
   return useMutation({
-    mutationFn: async ({ studentId, name }: { studentId: string; name: string }) => {
-      const { email } = await findId({ studentId, name });
+    mutationFn: async ({ phoneNumber, name }: { phoneNumber: string; name: string }) => {
+      const { email } = await findId({ phoneNumber, name });
       return email;
     },
     onSuccess: (data) => {
