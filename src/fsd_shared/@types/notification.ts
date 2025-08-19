@@ -62,4 +62,9 @@ declare namespace Notification {
     loadCeremonyNotifications: () => Promise<void>;
     markAsRead: (id: string) => Promise<void>;
   }
+
+  interface UpdateFCMTokenRequestDto {
+    fcmToken: string;
+    refreshToken: string;
+  }
 }
