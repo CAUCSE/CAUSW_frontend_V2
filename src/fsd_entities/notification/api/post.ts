@@ -3,9 +3,7 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-import { getRccAccess } from '@/fsd_shared/configs/api/csrConfig';
 import { STORAGE_KEYS } from '@/fsd_shared/configs';
-
 import { API, FORMAPI } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
@@ -16,7 +14,7 @@ export const markAsRead = async (id: string): Promise<void> => {
   const URI = `/api/v1/notifications/log/isRead/${id}`;
 
   try {
-    await API.post(URI, {}, { headers: { Authorization: getRccAccess() } });
+    await API.post(URI);
   } catch (error) {
     toast.error(`알림 ${id} 읽음 처리 실패: 서버 응답 오류`);
     throw error;

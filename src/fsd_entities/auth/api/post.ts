@@ -2,7 +2,7 @@
 
 import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, FORMAPI, getRccAccess } from '@/fsd_shared';
+import { BASEURL, FORMAPI } from '@/fsd_shared';
 import { API } from '@/fsd_shared';
 import { createFormData } from '@/utils';
 
@@ -87,14 +87,8 @@ export const findPassword = async (data: User.FindPasswordRequest): Promise<void
 };
 
 export const resetPassword = async (data: User.ResetPasswordRequest): Promise<void> => {
-  const accessToken = getRccAccess();
   try {
-    await axios.put(`${BASEURL}/api/v1/users/password`, data, {
-      headers: {
-        Authorization: accessToken,
-        'Content-Type': 'application/json',
-      },
-    });
+    await API.put(`${BASEURL}/api/v1/users/password`, data);
   } catch (error) {
     throw error;
   }
