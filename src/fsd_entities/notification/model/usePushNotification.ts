@@ -9,7 +9,8 @@ import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
 const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
 
 export const usePushNotification = () => {
-  const updateFCMTokenMutation = useUpdateFCMToken();
+  const updateFCMTokenMutation = useUpdateFCMToken(true);
+  const extendFCMTokenMutation = useUpdateFCMToken(false);
   
   // 토큰 동기화
   const compareFCMToken = async (): Promise<void> => {
@@ -28,12 +29,8 @@ export const usePushNotification = () => {
       } else if (Notification.permission === 'denied') {
         return;
       }
-      // 이미 토큰 동기화 완료된 경우
-      if (localStorage.getItem(FCM_TOKEN_KEY)) {
-        return;
-      }
 
-      // 클라이언트에서 토큰 가져오기
+      // 로컬 스토리지에 토큰이 없어서 새로 요청을 보내야 하는 경우
       const clientFCMToken = await getClientFCMToken();
 
       // 로컬에서 토큰 못 가져오는 경우 
@@ -45,11 +42,19 @@ export const usePushNotification = () => {
       // 서버에서 현재 사용자의 토큰 조회
       const { fcmToken } = await getFCMToken();
       const refreshToken = await getRccRefresh();
-      // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
 
+      // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
       if (!fcmToken.includes(clientFCMToken)) {
-        updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-        // 로컬스토리지에 토큰 저장
+        
+        // 로컬 스토리지에 기존 값이 없었을 경우 토큰 전송하고 toast까지
+        if (localStorage.getItem(FCM_TOKEN_KEY) !== clientFCMToken) {
+          updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+          localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
+        }
+        // 로컬 스토리지에 기존 값이 있었을 경우 toast 없이 보내기
+        else if (localStorage.getItem(FCM_TOKEN_KEY) === clientFCMToken) {
+          extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+        }
       }
     } catch (error) {
       toast.error('알림 설정에서 문제가 발생했습니다.');
