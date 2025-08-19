@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 
 import { SignInFooter } from '@/fsd_widgets/auth';
 
-import { SignInInput, SignInSubmitButton } from '@/fsd_entities/auth';
+import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/fsd_entities/auth';
 import { useLogin } from '@/fsd_entities/auth/model/hooks/useLogin';
 import { usePushNotification } from '@/fsd_entities/notification/model/usePushNotification';
 
@@ -31,15 +31,16 @@ const routes = [
 const SignInPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => {
-    console.log('됐니');
     setIsModalOpen(true);
   };
 
   const router = useRouter();
   const login = useLogin({ onDeletedAccount: handleOpenModal });
+  const { mutate: recoverAccountMutate } = useRecoverAccount();
+
   const { compareFCMToken } = usePushNotification();
 
-  const { register, handleSubmit, control } = useForm<User.SignInRequestDto>({
+  const { register, handleSubmit, control, watch } = useForm<User.SignInRequestDto>({
     defaultValues: {
       email: '',
       password: '',
@@ -70,6 +71,15 @@ const SignInPage = () => {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
     }
   }, []);
+
+  const formEmail = watch('email');
+
+  const handleRecover = () => {
+    if (formEmail) {
+      recoverAccountMutate({ email: formEmail });
+      setIsModalOpen(false);
+    }
+  };
   return (
     <>
       {isModalOpen && (
@@ -81,10 +91,8 @@ const SignInPage = () => {
           subTitle="계정 복구를 진행하시겠습니까?"
           topBtnLabel="닫기"
           BottomBtnLabel="복구"
-          bottomBtnOnClick={() => {}}
-        >
-          <p>dd</p>
-        </ActionModal>
+          bottomBtnOnClick={handleRecover}
+        />
       )}
       <div className="mx-auto flex h-screen w-full max-w-[502px] flex-1 flex-col items-center justify-between gap-5 px-8 py-18 sm:px-5">
         <div className="flex w-full flex-col items-center gap-1.5 sm:gap-3">
@@ -96,7 +104,7 @@ const SignInPage = () => {
               style={{ objectFit: 'contain' }}
               priority
             />
-          </div>{' '}
+          </div>
           <div className="font-pretendard text-xs font-normal sm:text-2xl sm:font-medium">
             함께라면 더 밝은 미래로, 우리들의
           </div>

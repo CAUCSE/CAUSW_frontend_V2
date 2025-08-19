@@ -2,7 +2,6 @@ import React from 'react';
 
 interface ActionModalProps {
   closeModal: () => void;
-  children: React.ReactNode;
   headTitle: string;
   subTitle?: string;
   topBtnLabel?: string;

@@ -35,7 +35,6 @@ export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }
     },
     onError: (error: Error.ApiErrorResponse) => {
       if (axios.isAxiosError(error) && error.response?.data?.errorCode === 4103) {
-        console.log('Deleted account detected');
         onDeletedAccount?.();
         return;
       }
