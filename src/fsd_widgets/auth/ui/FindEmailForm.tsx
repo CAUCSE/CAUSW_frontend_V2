@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthFormSubmitButton, AuthInput, checkPhoneNumberDuplicate } from '@/fsd_entities/auth';
+import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
 import { useFindEmailForm } from '@/fsd_entities/auth';
 
 const formatPhoneNumber = (value: string) => {
