@@ -50,21 +50,21 @@ const SettingsPage = () => {
     link: string;
   }[] = [];
 
-  roles.forEach((role) => {
-    if (role !== 'LEADER_CIRCLE')
-      roleItems.push({
-        name: userRoleCodes[role] + ' 권한 위임',
-        link: '/setting/mandate/' + role.toLowerCase() + '/none',
-      });
-  });
+  // roles.forEach((role) => {
+  //   if (role !== 'LEADER_CIRCLE')
+  //     roleItems.push({
+  //       name: userRoleCodes[role] + ' 권한 위임',
+  //       link: '/setting/mandate/' + role.toLowerCase() + '/none',
+  //     });
+  // });
 
-  const circleLeaderItems =
-    circleIdIfLeader && circleIdIfLeader.length > 0
-      ? circleIdIfLeader.map((id, index) => ({
-          name: circleNameIfLeader![index] + ' 동아리장 권한 위임',
-          link: '/setting/mandate/leader_circle/' + id,
-        }))
-      : [];
+  // const circleLeaderItems =
+  //   circleIdIfLeader && circleIdIfLeader.length > 0
+  //     ? circleIdIfLeader.map((id, index) => ({
+  //         name: circleNameIfLeader![index] + ' 동아리장 권한 위임',
+  //         link: '/setting/mandate/leader_circle/' + id,
+  //       }))
+  //     : [];
 
   const handleDeleteAccount = async () => {
     try {
@@ -94,12 +94,12 @@ const SettingsPage = () => {
     ],
     managementAlumniPresident: [{ name: '유저 관리', link: '/' }],
     managementAdmin: [
-      { name: '권한 관리', link: '/setting/management/role/president' },
+      // { name: '권한 관리', link: '/setting/management/role/president' },
       { name: '유저 관리', link: '/setting/management/user/admission' },
       { name: '학생회비 납부자 관리', link: '/setting/management/payer' },
       { name: '학적 상태 관리', link: '/setting/management/attendance/all' },
     ],
-    delegation: [...roleItems, ...circleLeaderItems],
+    // delegation: [...roleItems, ...circleLeaderItems],
     homeManagement: [
       { name: '이벤트 배너 관리', link: '/setting/home/banner' },
       { name: '캘린더 관리', link: '/setting/home/calendar' },
@@ -181,12 +181,12 @@ const SettingsPage = () => {
         {/* 교수인 경우 */}
 
         {/* 학생회에만 소속 */}
-        {(isCouncil(roles) && !isCircleLeader(roles)) ||
+        {/* {(isCouncil(roles) && !isCircleLeader(roles)) ||
           (isStudentLeader(roles) && !isCircleLeader(roles) && (
             <>
               <MenuItem title="권한 위임" items={menuItems.delegation} />
             </>
-          ))}
+          ))} */}
 
         {/* 동아리 대표인 경우: 동아리 비활성화 */}
         {/* {isCircleLeader() && (
@@ -217,7 +217,7 @@ const SettingsPage = () => {
         {(isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles)) && (
           <>
             <MenuItem title="관리" items={menuItems.managementAdmin} />
-            <MenuItem title="권한 위임" items={menuItems.delegation} />
+            {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagement} />
             <MenuItem title="게시판 관리" items={menuItems.boardManagement} />
             <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
