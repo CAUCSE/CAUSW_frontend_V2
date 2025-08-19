@@ -1,6 +1,5 @@
 import { VTwoForm } from '@/fsd_widgets/auth/ui';
 import { SideBar, NavigationBar } from '@/fsd_widgets/pageLayout';
-import { FCMTokenChecker } from '@/fsd_widgets/notification';
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +11,6 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
         <main className="h-full w-full overflow-y-auto rounded-3xl bg-[#F8F8F8]">{children}</main>
         <SideBar className="relative hidden h-full w-full flex-col items-center justify-center xl:flex xl:px-2" />
         <NavigationBar className="block h-full w-full xl:hidden" />
-        <FCMTokenChecker />
       </div>
     </>
   );
