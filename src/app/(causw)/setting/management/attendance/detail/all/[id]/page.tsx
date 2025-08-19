@@ -4,8 +4,8 @@ import { useRef } from 'react';
 
 import Link from 'next/link';
 
+import { useUpdateUserNote } from '@/fsd_entities/user';
 import { useGetAttendanceUser } from '@/fsd_entities/user/api';
-import { updateAttendanceUserNote } from '@/fsd_entities/user/api';
 
 import { ACADEMIC_STATUS_LABELS } from '@/fsd_shared/configs/constants/setting';
 
@@ -13,6 +13,8 @@ import { Header, LoadingComponent, SubHeader } from '@/fsd_shared';
 
 const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useGetAttendanceUser(id);
+
+  const { mutate: updateUserNote } = useUpdateUserNote();
 
   const note = useRef('');
 
@@ -86,9 +88,8 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
 
       <div
         onClick={() => {
-          updateAttendanceUserNote(id, note.current).then(() => {
-            //window.location.href = "/setting/management/attendance/all";
-          });
+          updateUserNote({ id, note: note.current });
+          //window.location.href = "/setting/management/attendance/all";
         }}
         className="bg-focus mb-3 flex h-12 items-center justify-center rounded-xl text-lg text-white"
       >
