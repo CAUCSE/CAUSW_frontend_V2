@@ -78,7 +78,9 @@ declare namespace User {
   }
 
   // ---
-
+  export interface RecoverAccountRequestDto {
+    email: string;
+  }
   export interface SignInRequestDto {
     email: string;
     password: string;

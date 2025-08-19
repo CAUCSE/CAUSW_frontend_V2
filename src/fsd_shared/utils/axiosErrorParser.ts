@@ -11,14 +11,14 @@ export const parseErrorMessage = (error: unknown, defaultMessage: string = '오�
   if (axios.isAxiosError(error)) {
     const message = error.response?.data?.message;
     if (message) return message;
-    
+
     return error.message;
   }
-  
+
   // 일반 에러인 경우
   if (error instanceof Error) {
     return error.message;
   }
-  
+
   return defaultMessage;
 };

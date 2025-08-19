@@ -7,3 +7,4 @@ export * from './useAcademicRecordForm';
 export * from './useSignUpForm';
 export * from './useAdmissionForm';
 export * from './useVerification';
+export * from './useRecoverAccount';

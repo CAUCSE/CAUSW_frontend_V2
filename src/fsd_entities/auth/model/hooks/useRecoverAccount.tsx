@@ -1,20 +1,24 @@
 import { useRouter } from 'next/navigation';
 
 import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
-import { signin } from '@/fsd_entities/auth/api/post';
 import { getMyInfo } from '@/fsd_entities/user/api/get';
 
 import { parseErrorMessage, setRccToken, setRscToken } from '@/fsd_shared';
 
-export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }) => {
+import { recoverAccount } from '../../api/put';
+
+export const useRecoverAccount = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: signin,
-    onSuccess: async (data: { accessToken: string; refreshToken: string }, body: User.SignInRequestDto) => {
+    mutationFn: async ({ email }: User.RecoverAccountRequestDto) => await recoverAccount({ email }),
+    onMutate: () => {
+      return toast.loading('로딩 중...');
+    },
+    onSuccess: async (data: { accessToken: string; refreshToken: string }) => {
+      toast.dismiss();
       const { accessToken, refreshToken } = data;
       await setRscToken(accessToken, refreshToken);
       await setRccToken(accessToken, refreshToken);
@@ -22,23 +26,18 @@ export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }
       const response = await getMyInfo();
 
       if (response.state === 'AWAIT') {
-        await router.push('/auth/authorization');
+        router.push('/auth/authorization');
       } else {
         if (response.academicStatus == 'UNDETERMINED') {
-          await router.push('/auth/authorization');
+          router.push('/auth/authorization');
         } else {
-          await router.push('/home');
+          router.push('/home');
         }
       }
-
       toast.success('로그인 성공!');
     },
     onError: (error: Error.ApiErrorResponse) => {
-      if (axios.isAxiosError(error) && error.response?.data?.errorCode === 4103) {
-        onDeletedAccount?.();
-        return;
-      }
-      toast.error(parseErrorMessage(error, '로그인 정보가 일치하지 않습니다!'));
+      toast.error(parseErrorMessage(error, '계정 복구에 실패했습니다.'));
     },
   });
 };
