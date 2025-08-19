@@ -142,7 +142,7 @@ const SignInPage = () => {
                     onClick={() => {
                       router.push(route.route);
                     }}
-                    className="text-[9px] font-medium sm:text-xs sm:font-normal"
+                    className="cursor-pointer text-[9px] font-medium sm:text-xs sm:font-normal"
                   >
                     {route.name}
                   </div>
