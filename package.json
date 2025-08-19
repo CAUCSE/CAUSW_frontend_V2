@@ -13,6 +13,9 @@
     "ts:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@capacitor/core": "^7.4.2",
+    "@capacitor/ios": "^7.4.2",
+    "@capacitor/status-bar": "^7.0.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^5.0.1",
@@ -53,6 +56,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@capacitor/cli": "^7.4.2",
     "@iconify/json": "^2.2.226",
     "@iconify/tailwind": "^1.1.1",
     "@svgr/webpack": "^8.1.0",
