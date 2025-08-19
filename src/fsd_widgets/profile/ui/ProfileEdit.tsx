@@ -1,10 +1,14 @@
 'use client';
-import { FormProvider, Controller } from 'react-hook-form';
-import { Plus, Trash2 } from 'lucide-react';
 
+import { Plus, Trash2 } from 'lucide-react';
+import { Controller, FormProvider } from 'react-hook-form';
+
+import { checkPhoneNumberDuplicate } from '@/fsd_entities/auth/api/get';
 import { useEditProfile } from '@/fsd_entities/contact';
-import { ProfileFormData, FormField, MonthPicker, ProfileHeader } from '@/fsd_entities/contact';
-import { ProfileImageUploader } from "@/fsd_shared/ui";
+import { FormField, MonthPicker, ProfileFormData, ProfileHeader } from '@/fsd_entities/contact';
+
+import { ProfileImageUploader } from '@/fsd_shared/ui';
+
 import { formatPhoneNumber } from '@/fsd_shared';
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
 
@@ -22,7 +26,12 @@ interface ProfileEditProps {
 
 export const ProfileEdit = ({ contact }: ProfileEditProps) => {
   const { methods, isPending, fields, addCareer, removeCareer, handleFormSubmit } = useEditProfile(contact);
-  const { control, register, formState: { errors }, watch } = methods;
+  const {
+    control,
+    register,
+    formState: { errors },
+    watch,
+  } = methods;
 
   const phoneNumberValue = watch('phoneNumber');
   return (
@@ -41,7 +50,11 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
           <TabsContent value="basic">
             <div className="flex h-[30rem] flex-col gap-8 rounded-md border bg-white p-6">
               <FormField label="프로필">
-                <ProfileImageUploader name="profileImage" setValue={methods.setValue} defaultValue={contact?.profileImageUrl} />
+                <ProfileImageUploader
+                  name="profileImage"
+                  setValue={methods.setValue}
+                  defaultValue={contact?.profileImageUrl}
+                />
               </FormField>
               <FormField label="이메일">
                 <Input placeholder="이메일" {...register('email')} disabled />
@@ -52,19 +65,27 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                     control={control}
                     name="phoneNumber"
                     render={({ field }) => (
-                      <Input id="연락처" placeholder="010-1234-5678" onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))} value={field.value ?? ''} />
+                      <Input
+                        id="연락처"
+                        placeholder="010-1234-5678"
+                        onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
+                        value={field.value ?? ''}
+                      />
                     )}
                   />
                   <p className="mt-2 text-xs text-gray-500">연락처 정보는 공개범위 내 사용자만 볼 수 있습니다.</p>
                   {phoneNumberValue === '전화번호 없음' && (
-                    <p className="mt-1 text-xs text-red-500">올바른 전화번호를 입력하지 않을 시 동문수첩 정보 수정이 불가합니다.</p>
+                    <p className="mt-1 text-xs text-red-500">
+                      올바른 전화번호를 입력하지 않을 시 동문수첩 정보 수정이 불가합니다.
+                    </p>
                   )}
+                  {errors.phoneNumber && <p className="mt-1 text-xs text-red-500">{errors.phoneNumber.message}</p>}
                 </div>
               </FormField>
             </div>
           </TabsContent>
           <TabsContent value="intro">
-            <div className="flex h-[30rem] overflow-y-auto flex-col gap-6 rounded-md border bg-white p-6">
+            <div className="flex h-[30rem] flex-col gap-6 overflow-y-auto rounded-md border bg-white p-6">
               <FormField label="한줄 소개">
                 <Textarea placeholder="한줄 소개를 입력해주세요" {...register('description')} />
               </FormField>
@@ -82,26 +103,46 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                       </Button>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <Controller control={control} name={`userCareer.${index}.periodStart`} render={({ field }) => <MonthPicker value={field.value ?? ''} onChange={field.onChange} placeholder="시작일" />} />
+                      <Controller
+                        control={control}
+                        name={`userCareer.${index}.periodStart`}
+                        render={({ field }) => (
+                          <MonthPicker value={field.value ?? ''} onChange={field.onChange} placeholder="시작일" />
+                        )}
+                      />
                       <span>~</span>
-                      <Controller control={control} name={`userCareer.${index}.periodEnd`} render={({ field }) => <MonthPicker value={field.value ?? ''} onChange={field.onChange} placeholder="종료일" />} />
+                      <Controller
+                        control={control}
+                        name={`userCareer.${index}.periodEnd`}
+                        render={({ field }) => (
+                          <MonthPicker value={field.value ?? ''} onChange={field.onChange} placeholder="종료일" />
+                        )}
+                      />
                     </div>
                     <Textarea {...register(`userCareer.${index}.description`)} placeholder="회사명 및 주요업무" />
-                    {errors.userCareer?.[index]?.description?.message && <p className="mt-1 text-sm font-medium text-red-500">{errors.userCareer[index]?.description?.message}</p>}
+                    {errors.userCareer?.[index]?.description?.message && (
+                      <p className="mt-1 text-sm font-medium text-red-500">
+                        {errors.userCareer[index]?.description?.message}
+                      </p>
+                    )}
                   </div>
                 ))}
-                <Button type="button" variant="outline" className="w-full" onClick={addCareer}><Plus className="h-4 w-4" /></Button>
+                <Button type="button" variant="outline" className="w-full" onClick={addCareer}>
+                  <Plus className="h-4 w-4" />
+                </Button>
               </div>
             </div>
           </TabsContent>
 
           <TabsContent value="social">
-            <div className="flex h-[30rem] overflow-y-auto flex-col gap-6 rounded-md border bg-white p-6">
-              {socialLinksConfig.map(link => (
+            <div className="flex h-[30rem] flex-col gap-6 overflow-y-auto rounded-md border bg-white p-6">
+              {socialLinksConfig.map((link) => (
                 <FormField label={link.label} key={link.name}>
                   <Input placeholder={link.placeholder} {...register(link.name as 'githubLink')} />
                   {errors[link.name as 'githubLink']?.message && (
-                    <p className="mt-1 text-sm font-medium text-red-500">{errors[link.name as 'githubLink']?.message}</p>
+                    <p className="mt-1 text-sm font-medium text-red-500">
+                      {errors[link.name as 'githubLink']?.message}
+                    </p>
                   )}
                 </FormField>
               ))}
@@ -111,14 +152,20 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
           <TabsContent value="privacy">
             <div className="flex h-[30rem] flex-col gap-6 rounded-md border bg-white p-6">
               <FormField label="연락처 비공개" hint="비공개 시 다른 사용자에게 연락처가 보이지 않습니다.">
-                <Controller control={control} name="isPhoneNumberVisible" render={({ field }) => <Switch checked={field.value ?? false} onCheckedChange={field.onChange} />} />
+                <Controller
+                  control={control}
+                  name="isPhoneNumberVisible"
+                  render={({ field }) => <Switch checked={field.value ?? false} onCheckedChange={field.onChange} />}
+                />
               </FormField>
             </div>
           </TabsContent>
         </Tabs>
 
         <div className="w-full">
-          <Button type="submit" className="w-full" disabled={isPending}>저장하기</Button>
+          <Button type="submit" className="w-full" disabled={isPending}>
+            저장하기
+          </Button>
         </div>
       </form>
     </FormProvider>
