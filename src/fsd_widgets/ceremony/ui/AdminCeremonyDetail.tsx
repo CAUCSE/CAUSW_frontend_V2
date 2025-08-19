@@ -4,9 +4,6 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import toast from 'react-hot-toast';
-
-import { updateAdminCeremonyState } from '@/fsd_entities/ceremony';
 import { useCeremonyData } from '@/fsd_entities/ceremony';
 import {
   CeremonyApprovalButton,
@@ -14,8 +11,9 @@ import {
   CeremonyDateTile,
   CeremonySectionTitle,
 } from '@/fsd_entities/ceremony';
+import { useAdminUpdateCeremony } from '@/fsd_entities/ceremony/model/\buseAdminUpdateCeremony';
 
-import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { CommonImageList, MESSAGES } from '@/fsd_shared';
 
 import { ceremonyTypeMap } from '../config';
 import { NotificationYearListBox } from './NotificationYearListBox';
@@ -30,28 +28,13 @@ export const AdminCeremonyDetail = ({ ceremonyId, context }: Ceremony.CeremonyDe
     router.back();
   };
 
-  const handleClickApprove = async () => {
-    try {
-      await updateAdminCeremonyState({
-        ceremonyId,
+  const { mutate: updateCeremony } = useAdminUpdateCeremony({ setIsModalOpen });
 
-        targetCeremonyState: 'ACCEPT',
-      });
-      setIsModalOpen(true);
-    } catch (error) {
-      toast.error(ERROR_MESSAGES.REGISTRATION_APPROVAL_FAIL);
-    }
+  const handleClickApprove = async () => {
+    updateCeremony({ ceremonyId, targetCeremonyState: 'ACCEPT' });
   };
   const handleClickReject = async () => {
-    try {
-      await updateAdminCeremonyState({
-        ceremonyId,
-        targetCeremonyState: 'REJECT',
-      });
-      router.back();
-    } catch (error) {
-      throw new Error(ERROR_MESSAGES.RERISTRATION_REJECT_MESSAGE);
-    }
+    updateCeremony({ ceremonyId, targetCeremonyState: 'REJECT' });
   };
 
   return (
