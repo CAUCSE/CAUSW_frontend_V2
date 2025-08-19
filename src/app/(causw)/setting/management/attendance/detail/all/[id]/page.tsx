@@ -4,8 +4,7 @@ import { useRef } from 'react';
 
 import Link from 'next/link';
 
-import { useUpdateUserNote } from '@/fsd_entities/user';
-import { useGetAttendanceUser } from '@/fsd_entities/user/api';
+import { useGetAttendanceUser, useUpdateUserNote } from '@/fsd_entities/user';
 
 import { ACADEMIC_STATUS_LABELS } from '@/fsd_shared/configs/constants/setting';
 
