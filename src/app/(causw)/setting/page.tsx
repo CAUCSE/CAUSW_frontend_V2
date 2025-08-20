@@ -42,6 +42,7 @@ const SettingsPage = () => {
 
   const roles = userInfo.roles;
   const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles);
+  const isAdminGroup = isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles);
 
   const circleIdIfLeader = userInfo.circleIdIfLeader;
   const circleNameIfLeader = userInfo.circleNameIfLeader;
@@ -172,7 +173,7 @@ const SettingsPage = () => {
         {/* 권한을 갖는 유저들에게 나타나는 UI */}
 
         {/* 학생 또는 졸업생인 경우 */}
-        {(isStudent(roles) || isPureGraduate) && (
+        {(isStudent(roles) || isPureGraduate) && !isAdminGroup && (
           <>
             <MenuItem title="경조사 관리" items={menuItems.occasionUserManagement} />
           </>
@@ -181,6 +182,7 @@ const SettingsPage = () => {
         {/* 교수인 경우 */}
 
         {/* 학생회에만 소속 */}
+        {/* 요청으로 인해 '권한 위임/관리' 주석처리(20250819) */}
         {/* {(isCouncil(roles) && !isCircleLeader(roles)) ||
           (isStudentLeader(roles) && !isCircleLeader(roles) && (
             <>
@@ -214,7 +216,7 @@ const SettingsPage = () => {
         )}
 
         {/* 관리자, 학생회장, 부학생회장 */}
-        {(isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles)) && (
+        {isAdminGroup && (
           <>
             <MenuItem title="관리" items={menuItems.managementAdmin} />
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}

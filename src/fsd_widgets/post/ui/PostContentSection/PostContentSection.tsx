@@ -15,7 +15,7 @@ interface PostContentSectionProps {
 export const PostContentSection = ({ postTitle, postContent, fileUrlList, voteData }: PostContentSectionProps) => {
   return (
     <section className="flex w-full flex-col items-start px-3">
-      <div className="w-full">
+      <div className="w-full overflow-x-auto">
         <PostDetailTitle postTitle={postTitle} />
         <PostDetailContent postContent={postContent} />
         {voteData && <div className="flex w-full lg:pr-12">{<VoteSection voteData={voteData} />}</div>}

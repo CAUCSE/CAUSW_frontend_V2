@@ -37,7 +37,7 @@ export const PostCardContent = ({ post }: PostCardContentProps) => {
       </div>
       <div className="relative min-h-0">
         <div
-          className="md:text-md h-full overflow-y-hidden text-sm"
+          className="md:text-md h-full overflow-y-hidden text-sm break-all"
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
         <div className="pointer-events-none absolute bottom-0 left-0 h-10 w-full bg-linear-to-t from-white to-transparent" />
