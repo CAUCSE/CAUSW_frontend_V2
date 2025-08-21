@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
+import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react';
+
 interface ImageViewerProps {
   images: string[];
   initialIndex?: number;
@@ -68,19 +70,19 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md">
       {/* 이미지 컨테이너 */}
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center px-12 lg:px-20">
         {/* 이전 버튼 - 이미지 바깥쪽 */}
         {currentIndex > 0 && (
           <button
-            className="absolute left-0 z-50 flex h-10 w-10 -translate-x-full items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
+            className="absolute left-0 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
             onClick={prevImage}
           >
-            {'<'}
+            <ChevronLeft className="h-8 w-8 pr-0.5 lg:h-12 lg:w-12" /> {/* 아이콘으로 대체 */}
           </button>
         )}
 
         {/* 이미지 */}
-        <div className="relative flex min-h-[80vw] min-w-[80vw] items-center justify-center lg:min-h-[45vw] lg:min-w-[45vw]">
+        <div className="relative flex min-h-[70vw] min-w-[70vw] items-center justify-center lg:min-h-[45vw] lg:min-w-[45vw]">
           <Image
             src={images[currentIndex]}
             alt="확대된 이미지"
@@ -94,10 +96,10 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
         {/* 다음 버튼 - 이미지 바깥쪽 */}
         {currentIndex < images.length - 1 && (
           <button
-            className="absolute right-0 z-50 flex h-10 w-10 translate-x-full items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
+            className="absolute right-0 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
             onClick={nextImage}
           >
-            {'>'}
+            <ChevronRight className="h-8 w-8 pl-0.5 lg:h-12 lg:w-12" /> {/* 아이콘으로 대체 */}
           </button>
         )}
       </div>
@@ -107,7 +109,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
         className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
         onClick={onClose}
       >
-        ✕
+        <X className="h-7 w-7" />
       </button>
 
       {/* 다운로드 버튼 */}
@@ -115,7 +117,7 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
         className="absolute top-4 right-16 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-2xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white"
         onClick={downloadImage}
       >
-        ↓
+        <Download className="h-6 w-6 pb-0.5" />
       </button>
     </div>
   );
