@@ -5,8 +5,10 @@ const config: CapacitorConfig = {
   appName: 'CAUSW',
   webDir: 'out',
   server: {
-    url: 'https://www.causw.co.kr',
-    cleartext: false
+    // url: 'https://www.causw.co.kr',
+    url: 'http://localhost:3000',
+    // cleartext: false,
+    cleartext: true,
   },
   ios: {
     contentInset: 'never',
@@ -20,6 +22,9 @@ const config: CapacitorConfig = {
       style: 'LIGHT_CONTENT',
       backgroundColor: '#ffffff',
       overlaysWebView: false, // 웹뷰 위에 덮어쓰지 않음
+    },
+    PushNotifications: {
+      presentationOptions: ['badge', 'sound', 'alert'],
     },
   },
 };

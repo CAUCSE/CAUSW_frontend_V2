@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  // output: 'export',
   async redirects() {
     return [
       {
@@ -28,6 +29,8 @@ const nextConfig = {
       'caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com',
       'caucse-s3-bucket-prod.s3.ap-northeast-2.amazonaws.com',
     ], // S3 버킷 도메인 허용
+
+    // unoptimized: true, // 이미지 최적화 기능 비활성화
   },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
