@@ -13,88 +13,41 @@ const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
 export const usePushNotification = () => {
   const updateFCMTokenMutation = useUpdateFCMToken(true);
   const extendFCMTokenMutation = useUpdateFCMToken(false);
-  // 토큰 동기화
-  // const compareFCMToken = async (): Promise<void> => {
-  //   try {
-  //     const deviceType = detectDeviceType();
-  //     if (deviceType === 'desktop') {
-  //       return;
-  //     }
-  //     // 알림 권한 허용되지 않은 경우
-  //     if (Notification.permission === 'default') {
-  //       const permission = await requestNotificationPermission();
-  //       if (permission !== 'granted') {
-  //         return;
-  //       }
-  //     } else if (Notification.permission === 'denied') {
-  //       return;
-  //     }
-  //     // 로컬 스토리지에 토큰이 없어서 새로 요청을 보내야 하는 경우
-  //     const clientFCMToken = await getClientFCMToken();
-  //     // 로컬에서 토큰 못 가져오는 경우
-  //     if (!clientFCMToken) {
-  //       toast.error('알림 설정 실패');
-  //       return;
-  //     }
-  //     // 서버에서 현재 사용자의 토큰 조회
-  //     const { fcmToken } = await getFCMToken();
-  //     const refreshToken = await getRccRefresh();
-  //     // 서버에 토큰이 없거나 현재 기기의 토큰과 다른 경우 토큰 전송
-  //     if (!fcmToken.includes(clientFCMToken)) {
-  //       // 로컬 스토리지에 기존 값이 없었을 경우 토큰 전송하고 toast까지
-  //       if (localStorage.getItem(FCM_TOKEN_KEY) !== clientFCMToken) {
-  //         updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-  //         localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
-  //       }
-  //       // 로컬 스토리지에 기존 값이 있었을 경우 toast 없이 보내기
-  //       else if (localStorage.getItem(FCM_TOKEN_KEY) === clientFCMToken) {
-  //         extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-  //       }
-  //     }
-  //   } catch (error) {
-  //     toast.error('알림 설정에서 문제가 발생했습니다.');
-  //   }
-  // };
+
   const compareFCMToken = async (): Promise<void> => {
     try {
       const deviceType = detectDeviceType();
       if (deviceType === 'desktop') {
         return;
       }
-
+      // --- ios 및 기타 환경 로직 ---
       if (deviceType === 'ios' || deviceType === 'ipad') {
         const permStatus = await PushNotifications.checkPermissions();
         if (permStatus.receive === 'prompt') {
           await PushNotifications.requestPermissions();
         }
         PushNotifications.addListener('registration', async ({ value }) => {
-          console.log('FCM 토큰 수신:', value);
           const clientFCMToken = value;
           const refreshToken = getRccRefresh();
           const localFCMToken = localStorage.getItem(FCM_TOKEN_KEY);
-          console.log('refreshToken:', refreshToken);
-          console.log('localFCMToken:', localFCMToken);
+
           if (localFCMToken !== clientFCMToken) {
-            console.log('if문:');
             updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
             localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
           } else {
-            console.log('else문:');
             extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
           }
         });
         PushNotifications.addListener('registrationError', (error) => {
-          console.error('푸시 알림 등록 에러:', error);
-          console.error('푸시 알림 토큰 등록 에러2:', error.error);
           toast.error('알림 설정에 실패했습니다.');
         });
-        PushNotifications.addListener('pushNotificationReceived', (notification) => {
-          console.log('푸시 알림 수신:', notification);
-        });
-        // 알림을 탭했을 때 콘솔에 찍어봅니다.
-        PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
-          console.log('푸시 알림 탭 액션:', action);
-        });
+        // PushNotifications.addListener('pushNotificationReceived', (notification) => {
+        //   console.log('푸시 알림 수신:', notification);
+        // });
+
+        // PushNotifications.addListener('pushNotificationActionPerformed', (action) => {
+        //   console.log('푸시 알림 탭 했을 때 액션:', action);
+        // });
         await PushNotifications.register();
       } else {
         // --- 안드로이드 및 기타 환경 로직 ---
@@ -123,7 +76,6 @@ export const usePushNotification = () => {
         }
       }
     } catch (error) {
-      console.log('error', error);
       toast.error('알림 설정에서 문제가 발생했습니다.');
     }
   };
@@ -131,11 +83,11 @@ export const usePushNotification = () => {
     compareFCMToken,
   };
 };
-// 토큰 상태 초기화 함수 (로그아웃 시 사용)
+
 export const resetFCMToken = (): void => {
   localStorage.removeItem(FCM_TOKEN_KEY);
 };
-// 로컬스토리지에서 FCM 토큰 가져오기
+
 export const getLocalFCMToken = (): string | null => {
   return localStorage.getItem(FCM_TOKEN_KEY);
 };

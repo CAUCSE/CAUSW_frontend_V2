@@ -5,9 +5,7 @@ const config: CapacitorConfig = {
   appName: 'CAUSW',
   webDir: 'out',
   server: {
-    // url: 'https://www.causw.co.kr',
-    url: 'http://localhost:3000',
-    // cleartext: false,
+    url: 'https://www.causw.co.kr',
     cleartext: true,
   },
   ios: {
