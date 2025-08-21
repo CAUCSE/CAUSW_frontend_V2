@@ -2,10 +2,12 @@ import { useCallback } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
 
+import { useFindAccountStore } from '@/fsd_entities/auth/model/stores';
+
+import { PreviousButton } from '@/fsd_shared';
 
 import { FindEmailForm } from './FindEmailForm';
 import { FindEmailResult } from './FindEmailResult';
-import { useFindAccountStore } from '@/fsd_entities/auth/model/stores';
 
 export const FindEmailWidget = () => {
   const { email, resetFindAccountStore } = useFindAccountStore(
@@ -22,6 +24,7 @@ export const FindEmailWidget = () => {
         resetFindAccountStore();
       }, [])}
     >
+      <PreviousButton className="fixed top-0 left-0 mt-4" />
       {email !== '' ? <FindEmailResult /> : <FindEmailForm />}
     </div>
   );
