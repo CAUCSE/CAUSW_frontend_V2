@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'out',
   server: {
     url: 'https://www.causw.co.kr',
-    cleartext: true,
+    cleartext: false, // localhost에서 개발할 때는 true로 설정 & firebase APN 값 Sandbox로 설정
   },
   ios: {
     contentInset: 'never',
