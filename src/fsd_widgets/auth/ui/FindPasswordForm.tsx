@@ -3,6 +3,8 @@
 import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
 import { useFindPasswordForm } from '@/fsd_entities/auth';
 
+import { PreviousButton } from '@/fsd_shared';
+
 const formatPhoneNumber = (value: string) => {
   if (!value) return '';
   return value.replace(/[^0-9]/g, '').replace(/(^\d{3})(\d{3,4})(\d{4}$)/, '$1-$2-$3');
@@ -19,6 +21,7 @@ export const FindPasswordForm = () => {
   } = useFindPasswordForm();
   return (
     <div className="bg-board-page-background flex min-h-screen flex-col items-center justify-center px-4 sm:px-0">
+      <PreviousButton className="fixed top-0 left-0 mt-4" />
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
         <AuthInput
           name="name"
