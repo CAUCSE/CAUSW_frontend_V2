@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1086770319771",
+    "project_id": "dongnae-92491",
+    "storage_bucket": "dongnae-92491.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086770319771:android:15116a29b98133706a513e",
+        "android_client_info": {
+          "package_name": "kr.co.causw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYfpI_T3AOehjIVNIbvsCuNhxWZ3rHdqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

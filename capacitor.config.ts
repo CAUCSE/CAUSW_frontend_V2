@@ -7,7 +7,10 @@ const config: CapacitorConfig = {
   server: {
     url: 'https://www.causw.co.kr',
     cleartext: false, // localhost에서 개발할 때는 true로 설정 & firebase APN 값 Sandbox로 설정
+    // url: 'http://10.0.2.2:3000',
+    // cleartext: true, // localhost에서 개발할 때는 true로 설정 & firebase APN 값 Sandbox로 설정
   },
+
   ios: {
     contentInset: 'never',
     scrollEnabled: true,
@@ -15,6 +18,7 @@ const config: CapacitorConfig = {
     allowsLinkPreview: false,
     handleApplicationNotifications: false,
   },
+
   plugins: {
     StatusBar: {
       style: 'LIGHT_CONTENT',
