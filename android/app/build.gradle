@@ -18,7 +18,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('releasekey.jks') // 방금 생성한 파일 이름으로 수정
+            storeFile file('release-key.jks') // 방금 생성한 파일 이름으로 수정
             storePassword "releasekey" // 키스토어 생성 시 입력한 비밀번호
             keyAlias "cause-app" // 방금 생성한 키 별칭
             keyPassword "releasekey" // 키 별칭의 비밀번호
@@ -31,6 +31,7 @@ android {
             signingConfig signingConfigs.release 
         }
     }
+    
 }
 
 repositories {
