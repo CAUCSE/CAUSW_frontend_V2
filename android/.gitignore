@@ -102,3 +102,4 @@ app/src/main/res/xml/config.xml
 
 app/google-services.json
 app/release-key.jks
+app/causwsign.keystore

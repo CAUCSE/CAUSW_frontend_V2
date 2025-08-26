@@ -21,101 +21,66 @@ export const usePushNotification = () => {
         return;
       }
 
-      const permStatus = await PushNotifications.checkPermissions();
+      // --- Capacitor 앱(iOS, Android) 로직 ---
 
-      if (permStatus.receive === 'prompt') {
-        await PushNotifications.requestPermissions();
-      }
-
-      PushNotifications.addListener('registration', async ({ value }) => {
-        const clientFCMToken = value;
-        const refreshToken = getRccRefresh();
-        const localFCMToken = localStorage.getItem(FCM_TOKEN_KEY);
-
-        if (localFCMToken !== clientFCMToken) {
-          updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-          localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
-        } else {
-          extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+      if (deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android') {
+        const permStatus = await PushNotifications.checkPermissions();
+        if (permStatus.receive === 'prompt') {
+          await PushNotifications.requestPermissions();
         }
-      });
 
-      PushNotifications.addListener('registrationError', (error) => {
-        toast.error('알림 설정에 실패했습니다.');
-      });
+        PushNotifications.addListener('registration', async ({ value }) => {
+          const clientFCMToken = value;
+          const refreshToken = getRccRefresh();
+          const localFCMToken = localStorage.getItem(FCM_TOKEN_KEY);
 
-      await PushNotifications.register();
+          if (localFCMToken !== clientFCMToken) {
+            updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
+          } else {
+            extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+          }
+        });
+
+        PushNotifications.addListener('registrationError', (error) => {
+          toast.error('알림 설정에 실패했습니다.');
+        });
+
+        await PushNotifications.register();
+      } else {
+        // --- 웹/웹앱 로직 (Notification.permission 사용) ---
+
+        if (Notification.permission === 'default') {
+          const permission = await requestNotificationPermission();
+          if (permission !== 'granted') {
+            return;
+          }
+        } else if (Notification.permission === 'denied') {
+          return;
+        }
+
+        const clientFCMToken = await getClientFCMToken();
+        if (!clientFCMToken) {
+          toast.error('알림 설정 실패');
+          return;
+        }
+
+        const { fcmToken } = await getFCMToken();
+        const refreshToken = await getRccRefresh();
+
+        if (!fcmToken.includes(clientFCMToken)) {
+          if (localStorage.getItem(FCM_TOKEN_KEY) !== clientFCMToken) {
+            updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
+          } else if (localStorage.getItem(FCM_TOKEN_KEY) === clientFCMToken) {
+            extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+          }
+        }
+      }
     } catch (error) {
       toast.error('알림 설정에서 문제가 발생했습니다.');
     }
   };
-  // const compareFCMToken = async (): Promise<void> => {
-  //   try {
-  //     const deviceType = detectDeviceType();
-  //     if (deviceType === 'desktop') {
-  //       return;
-  //     }
-
-  //     // --- Capacitor 앱(iOS, Android) 로직 ---
-  //     // Capacitor 푸시 알림 플러그인을 사용하여 푸시 알림 토큰을 관리합니다.
-  //     if (deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android') {
-  //       const permStatus = await PushNotifications.checkPermissions();
-  //       if (permStatus.receive === 'prompt') {
-  //         await PushNotifications.requestPermissions();
-  //       }
-
-  //       PushNotifications.addListener('registration', async ({ value }) => {
-  //         const clientFCMToken = value;
-  //         const refreshToken = getRccRefresh();
-  //         const localFCMToken = localStorage.getItem(FCM_TOKEN_KEY);
-
-  //         if (localFCMToken !== clientFCMToken) {
-  //           updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-  //           localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
-  //         } else {
-  //           extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-  //         }
-  //       });
-
-  //       PushNotifications.addListener('registrationError', (error) => {
-  //         toast.error('알림 설정에 실패했습니다.');
-  //       });
-
-  //       await PushNotifications.register();
-  //     } else {
-  //       // --- 웹/웹앱 로직 (Notification.permission 사용) ---
-  //       // 웹 브라우저의 기본 알림 API를 사용하여 푸시 알림을 관리합니다.
-  //       if (Notification.permission === 'default') {
-  //         const permission = await requestNotificationPermission();
-  //         if (permission !== 'granted') {
-  //           return;
-  //         }
-  //       } else if (Notification.permission === 'denied') {
-  //         return;
-  //       }
-
-  //       const clientFCMToken = await getClientFCMToken();
-  //       if (!clientFCMToken) {
-  //         toast.error('알림 설정 실패');
-  //         return;
-  //       }
-
-  //       const { fcmToken } = await getFCMToken();
-  //       const refreshToken = await getRccRefresh();
-
-  //       if (!fcmToken.includes(clientFCMToken)) {
-  //         if (localStorage.getItem(FCM_TOKEN_KEY) !== clientFCMToken) {
-  //           updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-  //           localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
-  //         } else if (localStorage.getItem(FCM_TOKEN_KEY) === clientFCMToken) {
-  //           extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-  //         }
-  //       }
-  //     }
-  //   } catch (error) {
-  //     toast.error('알림 설정에서 문제가 발생했습니다.');
-  //   }
-  // };
   return {
     compareFCMToken,
   };

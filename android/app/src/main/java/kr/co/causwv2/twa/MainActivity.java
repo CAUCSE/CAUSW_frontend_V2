@@ -1,4 +1,4 @@
-package kr.co.causw;
+package kr.co.causwv2.twa;
 
 import com.getcapacitor.BridgeActivity;
 
