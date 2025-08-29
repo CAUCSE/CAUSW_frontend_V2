@@ -1,0 +1,1 @@
+export { checkAppAuthStatus } from './checkAuth';

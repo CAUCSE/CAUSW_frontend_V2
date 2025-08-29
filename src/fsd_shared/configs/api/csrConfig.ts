@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
+import { detectDeviceType } from '@/fsd_shared';
 import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/fsd_shared';
 import { tokenManager } from '@/fsd_shared';
-import { detectDeviceType } from '@/fsd_shared';
 
 import { BASEURL } from './url';
 
@@ -32,7 +32,6 @@ const refreshAndRetryQueue: RetryQueueItem[] = [];
 let isRefreshing = false;
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
-
 const getIsNativeApp = () => {
   const deviceType = detectDeviceType();
   return deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android';
@@ -70,12 +69,17 @@ export const removeRccRefresh = async (): Promise<void> => {
 
 export const getRccRefresh = async (): Promise<string | null> => {
   if (getIsNativeApp()) {
-    const { value } = await SecureStoragePlugin.get({ key: storageRefreshKey });
-    return value;
+    try {
+      const { value } = await SecureStoragePlugin.get({ key: storageRefreshKey });
+      return value;
+    } catch (error) {
+      return null;
+    }
   } else {
     return localStorage.getItem(storageRefreshKey);
   }
 };
+
 const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
   const { updateAccess, signoutAndRedirect } = tokenManager();
 

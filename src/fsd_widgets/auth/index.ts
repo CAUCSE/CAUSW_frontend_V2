@@ -24,3 +24,6 @@ export { VTwoForm } from './ui/VTwoForm';
 
 export { ImageBackground } from './ui/ImageBackground';
 export { VideoBackground } from './ui/VideoBackground';
+
+export * from './model';
+export { AuthAppInitializer } from './AuthAppInitializer';
