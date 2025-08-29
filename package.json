@@ -36,6 +36,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/jsdom": "^21.1.7",
     "axios": "^1.6.8",
+    "capacitor-secure-storage-plugin": "^0.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
