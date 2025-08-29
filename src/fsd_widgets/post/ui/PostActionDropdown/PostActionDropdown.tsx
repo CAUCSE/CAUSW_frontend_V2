@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { EllipsisVertical } from 'lucide-react';
 
-import { BlockUserDialog } from '@/fsd_widgets/block/ui';
+import { BlockUserDialog } from '@/fsd_widgets/block';
 import { ReportReasonDialog } from '@/fsd_widgets/report';
 
 import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/fsd_entities/post';

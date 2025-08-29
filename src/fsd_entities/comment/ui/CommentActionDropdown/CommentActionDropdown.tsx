@@ -9,7 +9,7 @@ import { isAxiosError } from 'axios';
 import { EllipsisVertical } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import { BlockUserDialog } from '@/fsd_widgets/block/ui';
+import { BlockUserDialog } from '@/fsd_widgets/block';
 import { ReportReasonDialog } from '@/fsd_widgets/report';
 
 import { commentQueryKey } from '@/fsd_entities/comment/config';
