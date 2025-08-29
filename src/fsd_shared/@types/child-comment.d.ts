@@ -13,6 +13,7 @@ declare namespace ChildComment {
     writerNickname: string;
     updatable: boolean;
     deletable: boolean;
+    CommentDto;
     isAnonymous: boolean;
     isOwner: boolean;
     isChildCommentLike: boolean;

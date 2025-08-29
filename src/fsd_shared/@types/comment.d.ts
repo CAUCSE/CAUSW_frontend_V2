@@ -16,6 +16,7 @@ declare namespace Comment {
     writerProfileImage: User.User['profileImageUrl'];
     updatable: boolean;
     deletable: boolean;
+    isBlocked: boolean;
     isAnonymous: boolean;
     isOwner: boolean;
     isCommentLike: boolean;
