@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -61,9 +62,15 @@ const SignInPage = () => {
   };
 
   useEffect(() => {
-    if (getRccRefresh()) {
-      router.replace('/home');
-    }
+    const checkLogin = async () => {
+      const refreshToken = await getRccRefresh();
+
+      if (refreshToken) {
+        router.replace('/home');
+      }
+    };
+
+    checkLogin();
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
     }
@@ -117,8 +124,7 @@ const SignInPage = () => {
             <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요" />
             <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
 
-            <div className="mt-1 flex w-full items-center gap-2">
-            </div>
+            <div className="mt-1 flex w-full items-center gap-2"></div>
             <SignInSubmitButton />
 
             <div className="mt-2 flex w-full items-center justify-center">

@@ -1,9 +1,11 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/fsd_shared';
+import { tokenManager } from '@/fsd_shared';
+import { detectDeviceType } from '@/fsd_shared';
 
 import { BASEURL } from './url';
-import { tokenManager } from '@/fsd_shared';
 
 export const API = axios.create({
   baseURL: BASEURL,
@@ -31,10 +33,24 @@ let isRefreshing = false;
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
 
-export const setRccToken = (access: string, refresh: string | false) => {
+const getIsNativeApp = () => {
+  const deviceType = detectDeviceType();
+  return deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android';
+};
+
+export const setRccToken = async (access: string, refresh: string | false) => {
   API.defaults.headers['Authorization'] = `Bearer ${access}`;
   FORMAPI.defaults.headers['Authorization'] = `Bearer ${access}`;
-  if (refresh) localStorage.setItem(storageRefreshKey, refresh);
+  if (refresh) {
+    if (getIsNativeApp()) {
+      await SecureStoragePlugin.set({
+        key: storageRefreshKey,
+        value: refresh,
+      });
+    } else {
+      localStorage.setItem(storageRefreshKey, refresh);
+    }
+  }
 };
 
 export const removeRccAccess = () => {
@@ -44,14 +60,22 @@ export const removeRccAccess = () => {
 
 export const getRccAccess = (): string => (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
 
-export const removeRccRefresh = (): void => {
-  localStorage.removeItem(storageRefreshKey);
+export const removeRccRefresh = async (): Promise<void> => {
+  if (getIsNativeApp()) {
+    await SecureStoragePlugin.remove({ key: storageRefreshKey });
+  } else {
+    localStorage.removeItem(storageRefreshKey);
+  }
 };
 
-export const getRccRefresh = (): string | null => {
-  return localStorage.getItem(storageRefreshKey);
+export const getRccRefresh = async (): Promise<string | null> => {
+  if (getIsNativeApp()) {
+    const { value } = await SecureStoragePlugin.get({ key: storageRefreshKey });
+    return value;
+  } else {
+    return localStorage.getItem(storageRefreshKey);
+  }
 };
-
 const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
   const { updateAccess, signoutAndRedirect } = tokenManager();
 
@@ -65,14 +89,13 @@ const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAP
 
     //Access token 재발급 과정
     if (noAccessTokenCode.includes(errorCode)) {
-      const refresh = getRccRefresh();
+      const refresh = await getRccRefresh();
       if (!refresh) {
         location.href = '/auth/signin';
       } else {
         return refreshTokenWithQueue(config, axiosInstance, refresh);
       }
-    } 
-    else if (noPermissionCode.includes(errorCode)) signoutAndRedirect();
+    } else if (noPermissionCode.includes(errorCode)) signoutAndRedirect();
     else if (noRefreshTokenCode.includes(errorCode)) signoutAndRedirect();
   }
   throw error;
@@ -84,18 +107,17 @@ const refreshTokenWithQueue = async (config: any, axiosInstance: typeof API | ty
   if (!isRefreshing) {
     isRefreshing = true;
     try {
-    const accessToken = await updateAccess(refreshToken);
-    config.headers['Authorization'] = `Bearer ${accessToken}`;
-    refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
-      axiosInstance
-        .request(config)
-        .then((response) => resolve(response))
-        .catch((err) => reject(err));
-    });
-    refreshAndRetryQueue.length = 0;
-    return axiosInstance.request(config);
-    }
-    catch (err) {
+      const accessToken = await updateAccess(refreshToken);
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+      refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
+        axiosInstance
+          .request(config)
+          .then((response) => resolve(response))
+          .catch((err) => reject(err));
+      });
+      refreshAndRetryQueue.length = 0;
+      return axiosInstance.request(config);
+    } catch (err) {
       signoutAndRedirect();
     } finally {
       isRefreshing = false;
