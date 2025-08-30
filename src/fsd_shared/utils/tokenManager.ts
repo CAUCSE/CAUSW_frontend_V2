@@ -1,8 +1,20 @@
 'use client';
-import { BASEURL, getRccAccess, getRccRefresh, removeRccAccess, removeRccRefresh, removeRscAccess, removeRscRefresh, setRccToken, setRscToken } from "@/fsd_shared/configs";
-import { signout } from "@/fsd_entities/auth";
-import { STORAGE_KEYS } from "@/fsd_shared/configs";
-import { resetFCMToken, getLocalFCMToken } from "@/fsd_entities/notification/model/usePushNotification";
+
+import { signout } from '@/fsd_entities/auth';
+import { getLocalFCMToken, resetFCMToken } from '@/fsd_entities/notification/model/usePushNotification';
+
+import {
+  BASEURL,
+  getRccAccess,
+  getRccRefresh,
+  removeRccAccess,
+  removeRccRefresh,
+  removeRscAccess,
+  removeRscRefresh,
+  setRccToken,
+  setRscToken,
+} from '@/fsd_shared/configs';
+import { STORAGE_KEYS } from '@/fsd_shared/configs';
 
 export const tokenManager = () => {
   const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
@@ -16,7 +28,7 @@ export const tokenManager = () => {
 
   const removeAllTokens = async () => {
     const accessToken = getRccAccess();
-    const refreshToken = getRccRefresh();
+    const refreshToken = await getRccRefresh();
     const fcmToken = getLocalFCMToken();
     Promise.all([
       signout({ accessToken: accessToken || '', refreshToken: refreshToken || '', fcmToken: fcmToken || '' }),
@@ -49,4 +61,4 @@ export const tokenManager = () => {
   };
 
   return { updateAccess, signoutAndRedirect };
-}
+};
