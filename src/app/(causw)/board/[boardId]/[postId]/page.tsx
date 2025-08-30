@@ -1,6 +1,10 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { notFound, useRouter } from 'next/navigation';
+
+import { isAxiosError } from 'axios';
 
 import { CommentCardList, CommentInput } from '@/fsd_widgets/comment';
 import { PostDetailSection } from '@/fsd_widgets/post';
@@ -13,7 +17,21 @@ const PostDetailPage = ({ params }: { params: { boardId: string; postId: string 
   const { boardId, postId } = params;
 
   const router = useRouter();
-  const { data: postDetail, isLoading: isPostDetailLoading } = useGetPostDetail({ postId });
+  const { data: postDetail, isLoading: isPostDetailLoading, error } = useGetPostDetail({ postId });
+
+  useEffect(() => {
+    router.prefetch('/not-found');
+  }, [router]);
+
+  useEffect(() => {
+    if (!error) return;
+    if (isAxiosError(error)) {
+      const status = error.response?.status;
+      if (status === 403 || status === 404) {
+        window.location.replace('/not-found');
+      }
+    }
+  }, [error]);
 
   const routerCallback = () => {
     if (boardId === 'my' || boardId === 'search') {
