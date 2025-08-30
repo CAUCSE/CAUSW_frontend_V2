@@ -13,5 +13,6 @@ export const useGetPostDetail = ({ postId }: UseGetPostDetailProps) => {
   return useQuery({
     queryKey: postQueryKey.detail({ postId }),
     queryFn: () => getPostDetail({ postId }),
+    retry: false,
   });
 };
