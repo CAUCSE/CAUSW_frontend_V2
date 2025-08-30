@@ -24,12 +24,16 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
     >
       <CommentCardHeader comment={comment} />
       <CommentCardMain content={comment.content} isDeleted={comment.isDeleted} />
-      <CommentCardFooter
-        numLike={comment.numLike}
-        commentId={comment.id}
-        isDeleted={comment.isDeleted}
-        isCommentLike={comment.isCommentLike}
-      />
+
+      {/* ✅ isBlocked가 true면 Footer 숨김 */}
+      {!comment.isBlocked && (
+        <CommentCardFooter
+          numLike={comment.numLike}
+          commentId={comment.id}
+          isDeleted={comment.isDeleted}
+          isCommentLike={comment.isCommentLike}
+        />
+      )}
     </div>
   );
 };
