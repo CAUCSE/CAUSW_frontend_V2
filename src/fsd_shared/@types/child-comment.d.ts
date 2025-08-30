@@ -14,6 +14,7 @@ declare namespace ChildComment {
     updatable: boolean;
     deletable: boolean;
     CommentDto;
+    isBlocked: boolean;
     isAnonymous: boolean;
     isOwner: boolean;
     isChildCommentLike: boolean;
