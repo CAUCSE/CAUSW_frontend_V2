@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
 
 import type { Metadata, Viewport } from 'next';
+import dynamic from 'next/dynamic';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { Providers } from '@/fsd_shared/ui';
+import { LoadingComponent, Providers } from '@/fsd_shared/ui';
+
 import '@/firebase-messaging-sw';
 import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
 
@@ -25,7 +27,13 @@ const font = localFont({
   ],
   variable: '--font-spoqa',
 });
-
+const DynamicAuthAppInitializer = dynamic(
+  () => import('@/fsd_widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
+  {
+    ssr: false,
+    loading: () => <LoadingComponent />,
+  },
+);
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -84,7 +92,7 @@ export default function RootLayout({
               <GA />
             </Suspense>
             <WindowSizeListener />
-            {children}
+            <DynamicAuthAppInitializer> {children}</DynamicAuthAppInitializer>
             <ToastWithMax />
           </Providers>
         </body>
@@ -181,5 +189,5 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   themeColor: '#ffffff',
-  viewportFit: 'cover'
+  viewportFit: 'cover',
 };

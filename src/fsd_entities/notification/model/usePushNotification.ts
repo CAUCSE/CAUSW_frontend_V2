@@ -31,7 +31,7 @@ export const usePushNotification = () => {
 
         PushNotifications.addListener('registration', async ({ value }) => {
           const clientFCMToken = value;
-          const refreshToken = getRccRefresh();
+          const refreshToken = await getRccRefresh();
           const localFCMToken = localStorage.getItem(FCM_TOKEN_KEY);
 
           if (localFCMToken !== clientFCMToken) {

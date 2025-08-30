@@ -9,6 +9,7 @@ import { isAxiosError } from 'axios';
 import { EllipsisVertical } from 'lucide-react';
 import toast from 'react-hot-toast';
 
+import { BlockUserDialog } from '@/fsd_widgets/block';
 import { ReportReasonDialog } from '@/fsd_widgets/report';
 
 import { getUserRole } from '@/fsd_entities/user';
@@ -32,12 +33,17 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
   const { mutate: deleteChildComment } = useDeleteChildComment();
 
   const [reportOpen, setReportOpen] = useState(false);
+  const [blockOpen, setBlockOpen] = useState(false);
   const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   const openReport = () => {
     setAnchorRect(triggerRef.current?.getBoundingClientRect() ?? null);
     setReportOpen(true);
+  };
+
+  const openBlock = () => {
+    setBlockOpen(true);
   };
 
   const handleDeleteChildComment = () => {
@@ -63,16 +69,27 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       <DropdownMenuTrigger asChild>
         <button
           ref={triggerRef}
-          className={buttonVariants({ variant: 'ghost', size: 'icon', className: 'h-fit w-fit cursor-pointer' })}
+          className={buttonVariants({
+            variant: 'ghost',
+            size: 'icon',
+            className: 'h-fit w-fit cursor-pointer',
+          })}
         >
           <EllipsisVertical className="size-4 text-[#B4B1B1]" />
         </button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align="end">
         {(isOwner || isAdmin) && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
-        {!isOwner && <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>}
+        {!isOwner && (
+          <>
+            <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
+            <DropdownMenuItem onClick={openBlock}>차단하기</DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
 
+      {/* 신고: 위치 기반 패널 */}
       <ReportReasonDialog
         open={reportOpen}
         onOpenChange={setReportOpen}
@@ -82,6 +99,9 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
         width={260}
         offset={8}
       />
+
+      {/* 차단: 중앙 AlertDialog (anchorRect/width 제거) */}
+      <BlockUserDialog open={blockOpen} onOpenChange={setBlockOpen} targetId={commentId} targetKind="childComment" />
     </DropdownMenu>
   );
 };
