@@ -1,16 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-
-import { ArrowRight, EllipsisVertical, ThumbsUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import { ChildCommentCardFooter } from '@/fsd_widgets/comment/ui/ChildCommentCardFooter';
-
-import { ChildCommentActionDropdown, CommentInfoSection, CommentLikeBadge } from '@/fsd_entities/comment';
-
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
-import { Button, buttonVariants } from '@/shadcn/components/ui/button';
-import { getTimeDifference } from '@/utils/format';
 
 import { ChildCommentCardHeader } from '../ChildCommentCardHeader';
 import { CommentCardMain } from '../CommentCardMain';
@@ -28,7 +20,11 @@ export const ChildCommentCard = ({ childComment }: ChildCommentCardProps) => {
       <div className="rounded-post-br shadow-post-sh flex w-full max-w-sm flex-col gap-2 border bg-white p-3">
         <ChildCommentCardHeader childComment={childComment} />
         <CommentCardMain content={childComment.content} isDeleted={childComment.isDeleted} />
-        <ChildCommentCardFooter childComment={childComment} isChildCommentLike={childComment.isChildCommentLike} />
+
+        {/* ✅ isBlocked일 때 Footer 숨김 */}
+        {!childComment.isBlocked && (
+          <ChildCommentCardFooter childComment={childComment} isChildCommentLike={childComment.isChildCommentLike} />
+        )}
       </div>
     </div>
   );
