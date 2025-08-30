@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
@@ -16,6 +16,7 @@ import { commentQueryKey } from '@/fsd_entities/comment/config';
 import { useDeleteComment, useSubscribeComment, useUnsubscribeComment } from '@/fsd_entities/comment/model';
 import { getUserRole } from '@/fsd_entities/user';
 
+import { postQueryKey } from '@/fsd_shared';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
 
@@ -26,9 +27,10 @@ interface CommentActionDropdownProps {
 }
 
 export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed }: CommentActionDropdownProps) => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const isAdmin = getUserRole(['ADMIN']);
-  const { postId } = useParams() as { postId: string };
+  const { boardId, postId } = useParams() as { boardId: string; postId: string };
 
   const { mutate: deleteComment } = useDeleteComment();
   const { mutate: unsubscribeComment } = useUnsubscribeComment();
@@ -44,18 +46,14 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
     setReportOpen(true);
   };
 
-  const openBlock = () => {
-    setBlockOpen(true);
-  };
+  const openBlock = () => setBlockOpen(true);
 
   const handleDeleteComment = () => {
     deleteComment(
       { param: { commentId } },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: commentQueryKey.list({ postId }),
-          });
+          queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
         },
         onError: (error: Error) => {
           if (isAxiosError(error)) {
@@ -73,9 +71,7 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
       { param: { commentId } },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: commentQueryKey.list({ postId }),
-          });
+          queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
         },
         onError: () => {
           toast.error('댓글 알림 해제에 실패했습니다.');
@@ -89,15 +85,20 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
       { param: { commentId } },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({
-            queryKey: commentQueryKey.list({ postId }),
-          });
+          queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
         },
         onError: () => {
           toast.error('댓글 알림 설정에 실패했습니다.');
         },
       },
     );
+  };
+
+  const handleBlockSuccess = () => {
+    const postPath = `/board/${encodeURIComponent(boardId)}/${encodeURIComponent(postId)}`;
+    router.replace(postPath);
+
+    setTimeout(() => router.refresh(), 0);
   };
 
   return (
@@ -133,6 +134,7 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* 신고: 위치 기반 패널 */}
       <ReportReasonDialog
         open={reportOpen}
         onOpenChange={setReportOpen}
@@ -143,7 +145,14 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
         offset={8}
       />
 
-      <BlockUserDialog open={blockOpen} onOpenChange={setBlockOpen} targetId={commentId} targetKind="comment" />
+      {/* 차단: 성공 시 현재 글 경로로 replace 후 refresh → 서버가 403/404면 not-found.tsx로 전환 */}
+      <BlockUserDialog
+        open={blockOpen}
+        onOpenChange={setBlockOpen}
+        targetId={commentId}
+        targetKind="comment"
+        onBlocked={handleBlockSuccess}
+      />
     </>
   );
 };

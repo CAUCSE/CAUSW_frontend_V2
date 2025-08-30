@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import { EllipsisVertical } from 'lucide-react';
 
@@ -53,6 +53,8 @@ export const PostActionDropdown = ({
     setBlockOpen(true);
   };
 
+  const { boardId } = useParams() as { boardId: string };
+
   return (
     <>
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
@@ -95,6 +97,7 @@ export const PostActionDropdown = ({
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* 신고: 위치 기반 패널 */}
       <ReportReasonDialog
         open={reportOpen}
         onOpenChange={setReportOpen}
@@ -105,7 +108,18 @@ export const PostActionDropdown = ({
         offset={8}
       />
 
-      <BlockUserDialog open={blockOpen} onOpenChange={setBlockOpen} targetId={postId} targetKind="post" />
+      {/* 차단: 성공 시 현재 글 경로로 replace 후 refresh → 서버가 403/404면 not-found.tsx로 전환 */}
+      <BlockUserDialog
+        open={blockOpen}
+        onOpenChange={setBlockOpen}
+        targetId={postId}
+        targetKind="post"
+        onBlocked={() => {
+          const postPath = `/board/${encodeURIComponent(boardId)}`;
+          router.replace(postPath);
+          setTimeout(() => router.refresh(), 0);
+        }}
+      />
     </>
   );
 };
