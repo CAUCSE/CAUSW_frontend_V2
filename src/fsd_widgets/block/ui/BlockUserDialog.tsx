@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { useBlockByChildComment, useBlockByComment, useBlockByPost } from '@/fsd_entities/block/model';
 
 import {
@@ -21,6 +23,7 @@ type BlockUserDialogProps = {
   confirmText?: string;
   confirmButtonText?: string;
   cancelButtonText?: string;
+  onBlocked?: () => void;
 };
 
 export function BlockUserDialog({
@@ -30,22 +33,32 @@ export function BlockUserDialog({
   targetKind,
   confirmButtonText = '확인',
   cancelButtonText = '취소',
+  onBlocked,
 }: BlockUserDialogProps) {
+  const router = useRouter();
+
   const postBlock = useBlockByPost();
   const commentBlock = useBlockByComment();
   const childBlock = useBlockByChildComment();
 
   const currentPending = postBlock.isPending || commentBlock.isPending || childBlock.isPending;
 
-  const onConfirm = () => {
-    const onSuccess = () => onOpenChange(false);
-
-    if (targetKind === 'post') {
-      postBlock.mutate(targetId, { onSuccess });
-    } else if (targetKind === 'comment') {
-      commentBlock.mutate(targetId, { onSuccess });
+  const handleSuccess = () => {
+    onOpenChange(false);
+    if (onBlocked) {
+      onBlocked();
     } else {
-      childBlock.mutate(targetId, { onSuccess });
+      router.refresh();
+    }
+  };
+
+  const onConfirm = () => {
+    if (targetKind === 'post') {
+      postBlock.mutate(targetId, { onSuccess: handleSuccess });
+    } else if (targetKind === 'comment') {
+      commentBlock.mutate(targetId, { onSuccess: handleSuccess });
+    } else {
+      childBlock.mutate(targetId, { onSuccess: handleSuccess });
     }
   };
 
