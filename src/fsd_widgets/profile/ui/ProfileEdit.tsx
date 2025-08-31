@@ -119,7 +119,10 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                         )}
                       />
                     </div>
-                    <Textarea {...register(`userCareer.${index}.description`)} placeholder="회사명 및 주요업무" />
+                    <Textarea
+                      {...register(`userCareer.${index}.description`)}
+                      placeholder="회사명 및 주요업무, 재직중일 경우 (재직중)으로 작성해주세요'"
+                    />
                     {errors.userCareer?.[index]?.description?.message && (
                       <p className="mt-1 text-sm font-medium text-red-500">
                         {errors.userCareer[index]?.description?.message}
