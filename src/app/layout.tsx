@@ -109,9 +109,76 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicons/icon_512.png', sizes: '512x512', type: 'image/png', rel: 'icon' },
-      { url: '/favicons/icon_1024.png', sizes: '1024x1024', type: 'image/png', rel: 'icon' },
-      { url: '/favicons/icon_2732.png', sizes: '2732x2732', type: 'image/png', rel: 'icon' },
+      { url: '/favicons/icon-96.png', rel: 'icon' },
+      {
+        url: '/favicons/icon-57.png',
+        sizes: '57x57',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-60.png',
+        sizes: '60x60',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-72.png',
+        sizes: '72x72',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-76.png',
+        sizes: '76x76',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-114.png',
+        sizes: '114x114',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-120.png',
+        sizes: '120x120',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-144.png',
+        sizes: '144x144',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-152.png',
+        sizes: '152x152',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-180.png',
+        sizes: '180x180',
+        rel: 'apple-touch-icon',
+      },
+      {
+        url: '/favicons/icon-192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        rel: 'icon',
+      },
+      {
+        url: '/favicons/icon-32.png',
+        sizes: '32x32',
+        type: 'image/png',
+        rel: 'icon',
+      },
+      {
+        url: '/favicons/icon-96.png',
+        sizes: '96x96',
+        type: 'image/png',
+        rel: 'icon',
+      },
+      {
+        url: '/favicons/icon-16.png',
+        sizes: '16x16',
+        type: 'image/png',
+        rel: 'icon',
+      },
     ],
   },
 };
