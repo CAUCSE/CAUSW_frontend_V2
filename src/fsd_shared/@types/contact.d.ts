@@ -3,8 +3,8 @@ declare namespace Contact {
     id: string | null;
     startYear: number;
     startMonth: number;
-    endYear: number;
-    endMonth: number;
+    endYear: number | null;
+    endMonth: number | null;
     description: string;
   }
 
