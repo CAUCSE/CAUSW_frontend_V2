@@ -18,12 +18,12 @@ export const contactToFormData = (contact: Contact.Contact): Partial<ProfileForm
     notionLink: contact.notionLink ?? '',
     instagramLink: contact.instagramLink ?? '',
     isPhoneNumberVisible: contact.isPhoneNumberVisible ?? false,
-    userCareer: contact.userCareer.map(c => ({
+    userCareer: contact.userCareer.map((c) => ({
       id: c.id,
       description: c.description ?? '',
       // ex: 2023, 8 -> '202308'
       periodStart: c.startYear ? `${c.startYear}${String(c.startMonth).padStart(2, '0')}` : '',
-      periodEnd: (c.endYear && c.endMonth) ? `${c.endYear}${String(c.endMonth).padStart(2, '0')}` : '',
+      periodEnd: c.endYear && c.endMonth ? `${c.endYear}${String(c.endMonth).padStart(2, '0')}` : '',
     })),
   };
 };
@@ -36,9 +36,10 @@ export const contactToFormData = (contact: Contact.Contact): Partial<ProfileForm
 export const formDataToPayload = (formData: ProfileFormData) => {
   const { userCareer, profileImage, email, ...userInfoUpdateDto } = formData;
 
-  const filteredUserCareer = userCareer?.filter(
-    c => c.description?.trim() !== '' || c.periodStart?.trim() !== '' || c.periodEnd?.trim() !== ''
-  ) || [];
+  const filteredUserCareer =
+    userCareer?.filter(
+      (c) => c.description?.trim() !== '' || c.periodStart?.trim() !== '' || c.periodEnd?.trim() !== '',
+    ) || [];
 
   const payload: Omit<Contact.ContactUpdatePayload, 'profileImage'> = {
     ...userInfoUpdateDto,
@@ -51,12 +52,12 @@ export const formDataToPayload = (formData: ProfileFormData) => {
     blogLink: formData.blogLink ?? '',
     notionLink: formData.notionLink ?? '',
     instagramLink: formData.instagramLink ?? '',
-    userCareer: filteredUserCareer.map(c => ({
+    userCareer: filteredUserCareer.map((c) => ({
       id: c.id || null,
       startYear: c.periodStart ? Number(c.periodStart.substring(0, 4)) : 0,
       startMonth: c.periodStart ? Number(c.periodStart.substring(4, 6)) : 1,
-      endYear: c.periodEnd ? Number(c.periodEnd.substring(0, 4)) : 0,
-      endMonth: c.periodEnd ? Number(c.periodEnd.substring(4, 6)) : 1,
+      endYear: c.periodEnd ? Number(c.periodEnd.substring(0, 4)) : null,
+      endMonth: c.periodEnd ? Number(c.periodEnd.substring(4, 6)) : null,
       description: c.description ?? '',
     })),
   };
