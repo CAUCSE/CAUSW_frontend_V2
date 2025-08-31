@@ -93,6 +93,7 @@ const SettingsPage = () => {
       { name: '내가 찜한 게시글', link: '/setting/my/favorite' },
       { name: '내 동문수첩', link: '/profile' },
     ],
+    contact: [{ name: '메일 : caucsedongne@gmail.com' }, { name: '인스타그램 : @causwcse_dongne' }],
     managementAlumniPresident: [{ name: '유저 관리', link: '/' }],
     managementAdmin: [
       // { name: '권한 관리', link: '/setting/management/role/president' },
@@ -152,10 +153,12 @@ const SettingsPage = () => {
               <Link href={item.link} className="text-black-500 hover:text-gray-500 hover:underline">
                 {item.name}
               </Link>
-            ) : (
+            ) : item.onClick ? (
               <button onClick={item.onClick} className="text-black-500 text-left hover:text-gray-500 hover:underline">
                 {item.name}
               </button>
+            ) : (
+              <span className="text-gray-800">{item.name}</span>
             )}
           </li>
         ))}
@@ -226,6 +229,8 @@ const SettingsPage = () => {
             <MenuItem title="신고" items={menuItems.report} />
           </>
         )}
+
+        <MenuItem title="문의하기" items={menuItems.contact} />
       </>
     );
   };
