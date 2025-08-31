@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'kr.co.causw',
-  appName: 'CAUSW',
+  appName: '동네 : CAUSW',
   webDir: 'out',
   server: {
     url: 'https://www.causw.co.kr',
