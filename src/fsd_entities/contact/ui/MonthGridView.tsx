@@ -37,6 +37,7 @@ export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProp
 
           return (
             <Button
+              type="button"
               key={month}
               variant={isSelected ? 'default' : 'ghost'}
               className={cn('h-auto p-2 text-sm', isSelected && 'font-bold')}
