@@ -20,10 +20,10 @@ export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProp
       <div className="relative flex items-center justify-center pt-1">
         <h2 className="text-sm font-semibold">{displayYear}</h2>
         <div className="absolute flex w-full justify-between px-2">
-          <Button variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear - 1)}>
+          <Button type="button" variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear - 1)}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear + 1)}>
+          <Button type="button" variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear + 1)}>
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
