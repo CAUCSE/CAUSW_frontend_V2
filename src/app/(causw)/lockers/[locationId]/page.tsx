@@ -36,7 +36,11 @@ const LockerSelectionPage = () => {
           myLockerExpireAt={myLocker?.expireAt ?? null}
         />
         <LockerSelectionGrid lockerList={lockerList!} />
-        <LockerSelectionDesktopManual lockerPeriod={lockerList!.lockerPeriod} />
+        <LockerSelectionDesktopManual
+          lockerPeriod={lockerList!.lockerPeriod}
+          hasMyLocker={!!myLocker}
+          myLockerExpireAt={myLocker?.expireAt ?? null}
+        />
         <LockerMobileActionBtn lockerPeriod={lockerList!.lockerPeriod} />
       </div>
     </div>

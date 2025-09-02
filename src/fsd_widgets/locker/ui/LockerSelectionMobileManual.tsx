@@ -1,4 +1,3 @@
-// fsd_widgets/locker/LockerSelectionMobileManual.tsx
 interface LockerSelectionMobileManualProps {
   lockerPeriod: Locker.TLockerPeriod;
   hasMyLocker?: boolean;
