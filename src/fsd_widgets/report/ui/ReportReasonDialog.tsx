@@ -110,12 +110,12 @@ export function ReportReasonDialog({
       <Dialog open={open} onOpenChange={onOpenChange}>
         {/* ✅ positionStyle + ref로 실제 높이 측정 */}
         <DialogContent ref={contentRef} positionStyle={style} className="w-fit rounded-xl p-0">
-          <DialogHeader className="px-3 py-2">
+          <DialogHeader className="px-3 pt-4">
             <DialogTitle className="text-base font-semibold">신고 사유 선택</DialogTitle>
           </DialogHeader>
 
           {/* 리스트 자체도 모바일에서 안전하게 */}
-          <ul className="max-h-[70vh] overflow-auto py-2">
+          <ul className="max-h-[70vh] overflow-auto pb-2">
             {Object.values(ReportReason).map((reason) => {
               const meta = ReportReasonMeta[reason];
               return (
