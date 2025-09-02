@@ -4,8 +4,8 @@ import { LockerDesktopActionBtn } from './LockerDesktopActionBtn';
 
 interface LockerSelectionDesktopManualProps {
   lockerPeriod: Locker.TLockerPeriod;
-  hasMyLocker?: boolean;
-  myLockerExpireAt?: string | null;
+  hasMyLocker: boolean;
+  myLockerExpireAt: string | null;
 }
 
 export const LockerSelectionDesktopManual = ({
@@ -14,26 +14,14 @@ export const LockerSelectionDesktopManual = ({
   myLockerExpireAt = null,
 }: LockerSelectionDesktopManualProps) => {
   const lockerExample = [
-    {
-      color: 'bg-[#D9D9D9]',
-      content: '선택 불가',
-    },
-    {
-      color: 'bg-white border border-[#BABABA]',
-      content: '선택 가능',
-    },
-    {
-      color: 'bg-[#76C6D1]',
-      content: '내 사물함',
-    },
+    { color: 'bg-[#D9D9D9]', content: '선택 불가' },
+    { color: 'bg-white border border-[#BABABA]', content: '선택 가능' },
+    { color: 'bg-[#76C6D1]', content: '내 사물함' },
   ];
 
   let lockerPeriodMessage = '사물함 신청 기간이 아닙니다.';
-  if (lockerPeriod === 'LOCKER_ACCESS') {
-    lockerPeriodMessage = '사물함 신청 기간입니다.';
-  } else if (lockerPeriod === 'LOCKER_EXTEND') {
-    lockerPeriodMessage = '사물함 연장 기간입니다.';
-  }
+  if (lockerPeriod === 'LOCKER_ACCESS') lockerPeriodMessage = '사물함 신청 기간입니다.';
+  else if (lockerPeriod === 'LOCKER_EXTEND') lockerPeriodMessage = '사물함 연장 기간입니다.';
 
   const formatExpireAt = (iso?: string | null) => {
     if (!iso) return '';
@@ -54,8 +42,7 @@ export const LockerSelectionDesktopManual = ({
           <p className={`text-xl ${lockerPeriod === 'NULL' && 'text-red-500'}`}>{lockerPeriodMessage}</p>
 
           <p className="text-base">
-            <span className="font-medium">만료일시 :</span>{' '}
-            {expireText || '\u00A0' /* 반납/만료 시 빈값으로 보이도록 공백 출력 */}
+            <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
           </p>
         </div>
         <div className="ml-6 flex w-full flex-col items-start gap-3">
