@@ -121,7 +121,7 @@ export function ReportReasonDialog({
               return (
                 <li key={reason}>
                   <button
-                    className={cn('hover:bg-muted w-full px-3 py-2 text-left text-sm transition')}
+                    className={cn('hover:bg-muted w-full px-3 pb-2 text-left text-sm transition')}
                     onClick={() => pick(reason)}
                   >
                     {meta.label}
