@@ -1,7 +1,7 @@
 interface LockerSelectionMobileManualProps {
   lockerPeriod: Locker.TLockerPeriod;
-  hasMyLocker?: boolean;
-  myLockerExpireAt?: string | null;
+  hasMyLocker: boolean;
+  myLockerExpireAt: string | null;
 }
 
 export const LockerSelectionMobileManual = ({

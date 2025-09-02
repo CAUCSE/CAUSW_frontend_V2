@@ -4,8 +4,8 @@ import { LockerDesktopActionBtn } from './LockerDesktopActionBtn';
 
 interface LockerSelectionDesktopManualProps {
   lockerPeriod: Locker.TLockerPeriod;
-  hasMyLocker?: boolean;
-  myLockerExpireAt?: string | null;
+  hasMyLocker: boolean;
+  myLockerExpireAt: string | null;
 }
 
 export const LockerSelectionDesktopManual = ({
