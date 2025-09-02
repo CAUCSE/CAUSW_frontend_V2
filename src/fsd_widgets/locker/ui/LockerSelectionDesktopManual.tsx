@@ -14,26 +14,14 @@ export const LockerSelectionDesktopManual = ({
   myLockerExpireAt = null,
 }: LockerSelectionDesktopManualProps) => {
   const lockerExample = [
-    {
-      color: 'bg-[#D9D9D9]',
-      content: '선택 불가',
-    },
-    {
-      color: 'bg-white border border-[#BABABA]',
-      content: '선택 가능',
-    },
-    {
-      color: 'bg-[#76C6D1]',
-      content: '내 사물함',
-    },
+    { color: 'bg-[#D9D9D9]', content: '선택 불가' },
+    { color: 'bg-white border border-[#BABABA]', content: '선택 가능' },
+    { color: 'bg-[#76C6D1]', content: '내 사물함' },
   ];
 
   let lockerPeriodMessage = '사물함 신청 기간이 아닙니다.';
-  if (lockerPeriod === 'LOCKER_ACCESS') {
-    lockerPeriodMessage = '사물함 신청 기간입니다.';
-  } else if (lockerPeriod === 'LOCKER_EXTEND') {
-    lockerPeriodMessage = '사물함 연장 기간입니다.';
-  }
+  if (lockerPeriod === 'LOCKER_ACCESS') lockerPeriodMessage = '사물함 신청 기간입니다.';
+  else if (lockerPeriod === 'LOCKER_EXTEND') lockerPeriodMessage = '사물함 연장 기간입니다.';
 
   const formatExpireAt = (iso?: string | null) => {
     if (!iso) return '';
