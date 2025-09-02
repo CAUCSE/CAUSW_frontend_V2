@@ -37,8 +37,7 @@ export const LockerSelectionMobileManual = ({
         <p className={`text-xl ${lockerPeriod === 'NULL' ? 'text-red-500' : ''}`}>{lockerPeriodMessage}</p>
 
         <p className="text-base">
-          <span className="font-medium">만료일시 :</span>{' '}
-          {expireText || '\u00A0' /* 반납/만료 시 빈값으로 보이도록 공백 출력 */}
+          <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
         </p>
       </div>
 
