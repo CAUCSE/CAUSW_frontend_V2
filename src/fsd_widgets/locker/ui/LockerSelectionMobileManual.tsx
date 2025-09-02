@@ -38,9 +38,6 @@ export const LockerSelectionMobileManual = ({
 
         <p className="text-base">
           <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
-          <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
-          <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
-          <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
         </p>
       </div>
 
