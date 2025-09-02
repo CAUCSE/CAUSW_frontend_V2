@@ -51,12 +51,12 @@ export const LockerSelectionMobileManual = ({
             </div>
           ))}
         </div>
-        {/* <div className="flex justify-end text-end">
+        <div className="flex justify-end text-end">
           <div className="text-sm text-[#888888]">
-            <p className="text-nowrap">신청 후 다른 사물함으로 재신청하는 경우,</p>
-            <p className="text-nowrap">원래 사물함은 자동으로 반납 처리 됩니다.</p>
+            {/* <p className="text-nowrap">신청 후 다른 사물함으로 재신청하는 경우,</p>
+            <p className="text-nowrap">원래 사물함은 자동으로 반납 처리 됩니다.</p> */}
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
