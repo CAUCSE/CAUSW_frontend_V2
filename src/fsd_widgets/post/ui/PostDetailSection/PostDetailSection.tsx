@@ -9,7 +9,6 @@ interface PostDetailSectionProps {
 }
 
 export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
-  console.log('postData:', postData);
   return (
     <section className="rounded-post-br bg-post shadow-post-sh relative flex max-w-xl flex-col border p-2">
       <PostActionDropdown
