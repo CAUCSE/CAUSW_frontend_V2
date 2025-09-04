@@ -47,6 +47,11 @@ export const useUploadFile = () => {
 
     const filesArray = Array.from(files);
 
+    if (selectedFileList.length + filesArray.length > FILE_UPLOAD_RULES.MAX_FILE_COUNT) {
+      toast.error(`파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`);
+      return;
+    }
+
     for (const file of filesArray) {
       if (file.size > FILE_UPLOAD_RULES.MAX_FILE_SIZE) {
         toast.error(`파일의 크기가 10MB를 초과합니다.`);
