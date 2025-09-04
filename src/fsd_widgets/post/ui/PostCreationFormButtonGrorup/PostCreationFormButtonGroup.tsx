@@ -40,6 +40,7 @@ export const PostCreationFormButtonGroup = ({ disabled }: PostCreationFormButton
         multiple
       />
       <button
+        type="button"
         className={`bg-comment-input flex w-16 items-center justify-center rounded-full md:w-20 md:p-3`}
         onClick={handleFileUploadButtonClick}
       >
