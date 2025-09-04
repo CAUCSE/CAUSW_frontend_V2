@@ -1,6 +1,6 @@
 export const FILE_UPLOAD_RULES = {
   MAX_FILE_SIZE: 10 * 1024 * 1024, // 10MB
-  MAX_FILE_COUNT: 10,
+  MAX_FILE_COUNT: 20,
   ALLOWED_EXTENSIONS: [
     'jpg',
     'jpeg',
