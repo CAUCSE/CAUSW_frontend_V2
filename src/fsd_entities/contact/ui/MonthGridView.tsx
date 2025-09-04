@@ -12,6 +12,7 @@ interface MonthGridViewProps {
 
 export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProps) {
   const [displayYear, setDisplayYear] = React.useState(selectedDate?.getFullYear() || new Date().getFullYear());
+  const currentYear = new Date().getFullYear();
 
   const months = Array.from({ length: 12 }, (_, i) => i); // 0 to 11
 
@@ -23,7 +24,13 @@ export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProp
           <Button type="button" variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear - 1)}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <Button type="button" variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear + 1)}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={() => setDisplayYear(displayYear + 1)}
+            disabled={displayYear >= currentYear}
+          >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
