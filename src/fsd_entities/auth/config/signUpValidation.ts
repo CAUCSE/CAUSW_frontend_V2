@@ -24,8 +24,8 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
       message: '비밀번호는 최소 8자 이상이어야 합니다.',
     },
     pattern: {
-      value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-      message: '비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요. ',
+      value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]{8,16}$/,
+      message: '비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요.',
     },
   },
   pwConfirm: {
