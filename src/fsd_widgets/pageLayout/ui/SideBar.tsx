@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { Bell, LogOut, Mail } from 'lucide-react';
+import { Bell } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
@@ -20,7 +20,6 @@ interface SideBarProps {
 
 export const SideBar = ({ className }: SideBarProps) => {
   const { data: userInfo } = useUserProfile();
-  const { signoutAndRedirect } = tokenManager();
 
   const name = userInfo?.name || '';
   const email = userInfo?.email || '';
@@ -33,17 +32,7 @@ export const SideBar = ({ className }: SideBarProps) => {
       <Button
         size="icon"
         variant="ghost"
-        className="absolute top-3 left-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:top-4 xl:right-4 xl:left-auto"
-        onClick={signoutAndRedirect}
-      >
-        <LogOut className="size-6 xl:size-8" />
-        <p className="hidden text-xs font-light xl:block xl:text-sm">로그아웃</p>
-      </Button>
-
-      <Button
-        size="icon"
-        variant="ghost"
-        className="absolute top-3 left-12 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
+        className="absolute top-3 left-3 flex cursor-pointer flex-col gap-2 p-0 text-black shadow-none xl:hidden"
         asChild
       >
         <Link href="/setting/notification">

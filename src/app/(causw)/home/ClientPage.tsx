@@ -97,13 +97,13 @@ export default async function ClientHomePage({ events }) {
                   ))}
                 </div>
 
-                <div className="flex h-80 w-5/6 flex-col items-center justify-around font-bold xl:text-lg 2xl:h-full 2xl:w-3/5">
+                <div className="flex w-5/6 flex-col items-center justify-around font-bold xl:text-lg 2xl:h-full 2xl:w-3/5">
                   {mainBoards.map((mainBoard, index) =>
                     mainBoard?.posts.content[0] ? (
                       <Link
                         href={'/board/' + mainBoard?.board.id + '/' + mainBoard?.posts.content[0].id}
                         key={mainBoard?.posts.content[0].id}
-                        className="flex h-28 w-[80%] flex-col items-center justify-center border-t border-b"
+                        className="flex w-[80%] flex-col items-center justify-center border-t border-b py-3"
                       >
                         <span className="block w-full text-center whitespace-normal" style={{ wordBreak: 'keep-all' }}>
                           {mainBoard?.posts.content[0].title}
@@ -113,7 +113,7 @@ export default async function ClientHomePage({ events }) {
                         </div>
                       </Link>
                     ) : (
-                      <div key={index} className="flex h-28 w-[80%] items-center justify-center border-t border-b">
+                      <div key={index} className="flex w-[80%] items-center justify-center border-t border-b py-3">
                         최신 공지가 없습니다.
                       </div>
                     ),

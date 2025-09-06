@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { toast } from 'react-hot-toast';
 
@@ -22,8 +23,7 @@ export const usePushNotification = () => {
       }
 
       // --- Capacitor 앱(iOS, Android) 로직 ---
-
-      if (deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android') {
+      if (Capacitor.isNativePlatform()) {
         const permStatus = await PushNotifications.checkPermissions();
         if (permStatus.receive === 'prompt') {
           await PushNotifications.requestPermissions();
@@ -49,7 +49,6 @@ export const usePushNotification = () => {
         await PushNotifications.register();
       } else {
         // --- 웹/웹앱 로직 (Notification.permission 사용) ---
-
         if (Notification.permission === 'default') {
           const permission = await requestNotificationPermission();
           if (permission !== 'granted') {
