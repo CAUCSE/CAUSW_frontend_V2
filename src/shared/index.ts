@@ -24,7 +24,6 @@ export { useTruncateParagraph } from './hooks/useTruncateParagraph';
 
 
 //Form
-export { useCreateApply } from './hooks/posts/form/useCreateApply';
 export { useHandleApplySubmit } from './hooks/posts/form/useHandleApplySubmit';
 export { useFormResultPagination } from './hooks/posts/form/useFormResultPagination';
 export { useFormDetailResult } from './hooks/posts/form/useFormDetailResult';
