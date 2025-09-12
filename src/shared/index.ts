@@ -22,9 +22,6 @@ export { useFormResultStore } from './hooks/stores/post/form/useFormResultStore'
 export { usePreviousValue } from './hooks/usePreviousValue';
 export { useTruncateParagraph } from './hooks/useTruncateParagraph';
 
-//Posts
-export { usePostForm } from './hooks/posts/usePostForm';
-export { usePostInteraction } from './hooks/posts/usePostInteraction';
 
 //Form
 export { useCreateApply } from './hooks/posts/form/useCreateApply';
