@@ -5,7 +5,6 @@ export * from './configs/query-key';
 
 //TODO: entities 이사 예정
 //Service
-export { VoteRscService } from './hooks/services/VoteRscService';
 export { PostService } from './hooks/services/PostService';
 export { FormService } from './hooks/services/FormService';
 //Store

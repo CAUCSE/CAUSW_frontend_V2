@@ -3,10 +3,9 @@
 import { useEffect, useState } from 'react';
 
 import { useVoteStore } from '@/fsd_entities/vote/model/stores';
-import { VoteRscService } from '@/shared';
+import { getVoteById } from '@/fsd_entities/vote/api/get';
 
 export const useVoteDetail = (voteId: string) => {
-  const { getVoteById } = VoteRscService();
   const { setVote } = useVoteStore();
   const [loading, setLoading] = useState<boolean>(true);
 
