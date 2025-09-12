@@ -3,7 +3,7 @@
 import { useFormContext } from 'react-hook-form';
 
 import { useResponseFormStore } from '@/shared';
-import { ResponseQuestion } from '@/widget';
+import { ResponseQuestion } from './ResponseQuestion';
 
 interface ResponseFormProps {
   onSubmit: (data: any) => Promise<void>;

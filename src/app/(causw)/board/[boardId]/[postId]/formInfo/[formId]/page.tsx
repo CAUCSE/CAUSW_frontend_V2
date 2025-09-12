@@ -2,7 +2,7 @@
 
 import { PreviousButton } from '@/fsd_shared';
 import { useFormResultStore } from '@/shared';
-import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widget';
+import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/fsd_widgets/form/ui';
 
 const FormInfoPage = () => {
   const resultView = useFormResultStore((state) => state.resultView);

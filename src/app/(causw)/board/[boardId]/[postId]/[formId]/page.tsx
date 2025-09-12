@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { LoadingComponent, Modal } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
 import { FormService, useHandleApplySubmit, useResponseFormStore } from '@/shared';
-import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widget';
+import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/fsd_widgets/form/ui';
 
 const ApplyPage = () => {
   const params = useParams();
