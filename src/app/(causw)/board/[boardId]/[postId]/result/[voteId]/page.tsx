@@ -6,7 +6,7 @@ import { useVoteDetail } from '@/shared/hooks/stores/post/useVoteDetail';
 
 import { LoadingComponent } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
-import { useVoteStore } from '@/shared';
+import { useVoteStore } from '@/fsd_entities/vote/model/stores';
 
 const VoteStatusPage = () => {
   const { vote } = useVoteStore();

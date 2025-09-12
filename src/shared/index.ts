@@ -10,7 +10,6 @@ export { PostService } from './hooks/services/PostService';
 export { FormService } from './hooks/services/FormService';
 //Store
 
-export { useVoteStore } from './hooks/stores/post/useVoteStore';
 export { useCreatePostStore } from './hooks/stores/post/create/useCreatePostStore';
 export { useCreateVoteStore } from './hooks/stores/post/create/useCreateVoteStore';
 export { useFileUpload } from './hooks/stores/post/create/useFileUpload';

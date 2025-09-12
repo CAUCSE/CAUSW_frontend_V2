@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import { useVoteStore, VoteRscService } from '@/shared';
+import { useVoteStore } from '@/fsd_entities/vote/model/stores';
+import { VoteRscService } from '@/shared';
 
 export const useVoteDetail = (voteId: string) => {
   const { getVoteById } = VoteRscService();
