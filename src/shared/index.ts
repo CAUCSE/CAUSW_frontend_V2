@@ -12,8 +12,3 @@ export { useResponseFormStore } from './hooks/stores/post/form/useResponseFormSt
 export { useFormResultStore } from './hooks/stores/post/form/useFormResultStore';
 
 
-//Form
-export { useHandleApplySubmit } from './hooks/posts/form/useHandleApplySubmit';
-export { useFormResultPagination } from './hooks/posts/form/useFormResultPagination';
-export { useFormDetailResult } from './hooks/posts/form/useFormDetailResult';
-

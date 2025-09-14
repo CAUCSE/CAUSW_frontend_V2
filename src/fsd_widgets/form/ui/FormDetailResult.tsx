@@ -2,7 +2,7 @@
 
 import { DetailFormResultHeader } from '@/entities';
 import { LoadingComponent } from '@/fsd_shared';
-import { useFormDetailResult } from '@/shared';
+import { useFormDetailResult } from '@/fsd_entities/form/model/hooks';
 import { EmptyResponseResult } from './EmptyResponseResult';
 import { FormRespondentInfo } from './FormRespondentInfo';
 import { FormResponseResult } from './FormResponseResult';
