@@ -9,3 +9,6 @@ export * from './tokenManager';
 export * from './notificationPermission';
 export * from './axiosErrorParser';
 export * from './date';
+export { sanitizeHtml } from './sanitizeHtml';
+export { detectDeviceType } from './device';
+export { getClientFCMToken } from './fcmToken';
