@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
-import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
+import { formQueryKey } from '@/fsd_entities/form/config';
 import { useResponseFormStore } from '../stores';
 import { getFormResponseDto } from '../../api';
 import { getCanReply } from '../../api';

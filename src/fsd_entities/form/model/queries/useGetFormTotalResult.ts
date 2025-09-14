@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
+import { formQueryKey } from '@/fsd_entities/form/config';
 import { getFormResults } from '../../api';
 
 export const useGetFormTotalResult = (formId: string, size: number) => {

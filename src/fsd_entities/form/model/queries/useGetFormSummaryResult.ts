@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
+import { formQueryKey } from '@/fsd_entities/form/config';
 import { getFormSummary } from '../../api';
 
 export const useGetFormSummaryResult = (formId: string) => {

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useShallow } from 'zustand/react/shallow';
-import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
+import { formQueryKey } from '@/fsd_entities/form/config';
 import { useFormResultStore } from '../stores';
 import { getFormResponseDto } from '../../api';
 
