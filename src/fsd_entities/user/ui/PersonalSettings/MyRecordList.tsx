@@ -16,7 +16,7 @@ interface MyRecordListProps {
   fetchNextPage: () => void;
 }
 
-const PostItem = dynamic(() => import('@/entities').then((mod) => mod.PostItem), {
+const PostCard = dynamic(() => import('@/fsd_entities/post').then((mod) => mod.PostCard), {
   ssr: false,
 });
 const LoadingSpinner = dynamic(() => import('@/fsd_shared').then((mod) => mod.LoadingSpinner), {
@@ -56,7 +56,7 @@ export const MyRecordList = ({
           {postList!
             .filter((post) => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
-              <PostItem key={post.id} post={post} targetUrl={`/board/my/${post.id}`} />
+              <PostCard key={post.id} post={post} targetUrl={`/board/my/${post.id}`} />
             ))}
 
           {hasNextPage && (
