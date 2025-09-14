@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { useResponseFormStore } from '@/shared';
+import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
 import { ResponseQuestion } from './ResponseQuestion';
 
 interface ResponseFormProps {

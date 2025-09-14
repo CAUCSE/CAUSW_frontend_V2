@@ -9,7 +9,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { formQueryKey } from '@/shared/configs/query-key/formQueryKey';
 
 import { API } from '@/fsd_shared';
-import { useFormResultStore, useResponseFormStore } from '@/shared';
+import { useFormResultStore, useResponseFormStore } from '@/fsd_entities/form/model/stores';
 
 export const FormService = () => {
   const getFormResponseDto = async (formId: string) => {

@@ -1,4 +1,4 @@
-import { useFormResultStore } from '@/shared';
+import { useFormResultStore } from '@/fsd_entities/form/model/stores';
 import { FORM_CONSTANT } from '@/utils';
 
 interface FormRespondentInfoProps {

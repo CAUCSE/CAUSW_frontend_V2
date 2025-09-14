@@ -1,7 +1,7 @@
 'use client';
 
 import { PreviousButton } from '@/fsd_shared';
-import { useFormResultStore } from '@/shared';
+import { useFormResultStore } from '@/fsd_entities/form/model/stores';
 import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/fsd_widgets/form/ui';
 
 const FormInfoPage = () => {

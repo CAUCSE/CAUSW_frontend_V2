@@ -5,7 +5,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { UseFormSetError } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { FormService, useResponseFormStore } from '@/shared';
+import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
+import { FormService } from '@/shared';
 
 interface useHandleApplySubmitProps {
   setError: UseFormSetError<Form.QuestionReplyRequestDtoList>;

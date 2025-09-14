@@ -7,7 +7,8 @@ import {
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
 } from '@/entities';
-import { FormService, useFormResultStore } from '@/shared';
+import { FormService } from '@/shared';
+import { useFormResultStore } from '@/fsd_entities/form/model/stores';
 import { LoadingComponent } from '@/fsd_shared';
 
 export const FormSummaryResult = () => {

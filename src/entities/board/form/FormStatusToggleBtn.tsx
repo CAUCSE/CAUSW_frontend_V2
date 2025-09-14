@@ -2,7 +2,8 @@
 
 import { useParams } from 'next/navigation';
 
-import { FormService, useFormResultStore } from '@/shared';
+import { useFormResultStore } from '@/fsd_entities/form/model/stores';
+import { FormService } from '@/shared';
 
 export const FormStatusToggleBtn = () => {
   const params = useParams();

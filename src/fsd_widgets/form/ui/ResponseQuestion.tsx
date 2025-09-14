@@ -3,7 +3,7 @@
 import { useFormContext } from 'react-hook-form';
 
 import { SubjectiveOption } from '@/entities';
-import { useResponseFormStore } from '@/shared';
+import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
 import { ObjectiveOptionList } from './ObjectiveOptionList';
 import { useTruncateParagraph } from '@/fsd_shared';
 

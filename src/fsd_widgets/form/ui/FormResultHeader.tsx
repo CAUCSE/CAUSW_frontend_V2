@@ -4,7 +4,8 @@ import { useParams } from 'next/navigation';
 
 import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities';
 import { LoadingComponent } from '@/fsd_shared';
-import { FormService, useFormResultStore } from '@/shared';
+import { useFormResultStore } from '@/fsd_entities/form/model/stores';
+import { FormService } from '@/shared';
 
 export const FormResultHeader = () => {
   const params = useParams();
