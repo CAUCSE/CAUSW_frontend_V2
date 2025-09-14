@@ -4,7 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { CardBox } from '@/shared/ui/CardBox';
 
-import { useCalendarStore } from '@/entities/calender/model';
+import { useCalendarStore } from '@/entities/calendar/model';
 
 import DeleteIcon from '../../../../public/icons/delete_icon.svg';
 

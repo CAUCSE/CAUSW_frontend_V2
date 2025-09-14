@@ -1,6 +1,6 @@
 'use client';
 
-import { CalendarList, CalendarListHeader } from '@/widgets/calender';
+import { CalendarList, CalendarListHeader } from '@/widgets/calendar';
 
 const CalendarSettingPage = () => {
   if (typeof window === 'undefined') {

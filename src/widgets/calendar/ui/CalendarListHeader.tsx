@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
-import { useCalendarStore } from '@/entities/calender';
-import { CalendarAddModal } from '@/widgets/calender';
+import { useCalendarStore } from '@/entities/calendar';
+import { CalendarAddModal } from '@/widgets/calendar';
 import { CustomSelect, generateYearList } from '@/shared';
 
 import AddIcon from '../../../../public/icons/add_icon.svg';

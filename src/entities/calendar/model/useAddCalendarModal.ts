@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useCreateCalendar } from '@/entities/calender/api/post';
+import { useCreateCalendar } from '@/entities/calendar/api/post';
 import { generateYearList } from '@/shared';
 
 export const useAddCalendarModal = () => {

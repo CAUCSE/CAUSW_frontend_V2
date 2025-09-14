@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Calendar } from '@/widgets/calender';
+import { Calendar } from '@/widgets/calendar';
 
 import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
 
