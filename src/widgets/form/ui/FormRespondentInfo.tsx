@@ -1,5 +1,5 @@
 import { useFormResultStore } from '@/entities/form/model/stores';
-import { FORM_CONSTANT } from '@/utils';
+import { FORM_CONSTANT } from '@/entities/form';
 
 interface FormRespondentInfoProps {
   responseUserInfos: Form.ReplyResponseDto[];

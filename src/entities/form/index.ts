@@ -9,3 +9,4 @@ export {
   GraduationToggle,
   SemesterToggleForLeaveOfAbsence,
 } from './ui';
+export * from './config';
