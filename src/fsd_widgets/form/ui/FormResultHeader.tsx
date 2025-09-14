@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities';
+import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/fsd_entities/form/ui';
 import { LoadingComponent } from '@/fsd_shared';
 import { useFormResultStore } from '@/fsd_entities/form/model/stores';
 import { useGetFormInfo } from '@/fsd_entities/form/model';

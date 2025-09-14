@@ -6,7 +6,7 @@ import {
   FormSummaryResultQuestionHeader,
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
-} from '@/entities';
+} from '@/fsd_entities/form/ui';
 import { useGetFormSummaryResult } from '@/fsd_entities/form/model';
 import { useFormResultStore } from '@/fsd_entities/form/model/stores';
 import { LoadingComponent } from '@/fsd_shared';
