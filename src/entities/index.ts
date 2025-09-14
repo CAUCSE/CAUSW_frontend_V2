@@ -13,9 +13,6 @@ export { ObjectiveQuestionSummaryResult } from './board/form/ObjectiveQuestionSu
 export { SubjectiveQuestionSummaryResult } from './board/form/SubjectiveQuestionSummaryResult';
 export { DetailFormResultHeader } from './board/form/DetailFormResultHeader';
 
-export { PostItem } from './board/postList/PostItem';
-export { PostItemStatusBar } from './board/postList/PostItemStatusBar';
-export { PostItemContent } from './board/postList/PostItemContent';
 
 export { CircleApplyQuestion } from './board/form/CircleApplyQuestion';
 export { CircleApplyOption } from './board/form/CircleApplyOption';
