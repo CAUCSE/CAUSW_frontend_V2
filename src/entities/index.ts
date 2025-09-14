@@ -1,7 +1,6 @@
 
 
 
-export { CustomCheckBox } from './board/form/CustomCheckBox';
 export { ObjectiveOption } from './board/form/ObjectiveOption';
 export { SubjectiveOption } from './board/form/SubjectiveOption';
 export { SummaryToggleBtn } from './board/form/SummaryToggleBtn';

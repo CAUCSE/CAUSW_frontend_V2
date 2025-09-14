@@ -8,7 +8,6 @@ export * from './configs/query-key';
 export { FormService } from './hooks/services/FormService';
 //Store
 
-export { useCreateVoteStore } from './hooks/stores/post/create/useCreateVoteStore';
 export { useResponseFormStore } from './hooks/stores/post/form/useResponseFormStore';
 export { useFormResultStore } from './hooks/stores/post/form/useFormResultStore';
 
