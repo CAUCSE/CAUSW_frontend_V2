@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
-import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/fsd_entities/auth';
+import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/entities/auth';
 import { formatPhoneNumber } from '@/fsd_shared';
 
 interface Props {

@@ -10,9 +10,9 @@ import toast from 'react-hot-toast';
 
 import { SignInFooter } from '@/fsd_widgets/auth';
 
-import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/fsd_entities/auth';
-import { useLogin } from '@/fsd_entities/auth/model/hooks/useLogin';
-import { usePushNotification } from '@/fsd_entities/notification/model/usePushNotification';
+import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/entities/auth';
+import { useLogin } from '@/entities/auth/model/hooks/useLogin';
+import { usePushNotification } from '@/entities/notification/model/usePushNotification';
 
 import { ActionModal } from '@/fsd_shared/ui/ActionModal';
 

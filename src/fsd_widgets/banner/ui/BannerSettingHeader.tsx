@@ -4,7 +4,7 @@ import AddIcon from '@icons/add_icon.svg';
 import { createPortal } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
 
-import { BannerEditModal, useBannerStore } from '@/fsd_entities/banner';
+import { BannerEditModal, useBannerStore } from '@/entities/banner';
 
 interface BannerSettingHeaderProps {
   bannerList: Banner.Banner[];

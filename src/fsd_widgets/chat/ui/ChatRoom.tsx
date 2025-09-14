@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { ChevronLeft } from 'lucide-react';
 
-import { MessageItem } from '@/fsd_entities/chat/MessageItem';
+import { MessageItem } from '@/entities/chat/MessageItem';
 
 import AddIcon from '../../../../public/icons/add-gray.svg';
 import ActiveSendIcon from '../../../../public/icons/pink_send_icon.svg';

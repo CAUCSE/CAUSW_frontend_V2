@@ -9,8 +9,8 @@ import { EllipsisVertical } from 'lucide-react';
 import { BlockUserDialog } from '@/fsd_widgets/block';
 import { ReportReasonDialog } from '@/fsd_widgets/report';
 
-import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/fsd_entities/post';
-import { getUserRole } from '@/fsd_entities/user';
+import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/entities/post';
+import { getUserRole } from '@/entities/user';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';

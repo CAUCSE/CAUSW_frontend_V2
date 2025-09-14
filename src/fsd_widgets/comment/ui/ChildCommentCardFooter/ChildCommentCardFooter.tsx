@@ -1,4 +1,4 @@
-import { ChildCommentLikeButton, CommentLikeBadge } from '@/fsd_entities/comment';
+import { ChildCommentLikeButton, CommentLikeBadge } from '@/entities/comment';
 
 interface ChildCommentCardFooterProps {
   childComment: Pick<ChildComment.ChildCommentDto, 'numLike' | 'id' | 'isDeleted'>;

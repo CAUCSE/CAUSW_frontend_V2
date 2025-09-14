@@ -2,8 +2,8 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { SubjectiveOption } from '@/fsd_entities/form/ui';
-import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
+import { SubjectiveOption } from '@/entities/form/ui';
+import { useResponseFormStore } from '@/entities/form/model/stores';
 import { ObjectiveOptionList } from './ObjectiveOptionList';
 import { useTruncateParagraph } from '@/fsd_shared';
 

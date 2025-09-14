@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReportList, ReportTabs } from '@/fsd_widgets/report';
 import { RemoveMemberDialog } from '@/fsd_widgets/report/ui/RemoveMemberDialog';
 
-import { useReportedUsers, useUserReportedList } from '@/fsd_entities/report';
+import { useReportedUsers, useUserReportedList } from '@/entities/report';
 
 export function UserReportWidget() {
   const [client] = useState(() => new QueryClient());

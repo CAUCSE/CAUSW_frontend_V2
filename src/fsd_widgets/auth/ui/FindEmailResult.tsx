@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/fsd_entities/auth/model/stores';
+import { useFindAccountStore } from '@/entities/auth/model/stores';
 
 export const FindEmailResult = () => {
   const router = useRouter();

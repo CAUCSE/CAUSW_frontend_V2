@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetCommentList } from '@/fsd_entities/comment';
+import { useGetCommentList } from '@/entities/comment';
 
 import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
 

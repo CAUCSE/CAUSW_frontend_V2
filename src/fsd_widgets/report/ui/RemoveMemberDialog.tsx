@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { useDropUser } from '@/fsd_entities/user';
+import { useDropUser } from '@/entities/user';
 
 import { Button } from '@/shadcn/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from '@/shadcn/components/ui/dialog';

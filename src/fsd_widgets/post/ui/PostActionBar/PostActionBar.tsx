@@ -1,4 +1,4 @@
-import { PostCommentCountBadge, PostFormWriteButton, PostLikeButton, PostScrapButton } from '@/fsd_entities/post';
+import { PostCommentCountBadge, PostFormWriteButton, PostLikeButton, PostScrapButton } from '@/entities/post';
 
 interface PostActionButtonGroupProps {
   like: {

@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 
-import { ApplicationFormToggle, useUploadFile, VoteToggle } from '@/fsd_entities/post';
-import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+import { ApplicationFormToggle, useUploadFile, VoteToggle } from '@/entities/post';
+import { ACCEPTED_IMAGE_TYPES } from '@/entities/post/config/fileUploadRule';
 
 import ImageIcon from '../../../../../public/images/post/camera.svg';
 

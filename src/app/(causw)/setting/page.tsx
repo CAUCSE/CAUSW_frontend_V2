@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { withdrawUserCSR } from '@/fsd_entities/user';
+import { withdrawUserCSR } from '@/entities/user';
 import {
   isAdmin,
   isAlumniLeader,
@@ -21,7 +21,7 @@ import {
   isVicePresidents,
   useMyInfo,
   userRoleCodes,
-} from '@/fsd_entities/user/model';
+} from '@/entities/user/model';
 
 import { LoadingComponent } from '@/fsd_shared/ui';
 

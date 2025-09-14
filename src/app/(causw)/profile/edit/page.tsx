@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetMyProfileQuery } from '@/fsd_entities/contact';
+import { useGetMyProfileQuery } from '@/entities/contact';
 import { ProfileEdit } from '@/fsd_widgets/profile';
 import { PreviousButton } from '@/fsd_shared';
 

@@ -1,4 +1,4 @@
-/* import { ManagementPanel } from '@/fsd_entities/user/ui';
+/* import { ManagementPanel } from '@/entities/user/ui';
 
 import { CircleRscService } from '@/shared';
 

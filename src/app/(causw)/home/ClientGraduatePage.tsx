@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 import { MdEmail, MdPermIdentity, MdTagFaces, MdVolumeUp } from 'react-icons/md';
 
-import { Banner, fetchGraduateHomePosts } from '@/fsd_entities/home';
+import { Banner, fetchGraduateHomePosts } from '@/entities/home';
 
 export default async function GraduateHomePage({ events }) {
   const homePosts = await fetchGraduateHomePosts();

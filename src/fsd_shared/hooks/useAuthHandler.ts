@@ -1,5 +1,5 @@
 'use client';
-import { useUserRoles } from '@/fsd_entities/user';
+import { useUserRoles } from '@/entities/user';
 
 export const useAuthHandler = () => {
   const { data: userInfo } = useUserRoles();

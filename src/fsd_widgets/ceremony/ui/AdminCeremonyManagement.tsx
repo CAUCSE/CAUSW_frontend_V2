@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import { useAdminCeremonyAwaitListQuery } from '@/fsd_entities/notification/hooks/queries/useAdminCeremonyAwaitListQuery';
+import { useAdminCeremonyAwaitListQuery } from '@/entities/notification/hooks/queries/useAdminCeremonyAwaitListQuery';
 
 import { Header, Line, PreviousButton } from '@/fsd_shared';
 

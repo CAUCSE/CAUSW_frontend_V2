@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 
 import { UserReportWidget } from '@/fsd_widgets/report/ui/UserReportWidget';
 
-import { useUserInfo } from '@/fsd_entities/user';
+import { useUserInfo } from '@/entities/user';
 
 import { PreviousButton } from '@/fsd_shared';
 

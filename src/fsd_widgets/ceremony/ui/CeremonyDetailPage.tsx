@@ -8,7 +8,7 @@ import {
   CeremonySectionTitle,
   useCancelCeremony,
   useCeremonyData,
-} from '@/fsd_entities/ceremony';
+} from '@/entities/ceremony';
 
 import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
 

@@ -1,4 +1,4 @@
-import { VoteActionDropdown } from '@/fsd_entities/vote';
+import { VoteActionDropdown } from '@/entities/vote';
 
 interface VoteSectionHeaderProps {
   voteData: Pick<Vote.VoteResponseDto, 'isOwner' | 'voteId' | 'isEnd'>;

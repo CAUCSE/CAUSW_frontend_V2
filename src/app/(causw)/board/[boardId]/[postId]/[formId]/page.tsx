@@ -6,9 +6,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { LoadingComponent, Modal } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
-import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
-import { useGetFormResponseInfo } from '@/fsd_entities/form/model';
-import { useHandleApplySubmit } from '@/fsd_entities/form/model/hooks';
+import { useResponseFormStore } from '@/entities/form/model/stores';
+import { useGetFormResponseInfo } from '@/entities/form/model';
+import { useHandleApplySubmit } from '@/entities/form/model/hooks';
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/fsd_widgets/form/ui';
 
 const ApplyPage = () => {

@@ -5,7 +5,7 @@ import {
   ContactCard,
   useSearchContactsQuery,
   SearchBar,
-} from '@/fsd_entities/contact';
+} from '@/entities/contact';
 import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 import { Loader2 } from 'lucide-react';
 import { useDebounce } from '@/fsd_shared';

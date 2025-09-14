@@ -5,8 +5,8 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useGetWaitingUser } from '@/fsd_entities/user/api';
-import { changeAttendanceUserState } from '@/fsd_entities/user/api';
+import { useGetWaitingUser } from '@/entities/user/api';
+import { changeAttendanceUserState } from '@/entities/user/api';
 
 import { Header, ImageList, ImageModal, LoadingComponent, SubHeader } from '@/fsd_shared';
 

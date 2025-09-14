@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthFormSubmitButton, useSignUpForm } from '@/fsd_entities/auth';
+import { AuthFormSubmitButton, useSignUpForm } from '@/entities/auth';
 
 import { Header } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import { useReportedUsers } from '@/fsd_entities/report/model/queries/useReportedUsers';
+import { useReportedUsers } from '@/entities/report/model/queries/useReportedUsers';
 
 import { writerStateColor, writerStateLabel } from '@/fsd_shared/@types/report-ui';
 

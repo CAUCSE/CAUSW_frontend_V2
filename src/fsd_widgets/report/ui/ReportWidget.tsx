@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { ReportList } from '@/fsd_widgets/report/ui/ReportList';
 import { ReportTabs } from '@/fsd_widgets/report/ui/ReportTabs';
 
-import { useReportedList } from '@/fsd_entities/report';
+import { useReportedList } from '@/entities/report';
 
 export function ReportWidget() {
   const type = (useSearchParams().get('type') ?? 'post') as 'post' | 'comment';

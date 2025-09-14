@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { NotificationStatusIcon } from '@/fsd_entities/notification/ui';
+import { NotificationStatusIcon } from '@/entities/notification/ui';
 
 interface NotificationItemProps {
   occasionTitle: string;

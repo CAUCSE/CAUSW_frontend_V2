@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 // 클라이언트에서 비동기적으로 로드되는 동안 로딩 컴포넌트를 보여줍니다.
 import Loading from '@/app/loading';
 
-import { fetchMyInfo } from '@/fsd_entities/user/api';
+import { fetchMyInfo } from '@/entities/user/api';
 
 // 클라이언트 전용 페이지 컴포넌트
 const ClientHomePage = dynamic(() => import('./ClientPage'), { ssr: true, loading: () => <Loading /> });

@@ -1,6 +1,6 @@
 import { useShallow } from 'zustand/react/shallow';
 
-import { BannerCard, BannerDeleteModal, BannerEditModal, useBannerStore } from '@/fsd_entities/banner';
+import { BannerCard, BannerDeleteModal, BannerEditModal, useBannerStore } from '@/entities/banner';
 
 interface BannerListProps {
   bannerList: Banner.Banner[];

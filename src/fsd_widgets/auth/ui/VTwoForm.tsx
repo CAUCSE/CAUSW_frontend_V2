@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthFormSubmitButton, AuthInput, useV2Form } from '@/fsd_entities/auth';
+import { AuthFormSubmitButton, AuthInput, useV2Form } from '@/entities/auth';
 import { Header, Line, SubHeader } from '@/fsd_shared';
 
 export const VTwoForm = () => {

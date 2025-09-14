@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useCeremonyCreateForm, useCeremonySettingForm } from '@/fsd_entities/ceremony';
+import { useCeremonyCreateForm, useCeremonySettingForm } from '@/entities/ceremony';
 
 import { ImageUploadField, InputBox, MESSAGES, SelectBox } from '@/fsd_shared';
 import { Button } from '@/shadcn/components/ui';

@@ -1,4 +1,4 @@
-import { PostWriterProfileImage } from '@/fsd_entities/post';
+import { PostWriterProfileImage } from '@/entities/post';
 
 import { getTimeDifference } from '@/utils/format';
 

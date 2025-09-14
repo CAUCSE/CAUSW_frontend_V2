@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 
-import { useAddCalendarModal, useCalendarStore } from '@/fsd_entities/calender';
-import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+import { useAddCalendarModal, useCalendarStore } from '@/entities/calender';
+import { ACCEPTED_IMAGE_TYPES } from '@/entities/post/config/fileUploadRule';
 
 import { CustomSelect, MESSAGES, PortalModal } from '@/fsd_shared';
 

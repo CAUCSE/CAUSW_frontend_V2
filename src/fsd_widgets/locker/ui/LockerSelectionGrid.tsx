@@ -1,4 +1,4 @@
-import { LockerSelect } from '@/fsd_entities/locker';
+import { LockerSelect } from '@/entities/locker';
 
 interface LockerSelectionGridProps {
   lockerList: Locker.LockersResponseDto;

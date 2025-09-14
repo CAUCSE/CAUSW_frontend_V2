@@ -1,7 +1,7 @@
 'use client';
 
-import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
-import { useResetPasswordForm } from '@/fsd_entities/auth/model/hooks';
+import { AuthFormSubmitButton, AuthInput } from '@/entities/auth';
+import { useResetPasswordForm } from '@/entities/auth/model/hooks';
 
 export const ResetPasswordForm = () => {
   const { register, handleSubmit, errors, onSubmit, onInvalid, watch } = useResetPasswordForm();

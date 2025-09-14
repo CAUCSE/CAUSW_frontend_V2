@@ -2,8 +2,8 @@
 
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { FormTitleInput, Question } from '@/fsd_entities/form';
-import { PostSchema } from '@/fsd_entities/post';
+import { FormTitleInput, Question } from '@/entities/form';
+import { PostSchema } from '@/entities/post';
 
 import PlusIcon from '../../../../../public/icons/add_icon.svg';
 import { EnrollmentConditionSection } from '../EnrollmentConditionSection';

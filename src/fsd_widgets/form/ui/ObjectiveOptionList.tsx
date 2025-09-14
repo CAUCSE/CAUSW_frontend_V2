@@ -1,6 +1,6 @@
 'use client';
 
-import { ObjectiveOption } from '@/fsd_entities/form/ui/ObjectiveOption';
+import { ObjectiveOption } from '@/entities/form/ui/ObjectiveOption';
 
 interface ObjectiveOptionListProps {
   question: Post.QuestionResponseDto;

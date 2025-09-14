@@ -1,8 +1,8 @@
 'use client';
 
-import { DetailFormResultHeader } from '@/fsd_entities/form/ui';
+import { DetailFormResultHeader } from '@/entities/form/ui';
 import { LoadingComponent } from '@/fsd_shared';
-import { useFormDetailResult } from '@/fsd_entities/form/model/hooks';
+import { useFormDetailResult } from '@/entities/form/model/hooks';
 import { EmptyResponseResult } from './EmptyResponseResult';
 import { FormRespondentInfo } from './FormRespondentInfo';
 import { FormResponseResult } from './FormResponseResult';

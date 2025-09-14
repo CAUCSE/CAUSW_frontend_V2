@@ -6,7 +6,7 @@ import {
   useCeremonyNotificationQuery,
   useNotificationQuery,
   useNotificationTabParam,
-} from '@/fsd_entities/notification';
+} from '@/entities/notification';
 
 import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/fsd_shared';
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { signout } from '@/fsd_entities/auth';
-import { getLocalFCMToken, resetFCMToken } from '@/fsd_entities/notification/model/usePushNotification';
+import { signout } from '@/entities/auth';
+import { getLocalFCMToken, resetFCMToken } from '@/entities/notification/model/usePushNotification';
 
 import {
   BASEURL,

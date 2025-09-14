@@ -2,8 +2,8 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { PostSchema } from '@/fsd_entities/post';
-import { VoteOptionInput } from '@/fsd_entities/vote';
+import { PostSchema } from '@/entities/post';
+import { VoteOptionInput } from '@/entities/vote';
 
 import PlusIcon from '../../../../../public/icons/add_icon.svg';
 

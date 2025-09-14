@@ -6,7 +6,7 @@ import {
   FixedInput,
   InfoTextArea,
   useAdmissionForm,
-} from '@/fsd_entities/auth';
+} from '@/entities/auth';
 
 import { ImageUploadField, MESSAGES, PreviousButton } from '@/fsd_shared';
 

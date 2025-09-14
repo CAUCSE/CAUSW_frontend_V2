@@ -1,7 +1,7 @@
 'use client';
 
-import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
-import { useFindEmailForm } from '@/fsd_entities/auth';
+import { AuthFormSubmitButton, AuthInput } from '@/entities/auth';
+import { useFindEmailForm } from '@/entities/auth';
 
 const formatPhoneNumber = (value: string) => {
   if (!value) return '';

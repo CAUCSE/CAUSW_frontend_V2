@@ -1,4 +1,4 @@
-import { VoteOptionResult } from '@/fsd_entities/vote';
+import { VoteOptionResult } from '@/entities/vote';
 
 interface VoteResultSectionMainProps {
   voteOptions: Vote.VoteOption[];

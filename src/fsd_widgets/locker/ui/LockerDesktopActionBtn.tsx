@@ -8,7 +8,7 @@ import {
   LockerReturnBtn,
   RegistSuccessModal,
   useLockerSelectionStore,
-} from '@/fsd_entities/locker';
+} from '@/entities/locker';
 
 interface LockerDesktopActionBtnProps {
   lockerPeriod: Locker.TLockerPeriod;

@@ -1,4 +1,4 @@
-import { useFormResultStore } from '@/fsd_entities/form/model/stores';
+import { useFormResultStore } from '@/entities/form/model/stores';
 
 interface FormResponseResultProps {
   totalFormResult?: Form.ReplyPageResponseDto[];

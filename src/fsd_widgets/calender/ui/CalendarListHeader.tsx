@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { createPortal } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
-import { useCalendarStore } from '@/fsd_entities/calender';
+import { useCalendarStore } from '@/entities/calender';
 import { CalendarAddModal } from '@/fsd_widgets/calender';
 import { CustomSelect, generateYearList } from '@/fsd_shared';
 

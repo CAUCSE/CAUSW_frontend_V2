@@ -2,7 +2,7 @@
 
 import { FetchNextPageOptions, InfiniteQueryObserverResult } from '@tanstack/react-query';
 
-import { PostCard } from '@/fsd_entities/post';
+import { PostCard } from '@/entities/post';
 
 import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
 

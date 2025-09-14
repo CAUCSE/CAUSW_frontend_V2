@@ -2,10 +2,10 @@
 
 import { useParams } from 'next/navigation';
 
-import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/fsd_entities/form/ui';
+import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities/form/ui';
 import { LoadingComponent } from '@/fsd_shared';
-import { useFormResultStore } from '@/fsd_entities/form/model/stores';
-import { useGetFormInfo } from '@/fsd_entities/form/model';
+import { useFormResultStore } from '@/entities/form/model/stores';
+import { useGetFormInfo } from '@/entities/form/model';
 
 export const FormResultHeader = () => {
   const params = useParams();

@@ -1,4 +1,4 @@
-import { CommentContentSection } from '@/fsd_entities/comment';
+import { CommentContentSection } from '@/entities/comment';
 
 interface CommentCardMainProps {
   content: Comment.CommentDto['content'];

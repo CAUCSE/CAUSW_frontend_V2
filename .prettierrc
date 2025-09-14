@@ -22,7 +22,6 @@
     "^@/widgets/(.*)$",
     "^@/fsd_widgets/(.*)$",
     "^@/entities/(.*)$",
-    "^@/fsd_entities/(.*)$",
     "^@/shared/(.*)$",
     "^@/fsd_shared/(.*)$",
     "^@/(.*)$",

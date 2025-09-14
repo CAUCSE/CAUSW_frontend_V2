@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { FieldValues, Path, UseFormSetValue } from 'react-hook-form';
 
-import { ACCEPTED_IMAGE_TYPES } from '@/fsd_entities/post/config/fileUploadRule';
+import { ACCEPTED_IMAGE_TYPES } from '@/entities/post/config/fileUploadRule';
 
 import { ImageModal } from './ImageModal';
 

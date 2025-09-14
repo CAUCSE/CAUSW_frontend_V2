@@ -6,7 +6,7 @@ import {
   AuthFormSubmitButton,
   InfoTextArea,
   useAcademicRecordForm,
-} from '@/fsd_entities/auth';
+} from '@/entities/auth';
 
 import { ImageUploadField, MESSAGES, PreviousButton } from '@/fsd_shared';
 import { Header } from '@/fsd_shared';

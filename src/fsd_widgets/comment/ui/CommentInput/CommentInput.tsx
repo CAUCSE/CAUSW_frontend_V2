@@ -9,8 +9,8 @@ import { isAxiosError } from 'axios';
 import { SendHorizonal, SendHorizontal } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import { useCommentStore, usePostChildComment, usePostComment } from '@/fsd_entities/comment';
-import { commentQueryKey } from '@/fsd_entities/comment/config';
+import { useCommentStore, usePostChildComment, usePostComment } from '@/entities/comment';
+import { commentQueryKey } from '@/entities/comment/config';
 
 import { Button } from '@/shadcn/components/ui';
 

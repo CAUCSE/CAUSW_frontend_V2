@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { isGraduate, useUserAcademic } from '@/fsd_entities/user';
+import { isGraduate, useUserAcademic } from '@/entities/user';
 
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';

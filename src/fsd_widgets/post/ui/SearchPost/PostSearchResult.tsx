@@ -1,4 +1,4 @@
-import { PostCard } from '@/fsd_entities/post';
+import { PostCard } from '@/entities/post';
 
 import { PostSearchNotFound } from './PostSearchNotFound';
 

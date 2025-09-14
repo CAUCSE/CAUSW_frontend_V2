@@ -2,7 +2,7 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CalendarCard, useCalendarStore, useGetCalendarList } from '@/fsd_entities/calender';
+import { CalendarCard, useCalendarStore, useGetCalendarList } from '@/entities/calender';
 import { EmptyComponent, LoadingComponent } from '@/fsd_shared';
 import { CalendarDeleteModal } from './CalendarDeleteModal';
 

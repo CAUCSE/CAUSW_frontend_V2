@@ -3,7 +3,7 @@
 import { LockerListHeader } from '@/fsd_widgets/locker';
 import { LockerInfoByFloorList } from '@/fsd_widgets/locker';
 
-import { useGetLockerLocations } from '@/fsd_entities/locker';
+import { useGetLockerLocations } from '@/entities/locker';
 
 import { LoadingScreen } from '@/fsd_shared';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StatusButton } from '@/fsd_entities/auth';
+import { StatusButton } from '@/entities/auth';
 
 import { ACADEMIC_MESSAGES, ADMISSION_MESSAGES } from '../config/verificationStatus';
 

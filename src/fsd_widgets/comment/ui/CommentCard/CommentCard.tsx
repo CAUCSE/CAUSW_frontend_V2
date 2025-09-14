@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 
-import { useCommentStore } from '@/fsd_entities/comment';
+import { useCommentStore } from '@/entities/comment';
 
 import { CommentCardFooter } from '../CommentCardFooter';
 import { CommentCardHeader } from '../CommentCardHeader';

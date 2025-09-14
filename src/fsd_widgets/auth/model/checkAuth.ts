@@ -1,6 +1,6 @@
 'use client';
 
-import { getMyInfo } from '@/fsd_entities/user';
+import { getMyInfo } from '@/entities/user';
 
 import { getRccRefresh } from '@/fsd_shared';
 

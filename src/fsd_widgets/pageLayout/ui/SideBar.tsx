@@ -6,8 +6,8 @@ import { Bell } from 'lucide-react';
 
 import { NotificationWidget } from '@/fsd_widgets/notification';
 
-import { useNotificationCount } from '@/fsd_entities/notification';
-import { useUserProfile } from '@/fsd_entities/user';
+import { useNotificationCount } from '@/entities/notification';
+import { useUserProfile } from '@/entities/user';
 
 import { ProfileImage } from '@/fsd_shared/ui';
 

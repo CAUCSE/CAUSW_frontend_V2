@@ -1,6 +1,6 @@
 import { VoteSection } from '@/fsd_widgets/vote';
 
-import { PostDetailContent, PostDetailTitle } from '@/fsd_entities/post';
+import { PostDetailContent, PostDetailTitle } from '@/entities/post';
 
 import { ImageList } from '@/fsd_shared';
 

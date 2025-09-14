@@ -1,5 +1,5 @@
-import { getAllAdmissions, getByState } from '@/fsd_entities/user/api';
-import { ManagementPanel } from '@/fsd_entities/user/ui';
+import { getAllAdmissions, getByState } from '@/entities/user/api';
+import { ManagementPanel } from '@/entities/user/ui';
 
 import { MESSAGES } from '@/fsd_shared';
 

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useMarkAsRead } from '@/fsd_entities/notification';
+import { useMarkAsRead } from '@/entities/notification';
 
 import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
 

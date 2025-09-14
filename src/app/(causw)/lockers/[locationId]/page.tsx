@@ -12,7 +12,7 @@ import {
   LockerSelectionMobileManual,
 } from '@/fsd_widgets/locker';
 
-import { useGetLockerList } from '@/fsd_entities/locker';
+import { useGetLockerList } from '@/entities/locker';
 
 import { LoadingScreen } from '@/fsd_shared';
 

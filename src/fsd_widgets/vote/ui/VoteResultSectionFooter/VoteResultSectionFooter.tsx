@@ -1,4 +1,4 @@
-import { VoteResultButton } from '@/fsd_entities/vote';
+import { VoteResultButton } from '@/entities/vote';
 
 interface VoteResultSectionFooterProps {
   voteId: string;

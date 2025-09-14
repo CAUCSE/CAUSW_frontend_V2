@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useGetContactByIdQuery } from '@/fsd_entities/contact';
+import { useGetContactByIdQuery } from '@/entities/contact';
 import { ContactDetail } from '@/fsd_widgets/contact';
 import { ContactInfoTabs } from '@/fsd_widgets/contact';
 import { PreviousButton } from '@/fsd_shared';

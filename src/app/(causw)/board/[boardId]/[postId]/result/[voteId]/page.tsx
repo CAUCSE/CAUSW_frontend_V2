@@ -5,8 +5,8 @@ import { useParams } from 'next/navigation';
 
 import { LoadingComponent } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
-import { useVoteStore } from '@/fsd_entities/vote/model/stores';
-import { useVoteDetail } from '@/fsd_entities/vote/model/hooks';
+import { useVoteStore } from '@/entities/vote/model/stores';
+import { useVoteDetail } from '@/entities/vote/model/hooks';
 
 const VoteStatusPage = () => {
   const { vote } = useVoteStore();

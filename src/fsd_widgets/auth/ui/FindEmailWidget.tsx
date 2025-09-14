@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFindAccountStore } from '@/fsd_entities/auth/model/stores';
+import { useFindAccountStore } from '@/entities/auth/model/stores';
 
 import { PreviousButton } from '@/fsd_shared';
 

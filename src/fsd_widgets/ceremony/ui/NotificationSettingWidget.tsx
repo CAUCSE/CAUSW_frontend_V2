@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 
-import { AdmissionYearInput, AdmissionYearList, AllYearToggle, useCeremonySettingForm } from '@/fsd_entities/ceremony';
+import { AdmissionYearInput, AdmissionYearList, AllYearToggle, useCeremonySettingForm } from '@/entities/ceremony';
 
 import { Button } from '@/fsd_shared';
 

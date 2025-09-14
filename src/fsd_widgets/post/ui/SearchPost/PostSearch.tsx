@@ -1,6 +1,6 @@
 'use client';
 
-import { PostSkeletonList, useSearchPost } from '@/fsd_entities/post';
+import { PostSkeletonList, useSearchPost } from '@/entities/post';
 
 import { LoadingSpinner, PreviousButton } from '@/fsd_shared';
 

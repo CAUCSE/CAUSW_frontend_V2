@@ -19,9 +19,9 @@ import {
   useCreatePostWithForm,
   usePostCreationStore,
   useUploadFileStore,
-} from '@/fsd_entities/post';
-import { useCreatePost } from '@/fsd_entities/post';
-import { useCreateVote } from '@/fsd_entities/vote';
+} from '@/entities/post';
+import { useCreatePost } from '@/entities/post';
+import { useCreateVote } from '@/entities/vote';
 
 import { PreviousButton } from '@/fsd_shared';
 

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { ChildCommentActiveButton, CommentLikeButton, useCommentStore } from '@/fsd_entities/comment';
+import { ChildCommentActiveButton, CommentLikeButton, useCommentStore } from '@/entities/comment';
 
 import { Divider } from '@/fsd_shared';
 

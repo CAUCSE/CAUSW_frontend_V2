@@ -1,4 +1,4 @@
-import { LockerInfoByFloor } from '@/fsd_entities/locker';
+import { LockerInfoByFloor } from '@/entities/locker';
 
 import { LOCKER_CONSTANT } from '@/fsd_shared';
 

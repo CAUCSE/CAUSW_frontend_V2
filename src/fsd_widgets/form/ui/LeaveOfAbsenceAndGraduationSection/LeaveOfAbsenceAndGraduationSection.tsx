@@ -7,8 +7,8 @@ import {
   LeaveOfAbsenceToggle,
   SemesterMetaData,
   SemesterToggleForLeaveOfAbsence,
-} from '@/fsd_entities/form';
-import { PostSchema } from '@/fsd_entities/post';
+} from '@/entities/form';
+import { PostSchema } from '@/entities/post';
 
 export const LeaveOfAbsenceAndGraduationSection = () => {
   const { formState } = useFormContext<PostSchema>();

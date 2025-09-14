@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetBannerList } from '@/fsd_entities/banner';
+import { useGetBannerList } from '@/entities/banner';
 import { LoadingComponent } from '@/fsd_shared';
 import { BannerList, BannerSettingHeader } from '@/fsd_widgets/banner';
 

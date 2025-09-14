@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 
 import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
 
-import { useGetPostList } from '@/fsd_entities/post';
+import { useGetPostList } from '@/entities/post';
 
 import { LoadingScreen } from '@/fsd_shared';
 

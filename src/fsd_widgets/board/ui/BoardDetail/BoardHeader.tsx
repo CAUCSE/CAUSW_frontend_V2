@@ -2,8 +2,8 @@
 
 import toast from 'react-hot-toast';
 
-import { BoardNotificationToggle } from '@/fsd_entities/board';
-import { CreatePostButton, SearchPostButton } from '@/fsd_entities/post';
+import { BoardNotificationToggle } from '@/entities/board';
+import { CreatePostButton, SearchPostButton } from '@/entities/post';
 
 import { PreviousButton } from '@/fsd_shared';
 

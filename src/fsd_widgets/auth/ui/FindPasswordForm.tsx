@@ -1,7 +1,7 @@
 'use client';
 
-import { AuthFormSubmitButton, AuthInput } from '@/fsd_entities/auth';
-import { useFindPasswordForm } from '@/fsd_entities/auth';
+import { AuthFormSubmitButton, AuthInput } from '@/entities/auth';
+import { useFindPasswordForm } from '@/entities/auth';
 
 import { PreviousButton } from '@/fsd_shared';
 

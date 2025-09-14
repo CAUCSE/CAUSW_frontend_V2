@@ -4,14 +4,14 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { useCeremonyData } from '@/fsd_entities/ceremony';
+import { useCeremonyData } from '@/entities/ceremony';
 import {
   CeremonyApprovalButton,
   CeremonyApprovalModal,
   CeremonyDateTile,
   CeremonySectionTitle,
-} from '@/fsd_entities/ceremony';
-import { useAdminUpdateCeremony } from '@/fsd_entities/ceremony/model/useAdminUpdateCeremony';
+} from '@/entities/ceremony';
+import { useAdminUpdateCeremony } from '@/entities/ceremony/model/useAdminUpdateCeremony';
 
 import { CommonImageList, MESSAGES } from '@/fsd_shared';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useBlockByChildComment, useBlockByComment, useBlockByPost } from '@/fsd_entities/block/model';
+import { useBlockByChildComment, useBlockByComment, useBlockByPost } from '@/entities/block/model';
 
 import {
   AlertDialog,

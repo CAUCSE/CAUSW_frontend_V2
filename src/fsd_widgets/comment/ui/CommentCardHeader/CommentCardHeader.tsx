@@ -1,4 +1,4 @@
-import { CommentActionDropdown, CommentInfoSection } from '@/fsd_entities/comment';
+import { CommentActionDropdown, CommentInfoSection } from '@/entities/comment';
 
 interface CommentCardHeaderProps {
   comment: Pick<

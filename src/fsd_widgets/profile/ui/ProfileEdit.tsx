@@ -3,9 +3,9 @@
 import { Plus, Trash2 } from 'lucide-react';
 import { Controller, FormProvider } from 'react-hook-form';
 
-import { checkPhoneNumberDuplicate } from '@/fsd_entities/auth/api/get';
-import { useEditProfile } from '@/fsd_entities/contact';
-import { FormField, MonthPicker, ProfileFormData, ProfileHeader } from '@/fsd_entities/contact';
+import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
+import { useEditProfile } from '@/entities/contact';
+import { FormField, MonthPicker, ProfileFormData, ProfileHeader } from '@/entities/contact';
 
 import { ProfileImageUploader } from '@/fsd_shared/ui';
 

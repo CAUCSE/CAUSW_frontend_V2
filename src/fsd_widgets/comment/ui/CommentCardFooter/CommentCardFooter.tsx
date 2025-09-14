@@ -1,4 +1,4 @@
-import { CommentLikeBadge } from '@/fsd_entities/comment';
+import { CommentLikeBadge } from '@/entities/comment';
 
 import { CommentCardButtonGroup } from '../CommentCardButtonGroup';
 

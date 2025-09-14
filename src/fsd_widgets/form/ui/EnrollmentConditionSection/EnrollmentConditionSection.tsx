@@ -2,8 +2,8 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { CouncilFeeToggle, EnrolledToggle, SemesterMetaData, SemesterToggle } from '@/fsd_entities/form';
-import { PostSchema } from '@/fsd_entities/post';
+import { CouncilFeeToggle, EnrolledToggle, SemesterMetaData, SemesterToggle } from '@/entities/form';
+import { PostSchema } from '@/entities/post';
 
 export const EnrollmentConditionSection = () => {
   const { formState } = useFormContext<PostSchema>();

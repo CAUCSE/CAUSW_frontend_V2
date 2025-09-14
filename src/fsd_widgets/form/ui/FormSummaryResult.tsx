@@ -6,9 +6,9 @@ import {
   FormSummaryResultQuestionHeader,
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
-} from '@/fsd_entities/form/ui';
-import { useGetFormSummaryResult } from '@/fsd_entities/form/model';
-import { useFormResultStore } from '@/fsd_entities/form/model/stores';
+} from '@/entities/form/ui';
+import { useGetFormSummaryResult } from '@/entities/form/model';
+import { useFormResultStore } from '@/entities/form/model/stores';
 import { LoadingComponent } from '@/fsd_shared';
 
 export const FormSummaryResult = () => {

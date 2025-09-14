@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { fetchCalendar, fetchCalendars } from '@/fsd_entities/home';
+import { fetchCalendar, fetchCalendars } from '@/entities/home';
 
 import { CardBox } from '@/fsd_shared/ui/CardBox';
 import { MONTHS } from '../config';

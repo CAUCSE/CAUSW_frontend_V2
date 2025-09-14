@@ -6,7 +6,7 @@ import {
   BoardDetailForm,
   RoleSelectSection,
   AllowAlumniToggle,
-} from '@/fsd_entities/board';
+} from '@/entities/board';
 
 import { PreviousButton, useAuthHandler } from '@/fsd_shared';
 

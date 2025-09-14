@@ -1,6 +1,6 @@
 'use client';
 
-import { ProfileHeader } from '@/fsd_entities/contact/ui/ProfileHeader';
+import { ProfileHeader } from '@/entities/contact/ui/ProfileHeader';
 
 interface ContactDetailProps {
   contact: Contact.Contact;

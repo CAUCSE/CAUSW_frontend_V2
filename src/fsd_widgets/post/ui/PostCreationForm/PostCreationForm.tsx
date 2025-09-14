@@ -1,4 +1,4 @@
-import { AnonymousToggle, PostContentTextarea, PostTitleInput, QuestionToggle } from '@/fsd_entities/post';
+import { AnonymousToggle, PostContentTextarea, PostTitleInput, QuestionToggle } from '@/entities/post';
 
 export const PostCreationForm = () => {
   return (

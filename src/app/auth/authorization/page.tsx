@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { VerificationHeader, VerificationStatus } from '@/fsd_widgets/auth';
 
-import { useVerification } from '@/fsd_entities/auth';
+import { useVerification } from '@/entities/auth';
 
 import { PreviousButton } from '@/fsd_shared';
 

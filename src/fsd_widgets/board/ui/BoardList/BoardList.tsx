@@ -1,5 +1,5 @@
-import { fetchBoardList } from '@/fsd_entities/board';
-import { getMyRoles } from '@/fsd_entities/user/api';
+import { fetchBoardList } from '@/entities/board';
+import { getMyRoles } from '@/entities/user/api';
 
 import { BoardListClient } from './BoardListClient';
 

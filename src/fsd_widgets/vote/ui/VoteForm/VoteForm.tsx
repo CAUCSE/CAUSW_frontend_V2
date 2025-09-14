@@ -7,9 +7,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { postQueryKey } from '@/fsd_entities/post';
-import { VoteOptionSelector } from '@/fsd_entities/vote';
-import { useSubmitVote } from '@/fsd_entities/vote/model/queries';
+import { postQueryKey } from '@/entities/post';
+import { VoteOptionSelector } from '@/entities/vote';
+import { useSubmitVote } from '@/entities/vote/model/queries';
 
 import { Button } from '@/shadcn/components/ui';
 
