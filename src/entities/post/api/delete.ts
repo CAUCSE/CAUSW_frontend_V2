@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const deletePost = async ({ postId }: { postId: Post.PostDto['id'] }) => {
   return await API.delete(`/api/v1/posts/${postId}`);

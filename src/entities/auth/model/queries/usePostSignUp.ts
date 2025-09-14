@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { parseErrorMessage } from '@/fsd_shared';
+import { parseErrorMessage } from '@/shared';
 
 import { signup } from '../../api/post';
 

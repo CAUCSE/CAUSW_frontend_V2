@@ -8,8 +8,8 @@ import {
   useAcademicRecordForm,
 } from '@/entities/auth';
 
-import { ImageUploadField, MESSAGES, PreviousButton } from '@/fsd_shared';
-import { Header } from '@/fsd_shared';
+import { ImageUploadField, MESSAGES, PreviousButton } from '@/shared';
+import { Header } from '@/shared';
 
 import { getYearOptions, MONTH_OPTIONS, SEMESTER_OPTIONS, STATUS_OPTIONS } from '../config/academicRecord';
 

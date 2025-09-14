@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { API, bannerQueryKey } from '@/fsd_shared';
+import { API, bannerQueryKey } from '@/shared';
 import { useBannerStore } from '@/entities/banner';
 
 export const useDeleteBanner = () => {

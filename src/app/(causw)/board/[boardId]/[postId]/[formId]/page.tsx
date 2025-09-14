@@ -4,8 +4,8 @@ import { notFound, useParams } from 'next/navigation';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { LoadingComponent, Modal } from '@/fsd_shared';
-import { PreviousButton } from '@/fsd_shared';
+import { LoadingComponent, Modal } from '@/shared';
+import { PreviousButton } from '@/shared';
 import { useResponseFormStore } from '@/entities/form/model/stores';
 import { useGetFormResponseInfo } from '@/entities/form/model';
 import { useHandleApplySubmit } from '@/entities/form/model/hooks';

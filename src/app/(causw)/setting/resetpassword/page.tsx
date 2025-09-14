@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ResetPasswordForm } from '@/fsd_widgets/auth';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 const PasswordResetPage = () => {
   return (

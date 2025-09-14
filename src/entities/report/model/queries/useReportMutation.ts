@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { CreateReportReq } from '@/fsd_shared/@types/report-ui';
+import { CreateReportReq } from '@/shared/@types/report-ui';
 
 import { createReport } from '../../api/post';
 

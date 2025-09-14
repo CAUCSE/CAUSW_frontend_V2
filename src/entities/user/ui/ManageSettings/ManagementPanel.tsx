@@ -8,18 +8,18 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 const ExcelExportButton = dynamic(() => import('./buttons').then((mod) => mod.ExcelExportButton), {
   ssr: false,
 });
-const PaginationButtons = dynamic(() => import('@/fsd_shared').then((mod) => mod.PaginationButtons), {
+const PaginationButtons = dynamic(() => import('@/shared').then((mod) => mod.PaginationButtons), {
   ssr: false,
 });
-const Line = dynamic(() => import('@/fsd_shared').then((mod) => mod.Line), {
+const Line = dynamic(() => import('@/shared').then((mod) => mod.Line), {
   ssr: false,
 });
-const Header = dynamic(() => import('@/fsd_shared').then((mod) => mod.Header), {
+const Header = dynamic(() => import('@/shared').then((mod) => mod.Header), {
   ssr: false,
 });
 

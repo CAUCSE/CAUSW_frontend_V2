@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 
 import { EllipsisVertical } from 'lucide-react';
 
-import { FullLine } from '@/fsd_shared/ui';
+import { FullLine } from '@/shared/ui';
 
-import { useMoreBtnClick } from '@/fsd_shared';
+import { useMoreBtnClick } from '@/shared';
 
 export const ChatListItem = ({ chatData }: Chat.ChatItemProps) => {
   const [open, setOpen] = useState(false);

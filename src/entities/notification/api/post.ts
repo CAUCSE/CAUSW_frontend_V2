@@ -3,8 +3,8 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-import { STORAGE_KEYS } from '@/fsd_shared/configs';
-import { API, FORMAPI } from '@/fsd_shared';
+import { STORAGE_KEYS } from '@/shared/configs';
+import { API, FORMAPI } from '@/shared';
 import { createFormData } from '@/utils';
 
 const CEREMONY_URI = '/api/v1/ceremony';

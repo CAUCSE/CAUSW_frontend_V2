@@ -13,7 +13,7 @@ import {
 } from '@/entities/ceremony';
 import { useAdminUpdateCeremony } from '@/entities/ceremony/model/useAdminUpdateCeremony';
 
-import { CommonImageList, MESSAGES } from '@/fsd_shared';
+import { CommonImageList, MESSAGES } from '@/shared';
 
 import { ceremonyTypeMap } from '../config';
 import { NotificationYearListBox } from './NotificationYearListBox';

@@ -1,6 +1,6 @@
 'use client';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 import { useFormResultStore } from '@/entities/form/model/stores';
 import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/fsd_widgets/form/ui';
 

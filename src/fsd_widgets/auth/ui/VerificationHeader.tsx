@@ -1,4 +1,4 @@
-import { Header, SubHeader } from '@/fsd_shared';
+import { Header, SubHeader } from '@/shared';
 
 export const VerificationHeader = () => {
   return (

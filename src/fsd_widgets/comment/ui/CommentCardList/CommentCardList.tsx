@@ -2,7 +2,7 @@
 
 import { useGetCommentList } from '@/entities/comment';
 
-import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
+import { LoadingSpinner, useInfiniteScroll } from '@/shared';
 
 import { ChildCommentCard } from '../ChildCommentCard';
 import { CommentCard } from '../CommentCard';

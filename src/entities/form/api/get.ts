@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const getFormResponseDto = async (formId: string) => {
   const { data }: { data: Post.FormResponseDto } = await API.get(`/api/v1/forms/${formId}`);

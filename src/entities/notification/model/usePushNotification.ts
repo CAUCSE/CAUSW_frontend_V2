@@ -2,10 +2,10 @@ import { Capacitor } from '@capacitor/core';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { toast } from 'react-hot-toast';
 
-import { getRccRefresh, STORAGE_KEYS } from '@/fsd_shared/configs';
-import { detectDeviceType, getClientFCMToken } from '@/fsd_shared/model';
+import { getRccRefresh, STORAGE_KEYS } from '@/shared/configs';
+import { detectDeviceType, getClientFCMToken } from '@/shared/model';
 
-import { requestNotificationPermission } from '@/fsd_shared';
+import { requestNotificationPermission } from '@/shared';
 
 import { getFCMToken } from '../api';
 import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';

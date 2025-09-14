@@ -3,7 +3,7 @@
 import { useShallow } from 'zustand/react/shallow';
 
 import { useDeleteBanner, useBannerStore } from '@/entities/banner';
-import { PortalModal } from '@/fsd_shared/ui';
+import { PortalModal } from '@/shared/ui';
 
 export const BannerDeleteModal = () => {
   const { selectedBannerId, closeDeleteBannerModal, resetSelectedBanner } = useBannerStore(

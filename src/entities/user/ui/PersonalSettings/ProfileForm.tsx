@@ -26,10 +26,10 @@ interface ProfileFormProps {
   feeInfo: FeeInfoProps;
 }
 
-const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+const PreviousButton = dynamic(() => import('@/shared').then((mod) => mod.PreviousButton), {
   ssr: false,
 });
-const Header = dynamic(() => import('@/fsd_shared').then((mod) => mod.Header), {
+const Header = dynamic(() => import('@/shared').then((mod) => mod.Header), {
   ssr: false,
 });
 const UserInfoContainer = dynamic(() => import('./UserInfoContainer').then((mod) => mod.UserInfoContainer), {

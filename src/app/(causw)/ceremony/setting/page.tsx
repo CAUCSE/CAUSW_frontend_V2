@@ -2,7 +2,7 @@
 
 import { NotificationSettingWidget } from '@/fsd_widgets/ceremony';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function NotificationSettingPage() {
   return (

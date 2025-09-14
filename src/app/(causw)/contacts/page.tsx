@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ContactList } from '@/fsd_widgets/contact';
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function ContactPage() {
   return (

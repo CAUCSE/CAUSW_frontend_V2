@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { userQueryKey } from '@/entities/user/config/queryKeys/userQueryKey';
 
 import { postAcademicRecord } from '../../api/post';
-import { parseErrorMessage } from '@/fsd_shared';
+import { parseErrorMessage } from '@/shared';
 
 interface UseSubmitAcademicRecordProps {
   curAcademicStatus: string;

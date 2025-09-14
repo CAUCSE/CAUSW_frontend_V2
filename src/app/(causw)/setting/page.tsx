@@ -23,11 +23,11 @@ import {
   userRoleCodes,
 } from '@/entities/user/model';
 
-import { LoadingComponent } from '@/fsd_shared/ui';
+import { LoadingComponent } from '@/shared/ui';
 
-import { tokenManager } from '@/fsd_shared';
+import { tokenManager } from '@/shared';
 
-const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
+const UseTerms = dynamic(() => import('@/shared').then((mod) => mod.UseTerms), {
   ssr: false,
 });
 

@@ -7,9 +7,9 @@ import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
 import { useEditProfile } from '@/entities/contact';
 import { FormField, MonthPicker, ProfileFormData, ProfileHeader } from '@/entities/contact';
 
-import { ProfileImageUploader } from '@/fsd_shared/ui';
+import { ProfileImageUploader } from '@/shared/ui';
 
-import { formatPhoneNumber } from '@/fsd_shared';
+import { formatPhoneNumber } from '@/shared';
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
 
 const socialLinksConfig: { name: keyof ProfileFormData; label: string; placeholder: string }[] = [

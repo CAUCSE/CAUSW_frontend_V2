@@ -8,7 +8,7 @@ import { VerificationHeader, VerificationStatus } from '@/fsd_widgets/auth';
 
 import { useVerification } from '@/entities/auth';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 const VerificationPage: React.FC = () => {
   const {

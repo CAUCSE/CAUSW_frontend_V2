@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export type BlockRes = { message: string };
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import toast from 'react-hot-toast';
 
-import { ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { ERROR_MESSAGES, MESSAGES } from '@/shared';
 
 import { getAdminCeremonyDetail } from '../api';
 

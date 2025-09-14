@@ -6,9 +6,9 @@ import {
   useSearchContactsQuery,
   SearchBar,
 } from '@/entities/contact';
-import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 import { Loader2 } from 'lucide-react';
-import { useDebounce } from '@/fsd_shared';
+import { useDebounce } from '@/shared';
 
 export const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState('');

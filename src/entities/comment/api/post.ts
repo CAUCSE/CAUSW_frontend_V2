@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 import type {
   LikeChildCommentParam,

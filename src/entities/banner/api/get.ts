@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { API, bannerQueryKey } from '@/fsd_shared';
+import { API, bannerQueryKey } from '@/shared';
 
 export const useGetBannerList = () => {
   return useQuery({

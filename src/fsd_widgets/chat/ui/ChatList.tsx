@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { ChevronLeft } from 'lucide-react';
 
-import { FullLine } from '@/fsd_shared/ui';
+import { FullLine } from '@/shared/ui';
 
 import { ChatListItem } from './ChatListItem';
 

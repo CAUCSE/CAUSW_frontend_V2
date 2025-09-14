@@ -14,7 +14,7 @@ import {
 
 import { useGetLockerList } from '@/entities/locker';
 
-import { LoadingScreen } from '@/fsd_shared';
+import { LoadingScreen } from '@/shared';
 
 const LockerSelectionPage = () => {
   const params = useParams();

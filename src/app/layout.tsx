@@ -5,10 +5,10 @@ import dynamic from 'next/dynamic';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { LoadingComponent, Providers } from '@/fsd_shared/ui';
+import { LoadingComponent, Providers } from '@/shared/ui';
 
 import '@/firebase-messaging-sw';
-import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
+import { GA, ToastWithMax, WindowSizeListener } from '@/shared';
 
 import './globals.css';
 

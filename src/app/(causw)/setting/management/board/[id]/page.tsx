@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { getApplyBoardById } from '@/entities/user/api';
 import { acceptApplyBoards, rejectApplyBoards } from '@/entities/user/api';
 
-import { LoadingComponent } from '@/fsd_shared';
+import { LoadingComponent } from '@/shared';
 
 import CheckedIcon from '../../../../../../../public/icons/checked_icon.svg';
 import NonCheckedIcon from '../../../../../../../public/icons/not_checked_icon.svg';

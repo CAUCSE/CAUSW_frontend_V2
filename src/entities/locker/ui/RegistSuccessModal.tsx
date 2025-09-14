@@ -1,4 +1,4 @@
-import { LOCKER_CONSTANT, Modal } from '@/fsd_shared';
+import { LOCKER_CONSTANT, Modal } from '@/shared';
 
 import { useGetLockerLocations } from '../api';
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { LOCKER_CONSTANT } from '@/fsd_shared';
+import { LOCKER_CONSTANT } from '@/shared';
 
 interface LockerListHeaderProps {
   lockerLocations: Locker.LockerLocationsResponseDto;

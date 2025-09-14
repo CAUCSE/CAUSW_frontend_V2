@@ -8,7 +8,7 @@ import {
   useNotificationTabParam,
 } from '@/entities/notification';
 
-import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/fsd_shared';
+import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 

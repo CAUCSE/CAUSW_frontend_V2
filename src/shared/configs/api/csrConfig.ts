@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
-import { detectDeviceType } from '@/fsd_shared';
-import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/fsd_shared';
-import { tokenManager } from '@/fsd_shared';
+import { detectDeviceType } from '@/shared';
+import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/shared';
+import { tokenManager } from '@/shared';
 
 import { BASEURL } from './url';
 

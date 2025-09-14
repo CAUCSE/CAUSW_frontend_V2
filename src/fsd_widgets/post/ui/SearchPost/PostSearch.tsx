@@ -2,7 +2,7 @@
 
 import { PostSkeletonList, useSearchPost } from '@/entities/post';
 
-import { LoadingSpinner, PreviousButton } from '@/fsd_shared';
+import { LoadingSpinner, PreviousButton } from '@/shared';
 
 import { PostSearchInput } from './PostSearchInput';
 import { PostSearchIntro } from './PostSearchIntro';

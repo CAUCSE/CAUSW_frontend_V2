@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { bannerQueryKey } from '@/fsd_shared';
+import { bannerQueryKey } from '@/shared';
 import { useCreateBanner, useUpdateBanner, useBannerStore } from '@/entities/banner';
 
 export const useEditBanner = () => {

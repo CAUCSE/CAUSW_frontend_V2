@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { API, BASEURL, FORMAPI, setRscHeader } from '@/fsd_shared';
+import { API, BASEURL, FORMAPI, setRscHeader } from '@/shared';
 import { createFormData } from '@/utils';
 
 import { USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';

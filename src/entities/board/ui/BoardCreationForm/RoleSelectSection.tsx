@@ -1,7 +1,7 @@
 'use client';
 
-import { ROLE_CHECKBOX_GROUPS } from '@/fsd_shared/configs';
-import { useAuthHandler } from '@/fsd_shared';
+import { ROLE_CHECKBOX_GROUPS } from '@/shared/configs';
+import { useAuthHandler } from '@/shared';
 
 import CheckedIcon from '../../../../../public/icons/checked_icon.svg';
 import NonCheckedIcon from '../../../../../public/icons/not_checked_icon.svg';

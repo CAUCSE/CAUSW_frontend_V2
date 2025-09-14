@@ -1,5 +1,5 @@
 // report-adapter.ts
-import { WriterState } from '@/fsd_shared/@types/report-be';
+import { WriterState } from '@/shared/@types/report-be';
 
 import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from './report-be';
 import { ReportedComment, ReportedPost, ReportedUser } from './report-ui';

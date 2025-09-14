@@ -2,7 +2,7 @@
 
 import { getMyInfo } from '@/entities/user';
 
-import { getRccRefresh } from '@/fsd_shared';
+import { getRccRefresh } from '@/shared';
 
 export const checkAppAuthStatus = async (): Promise<boolean> => {
   try {

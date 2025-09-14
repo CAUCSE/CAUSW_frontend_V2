@@ -1,6 +1,6 @@
 import { AdminCeremonyManagement } from '@/fsd_widgets/ceremony';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 const firstNavigation = {
   name: '등록 신청 경조사',

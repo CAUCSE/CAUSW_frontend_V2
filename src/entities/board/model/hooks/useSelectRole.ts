@@ -2,7 +2,7 @@
 
 import { useShallow } from 'zustand/react/shallow';
 import { useBoardCreationStore } from '../stores';
-import { ROLE_CHECKBOX_GROUPS, ROLE_LABELS } from '@/fsd_shared/configs';
+import { ROLE_CHECKBOX_GROUPS, ROLE_LABELS } from '@/shared/configs';
 
 const getAllRoles = (): User.Role[] => {
   const rolesFromGroups = Object.values(ROLE_CHECKBOX_GROUPS).flat();

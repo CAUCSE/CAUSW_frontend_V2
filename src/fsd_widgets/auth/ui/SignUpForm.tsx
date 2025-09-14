@@ -2,8 +2,8 @@
 
 import { AuthFormSubmitButton, useSignUpForm } from '@/entities/auth';
 
-import { Header } from '@/fsd_shared';
-import { PreviousButton } from '@/fsd_shared';
+import { Header } from '@/shared';
+import { PreviousButton } from '@/shared';
 
 import { SignUpFormFields } from './SignUpFormFields';
 import { useRouter } from 'next/navigation';

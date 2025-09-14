@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import clsx from 'clsx';
-import { Button } from '@/fsd_shared';
+import { Button } from '@/shared';
 
 interface AdmissionYearInputProps {
   onAdd: (year: string) => void;

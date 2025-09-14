@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { Button, Modal } from '@/fsd_shared';
+import { Button, Modal } from '@/shared';
 
 import { deleteUserCouncilFeeInfo } from '../../../api';
 

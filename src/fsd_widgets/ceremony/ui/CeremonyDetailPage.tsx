@@ -10,7 +10,7 @@ import {
   useCeremonyData,
 } from '@/entities/ceremony';
 
-import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/fsd_shared';
+import { CommonImageList, ERROR_MESSAGES, MESSAGES } from '@/shared';
 
 import { ceremonyTypeMap } from '../config';
 import { NotificationYearListBox } from './NotificationYearListBox';

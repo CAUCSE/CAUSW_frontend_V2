@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { signin } from '@/entities/auth/api/post';
 import { getMyInfo } from '@/entities/user/api/get';
 
-import { parseErrorMessage, setRccToken, setRscToken } from '@/fsd_shared';
+import { parseErrorMessage, setRccToken, setRscToken } from '@/shared';
 
 export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }) => {
   const router = useRouter();

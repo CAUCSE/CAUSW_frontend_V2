@@ -2,8 +2,8 @@
 
 import axios, { AxiosResponse } from 'axios';
 
-import { BASEURL, FORMAPI } from '@/fsd_shared';
-import { API } from '@/fsd_shared';
+import { BASEURL, FORMAPI } from '@/shared';
+import { API } from '@/shared';
 import { createFormData } from '@/utils';
 
 const URI = '/api/v1/users';

@@ -1,4 +1,4 @@
-import { dateFormat } from '@/fsd_shared';
+import { dateFormat } from '@/shared';
 
 export const CeremonyDateTile = ({ title, date }: Ceremony.CeremonyDateTileProps) => {
   const formattedDate = date.split('-');

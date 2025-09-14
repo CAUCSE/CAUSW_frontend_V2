@@ -2,7 +2,7 @@
 
 import { NotificationActionButtons } from '@/fsd_widgets/notification';
 
-import { MESSAGES, NOTIFICATION_TAB } from '@/fsd_shared';
+import { MESSAGES, NOTIFICATION_TAB } from '@/shared';
 import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui';
 
 interface Props {

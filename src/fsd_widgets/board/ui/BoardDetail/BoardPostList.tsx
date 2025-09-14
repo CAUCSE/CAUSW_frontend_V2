@@ -4,7 +4,7 @@ import { FetchNextPageOptions, InfiniteQueryObserverResult } from '@tanstack/rea
 
 import { PostCard } from '@/entities/post';
 
-import { LoadingSpinner, useInfiniteScroll } from '@/fsd_shared';
+import { LoadingSpinner, useInfiniteScroll } from '@/shared';
 
 interface BoardPostListProps {
   postList: Post.PostResponseDto[];

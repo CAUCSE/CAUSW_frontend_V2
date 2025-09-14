@@ -1,8 +1,8 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 
-import { API, setRscHeader } from '@/fsd_shared';
-import { BASEURL } from '@/fsd_shared';
+import { API, setRscHeader } from '@/shared';
+import { BASEURL } from '@/shared';
 
 import { PAGE_SIZE, USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
 import { settingQueryKey } from '../config';

@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 import { useGetPostSearchList } from '@/entities/post';
 
-import { useInfiniteScroll } from '@/fsd_shared';
+import { useInfiniteScroll } from '@/shared';
 
 export const useSearchPost = () => {
   const params = useParams();

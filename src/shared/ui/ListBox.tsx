@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { useMarkAsRead } from '@/entities/notification';
 
-import { useInfiniteScroll } from '@/fsd_shared/hooks/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 
 import MailIcon from '../../../public/icons/envelope_icon.svg';
 import MailOpendIcon from '../../../public/icons/envelope_open_icon.svg';

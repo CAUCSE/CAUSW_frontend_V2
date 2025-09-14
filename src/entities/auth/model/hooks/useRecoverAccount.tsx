@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 import { getMyInfo } from '@/entities/user/api/get';
 
-import { parseErrorMessage, setRccToken, setRscToken } from '@/fsd_shared';
+import { parseErrorMessage, setRccToken, setRscToken } from '@/shared';
 
 import { recoverAccount } from '../../api/put';
 

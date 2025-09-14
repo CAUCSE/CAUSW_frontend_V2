@@ -4,7 +4,7 @@ import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { ReportReason, ReportReasonMeta, useReportMutation } from '@/entities/report';
 
-import { ReportTypeBE } from '@/fsd_shared/@types/report-ui';
+import { ReportTypeBE } from '@/shared/@types/report-ui';
 
 import {
   AlertDialog,

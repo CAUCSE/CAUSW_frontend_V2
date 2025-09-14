@@ -3,7 +3,7 @@
 import { AuthFormSubmitButton, AuthInput } from '@/entities/auth';
 import { useFindPasswordForm } from '@/entities/auth';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 const formatPhoneNumber = (value: string) => {
   if (!value) return '';

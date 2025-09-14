@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 
 import { useReportedUsers } from '@/entities/report/model/queries/useReportedUsers';
 
-import { writerStateColor, writerStateLabel } from '@/fsd_shared/@types/report-ui';
+import { writerStateColor, writerStateLabel } from '@/shared/@types/report-ui';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function ReportedUserListPage() {
   const router = useRouter();

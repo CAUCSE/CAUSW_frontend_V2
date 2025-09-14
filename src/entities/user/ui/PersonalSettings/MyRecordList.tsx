@@ -6,7 +6,7 @@
  */
 import dynamic from 'next/dynamic';
 
-import { LoadingComponent, useInfiniteScroll } from '@/fsd_shared';
+import { LoadingComponent, useInfiniteScroll } from '@/shared';
 
 interface MyRecordListProps {
   data: Post.PostResponseDto[];
@@ -19,7 +19,7 @@ interface MyRecordListProps {
 const PostCard = dynamic(() => import('@/entities/post').then((mod) => mod.PostCard), {
   ssr: false,
 });
-const LoadingSpinner = dynamic(() => import('@/fsd_shared').then((mod) => mod.LoadingSpinner), {
+const LoadingSpinner = dynamic(() => import('@/shared').then((mod) => mod.LoadingSpinner), {
   ssr: false,
 });
 

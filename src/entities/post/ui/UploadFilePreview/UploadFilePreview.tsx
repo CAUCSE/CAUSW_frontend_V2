@@ -6,7 +6,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useUploadFileStore } from '@/entities/post';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 import CloseIcon from '../../../../../public/icons/close_icon.svg';
 import FileIcon from '../../../../../public/icons/file_icon.svg';

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { detectDeviceType, LoadingComponent } from '@/fsd_shared';
+import { detectDeviceType, LoadingComponent } from '@/shared';
 
 import { checkAppAuthStatus } from './model/checkAuth';
 

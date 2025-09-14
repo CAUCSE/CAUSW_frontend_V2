@@ -9,9 +9,9 @@ import { NotificationWidget } from '@/fsd_widgets/notification';
 import { useNotificationCount } from '@/entities/notification';
 import { useUserProfile } from '@/entities/user';
 
-import { ProfileImage } from '@/fsd_shared/ui';
+import { ProfileImage } from '@/shared/ui';
 
-import { SubHeader, tokenManager } from '@/fsd_shared';
+import { SubHeader, tokenManager } from '@/shared';
 import { Button } from '@/shadcn/components/ui';
 
 interface SideBarProps {

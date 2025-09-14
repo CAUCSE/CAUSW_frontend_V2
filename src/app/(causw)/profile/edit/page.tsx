@@ -2,7 +2,7 @@
 
 import { useGetMyProfileQuery } from '@/entities/contact';
 import { ProfileEdit } from '@/fsd_widgets/profile';
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function MyProfileEditPage() {
   const { data: myProfile } = useGetMyProfileQuery();

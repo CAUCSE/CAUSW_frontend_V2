@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 export const CeremonySectionTitle = ({ title, ceremonyContent }: Ceremony.CeremonySectionTitleProps) => {
   return (

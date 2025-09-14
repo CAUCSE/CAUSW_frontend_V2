@@ -2,7 +2,7 @@
 
 import { ReportWidget } from '@/fsd_widgets/report';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function ReportContentPage() {
   return (

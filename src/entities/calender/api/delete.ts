@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { API, calendarQueryKey } from "@/fsd_shared";
+import { API, calendarQueryKey } from "@/shared";
 import { useCalendarStore } from "@/entities/calender/model";
 
 export const useDeleteCalendar = () => {

@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getMessaging, getToken } from 'firebase/messaging';
-import { FIREBASE_CONFIG } from '@/fsd_shared/configs';
+import { FIREBASE_CONFIG } from '@/shared/configs';
 
 // Firebase app 초기화 또는 기존 app 가져오기
 const getFirebaseApp = () => {

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { UserCircle } from 'lucide-react';
 
-import { ImageViewer } from '@/fsd_shared/ui';
+import { ImageViewer } from '@/shared/ui';
 import { useGetMyProfileQuery } from '@/entities/contact';
 
 interface ContactCardProps {

@@ -1,4 +1,4 @@
-import { API, BASEURL, setRscHeader } from '@/fsd_shared';
+import { API, BASEURL, setRscHeader } from '@/shared';
 
 import { USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
 

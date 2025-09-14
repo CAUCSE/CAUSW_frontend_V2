@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { UserCircle, Mail } from 'lucide-react';
 import { Badge } from '@/shadcn/components/ui/badge';
-import { ImageViewer } from '@/fsd_shared/ui';
+import { ImageViewer } from '@/shared/ui';
 
 const academicStatusMap = {
   ENROLLED: { label: '재학생', variant: 'enrolled' },

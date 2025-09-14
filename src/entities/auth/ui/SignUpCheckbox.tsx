@@ -1,4 +1,4 @@
-import { UseTerms } from '@/fsd_shared';
+import { UseTerms } from '@/shared';
 import { useState } from 'react';
 
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';

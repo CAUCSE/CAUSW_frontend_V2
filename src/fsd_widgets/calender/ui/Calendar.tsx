@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 import { fetchCalendar, fetchCalendars } from '@/entities/home';
 
-import { CardBox } from '@/fsd_shared/ui/CardBox';
+import { CardBox } from '@/shared/ui/CardBox';
 import { MONTHS } from '../config';
 
 interface CalendarProps {

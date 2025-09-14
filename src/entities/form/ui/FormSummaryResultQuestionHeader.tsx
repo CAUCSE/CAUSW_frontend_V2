@@ -1,6 +1,6 @@
 'use client';
 
-import { useTruncateParagraph } from '@/fsd_shared';
+import { useTruncateParagraph } from '@/shared';
 
 interface FormSummaryResultQuestionHeaderProps {
   summaryFormResult?: Form.QuestionSummaryResponseDto[];

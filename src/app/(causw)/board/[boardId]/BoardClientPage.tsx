@@ -6,7 +6,7 @@ import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
 
 import { useGetPostList } from '@/entities/post';
 
-import { LoadingScreen } from '@/fsd_shared';
+import { LoadingScreen } from '@/shared';
 
 export const BoardClientPage = () => {
   const { boardId } = useParams();

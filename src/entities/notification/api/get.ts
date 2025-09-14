@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 
 import { CeremonyState } from '@/fsd_widgets/ceremony';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 

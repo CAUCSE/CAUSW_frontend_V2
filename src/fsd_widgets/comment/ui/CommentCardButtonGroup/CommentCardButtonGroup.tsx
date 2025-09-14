@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 import { ChildCommentActiveButton, CommentLikeButton, useCommentStore } from '@/entities/comment';
 
-import { Divider } from '@/fsd_shared';
+import { Divider } from '@/shared';
 
 interface CommentCardButtonGroupProps {
   commentId: Comment.CommentDto['id'];

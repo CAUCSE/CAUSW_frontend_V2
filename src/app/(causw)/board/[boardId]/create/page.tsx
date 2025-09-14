@@ -23,7 +23,7 @@ import {
 import { useCreatePost } from '@/entities/post';
 import { useCreateVote } from '@/entities/vote';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 const CreatePostPage = () => {
   const { isApply, isVote, clearPost } = usePostCreationStore(

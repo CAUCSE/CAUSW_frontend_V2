@@ -5,7 +5,7 @@ import { LockerInfoByFloorList } from '@/fsd_widgets/locker';
 
 import { useGetLockerLocations } from '@/entities/locker';
 
-import { LoadingScreen } from '@/fsd_shared';
+import { LoadingScreen } from '@/shared';
 
 const LockerList = () => {
   const { data: lockerLocations, isLoading } = useGetLockerLocations();

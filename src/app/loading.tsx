@@ -1,4 +1,4 @@
-import { LoadingComponent } from '@/fsd_shared/ui';
+import { LoadingComponent } from '@/shared/ui';
 
 const Loading = () => {
   return <LoadingComponent />;

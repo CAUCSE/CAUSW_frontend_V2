@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 const URI = '/api/v1/users';
 

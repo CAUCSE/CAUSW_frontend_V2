@@ -6,9 +6,9 @@ import ImageIcon from '@icons/image_icon.svg';
 
 import { useEditBanner } from '@/entities/banner';
 
-import { PortalModal } from '@/fsd_shared/ui';
+import { PortalModal } from '@/shared/ui';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 interface ImageSelectionProps {
   imageUrl?: string | null;

@@ -6,7 +6,7 @@ import { UserReportWidget } from '@/fsd_widgets/report/ui/UserReportWidget';
 
 import { useUserInfo } from '@/entities/user';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function ReportContentPage() {
   const { id } = useParams<{ id: string }>();

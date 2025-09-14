@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import Image from 'next/image';
-import { LoadingComponent } from '@/fsd_shared';
+import { LoadingComponent } from '@/shared';
 
 
 export const ImageBackground = ({

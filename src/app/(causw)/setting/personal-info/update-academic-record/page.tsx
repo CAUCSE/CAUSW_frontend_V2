@@ -5,7 +5,7 @@ import React from 'react';
 import { AcademicRecordForm } from '@/fsd_widgets/auth';
 
 import { useUserAcademic } from '@/entities/user/model';
-import { LoadingComponent } from '@/fsd_shared/ui';
+import { LoadingComponent } from '@/shared/ui';
 import { notFound } from 'next/navigation';
 
 const UpdataeAcademicRecordPage = () => {

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { BoardNotificationToggle } from '@/entities/board';
 import { CreatePostButton, SearchPostButton } from '@/entities/post';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 interface BoardHeaderProps {
   boardName: string;

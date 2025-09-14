@@ -14,10 +14,10 @@ import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/entities/a
 import { useLogin } from '@/entities/auth/model/hooks/useLogin';
 import { usePushNotification } from '@/entities/notification/model/usePushNotification';
 
-import { ActionModal } from '@/fsd_shared/ui/ActionModal';
+import { ActionModal } from '@/shared/ui/ActionModal';
 
 import '@/firebase-messaging-sw';
-import { emailRegex, getRccRefresh } from '@/fsd_shared';
+import { emailRegex, getRccRefresh } from '@/shared';
 
 const routes = [
   { name: '아이디찾기', route: '/auth/findemail' },

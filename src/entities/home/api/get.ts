@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from '@/fsd_shared';
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const fetchHomePosts = async () => {
   const URI = BASEURL + '/api/v1/home';

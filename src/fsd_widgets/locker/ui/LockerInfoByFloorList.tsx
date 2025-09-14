@@ -1,6 +1,6 @@
 import { LockerInfoByFloor } from '@/entities/locker';
 
-import { LOCKER_CONSTANT } from '@/fsd_shared';
+import { LOCKER_CONSTANT } from '@/shared';
 
 interface LockerInfoByFloorListProps {
   lockerLocations: Locker.LockerLocationsResponseDto;

@@ -8,7 +8,7 @@ interface MyRecordHeaderProps {
   pageName: string;
 }
 
-const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+const PreviousButton = dynamic(() => import('@/shared').then((mod) => mod.PreviousButton), {
   ssr: false,
 });
 

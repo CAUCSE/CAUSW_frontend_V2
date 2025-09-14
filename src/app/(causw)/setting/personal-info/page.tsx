@@ -8,7 +8,7 @@ import { getMyCouncilFeeInfo, getMyInfo } from '@/entities/user/api';
 import { userQueryKey } from '@/entities/user/config';
 import { ProfileForm } from '@/entities/user/ui';
 
-import { LoadingComponent } from '@/fsd_shared';
+import { LoadingComponent } from '@/shared';
 
 const PersonalInfoPage = () => {
   const [feeInfo, setFeeInfo] = useState({

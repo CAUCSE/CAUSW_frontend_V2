@@ -2,7 +2,7 @@
 
 import { toast } from 'react-hot-toast';
 
-import { useAuthHandler } from '@/fsd_shared';
+import { useAuthHandler } from '@/shared';
 
 import { useCreateCommonBoard, useCreateNoticeBoard } from '../queries';
 import { useBoardCreationStore } from '../stores';

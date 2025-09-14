@@ -8,7 +8,7 @@ import {
   AllowAlumniToggle,
 } from '@/entities/board';
 
-import { PreviousButton, useAuthHandler } from '@/fsd_shared';
+import { PreviousButton, useAuthHandler } from '@/shared';
 
 export const BoardCreationForm = () => {
   const { hasAuth } = useAuthHandler();

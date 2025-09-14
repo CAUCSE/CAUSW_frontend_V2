@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useAddCalendarModal, useCalendarStore } from '@/entities/calender';
 import { ACCEPTED_IMAGE_TYPES } from '@/entities/post/config/fileUploadRule';
 
-import { CustomSelect, MESSAGES, PortalModal } from '@/fsd_shared';
+import { CustomSelect, MESSAGES, PortalModal } from '@/shared';
 
 import ImageIcon from '../../../../public/icons/image_icon.svg';
 

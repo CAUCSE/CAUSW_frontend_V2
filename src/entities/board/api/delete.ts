@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const inactiveBoardNotification = async ({ boardId }: { boardId: string }) => {
   const { data }: { data: Board.ActiveBoardNotificationResponseDto } = await API.delete(

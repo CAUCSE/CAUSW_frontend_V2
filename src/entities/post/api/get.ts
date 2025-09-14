@@ -1,5 +1,5 @@
-import { BASEURL, setRscHeader } from '@/fsd_shared';
-import { API } from '@/fsd_shared';
+import { BASEURL, setRscHeader } from '@/shared';
+import { API } from '@/shared';
 
 export const getPostList = async ({ boardId, pageNum }: { boardId: string; pageNum: number }) => {
   const { data }: { data: Board.BoardWithPostResponseDto } = await API.get(

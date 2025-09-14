@@ -1,8 +1,8 @@
-import { adaptComment, adaptPost, adaptReportedUser } from '@/fsd_shared/@types/report-adapters';
-import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from '@/fsd_shared/@types/report-be';
-import { ReportedUser } from '@/fsd_shared/@types/report-ui';
+import { adaptComment, adaptPost, adaptReportedUser } from '@/shared/@types/report-adapters';
+import { BE_ReportedComment, BE_ReportedPost, BE_ReportedUser } from '@/shared/@types/report-be';
+import { ReportedUser } from '@/shared/@types/report-ui';
 
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 type GetPageArgs = { pageNum?: number; signal?: AbortSignal };
 

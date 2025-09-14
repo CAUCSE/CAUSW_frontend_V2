@@ -9,7 +9,7 @@ import { useBannerStore } from '@/entities/banner';
 import DeleteIcon from '@icons/delete_icon.svg';
 import LinkIcon from '@icons/link_icon.svg';
 
-import { CardBox } from '@/fsd_shared/ui';
+import { CardBox } from '@/shared/ui';
 
 export const BannerCard = ({
   url,

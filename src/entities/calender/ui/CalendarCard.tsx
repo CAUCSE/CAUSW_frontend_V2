@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CardBox } from '@/fsd_shared/ui/CardBox';
+import { CardBox } from '@/shared/ui/CardBox';
 
 import { useCalendarStore } from '@/entities/calender/model';
 

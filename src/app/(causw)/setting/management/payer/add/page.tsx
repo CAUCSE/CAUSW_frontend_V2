@@ -9,7 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { getUserByName } from '@/entities/user/api';
 
-import { Header, Line } from '@/fsd_shared';
+import { Header, Line } from '@/shared';
 
 interface IFormInput {
   searchContent: string;

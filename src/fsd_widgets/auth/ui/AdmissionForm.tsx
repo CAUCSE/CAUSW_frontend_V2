@@ -8,7 +8,7 @@ import {
   useAdmissionForm,
 } from '@/entities/auth';
 
-import { ImageUploadField, MESSAGES, PreviousButton } from '@/fsd_shared';
+import { ImageUploadField, MESSAGES, PreviousButton } from '@/shared';
 
 export const AdmissionForm = () => {
   const { register, handleSubmit, errors, onSubmit, onInvalid, setValue, email } = useAdmissionForm();

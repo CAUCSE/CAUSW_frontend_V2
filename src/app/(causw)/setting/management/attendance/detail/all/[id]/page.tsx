@@ -6,9 +6,9 @@ import Link from 'next/link';
 
 import { useGetAttendanceUser, useUpdateUserNote } from '@/entities/user';
 
-import { ACADEMIC_STATUS_LABELS } from '@/fsd_shared/configs/constants/setting';
+import { ACADEMIC_STATUS_LABELS } from '@/shared/configs/constants/setting';
 
-import { Header, LoadingComponent, SubHeader } from '@/fsd_shared';
+import { Header, LoadingComponent, SubHeader } from '@/shared';
 
 const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
   const { data, isLoading } = useGetAttendanceUser(id);

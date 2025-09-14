@@ -1,4 +1,4 @@
-import { sanitizeHtml } from '@/fsd_shared';
+import { sanitizeHtml } from '@/shared';
 
 interface PostCardContentProps {
   post: Post.PostResponseDto;

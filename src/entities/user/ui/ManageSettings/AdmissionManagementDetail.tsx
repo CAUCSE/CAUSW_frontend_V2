@@ -25,7 +25,7 @@ const ManagementDetailInfoTable = dynamic(
     ssr: false,
   },
 );
-const PreviousButton = dynamic(() => import('@/fsd_shared').then((mod) => mod.PreviousButton), {
+const PreviousButton = dynamic(() => import('@/shared').then((mod) => mod.PreviousButton), {
   ssr: false,
 });
 interface ManagementDetailProp {

@@ -4,7 +4,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { useFindAccountStore } from '@/entities/auth/model/stores';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 import { FindEmailForm } from './FindEmailForm';
 import { FindEmailResult } from './FindEmailResult';

@@ -13,8 +13,8 @@ import {
   removeRscRefresh,
   setRccToken,
   setRscToken,
-} from '@/fsd_shared/configs';
-import { STORAGE_KEYS } from '@/fsd_shared/configs';
+} from '@/shared/configs';
+import { STORAGE_KEYS } from '@/shared/configs';
 
 export const tokenManager = () => {
   const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;

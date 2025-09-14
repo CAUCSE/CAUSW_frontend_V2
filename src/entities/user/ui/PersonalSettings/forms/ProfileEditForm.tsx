@@ -10,7 +10,7 @@ import { UseFormRegister } from 'react-hook-form';
 
 import { ACCEPTED_IMAGE_TYPES } from '@/entities/post/config/fileUploadRule';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 interface ProfileEditFormProps {
   profileImagePreview: string;

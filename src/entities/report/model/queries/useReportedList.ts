@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { adaptComment, adaptPost } from '@/fsd_shared/@types/report-adapters';
-import { ReportedItem, ReportType } from '@/fsd_shared/@types/report-ui';
+import { adaptComment, adaptPost } from '@/shared/@types/report-adapters';
+import { ReportedItem, ReportType } from '@/shared/@types/report-ui';
 
 import { getReportedComments, getReportedPosts } from '../../api/get';
 import { reportQueryKey } from '../../config/queryKey';

@@ -3,7 +3,7 @@
 import { AxiosResponse } from 'axios';
 
 // 유저 리펙 TODO: API 이동 필요.
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const ExcelExportButton = ({ exportType, id }: { exportType: Setting.ExportType; id?: string }) => {
   return (

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { CeremonyListItem } from '@/fsd_widgets/ceremony';
 
-import { useInfiniteScroll } from '@/fsd_shared';
+import { useInfiniteScroll } from '@/shared';
 
 interface AdminCeremonyListProps extends Ceremony.CeremonyListProps {
   context?: string; // 선택적 query string 추가

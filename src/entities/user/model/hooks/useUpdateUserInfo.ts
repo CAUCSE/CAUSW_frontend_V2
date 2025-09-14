@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 import { updateInfo } from '../../api/put';
 import { userQueryKey } from '../../config/queryKeys/userQueryKey';
-import { parseErrorMessage } from '@/fsd_shared';
+import { parseErrorMessage } from '@/shared';
 
 export const useUpdateUserInfo = () => {
   const queryClient = useQueryClient();

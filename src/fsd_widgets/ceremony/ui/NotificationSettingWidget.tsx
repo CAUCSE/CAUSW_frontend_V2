@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import { AdmissionYearInput, AdmissionYearList, AllYearToggle, useCeremonySettingForm } from '@/entities/ceremony';
 
-import { Button } from '@/fsd_shared';
+import { Button } from '@/shared';
 
 interface NotificationSettingWidgetProps {
   isSettingPage?: boolean;

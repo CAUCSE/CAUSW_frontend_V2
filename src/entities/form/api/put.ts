@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 export const updateFormClosedStatus = async (formId: string, isClosed: boolean) => {
   await API.put(

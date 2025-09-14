@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import { useAdminCeremonyAwaitListQuery } from '@/entities/notification/hooks/queries/useAdminCeremonyAwaitListQuery';
 
-import { Header, Line, PreviousButton } from '@/fsd_shared';
+import { Header, Line, PreviousButton } from '@/shared';
 
 import { AdminCeremonyList } from './AdminCeremonyList';
 

@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from '@/fsd_shared';
+import { BASEURL, setRscHeader } from '@/shared';
 
 export const getBoardList = async (): Promise<Board.BoardResponseDto[]> => {
   const headers = await setRscHeader();

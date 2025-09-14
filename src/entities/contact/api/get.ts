@@ -1,4 +1,4 @@
-import { API } from '@/fsd_shared';
+import { API } from '@/shared';
 
 const USER_INFO_URI = '/api/v1/users-info';
 
