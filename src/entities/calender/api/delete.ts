@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { API, calendarQueryKey } from "@/shared";
-import { useCalendarStore } from "@/entities/calender/model";
+import { API } from "@/shared";
+import { useCalendarStore } from "../model";
+import { calendarQueryKey } from "../config";
 
 export const useDeleteCalendar = () => {
     const closeDeleteModal = useCalendarStore((state) => state.closeDeleteModal);

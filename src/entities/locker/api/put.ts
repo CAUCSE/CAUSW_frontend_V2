@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { lockerQueryKey } from '@/shared';
+import { lockerQueryKey } from '../config';
 import { API } from '@/shared';
 
 import { useLockerSelectionStore } from '../model';

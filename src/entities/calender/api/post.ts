@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { calendarQueryKey, FORMAPI } from '@/shared';
-import { useCalendarStore } from '@/entities/calender';
+import { FORMAPI } from '@/shared';
+import { calendarQueryKey } from '../config';
+import { useCalendarStore } from '../model';
 
 export const useCreateCalendar = () => {
     const closeAddModal = useCalendarStore((state) => state.closeAddModal);

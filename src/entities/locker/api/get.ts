@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { lockerQueryKey } from '@/shared';
+import { lockerQueryKey } from '../config';
 import { API } from '@/shared';
 
 export const useGetLockerLocations = () => {

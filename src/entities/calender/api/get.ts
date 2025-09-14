@@ -1,4 +1,5 @@
-import { API, calendarQueryKey } from "@/shared";
+import { API } from "@/shared";
+import { calendarQueryKey } from "../config";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetCalendarList = ({ year }: { year: number }) => {
