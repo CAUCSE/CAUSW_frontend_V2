@@ -10,7 +10,7 @@ import {
   LockerSelectionGrid,
   LockerSelectionHeader,
   LockerSelectionMobileManual,
-} from '@/fsd_widgets/locker';
+} from '@/widgets/locker';
 
 import { useGetLockerList } from '@/entities/locker';
 

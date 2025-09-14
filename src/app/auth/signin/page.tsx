@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { SignInFooter } from '@/fsd_widgets/auth';
+import { SignInFooter } from '@/widgets/auth';
 
 import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/entities/auth';
 import { useLogin } from '@/entities/auth/model/hooks/useLogin';

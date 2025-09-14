@@ -6,8 +6,8 @@ import { useParams, useSearchParams } from 'next/navigation';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import { ReportList, ReportTabs } from '@/fsd_widgets/report';
-import { RemoveMemberDialog } from '@/fsd_widgets/report/ui/RemoveMemberDialog';
+import { ReportList, ReportTabs } from '@/widgets/report';
+import { RemoveMemberDialog } from '@/widgets/report/ui/RemoveMemberDialog';
 
 import { useReportedUsers, useUserReportedList } from '@/entities/report';
 

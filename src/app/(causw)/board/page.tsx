@@ -1,4 +1,4 @@
-import { BoardList } from '@/fsd_widgets/board';
+import { BoardList } from '@/widgets/board';
 
 const BoardPage = () => {
   return <BoardList />;

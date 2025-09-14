@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Calendar } from '@/fsd_widgets/calender';
+import { Calendar } from '@/widgets/calender';
 
 import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
 

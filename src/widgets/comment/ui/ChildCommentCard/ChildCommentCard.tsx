@@ -2,7 +2,7 @@
 
 import { ArrowRight } from 'lucide-react';
 
-import { ChildCommentCardFooter } from '@/fsd_widgets/comment/ui/ChildCommentCardFooter';
+import { ChildCommentCardFooter } from '@/widgets/comment/ui/ChildCommentCardFooter';
 
 import { ChildCommentCardHeader } from '../ChildCommentCardHeader';
 import { CommentCardMain } from '../CommentCardMain';

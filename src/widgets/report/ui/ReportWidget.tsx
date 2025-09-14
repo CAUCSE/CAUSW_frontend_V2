@@ -2,8 +2,8 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { ReportList } from '@/fsd_widgets/report/ui/ReportList';
-import { ReportTabs } from '@/fsd_widgets/report/ui/ReportTabs';
+import { ReportList } from '@/widgets/report/ui/ReportList';
+import { ReportTabs } from '@/widgets/report/ui/ReportTabs';
 
 import { useReportedList } from '@/entities/report';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { NotificationSettingWidget } from '@/fsd_widgets/ceremony';
+import { NotificationSettingWidget } from '@/widgets/ceremony';
 
 import { PreviousButton } from '@/shared';
 

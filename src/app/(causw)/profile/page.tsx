@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { Button } from '@/shadcn/components/ui/button';
-import { ContactDetail } from '@/fsd_widgets/contact';
-import { ContactInfoTabs } from '@/fsd_widgets/contact';
+import { ContactDetail } from '@/widgets/contact';
+import { ContactInfoTabs } from '@/widgets/contact';
 import { useGetMyProfileQuery } from '@/entities/contact';
 import { Edit } from 'lucide-react';
 import { PreviousButton } from '@/shared';

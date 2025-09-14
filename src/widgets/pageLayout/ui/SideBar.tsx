@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Bell } from 'lucide-react';
 
-import { NotificationWidget } from '@/fsd_widgets/notification';
+import { NotificationWidget } from '@/widgets/notification';
 
 import { useNotificationCount } from '@/entities/notification';
 import { useUserProfile } from '@/entities/user';

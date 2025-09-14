@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetMyProfileQuery } from '@/entities/contact';
-import { ProfileEdit } from '@/fsd_widgets/profile';
+import { ProfileEdit } from '@/widgets/profile';
 import { PreviousButton } from '@/shared';
 
 export default function MyProfileEditPage() {

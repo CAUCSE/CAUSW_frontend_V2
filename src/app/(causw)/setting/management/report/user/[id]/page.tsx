@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import { UserReportWidget } from '@/fsd_widgets/report/ui/UserReportWidget';
+import { UserReportWidget } from '@/widgets/report/ui/UserReportWidget';
 
 import { useUserInfo } from '@/entities/user';
 

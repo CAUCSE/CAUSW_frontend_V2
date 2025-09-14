@@ -28,7 +28,7 @@ const font = localFont({
   variable: '--font-spoqa',
 });
 const DynamicAuthAppInitializer = dynamic(
-  () => import('@/fsd_widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
+  () => import('@/widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
   {
     ssr: false,
     loading: () => <LoadingComponent />,

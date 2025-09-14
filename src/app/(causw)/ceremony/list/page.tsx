@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { CeremonyListWidget } from '@/fsd_widgets/ceremony';
+import { CeremonyListWidget } from '@/widgets/ceremony';
 
 import { PreviousButton } from '@/shared';
 

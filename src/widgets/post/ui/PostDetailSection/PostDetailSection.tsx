@@ -1,4 +1,4 @@
-import { PostActionBar } from '@/fsd_widgets/post/ui/PostActionBar';
+import { PostActionBar } from '@/widgets/post/ui/PostActionBar';
 
 import { PostActionDropdown } from '../PostActionDropdown';
 import { PostContentSection } from '../PostContentSection';

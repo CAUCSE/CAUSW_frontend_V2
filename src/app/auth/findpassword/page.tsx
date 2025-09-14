@@ -1,6 +1,6 @@
 'use client';
 
-import { FindPasswordForm } from '@/fsd_widgets/auth';
+import { FindPasswordForm } from '@/widgets/auth';
 
 const FindPasswordPage = () => {
   return <FindPasswordForm />;

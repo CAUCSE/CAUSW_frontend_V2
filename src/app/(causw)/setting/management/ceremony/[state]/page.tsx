@@ -1,4 +1,4 @@
-import { AdminCeremonyManagement } from '@/fsd_widgets/ceremony';
+import { AdminCeremonyManagement } from '@/widgets/ceremony';
 
 import { MESSAGES } from '@/shared';
 

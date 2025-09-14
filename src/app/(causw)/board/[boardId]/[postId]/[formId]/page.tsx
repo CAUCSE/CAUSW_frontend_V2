@@ -9,7 +9,7 @@ import { PreviousButton } from '@/shared';
 import { useResponseFormStore } from '@/entities/form/model/stores';
 import { useGetFormResponseInfo } from '@/entities/form/model';
 import { useHandleApplySubmit } from '@/entities/form/model/hooks';
-import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/fsd_widgets/form/ui';
+import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widgets/form/ui';
 
 const ApplyPage = () => {
   const params = useParams();

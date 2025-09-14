@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
+import { BoardHeader, BoardPostList } from '@/widgets/board';
 
 import { useGetPostList } from '@/entities/post';
 

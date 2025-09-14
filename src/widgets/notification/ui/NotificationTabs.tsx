@@ -1,6 +1,6 @@
 'use client';
 
-import { NotificationActionButtons } from '@/fsd_widgets/notification';
+import { NotificationActionButtons } from '@/widgets/notification';
 
 import { MESSAGES, NOTIFICATION_TAB } from '@/shared';
 import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui';

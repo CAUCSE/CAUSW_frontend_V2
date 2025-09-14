@@ -2,8 +2,8 @@
 
 import { notFound, useRouter } from 'next/navigation';
 
-import { CommentCardList, CommentInput } from '@/fsd_widgets/comment';
-import { PostDetailSection } from '@/fsd_widgets/post';
+import { CommentCardList, CommentInput } from '@/widgets/comment';
+import { PostDetailSection } from '@/widgets/post';
 
 import { useGetPostDetail } from '@/entities/post';
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { LockerListHeader } from '@/fsd_widgets/locker';
-import { LockerInfoByFloorList } from '@/fsd_widgets/locker';
+import { LockerListHeader } from '@/widgets/locker';
+import { LockerInfoByFloorList } from '@/widgets/locker';
 
 import { useGetLockerLocations } from '@/entities/locker';
 

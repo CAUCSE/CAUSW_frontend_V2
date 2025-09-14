@@ -1,6 +1,6 @@
 'use client';
 
-import { ReportWidget } from '@/fsd_widgets/report';
+import { ReportWidget } from '@/widgets/report';
 
 import { PreviousButton } from '@/shared';
 

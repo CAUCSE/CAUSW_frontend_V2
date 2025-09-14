@@ -2,7 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 
-import { CeremonyDetailPage } from '@/fsd_widgets/ceremony';
+import { CeremonyDetailPage } from '@/widgets/ceremony';
 
 import { MESSAGES } from '@/shared';
 import { PreviousButton } from '@/shared';

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, isAxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 
-import { CeremonyState } from '@/fsd_widgets/ceremony';
+import { CeremonyState } from '@/widgets/ceremony';
 
 import { API } from '@/shared';
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { AcademicRecordForm } from '@/fsd_widgets/auth';
+import { AcademicRecordForm } from '@/widgets/auth';
 
 import { useUserAcademic } from '@/entities/user/model';
 import { LoadingComponent } from '@/shared/ui';

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { VerificationHeader, VerificationStatus } from '@/fsd_widgets/auth';
+import { VerificationHeader, VerificationStatus } from '@/widgets/auth';
 
 import { useVerification } from '@/entities/auth';
 

@@ -1,4 +1,4 @@
-import { VoteSection } from '@/fsd_widgets/vote';
+import { VoteSection } from '@/widgets/vote';
 
 import { PostDetailContent, PostDetailTitle } from '@/entities/post';
 

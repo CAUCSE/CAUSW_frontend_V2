@@ -8,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { FormCreationForm } from '@/fsd_widgets/form';
-import { PostCreationForm, PostCreationFormButtonGroup } from '@/fsd_widgets/post';
-import { VoteCreationForm } from '@/fsd_widgets/vote';
+import { FormCreationForm } from '@/widgets/form';
+import { PostCreationForm, PostCreationFormButtonGroup } from '@/widgets/post';
+import { VoteCreationForm } from '@/widgets/vote';
 
 import {
   PostSchema,

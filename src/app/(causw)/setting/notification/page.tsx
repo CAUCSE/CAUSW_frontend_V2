@@ -1,6 +1,6 @@
 'use client';
 
-import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notification';
+import { NotificationActionButtons, NotificationTabs } from '@/widgets/notification';
 
 import {
   useCeremonyNotificationQuery,

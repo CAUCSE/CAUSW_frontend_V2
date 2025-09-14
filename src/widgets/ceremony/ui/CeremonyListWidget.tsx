@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { AdminCeremonyList, CeremonyTabs } from '@/fsd_widgets/ceremony';
+import { AdminCeremonyList, CeremonyTabs } from '@/widgets/ceremony';
 import { useCeremonyListQuery } from '@/entities/notification';
 
 import { tabItems } from '../config';

@@ -1,4 +1,4 @@
-import { CeremonyState } from '@/fsd_widgets/ceremony';
+import { CeremonyState } from '@/widgets/ceremony';
 
 export const ceremonyQueryKey = {
   all: ['ceremonies'] as const,

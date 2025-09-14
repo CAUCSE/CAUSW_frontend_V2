@@ -9,8 +9,8 @@ import { isAxiosError } from 'axios';
 import { EllipsisVertical } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-import { BlockUserDialog } from '@/fsd_widgets/block';
-import { ReportReasonDialog } from '@/fsd_widgets/report';
+import { BlockUserDialog } from '@/widgets/block';
+import { ReportReasonDialog } from '@/widgets/report';
 
 import { commentQueryKey } from '@/entities/comment/config';
 import { useDeleteComment, useSubscribeComment, useUnsubscribeComment } from '@/entities/comment/model';

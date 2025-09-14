@@ -1,6 +1,6 @@
 'use client';
 
-import { CalendarList, CalendarListHeader } from '@/fsd_widgets/calender';
+import { CalendarList, CalendarListHeader } from '@/widgets/calender';
 
 const CalendarSettingPage = () => {
   if (typeof window === 'undefined') {

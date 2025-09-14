@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import { CeremonyListItem } from '@/fsd_widgets/ceremony';
+import { CeremonyListItem } from '@/widgets/ceremony';
 
 import { useInfiniteScroll } from '@/shared';
 

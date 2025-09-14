@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { AdmissionForm } from '@/fsd_widgets/auth';
+import { AdmissionForm } from '@/widgets/auth';
 
 const UpdataeAcademicRecordPage = () => {
   return <AdmissionForm />;

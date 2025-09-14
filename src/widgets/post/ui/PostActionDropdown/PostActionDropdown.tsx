@@ -6,8 +6,8 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { EllipsisVertical } from 'lucide-react';
 
-import { BlockUserDialog } from '@/fsd_widgets/block';
-import { ReportReasonDialog } from '@/fsd_widgets/report';
+import { BlockUserDialog } from '@/widgets/block';
+import { ReportReasonDialog } from '@/widgets/report';
 
 import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/entities/post';
 import { getUserRole } from '@/entities/user';
