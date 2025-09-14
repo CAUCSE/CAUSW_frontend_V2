@@ -5,11 +5,9 @@ export * from './configs/query-key';
 
 //TODO: entities 이사 예정
 //Service
-export { PostService } from './hooks/services/PostService';
 export { FormService } from './hooks/services/FormService';
 //Store
 
-export { useCreatePostStore } from './hooks/stores/post/create/useCreatePostStore';
 export { useCreateVoteStore } from './hooks/stores/post/create/useCreateVoteStore';
 export { useFileUpload } from './hooks/stores/post/create/useFileUpload';
 export { useFileUploadStore } from './hooks/stores/post/create/useFileUploadStore';
