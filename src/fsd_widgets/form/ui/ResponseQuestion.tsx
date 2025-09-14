@@ -3,8 +3,9 @@
 import { useFormContext } from 'react-hook-form';
 
 import { SubjectiveOption } from '@/entities';
-import { useResponseFormStore, useTruncateParagraph } from '@/shared';
+import { useResponseFormStore } from '@/shared';
 import { ObjectiveOptionList } from './ObjectiveOptionList';
+import { useTruncateParagraph } from '@/fsd_shared';
 
 interface ResponseQuestionProps {
   question: Post.QuestionResponseDto;

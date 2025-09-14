@@ -12,11 +12,6 @@ export { useResponseFormStore } from './hooks/stores/post/form/useResponseFormSt
 export { useFormResultStore } from './hooks/stores/post/form/useFormResultStore';
 
 
-//Custom Hooks
-
-export { useTruncateParagraph } from './hooks/useTruncateParagraph';
-
-
 //Form
 export { useHandleApplySubmit } from './hooks/posts/form/useHandleApplySubmit';
 export { useFormResultPagination } from './hooks/posts/form/useFormResultPagination';
