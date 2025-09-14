@@ -5,13 +5,12 @@ import { useParams } from 'next/navigation';
 import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities';
 import { LoadingComponent } from '@/fsd_shared';
 import { useFormResultStore } from '@/fsd_entities/form/model/stores';
-import { FormService } from '@/shared';
+import { useGetFormInfo } from '@/fsd_entities/form/model';
 
 export const FormResultHeader = () => {
   const params = useParams();
   const { formId } = params;
 
-  const { useGetFormInfo } = FormService();
   const { isPending } = useGetFormInfo(formId as string);
 
   const formData = useFormResultStore((state) => state.formData);

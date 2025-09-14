@@ -2,14 +2,12 @@
 
 import { useParams } from 'next/navigation';
 
-import { FormService } from '@/shared/hooks/services/FormService';
+import { useGetFormTotalResult } from '@/fsd_entities/form/model';
 
 export const useFormDetailResult = () => {
   const params = useParams();
   const { formId } = params;
   const USER_INFO_PER_PAGE = 20;
-
-  const { useGetFormTotalResult } = FormService();
 
   const {
     data: totalFormResult,

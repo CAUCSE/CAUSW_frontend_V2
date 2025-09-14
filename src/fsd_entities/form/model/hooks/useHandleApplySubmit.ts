@@ -6,7 +6,7 @@ import { UseFormSetError } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
 import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
-import { FormService } from '@/shared';
+import { useSubmitFormReply } from '@/fsd_entities/form/model';
 
 interface useHandleApplySubmitProps {
   setError: UseFormSetError<Form.QuestionReplyRequestDtoList>;
@@ -19,7 +19,6 @@ export const useHandleApplySubmit = ({ setError }: useHandleApplySubmitProps) =>
   const { form, clearForm } = useResponseFormStore(
     useShallow((state) => ({ form: state.form, clearForm: state.clearForm })),
   );
-  const { useSubmitFormReply } = FormService();
   const { modalMessage, modalOpen, setModalOpen, mutate: submitFormReply } = useSubmitFormReply();
 
   const closeModal = () => {

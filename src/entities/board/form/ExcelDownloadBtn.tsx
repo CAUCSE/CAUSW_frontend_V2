@@ -2,12 +2,11 @@
 
 import { useParams } from 'next/navigation';
 
-import { FormService } from '@/shared';
+import { useExportExcelFile } from '@/fsd_entities/form/model';
 
 export const ExcelDownloadBtn = () => {
   const params = useParams();
   const { formId } = params;
-  const { useExportExcelFile } = FormService();
 
   const { mutate: downloadExcelFile } = useExportExcelFile();
 

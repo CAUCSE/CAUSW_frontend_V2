@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { LoadingComponent, Modal } from '@/fsd_shared';
 import { PreviousButton } from '@/fsd_shared';
 import { useResponseFormStore } from '@/fsd_entities/form/model/stores';
-import { FormService } from '@/shared';
+import { useGetFormResponseInfo } from '@/fsd_entities/form/model';
 import { useHandleApplySubmit } from '@/fsd_entities/form/model/hooks';
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/fsd_widgets/form/ui';
 
@@ -23,7 +23,6 @@ const ApplyPage = () => {
   const form = useResponseFormStore((state) => state.form);
 
   const { setError } = methods;
-  const { useGetFormResponseInfo } = FormService();
   const { data, isPending, isError } = useGetFormResponseInfo(formId as string);
   const { onSubmit, closeModal, modalMessage, modalOpen } = useHandleApplySubmit({ setError });
 

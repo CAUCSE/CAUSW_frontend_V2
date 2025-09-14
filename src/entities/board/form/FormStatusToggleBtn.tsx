@@ -3,12 +3,11 @@
 import { useParams } from 'next/navigation';
 
 import { useFormResultStore } from '@/fsd_entities/form/model/stores';
-import { FormService } from '@/shared';
+import { useUpdateFormClosedStatus } from '@/fsd_entities/form/model';
 
 export const FormStatusToggleBtn = () => {
   const params = useParams();
   const { formId } = params;
-  const { useUpdateFormClosedStatus } = FormService();
   const { mutate: updateFormClosedStatus } = useUpdateFormClosedStatus();
   const formData = useFormResultStore((state) => state.formData);
 

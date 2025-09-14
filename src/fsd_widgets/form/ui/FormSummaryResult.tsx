@@ -7,15 +7,13 @@ import {
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
 } from '@/entities';
-import { FormService } from '@/shared';
+import { useGetFormSummaryResult } from '@/fsd_entities/form/model';
 import { useFormResultStore } from '@/fsd_entities/form/model/stores';
 import { LoadingComponent } from '@/fsd_shared';
 
 export const FormSummaryResult = () => {
   const params = useParams();
   const { formId } = params;
-
-  const { useGetFormSummaryResult } = FormService();
 
   const { data: summaryFormResult, isPending, isSuccess } = useGetFormSummaryResult(formId as string);
 
