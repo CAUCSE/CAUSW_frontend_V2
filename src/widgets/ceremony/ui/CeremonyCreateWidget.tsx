@@ -8,7 +8,7 @@ import { useCeremonyCreateForm, useCeremonySettingForm } from '@/entities/ceremo
 
 import { ImageUploadField, InputBox, MESSAGES, SelectBox } from '@/shared';
 import { Button } from '@/shadcn/components/ui';
-import { formatDateInput } from '@/utils';
+import { formatDateInput } from '@/shared/lib';
 
 import { categoryOptions } from '../config/ceremonyType';
 import { NotificationSettingWidget } from './NotificationSettingWidget';

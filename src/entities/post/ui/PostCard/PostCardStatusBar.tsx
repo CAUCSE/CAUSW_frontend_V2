@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { MessageCircle, Star, ThumbsUp } from 'lucide-react';
 
 import { Divider } from '@/shared';
-import { getTimeDifference } from '@/utils/format';
+import { getTimeDifference } from '@/shared/lib';
 
 import FormIcon from '../../../../../public/icons/form_icon.svg';
 import VoteIcon from '../../../../../public/icons/vote_icon.svg';

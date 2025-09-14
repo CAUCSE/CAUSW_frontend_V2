@@ -14,7 +14,7 @@ import {
   MdWysiwyg,
 } from 'react-icons/md';
 
-import { formatDateToYyyyMmDd } from '@/utils/format';
+import { formatDateToYyyyMmDd } from '@/shared/lib';
 
 import { EmptyBoard } from './EmptyBoard';
 

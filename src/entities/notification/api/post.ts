@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 import { STORAGE_KEYS } from '@/shared/configs';
 import { API, FORMAPI } from '@/shared';
-import { createFormData } from '@/utils';
+import { createFormData } from '@/shared/lib';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;

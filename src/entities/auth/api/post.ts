@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios';
 
 import { BASEURL, FORMAPI } from '@/shared';
 import { API } from '@/shared';
-import { createFormData } from '@/utils';
+import { createFormData } from '@/shared/lib';
 
 const URI = '/api/v1/users';
 
