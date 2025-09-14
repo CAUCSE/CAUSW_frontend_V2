@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { debounce } from '@/utils';
-
 export const useIsWindowLg = () => {
   const [isViewPointLg, setIsViewPointLg] = useState(false);
   useEffect(() => {
