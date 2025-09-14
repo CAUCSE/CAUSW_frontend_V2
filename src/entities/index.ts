@@ -14,6 +14,4 @@ export { SubjectiveQuestionSummaryResult } from './board/form/SubjectiveQuestion
 export { DetailFormResultHeader } from './board/form/DetailFormResultHeader';
 
 
-export { CircleApplyQuestion } from './board/form/CircleApplyQuestion';
-export { CircleApplyOption } from './board/form/CircleApplyOption';
 
