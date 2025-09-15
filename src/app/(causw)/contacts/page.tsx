@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ContactList } from '@/fsd_widgets/contact';
-import { PreviousButton } from '@/fsd_shared';
+import { ContactList } from '@/widgets/contact';
+import { PreviousButton } from '@/shared';
 
 export default function ContactPage() {
   return (

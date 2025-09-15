@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-import { getPayers } from '@/fsd_entities/user/api';
-import { ManagementPanel } from '@/fsd_entities/user/ui';
+import { getPayers } from '@/entities/user/api';
+import { ManagementPanel } from '@/entities/user/ui';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 const PayerManagement = async () => {
   const data = await getPayers();

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 import HomeLayout from './(causw)/layout';
 

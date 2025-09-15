@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { Calendar } from '@/fsd_widgets/calender';
+import { Calendar } from '@/widgets/calendar';
 
-import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/fsd_entities/home';
+import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
 
 const cardsEntities = [
   {

@@ -1,5 +1,5 @@
-import { getPrivilegedUsers } from '@/fsd_entities/user/api';
-import { ManagementPanel } from '@/fsd_entities/user/ui';
+import { getPrivilegedUsers } from '@/entities/user/api';
+import { ManagementPanel } from '@/entities/user/ui';
 
 const navigation = [
   {

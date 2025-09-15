@@ -2,11 +2,11 @@
 
 import { useParams } from 'next/navigation';
 
-import { BoardHeader, BoardPostList } from '@/fsd_widgets/board';
+import { BoardHeader, BoardPostList } from '@/widgets/board';
 
-import { useGetPostList } from '@/fsd_entities/post';
+import { useGetPostList } from '@/entities/post';
 
-import { LoadingScreen } from '@/fsd_shared';
+import { LoadingScreen } from '@/shared';
 
 export const BoardClientPage = () => {
   const { boardId } = useParams();

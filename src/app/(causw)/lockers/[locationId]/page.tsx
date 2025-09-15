@@ -10,11 +10,11 @@ import {
   LockerSelectionGrid,
   LockerSelectionHeader,
   LockerSelectionMobileManual,
-} from '@/fsd_widgets/locker';
+} from '@/widgets/locker';
 
-import { useGetLockerList } from '@/fsd_entities/locker';
+import { useGetLockerList } from '@/entities/locker';
 
-import { LoadingScreen } from '@/fsd_shared';
+import { LoadingScreen } from '@/shared';
 
 const LockerSelectionPage = () => {
   const params = useParams();

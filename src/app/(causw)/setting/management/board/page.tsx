@@ -1,5 +1,5 @@
-import { getApplyBoards } from '@/fsd_entities/user/api';
-import { ManagementPanel } from '@/fsd_entities/user/ui';
+import { getApplyBoards } from '@/entities/user/api';
+import { ManagementPanel } from '@/entities/user/ui';
 
 const BoardManagement = async () => {
   const data = (await getApplyBoards()) as Setting.BoardList;

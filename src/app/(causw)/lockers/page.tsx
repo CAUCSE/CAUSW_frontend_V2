@@ -1,11 +1,11 @@
 'use client';
 
-import { LockerListHeader } from '@/fsd_widgets/locker';
-import { LockerInfoByFloorList } from '@/fsd_widgets/locker';
+import { LockerListHeader } from '@/widgets/locker';
+import { LockerInfoByFloorList } from '@/widgets/locker';
 
-import { useGetLockerLocations } from '@/fsd_entities/locker';
+import { useGetLockerLocations } from '@/entities/locker';
 
-import { LoadingScreen } from '@/fsd_shared';
+import { LoadingScreen } from '@/shared';
 
 const LockerList = () => {
   const { data: lockerLocations, isLoading } = useGetLockerLocations();

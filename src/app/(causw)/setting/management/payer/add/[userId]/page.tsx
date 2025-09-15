@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { getUser } from '@/fsd_entities/user/api';
-import { addPayer } from '@/fsd_entities/user/api';
-import { convertDataToTableEntity, titleMapping } from '@/fsd_entities/user/config/AddPayerEntities';
-import { ManagementDetailInfoTable } from '@/fsd_entities/user/ui';
+import { getUser } from '@/entities/user/api';
+import { addPayer } from '@/entities/user/api';
+import { convertDataToTableEntity, titleMapping } from '@/entities/user/config/AddPayerEntities';
+import { ManagementDetailInfoTable } from '@/entities/user/ui';
 
-import { Button } from '@/fsd_shared';
+import { Button } from '@/shared';
 
 export default function AddPayerPage({ params: { userId } }: { params: { userId: string } }) {
   const [user, setUser] = useState<User.UserDto | null>(null);

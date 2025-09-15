@@ -4,11 +4,11 @@ import React, { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { getMyCouncilFeeInfo, getMyInfo } from '@/fsd_entities/user/api';
-import { userQueryKey } from '@/fsd_entities/user/config';
-import { ProfileForm } from '@/fsd_entities/user/ui';
+import { getMyCouncilFeeInfo, getMyInfo } from '@/entities/user/api';
+import { userQueryKey } from '@/entities/user/config';
+import { ProfileForm } from '@/entities/user/ui';
 
-import { LoadingComponent } from '@/fsd_shared';
+import { LoadingComponent } from '@/shared';
 
 const PersonalInfoPage = () => {
   const [feeInfo, setFeeInfo] = useState({

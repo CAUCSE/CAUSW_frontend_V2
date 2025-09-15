@@ -2,12 +2,12 @@
 
 import { notFound, useRouter } from 'next/navigation';
 
-import { CommentCardList, CommentInput } from '@/fsd_widgets/comment';
-import { PostDetailSection } from '@/fsd_widgets/post';
+import { CommentCardList, CommentInput } from '@/widgets/comment';
+import { PostDetailSection } from '@/widgets/post';
 
-import { useGetPostDetail } from '@/fsd_entities/post';
+import { useGetPostDetail } from '@/entities/post';
 
-import { LoadingScreen, PreviousButton } from '@/fsd_shared';
+import { LoadingScreen, PreviousButton } from '@/shared';
 
 const PostDetailPage = ({ params }: { params: { boardId: string; postId: string } }) => {
   const { boardId, postId } = params;

@@ -1,1 +1,0 @@
-export { SemesterMetaData } from './SemesterMetaData';

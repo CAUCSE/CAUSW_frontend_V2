@@ -1,4 +1,4 @@
-import { fetchEvents } from '@/fsd_entities/home';
+import { fetchEvents } from '@/entities/home';
 
 import ClientGate from './ClientGate';
 

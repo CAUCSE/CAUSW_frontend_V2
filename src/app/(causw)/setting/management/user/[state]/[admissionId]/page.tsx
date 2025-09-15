@@ -1,5 +1,5 @@
-import { ManagementState } from '@/fsd_entities/user/model/types';
-import { AdmissionManagementDetail } from '@/fsd_entities/user/ui';
+import { ManagementState } from '@/entities/user/model/types';
+import { AdmissionManagementDetail } from '@/entities/user/ui';
 
 const UserManagementDetail = async ({ params }: { params: { state: string; admissionId: string } }) => {
   const { state, admissionId } = params;

@@ -2,10 +2,10 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useGetContactByIdQuery } from '@/fsd_entities/contact';
-import { ContactDetail } from '@/fsd_widgets/contact';
-import { ContactInfoTabs } from '@/fsd_widgets/contact';
-import { PreviousButton } from '@/fsd_shared';
+import { useGetContactByIdQuery } from '@/entities/contact';
+import { ContactDetail } from '@/widgets/contact';
+import { ContactInfoTabs } from '@/widgets/contact';
+import { PreviousButton } from '@/shared';
 import { Button } from '@/shadcn/components/ui/button';
 import { Phone, MessageSquare, PhoneOff } from 'lucide-react';
 import toast from 'react-hot-toast';

@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
-import { CeremonyListWidget } from '@/fsd_widgets/ceremony';
+import { CeremonyListWidget } from '@/widgets/ceremony';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function CeremonyListPage() {
   const router = useRouter();

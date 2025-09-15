@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { LoadingComponent } from '@/fsd_shared';
+import { LoadingComponent } from '@/shared';
 import {
   getRscRefresh,
   noAccessTokenCode,
   noPermissionCode,
-} from '@/fsd_shared';
-import { tokenManager } from '@/fsd_shared';
+} from '@/shared';
+import { tokenManager } from '@/shared';
 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();

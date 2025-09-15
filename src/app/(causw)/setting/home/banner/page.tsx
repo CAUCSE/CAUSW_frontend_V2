@@ -1,8 +1,8 @@
 'use client';
 
-import { useGetBannerList } from '@/fsd_entities/banner';
-import { LoadingComponent } from '@/fsd_shared';
-import { BannerList, BannerSettingHeader } from '@/fsd_widgets/banner';
+import { useGetBannerList } from '@/entities/banner';
+import { LoadingComponent } from '@/shared';
+import { BannerList, BannerSettingHeader } from '@/widgets/banner';
 
 const EventSetting = () => {
   const { data, isLoading } = useGetBannerList();
