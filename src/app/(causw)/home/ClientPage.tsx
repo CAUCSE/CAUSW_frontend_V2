@@ -4,17 +4,18 @@ import { Calendar } from '@/widgets/calendar';
 
 import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
 
+// 🔽 hover 효과 약화 버전
 const hoverCard =
-  'transition-all duration-200 ease-out will-change-transform rounded-2xl ' +
-  'hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)] ' +
+  'transition-all duration-150 ease-out will-change-transform rounded-2xl ' +
+  'hover:-translate-y-[2px] hover:shadow-sm ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
   'motion-reduce:transition-none motion-reduce:hover:translate-y-0';
 
 const underlineSlide =
   'relative px-2 py-1 bg-no-repeat bg-left-bottom ' +
-  'bg-gradient-to-r from-gray-400 to-gray-400 ' +
-  'bg-[length:0%_2px] transition-[background-size] duration-200 ease-out ' +
-  'hover:bg-[length:100%_2px] ' +
+  'bg-gradient-to-r from-gray-300 to-gray-300 ' +
+  'bg-[length:0%_1px] transition-[background-size] duration-150 ease-out ' +
+  'hover:bg-[length:100%_1px] ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
   'motion-reduce:transition-none';
 
@@ -58,7 +59,7 @@ export default async function ClientHomePage({ events }) {
     <>
       <div className="flex w-full flex-col justify-center gap-4 bg-[rgba(248,248,248,1)] px-4 py-4 2xl:h-full">
         {events && (
-          <div className="rounded-2xl shadow-sm transition-shadow duration-200 hover:shadow-md">
+          <div className="rounded-2xl shadow-sm transition-shadow duration-150 hover:shadow-sm">
             <Banner
               images={events.count > 0 ? events.events.map((e) => e.image) : ['/images/puang-proud.png']}
               urls={events.count > 0 ? events.events.map((e) => e.url) : ['/home']}
@@ -68,20 +69,20 @@ export default async function ClientHomePage({ events }) {
         )}
 
         <div className="grid w-full gap-[25px] 2xl:h-4/5 2xl:grid-cols-[400px_3fr]">
-          <div className="h-full w-full rounded-2xl transition-shadow duration-200 hover:ring-1 hover:ring-gray-300 max-2xl:hidden">
+          <div className="h-full w-full rounded-2xl transition-shadow duration-150 hover:ring-[0.5px] hover:ring-gray-200 max-2xl:hidden">
             <Calendar deliveredId={deliveredId} />
           </div>
 
           <div className="gap-[25px] 2xl:h-full">
             <div className="w-full gap-3 max-md:hidden md:flex 2xl:hidden">
-              <div className="mb-5 h-[600px] w-2/5 rounded-2xl transition-shadow duration-200 hover:ring-1 hover:ring-gray-300">
+              <div className="mb-5 h-[600px] w-2/5 rounded-2xl transition-shadow duration-150 hover:ring-[0.5px] hover:ring-gray-200">
                 <Calendar deliveredId={deliveredId} />
               </div>
               <div className="flex w-3/5 flex-col gap-3 bg-transparent">
                 {cardsEntities.map((card, idx) => (
                   <HomeCard key={idx} {...card} />
                 ))}
-                <div className={`flex h-80 w-full items-center justify-center ${hoverCard}`}>
+                <div className={`flex h-80 w-full items-center justify-center`}>
                   <img className="h-64 w-72" alt="logo" src="./images/signin-logo.png" />
                 </div>
               </div>
@@ -95,7 +96,7 @@ export default async function ClientHomePage({ events }) {
               </div>
             </div>
 
-            <div className="mb-5 h-[600px] w-full rounded-2xl transition-shadow duration-200 hover:ring-1 hover:ring-gray-300 md:hidden">
+            <div className="mb-5 h-[600px] w-full rounded-2xl transition-shadow duration-150 hover:ring-[0.5px] hover:ring-gray-200 md:hidden">
               <Calendar deliveredId={deliveredId} />
             </div>
 
@@ -119,7 +120,7 @@ export default async function ClientHomePage({ events }) {
                       <Link
                         href={'/board/' + mainBoard?.board.id + '/' + mainBoard?.posts.content[0].id}
                         key={mainBoard?.posts.content[0].id}
-                        className={`flex w-[80%] flex-col items-center justify-center border-t border-b py-3 text-center ${hoverCard} hover:bg-white/60 dark:hover:bg-white/10`}
+                        className="flex w-[80%] flex-col items-center justify-center border-t border-b py-3 text-center transition-colors duration-150 hover:bg-gray-100"
                         style={{ wordBreak: 'keep-all' }}
                       >
                         <span className="block w-full">{mainBoard?.posts.content[0].title}</span>
