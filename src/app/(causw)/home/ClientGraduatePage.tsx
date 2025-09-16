@@ -46,7 +46,7 @@ export default async function GraduateHomePage({ events }) {
   ];
 
   return (
-    <div className="flex w-full flex-col justify-center gap-4 bg-white px-4 py-4 2xl:h-full 2xl:rounded-4xl">
+    <div className="flex min-h-screen w-full flex-col justify-center gap-4 rounded-4xl bg-white px-4 py-4">
       {/* 상단 배너 */}
       <div className="w-full bg-white p-4">
         {events && (
