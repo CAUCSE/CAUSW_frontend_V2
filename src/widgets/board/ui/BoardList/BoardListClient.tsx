@@ -23,9 +23,6 @@ export const BoardListClient = ({
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const hoverSection =
-    'rounded-2xl transition-all duration-200 hover:ring-1 hover:ring-gray-300 motion-reduce:transition-none';
-
   const fabBase =
     'group fixed right-6 bottom-24 xl:right-80 xl:bottom-10 h-16 w-16 xl:h-24 xl:w-24 ' +
     'rounded-[50px] bg-[#7AB6C1] text-white text-3xl font-normal shadow-lg ' +
@@ -39,11 +36,11 @@ export const BoardListClient = ({
       return (
         <>
           {/* 기본 공지 섹션 */}
-          <div className={hoverSection}>
+          <div>
             <DefaultNoticeBoard boardInfos={defaultBoardForAdmin} />
           </div>
           {/* 커스텀 보드 섹션 */}
-          <div className={`mt-4 ${hoverSection}`}>
+          <div className={`mt-4`}>
             <CustomBoard boardInfos={customBoardForAdmin} />
           </div>
         </>
@@ -52,10 +49,10 @@ export const BoardListClient = ({
 
     return (
       <>
-        <div className={hoverSection}>
+        <div>
           <DefaultNoticeBoard boardInfos={defaultBoardForCommon} />
         </div>
-        <div className={`mt-4 ${hoverSection}`}>
+        <div className={`mt-4`}>
           <CustomBoard boardInfos={customBoardForCommon} />
         </div>
       </>
