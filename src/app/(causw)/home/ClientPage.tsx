@@ -4,19 +4,11 @@ import { Calendar } from '@/widgets/calendar';
 
 import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
 
-// 🔽 hover 효과 약화 버전
-const hoverCard =
-  'transition-all duration-150 ease-out will-change-transform rounded-2xl ' +
-  'hover:-translate-y-[2px] hover:shadow-sm ' +
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
-  'motion-reduce:transition-none motion-reduce:hover:translate-y-0';
-
 const underlineSlide =
   'relative px-2 py-1 bg-no-repeat bg-left-bottom ' +
   'bg-gradient-to-r from-gray-300 to-gray-300 ' +
   'bg-[length:0%_1px] transition-[background-size] duration-150 ease-out ' +
   'hover:bg-[length:100%_1px] ' +
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
   'motion-reduce:transition-none';
 
 const cardsEntities = [

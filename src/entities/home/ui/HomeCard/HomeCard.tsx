@@ -14,7 +14,7 @@ export interface HomeCardProps {
 export const HomeCard = ({ title, subtitle, bgColor, icon, href }: HomeCardProps) => {
   return (
     <CardBox
-      className={`group relative overflow-hidden rounded-2xl transition-all duration-200 ease-out focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]`}
+      className={`group relative overflow-hidden rounded-2xl transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]`}
     >
       <Link href={href} className="block h-full w-full">
         <div className="flex h-full items-center justify-evenly gap-2 p-[14px]">
