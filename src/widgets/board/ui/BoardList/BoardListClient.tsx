@@ -23,20 +23,41 @@ export const BoardListClient = ({
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
+  const hoverSection =
+    'rounded-2xl transition-all duration-200 hover:ring-1 hover:ring-gray-300 motion-reduce:transition-none';
+
+  const fabBase =
+    'group fixed right-6 bottom-24 xl:right-80 xl:bottom-10 h-16 w-16 xl:h-24 xl:w-24 ' +
+    'rounded-[50px] bg-[#7AB6C1] text-white text-3xl font-normal shadow-lg ' +
+    'transition-all duration-200 ease-out will-change-transform ' +
+    'hover:-translate-y-0.5 hover:shadow-xl hover:bg-[#6AA3AD] active:scale-95 ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#7AB6C1] ' +
+    'motion-reduce:transition-none motion-reduce:hover:translate-y-0';
+
   const renderBoard = () => {
     if (roles.includes('ADMIN')) {
       return (
         <>
-          <DefaultNoticeBoard boardInfos={defaultBoardForAdmin} />
-          <CustomBoard boardInfos={customBoardForAdmin} />
+          {/* 기본 공지 섹션 */}
+          <div className={hoverSection}>
+            <DefaultNoticeBoard boardInfos={defaultBoardForAdmin} />
+          </div>
+          {/* 커스텀 보드 섹션 */}
+          <div className={`mt-4 ${hoverSection}`}>
+            <CustomBoard boardInfos={customBoardForAdmin} />
+          </div>
         </>
       );
     }
 
     return (
       <>
-        <DefaultNoticeBoard boardInfos={defaultBoardForCommon} />
-        <CustomBoard boardInfos={customBoardForCommon} />
+        <div className={hoverSection}>
+          <DefaultNoticeBoard boardInfos={defaultBoardForCommon} />
+        </div>
+        <div className={`mt-4 ${hoverSection}`}>
+          <CustomBoard boardInfos={customBoardForCommon} />
+        </div>
       </>
     );
   };
@@ -48,9 +69,14 @@ export const BoardListClient = ({
       </div>
 
       {!isGraduated && (
-        <Link href={`/board/create`}>
-          <button className="fixed right-6 bottom-24 h-16 w-16 transform rounded-[50px] bg-[#7AB6C1] px-6 py-3 text-3xl font-normal text-white shadow-lg hover:bg-[#5F8E97] xl:right-80 xl:bottom-10 xl:h-24 xl:w-24">
-            +
+        <Link href="/board/create" aria-label="게시글 작성">
+          <button type="button" title="게시글 작성" className={fabBase}>
+            <span
+              aria-hidden
+              className="inline-block leading-none transition-transform duration-200 group-hover:scale-110"
+            >
+              +
+            </span>
           </button>
         </Link>
       )}
