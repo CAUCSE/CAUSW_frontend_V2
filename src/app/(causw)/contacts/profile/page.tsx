@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/shadcn/components/ui/button';
-import { ContactDetail } from '@/widgets/contact';
-import { ContactInfoTabs } from '@/widgets/contact';
-import { useGetMyProfileQuery } from '@/entities/contact';
+import { Button } from '@/shadcn/components/ui/button'
+import { ContactDetail } from '@/fsd_widgets/contact';
+import { ContactInfoTabs } from '@/fsd_widgets/contact';
+import { useGetMyProfileQuery } from '@/fsd_entities/contact';
 import { Edit } from 'lucide-react';
-import { PreviousButton } from '@/shared';
+import { PreviousButton } from '@/fsd_shared';
 
 export default function MyProfilePage() {
   const { data: myProfile, isLoading, isError } = useGetMyProfileQuery();
@@ -17,7 +17,7 @@ export default function MyProfilePage() {
   const myProfileButtons = (
     <div className="flex w-full items-center justify-center gap-4">
       <Button variant="outline" className="flex-1 rounded-lg" asChild>
-        <Link href="/profile/edit">
+        <Link href="/contacts/profile/edit">
           <Edit size={16} className="mr-2" />
           프로필 수정
         </Link>
