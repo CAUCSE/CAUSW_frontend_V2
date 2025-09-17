@@ -18,11 +18,11 @@ import { formatDateToYyyyMmDd } from '@/shared';
 
 import { EmptyBoard } from './EmptyBoard';
 
-const sectionHover =
+const sectionStyles =
   'rounded-xl bg-white p-4 shadow-sm transition-all duration-200 ease-out ' +
   'hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0';
 
-const headerUnderlineGray =
+const underlineStyles =
   'relative px-1 py-0.5 bg-no-repeat bg-left-bottom ' +
   'bg-gradient-to-r from-gray-400 to-gray-400 bg-[length:0%_2px] ' +
   'transition-[background-size,color] duration-200 ease-out ' +
@@ -30,7 +30,7 @@ const headerUnderlineGray =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
   'motion-reduce:transition-none';
 
-const itemHover =
+const itemStyles =
   'rounded-md bg-gray-100 px-3 py-2 text-sm text-gray-700 ' +
   'transition-all duration-150 ease-out hover:bg-white hover:shadow-sm hover:-translate-y-0.5 ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
@@ -71,14 +71,14 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
 
   return (
     <div className="block w-full">
-      <div className={sectionHover}>
+      <div className={sectionStyles}>
         <Link
           href={`/board/${boardId}`}
           className="group flex items-center justify-between border-b-2 border-gray-200 pb-2"
         >
           <div className="flex items-center gap-2">
             <div className="h-6 w-6 lg:h-8 lg:w-8">{style.icon}</div>
-            <h2 className={`text-sm font-semibold text-gray-700 ${headerUnderlineGray}`}>{boardName}</h2>
+            <h2 className={`text-sm font-semibold text-gray-700 ${underlineStyles}`}>{boardName}</h2>
           </div>
           <ChevronRight className="h-4 w-4 text-gray-400 transition-transform duration-200 group-hover:translate-x-0.5 lg:h-6 lg:w-6" />
         </Link>
@@ -89,7 +89,7 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
               <Link
                 href={`/board/${boardId}/${content.contentId}`}
                 key={content.contentId}
-                className={itemHover}
+                className={itemStyles}
                 title={content.title}
               >
                 <span className="block w-full truncate">{content.title}</span>
