@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { lockerQueryKey } from '../config';
 import { API } from '@/shared';
+import { LOCKER_CONSTANT } from '@/shared';
 
+import { useGetLockerLocations } from '../api';
+import { lockerQueryKey } from '../config';
 import { useLockerSelectionStore } from '../model';
 
 export const useLockerExtenstion = () => {
@@ -29,6 +31,8 @@ export const useLockerExtenstion = () => {
 };
 export const useLockerRegistration = ({ onSuccess }: { onSuccess?: () => void }) => {
   const setClickedLockerStatus = useLockerSelectionStore((state) => state.setClickedLockerStatus);
+  const { data } = useGetLockerLocations();
+  const { floor } = LOCKER_CONSTANT();
 
   const queryClient = useQueryClient();
   return useMutation({
@@ -41,7 +45,20 @@ export const useLockerRegistration = ({ onSuccess }: { onSuccess?: () => void })
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: lockerQueryKey.all });
       setClickedLockerStatus('isMine');
-      // toast.success('사물함 등록이 완료되었습니다.');
+
+      // 성공 시 토스트 띄울 토스트 메시지에 위치 포함시킬 예정
+      // const location = data?.myLocker
+      //   ? `${floor[data?.myLocker.lockerNumber.split(' ')[0]]} ${data?.myLocker.lockerNumber.split(' ')[1]}번`
+      //   : '없음';
+
+      toast.success(`선택하신 사물함이 신청 완료되었습니다.`, {
+        duration: 5000,
+        style: {
+          whiteSpace: 'pre-line',
+          textAlign: 'center',
+        },
+      });
+
       onSuccess?.();
     },
     onError: () => {
@@ -49,6 +66,7 @@ export const useLockerRegistration = ({ onSuccess }: { onSuccess?: () => void })
     },
   });
 };
+
 export const useReleaseLocker = () => {
   const { setClickedLockerId, setClickedLockerStatus } = useLockerSelectionStore(
     useShallow((state) => ({
