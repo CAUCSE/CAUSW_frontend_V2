@@ -12,7 +12,7 @@ import {
   LockerSelectionMobileManual,
 } from '@/widgets/locker';
 
-import { useGetLockerList } from '@/entities/locker';
+import { useLockerListQuery } from '@/entities/locker/model/queries/useLockerListQuery';
 
 import { LoadingScreen } from '@/shared';
 
@@ -20,7 +20,7 @@ const LockerSelectionPage = () => {
   const params = useParams();
   const locationId = params.locationId as string;
 
-  const { data: lockerList, isLoading } = useGetLockerList(locationId);
+  const { data: lockerList, isLoading } = useLockerListQuery(locationId);
 
   const myLocker = useMemo(() => lockerList?.lockerList.find((l) => l.isMine) ?? null, [lockerList]);
 
