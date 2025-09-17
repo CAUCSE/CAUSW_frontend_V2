@@ -4,13 +4,6 @@ import { Calendar } from '@/widgets/calendar';
 
 import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
 
-const underlineSlide =
-  'relative px-2 py-1 bg-no-repeat bg-left-bottom ' +
-  'bg-gradient-to-r from-gray-300 to-gray-300 ' +
-  'bg-[length:0%_1px] transition-[background-size] duration-150 ease-out ' +
-  'hover:bg-[length:100%_1px] ' +
-  'motion-reduce:transition-none';
-
 const cardsEntities = [
   {
     title: 'Team Project Room',
@@ -97,7 +90,11 @@ export default async function ClientHomePage({ events }) {
               <div className="flex h-[calc(100%-24px)] w-full justify-center">
                 <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
                   {mainBoards.map((board, idx) => (
-                    <Link key={idx} href={`/board/${board?.board.id}`} className={underlineSlide}>
+                    <Link
+                      key={idx}
+                      href={`/board/${board?.board.id}`}
+                      className="relative bg-gradient-to-r from-gray-300 to-gray-300 bg-[length:0%_1px] bg-left-bottom bg-no-repeat px-2 py-1 transition-[background-size] duration-150 ease-out hover:bg-[length:100%_1px] motion-reduce:transition-none"
+                    >
                       {idx === 0 && '❗️ 서비스 공지'}
                       {idx === 1 && '📖️ 소프트웨어학부 공지'}
                       {idx === 2 && '🌍️ 크자회 공지 게시판'}

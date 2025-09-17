@@ -23,7 +23,7 @@ export const BoardListClient = ({
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const fabBase =
+  const fabStyles =
     'group fixed right-6 bottom-24 xl:right-80 xl:bottom-10 h-16 w-16 xl:h-24 xl:w-24 ' +
     'rounded-[50px] bg-[#7AB6C1] text-white text-3xl font-normal shadow-lg ' +
     'transition-all duration-200 ease-out will-change-transform ' +
@@ -67,7 +67,7 @@ export const BoardListClient = ({
 
       {!isGraduated && (
         <Link href="/board/create" aria-label="게시글 작성">
-          <button type="button" title="게시글 작성" className={fabBase}>
+          <button type="button" title="게시글 작성" className={fabStyles}>
             <span
               aria-hidden
               className="inline-block leading-none transition-transform duration-200 group-hover:scale-110"

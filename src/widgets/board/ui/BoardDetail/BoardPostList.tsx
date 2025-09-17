@@ -34,7 +34,7 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
     intersectionCallback: fetchCallback,
   });
 
-  const hoverCard =
+  const cardStyles =
     'transition-all duration-200 ease-out will-change-transform rounded-xl ' +
     'hover:-translate-y-0.5 hover:shadow-md hover:bg-white ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
@@ -49,7 +49,7 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
           {postList!
             .filter((post) => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
-              <div key={post.id} className={hoverCard}>
+              <div key={post.id} className={cardStyles}>
                 <PostCard post={post} />
               </div>
             ))}
