@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  LockerExtendBtn,
-  LockerRegisterBtn,
-  LockerReturnBtn,
-  useLockerSelectionStore,
-  useLockerSuccessToast,
-} from '@/entities/locker';
+import { LockerExtendBtn, LockerRegisterBtn, LockerReturnBtn, useLockerSelectionStore } from '@/entities/locker';
 
 interface LockerMobileActionBtnProps {
   lockerPeriod: Locker.TLockerPeriod;
@@ -14,12 +8,11 @@ interface LockerMobileActionBtnProps {
 
 export const LockerMobileActionBtn = ({ lockerPeriod }: LockerMobileActionBtnProps) => {
   const clickedLockerStatus = useLockerSelectionStore((state) => state.clickedLockerStatus);
-  const successToast = useLockerSuccessToast();
 
   return (
     <div className="fixed bottom-24 md:hidden">
       {clickedLockerStatus === 'isActive' && (
-        <LockerRegisterBtn isMobile disable={!(lockerPeriod === 'LOCKER_ACCESS')} onSuccess={successToast} />
+        <LockerRegisterBtn isMobile disable={!(lockerPeriod === 'LOCKER_ACCESS')} />
       )}
 
       {clickedLockerStatus === 'isNotActive' && <LockerRegisterBtn isMobile disable />}
