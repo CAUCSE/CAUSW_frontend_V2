@@ -34,6 +34,12 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
     intersectionCallback: fetchCallback,
   });
 
+  const cardStyles =
+    'transition-all duration-200 ease-out will-change-transform rounded-xl ' +
+    'hover:-translate-y-0.5 hover:shadow-md hover:bg-white ' +
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 ' +
+    'motion-reduce:transition-none motion-reduce:hover:translate-y-0';
+
   return (
     <div className="flex w-full grow flex-col gap-4 overflow-y-auto px-1.5 pb-2">
       {postList!.length === 0 ? (
@@ -43,7 +49,9 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
           {postList!
             .filter((post) => !post.isDeleted)
             .map((post: Post.PostResponseDto) => (
-              <PostCard key={post.id} post={post} />
+              <div key={post.id} className={cardStyles}>
+                <PostCard post={post} />
+              </div>
             ))}
 
           {hasNextPage && (
