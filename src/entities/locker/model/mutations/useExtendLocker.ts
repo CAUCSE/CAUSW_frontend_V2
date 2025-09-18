@@ -2,13 +2,13 @@
 
 import toast from 'react-hot-toast';
 
-import { useLockerExtenstion } from '../api';
-import { useLockerSelectionStore } from './useLockerSelectionStore';
+import { useExtendLockerMutation } from '../mutations';
+import { useLockerSelectionStore } from '../stores/useLockerSelectionStore';
 
 export const useExtendLocker = () => {
   const clickedLockerId = useLockerSelectionStore((state) => state.clickedLockerId);
 
-  const { mutate: extendLocker } = useLockerExtenstion();
+  const { mutate: extendLocker } = useExtendLockerMutation();
 
   const handleExtendLocker = () => {
     if (!clickedLockerId) {
