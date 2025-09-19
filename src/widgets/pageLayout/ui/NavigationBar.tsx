@@ -11,9 +11,10 @@ import BoardIcon from '../../../../public/icons/board_icon.svg';
 
 interface NavigationBarProps {
   className?: string;
+  isIOS?: boolean;
 }
 
-export const NavigationBar = ({ className }: NavigationBarProps) => {
+export const NavigationBar = ({ className, isIOS }: NavigationBarProps) => {
   const firstRouter = `/${usePathname().split('/')[1]}`;
 
   return (
@@ -25,7 +26,12 @@ export const NavigationBar = ({ className }: NavigationBarProps) => {
         height={54}
         className="absolute top-6 left-1/2 -translate-x-1/2 transform max-xl:hidden"
       />
-      <nav className="bg-default flex h-full w-full items-center justify-evenly rounded-t-2xl py-3 xl:flex-col xl:items-end xl:rounded-none xl:rounded-tr-3xl xl:rounded-br-3xl xl:py-0">
+      <nav
+        className={clsx(
+          'bg-default flex h-full w-full items-center justify-evenly rounded-t-2xl xl:flex-col xl:items-end xl:rounded-none xl:rounded-tr-3xl xl:rounded-br-3xl xl:py-0',
+          isIOS ? 'pt-3 pb-6' : 'py-3',
+        )}
+      >
         {icons.map((iconClass) => (
           <Link
             key={iconClass.href}
@@ -36,6 +42,7 @@ export const NavigationBar = ({ className }: NavigationBarProps) => {
               className={clsx(
                 'flex h-full w-full items-center justify-center rounded-xl xl:rounded-none xl:rounded-tl-2xl xl:rounded-bl-2xl',
                 firstRouter === iconClass.href ? 'text-default bg-[#F8F8F8]' : 'bg-default text-white',
+                isIOS && 'py-2',
               )}
             >
               {iconClass.icon({ className: 'h-6 w-6 xl:h-10 xl:w-10' })}
