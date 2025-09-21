@@ -14,7 +14,7 @@ export default function ContactPage() {
       <div>
         <div className="mb-2 flex justify-end">
           <Link
-            href="/profile"
+            href="/contacts/profile"
             className="rounded-md bg-slate-200 px-6 py-2 text-xs font-bold text-slate-700 hover:bg-slate-300 md:text-sm"
           >
             내 동문수첩
