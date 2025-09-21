@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { Button } from '@/shadcn/components/ui/button'
-import { ContactDetail } from '@/fsd_widgets/contact';
-import { ContactInfoTabs } from '@/fsd_widgets/contact';
-import { useGetMyProfileQuery } from '@/fsd_entities/contact';
+import { ContactDetail } from '@/widgets/contact';
+import { ContactInfoTabs } from '@/widgets/contact';
+import { useGetMyProfileQuery } from '@/entities/contact';
 import { Edit } from 'lucide-react';
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 export default function MyProfilePage() {
   const { data: myProfile, isLoading, isError } = useGetMyProfileQuery();
