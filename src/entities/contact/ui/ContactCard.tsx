@@ -30,7 +30,7 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
 
   const handleNavigate = () => {
     if (myProfile && contact.userId === myProfile.userId) {
-      router.push('/profile');
+      router.push('/contacts/profile');
     } else {
       router.push(`/contacts/${contact.userId}`);
     }
