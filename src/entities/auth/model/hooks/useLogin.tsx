@@ -10,16 +10,25 @@ import { signin } from '@/entities/auth/api/post';
 import { getMyInfo } from '@/entities/user/api/get';
 
 import { parseErrorMessage, setRccToken, setRscToken } from '@/shared';
+import { timeStamp } from 'console';
+import Cookies from 'js-cookie';
 
 export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }) => {
   const router = useRouter();
-
+  let timeStamp = 0;
   return useMutation({
     mutationFn: signin,
     onSuccess: async (data: { accessToken: string; refreshToken: string }, body: User.SignInRequestDto) => {
       const { accessToken, refreshToken } = data;
+      const timeStamp = new Date().getTime();
+      console.log('setRscToken start', new Date().getTime() - timeStamp);
       await setRscToken(accessToken, refreshToken);
+      console.log('setRscToken end', new Date().getTime() - timeStamp);
+      console.log('setRccToken start', new Date().getTime() - timeStamp);
+      Cookies.set("CAUCSE_JWT_ACCESS", accessToken);
+      Cookies.set("CAUCSE_JWT_REFRESH", refreshToken);
       await setRccToken(accessToken, refreshToken);
+      console.log('setRccToken end', new Date().getTime() - timeStamp);
 
       const response = await getMyInfo();
 
