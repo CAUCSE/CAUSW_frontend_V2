@@ -3,8 +3,8 @@
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useLockerRegistration } from '../api';
-import { useLockerSelectionStore } from './useLockerSelectionStore';
+import { useLockerSelectionStore } from '../stores/useLockerSelectionStore';
+import { useRegisterLockerMutation } from './useRegisterLockerMutation';
 
 export const useRegisterLocker = ({ onSuccess }: { onSuccess?: () => void }) => {
   const { clickedLockerId, clickedLockerStatus } = useLockerSelectionStore(
@@ -13,7 +13,7 @@ export const useRegisterLocker = ({ onSuccess }: { onSuccess?: () => void }) => 
       clickedLockerStatus: state.clickedLockerStatus,
     })),
   );
-  const { mutate: registerLocker } = useLockerRegistration({ onSuccess });
+  const { mutate: registerLocker } = useRegisterLockerMutation({ onSuccess });
 
   const handleRegisterLocker = () => {
     if (!clickedLockerStatus || !clickedLockerId) {

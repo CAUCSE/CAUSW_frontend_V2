@@ -9,9 +9,8 @@ import { NotificationList } from '@/entities/notification';
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
-  
-  const { data: notifications = [] } = useNotifications();
-  const { data: ceremonyNotifications = [] } = useCeremonyNotifications();
+  const { data: notifications = [], isLoading: isGeneralLoading } = useNotifications();
+  const { data: ceremonyNotifications = [], isLoading: isCeremonyLoading } = useCeremonyNotifications();
   const markAsRead = useMarkAsRead();
 
   return (
@@ -27,6 +26,7 @@ export const NotificationWidget = () => {
         notifications={notifications}
         notificationType={NotificationType.GENERAL}
         markAsRead={markAsRead.mutate}
+        isLoading={isGeneralLoading}
       />
 
       {/* 경조사 알림 */}
@@ -40,6 +40,7 @@ export const NotificationWidget = () => {
         notifications={ceremonyNotifications}
         notificationType={NotificationType.CEREMONY}
         markAsRead={markAsRead.mutate}
+        isLoading={isCeremonyLoading}
       />
     </div>
   );
