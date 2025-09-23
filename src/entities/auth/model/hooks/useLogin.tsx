@@ -22,11 +22,12 @@ export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }
       const { accessToken, refreshToken } = data;
       const timeStamp = new Date().getTime();
       console.log('setRscToken start', new Date().getTime() - timeStamp);
-      await setRscToken(accessToken, refreshToken);
-      console.log('setRscToken end', new Date().getTime() - timeStamp);
-      console.log('setRccToken start', new Date().getTime() - timeStamp);
       Cookies.set("CAUCSE_JWT_ACCESS", accessToken);
       Cookies.set("CAUCSE_JWT_REFRESH", refreshToken);
+      console.log('setRscToken end', new Date().getTime() - timeStamp);
+
+      
+      console.log('setRccToken start', new Date().getTime() - timeStamp);
       await setRccToken(accessToken, refreshToken);
       console.log('setRccToken end', new Date().getTime() - timeStamp);
 
