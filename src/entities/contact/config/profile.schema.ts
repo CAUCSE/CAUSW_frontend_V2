@@ -35,6 +35,14 @@ export const profileSchema = z.object({
     )
     .nullable()
     .optional(),
+  socialLinks: z
+    .array(
+      z.object({
+        value: z.string().url('https:// 로 시작하는 유효한 URL을 입력해주세요.').or(z.literal('')),
+      }),
+    )
+    .nullable()
+    .optional(),
   githubLink: z.string().url('https:// 로 시작하는 유효한 URL을 입력해주세요.').nullable().optional().or(z.literal('')),
   linkedInLink: z
     .string()

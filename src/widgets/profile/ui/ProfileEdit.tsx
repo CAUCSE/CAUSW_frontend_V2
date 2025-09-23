@@ -3,29 +3,30 @@
 import { Plus, Trash2 } from 'lucide-react';
 import { Controller, FormProvider } from 'react-hook-form';
 
-import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
 import { useEditProfile } from '@/entities/contact';
-import { FormField, MonthPicker, ProfileFormData, ProfileHeader } from '@/entities/contact';
+import { FormField, MonthPicker, ProfileHeader } from '@/entities/contact';
 
 import { ProfileImageUploader } from '@/shared/ui';
 
 import { formatPhoneNumber } from '@/shared';
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
 
-const socialLinksConfig: { name: keyof ProfileFormData; label: string; placeholder: string }[] = [
-  { name: 'githubLink', label: '깃허브', placeholder: 'https://github.com/username' },
-  { name: 'linkedInLink', label: '링크드인', placeholder: 'https://linkedin.com/in/username' },
-  { name: 'blogLink', label: '블로그', placeholder: 'https://my-blog.com' },
-  { name: 'notionLink', label: '노션', placeholder: 'https://notion.so/username' },
-  { name: 'instagramLink', label: '인스타그램', placeholder: 'https://instagram.com/username' },
-];
-
 interface ProfileEditProps {
   contact: Contact.Contact | undefined;
 }
 
 export const ProfileEdit = ({ contact }: ProfileEditProps) => {
-  const { methods, isPending, fields, addCareer, removeCareer, handleFormSubmit } = useEditProfile(contact);
+  const {
+    methods,
+    isPending,
+    careerFields, // 'fields' -> 'careerFields'로 이름 변경
+    addCareer,
+    removeCareer,
+    socialLinkFields, // socialLinks 필드 배열
+    addSocialLink, // socialLinks 추가 함수
+    removeSocialLink, // socialLinks 삭제 함수
+    handleFormSubmit,
+  } = useEditProfile(contact);
   const {
     control,
     register,
@@ -94,7 +95,7 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
               </FormField>
               <div className="flex flex-col gap-4">
                 <label className="text-sm font-medium">이력</label>
-                {fields.map((field, index) => (
+                {careerFields.map((field, index) => (
                   <div key={field.id} className="flex flex-col gap-2 rounded-md border p-4">
                     <div className="flex items-center justify-between">
                       <p className="font-semibold">이력 {index + 1}</p>
@@ -138,17 +139,43 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
           </TabsContent>
 
           <TabsContent value="social">
-            <div className="flex h-[30rem] flex-col gap-6 overflow-y-auto rounded-md border bg-white p-6">
-              {socialLinksConfig.map((link) => (
-                <FormField label={link.label} key={link.name}>
-                  <Input placeholder={link.placeholder} {...register(link.name as 'githubLink')} />
-                  {errors[link.name as 'githubLink']?.message && (
-                    <p className="mt-1 text-sm font-medium text-red-500">
-                      {errors[link.name as 'githubLink']?.message}
-                    </p>
-                  )}
-                </FormField>
+            <div className="flex h-[30rem] flex-col gap-4 overflow-y-auto rounded-md border bg-white p-6">
+              {socialLinkFields.map((field, index) => (
+                <div key={field.id} className="flex items-center gap-2">
+                  <div className="flex-grow">
+                    <FormField label={`링크 ${index + 1}`}>
+                      <Input
+                        placeholder="https:// 전체 주소를 입력해주세요"
+                        {...register(`socialLinks.${index}.value` as const)}
+                      />
+                      {errors.socialLinks?.[index]?.value && (
+                        <p className="mt-1 text-sm font-medium text-red-500">
+                          {errors.socialLinks[index]?.value?.message}
+                        </p>
+                      )}
+                    </FormField>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="mt-6 shrink-0"
+                    onClick={() => removeSocialLink(index)}
+                  >
+                    <Trash2 className="h-4 w-4 text-red-500" />
+                  </Button>
+                </div>
               ))}
+              {socialLinkFields.length < 10 ? (
+                <Button type="button" variant="outline" className="w-full" onClick={() => addSocialLink()}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  링크 추가하기
+                </Button>
+              ) : (
+                <p className="pt-2 text-center text-sm text-gray-500">
+                  소셜 링크는 최대 10개까지 추가할 수 있습니다.
+                </p>
+              )}
             </div>
           </TabsContent>
 

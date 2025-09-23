@@ -10,3 +10,4 @@ export * from './storage';
 export * from './roles';
 export * from './errorCode';
 export * from './layout';
+export * from './socialLinks';

@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useFieldArray } from 'react-hook-form';
+
 import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
 import {
   contactToFormData,
@@ -10,11 +12,21 @@ import {
 } from '@/entities/contact';
 
 const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
+const defaultSocialLinkItem = { value: '' };
 
 export const useEditProfile = (contact: Contact.Contact | undefined) => {
-  const { methods, fields, append, remove } = useProfileForm();
+  const { methods, fields: careerFields, append: appendCareer, remove: removeCareer } = useProfileForm();
+  const { control, setError, clearErrors } = methods;
   const { mutate: updateProfile, isPending } = useUpdateMyProfileMutation();
-  const { setError, clearErrors } = methods;
+
+  const {
+    fields: socialLinkFields,
+    append: appendSocialLink,
+    remove: removeSocialLink,
+  } = useFieldArray({
+    control,
+    name: 'socialLinks',
+  });
 
   useEffect(() => {
     if (contact) {
@@ -40,14 +52,18 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
     updateProfile({ userInfoUpdateDto, profileImage });
   };
 
-  const addCareer = () => append(defaultCareerItem);
+  const addCareer = () => appendCareer(defaultCareerItem);
+  const addSocialLink = () => appendSocialLink(defaultSocialLinkItem);
 
   return {
     methods,
     isPending,
-    fields,
+    careerFields,
     addCareer,
-    removeCareer: remove,
+    removeCareer,
+    socialLinkFields,
+    addSocialLink,
+    removeSocialLink,
     handleFormSubmit: methods.handleSubmit(onSubmit),
   };
 };
