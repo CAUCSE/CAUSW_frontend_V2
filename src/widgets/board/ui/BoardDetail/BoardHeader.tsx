@@ -1,8 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+
 import toast from 'react-hot-toast';
 
 import { BoardNotificationToggle } from '@/entities/board';
+import { SearchBar } from '@/entities/contact';
 import { CreatePostButton, SearchPostButton } from '@/entities/post';
 
 import { PreviousButton } from '@/shared';
@@ -14,6 +17,8 @@ interface BoardHeaderProps {
 }
 
 export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: BoardHeaderProps) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const handleCreatePost = (e: React.MouseEvent) => {
     if (!isWritable) {
       e.preventDefault();
@@ -22,8 +27,9 @@ export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: Boa
     }
   };
   return (
-    <header className="flex h-24 w-full flex-col gap-2 pt-3">
+    <header className="flex w-full flex-col gap-4 pt-3">
       <PreviousButton />
+
       <div className="flex w-full items-center justify-between px-5">
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">{boardName}</div>
         <div className="flex items-center gap-2 sm:gap-4">
@@ -34,8 +40,20 @@ export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: Boa
           )} */}
 
           <BoardNotificationToggle isNotificationActive={isNotificationActive} />
-          {/* <SearchPostButton /> */}
         </div>
+        {/* <div className="flex px-5">
+          <SearchBar value={searchTerm} onChange={setSearchTerm} placeholder="찾으시는 게시글을 검색해주세요" />
+        </div> */}
+      </div>
+
+      <div className="px-5">
+        <SearchBar
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="찾으시는 게시글을 검색해주세요"
+          bgColor="bg-white"
+          textSize="md:text-base text-sm"
+        />
       </div>
     </header>
   );

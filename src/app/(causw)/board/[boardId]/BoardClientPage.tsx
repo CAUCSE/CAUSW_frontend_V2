@@ -24,7 +24,7 @@ export const BoardClientPage = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col gap-2">
+    <div className="flex h-full w-full flex-col gap-4">
       <BoardHeader
         boardName={data?.boardName!}
         isNotificationActive={data?.isBoardSubscribed!}
