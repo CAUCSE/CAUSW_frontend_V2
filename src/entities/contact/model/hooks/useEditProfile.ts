@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useFieldArray } from 'react-hook-form';
+import { FieldErrors, useFieldArray } from "react-hook-form";
 
 import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
 import {
@@ -10,6 +10,7 @@ import {
   useProfileForm,
   useUpdateMyProfileMutation,
 } from '@/entities/contact';
+import toast from "react-hot-toast";
 
 const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
 const defaultSocialLinkItem = { value: '' };
@@ -52,6 +53,14 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
     updateProfile({ userInfoUpdateDto, profileImage });
   };
 
+  const onFormError = (errors: FieldErrors<ProfileFormData>) => {
+    if (errors.phoneNumber) {
+      toast.error(errors.phoneNumber.message || '올바른 전화번호를 입력해주세요.');
+    } else {
+      toast.error('입력되지 않거나 잘못된 형식의 값이 있습니다. 확인해주세요.');
+    }
+  };
+
   const addCareer = () => appendCareer(defaultCareerItem);
   const addSocialLink = () => appendSocialLink(defaultSocialLinkItem);
 
@@ -64,6 +73,6 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
     socialLinkFields,
     addSocialLink,
     removeSocialLink,
-    handleFormSubmit: methods.handleSubmit(onSubmit),
+    handleFormSubmit: methods.handleSubmit(onSubmit, onFormError),
   };
 };
