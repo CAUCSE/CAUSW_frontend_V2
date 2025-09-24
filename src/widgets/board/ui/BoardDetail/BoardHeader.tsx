@@ -27,14 +27,14 @@ export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: Boa
       <div className="flex w-full items-center justify-between px-5">
         <div className="truncate pr-4 text-xl font-bold lg:text-3xl">{boardName}</div>
         <div className="flex items-center gap-2 sm:gap-4">
-          {isWritable && (
+          {/* {isWritable && (
             <div className="contents" onClick={handleCreatePost}>
               <CreatePostButton />
             </div>
-          )}
+          )} */}
 
           <BoardNotificationToggle isNotificationActive={isNotificationActive} />
-          <SearchPostButton />
+          {/* <SearchPostButton /> */}
         </div>
       </div>
     </header>
