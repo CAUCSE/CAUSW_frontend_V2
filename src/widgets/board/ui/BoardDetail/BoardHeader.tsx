@@ -41,9 +41,6 @@ export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: Boa
 
           <BoardNotificationToggle isNotificationActive={isNotificationActive} />
         </div>
-        {/* <div className="flex px-5">
-          <SearchBar value={searchTerm} onChange={setSearchTerm} placeholder="찾으시는 게시글을 검색해주세요" />
-        </div> */}
       </div>
 
       <div className="px-5">
