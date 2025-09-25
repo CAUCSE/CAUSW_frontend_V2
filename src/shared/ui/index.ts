@@ -35,3 +35,4 @@ export { CommonImageList } from './CommonImageList';
 export { ProfileImageUploader } from './ProfileImageUploader';
 export { WindowSizeListener } from './WindowSizeListener';
 export { GA } from './GA';
+export { Fab } from './Fab';

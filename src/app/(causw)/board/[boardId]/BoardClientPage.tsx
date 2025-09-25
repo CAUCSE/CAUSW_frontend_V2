@@ -2,11 +2,13 @@
 
 import { useParams } from 'next/navigation';
 
+import toast from 'react-hot-toast';
+
 import { BoardHeader, BoardPostList } from '@/widgets/board';
 
 import { useGetPostList } from '@/entities/post';
 
-import { LoadingScreen } from '@/shared';
+import { Fab, LoadingScreen } from '@/shared';
 
 export const BoardClientPage = () => {
   const { boardId } = useParams();
@@ -23,19 +25,30 @@ export const BoardClientPage = () => {
     throw error;
   }
 
+  const handleCreatePost = (e: React.MouseEvent) => {
+    if (!data?.writable) {
+      e.preventDefault();
+      toast.error('게시글 작성 권한이 없습니다.');
+      return;
+    }
+  };
+
   return (
-    <div className="flex h-full w-full flex-col gap-4">
-      <BoardHeader
-        boardName={data?.boardName!}
-        isNotificationActive={data?.isBoardSubscribed!}
-        isWritable={data?.writable!}
-      />
-      <BoardPostList
-        postList={data?.postList!}
-        isFetchingNextPage={isFetchingNextPage}
-        hasNextPage={hasNextPage}
-        fetchNextPage={fetchNextPage}
-      />
-    </div>
+    <>
+      <div className="flex h-full w-full flex-col gap-4">
+        <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
+        <BoardPostList
+          postList={data?.postList!}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      </div>
+      {data?.writable && (
+        <div className="contents" onClick={handleCreatePost}>
+          <Fab href={`${boardId}/create`} label="게시글 추가" />
+        </div>
+      )}
+    </>
   );
 };
