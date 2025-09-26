@@ -25,7 +25,7 @@ export const BoardHeader = ({ boardName, isNotificationActive, isWritable }: Boa
     <header className="flex h-24 w-full flex-col gap-2 pt-3">
       <PreviousButton />
       <div className="flex w-full items-center justify-between px-5">
-        <div className="truncate pr-4 text-xl font-bold lg:text-3xl">{boardName}</div>
+        <div className="truncate pr-4 text-2xl font-bold lg:text-[32px]">{boardName}</div>
         <div className="flex items-center gap-2 sm:gap-4">
           {isWritable && (
             <div className="contents" onClick={handleCreatePost}>
