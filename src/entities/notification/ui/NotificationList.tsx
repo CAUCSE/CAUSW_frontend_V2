@@ -52,7 +52,7 @@ export const NotificationList = ({ notifications, notificationType, markAsRead, 
               <Image src={unReadMessage} alt="읽지 않은 알림 아이콘" className="h-5 w-6 pt-1 pl-1" />
               <div className="flex min-w-0 flex-col text-sm text-gray-600">
                 <p className="truncate text-base font-medium text-black">{notification.title}</p>
-                <p className="line-clamp-2 text-sm text-gray-600">{notification.body}</p>
+                <p className="line-clamp-1 text-sm text-gray-600">{notification.body}</p>
               </div>
             </div>
           </li>
