@@ -6,9 +6,9 @@ const USER_INFO_URI = '/api/v1/users-info';
  * 내 프로필 정보 및 이미지 수정
  */
 export const updateMyProfile = async ({
-                                        userInfoUpdateDto,
-                                        profileImage,
-                                      }: {
+  userInfoUpdateDto,
+  profileImage,
+}: {
   userInfoUpdateDto: Contact.ContactUpdatePayload;
   profileImage?: File;
 }): Promise<Contact.Contact> => {

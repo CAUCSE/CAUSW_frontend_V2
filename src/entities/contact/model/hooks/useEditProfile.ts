@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-import { FieldErrors, useFieldArray } from "react-hook-form";
+import { FieldErrors, useFieldArray } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
 import {
@@ -10,7 +11,6 @@ import {
   useProfileForm,
   useUpdateMyProfileMutation,
 } from '@/entities/contact';
-import toast from "react-hot-toast";
 
 const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
 const defaultSocialLinkItem = { value: '' };

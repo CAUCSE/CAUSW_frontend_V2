@@ -1,9 +1,12 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
+
 import Image from 'next/image';
+
+import { Pencil, Plus, UserCircle } from 'lucide-react';
 import { FieldValues, Path, UseFormSetValue } from 'react-hook-form';
-import { UserCircle, Plus, Pencil } from 'lucide-react';
+
 import { cn } from '@/shadcn/lib/utils';
 
 interface Props<T extends FieldValues> {
@@ -12,11 +15,7 @@ interface Props<T extends FieldValues> {
   defaultValue?: string;
 }
 
-export const ProfileImageUploader = <T extends FieldValues>({
-                                                              name,
-                                                              setValue,
-                                                              defaultValue = '',
-                                                            }: Props<T>) => {
+export const ProfileImageUploader = <T extends FieldValues>({ name, setValue, defaultValue = '' }: Props<T>) => {
   const [preview, setPreview] = useState<string>(defaultValue);
   useEffect(() => {
     setPreview(defaultValue);
@@ -46,18 +45,12 @@ export const ProfileImageUploader = <T extends FieldValues>({
         htmlFor="profile-image-upload"
         className={cn(
           'absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-black/40 text-white opacity-0 transition-opacity group-hover:opacity-100',
-          !preview && 'opacity-100 bg-gray-200 text-gray-500 hover:bg-gray-300'
+          !preview && 'bg-gray-200 text-gray-500 opacity-100 hover:bg-gray-300',
         )}
       >
         {preview ? <Pencil size={24} /> : <Plus size={32} />}
       </label>
-      <input
-        id="profile-image-upload"
-        type="file"
-        accept="image/*"
-        onChange={handleChange}
-        className="hidden"
-      />
+      <input id="profile-image-upload" type="file" accept="image/*" onChange={handleChange} className="hidden" />
     </div>
   );
 };

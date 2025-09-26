@@ -1,8 +1,7 @@
 'use client';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/components/ui';
-import React from 'react';
-import { Link as LinkIcon } from 'lucide-react';
+import React, { useState } from 'react';
+
 import BlinqIcon from '@icons/blinq-icon.svg';
 import DaumCafeIcon from '@icons/daumCafe-icon.svg';
 import FacebookIcon from '@icons/facebook-icon.svg';
@@ -23,7 +22,10 @@ import SliceIcon from '@icons/slice-icon.svg';
 import TistoryIcon from '@icons/tistory-icon.svg';
 import VelogIcon from '@icons/velog-icon.svg';
 import YoutubeIcon from '@icons/youtube-icon.svg';
-import { SOCIAL_LINKS_CONFIG } from "@/shared";
+import { Link as LinkIcon } from 'lucide-react';
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/components/ui';
+import { CustomAlertDialog, SOCIAL_LINKS_CONFIG } from '@/shared';
 
 interface ContactInfoTabsProps {
   contact: Contact.Contact;
@@ -60,19 +62,9 @@ const OTHER_LINK_CONFIG = {
   className: 'border bg-gray-200 text-black',
 };
 
-/**
- * URL을 분석하여 해당하는 소셜 링크 설정을 반환하는 함수
- * @param url 분석할 URL
- * @returns {object} 매칭되는 설정 객체 또는 기본 '기타 링크' 설정 객체
- */
 const getSocialLinkInfo = (url: string) => {
   if (!url) return OTHER_LINK_CONFIG;
-
-  // URL에 iconKey가 포함되어 있는지 확인하여 매칭
-  // (예: "github.com" URL은 'github' iconKey를 포함하므로 매칭됨)
-  const foundConfig = SOCIAL_LINKS_CONFIG.find((config) =>
-    url.toLowerCase().includes(config.iconKey.toLowerCase()),
-  );
+  const foundConfig = SOCIAL_LINKS_CONFIG.find((config) => url.toLowerCase().includes(config.iconKey.toLowerCase()));
 
   return foundConfig || OTHER_LINK_CONFIG;
 };
@@ -85,62 +77,94 @@ const formatPeriod = (career: Contact.UserCareer) => {
 };
 
 export const ContactInfoTabs = ({ contact }: ContactInfoTabsProps) => {
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [selectedUrl, setSelectedUrl] = useState('');
+
+  const handleOtherLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, url: string) => {
+    e.preventDefault();
+    setSelectedUrl(url);
+    setIsAlertOpen(true);
+  };
+  const handleConfirmAccess = () => {
+    if (selectedUrl) {
+      window.open(selectedUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
-    <Tabs defaultValue="intro" className="w-full">
-      <TabsList className="inline-flex w-full justify-start">
-        <TabsTrigger value="intro">사용자 소개</TabsTrigger>
-        <TabsTrigger value="social">소셜 네트워크</TabsTrigger>
-      </TabsList>
+    <>
+      <Tabs defaultValue="intro" className="w-full">
+        <TabsList className="inline-flex w-full justify-start">
+          <TabsTrigger value="intro">사용자 소개</TabsTrigger>
+          <TabsTrigger value="social">소셜 네트워크</TabsTrigger>
+        </TabsList>
 
-      <TabsContent value="intro">
-        <div className="h-85 w-full overflow-y-auto rounded-md border bg-gray-50 p-6">
-          <div className="flex flex-col gap-6">
-            <div>
-              <p className="mb-2 text-sm font-semibold text-gray-500">직업</p>
-              <p className="text-gray-800">{contact.job}</p>
-            </div>
-            <div>
-              <p className="mb-2 text-sm font-semibold text-gray-500">이력</p>
-              <ul className="flex flex-col gap-4">
-                {contact.userCareer?.map((career, index) => (
-                  <li key={index}>
-                    <p className="text-gray-800">{career.description}</p>
-                    <p className="text-sm text-gray-500">{formatPeriod(career)}</p>
-                  </li>
-                ))}
-              </ul>
+        <TabsContent value="intro">
+          <div className="h-85 w-full overflow-y-auto rounded-md border bg-gray-50 p-6">
+            <div className="flex flex-col gap-6">
+              <div>
+                <p className="mb-2 text-sm font-semibold text-gray-500">직업</p>
+                <p className="text-gray-800">{contact.job}</p>
+              </div>
+              <div>
+                <p className="mb-2 text-sm font-semibold text-gray-500">이력</p>
+                <ul className="flex flex-col gap-4">
+                  {contact.userCareer?.map((career, index) => (
+                    <li key={index}>
+                      <p className="text-gray-800">{career.description}</p>
+                      <p className="text-sm text-gray-500">{formatPeriod(career)}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </TabsContent>
+        </TabsContent>
 
-      <TabsContent value="social">
-        <div className="h-85 w-full overflow-y-auto rounded-md border bg-gray-50 p-6">
-          <div className="flex flex-col gap-3">
-            {contact.socialLinks?.map((url, index) => {
-              if (!url) return null;
+        <TabsContent value="social">
+          <div className="h-85 w-full overflow-y-auto rounded-md border bg-gray-50 p-6">
+            <div className="flex flex-col gap-3">
+              {contact.socialLinks?.map((url, index) => {
+                if (!url) return null;
 
-              const config = getSocialLinkInfo(url);
-              const IconComponent = ICONS[config.iconKey];
+                const config = getSocialLinkInfo(url);
+                const IconComponent = ICONS[config.iconKey];
+                if (!IconComponent) return null;
+                const isOtherLink = config.key === 'other';
 
-              if (!IconComponent) return null;
-
-              return (
-                <a
-                  key={`${config.key}-${index}`}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex h-12 w-full items-center justify-center gap-3 rounded-lg font-semibold transition-colors ${config.className}`}
-                >
-                  <IconComponent className="h-5 w-5" />
-                  {config.name}
-                </a>
-              );
-            })}
+                return (
+                  <a
+                    key={`${config.key}-${index}`}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex h-12 w-full items-center justify-center gap-3 rounded-lg font-semibold transition-colors ${config.className}`}
+                    onClick={(e) => isOtherLink && handleOtherLinkClick(e, url)}
+                  >
+                    <IconComponent className="h-5 w-5" />
+                    {config.name}
+                  </a>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </TabsContent>
-    </Tabs>
+        </TabsContent>
+      </Tabs>
+      <CustomAlertDialog
+        open={isAlertOpen}
+        onClose={() => setIsAlertOpen(false)}
+        title="신뢰할 수 없는 사이트 접속"
+        description={
+          <div className="break-words">
+            <p className="font-semibold">{selectedUrl}</p>
+            <p className="pt-2">로 접속하시겠습니까?</p>
+          </div>
+        }
+        warningText="(출처를 알 수 없는 사이트는 접속을 삼가해주세요)"
+        confirmText="접속하기"
+        cancelText="취소"
+        onConfirm={handleConfirmAccess}
+      />
+    </>
   );
 };

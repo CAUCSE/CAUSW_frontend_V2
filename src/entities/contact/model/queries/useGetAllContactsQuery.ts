@@ -1,5 +1,6 @@
-import { contactQueryKey, getAllContacts } from '@/entities/contact';
 import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { contactQueryKey, getAllContacts } from '@/entities/contact';
 
 export const useGetAllContactsQuery = () =>
   useInfiniteQuery({

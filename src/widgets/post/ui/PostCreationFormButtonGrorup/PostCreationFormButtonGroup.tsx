@@ -47,7 +47,7 @@ export const PostCreationFormButtonGroup = ({ disabled }: PostCreationFormButton
         <ImageIcon className="h-6 w-6 md:h-8 md:w-8" />
       </button>
       <VoteToggle />
-      {      <ApplicationFormToggle />}
+      {<ApplicationFormToggle />}
       <button
         type="submit"
         className="rounded-full bg-[#F04C23] px-4 py-2 text-sm text-white shadow-md hover:bg-orange-600 focus:outline-hidden md:px-6 md:text-xl xl:ml-20 xl:px-8"

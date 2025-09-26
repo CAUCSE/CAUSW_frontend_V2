@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 import Image from 'next/image';
-import { LoadingComponent } from '@/shared';
 
+import { LoadingComponent } from '@/shared';
 
 export const ImageBackground = ({
   src,

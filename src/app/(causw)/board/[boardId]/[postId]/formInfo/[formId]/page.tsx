@@ -1,8 +1,10 @@
 'use client';
 
-import { PreviousButton } from '@/shared';
-import { useFormResultStore } from '@/entities/form/model/stores';
 import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widgets/form/ui';
+
+import { useFormResultStore } from '@/entities/form/model/stores';
+
+import { PreviousButton } from '@/shared';
 
 const FormInfoPage = () => {
   const resultView = useFormResultStore((state) => state.resultView);

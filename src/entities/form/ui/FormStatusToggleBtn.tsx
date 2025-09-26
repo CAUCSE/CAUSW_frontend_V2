@@ -2,8 +2,8 @@
 
 import { useParams } from 'next/navigation';
 
-import { useFormResultStore } from '@/entities/form/model/stores';
 import { useUpdateFormClosedStatus } from '@/entities/form/model';
+import { useFormResultStore } from '@/entities/form/model/stores';
 
 export const FormStatusToggleBtn = () => {
   const params = useParams();

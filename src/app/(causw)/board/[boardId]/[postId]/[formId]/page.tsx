@@ -4,12 +4,14 @@ import { notFound, useParams } from 'next/navigation';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { LoadingComponent, Modal } from '@/shared';
-import { PreviousButton } from '@/shared';
-import { useResponseFormStore } from '@/entities/form/model/stores';
+import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widgets/form/ui';
+
 import { useGetFormResponseInfo } from '@/entities/form/model';
 import { useHandleApplySubmit } from '@/entities/form/model/hooks';
-import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widgets/form/ui';
+import { useResponseFormStore } from '@/entities/form/model/stores';
+
+import { LoadingComponent, Modal } from '@/shared';
+import { PreviousButton } from '@/shared';
 
 const ApplyPage = () => {
   const params = useParams();

@@ -1,9 +1,6 @@
 export { createFormData } from './formDataUtil';
 export { formatDateInput } from './inputFormatters';
-export {
-  getTimeDifference,
-  formatDateToYyyyMmDd,
-} from './format';
+export { getTimeDifference, formatDateToYyyyMmDd } from './format';
 export { formatPhoneNumber } from './formatters';
 export * from './tokenManager';
 export * from './notificationPermission';

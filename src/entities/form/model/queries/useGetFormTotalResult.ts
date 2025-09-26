@@ -1,5 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { formQueryKey } from '@/entities/form/config';
+
 import { getFormResults } from '../../api';
 
 export const useGetFormTotalResult = (formId: string, size: number) => {

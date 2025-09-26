@@ -1,11 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/shadcn/components/ui/button'
+
+import { Edit } from 'lucide-react';
+
 import { ContactDetail } from '@/widgets/contact';
 import { ContactInfoTabs } from '@/widgets/contact';
+
 import { useGetMyProfileQuery } from '@/entities/contact';
-import { Edit } from 'lucide-react';
+
+import { Button } from '@/shadcn/components/ui/button';
 import { PreviousButton } from '@/shared';
 
 export default function MyProfilePage() {

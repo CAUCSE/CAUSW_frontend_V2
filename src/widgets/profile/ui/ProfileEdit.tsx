@@ -8,8 +8,8 @@ import { FormField, MonthPicker, ProfileHeader } from '@/entities/contact';
 
 import { ProfileImageUploader } from '@/shared/ui';
 
-import { formatPhoneNumber } from '@/shared';
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
+import { formatPhoneNumber } from '@/shared';
 
 interface ProfileEditProps {
   contact: Contact.Contact | undefined;
@@ -172,9 +172,7 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                   링크 추가하기
                 </Button>
               ) : (
-                <p className="pt-2 text-center text-sm text-gray-500">
-                  소셜 링크는 최대 10개까지 추가할 수 있습니다.
-                </p>
+                <p className="pt-2 text-center text-sm text-gray-500">소셜 링크는 최대 10개까지 추가할 수 있습니다.</p>
               )}
             </div>
           </TabsContent>

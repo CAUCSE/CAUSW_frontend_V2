@@ -40,8 +40,7 @@ export const UserInfoContainer: React.FC<UserInfoContainerProps> = ({ userData, 
       <div>
         <UserInfo title="이메일" content={userData.email} />
         <UserInfo title="학부(학과)" content={userData.major} />
-        {userData.academicStatus === 'GRADUATED' && 
-        <UserInfo title="졸업 년도" content={userData.graduationYear} />}
+        {userData.academicStatus === 'GRADUATED' && <UserInfo title="졸업 년도" content={userData.graduationYear} />}
         {userData.academicStatus !== 'GRADUATED' && (
           <>
             <UserInfo title="납부한 학생회비 학기 차수" content={feeInfo.paidFeeSemesters} />

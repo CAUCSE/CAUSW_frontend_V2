@@ -1,14 +1,16 @@
 'use client';
 
-import { useGetBannerList } from '@/entities/banner';
-import { LoadingComponent } from '@/shared';
 import { BannerList, BannerSettingHeader } from '@/widgets/banner';
+
+import { useGetBannerList } from '@/entities/banner';
+
+import { LoadingComponent } from '@/shared';
 
 const EventSetting = () => {
   const { data, isLoading } = useGetBannerList();
   const bannerList = data?.events;
   if (isLoading) {
-    return <LoadingComponent variant='background-only' />;
+    return <LoadingComponent variant="background-only" />;
   }
   return (
     <div className="flex h-full w-full flex-col gap-4 p-4 md:p-8">

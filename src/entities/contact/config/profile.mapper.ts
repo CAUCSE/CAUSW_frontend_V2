@@ -37,8 +37,7 @@ export const formDataToPayload = (formData: ProfileFormData) => {
     userCareer?.filter(
       (c) => c.description?.trim() !== '' || c.periodStart?.trim() !== '' || c.periodEnd?.trim() !== '',
     ) || [];
-  const filteredSocialLinks =
-    socialLinks?.map((link) => link.value).filter((value) => value.trim() !== '') || [];
+  const filteredSocialLinks = socialLinks?.map((link) => link.value).filter((value) => value.trim() !== '') || [];
 
   const payload: Omit<Contact.ContactUpdatePayload, 'profileImage'> = {
     ...userInfoUpdateDto,

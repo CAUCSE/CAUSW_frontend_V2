@@ -1,6 +1,7 @@
 'use client';
 
 import { ROLE_CHECKBOX_GROUPS } from '@/shared/configs';
+
 import { useAuthHandler } from '@/shared';
 
 import CheckedIcon from '../../../../../public/icons/checked_icon.svg';
@@ -30,10 +31,7 @@ export const RoleSelectSection = () => {
       {hasAuth ? (
         <div className="text-md bg-notice-board-role rounded-2xl p-4 xl:text-lg">
           <div className="mb-2 flex items-center space-x-3">
-            <CheckBox
-              isChecked={selectedRoleList.includes('ALL')}
-              onClick={handleToggleAll}
-            />
+            <CheckBox isChecked={selectedRoleList.includes('ALL')} onClick={handleToggleAll} />
             <span>상관없음</span>
           </div>
 

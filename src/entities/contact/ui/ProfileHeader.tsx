@@ -1,10 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+
 import Image from 'next/image';
-import { UserCircle, Mail } from 'lucide-react';
-import { Badge } from '@/shadcn/components/ui/badge';
+
+import { Mail, UserCircle } from 'lucide-react';
+
 import { ImageViewer } from '@/shared/ui';
+
+import { Badge } from '@/shadcn/components/ui/badge';
 
 const academicStatusMap = {
   ENROLLED: { label: '재학생', variant: 'enrolled' },
@@ -23,7 +27,7 @@ const rolesMap = {
 } as const;
 
 interface ProfileHeaderProps {
-  contact: Contact.Contact ;
+  contact: Contact.Contact;
 }
 
 export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
@@ -71,10 +75,7 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
       </div>
 
       {isViewerOpen && contact.profileImageUrl && (
-        <ImageViewer
-          images={[contact.profileImageUrl]}
-          onClose={() => setIsViewerOpen(false)}
-        />
+        <ImageViewer images={[contact.profileImageUrl]} onClose={() => setIsViewerOpen(false)} />
       )}
     </>
   );

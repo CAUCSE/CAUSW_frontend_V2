@@ -3,7 +3,9 @@
 import { useShallow } from 'zustand/react/shallow';
 
 import { CalendarCard, useCalendarStore, useGetCalendarList } from '@/entities/calendar';
+
 import { EmptyComponent, LoadingComponent } from '@/shared';
+
 import { CalendarDeleteModal } from './CalendarDeleteModal';
 
 export const CalendarList = () => {
@@ -16,7 +18,7 @@ export const CalendarList = () => {
   const { data, isLoading } = useGetCalendarList({ year: calendarYear });
   const calendars = data?.calendars;
   if (isLoading) {
-    return <LoadingComponent variant='full-opacity' />;
+    return <LoadingComponent variant="full-opacity" />;
   }
   return (
     <>

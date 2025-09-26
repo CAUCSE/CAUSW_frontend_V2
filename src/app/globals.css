@@ -4,7 +4,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100vh;
   margin: 0;
@@ -34,9 +35,7 @@ html, body {
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
-
 }
-
 
 body {
   touch-action: manipulation;
@@ -47,41 +46,40 @@ body {
   user-select: none;
 }
 
-  body {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-use-select: none;
-    user-select: none;
-    overflow-x: hidden;
-    max-width: 100vw;  
-  }
+body {
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
 
-  * {
-    box-sizing: border-box;
-  }  
+* {
+  box-sizing: border-box;
+}
 
-  main {
-    scrollbar-gutter: stable both-edges;
-  }
-  img {
-    object-fit: cover;
-  }
+main {
+  scrollbar-gutter: stable both-edges;
+}
+img {
+  object-fit: cover;
+}
 
-  input {
-    outline: none;
-  }
+input {
+  outline: none;
+}
 
-  #specificInput:-webkit-autofill,
-  #specificInput:-webkit-autofill:hover,
-  #specificInput:-webkit-autofill:focus,
-  #specificInput:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-transition: background-color 9999s ease-out;
-    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
-    -webkit-text-fill-color: black !important;
-  }
-
+#specificInput:-webkit-autofill,
+#specificInput:-webkit-autofill:hover,
+#specificInput:-webkit-autofill:focus,
+#specificInput:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-transition: background-color 9999s ease-out;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
+  -webkit-text-fill-color: black !important;
+}
 
 @layer base {
   input[type='number']::-webkit-inner-spin-button,

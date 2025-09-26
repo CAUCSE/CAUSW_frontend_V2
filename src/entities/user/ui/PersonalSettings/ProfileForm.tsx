@@ -95,38 +95,37 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) =
   }, []);
   return (
     <>
-    <PreviousButton />
+      <PreviousButton />
 
-    <form onSubmit={handleSubmit(onSubmit)} className="p-3">
-      <div className="mb-2 h-12">
-      </div>
-      <Header big bold>
-        개인정보 관리
-      </Header>
+      <form onSubmit={handleSubmit(onSubmit)} className="p-3">
+        <div className="mb-2 h-12"></div>
+        <Header big bold>
+          개인정보 관리
+        </Header>
 
-      <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
-        <ProfileEditForm
-          profileImagePreview={profileImagePreview}
-          register={register}
-          handleProfileImageChange={handleProfileImageChange}
-          handleNicknameBlur={handleNicknameBlur}
-          errors={errors}
-          userData={userData}
-        />
+        <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
+          <ProfileEditForm
+            profileImagePreview={profileImagePreview}
+            register={register}
+            handleProfileImageChange={handleProfileImageChange}
+            handleNicknameBlur={handleNicknameBlur}
+            errors={errors}
+            userData={userData}
+          />
 
-        <UserInfoContainer userData={userData} feeInfo={feeInfo} />
-      </div>
+          <UserInfoContainer userData={userData} feeInfo={feeInfo} />
+        </div>
 
-      <div className="mt-8 flex justify-center">
-        <button 
-          type="submit" 
-          disabled={updateUserInfo.isPending}
-          className="bg-focus w-32 rounded-3xl p-3 text-white hover:bg-blue-400 lg:w-80 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {updateUserInfo.isPending ? '저장 중...' : '변경 사항 저장'}
-        </button>
-      </div>
-    </form>
+        <div className="mt-8 flex justify-center">
+          <button
+            type="submit"
+            disabled={updateUserInfo.isPending}
+            className="bg-focus w-32 rounded-3xl p-3 text-white hover:bg-blue-400 disabled:cursor-not-allowed disabled:opacity-50 lg:w-80"
+          >
+            {updateUserInfo.isPending ? '저장 중...' : '변경 사항 저장'}
+          </button>
+        </div>
+      </form>
     </>
   );
 };

@@ -2,13 +2,14 @@
 
 import { useParams } from 'next/navigation';
 
+import { useGetFormSummaryResult } from '@/entities/form/model';
+import { useFormResultStore } from '@/entities/form/model/stores';
 import {
   FormSummaryResultQuestionHeader,
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
 } from '@/entities/form/ui';
-import { useGetFormSummaryResult } from '@/entities/form/model';
-import { useFormResultStore } from '@/entities/form/model/stores';
+
 import { LoadingComponent } from '@/shared';
 
 export const FormSummaryResult = () => {

@@ -3,13 +3,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
+import { parseErrorMessage } from '@/shared';
+
 import { updateInfo } from '../../api/put';
 import { userQueryKey } from '../../config/queryKeys/userQueryKey';
-import { parseErrorMessage } from '@/shared';
 
 export const useUpdateUserInfo = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: updateInfo,
     onSuccess: () => {
