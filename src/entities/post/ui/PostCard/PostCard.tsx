@@ -16,13 +16,13 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
 
   return (
     <div
-      className="flex h-29.5 w-full items-center rounded-xl bg-white px-2.5 py-4 shadow-lg lg:h-42 lg:p-6"
+      className="flex h-29.5 w-full items-center rounded-xl bg-white px-2.5 py-4 shadow-lg sm:h-42 md:p-6"
       onClick={() => {
         targetUrl ? router.push(targetUrl) : router.push(`${pathname}/${post.id}`);
       }}
     >
-      <div className="flex h-full w-full items-center justify-between gap-1.5 lg:gap-3">
-        <div className="grid h-full w-59 grid-rows-[1fr_1.5rem]">
+      <div className="flex h-full w-full items-center justify-between gap-1.5 sm:gap-3">
+        <div className="grid h-full w-59 grid-rows-[1fr_1.5rem] sm:w-7/8">
           <p className="text-xl font-bold md:text-[32px]">{post.title}</p>
           <PostCardStatusBar post={post} />
         </div>
