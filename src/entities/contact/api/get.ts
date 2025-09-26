@@ -13,14 +13,17 @@ export const getAllContacts = async (pageNum: number): Promise<Contact.Paginated
  */
 export const getContacts = async ({
   pageNum = 0,
-  keyword,
+  filters,
 }: {
   pageNum: number;
-  keyword?: string;
+  filters: Contact.ContactFilters;
 }): Promise<Contact.PaginatedContactsResponse> => {
   try {
-    const response = await API.get(keyword ? `${USER_INFO_URI}/search` : USER_INFO_URI, {
-      params: { pageNum, keyword },
+    const response = await API.get(USER_INFO_URI, {
+      params: {
+        pageNum,
+        ...filters,
+      },
     });
     return response.data;
   } catch (error) {

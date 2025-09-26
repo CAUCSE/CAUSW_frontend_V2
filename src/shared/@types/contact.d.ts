@@ -63,4 +63,11 @@ declare namespace Contact {
     socialLinks: string[];
     isPhoneNumberVisible: boolean;
   }
+
+  export interface ContactFilters {
+    keyword?: string;
+    admissionYearStart?: number;
+    admissionYearEnd?: number;
+    academicStatus?: ('ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED')[];
+  }
 }

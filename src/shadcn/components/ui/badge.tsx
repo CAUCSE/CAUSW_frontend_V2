@@ -16,7 +16,7 @@ const badgeVariants = cva(
           'border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline: 'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
         enrolled: 'border-transparent bg-[#599972] text-white rounded-full', // 재학생
-        graduate: 'border-transparent bg-gray-500 text-white rounded-full', // 졸업생
+        graduated: 'border-transparent bg-gray-500 text-white rounded-full', // 졸업생
         leave_of_absence: 'border-transparent bg-yellow-600 text-white rounded-full', // 휴학생
         president: 'border-transparent bg-[#5D5999] text-white rounded-full', // 학생회장
         vice_president: 'border-transparent bg-[#3B5998] text-white rounded-full', // 부학생회장

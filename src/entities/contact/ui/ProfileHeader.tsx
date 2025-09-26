@@ -12,7 +12,7 @@ import { Badge } from '@/shadcn/components/ui/badge';
 
 const academicStatusMap = {
   ENROLLED: { label: '재학생', variant: 'enrolled' },
-  GRADUATED: { label: '졸업생', variant: 'graduate' },
+  GRADUATED: { label: '졸업생', variant: 'graduated' },
   LEAVE_OF_ABSENCE: { label: '휴학생', variant: 'leave_of_absence' },
 } as const;
 
@@ -57,7 +57,6 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
               const roleInfo = rolesMap[role as keyof typeof rolesMap];
               if (!roleInfo) return null;
               return (
-                // 여기도 마찬가지로 오류가 발생하지 않습니다.
                 <Badge key={role} variant={roleInfo.variant}>
                   {roleInfo.label}
                 </Badge>
