@@ -25,30 +25,22 @@ export default async function GraduateHomePage({ events }) {
   const boards = [
     {
       name: '공지 게시판',
-      icon: (
-        <MdVolumeUp className="h-16 w-16 object-contain text-[#E55992] sm:h-16 sm:w-16 md:h-20 md:w-20 2xl:h-24 2xl:w-24" />
-      ),
+      icon: <MdVolumeUp className="h-16 w-16 object-contain text-[#E55992] lg:h-16 lg:w-16" />,
       href: `/board/${noticeBoardId}`,
     },
     {
       name: '소통 게시판',
-      icon: (
-        <MdTagFaces className="h-16 w-16 object-contain text-[#5E9B4D] sm:h-16 sm:w-16 md:h-20 md:w-20 2xl:h-24 2xl:w-24" />
-      ),
+      icon: <MdTagFaces className="h-16 w-16 object-contain text-[#5E9B4D] lg:h-16 lg:w-16" />,
       href: `/board/${talkBoardId}`,
     },
     {
       name: '동문수첩',
-      icon: (
-        <MdPermIdentity className="h-16 w-16 object-contain text-[#568389] sm:h-16 sm:w-16 md:h-20 md:w-20 2xl:h-24 2xl:w-24" />
-      ),
+      icon: <MdPermIdentity className="h-16 w-16 object-contain text-[#568389] lg:h-16 lg:w-16" />,
       href: '/contacts',
     },
     {
       name: '경조사 신청',
-      icon: (
-        <MdEmail className="h-16 w-16 object-contain text-[#C1A979] sm:h-16 sm:w-16 md:h-20 md:w-20 2xl:h-24 2xl:w-24" />
-      ),
+      icon: <MdEmail className="h-16 w-16 object-contain text-[#C1A979] lg:h-16 lg:w-16" />,
       href: '/ceremony/create',
     },
   ];
@@ -87,7 +79,7 @@ export default async function GraduateHomePage({ events }) {
                     alt="icon"
                     width={64}
                     height={64}
-                    className="absolute right-2 bottom-2 h-16 w-16 object-contain sm:h-16 sm:w-16 md:h-20 md:w-20 lg:right-6 lg:bottom-6 2xl:h-24 2xl:w-24"
+                    className="absolute right-2 bottom-2 h-16 w-16 object-contain lg:right-6 lg:bottom-6 lg:h-16 lg:w-16"
                   />
                 ) : (
                   <div className="absolute right-2 bottom-2 text-gray-600 lg:right-6 lg:bottom-6">{board.icon}</div>
