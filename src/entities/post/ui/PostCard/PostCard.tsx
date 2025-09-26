@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { PostCardContent } from './PostCardContent';
 import { PostCardStatusBar } from './PostCardStatusBar';
 
 interface PostCardProps {
@@ -17,27 +16,29 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
 
   return (
     <div
-      className="flex h-44 w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+      className="flex h-29.5 w-full items-center rounded-xl bg-white px-2.5 py-4 shadow-lg lg:h-42 lg:p-6"
       onClick={() => {
         targetUrl ? router.push(targetUrl) : router.push(`${pathname}/${post.id}`);
       }}
     >
-      <div className="grid h-full w-full grid-rows-[1fr_1.5rem]">
-        <div className="flex h-full w-full items-center justify-between">
-          <PostCardContent post={post} />
-          <div className="h-16 w-16 shrink-0 overflow-hidden sm:h-24 sm:w-24">
-            {post.postAttachImage && (
-              <Image
-                src={post.postAttachImage}
-                alt="post_thumbnail"
-                width={100}
-                height={100}
-                className="object-cover"
-              />
-            )}
-          </div>
+      <div className="flex h-full w-full items-center justify-between gap-1.5 lg:gap-3">
+        <div className="grid h-full w-59 grid-rows-[1fr_1.5rem]">
+          <p className="text-xl font-bold md:text-[32px]">{post.title}</p>
+          <PostCardStatusBar post={post} />
         </div>
-        <PostCardStatusBar post={post} />
+        <div className="h-24 w-24 overflow-hidden rounded-xl sm:h-30 sm:w-30">
+          {post.postAttachImage ? (
+            <Image
+              src={post.postAttachImage}
+              alt="post_thumbnail"
+              width={120}
+              height={120}
+              className="rounded-xl object-cover"
+            />
+          ) : (
+            <div className="h-full w-full"></div>
+          )}
+        </div>
       </div>
     </div>
   );
