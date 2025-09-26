@@ -19,7 +19,7 @@ import { formatDateToYyyyMmDd } from '@/shared';
 import { EmptyBoard } from './EmptyBoard';
 
 const sectionStyles =
-  'rounded-xl bg-white p-4 shadow-sm transition-all duration-200 ease-out ' +
+  'h-[235.13px] rounded-xl bg-white p-4 shadow-sm transition-all duration-200 ease-out ' +
   'hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0';
 
 const underlineStyles =

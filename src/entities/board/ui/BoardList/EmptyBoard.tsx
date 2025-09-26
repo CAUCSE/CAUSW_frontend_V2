@@ -1,3 +1,3 @@
 export const EmptyBoard = () => (
-  <div className="rounded-md bg-gray-50 px-3 py-11 text-center text-sm text-gray-400">게시글이 없습니다.</div>
+  <div className="rounded-md bg-gray-50 px-3 py-15.5 text-center text-sm text-gray-400">게시글이 없습니다.</div>
 );
