@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { useParams } from 'next/navigation';
 
 import toast from 'react-hot-toast';
@@ -8,13 +10,16 @@ import { BoardHeader, BoardPostList } from '@/widgets/board';
 
 import { useGetPostList } from '@/entities/post';
 
-import { Fab, LoadingScreen } from '@/shared';
+import { Fab, LoadingScreen, useDebounce } from '@/shared';
 
 export const BoardClientPage = () => {
   const { boardId } = useParams();
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const { data, fetchNextPage, isFetchingNextPage, isLoading, hasNextPage, isError, error } = useGetPostList({
     boardId: boardId as string,
+    keyword: debouncedSearchTerm,
   });
 
   if (isLoading) {
@@ -36,7 +41,12 @@ export const BoardClientPage = () => {
   return (
     <>
       <div className="flex h-full w-full flex-col gap-4">
-        <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
+        <BoardHeader
+          boardName={data?.boardName!}
+          isNotificationActive={data?.isBoardSubscribed!}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
         <BoardPostList
           postList={data?.postList!}
           isFetchingNextPage={isFetchingNextPage}

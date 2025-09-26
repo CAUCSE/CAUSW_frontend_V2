@@ -1,18 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-
 import { BoardNotificationToggle } from '@/entities/board';
 import { SearchBar } from '@/entities/contact';
 
 interface BoardHeaderProps {
   boardName: string;
   isNotificationActive: boolean;
+  searchTerm: string;
+  setSearchTerm: (value: string) => void;
 }
 
-export const BoardHeader = ({ boardName, isNotificationActive }: BoardHeaderProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
+export const BoardHeader = ({ boardName, isNotificationActive, searchTerm, setSearchTerm }: BoardHeaderProps) => {
   return (
     <header className="flex w-full flex-col gap-4 pt-8">
       <div className="flex w-full items-center justify-between px-5">

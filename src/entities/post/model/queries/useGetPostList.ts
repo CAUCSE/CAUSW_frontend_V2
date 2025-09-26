@@ -5,11 +5,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPostList } from '../../api';
 import { postQueryKey } from '../../config';
 
-export const useGetPostList = ({ boardId }: { boardId: string }) => {
+export const useGetPostList = ({ boardId, keyword }: { boardId: string; keyword?: string }) => {
   return useInfiniteQuery({
-    queryKey: postQueryKey.list(boardId),
+    queryKey: postQueryKey.list(boardId, keyword),
     queryFn: async ({ pageParam }) => {
-      return await getPostList({ boardId, pageNum: pageParam });
+      return await getPostList({ boardId, pageNum: pageParam, keyword });
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
@@ -19,5 +19,6 @@ export const useGetPostList = ({ boardId }: { boardId: string }) => {
       const { post, ...rest } = data.pages[0];
       return { ...rest, postList: data.pages.flatMap((page) => page.post.content) };
     },
+    placeholderData: (previousData) => previousData,
   });
 };
