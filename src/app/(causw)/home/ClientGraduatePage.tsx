@@ -45,7 +45,7 @@ export default async function GraduateHomePage({ events }) {
       href: '/contacts',
     },
     {
-      name: '경조사',
+      name: '경조사 신청',
       icon: (
         <MdEmail className="h-16 w-16 object-contain text-[#C1A979] sm:h-16 sm:w-16 md:h-20 md:w-20 2xl:h-24 2xl:w-24" />
       ),
@@ -77,7 +77,7 @@ export default async function GraduateHomePage({ events }) {
                 href={board.href}
                 className="relative aspect-square w-full rounded-2xl bg-white pt-6 pr-6 pl-4 shadow-[0_0px_4px_rgba(0,0,0,0.5)] hover:shadow-md md:rounded-4xl lg:p-10"
               >
-                <span className="text-2xl leading-tight font-medium break-keep whitespace-normal text-black sm:text-2xl md:text-2xl 2xl:text-2xl">
+                <span className="text-2xl leading-tight font-medium break-keep whitespace-normal text-black sm:text-2xl md:text-2xl 2xl:text-3xl">
                   {board.name}
                 </span>
 
