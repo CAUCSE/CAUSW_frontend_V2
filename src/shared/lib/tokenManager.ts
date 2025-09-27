@@ -12,9 +12,10 @@ import {
   removeRscAccess,
   removeRscRefresh,
   setRccToken,
-  setRscToken,
 } from '@/shared/configs';
+
 import { STORAGE_KEYS } from '@/shared/configs';
+import Cookies from 'js-cookie';
 
 export const tokenManager = () => {
   const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
@@ -51,7 +52,8 @@ export const tokenManager = () => {
 
       if (response.errorCode) signoutAndRedirect();
 
-      await setRscToken(response.accessToken, refresh);
+      Cookies.set("CAUCSE_JWT_ACCESS", response.accessToken);
+      Cookies.set("CAUCSE_JWT_REFRESH", refresh);
       setRccToken(response.accessToken, refresh);
 
       return response.accessToken;
