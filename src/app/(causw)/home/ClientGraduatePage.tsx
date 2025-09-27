@@ -139,7 +139,7 @@ function NoticeSection({
             <Link
               href={`/board/${boardId}/${post.id}`}
               key={post.id}
-              className="flex items-center justify-between gap-10 border-b px-4 py-3 text-[18px] hover:bg-gray-50 lg:gap-24"
+              className="flex items-center justify-between gap-10 border-b px-4 py-3 text-lg hover:bg-gray-50 lg:gap-24"
             >
               <div className="truncate font-medium sm:w-4xl">{post.title}</div>
               <div className="flex shrink-0 items-center gap-2 text-base text-gray-500">
