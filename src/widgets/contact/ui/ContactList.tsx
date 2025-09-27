@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import {
-  ContactCard,
-  useSearchContactsQuery,
-  SearchBar,
-} from '@/entities/contact';
-import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
+import { useMemo, useState } from 'react';
+
 import { Loader2 } from 'lucide-react';
-import { useDebounce } from '@/shared';
+
+import { ContactCard, useSearchContactsQuery } from '@/entities/contact';
+
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
+
+import { SearchBar, useDebounce } from '@/shared';
 
 export const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,17 +44,17 @@ export const ContactList = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <SearchBar value={searchTerm} onChange={setSearchTerm} />
+      <SearchBar
+        value={searchTerm}
+        onChange={setSearchTerm}
+        placeholder="이름, 직업, 커리어(회사명)로 검색해 보세요."
+      />
 
       <div className="flex flex-col divide-y divide-gray-200">
         {contacts.length > 0 ? (
-          contacts.map((contact) => (
-            <ContactCard key={contact.id} contact={contact} />
-          ))
+          contacts.map((contact) => <ContactCard key={contact.id} contact={contact} />)
         ) : (
-          <div className="flex h-40 items-center justify-center text-gray-500">
-            검색 결과가 없습니다.
-          </div>
+          <div className="flex h-40 items-center justify-center text-gray-500">검색 결과가 없습니다.</div>
         )}
       </div>
 
