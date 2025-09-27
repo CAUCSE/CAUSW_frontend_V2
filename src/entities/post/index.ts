@@ -9,7 +9,6 @@ export {
   ApplicationFormToggle,
   UploadFilePreview,
   CreatePostButton,
-  SearchPostButton,
   PostWriterProfileImage,
   PostDetailTitle,
   PostDetailContent,

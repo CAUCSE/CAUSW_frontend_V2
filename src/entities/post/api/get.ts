@@ -11,7 +11,7 @@ export const getPostList = async ({
   keyword?: string;
 }) => {
   const { data }: { data: Board.BoardWithPostResponseDto } = await API.get(
-    `api/v1/posts?boardId=${boardId}&pageNum=${pageNum}&keyword=${keyword}`,
+    `api/v1/posts?boardId=${boardId}&pageNum=${pageNum}&keyword=${keyword || ''}`,
   );
   return data;
 };
