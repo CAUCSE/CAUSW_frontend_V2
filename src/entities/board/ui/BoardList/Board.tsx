@@ -19,7 +19,7 @@ import { formatDateToYyyyMmDd } from '@/shared';
 import { EmptyBoard } from './EmptyBoard';
 
 const sectionStyles =
-  'h-[235.13px] rounded-xl bg-white p-4 shadow-sm transition-all duration-200 ease-out ' +
+  'rounded-xl bg-white p-4 shadow-sm transition-all duration-200 ease-out ' +
   'hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0';
 
 const underlineStyles =
@@ -71,7 +71,7 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
 
   return (
     <div className="block w-full">
-      <div className={sectionStyles}>
+      <div className={`${sectionStyles} h-[235.13px]`}>
         <Link
           href={`/board/${boardId}`}
           className="group flex items-center justify-between border-b-2 border-gray-200 pb-2"

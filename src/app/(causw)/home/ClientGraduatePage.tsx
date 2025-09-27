@@ -128,7 +128,7 @@ function NoticeSection({
     <div>
       <Link
         href={`/board/${boardId}`}
-        className="flex items-center gap-[15px] border-b bg-gray-100 px-4 py-[13px] text-[20px] font-bold"
+        className="flex items-center gap-[15px] border-b bg-gray-100 px-4 py-[13px] text-xl font-bold"
       >
         {icon}
         <span>{title}</span>
@@ -152,7 +152,7 @@ function NoticeSection({
         ) : (
           <div className="overflow-hidden border-t border-gray-200">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="px-4 py-3 text-[18px] text-gray-400">
+              <div key={index} className="px-4 py-3 text-lg text-gray-400">
                 게시글이 없습니다.
               </div>
             ))}
