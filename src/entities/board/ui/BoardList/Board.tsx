@@ -92,7 +92,7 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
                 className={itemStyles}
                 title={content.title}
               >
-                <span className="block w-full truncate text-[20px] font-medium">{content.title}</span>
+                <span className="block w-full truncate text-xl font-medium">{content.title}</span>
                 <div className="text-base text-gray-400">
                   {content.displayWriterNickname
                     ? content.displayWriterNickname
