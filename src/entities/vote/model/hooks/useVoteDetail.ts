@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import { useVoteStore } from '@/entities/vote/model/stores';
 import { getVoteById } from '@/entities/vote/api/get';
+import { useVoteStore } from '@/entities/vote/model/stores';
 
 export const useVoteDetail = (voteId: string) => {
   const { setVote } = useVoteStore();

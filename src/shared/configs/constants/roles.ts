@@ -1,11 +1,11 @@
 export const ROLE_CHECKBOX_GROUPS: Record<string, User.Role[]> = {
-  '학생회장': ['PRESIDENT'],
-  '부학생회장': ['VICE_PRESIDENT'],
-  '학생회': ['COUNCIL'],
+  학생회장: ['PRESIDENT'],
+  부학생회장: ['VICE_PRESIDENT'],
+  학생회: ['COUNCIL'],
   '학년 대표': ['LEADER_1', 'LEADER_2', 'LEADER_3', 'LEADER_4'],
-  '동아리장': ['LEADER_CIRCLE'],
-  '동문회장': ['LEADER_ALUMNI'],
-  '교수': ['PROFESSOR'],
+  동아리장: ['LEADER_CIRCLE'],
+  동문회장: ['LEADER_ALUMNI'],
+  교수: ['PROFESSOR'],
 };
 
 export const ROLE_LABELS: Record<User.Role, string> = {

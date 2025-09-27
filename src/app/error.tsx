@@ -7,17 +7,13 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { LoadingComponent } from '@/shared';
-import {
-  getRscRefresh,
-  noAccessTokenCode,
-  noPermissionCode,
-} from '@/shared';
+import { getRscRefresh, noAccessTokenCode, noPermissionCode } from '@/shared';
 import { tokenManager } from '@/shared';
 
 const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
   const router = useRouter();
   const { signoutAndRedirect, updateAccess } = tokenManager();
-  
+
   const handleNoAccesss = async () => {
     const refresh = await getRscRefresh();
     if (!refresh) {

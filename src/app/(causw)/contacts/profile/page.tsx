@@ -1,11 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/shadcn/components/ui/button';
+
+import { Edit } from 'lucide-react';
+
 import { ContactDetail } from '@/widgets/contact';
 import { ContactInfoTabs } from '@/widgets/contact';
+
 import { useGetMyProfileQuery } from '@/entities/contact';
-import { Edit } from 'lucide-react';
+
+import { Button } from '@/shadcn/components/ui/button';
 import { PreviousButton } from '@/shared';
 
 export default function MyProfilePage() {
@@ -17,7 +21,7 @@ export default function MyProfilePage() {
   const myProfileButtons = (
     <div className="flex w-full items-center justify-center gap-4">
       <Button variant="outline" className="flex-1 rounded-lg" asChild>
-        <Link href="/profile/edit">
+        <Link href="/contacts/profile/edit">
           <Edit size={16} className="mr-2" />
           프로필 수정
         </Link>

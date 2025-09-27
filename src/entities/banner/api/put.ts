@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { FORMAPI } from '@/shared';
-import { bannerQueryKey } from '../config';
 import { useBannerStore } from '@/entities/banner';
+
+import { FORMAPI } from '@/shared';
+
+import { bannerQueryKey } from '../config';
 
 export const useUpdateBanner = () => {
   const queryClient = useQueryClient();

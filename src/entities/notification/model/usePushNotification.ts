@@ -3,6 +3,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { toast } from 'react-hot-toast';
 
 import { getRccRefresh, STORAGE_KEYS } from '@/shared/configs';
+
 import { detectDeviceType, getClientFCMToken, requestNotificationPermission } from '@/shared';
 
 import { getFCMToken } from '../api';

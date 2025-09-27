@@ -48,7 +48,7 @@ export const MyRecordList = ({
   }
 
   return (
-    <div className="flex w-full grow flex-col gap-4 overflow-y-auto px-1.5 pb-2">
+    <div className="flex w-full grow flex-col gap-4 overflow-y-auto pr-2 pb-2 pl-5">
       {postList?.length === 0 ? (
         <div className="flex h-full w-full items-center justify-center text-2xl">게시글이 없습니다.</div>
       ) : (

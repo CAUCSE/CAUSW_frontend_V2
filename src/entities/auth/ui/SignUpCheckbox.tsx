@@ -1,8 +1,8 @@
-import { UseTerms } from '@/shared';
 import { useState } from 'react';
 
 import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
+import { UseTerms } from '@/shared';
 
 interface Props<T extends FieldValues> {
   register: UseFormRegister<T>;

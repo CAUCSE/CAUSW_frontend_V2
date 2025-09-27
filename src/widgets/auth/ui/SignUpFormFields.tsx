@@ -1,6 +1,7 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
 import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/entities/auth';
+
 import { formatPhoneNumber } from '@/shared';
 
 interface Props {
@@ -11,10 +12,12 @@ interface Props {
 
 export const SignUpFormFields = ({ register, errors, watch }: Props) => {
   const password = watch('password');
+  const admissionYear = watch('admissionYearString');
+  const isNewMajorSystem = admissionYear && parseInt(admissionYear, 10) >= 2021;
 
   return (
     <>
-      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-y-2 gap-x-8 lg:p-8 lg:grid lg:grid-cols-2">
+      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-x-8 gap-y-2 lg:grid lg:grid-cols-2 lg:p-8">
         <AuthInput
           register={register}
           name="email"
@@ -52,7 +55,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="8자리 이상, 영어/숫자/특수 문자"
           errorMessage={errors.pwConfirm?.message}
         />
-                <SignUpSelect
+        <SignUpSelect
           register={register}
           name="admissionYearString"
           label="입학년도"
@@ -71,7 +74,6 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="학번 8자리를 입력해주세요 (선택사항)"
           errorMessage={errors.studentId?.message}
         />
-
         <AuthInput
           register={register}
           name="name"
@@ -80,14 +82,21 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="이름을 입력해주세요"
           errorMessage={errors.name?.message}
         />
-        <AuthInput
-          register={register}
-          name="major"
-          rules={signUpValidationRules.major}
-          label="학부/학과"
-          placeholder="ex) 소프트웨어학부, 컴퓨터공학부"
-          errorMessage={errors.major?.message}
-        />
+        {isNewMajorSystem ? (
+          <SignUpSelect
+            register={register}
+            name="department"
+            label="학과"
+            rules={signUpValidationRules.department}
+            errorMessage={errors.department?.message}
+            options={[
+              { value: 'DEPT_OF_AI', label: 'AI학과' },
+              { value: 'SCHOOL_OF_SW', label: '소프트웨어학부' },
+            ]}
+          />
+        ) : (
+          <div></div>
+        )}
         <AuthInput
           register={register}
           name="phoneNumber"

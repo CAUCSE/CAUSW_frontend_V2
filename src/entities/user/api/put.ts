@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios';
 
-import { API, BASEURL, FORMAPI, setRscHeader } from '@/shared';
 import { createFormData } from '@/shared/lib';
+
+import { API, BASEURL, FORMAPI, setRscHeader } from '@/shared';
 
 import { USERS_ENDPOINT } from '../config';
 

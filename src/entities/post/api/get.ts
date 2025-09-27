@@ -1,9 +1,17 @@
 import { BASEURL, setRscHeader } from '@/shared';
 import { API } from '@/shared';
 
-export const getPostList = async ({ boardId, pageNum }: { boardId: string; pageNum: number }) => {
+export const getPostList = async ({
+  boardId,
+  pageNum,
+  keyword,
+}: {
+  boardId: string;
+  pageNum: number;
+  keyword?: string;
+}) => {
   const { data }: { data: Board.BoardWithPostResponseDto } = await API.get(
-    `api/v1/posts?boardId=${boardId}&pageNum=${pageNum}`,
+    `api/v1/posts?boardId=${boardId}&pageNum=${pageNum}&keyword=${keyword || ''}`,
   );
   return data;
 };

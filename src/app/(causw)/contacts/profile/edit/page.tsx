@@ -1,7 +1,9 @@
 'use client';
 
-import { useGetMyProfileQuery } from '@/entities/contact';
 import { ProfileEdit } from '@/widgets/profile';
+
+import { useGetMyProfileQuery } from '@/entities/contact';
+
 import { PreviousButton } from '@/shared';
 
 export default function MyProfileEditPage() {

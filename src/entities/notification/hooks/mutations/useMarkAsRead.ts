@@ -11,15 +11,13 @@ export const useMarkAsRead = () => {
   return useMutation({
     mutationFn: markAsRead,
     onSuccess: () => {
-      queryClient.invalidateQueries({ 
-        queryKey: notificationQueryKey.top4.all()
+      queryClient.invalidateQueries({
+        queryKey: notificationQueryKey.top4.all(),
       });
-      queryClient.invalidateQueries({ 
-        queryKey: notificationQueryKey.count()
+      queryClient.invalidateQueries({
+        queryKey: notificationQueryKey.count(),
       });
     },
-    onError: (error: any) => {
-      ;
-    },
+    onError: (error: any) => {},
   });
 };

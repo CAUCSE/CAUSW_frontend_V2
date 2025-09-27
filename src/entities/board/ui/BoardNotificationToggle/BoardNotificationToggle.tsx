@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { useParams } from 'next/navigation';
 
-import clsx from 'clsx';
-import { Bell } from 'lucide-react';
+import { BellRing } from 'lucide-react';
+import { Check as CheckIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 import { Button } from '@/shadcn/components/ui';
@@ -54,13 +54,9 @@ export const BoardNotificationToggle = ({ isNotificationActive }: BoardNotificat
   };
 
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      className="h-8 w-10 cursor-pointer rounded-3xl border-[1px] border-black"
-      onClick={handleClickNotificationToggle}
-    >
-      <Bell className={clsx(isActive ? 'text-red-500' : 'text-black')} />
+    <Button variant="neutral" className="h-7 rounded-md px-4 sm:h-10" onClick={handleClickNotificationToggle}>
+      {isActive ? <CheckIcon /> : <BellRing />}
+      <div className="text-[10px] font-medium sm:text-sm">{isActive ? '알림 받는 중' : '알림 받기'}</div>
     </Button>
   );
 };

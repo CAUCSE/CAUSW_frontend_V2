@@ -1,10 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+
 import { createPortal } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
-import { useCalendarStore } from '@/entities/calendar';
+
 import { CalendarAddModal } from '@/widgets/calendar';
+
+import { useCalendarStore } from '@/entities/calendar';
+
 import { CustomSelect, generateYearList } from '@/shared';
 
 import AddIcon from '../../../../public/icons/add_icon.svg';
@@ -50,7 +54,7 @@ export const CalendarListHeader = () => {
           document.body &&
           createPortal(
             <button
-              className="fixed right-6 bottom-24 h-16 w-16 transform rounded-[50px] bg-[#7AB6C1] px-6 py-3 text-3xl font-normal text-white shadow-lg hover:bg-[#5F8E97] xl:right-80 xl:bottom-10 xl:h-24 xl:w-24 md:hidden"
+              className="fixed right-6 bottom-24 h-16 w-16 transform rounded-[50px] bg-[#7AB6C1] px-6 py-3 text-3xl font-normal text-white shadow-lg hover:bg-[#5F8E97] md:hidden xl:right-80 xl:bottom-10 xl:h-24 xl:w-24"
               onClick={openAddModal}
             >
               +

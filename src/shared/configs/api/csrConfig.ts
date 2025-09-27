@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
+import qs from 'qs';
 
 import { detectDeviceType } from '@/shared';
 import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/shared';
@@ -12,12 +13,18 @@ export const API = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  paramsSerializer: (params) => {
+    return qs.stringify(params, { arrayFormat: 'repeat' });
+  },
 });
 
 export const FORMAPI = axios.create({
   baseURL: BASEURL,
   headers: {
     'Content-Type': 'multipart/form-data',
+  },
+  paramsSerializer: (params) => {
+    return qs.stringify(params, { arrayFormat: 'repeat' });
   },
 });
 

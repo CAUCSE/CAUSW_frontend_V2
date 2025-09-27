@@ -1,7 +1,9 @@
 'use client';
 
 import * as React from 'react';
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 import { Button } from '@/shadcn/components/ui/button';
 import { cn } from '@/shadcn/lib/utils';
 
@@ -38,9 +40,7 @@ export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProp
       <div className="mt-4 grid grid-cols-4 gap-2">
         {months.map((month) => {
           const isSelected =
-            selectedDate &&
-            selectedDate.getFullYear() === displayYear &&
-            selectedDate.getMonth() === month;
+            selectedDate && selectedDate.getFullYear() === displayYear && selectedDate.getMonth() === month;
 
           return (
             <Button

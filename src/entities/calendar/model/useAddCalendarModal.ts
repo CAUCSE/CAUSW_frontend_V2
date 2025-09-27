@@ -1,8 +1,11 @@
 'use client';
 
 import { useRef, useState } from 'react';
+
 import toast from 'react-hot-toast';
+
 import { useCreateCalendar } from '@/entities/calendar/api/post';
+
 import { generateYearList } from '@/shared';
 
 export const useAddCalendarModal = () => {
@@ -33,7 +36,7 @@ export const useAddCalendarModal = () => {
 
   const clearSelectedImage = () => {
     setSelectedImage(null);
-    if(fileInputRef.current) {
+    if (fileInputRef.current) {
       fileInputRef.current.value = ''; // input 값 초기화
     }
   };

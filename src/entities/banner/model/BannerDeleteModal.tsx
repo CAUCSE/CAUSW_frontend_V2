@@ -2,7 +2,8 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useDeleteBanner, useBannerStore } from '@/entities/banner';
+import { useBannerStore, useDeleteBanner } from '@/entities/banner';
+
 import { PortalModal } from '@/shared/ui';
 
 export const BannerDeleteModal = () => {

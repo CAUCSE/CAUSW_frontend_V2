@@ -4,4 +4,5 @@ export { MonthPicker } from '@/entities/contact/ui/MonthPicker';
 export { ProfileHeader } from '@/entities/contact/ui/ProfileHeader';
 
 export { ContactCard } from './ContactCard';
-export { SearchBar } from './SearchBar';
+export { ContactFilterSheet } from './ContactFilterSheet';
+export { FilterPills } from './FilterPills';

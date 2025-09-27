@@ -1,4 +1,4 @@
-import { useFormResultStore } from '@/entities/form/model/stores';
+import { useFormResultStore } from '@/entities/form';
 
 interface FormResponseResultProps {
   totalFormResult?: Form.ReplyPageResponseDto[];

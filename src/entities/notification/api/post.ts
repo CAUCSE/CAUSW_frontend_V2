@@ -4,8 +4,9 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
 import { STORAGE_KEYS } from '@/shared/configs';
-import { API, FORMAPI } from '@/shared';
 import { createFormData } from '@/shared/lib';
+
+import { API, FORMAPI } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;

@@ -40,7 +40,6 @@ export const getMyInfo = async (): Promise<User.User> => {
   }
 };
 
-
 export const getUserByName = async (name: string) => {
   const { data } = (await API.get(`${USERS_ENDPOINT}/name/${name}`)) as AxiosResponse<User.User[]>;
 
@@ -155,7 +154,9 @@ export const getMyCouncilFeeInfo = async () => {
 export const fetchMyInfo = async (): Promise<User.User> => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, { headers: headers }).then((res) => res.json())) as User.User;
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, { headers: headers }).then((res) =>
+      res.json(),
+    )) as User.User;
     return response;
   } catch (error) {
     throw error;
@@ -206,7 +207,6 @@ export const getUserAcademicRecord = async (id: string) => {
     throw error;
   }
 };
-
 
 // 유저 상태 조회.
 export const getByState = async (state: User.UserDto['state'], name: string | null, page: number) => {
@@ -296,7 +296,6 @@ export const getWaitingUsers = setGetMethod('users/academic-record/list/await') 
   page?: number,
   size?: number,
 ) => Promise<Setting.WaitingUsers[]>;
-
 
 // 납부자 상세 조회.
 export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {

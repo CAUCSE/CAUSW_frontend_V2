@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * 값의 변경을 지연시키는 Debounce 커스텀 훅
@@ -21,7 +21,7 @@ export function useDebounce<T>(value: T, delay: number): T {
         clearTimeout(handler);
       };
     },
-    [value, delay] // value 또는 delay가 변경될 때만 이 effect를 다시 실행합니다.
+    [value, delay], // value 또는 delay가 변경될 때만 이 effect를 다시 실행합니다.
   );
 
   return debouncedValue;

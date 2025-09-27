@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/shadcn/components/ui';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui';
 
 interface CustomSelectProps {
   value: number;
@@ -18,13 +12,13 @@ interface CustomSelectProps {
 }
 
 export const CustomSelect = ({
-                               value,
-                               onChange,
-                               itemList,
-                               suffix,
-                               placeholder,
-                               widthClass = 'w-28',
-                             }: CustomSelectProps) => {
+  value,
+  onChange,
+  itemList,
+  suffix,
+  placeholder,
+  widthClass = 'w-28',
+}: CustomSelectProps) => {
   const handleValueChange = (stringValue: string) => {
     onChange(Number(stringValue));
   };
@@ -37,7 +31,8 @@ export const CustomSelect = ({
       <SelectContent className="max-h-56 min-w-[var(--radix-select-trigger-width)]">
         {itemList.map((item) => (
           <SelectItem key={item} value={String(item)}>
-            {item}{suffix}
+            {item}
+            {suffix}
           </SelectItem>
         ))}
       </SelectContent>

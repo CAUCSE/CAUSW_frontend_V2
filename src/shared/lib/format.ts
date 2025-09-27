@@ -30,7 +30,6 @@ export const getTimeDifference = (ISOtime: string) => {
   return `${now.getFullYear() - createdTime.getFullYear()}년 전`;
 };
 
-
 // yyyy.mm.dd 형식
 export const formatDateToYyyyMmDd = (dateString: string) => {
   const date = new Date(dateString);

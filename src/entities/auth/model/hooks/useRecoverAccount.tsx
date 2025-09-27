@@ -5,7 +5,8 @@ import toast from 'react-hot-toast';
 
 import { getMyInfo } from '@/entities/user/api/get';
 
-import { parseErrorMessage, setRccToken, setRscToken } from '@/shared';
+import { parseErrorMessage, setRccToken } from '@/shared';
+import Cookies from 'js-cookie';
 
 import { recoverAccount } from '../../api/put';
 
@@ -20,9 +21,9 @@ export const useRecoverAccount = () => {
     onSuccess: async (data: { accessToken: string; refreshToken: string }) => {
       toast.dismiss();
       const { accessToken, refreshToken } = data;
-      await setRscToken(accessToken, refreshToken);
+      Cookies.set("CAUCSE_JWT_ACCESS", accessToken);
+      Cookies.set("CAUCSE_JWT_REFRESH", refreshToken);
       await setRccToken(accessToken, refreshToken);
-
       const response = await getMyInfo();
 
       if (response.state === 'AWAIT') {

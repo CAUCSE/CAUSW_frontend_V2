@@ -1,12 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import { AuthFormSubmitButton, useSignUpForm } from '@/entities/auth';
 
 import { Header } from '@/shared';
 import { PreviousButton } from '@/shared';
 
 import { SignUpFormFields } from './SignUpFormFields';
-import { useRouter } from 'next/navigation';
 
 export const SignUpForm = () => {
   const router = useRouter();
@@ -19,8 +20,8 @@ export const SignUpForm = () => {
         onSubmit={handleSubmit(onSubmit, onInvalid)}
         className="flex w-full min-w-80 flex-col items-center justify-center gap-y-4 rounded-md p-2"
       >
-      <Header bold>회원가입</Header>
-      <SignUpFormFields register={register} errors={errors} watch={watch} />
+        <Header bold>회원가입</Header>
+        <SignUpFormFields register={register} errors={errors} watch={watch} />
         <AuthFormSubmitButton content="회원가입" />
       </form>
     </div>

@@ -3,12 +3,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { ceremonyQueryKey } from '../queries/ceremonyQueryKey';
-import { createCeremonyNotificationSetting, updateCeremonySetting } from "@/entities/ceremony";
+import { createCeremonyNotificationSetting, updateCeremonySetting } from '@/entities/ceremony';
 
-export const useCeremonySettingMutation = (
-  isUpdate: boolean,
-) => {
+import { ceremonyQueryKey } from '../queries/ceremonyQueryKey';
+
+export const useCeremonySettingMutation = (isUpdate: boolean) => {
   const queryClient = useQueryClient();
 
   return useMutation({

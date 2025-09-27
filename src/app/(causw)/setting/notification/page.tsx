@@ -2,11 +2,7 @@
 
 import { NotificationActionButtons, NotificationTabs } from '@/widgets/notification';
 
-import {
-  useCeremonyNotificationQuery,
-  useNotificationQuery,
-  useNotificationTabParam,
-} from '@/entities/notification';
+import { useCeremonyNotificationQuery, useNotificationQuery, useNotificationTabParam } from '@/entities/notification';
 
 import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/shared';
 

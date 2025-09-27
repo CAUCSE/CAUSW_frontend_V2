@@ -13,6 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         // Override point for customization after application launch.
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
+        
+        DispatchQueue.main.async {
+                   guard let bridgeViewController = self.window?.rootViewController as? CAPBridgeViewController else {
+                       return
+                   }
+
+                   if let webView = bridgeViewController.webView {
+                       webView.allowsBackForwardNavigationGestures = true
+                   }
+               }
         return true
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
