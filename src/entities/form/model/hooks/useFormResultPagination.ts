@@ -3,7 +3,7 @@
 import { FetchNextPageOptions, InfiniteQueryObserverResult } from '@tanstack/react-query';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFormResultStore } from '@/entities/form/model/stores';
+import { useFormResultStore } from '@/entities/form';
 
 export const useFormResultPagination = () => {
   const { currentPage, setCurrentPage } = useFormResultStore(

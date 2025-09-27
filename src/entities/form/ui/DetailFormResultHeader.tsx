@@ -4,8 +4,7 @@ import Image from 'next/image';
 
 import { FetchNextPageOptions, InfiniteQueryObserverResult } from '@tanstack/react-query';
 
-import { useFormResultPagination } from '@/entities/form/model/hooks';
-import { useFormResultStore } from '@/entities/form/model/stores';
+import { useFormResultStore, useFormResultPagination } from '@/entities/form';
 
 interface DetailFormResultHeaderProps {
   totalDetailPage: number;

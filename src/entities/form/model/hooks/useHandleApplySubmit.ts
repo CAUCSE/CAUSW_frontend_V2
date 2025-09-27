@@ -5,8 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { UseFormSetError } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useSubmitFormReply } from '@/entities/form/model';
-import { useResponseFormStore } from '@/entities/form/model/stores';
+import { useResponseFormStore, useSubmitFormReply } from '@/entities/form';
 
 interface useHandleApplySubmitProps {
   setError: UseFormSetError<Form.QuestionReplyRequestDtoList>;

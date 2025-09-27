@@ -1,8 +1,7 @@
 'use client';
 
 import { useShallow } from 'zustand/react/shallow';
-
-import { useFormResultStore } from '@/entities/form/model/stores';
+import { useFormResultStore } from '@/entities/form';
 
 export const SummaryToggleBtn = () => {
   const { resultView, setResultView } = useFormResultStore(
