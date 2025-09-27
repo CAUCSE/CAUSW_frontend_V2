@@ -5,7 +5,6 @@ import { Plus } from 'lucide-react';
 interface FabProps {
   href: string;
   label: string;
-  className?: string;
   icon?: React.ReactNode;
 }
 
