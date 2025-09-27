@@ -60,7 +60,9 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
             ? allRoles.leaderCircleUsers
             : state === 'alumunileader'
               ? allRoles.leaderAlumni
-              : allRoles.presidentUser;
+              : state === 'alumnimanager'
+                ? allRoles.alumniManager
+                : allRoles.presidentUser;
 
   return (
     <>

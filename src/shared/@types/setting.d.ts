@@ -143,6 +143,7 @@ declare namespace Setting {
     leaderGradeUsers: User.User[];
     leaderCircleUsers: User.User[];
     leaderAlumni: User.User[];
+    alumniManager: User.User[];
   } & Error.ApiErrorResponse;
 
   //Detail
