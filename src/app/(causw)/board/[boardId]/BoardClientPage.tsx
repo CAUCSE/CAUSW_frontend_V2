@@ -8,9 +8,9 @@ import toast from 'react-hot-toast';
 
 import { BoardHeader, BoardPostList } from '@/widgets/board';
 
-import { SearchBar } from '@/entities/contact';
 import { useGetPostList } from '@/entities/post';
 
+import { SearchBar } from '@/shared';
 import { Fab, LoadingScreen, useDebounce } from '@/shared';
 
 export const BoardClientPage = () => {
