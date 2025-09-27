@@ -9,7 +9,6 @@ export {
   ApplicationFormToggle,
   UploadFilePreview,
   CreatePostButton,
-  SearchPostButton,
   PostWriterProfileImage,
   PostDetailTitle,
   PostDetailContent,
@@ -20,8 +19,6 @@ export {
 } from './ui';
 export {
   useGetPostList,
-  useGetPostSearchList,
-  useSearchPost,
   usePostCreationStore,
   useUploadFileStore,
   useUploadFile,

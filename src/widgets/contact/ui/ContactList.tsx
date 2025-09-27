@@ -6,13 +6,12 @@ import { Loader2, Filter } from 'lucide-react';
 
 import {
   ContactCard,
-  SearchBar,
   useSearchContactsQuery,
   ContactFilterSheet,
   FilterPills,
 } from '@/entities/contact';
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
-import { useDebounce } from '@/shared';
+import { SearchBar, useDebounce } from '@/shared';
 import { Button } from '@/shadcn/components/ui/button';
 
 export const ContactList = () => {

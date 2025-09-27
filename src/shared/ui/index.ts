@@ -33,6 +33,8 @@ export { DateLabel } from './DateLabel';
 export { CommonImageList } from './CommonImageList';
 export { CustomAlertDialog } from './CustomAlertDialog';
 
+export { SearchBar } from './SearchBar';
 export { ProfileImageUploader } from './ProfileImageUploader';
 export { WindowSizeListener } from './WindowSizeListener';
 export { GA } from './GA';
+export { Fab } from './Fab';

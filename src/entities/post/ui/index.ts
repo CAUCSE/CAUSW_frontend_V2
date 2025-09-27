@@ -3,7 +3,6 @@ export * from './PostCreationForm';
 export * from './PostCreationFormButtonGroup';
 export * from './UploadFilePreview';
 export { CreatePostButton } from './CreatePostButton';
-export { SearchPostButton } from './SearchPostButton';
 export { PostWriterProfileImage } from './PostWriterProfileImage';
 export { PostDetailTitle } from './PostDetailTitle';
 export { PostDetailContent } from './PostDetailContent';
