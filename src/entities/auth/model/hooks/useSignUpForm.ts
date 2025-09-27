@@ -9,7 +9,7 @@ const allowedKeys = [
   'password',
   'studentId',
   'name',
-  'major',
+  'department',
   'phoneNumber',
   'admissionYear',
 ] as const;

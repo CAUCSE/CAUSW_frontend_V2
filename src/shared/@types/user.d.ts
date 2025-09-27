@@ -153,7 +153,7 @@ declare namespace User {
     studentId?: string;
     admissionYearString: string;
     nickname: string;
-    major: string;
+    department: string;
     agreeToTerms: boolean;
     agreeToPopup: boolean;
     phoneNumber: string;
@@ -166,7 +166,7 @@ declare namespace User {
     studentId?: string;
     admissionYear: number;
     nickname: string;
-    major: string;
+    department: string;
     phoneNumber: string;
   }
 

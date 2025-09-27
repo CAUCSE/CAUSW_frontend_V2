@@ -12,6 +12,8 @@ interface Props {
 
 export const SignUpFormFields = ({ register, errors, watch }: Props) => {
   const password = watch('password');
+  const admissionYear = watch('admissionYearString');
+  const isNewMajorSystem = admissionYear && parseInt(admissionYear, 10) >= 2021;
 
   return (
     <>
@@ -72,7 +74,6 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="학번 8자리를 입력해주세요 (선택사항)"
           errorMessage={errors.studentId?.message}
         />
-
         <AuthInput
           register={register}
           name="name"
@@ -81,14 +82,21 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="이름을 입력해주세요"
           errorMessage={errors.name?.message}
         />
-        <AuthInput
-          register={register}
-          name="major"
-          rules={signUpValidationRules.major}
-          label="학부/학과"
-          placeholder="ex) 소프트웨어학부, 컴퓨터공학부"
-          errorMessage={errors.major?.message}
-        />
+        {isNewMajorSystem ? (
+          <SignUpSelect
+            register={register}
+            name="department"
+            label="학과"
+            rules={signUpValidationRules.department}
+            errorMessage={errors.department?.message}
+            options={[
+              { value: 'DEPT_OF_AI', label: 'AI학과' },
+              { value: 'SCHOOL_OF_SW', label: '소프트웨어학부' },
+            ]}
+          />
+        ) : (
+          <div></div>
+        )}
         <AuthInput
           register={register}
           name="phoneNumber"
