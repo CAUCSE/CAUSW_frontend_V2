@@ -44,6 +44,7 @@ declare namespace User {
     | 'LEADER_4'
     | 'LEADER_CIRCLE'
     | 'LEADER_ALUMNI'
+    | 'ALUMNI_MANAGER'
     | 'COMMON'
     | 'PROFESSOR'
     | 'NONE';

@@ -21,6 +21,7 @@ const badgeVariants = cva(
         president: 'border-transparent bg-[#5D5999] text-white rounded-full', // 학생회장
         vice_president: 'border-transparent bg-[#3B5998] text-white rounded-full', // 부학생회장
         leader_alumni: 'border-transparent bg-[#996B59] text-white rounded-full', // 동문회장
+        alumni_manager: 'border-transparent bg-[#805E4D] text-white rounded-full', // 동문회 관리자
         leader_1: 'border-transparent bg-[#7AA2E3] text-white rounded-full', // 1학년 대표
         leader_2: 'border-transparent bg-[#6794DC] text-white rounded-full', // 2학년 대표
         leader_3: 'border-transparent bg-[#507CD3] text-white rounded-full', // 3학년 대표

@@ -20,6 +20,7 @@ const rolesMap = {
   PRESIDENT: { label: '학생회장', variant: 'president' },
   VICE_PRESIDENT: { label: '부학생회장', variant: 'vice_president' },
   LEADER_ALUMNI: { label: '동문회장', variant: 'leader_alumni' },
+  ALUMNI_MANAGER: { label: '동문회 관리자', variant: 'alumni_manager' },
   LEADER_1: { label: '1학년 대표', variant: 'leader_1' },
   LEADER_2: { label: '2학년 대표', variant: 'leader_2' },
   LEADER_3: { label: '3학년 대표', variant: 'leader_3' },
