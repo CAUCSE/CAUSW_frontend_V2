@@ -41,7 +41,7 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
     'motion-reduce:transition-none motion-reduce:hover:translate-y-0';
 
   return (
-    <div className="flex w-full grow flex-col gap-4 overflow-y-auto pr-3 pb-2 pl-5">
+    <div className="flex w-full grow flex-col gap-4 overflow-y-auto px-5 pb-2">
       {postList!.length === 0 ? (
         <div className="flex h-full w-full items-center justify-center text-2xl">게시글이 없습니다.</div>
       ) : (
