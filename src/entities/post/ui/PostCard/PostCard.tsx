@@ -16,7 +16,7 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
 
   return (
     <div
-      className="flex h-29.5 w-full items-center rounded-lg bg-white p-4 shadow-lg sm:h-42 md:p-6"
+      className="flex h-[118px] w-full items-center rounded-lg bg-white p-4 shadow-lg sm:h-[168px] md:p-6"
       onClick={() => {
         targetUrl ? router.push(targetUrl) : router.push(`${pathname}/${post.id}`);
       }}
