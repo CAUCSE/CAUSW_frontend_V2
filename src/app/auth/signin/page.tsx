@@ -128,14 +128,14 @@ const SignInPage = () => {
             <SignInSubmitButton />
 
             <div className="mt-2 flex w-full items-center justify-center">
-              <div className="mb-4 flex flex-col items-center gap-2.5 sm:gap-5">
+              <div className="mb-4 flex flex-col items-center gap-[15px] sm:gap-[17px]">
                 {routes.map((route) => (
                   <div
                     key={route.name}
                     onClick={() => {
                       router.push(route.route);
                     }}
-                    className="cursor-pointer text-[9px] font-medium sm:text-xs sm:font-normal"
+                    className="cursor-pointer text-xs font-medium sm:text-xs sm:font-normal"
                   >
                     {route.name}
                   </div>

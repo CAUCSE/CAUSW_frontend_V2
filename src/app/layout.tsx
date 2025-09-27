@@ -15,17 +15,17 @@ import './globals.css';
 const font = localFont({
   src: [
     {
-      path: './font/SpoqaHanSansNeo-Medium.ttf',
+      path: './font/Pretendard-Medium.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './font/SpoqaHanSansNeo-Bold.ttf',
+      path: './font/Pretendard-Bold.ttf',
       weight: '700',
       style: 'normal',
     },
   ],
-  variable: '--font-spoqa',
+  variable: '--font-pretendard',
 });
 const DynamicAuthAppInitializer = dynamic(
   () => import('@/widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
