@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 
 import { BoardHeader, BoardPostList } from '@/widgets/board';
 
+import { SearchBar } from '@/entities/contact';
 import { useGetPostList } from '@/entities/post';
 
 import { Fab, LoadingScreen, useDebounce } from '@/shared';
@@ -41,12 +42,16 @@ export const BoardClientPage = () => {
   return (
     <>
       <div className="flex h-full w-full flex-col gap-4">
-        <BoardHeader
-          boardName={data?.boardName!}
-          isNotificationActive={data?.isBoardSubscribed!}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
+        <div className="px-5">
+          <SearchBar
+            value={searchTerm}
+            onChange={setSearchTerm}
+            placeholder="찾으시는 게시글을 검색해주세요"
+            bgColor="bg-white"
+            textSize="md:text-base text-sm"
+          />
+        </div>
         <BoardPostList
           postList={data?.postList!}
           isFetchingNextPage={isFetchingNextPage}
