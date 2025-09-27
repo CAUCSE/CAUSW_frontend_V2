@@ -50,8 +50,8 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
       return !(await checkNicknameDuplicate(value)) || '이미 사용 중인 닉네임입니다.';
     },
   },
-  major: {
-    required: '학과를 입력해주세요.',
+  department: {
+    required: '학과/학부를 입력해주세요.',
   },
   agreeToTerms: {
     required: '약관에 동의해주세요.',
