@@ -1,14 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+
 import Image from 'next/image';
-import { UserCircle, Mail } from 'lucide-react';
-import { Badge } from '@/shadcn/components/ui/badge';
+
+import { Mail, UserCircle } from 'lucide-react';
+
 import { ImageViewer } from '@/shared/ui';
+
+import { Badge } from '@/shadcn/components/ui/badge';
 
 const academicStatusMap = {
   ENROLLED: { label: '재학생', variant: 'enrolled' },
-  GRADUATED: { label: '졸업생', variant: 'graduate' },
+  GRADUATED: { label: '졸업생', variant: 'graduated' },
   LEAVE_OF_ABSENCE: { label: '휴학생', variant: 'leave_of_absence' },
 } as const;
 
@@ -23,7 +27,7 @@ const rolesMap = {
 } as const;
 
 interface ProfileHeaderProps {
-  contact: Contact.Contact ;
+  contact: Contact.Contact;
 }
 
 export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
@@ -53,7 +57,6 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
               const roleInfo = rolesMap[role as keyof typeof rolesMap];
               if (!roleInfo) return null;
               return (
-                // 여기도 마찬가지로 오류가 발생하지 않습니다.
                 <Badge key={role} variant={roleInfo.variant}>
                   {roleInfo.label}
                 </Badge>
@@ -71,10 +74,7 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
       </div>
 
       {isViewerOpen && contact.profileImageUrl && (
-        <ImageViewer
-          images={[contact.profileImageUrl]}
-          onClose={() => setIsViewerOpen(false)}
-        />
+        <ImageViewer images={[contact.profileImageUrl]} onClose={() => setIsViewerOpen(false)} />
       )}
     </>
   );

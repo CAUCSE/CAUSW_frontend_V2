@@ -1,9 +1,12 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
+
 import { CeremonyState } from '@/widgets/ceremony';
-import { ceremonyQueryKey } from './ceremonyQueryKey';
+
 import { getCeremonyData } from '@/entities/notification';
+
+import { ceremonyQueryKey } from './ceremonyQueryKey';
 
 export const useCeremonyListQuery = (ceremonyState: CeremonyState) => {
   return useInfiniteQuery({

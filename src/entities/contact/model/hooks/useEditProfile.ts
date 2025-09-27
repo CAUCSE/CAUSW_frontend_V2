@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 
+import { FieldErrors, useFieldArray } from 'react-hook-form';
+import toast from 'react-hot-toast';
+
 import { checkPhoneNumberDuplicate } from '@/entities/auth/api/get';
 import {
   contactToFormData,
@@ -10,11 +13,21 @@ import {
 } from '@/entities/contact';
 
 const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
+const defaultSocialLinkItem = { value: '' };
 
 export const useEditProfile = (contact: Contact.Contact | undefined) => {
-  const { methods, fields, append, remove } = useProfileForm();
+  const { methods, fields: careerFields, append: appendCareer, remove: removeCareer } = useProfileForm();
+  const { control, setError, clearErrors } = methods;
   const { mutate: updateProfile, isPending } = useUpdateMyProfileMutation();
-  const { setError, clearErrors } = methods;
+
+  const {
+    fields: socialLinkFields,
+    append: appendSocialLink,
+    remove: removeSocialLink,
+  } = useFieldArray({
+    control,
+    name: 'socialLinks',
+  });
 
   useEffect(() => {
     if (contact) {
@@ -40,14 +53,26 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
     updateProfile({ userInfoUpdateDto, profileImage });
   };
 
-  const addCareer = () => append(defaultCareerItem);
+  const onFormError = (errors: FieldErrors<ProfileFormData>) => {
+    if (errors.phoneNumber) {
+      toast.error(errors.phoneNumber.message || '올바른 전화번호를 입력해주세요.');
+    } else {
+      toast.error('입력되지 않거나 잘못된 형식의 값이 있습니다. 확인해주세요.');
+    }
+  };
+
+  const addCareer = () => appendCareer(defaultCareerItem);
+  const addSocialLink = () => appendSocialLink(defaultSocialLinkItem);
 
   return {
     methods,
     isPending,
-    fields,
+    careerFields,
     addCareer,
-    removeCareer: remove,
-    handleFormSubmit: methods.handleSubmit(onSubmit),
+    removeCareer,
+    socialLinkFields,
+    addSocialLink,
+    removeSocialLink,
+    handleFormSubmit: methods.handleSubmit(onSubmit, onFormError),
   };
 };

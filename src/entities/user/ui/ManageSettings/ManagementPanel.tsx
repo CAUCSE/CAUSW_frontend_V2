@@ -129,13 +129,7 @@ export const ManagementPanel = ({
             className="mb-3 text-lg"
             key={element.userName}
           >
-            {state === 'admission' || state === 'reject' ? (
-              <>{element.userName}</>
-            ) : (
-              <>
-                {element.userName}
-              </>
-            )}
+            {state === 'admission' || state === 'reject' ? <>{element.userName}</> : <>{element.userName}</>}
           </Link>
         ))}
       </div>

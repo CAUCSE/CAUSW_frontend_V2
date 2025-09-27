@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
+
 import { getMyInfo } from '../../api';
 import { userQueryKey } from '../../config/queryKeys/userQueryKey';
 

@@ -22,11 +22,7 @@ declare namespace Contact {
     description: string;
     job: string;
     userCareer: UserCareer[];
-    githubLink: string;
-    linkedInLink: string;
-    blogLink: string;
-    notionLink: string;
-    instagramLink: string;
+    socialLinks: string[];
     isPhoneNumberVisible: boolean;
   }
 
@@ -64,11 +60,14 @@ declare namespace Contact {
     description: string;
     job: string;
     userCareer: (Omit<UserCareer, 'id'> & { id: string | null })[];
-    githubLink: string;
-    linkedInLink: string;
-    blogLink: string;
-    notionLink: string;
-    instagramLink: string;
+    socialLinks: string[];
     isPhoneNumberVisible: boolean;
+  }
+
+  export interface ContactFilters {
+    keyword?: string;
+    admissionYearStart?: number;
+    admissionYearEnd?: number;
+    academicStatus?: ('ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED')[];
   }
 }

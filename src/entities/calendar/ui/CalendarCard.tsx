@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CardBox } from '@/shared/ui/CardBox';
-
 import { useCalendarStore } from '@/entities/calendar/model';
+
+import { CardBox } from '@/shared/ui/CardBox';
 
 import DeleteIcon from '../../../../public/icons/delete_icon.svg';
 

@@ -1,6 +1,11 @@
 import { RegisterOptions } from 'react-hook-form';
 
-import { checkEmailDuplicate, checkNicknameDuplicate, checkPhoneNumberDuplicate, checkStudentIdDuplicate } from '../api/get';
+import {
+  checkEmailDuplicate,
+  checkNicknameDuplicate,
+  checkPhoneNumberDuplicate,
+  checkStudentIdDuplicate,
+} from '../api/get';
 
 export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOptions<User.SignUpForm>> = {
   email: {
@@ -24,7 +29,8 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
       message: '비밀번호는 최소 8자 이상이어야 합니다.',
     },
     pattern: {
-      value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]{8,16}$/,
+      value:
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]{8,16}$/,
       message: '비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요.',
     },
   },
@@ -59,7 +65,8 @@ export const signUpValidationRules: Record<keyof User.SignUpForm, RegisterOption
   phoneNumber: {
     validate: async (value) => {
       if (!value) return '휴대폰 번호를 입력해주세요.';
-      if (typeof value !== 'string' || !/^\d{3}-\d{3,4}-\d{4}$/.test(value)) return 'ex) 010-1234-5678 형식으로 입력해주세요.';
+      if (typeof value !== 'string' || !/^\d{3}-\d{3,4}-\d{4}$/.test(value))
+        return 'ex) 010-1234-5678 형식으로 입력해주세요.';
       return !(await checkPhoneNumberDuplicate(value)) || '이미 사용 중인 휴대폰 번호입니다.';
     },
   },

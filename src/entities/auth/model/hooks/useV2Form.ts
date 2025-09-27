@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form';
 
 import { updateInfo, updateVTwo } from '@/entities/user/api';
 import { useUserProfile } from '@/entities/user/model';
-import { checkNicknameDuplicate } from '../../api/get';
 
+import { checkNicknameDuplicate } from '../../api/get';
 
 export const useV2Form = () => {
   const { data: userInfo } = useUserProfile();

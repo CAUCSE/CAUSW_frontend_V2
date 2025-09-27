@@ -1,11 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { useFormResultStore } from '../stores';
+
 import { updateFormClosedStatus } from '../../api';
+import { useFormResultStore } from '../stores';
 
 export const useUpdateFormClosedStatus = () => {
   const { formData, setFormClosedStatus } = useFormResultStore();
-  
+
   return useMutation({
     mutationFn: async ({ formId }: { formId: string }) => {
       return updateFormClosedStatus(formId, formData?.isClosed || false);

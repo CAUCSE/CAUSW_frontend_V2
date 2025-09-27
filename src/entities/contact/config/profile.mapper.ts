@@ -6,17 +6,14 @@ import { ProfileFormData } from './profile.schema';
  * @returns react-hook-form의 reset() 함수에 사용될 폼 데이터
  */
 export const contactToFormData = (contact: Contact.Contact): Partial<ProfileFormData> => {
+  const initialSocialLinks = contact.socialLinks?.map((link) => ({ value: link })) || [];
   return {
     ...contact,
     profileImage: null,
     description: contact.description ?? '',
     job: contact.job ?? '',
     phoneNumber: contact.phoneNumber ?? '',
-    githubLink: contact.githubLink ?? '',
-    linkedInLink: contact.linkedInLink ?? '',
-    blogLink: contact.blogLink ?? '',
-    notionLink: contact.notionLink ?? '',
-    instagramLink: contact.instagramLink ?? '',
+    socialLinks: initialSocialLinks.length > 0 ? initialSocialLinks : [{ value: '' }],
     isPhoneNumberVisible: contact.isPhoneNumberVisible ?? false,
     userCareer: contact.userCareer.map((c) => ({
       id: c.id,
@@ -34,12 +31,13 @@ export const contactToFormData = (contact: Contact.Contact): Partial<ProfileForm
  * @returns API의 update 함수에 전달될 payload 객체
  */
 export const formDataToPayload = (formData: ProfileFormData) => {
-  const { userCareer, profileImage, email, ...userInfoUpdateDto } = formData;
+  const { userCareer, profileImage, email, socialLinks, ...userInfoUpdateDto } = formData;
 
   const filteredUserCareer =
     userCareer?.filter(
       (c) => c.description?.trim() !== '' || c.periodStart?.trim() !== '' || c.periodEnd?.trim() !== '',
     ) || [];
+  const filteredSocialLinks = socialLinks?.map((link) => link.value).filter((value) => value.trim() !== '') || [];
 
   const payload: Omit<Contact.ContactUpdatePayload, 'profileImage'> = {
     ...userInfoUpdateDto,
@@ -47,11 +45,7 @@ export const formDataToPayload = (formData: ProfileFormData) => {
     isPhoneNumberVisible: formData.isPhoneNumberVisible ?? false, // null 방지
     description: formData.description ?? '',
     job: formData.job ?? '',
-    githubLink: formData.githubLink ?? '',
-    linkedInLink: formData.linkedInLink ?? '',
-    blogLink: formData.blogLink ?? '',
-    notionLink: formData.notionLink ?? '',
-    instagramLink: formData.instagramLink ?? '',
+    socialLinks: filteredSocialLinks,
     userCareer: filteredUserCareer.map((c) => ({
       id: c.id || null,
       startYear: c.periodStart ? Number(c.periodStart.substring(0, 4)) : 0,

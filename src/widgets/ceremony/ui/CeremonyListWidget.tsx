@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { AdminCeremonyList, CeremonyTabs } from '@/widgets/ceremony';
+
 import { useCeremonyListQuery } from '@/entities/notification';
 
 import { tabItems } from '../config';
@@ -11,8 +12,7 @@ export const CeremonyListWidget = () => {
   const [activeTab, setActiveTab] = useState(0);
   const ceremonyState = tabItems[activeTab].key;
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useCeremonyListQuery(ceremonyState);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useCeremonyListQuery(ceremonyState);
 
   const items: Ceremony.CeremonyItem[] = (data ?? []).map((item) => ({
     id: item.id,
@@ -25,11 +25,7 @@ export const CeremonyListWidget = () => {
 
   return (
     <div className="w-full">
-      <CeremonyTabs
-        tabItems={tabItems}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      <CeremonyTabs tabItems={tabItems} activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="mt-4">
         <AdminCeremonyList
           list={items}

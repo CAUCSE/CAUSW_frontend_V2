@@ -10,10 +10,10 @@ import { CustomSelect, MESSAGES, PortalModal } from '@/shared';
 import ImageIcon from '../../../../public/icons/image_icon.svg';
 
 const ImageSelectionModalBody = ({
-                                   clickUploadBtn,
-                                   clearSelectedImage,
-                                   selectedImage,
-                                 }: {
+  clickUploadBtn,
+  clearSelectedImage,
+  selectedImage,
+}: {
   clickUploadBtn: () => void;
   clearSelectedImage: () => void;
   selectedImage: File | null;
@@ -54,7 +54,6 @@ const ImageSelectionModalBody = ({
     </>
   );
 };
-
 
 export const CalendarAddModal = () => {
   const closeAddModal = useCalendarStore((state) => state.closeAddModal);

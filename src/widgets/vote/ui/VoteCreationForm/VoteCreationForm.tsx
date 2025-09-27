@@ -1,6 +1,7 @@
 import { AnonymousToggle, MultipleSelectionToggle, VoteTitleInput } from '@/entities/vote';
-import { VoteOptionList } from './VoteOptionList';
 import { useVoteStore } from '@/entities/vote/model/stores';
+
+import { VoteOptionList } from './VoteOptionList';
 
 export const VoteCreationForm = () => {
   return (

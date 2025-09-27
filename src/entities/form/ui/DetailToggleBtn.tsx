@@ -2,7 +2,7 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { useFormResultStore } from '@/entities/form/model/stores';
+import { useFormResultStore } from '@/entities/form';
 
 export const DetailToggleBtn = () => {
   const { resultView, setResultView } = useFormResultStore(

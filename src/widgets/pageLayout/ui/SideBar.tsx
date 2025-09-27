@@ -11,8 +11,8 @@ import { useUserProfile } from '@/entities/user';
 
 import { ProfileImage } from '@/shared/ui';
 
-import { SubHeader, tokenManager } from '@/shared';
 import { Button } from '@/shadcn/components/ui';
+import { SubHeader, tokenManager } from '@/shared';
 
 interface SideBarProps {
   className?: string;

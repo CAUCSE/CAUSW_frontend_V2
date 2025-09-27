@@ -2,8 +2,8 @@
 
 import { NotificationActionButtons } from '@/widgets/notification';
 
-import { MESSAGES, NOTIFICATION_TAB } from '@/shared';
 import { Tabs, TabsList, TabsTrigger } from '@/shadcn/components/ui';
+import { MESSAGES, NOTIFICATION_TAB } from '@/shared';
 
 interface Props {
   activeTab: number;

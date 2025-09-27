@@ -1,6 +1,7 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
 import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/entities/auth';
+
 import { formatPhoneNumber } from '@/shared';
 
 interface Props {
@@ -14,7 +15,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
 
   return (
     <>
-      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-y-2 gap-x-8 lg:p-8 lg:grid lg:grid-cols-2">
+      <div className="grid w-full max-w-3xl grid-cols-1 place-items-center gap-x-8 gap-y-2 lg:grid lg:grid-cols-2 lg:p-8">
         <AuthInput
           register={register}
           name="email"
@@ -52,7 +53,7 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           placeholder="8자리 이상, 영어/숫자/특수 문자"
           errorMessage={errors.pwConfirm?.message}
         />
-                <SignUpSelect
+        <SignUpSelect
           register={register}
           name="admissionYearString"
           label="입학년도"

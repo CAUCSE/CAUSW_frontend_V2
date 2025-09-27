@@ -1,12 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+
 import { UserCircle } from 'lucide-react';
 
-import { ImageViewer } from '@/shared/ui';
 import { useGetMyProfileQuery } from '@/entities/contact';
+
+import { ImageViewer } from '@/shared/ui';
 
 interface ContactCardProps {
   contact: Contact.Contact;
@@ -63,17 +66,14 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
             </div>
             <div className="flex items-baseline">
               <span className="mr-1.5 shrink-0 text-xs text-gray-400">소개</span>
-              <span className="text-gray-800 line-clamp-1">{contact.description}</span>
+              <span className="line-clamp-1 text-gray-800">{contact.description}</span>
             </div>
           </div>
         </div>
       </div>
 
       {isViewerOpen && contact.profileImageUrl && (
-        <ImageViewer
-          images={[contact.profileImageUrl]}
-          onClose={handleCloseViewer}
-        />
+        <ImageViewer images={[contact.profileImageUrl]} onClose={handleCloseViewer} />
       )}
     </>
   );

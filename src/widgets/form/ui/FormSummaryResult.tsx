@@ -7,8 +7,7 @@ import {
   ObjectiveQuestionSummaryResult,
   SubjectiveQuestionSummaryResult,
 } from '@/entities/form/ui';
-import { useGetFormSummaryResult } from '@/entities/form/model';
-import { useFormResultStore } from '@/entities/form/model/stores';
+import { useGetFormSummaryResult, useFormResultStore } from '@/entities/form';
 import { LoadingComponent } from '@/shared';
 
 export const FormSummaryResult = () => {

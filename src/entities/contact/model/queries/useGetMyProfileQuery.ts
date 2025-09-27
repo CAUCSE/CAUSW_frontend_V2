@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getMyProfile, contactQueryKey } from '@/entities/contact';
+
+import { contactQueryKey, getMyProfile } from '@/entities/contact';
 
 /**
  * 내 프로필 정보를 조회하는 훅

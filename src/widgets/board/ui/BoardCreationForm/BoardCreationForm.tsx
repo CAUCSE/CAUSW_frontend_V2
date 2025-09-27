@@ -1,11 +1,11 @@
 'use client';
 
 import {
+  AllowAlumniToggle,
   AllowAnonymousToggle,
   BoardCreateButton,
   BoardDetailForm,
   RoleSelectSection,
-  AllowAlumniToggle,
 } from '@/entities/board';
 
 import { PreviousButton, useAuthHandler } from '@/shared';

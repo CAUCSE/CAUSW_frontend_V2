@@ -6,9 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { LoadingComponent, Modal } from '@/shared';
 import { PreviousButton } from '@/shared';
-import { useResponseFormStore } from '@/entities/form/model/stores';
-import { useGetFormResponseInfo } from '@/entities/form/model';
-import { useHandleApplySubmit } from '@/entities/form/model/hooks';
+import { useResponseFormStore, useGetFormResponseInfo, useHandleApplySubmit } from '@/entities/form';
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widgets/form/ui';
 
 const ApplyPage = () => {
