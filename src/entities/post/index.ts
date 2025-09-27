@@ -19,8 +19,6 @@ export {
 } from './ui';
 export {
   useGetPostList,
-  useGetPostSearchList,
-  useSearchPost,
   usePostCreationStore,
   useUploadFileStore,
   useUploadFile,
