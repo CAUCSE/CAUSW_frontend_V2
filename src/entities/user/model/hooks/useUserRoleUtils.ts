@@ -41,6 +41,10 @@ export const isAlumniLeader = (roles: User.Role[]) => {
   return roles.includes('LEADER_ALUMNI');
 };
 
+export const isAlumniManager = (roles: User.Role[]) => {
+  return roles.includes('ALUMNI_MANAGER');
+};
+
 export const userRoleCodes: {
   [key in User.Role]: string;
 } = {
@@ -54,6 +58,7 @@ export const userRoleCodes: {
   LEADER_4: '4학년 학년대표',
   LEADER_CIRCLE: '동아리장',
   LEADER_ALUMNI: '동문회장',
+  ALUMNI_MANAGER: '동문회 관리자',
   COMMON: '학생',
   PROFESSOR: '교수',
   NONE: '권한 없음',

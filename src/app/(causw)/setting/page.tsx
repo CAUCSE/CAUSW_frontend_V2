@@ -12,6 +12,7 @@ import { withdrawUserCSR } from '@/entities/user';
 import {
   isAdmin,
   isAlumniLeader,
+  isAlumniManager,
   isCircleLeader,
   isCouncil,
   isGraduate,
@@ -41,7 +42,7 @@ const SettingsPage = () => {
   if (!userInfo) return notFound();
 
   const roles = userInfo.roles;
-  const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles);
+  const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles) && !isAlumniManager(roles);
   const isAdminGroup = isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles);
 
   const circleIdIfLeader = userInfo.circleIdIfLeader;
@@ -210,7 +211,7 @@ const SettingsPage = () => {
         )} */}
 
         {/* 동문회장 */}
-        {isAlumniLeader(roles) && (
+        {isAlumniLeader(roles) && isAlumniManager(roles) && (
           <>
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagementAlumniLeader} />
