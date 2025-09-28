@@ -64,7 +64,7 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
         </div>
         <div className="flex flex-col">
           <div className="flex items-baseline gap-2">
-            <span className="text-sm font-bold text-[#155DFC]">{shortYear}학번</span>
+            <span className="text-sm font-bold text-blue-600">{shortYear}학번</span>
             <span className="text-base font-bold">{contact.name}</span>
           </div>
           <div className="mt-1 flex flex-col gap-0.5 text-sm text-gray-700">

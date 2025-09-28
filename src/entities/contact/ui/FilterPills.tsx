@@ -6,7 +6,7 @@ interface FilterPillsProps {
   onFilterChange: (filters: Contact.ContactFilters) => void;
 }
 
-const ACADEMIC_SATUS_MAP = {
+const ACADEMIC_STATUS_MAP = {
   ENROLLED: '재학생',
   LEAVE_OF_ABSENCE: '휴학생',
   GRADUATED: '졸업생',
@@ -47,7 +47,7 @@ export const FilterPills = ({ filters, onFilterChange }: FilterPillsProps) => {
           <span>
             재학상태:
             <span className="ml-1 font-medium">
-              {academicStatus.map((status) => ACADEMIC_SATUS_MAP[status]).join(', ')}
+              {academicStatus.map((status) => ACADEMIC_STATUS_MAP[status]).join(', ')}
             </span>
           </span>
           <X size={16} />

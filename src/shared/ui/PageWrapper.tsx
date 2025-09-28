@@ -3,6 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
+import { cn } from '@/shadcn/lib/utils';
+
 export const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
@@ -13,5 +15,9 @@ export const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     return 'bg-slate-100';
   }, [pathname]);
 
-  return <main className={`w-full min-h-screen ${backgroundClass}`}>{children}</main>;
+  return (
+    <main className={cn('w-full min-h-screen', backgroundClass)}>
+      {children}
+    </main>
+  );
 };

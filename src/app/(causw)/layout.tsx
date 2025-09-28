@@ -32,14 +32,14 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
       >
         <NavigationBar className="relative hidden h-full w-full xl:block" />
         <SideBar className="relative flex h-full w-full items-center justify-end xl:hidden" />
-        <main
+        <div
           className={clsx(
             'h-full w-full overflow-y-auto rounded-3xl',
             !isContactsPage && 'bg-[#F8F8F8]',
           )}
         >
           {children}
-        </main>
+        </div>
         <SideBar className="relative hidden h-full w-full flex-col items-center justify-center xl:flex xl:px-2" />
         <NavigationBar className="block h-full w-full xl:hidden" isIOS={isIOS} />
       </div>
