@@ -19,6 +19,7 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
   const router = useRouter();
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const { data: myProfile } = useGetMyProfileQuery();
+  const shortYear = String(contact.admissionYear).slice(-2);
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -42,22 +43,29 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
   return (
     <>
       <div
-        className="flex w-full cursor-pointer items-start gap-4 rounded-lg p-4 transition-colors hover:bg-gray-100 md:py-5"
+        className="flex w-full cursor-pointer items-center gap-4 rounded-lg p-4 transition-colors hover:bg-gray-100 md:py-5" // `items-start` -> `items-center`로 변경
         onClick={handleNavigate}
       >
-        <div className="relative h-10 w-10 shrink-0" onClick={handleImageClick}>
+        <div
+          className="relative h-13 w-13 shrink-0 overflow-hidden rounded-full"
+          onClick={handleImageClick}
+        >
           {contact.profileImageUrl ? (
-            <Image src={contact.profileImageUrl} alt={contact.name} fill className="rounded-full" />
+            <Image
+              src={contact.profileImageUrl}
+              alt={`${contact.name} 프로필 사진`}
+              fill
+              sizes="40px"
+              className="object-cover"
+            />
           ) : (
             <UserCircle className="h-full w-full text-gray-400" />
           )}
         </div>
         <div className="flex flex-col">
-          <div className="flex items-baseline gap-2.5">
-            <span className="font-bold">{contact.name}</span>
-            <span className="text-sm font-extralight" style={{ color: '#779CE7' }}>
-              {contact.major} {contact.admissionYear}
-            </span>
+          <div className="flex items-baseline gap-2">
+            <span className="text-sm font-bold text-[#155DFC]">{shortYear}학번</span>
+            <span className="text-base font-bold">{contact.name}</span>
           </div>
           <div className="mt-1 flex flex-col gap-0.5 text-sm text-gray-700">
             <div className="flex items-baseline">

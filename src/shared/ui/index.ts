@@ -38,3 +38,4 @@ export { ProfileImageUploader } from './ProfileImageUploader';
 export { WindowSizeListener } from './WindowSizeListener';
 export { GA } from './GA';
 export { Fab } from './Fab';
+export { PageWrapper } from './PageWrapper';

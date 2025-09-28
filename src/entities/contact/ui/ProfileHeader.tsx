@@ -33,16 +33,23 @@ interface ProfileHeaderProps {
 export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const statusInfo = academicStatusMap[contact.academicStatus as keyof typeof academicStatusMap];
+  const shortYear = String(contact.admissionYear).slice(-2);
 
   return (
     <>
       <div className="flex items-center gap-6">
         <div
-          className="relative h-20 w-20 shrink-0 cursor-pointer"
+          className="relative h-20 w-20 shrink-0 cursor-pointer overflow-hidden rounded-full"
           onClick={() => contact.profileImageUrl && setIsViewerOpen(true)}
         >
           {contact.profileImageUrl ? (
-            <Image src={contact.profileImageUrl} alt={contact.name} fill className="rounded-full" />
+            <Image
+              src={contact.profileImageUrl}
+              alt={contact.name}
+              fill
+              sizes="80px"
+              className="object-cover"
+            />
           ) : (
             <UserCircle className="h-full w-full text-gray-300" />
           )}
@@ -50,9 +57,7 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
         <div className="flex flex-col">
           <div className="mb-2.5 flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-bold">{contact.name}</h1>
-
             {statusInfo && <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>}
-
             {contact.roles?.map((role) => {
               const roleInfo = rolesMap[role as keyof typeof rolesMap];
               if (!roleInfo) return null;
@@ -64,7 +69,7 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
             })}
           </div>
           <p className="text-gray-500">
-            {contact.major} {contact.admissionYear}학번
+            {contact.major} {shortYear}학번
           </p>
           <div className="flex items-center gap-1 text-sm text-gray-600">
             <Mail size={16} />
