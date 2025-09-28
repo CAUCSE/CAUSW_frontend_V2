@@ -107,12 +107,15 @@ export default async function ClientHomePage({ events }) {
                   {mainBoards.map((mainBoard, index) =>
                     mainBoard?.posts.content[0] ? (
                       <Link
-                        href={'/board/' + mainBoard?.board.id + '/' + mainBoard?.posts.content[0].id}
+                        href={`/board/${mainBoard?.board.id}/${mainBoard?.posts.content[0].id}`}
                         key={mainBoard?.posts.content[0].id}
-                        className="flex w-[80%] flex-col items-center justify-center border-t border-b py-3 text-center transition-colors duration-150 hover:bg-gray-100"
-                        style={{ wordBreak: 'keep-all' }}
+                        className="flex w-[80%] flex-col items-center justify-center border-t border-b py-3 transition-colors duration-150 hover:bg-gray-100"
                       >
-                        <span className="block w-full">{mainBoard?.posts.content[0].title}</span>
+                        <div className="w-full text-center">
+                          <span className="line-clamp-2 text-center break-words whitespace-normal">
+                            {mainBoard?.posts.content[0].title}
+                          </span>
+                        </div>
                         <div className="text-sm font-normal text-gray-400">
                           {mainBoard?.posts.content[0].updatedAt.split('T')[0]}
                         </div>

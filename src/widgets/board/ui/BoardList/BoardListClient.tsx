@@ -28,11 +28,11 @@ export const BoardListClient = ({
       return (
         <>
           {/* 기본 공지 섹션 */}
-          <div>
+          <div className="w-full">
             <DefaultNoticeBoard boardInfos={defaultBoardForAdmin} />
           </div>
           {/* 커스텀 보드 섹션 */}
-          <div className={`mt-4`}>
+          <div className="mt-4 w-full">
             <CustomBoard boardInfos={customBoardForAdmin} />
           </div>
         </>
@@ -41,10 +41,10 @@ export const BoardListClient = ({
 
     return (
       <>
-        <div>
+        <div className="w-full">
           <DefaultNoticeBoard boardInfos={defaultBoardForCommon} />
         </div>
-        <div className={`mt-4`}>
+        <div className="mt-4 w-full">
           <CustomBoard boardInfos={customBoardForCommon} />
         </div>
       </>

@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { PostCardContent } from './PostCardContent';
 import { PostCardStatusBar } from './PostCardStatusBar';
 
 interface PostCardProps {
@@ -17,21 +16,21 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
 
   return (
     <div
-      className="flex h-44 w-full items-center rounded-xl bg-white p-4 shadow-lg lg:p-6"
+      className="flex h-[118px] w-full items-center rounded-lg bg-white p-4 shadow-lg sm:h-[168px] md:p-6"
       onClick={() => {
         targetUrl ? router.push(targetUrl) : router.push(`${pathname}/${post.id}`);
       }}
     >
       <div className="grid h-full w-full grid-rows-[1fr_1.5rem]">
-        <div className="flex h-full w-full items-center justify-between">
-          <PostCardContent post={post} />
-          <div className="h-16 w-16 shrink-0 overflow-hidden sm:h-24 sm:w-24">
+        <div className="flex h-15 w-full justify-between gap-[22px] md:h-[85px] md:gap-[30px]">
+          <p className="line-clamp-2 overflow-hidden text-xl font-bold break-all md:text-[32px]">{post.title}</p>
+          <div className="h-15 w-15 shrink-0 overflow-hidden rounded-lg sm:h-30 sm:w-30">
             {post.postAttachImage && (
               <Image
                 src={post.postAttachImage}
                 alt="post_thumbnail"
-                width={100}
-                height={100}
+                width={120}
+                height={120}
                 className="object-cover"
               />
             )}
