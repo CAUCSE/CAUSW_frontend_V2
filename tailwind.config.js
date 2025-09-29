@@ -63,7 +63,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          'var(--font-spoqa)',
+          'var(--font-pretendard)',
           'system-ui',
           '-apple-system',
           'BlinkMacSystemFont',
