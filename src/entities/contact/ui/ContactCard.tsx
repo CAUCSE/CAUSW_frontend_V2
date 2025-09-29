@@ -57,6 +57,7 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
               fill
               sizes="40px"
               className="object-cover"
+              unoptimized //최적화 비활성화
             />
           ) : (
             <UserCircle className="h-full w-full text-gray-400" />

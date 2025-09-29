@@ -10,6 +10,7 @@ import { ProfileImageUploader } from '@/shared/ui';
 
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
 import { formatPhoneNumber } from '@/shared';
+import { useEffect, useState } from "react";
 
 interface ProfileEditProps {
   contact: Contact.Contact | undefined;
@@ -35,12 +36,19 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
   } = methods;
 
   const phoneNumberValue = watch('phoneNumber');
+  const [activeTab, setActiveTab] = useState('basic');
+  useEffect(() => {
+    if (errors.phoneNumber) {
+      setActiveTab('basic');
+    }
+  }, [errors]);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleFormSubmit} className="flex w-full flex-col gap-8">
         {contact && <ProfileHeader contact={contact} />}
 
-        <Tabs defaultValue="basic" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="flex w-full justify-start overflow-x-auto whitespace-nowrap">
             <TabsTrigger value="basic">기본설정</TabsTrigger>
             <TabsTrigger value="intro">사용자 소개</TabsTrigger>
