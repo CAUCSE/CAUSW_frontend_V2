@@ -43,7 +43,7 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
   return (
     <>
       <div
-        className="flex w-full cursor-pointer items-center gap-4 rounded-lg p-4 transition-colors hover:bg-gray-100 md:py-5" // `items-start` -> `items-center`로 변경
+        className="flex w-full cursor-pointer items-center gap-4 p-4 transition-colors hover:bg-gray-100 md:py-5" // `items-start` -> `items-center`로 변경
         onClick={handleNavigate}
       >
         <div
@@ -65,22 +65,24 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
         </div>
         <div className="flex flex-col">
           <div className="flex items-baseline gap-2">
-            <span className="text-sm font-bold text-blue-600">{shortYear}학번</span>
-            <span className="text-base font-bold">{contact.name}</span>
+            {/* 학번: text-base(16px), font-bold(700), blue-600 */}
+            <span className="text-base font-medium text-blue-600">{shortYear}학번</span>
+
+            {/* 이름: text-xl(20px), font-medium(500), gray-900 */}
+            <span className="text-xl font-medium text-gray-900">{contact.name}</span>
           </div>
           <div className="mt-1 flex flex-col gap-0.5 text-sm text-gray-700">
             <div className="flex items-baseline">
-              <span className="mr-1.5 shrink-0 text-xs text-gray-400">직업</span>
-              <span className="text-gray-800">{contact.job}</span>
+              <span className="mr-1.5 shrink-0 text-base font-normal text-gray-500">직업</span>
+              <span className="text-gray-900 font-normal text-base">{contact.job}</span>
             </div>
             <div className="flex items-baseline">
-              <span className="mr-1.5 shrink-0 text-xs text-gray-400">소개</span>
-              <span className="line-clamp-1 text-gray-800">{contact.description}</span>
+              <span className="mr-1.5 shrink-0 text-base font-normal text-gray-500">소개</span>
+              <span className="line-clamp-1 font-normal text-base text-gray-900">{contact.description}</span>
             </div>
           </div>
         </div>
       </div>
-
       {isViewerOpen && contact.profileImageUrl && (
         <ImageViewer images={[contact.profileImageUrl]} onClose={handleCloseViewer} />
       )}
