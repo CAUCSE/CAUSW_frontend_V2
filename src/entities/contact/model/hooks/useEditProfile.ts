@@ -11,6 +11,7 @@ import {
   useProfileForm,
   useUpdateMyProfileMutation,
 } from '@/entities/contact';
+import { useRouter } from 'next/navigation';
 
 const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
 const defaultSocialLinkItem = { value: '' };
@@ -19,7 +20,7 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
   const { methods, fields: careerFields, append: appendCareer, remove: removeCareer } = useProfileForm();
   const { control, setError, clearErrors } = methods;
   const { mutate: updateProfile, isPending } = useUpdateMyProfileMutation();
-
+  const router = useRouter();
   const {
     fields: socialLinkFields,
     append: appendSocialLink,
@@ -51,6 +52,7 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
 
     const { userInfoUpdateDto, profileImage } = formDataToPayload(formData);
     updateProfile({ userInfoUpdateDto, profileImage });
+    router.back();
   };
 
   const onFormError = (errors: FieldErrors<ProfileFormData>) => {
