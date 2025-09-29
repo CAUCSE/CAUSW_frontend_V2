@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Loader2, Filter } from 'lucide-react';
+import { Loader2, Filter, ChevronRight } from "lucide-react";
 
 import {
   ContactCard,
@@ -50,10 +50,11 @@ export const ContactList = () => {
     transition-all duration-200 ease-out will-change-transform
     hover:-translate-y-0.5 hover:shadow-xl active:scale-95
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-    focus-visible:ring-[#7AB6C1] text-white font-bold
+    focus-visible:ring-[#7AB6C1] text-white
     rounded-lg
-    px-4 py-3 text-sm
-    sm:w-[129px] sm:h-[44px] sm:text-base
+    px-5
+    py-[12.5px]
+    font-pretendard font-medium text-base
   `.trim();
 
   return (
