@@ -1,5 +1,5 @@
-import { getPrivilegedUsers } from '@/fsd_entities/user/api';
-import { ManagementPanel } from '@/fsd_entities/user/ui';
+import { getPrivilegedUsers } from '@/entities/user/api';
+import { ManagementPanel } from '@/entities/user/ui';
 
 const navigation = [
   {
@@ -38,6 +38,11 @@ const navigation = [
     state: 'alumunileader',
     router: '/setting/mandate/leader_alumni',
   },
+  {
+    name: '동문회 관리자',
+    state: 'alumnimanager',
+    router: '/setting/mandate/alumni_manager',
+  },
 ];
 
 const RoleManagement = async ({ params: { state } }: { params: { state: string } }) => {
@@ -55,7 +60,9 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
             ? allRoles.leaderCircleUsers
             : state === 'alumunileader'
               ? allRoles.leaderAlumni
-              : allRoles.presidentUser;
+              : state === 'alumnimanager'
+                ? allRoles.alumniManager
+                : allRoles.presidentUser;
 
   return (
     <>

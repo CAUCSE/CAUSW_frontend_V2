@@ -8,16 +8,16 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { SignInFooter } from '@/fsd_widgets/auth';
+import { SignInFooter } from '@/widgets/auth';
 
-import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/fsd_entities/auth';
-import { useLogin } from '@/fsd_entities/auth/model/hooks/useLogin';
-import { usePushNotification } from '@/fsd_entities/notification/model/usePushNotification';
+import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/entities/auth';
+import { useLogin } from '@/entities/auth/model/hooks/useLogin';
+import { usePushNotification } from '@/entities/notification/model/usePushNotification';
 
-import { ActionModal } from '@/fsd_shared/ui/ActionModal';
+import { ActionModal } from '@/shared/ui/ActionModal';
 
 import '@/firebase-messaging-sw';
-import { emailRegex, getRccRefresh } from '@/fsd_shared';
+import { emailRegex, getRccRefresh } from '@/shared';
 
 const routes = [
   { name: '아이디찾기', route: '/auth/findemail' },
@@ -128,14 +128,14 @@ const SignInPage = () => {
             <SignInSubmitButton />
 
             <div className="mt-2 flex w-full items-center justify-center">
-              <div className="mb-4 flex flex-col items-center gap-2.5 sm:gap-5">
+              <div className="mb-4 flex flex-col items-center gap-[15px] sm:gap-[17px]">
                 {routes.map((route) => (
                   <div
                     key={route.name}
                     onClick={() => {
                       router.push(route.route);
                     }}
-                    className="cursor-pointer text-[9px] font-medium sm:text-xs sm:font-normal"
+                    className="cursor-pointer text-xs font-medium sm:text-xs sm:font-normal"
                   >
                     {route.name}
                   </div>

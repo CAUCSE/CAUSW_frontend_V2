@@ -1,5 +1,5 @@
-import { getUserCouncilFeeInfo } from '@/fsd_entities/user/api';
-import { CouncilFeeManagementDetail } from '@/fsd_entities/user/ui';
+import { getUserCouncilFeeInfo } from '@/entities/user/api';
+import { CouncilFeeManagementDetail } from '@/entities/user/ui';
 
 export default async function CouncilFeeDetailPage({ params }: { params: { councilFeeId: string } }) {
   const { councilFeeId } = params;

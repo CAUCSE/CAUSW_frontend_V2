@@ -1,7 +1,7 @@
-import { getAllAttendanceUsers, getWaitingUsers } from '@/fsd_entities/user/api';
-import { ManagementPanel } from '@/fsd_entities/user/ui';
+import { getAllAttendanceUsers, getWaitingUsers } from '@/entities/user/api';
+import { ManagementPanel } from '@/entities/user/ui';
 
-import { MESSAGES } from '@/fsd_shared';
+import { MESSAGES } from '@/shared';
 
 const AttendanceManagement = async ({ params: { state } }: { params: { state: string } }) => {
   const data =

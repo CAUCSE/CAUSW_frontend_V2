@@ -2,11 +2,11 @@
 
 import { useParams } from 'next/navigation';
 
-import { useVoteDetail } from '@/shared/hooks/stores/post/useVoteDetail';
+import { useVoteDetail } from '@/entities/vote/model/hooks';
+import { useVoteStore } from '@/entities/vote/model/stores';
 
-import { LoadingComponent } from '@/fsd_shared';
-import { PreviousButton } from '@/fsd_shared';
-import { useVoteStore } from '@/shared';
+import { LoadingComponent } from '@/shared';
+import { PreviousButton } from '@/shared';
 
 const VoteStatusPage = () => {
   const { vote } = useVoteStore();

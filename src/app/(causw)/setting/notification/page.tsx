@@ -1,14 +1,10 @@
 'use client';
 
-import { NotificationActionButtons, NotificationTabs } from '@/fsd_widgets/notification';
+import { NotificationActionButtons, NotificationTabs } from '@/widgets/notification';
 
-import {
-  useCeremonyNotificationQuery,
-  useNotificationQuery,
-  useNotificationTabParam,
-} from '@/fsd_entities/notification';
+import { useCeremonyNotificationQuery, useNotificationQuery, useNotificationTabParam } from '@/entities/notification';
 
-import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/fsd_shared';
+import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 

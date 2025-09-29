@@ -1,9 +1,6 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(npm install:*)",
-      "Bash(npx cap sync:*)"
-    ],
+    "allow": ["Bash(npm install:*)", "Bash(npx cap sync:*)"],
     "deny": []
   }
 }

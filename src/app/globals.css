@@ -4,7 +4,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100vh;
   margin: 0;
@@ -34,54 +35,51 @@ html, body {
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
-
 }
-
 
 body {
   touch-action: manipulation;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: 'Pretendard', 'sans-serif';
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-use-select: none;
   user-select: none;
 }
 
-  body {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-use-select: none;
-    user-select: none;
-    overflow-x: hidden;
-    max-width: 100vw;  
-  }
+body {
+  font-family: 'Pretendard', 'sans-serif';
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
 
-  * {
-    box-sizing: border-box;
-  }  
+* {
+  box-sizing: border-box;
+}
 
-  main {
-    scrollbar-gutter: stable both-edges;
-  }
-  img {
-    object-fit: cover;
-  }
+main {
+  scrollbar-gutter: stable both-edges;
+}
+img {
+  object-fit: cover;
+}
 
-  input {
-    outline: none;
-  }
+input {
+  outline: none;
+}
 
-  #specificInput:-webkit-autofill,
-  #specificInput:-webkit-autofill:hover,
-  #specificInput:-webkit-autofill:focus,
-  #specificInput:-webkit-autofill:active {
-    transition: background-color 5000s ease-in-out 0s;
-    -webkit-transition: background-color 9999s ease-out;
-    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
-    -webkit-text-fill-color: black !important;
-  }
-
+#specificInput:-webkit-autofill,
+#specificInput:-webkit-autofill:hover,
+#specificInput:-webkit-autofill:focus,
+#specificInput:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-transition: background-color 9999s ease-out;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0) inset !important;
+  -webkit-text-fill-color: black !important;
+}
 
 @layer base {
   input[type='number']::-webkit-inner-spin-button,
@@ -106,8 +104,23 @@ body {
   border: 1px solid #f8f8f8; /* 손잡이와 트랙 사이의 간격 */
 }
 
-main {
-  scrollbar-gutter: both-edges stable;
+/* 모바일에서는 스크롤바 숨기기 */
+@media (max-width: 1024px) {
+  ::-webkit-scrollbar {
+    display: none; /* 모바일에서 스크롤바 숨기기 */
+  }
+
+  main {
+    overflow: auto; /* 모바일에서 스크롤 활성화 (스크롤바는 보이지 않음) */
+  }
+}
+
+/* 데스크탑에서는 스크롤바 보이기 */
+@media (min-width: 1025px) {
+  main {
+    scrollbar-gutter: both-edges stable;
+    overflow: overlay;
+  }
 }
 
 /*
@@ -238,6 +251,6 @@ main {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground; /*bg-background -> PageWrapper*/
   }
 }

@@ -25,3 +25,6 @@ export { Badge } from './badge';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export * from './dialog';
 export * from './select';
+export * from './sheet';
+export * from './toggle';
+export * from './toggle-group';

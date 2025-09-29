@@ -4,10 +4,10 @@ import { notFound, useParams } from 'next/navigation';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { LoadingComponent, Modal } from '@/fsd_shared';
-import { PreviousButton } from '@/fsd_shared';
-import { FormService, useHandleApplySubmit, useResponseFormStore } from '@/shared';
-import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widget';
+import { LoadingComponent, Modal } from '@/shared';
+import { PreviousButton } from '@/shared';
+import { useResponseFormStore, useGetFormResponseInfo, useHandleApplySubmit } from '@/entities/form';
+import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widgets/form/ui';
 
 const ApplyPage = () => {
   const params = useParams();
@@ -21,7 +21,6 @@ const ApplyPage = () => {
   const form = useResponseFormStore((state) => state.form);
 
   const { setError } = methods;
-  const { useGetFormResponseInfo } = FormService();
   const { data, isPending, isError } = useGetFormResponseInfo(formId as string);
   const { onSubmit, closeModal, modalMessage, modalOpen } = useHandleApplySubmit({ setError });
 

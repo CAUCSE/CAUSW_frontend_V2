@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { SignUpForm } from '@/fsd_widgets/auth';
+import { SignUpForm } from '@/widgets/auth';
 
 const SignUpPage = () => {
   return <SignUpForm></SignUpForm>;

@@ -1,6 +1,6 @@
 'use client';
 
-import { FindEmailWidget } from '@/fsd_widgets/auth';
+import { FindEmailWidget } from '@/widgets/auth';
 
 const FindEmailPage = () => {
   return <FindEmailWidget />;

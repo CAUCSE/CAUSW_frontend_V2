@@ -1,4 +1,4 @@
-import { ChatList } from '@/fsd_widgets/chat';
+import { ChatList } from '@/widgets/chat';
 
 const ChattingPage = () => {
   return <ChatList />;

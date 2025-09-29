@@ -5,30 +5,30 @@ import dynamic from 'next/dynamic';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { LoadingComponent, Providers } from '@/fsd_shared/ui';
+import { LoadingComponent, PageWrapper, Providers } from '@/shared/ui';
 
 import '@/firebase-messaging-sw';
-import { GA, ToastWithMax, WindowSizeListener } from '@/fsd_shared';
+import { GA, ToastWithMax, WindowSizeListener } from '@/shared';
 
 import './globals.css';
 
 const font = localFont({
   src: [
     {
-      path: './font/SpoqaHanSansNeo-Medium.ttf',
+      path: './font/Pretendard-Medium.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: './font/SpoqaHanSansNeo-Bold.ttf',
+      path: './font/Pretendard-Bold.ttf',
       weight: '700',
       style: 'normal',
     },
   ],
-  variable: '--font-spoqa',
+  variable: '--font-pretendard',
 });
 const DynamicAuthAppInitializer = dynamic(
-  () => import('@/fsd_widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
+  () => import('@/widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
   {
     ssr: false,
     loading: () => <LoadingComponent />,
@@ -92,7 +92,11 @@ export default function RootLayout({
               <GA />
             </Suspense>
             <WindowSizeListener />
-            <DynamicAuthAppInitializer> {children}</DynamicAuthAppInitializer>
+            <DynamicAuthAppInitializer>
+              <PageWrapper>
+                {children}
+              </PageWrapper>
+            </DynamicAuthAppInitializer>
             <ToastWithMax />
           </Providers>
         </body>

@@ -8,10 +8,11 @@ import { notFound } from 'next/navigation';
 
 import toast from 'react-hot-toast';
 
-import { withdrawUserCSR } from '@/fsd_entities/user';
+import { withdrawUserCSR } from '@/entities/user';
 import {
   isAdmin,
   isAlumniLeader,
+  isAlumniManager,
   isCircleLeader,
   isCouncil,
   isGraduate,
@@ -21,13 +22,13 @@ import {
   isVicePresidents,
   useMyInfo,
   userRoleCodes,
-} from '@/fsd_entities/user/model';
+} from '@/entities/user/model';
 
-import { LoadingComponent } from '@/fsd_shared/ui';
+import { LoadingComponent } from '@/shared/ui';
 
-import { tokenManager } from '@/fsd_shared';
+import { tokenManager } from '@/shared';
 
-const UseTerms = dynamic(() => import('@/fsd_shared').then((mod) => mod.UseTerms), {
+const UseTerms = dynamic(() => import('@/shared').then((mod) => mod.UseTerms), {
   ssr: false,
 });
 
@@ -41,7 +42,7 @@ const SettingsPage = () => {
   if (!userInfo) return notFound();
 
   const roles = userInfo.roles;
-  const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles);
+  const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles) && !isAlumniManager(roles);
   const isAdminGroup = isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles);
 
   const circleIdIfLeader = userInfo.circleIdIfLeader;
@@ -91,7 +92,7 @@ const SettingsPage = () => {
       { name: '내가 쓴 게시글', link: '/setting/my/posts' },
       { name: '내가 쓴 댓글', link: '/setting/my/comments' },
       { name: '내가 찜한 게시글', link: '/setting/my/favorite' },
-      { name: '내 동문수첩', link: '/profile' },
+      { name: '내 동문수첩', link: '/contacts/profile' },
     ],
     contact: [{ name: '메일 : caucsedongne@gmail.com' }, { name: '인스타그램 : @causwcse_dongne' }],
     managementAlumniPresident: [{ name: '유저 관리', link: '/' }],
@@ -210,7 +211,7 @@ const SettingsPage = () => {
         )} */}
 
         {/* 동문회장 */}
-        {isAlumniLeader(roles) && (
+        {isAlumniLeader(roles) && isAlumniManager(roles) && (
           <>
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagementAlumniLeader} />

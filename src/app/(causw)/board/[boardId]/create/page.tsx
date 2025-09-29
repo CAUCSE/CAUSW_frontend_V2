@@ -8,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useShallow } from 'zustand/react/shallow';
 
-import { FormCreationForm } from '@/fsd_widgets/form';
-import { PostCreationForm, PostCreationFormButtonGroup } from '@/fsd_widgets/post';
-import { VoteCreationForm } from '@/fsd_widgets/vote';
+import { FormCreationForm } from '@/widgets/form';
+import { PostCreationForm, PostCreationFormButtonGroup } from '@/widgets/post';
+import { VoteCreationForm } from '@/widgets/vote';
 
 import {
   PostSchema,
@@ -19,11 +19,11 @@ import {
   useCreatePostWithForm,
   usePostCreationStore,
   useUploadFileStore,
-} from '@/fsd_entities/post';
-import { useCreatePost } from '@/fsd_entities/post';
-import { useCreateVote } from '@/fsd_entities/vote';
+} from '@/entities/post';
+import { useCreatePost } from '@/entities/post';
+import { useCreateVote } from '@/entities/vote';
 
-import { PreviousButton } from '@/fsd_shared';
+import { PreviousButton } from '@/shared';
 
 const CreatePostPage = () => {
   const { isApply, isVote, clearPost } = usePostCreationStore(

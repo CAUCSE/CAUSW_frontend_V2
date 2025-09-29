@@ -1,1 +1,0 @@
-export { CalendarCard } from './CalendarCard';

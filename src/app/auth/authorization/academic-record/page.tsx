@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { AcademicRecordForm } from '@/fsd_widgets/auth';
+import { AcademicRecordForm } from '@/widgets/auth';
 
 const UpdataeAcademicRecordPage = () => {
   return <AcademicRecordForm curAcademicStatus="UNDEFINED" />;

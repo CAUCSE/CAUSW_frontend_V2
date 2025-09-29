@@ -1,8 +1,8 @@
 'use client';
 
-import { PreviousButton } from '@/fsd_shared';
-import { useFormResultStore } from '@/shared';
-import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widget';
+import { PreviousButton } from '@/shared';
+import { useFormResultStore } from '@/entities/form';
+import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widgets/form/ui';
 
 const FormInfoPage = () => {
   const resultView = useFormResultStore((state) => state.resultView);
