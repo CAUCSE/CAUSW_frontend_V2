@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
-import { LoadingComponent, Providers } from '@/shared/ui';
+import { LoadingComponent, PageWrapper, Providers } from '@/shared/ui';
 
 import '@/firebase-messaging-sw';
 import { GA, ToastWithMax, WindowSizeListener } from '@/shared';
@@ -92,7 +92,11 @@ export default function RootLayout({
               <GA />
             </Suspense>
             <WindowSizeListener />
-            <DynamicAuthAppInitializer> {children}</DynamicAuthAppInitializer>
+            <DynamicAuthAppInitializer>
+              <PageWrapper>
+                {children}
+              </PageWrapper>
+            </DynamicAuthAppInitializer>
             <ToastWithMax />
           </Providers>
         </body>

@@ -16,7 +16,7 @@ import { Button } from '@/shadcn/components/ui/button';
 
 export const ContactList = () => {
   const [filters, setFilters] = useState<Contact.ContactFilters>({});
-  const debouncedFilters = useDebounce(filters, 500); // 디바운스 시간을 500ms로 조정
+  const debouncedFilters = useDebounce(filters, 500);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -31,11 +31,17 @@ export const ContactList = () => {
   });
 
   const handleSearchChange = (keyword: string) => {
-    setFilters(prevFilters => ({ ...prevFilters, keyword }));
+    setFilters((prevFilters) => ({ ...prevFilters, keyword }));
   };
-
   const contacts = useMemo(() => {
-    return data?.pages.flatMap((page) => page.content) ?? [];
+    const list = data?.pages.flatMap((page) => page.content) ?? [];
+    return [...list].sort((a, b) => {
+      const aHasInfo = !!(a.job || a.description);
+      const bHasInfo = !!(b.job || b.description);
+
+      if (aHasInfo === bHasInfo) return 0;
+      return aHasInfo ? -1 : 1;
+    });
   }, [data]);
 
   const myContactsFabStyles = `
@@ -44,11 +50,10 @@ export const ContactList = () => {
     transition-all duration-200 ease-out will-change-transform
     hover:-translate-y-0.5 hover:shadow-xl active:scale-95
     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-    bg-[#7AB6C1] hover:bg-[#6AA3AD] focus-visible:ring-[#7AB6C1] text-white font-bold
+    focus-visible:ring-[#7AB6C1] text-white font-bold
     rounded-lg
     px-4 py-3 text-sm
-    sm:px-5 sm:py-3 sm:text-base
-    xl:px-6 xl:py-4 xl:text-lg
+    sm:w-[129px] sm:h-[44px] sm:text-base
   `.trim();
 
   return (
@@ -62,6 +67,7 @@ export const ContactList = () => {
             placeholder="이름, 직업, 경력으로 검색"
             value={filters.keyword ?? ''}
             onChange={handleSearchChange}
+            bgColor="bg-white"
           />
         </div>
         <FilterPills filters={filters} onFilterChange={setFilters} />
@@ -86,9 +92,11 @@ export const ContactList = () => {
         onApply={setFilters}
       />
 
-      <Link href="/contacts/profile" className={myContactsFabStyles}>
+      <Link href="/contacts/profile" className={`${myContactsFabStyles} bg-slate-600 text-white`}>
         <span className="transition-transform duration-200 group-hover:scale-105">내 동문수첩</span>
-        <span className="ml-2 font-mono transition-transform duration-200 group-hover:translate-x-0.5">&gt;</span>
+        <span className="ml-2 font-mono transition-transform duration-200 group-hover:translate-x-0.5">
+          &gt;
+        </span>
       </Link>
     </>
   );
