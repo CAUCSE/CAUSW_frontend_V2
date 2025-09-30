@@ -76,9 +76,9 @@ export const Board = ({ boardId, boardName, contents }: Board.BoardResponseDto) 
           href={`/board/${boardId}`}
           className="group flex items-center justify-between border-b-2 border-gray-200 pb-2"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex w-full items-center gap-2">
             <div className="h-9 w-9">{style.icon}</div>
-            <h2 className={`text-2xl font-semibold text-gray-700 ${underlineStyles}`}>{boardName}</h2>
+            <h2 className={`truncate text-2xl font-semibold text-gray-700 ${underlineStyles}`}>{boardName}</h2>
           </div>
           <ChevronRight className="h-4 w-4 text-gray-400 transition-transform duration-200 group-hover:translate-x-0.5 lg:h-6 lg:w-6" />
         </Link>

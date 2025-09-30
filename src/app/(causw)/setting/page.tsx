@@ -211,7 +211,7 @@ const SettingsPage = () => {
         )} */}
 
         {/* 동문회장 */}
-        {isAlumniLeader(roles) && isAlumniManager(roles) && (
+        {(isAlumniLeader(roles) || isAlumniManager(roles)) && (
           <>
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagementAlumniLeader} />
