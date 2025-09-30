@@ -1,3 +1,4 @@
+"use client";
 import { ReactNode } from 'react';
 
 import Image from 'next/image';
@@ -5,10 +6,18 @@ import Link from 'next/link';
 
 import { MdEmail, MdPermIdentity, MdTagFaces, MdVolumeUp } from 'react-icons/md';
 
-import { Banner, fetchGraduateHomePosts } from '@/entities/home';
+import { Banner, getGraduateHomePosts } from '@/entities/home';
+import { useGraduateHomePostsQuery } from '@/entities/home/model';
+import { ErrorFallback, LoadingComponent } from '@/shared';
 
-export default async function GraduateHomePage({ events }) {
-  const homePosts = await fetchGraduateHomePosts();
+export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto }) => {
+  const { data: homePosts, isLoading, isError } = useGraduateHomePostsQuery();
+
+  if (isLoading) return <LoadingComponent />;
+
+  if (!homePosts || isError) {
+    throw new Error('Error');
+  }
 
   // 크자회 공지 게시판
   const noticeBoard = homePosts.find((b) => b.board.name.includes('크자회 공지 게시판'));
