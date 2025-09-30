@@ -1,4 +1,5 @@
 export { Button } from './Button';
+export { ErrorFallback } from './ErrorFallback';
 export { Header } from './Header';
 export { Icon } from './icon';
 export { IconButton } from './IconButton';
