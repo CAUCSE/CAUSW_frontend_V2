@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Loader2, Filter, ChevronRight } from "lucide-react";
+import { Loader2, Filter } from "lucide-react";
 
 import {
   ContactCard,
