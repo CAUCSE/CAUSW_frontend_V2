@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
-import { fetchCalendar, fetchCalendars } from '@/entities/home';
-
+import { getCalendars } from '@/entities/home';
+  
 import { CardBox } from '@/shared/ui/CardBox';
 
 import { MONTHS } from '../config';
@@ -20,14 +20,14 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   useEffect(() => {
-    const getCalendars = async () => {
+    const loadCalendars = async () => {
       try {
-        const response = (await fetchCalendars(selectedYear)).calendars;
+        const response = (await getCalendars(selectedYear)).calendars;
         setCalendars(response);
       } catch (e: any) {}
     };
 
-    getCalendars();
+    loadCalendars();
   }, [selectedYear]);
 
   const handlePrevMonth = () => {

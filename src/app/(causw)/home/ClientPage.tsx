@@ -1,8 +1,11 @@
+"use client";
 import Link from 'next/link';
 
 import { Calendar } from '@/widgets/calendar';
 
-import { Banner, CardBox, fetchHomePosts, HomeCard } from '@/entities/home';
+import { Banner, CardBox, HomeCard } from '@/entities/home';
+import { useHomePostsQuery } from '@/entities/home/model';
+import { LoadingComponent } from '@/shared';
 
 const cardsEntities = [
   {
@@ -28,8 +31,14 @@ const cardsEntities = [
   },
 ];
 
-export default async function ClientHomePage({ events }) {
-  const homePosts = await fetchHomePosts();
+export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }) => {
+  const { data: homePosts, isLoading, isError } = useHomePostsQuery();
+
+  if (isLoading) return <LoadingComponent />;
+
+  if (!homePosts || isError) {
+    throw new Error('Error');
+  }
 
   const mainBoards = [
     homePosts.find((board) => board.board.name.includes('서비스 공지')),

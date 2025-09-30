@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from '@/shared';
+import { API, BASEURL, setRscHeader } from '@/shared';
 
 export const fetchHomePosts = async () => {
   const URI = BASEURL + '/api/v1/home';
@@ -51,14 +51,22 @@ export const fetchCalendars = async (year: number) => {
   return response as Home.GetCalendarsResponseDto;
 };
 
-export const fetchCalendar = async (id: string) => {
-  const headers = await setRscHeader();
-  const response = (await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
-    method: 'GET',
-    headers: headers,
-  }).then((res) => res.json())) as Home.Calendar & Error.ApiErrorResponse;
+export const getEvents = async () => {
+  const response = (await API.get('/api/v1/events')).data as Home.GetEventsResponseDto;
+  return response as Home.GetEventsResponseDto;
+};
 
-  if (response.errorCode) throw new Error(response.errorCode);
+export const getCalendars = async (year: number) => {
+  const response = (await API.get(`/api/v1/calendars?year=${year}`)).data as Home.GetCalendarsResponseDto;
+  return response as Home.GetCalendarsResponseDto;
+};
 
-  return response as Home.Calendar;
+export const getHomePosts = async () => {
+  const response = (await API.get('/api/v1/home')).data as Home.GetHomePostsResponseDto;
+  return response as Home.GetHomePostsResponseDto;
+};
+
+export const getGraduateHomePosts = async () => {
+  const response = (await API.get('/api/v1/home/alumni')).data as Home.GetHomePostsResponseDto;
+  return response as Home.GetHomePostsResponseDto;
 };

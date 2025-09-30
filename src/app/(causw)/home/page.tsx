@@ -1,14 +1,18 @@
-import { fetchEvents } from '@/entities/home';
+"use client";
+import { useHomeEventQuery } from '@/entities/home/model';
+import { ClientGate } from './ClientGate';
+import { ErrorFallback, LoadingComponent } from '@/shared';
 
-import ClientGate from './ClientGate';
+export default function HomePage() {
+  const { data: events, isLoading, isError } = useHomeEventQuery();
 
-export default async function HomePage() {
-  const events = await fetchEvents();
+  if (isLoading) {
+    return <LoadingComponent />;
+  }
 
-  return (
-    <>
-      {/* 사용자 academicStatus는 클라이언트에서 판단 */}
-      <ClientGate events={events} />
-    </>
-  );
+  if (!events || isError) {
+    return <ErrorFallback />;
+  }
+
+  return <ClientGate events={events} />;
 }

@@ -1,11 +1,15 @@
-import { fetchMyInfo } from '@/entities/user/api';
+"use client";
+import { useMyInfo } from '@/entities/user/model';
+import { LoadingComponent } from '@/shared';
+import { GraduateHomePage } from './ClientGraduatePage';
+import { ClientHomePage } from './ClientPage';
 
-import ClientGraduatePage from './ClientGraduatePage';
-import ClientHomePage from './ClientPage';
+export const ClientGate = ({ events }: { events: Home.GetEventsResponseDto }) => {
+  const { data: user } = useMyInfo();
 
-export default async function ClientGate({ events }) {
-  const user = await fetchMyInfo();
+  if (!user) return null;
+
   const isGraduated = user.academicStatus === 'GRADUATED';
 
-  return isGraduated ? <ClientGraduatePage events={events} /> : <ClientHomePage events={events} />;
+  return isGraduated ? <GraduateHomePage events={events} /> : <ClientHomePage events={events} />;
 }
