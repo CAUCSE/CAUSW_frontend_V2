@@ -57,7 +57,7 @@ export const BoardListClient = ({
         <div className="flex flex-col items-center">{renderBoard()}</div>
       </div>
 
-      {!isGraduated && <Fab href="/board/create" label="게시판 추가" />}
+      {/*{!isGraduated && <Fab href="/board/create" label="게시판 추가" />}*/}
     </>
   );
 };
