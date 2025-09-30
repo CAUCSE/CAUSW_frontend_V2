@@ -1,19 +1,18 @@
 'use client';
 
-import { useMemo, useState, useCallback } from 'react';
-import Link from 'next/link';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { Loader2, Filter } from "lucide-react";
+import { useCallback, useMemo, useState } from 'react';
 
-import {
-  ContactCard,
-  useSearchContactsQuery,
-  ContactFilterSheet,
-  FilterPills,
-} from '@/entities/contact';
+import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { Filter, Loader2 } from 'lucide-react';
+
+import { ContactCard, ContactFilterSheet, FilterPills, useSearchContactsQuery } from '@/entities/contact';
+
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
-import { SearchBar, useDebounce } from '@/shared';
+
 import { Button } from '@/shadcn/components/ui/button';
+import { SearchBar, useDebounce } from '@/shared';
 
 const parseSearchParamsToFilters = (searchParams: URLSearchParams): Contact.ContactFilters => {
   const filters: Contact.ContactFilters = {};
@@ -26,10 +25,13 @@ const parseSearchParamsToFilters = (searchParams: URLSearchParams): Contact.Cont
   const admissionYearEnd = searchParams.get('admissionYearEnd');
   if (admissionYearEnd) filters.admissionYearEnd = Number(admissionYearEnd);
 
-  const academicStatus = searchParams.getAll('academicStatus');
+  const validStatuses = ['ENROLLED', 'LEAVE_OF_ABSENCE', 'GRADUATED'];
+  const academicStatus = searchParams.getAll('academicStatus').filter((status) => validStatuses.includes(status));
+
   if (academicStatus.length > 0) {
     filters.academicStatus = academicStatus as ('ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED')[];
   }
+
   return filters;
 };
 
@@ -38,37 +40,34 @@ export const ContactList = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState<Contact.ContactFilters>(() =>
-    parseSearchParamsToFilters(searchParams)
-  );
+  const [filters, setFilters] = useState<Contact.ContactFilters>(() => parseSearchParamsToFilters(searchParams));
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const updateFiltersAndUrl = useCallback((newFiltersOrUpdater: React.SetStateAction<Contact.ContactFilters>) => {
-    const newFilters =
-      typeof newFiltersOrUpdater === 'function'
-        ? newFiltersOrUpdater(filters)
-        : newFiltersOrUpdater;
+  const updateFiltersAndUrl = useCallback(
+    (newFiltersOrUpdater: React.SetStateAction<Contact.ContactFilters>) => {
+      const newFilters = typeof newFiltersOrUpdater === 'function' ? newFiltersOrUpdater(filters) : newFiltersOrUpdater;
 
-    setFilters(newFilters);
-    const params = new URLSearchParams();
-    Object.entries(newFilters).forEach(([key, value]) => {
-      if (value !== null && value !== undefined && String(value).length > 0) {
-        if (Array.isArray(value)) {
-          if (value.length > 0) {
-            value.forEach(item => params.append(key, item));
+      setFilters(newFilters);
+      const params = new URLSearchParams();
+      Object.entries(newFilters).forEach(([key, value]) => {
+        if (value !== null && value !== undefined && String(value).length > 0) {
+          if (Array.isArray(value)) {
+            if (value.length > 0) {
+              value.forEach((item) => params.append(key, item));
+            }
+          } else {
+            params.set(key, String(value));
           }
-        } else {
-          params.set(key, String(value));
         }
-      }
-    });
-    router.replace(`${pathname}?${params.toString()}`);
-  }, [filters, pathname, router]);
+      });
+      router.replace(`${pathname}?${params.toString()}`);
+    },
+    [filters, pathname, router],
+  );
 
   const debouncedFilters = useDebounce(filters, 500);
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSearchContactsQuery(debouncedFilters);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSearchContactsQuery(debouncedFilters);
 
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
@@ -82,7 +81,7 @@ export const ContactList = () => {
     const list = data?.pages.flatMap((page) => page.content) ?? [];
     return [...list].sort((a, b) => {
       const aHasInfo = !!(a.job || a.description);
-      const bHasInfo = !!(b.job || b.description);
+      const bHasInfo = !!(b.job || a.description);
 
       if (aHasInfo === bHasInfo) return 0;
       return aHasInfo ? -1 : 1;
@@ -112,7 +111,7 @@ export const ContactList = () => {
           <SearchBar
             placeholder="이름, 직업, 경력으로 검색"
             value={filters.keyword ?? ''}
-            onChange={(keyword: string) => updateFiltersAndUrl(prev => ({ ...prev, keyword: keyword || undefined }))}
+            onChange={(keyword: string) => updateFiltersAndUrl((prev) => ({ ...prev, keyword: keyword || undefined }))}
             bgColor="bg-white"
           />
         </div>
@@ -122,9 +121,7 @@ export const ContactList = () => {
           {contacts.length > 0 ? (
             contacts.map((contact) => <ContactCard key={contact.id} contact={contact} />)
           ) : (
-            <div className="flex h-40 items-center justify-center text-gray-500">
-              검색 결과가 없습니다.
-            </div>
+            <div className="flex h-40 items-center justify-center text-gray-500">검색 결과가 없습니다.</div>
           )}
         </div>
         <div ref={targetRef} className="flex h-10 items-center justify-center">
@@ -140,9 +137,7 @@ export const ContactList = () => {
 
       <Link href="/contacts/profile" className={`${myContactsFabStyles} bg-slate-600 text-white`}>
         <span className="transition-transform duration-200 group-hover:scale-105">내 동문수첩</span>
-        <span className="ml-2 font-mono transition-transform duration-200 group-hover:translate-x-0.5">
-          &gt;
-        </span>
+        <span className="ml-2 font-mono transition-transform duration-200 group-hover:translate-x-0.5">&gt;</span>
       </Link>
     </>
   );
