@@ -16,8 +16,8 @@ export const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   }, [pathname]);
 
   return (
-    <main className={cn('w-full min-h-screen', backgroundClass)}>
+    <div className={cn('w-full min-h-screen', backgroundClass)}>
       {children}
-    </main>
+    </div>
   );
 };
