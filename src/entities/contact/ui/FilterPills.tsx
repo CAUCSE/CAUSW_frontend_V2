@@ -45,7 +45,7 @@ export const FilterPills = ({ filters, onFilterChange }: FilterPillsProps) => {
           className="flex flex-shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-800 transition-opacity hover:opacity-80"
         >
           <span>
-            재학상태:
+            학적상태:
             <span className="ml-1 font-medium">
               {academicStatus.map((status) => ACADEMIC_STATUS_MAP[status]).join(', ')}
             </span>
