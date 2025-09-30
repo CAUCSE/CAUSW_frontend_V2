@@ -51,19 +51,6 @@ export const fetchCalendars = async (year: number) => {
   return response as Home.GetCalendarsResponseDto;
 };
 
-export const fetchCalendar = async (id: string) => {
-  const headers = await setRscHeader();
-  const response = (await fetch(`${BASEURL}/api/v1/calendars/${id}`, {
-    method: 'GET',
-    headers: headers,
-  }).then((res) => res.json())) as Home.Calendar & Error.ApiErrorResponse;
-
-  if (response.errorCode) throw new Error(response.errorCode);
-
-  return response as Home.Calendar;
-};
-
-
 export const getEvents = async () => {
   const response = (await API.get('/api/v1/events')).data as Home.GetEventsResponseDto;
   return response as Home.GetEventsResponseDto;
@@ -72,11 +59,6 @@ export const getEvents = async () => {
 export const getCalendars = async (year: number) => {
   const response = (await API.get(`/api/v1/calendars?year=${year}`)).data as Home.GetCalendarsResponseDto;
   return response as Home.GetCalendarsResponseDto;
-};
-
-export const getCalendar = async (id: string) => {
-  const response = (await API.get(`/api/v1/calendars/${id}`)).data as Home.Calendar;
-  return response as Home.Calendar;
 };
 
 export const getHomePosts = async () => {
