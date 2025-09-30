@@ -1,4 +1,4 @@
-import { BASEURL, setRscHeader } from '@/shared';
+import { API, BASEURL, setRscHeader } from '@/shared';
 
 export const fetchHomePosts = async () => {
   const URI = BASEURL + '/api/v1/home';
@@ -61,4 +61,30 @@ export const fetchCalendar = async (id: string) => {
   if (response.errorCode) throw new Error(response.errorCode);
 
   return response as Home.Calendar;
+};
+
+
+export const getEvents = async () => {
+  const response = (await API.get('/api/v1/events')).data as Home.GetEventsResponseDto;
+  return response as Home.GetEventsResponseDto;
+};
+
+export const getCalendars = async (year: number) => {
+  const response = (await API.get(`/api/v1/calendars?year=${year}`)).data as Home.GetCalendarsResponseDto;
+  return response as Home.GetCalendarsResponseDto;
+};
+
+export const getCalendar = async (id: string) => {
+  const response = (await API.get(`/api/v1/calendars/${id}`)).data as Home.Calendar;
+  return response as Home.Calendar;
+};
+
+export const getHomePosts = async () => {
+  const response = (await API.get('/api/v1/home')).data as Home.GetHomePostsResponseDto;
+  return response as Home.GetHomePostsResponseDto;
+};
+
+export const getGraduateHomePosts = async () => {
+  const response = (await API.get('/api/v1/home/alumni')).data as Home.GetHomePostsResponseDto;
+  return response as Home.GetHomePostsResponseDto;
 };
