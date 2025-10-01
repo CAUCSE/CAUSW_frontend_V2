@@ -1,7 +1,7 @@
 'use client';
 
 import { signout } from '@/entities/auth';
-import { getLocalFCMToken, resetFCMToken } from '@/entities/notification/model/usePushNotification';
+import { getLocalFCMToken } from '@/entities/notification/model/usePushNotification';
 
 import {
   BASEURL,
@@ -14,15 +14,13 @@ import {
   setRccToken,
 } from '@/shared/configs';
 
-import { STORAGE_KEYS } from '@/shared/configs';
-import Cookies from 'js-cookie';
 
 export const tokenManager = () => {
 
   const URI = BASEURL + '/api/v1/users';
 
-  const signoutAndRedirect = () => {
-    removeAllTokens();
+  const signoutAndRedirect = async () => {
+    await removeAllTokens();
     location.href = '/auth/signin';
   };
 
@@ -36,7 +34,6 @@ export const tokenManager = () => {
       removeRccAccess(),
       removeRscRefresh(),
       removeRscAccess(),
-      resetFCMToken(),
     ]);
   };
 
