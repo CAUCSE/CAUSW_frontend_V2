@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import { STORAGE_KEYS } from '@/shared/configs';
 import { createFormData } from '@/shared/lib';
 
-import { API, FORMAPI } from '@/shared';
+import { API, FORMAPI, secureStorage } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
@@ -25,7 +25,7 @@ export const markAsRead = async (id: string): Promise<void> => {
 export const updateFCMToken = async (payload: Notification.UpdateFCMTokenRequestDto): Promise<void> => {
   const URI = `/api/v1/users/fcm`;
   await API.post(URI, payload);
-  localStorage.setItem(FCM_TOKEN_KEY, payload.fcmToken);
+  secureStorage.set(FCM_TOKEN_KEY, payload.fcmToken);
 };
 
 export const addCeremony = async (payload: Ceremony.CreateCeremonyPayload): Promise<Ceremony.CeremonyResponse> => {

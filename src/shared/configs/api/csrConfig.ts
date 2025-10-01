@@ -1,11 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
+import Cookies from 'js-cookie';
 import qs from 'qs';
 
-import { isNativeApp, noAccessTokenCode, noPermissionCode, noRefreshTokenCode, tokenManager } from '@/shared';
+import { isNativeApp, noAccessTokenCode, noPermissionCode, noRefreshTokenCode, secureStorage, tokenManager } from '@/shared';
 
 import { BASEURL } from './url';
-import Cookies from 'js-cookie';
 export const API = axios.create({
   baseURL: BASEURL,
   headers: {
@@ -42,16 +41,11 @@ const storageAccessKey = 'CAUCSE_JWT_ACCESS';
 export const setRccToken = async (access: string, refresh: string | false) => {
   API.defaults.headers['Authorization'] = `Bearer ${access}`;
   FORMAPI.defaults.headers['Authorization'] = `Bearer ${access}`;
-  
+
   if (refresh) {
     Cookies.set(storageAccessKey, access);
     Cookies.set(storageRefreshKey, refresh);
-    if (isNativeApp()) {
-      await SecureStoragePlugin.set({
-        key: storageRefreshKey,
-        value: refresh,
-      });
-    } 
+    await secureStorage.set(storageRefreshKey, refresh);
   }
 };
 
@@ -64,7 +58,7 @@ export const getRccAccess = (): string => (API.defaults.headers['Authorization']
 
 export const removeRccRefresh = async (): Promise<void> => {
   if (isNativeApp()) {
-    await SecureStoragePlugin.remove({ key: storageRefreshKey });
+    await secureStorage.remove(storageRefreshKey);
   } else {
     Cookies.remove(storageRefreshKey);
   }
@@ -72,19 +66,13 @@ export const removeRccRefresh = async (): Promise<void> => {
 
 export const getRccRefresh = async (): Promise<string | null> => {
   if (isNativeApp()) {
-    try {
-      const { value } = await SecureStoragePlugin.get({ key: storageRefreshKey });
-      return value;
-    } catch (error) {
-      return null;
-    }
-  } else {
-    return Cookies.get(storageRefreshKey) || null;
+    return await secureStorage.get(storageRefreshKey);
   }
+  return Cookies.get(storageRefreshKey) || null;
 };
 
 const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
-  const { updateAccess, signoutAndRedirect } = tokenManager();
+  const { signoutAndRedirect } = tokenManager();
 
   if (error.response) {
     const {

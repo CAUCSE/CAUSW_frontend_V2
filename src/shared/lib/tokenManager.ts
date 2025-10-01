@@ -18,7 +18,6 @@ import { STORAGE_KEYS } from '@/shared/configs';
 import Cookies from 'js-cookie';
 
 export const tokenManager = () => {
-  const FCM_TOKEN_KEY = STORAGE_KEYS.FCM_TOKEN;
 
   const URI = BASEURL + '/api/v1/users';
 

@@ -1,11 +1,9 @@
-
 import { PushNotifications } from '@capacitor/push-notifications';
-import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import { toast } from 'react-hot-toast';
 
 import { getRccRefresh, STORAGE_KEYS } from '@/shared/configs';
 
-import { isDesktop, isNativeApp, getClientFCMToken, requestNotificationPermission } from '@/shared';
+import { getClientFCMToken, isDesktop, isNativeApp, requestNotificationPermission, secureStorage } from '@/shared';
 
 import { getFCMToken } from '../api';
 import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
@@ -17,36 +15,35 @@ export const usePushNotification = () => {
 
   const compareFCMToken = async (): Promise<void> => {
     try {
-      toast.error("isDesktop+ " + isDesktop());
-      if (await isDesktop()) {
+      if (isDesktop()) {
         return;
       }
 
-      // --- Capacitor 앱(iOS, Android) 로직 ---
-      if (await isNativeApp()) {
-        const permStatus = await PushNotifications.checkPermissions();
-        if (permStatus.receive === 'prompt') {
-          await PushNotifications.requestPermissions();
+      // --- Capacitor 앱(iOS, Android) 로직 ---\
+      if (isNativeApp()) {
+      const permStatus = await PushNotifications.checkPermissions();
+      if (permStatus.receive === 'prompt') {
+        await PushNotifications.requestPermissions();
+      }
+
+      PushNotifications.addListener('registration', async ({ value }) => {
+        const clientFCMToken = value;
+        const refreshToken = await getRccRefresh();
+        const localFCMToken = await secureStorage.get(FCM_TOKEN_KEY);
+
+        if (localFCMToken !== clientFCMToken) {
+          updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+          await secureStorage.set(FCM_TOKEN_KEY, clientFCMToken);
+        } else {
+          extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
         }
+      });
 
-        PushNotifications.addListener('registration', async ({ value }) => {
-          const clientFCMToken = value;
-          const refreshToken = await getRccRefresh();
-          const localFCMToken = localStorage.getItem(FCM_TOKEN_KEY);
+      PushNotifications.addListener('registrationError', (error) => {
+        toast.error('알림 설정에 실패했습니다.');
+      });
 
-          if (localFCMToken !== clientFCMToken) {
-            updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-            localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
-          } else {
-            extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-          }
-        });
-
-        PushNotifications.addListener('registrationError', (error) => {
-          toast.error('알림 설정에 실패했습니다.');
-        });
-
-        await PushNotifications.register();
+      await PushNotifications.register();
       } else {
         // --- 웹/웹앱 로직 (Notification.permission 사용) ---
         if (Notification.permission === 'default') {
@@ -85,15 +82,10 @@ export const usePushNotification = () => {
   };
 };
 
-export const resetFCMToken = (): void => {
-  if (isNativeApp()) {
-    localStorage.removeItem(FCM_TOKEN_KEY);
-  }
+export const resetFCMToken = async (): Promise<void> => {
+  await secureStorage.remove(FCM_TOKEN_KEY);
 };
 
-export const getLocalFCMToken = (): string | null => {
-  if (isNativeApp()) {
-    return localStorage.getItem(FCM_TOKEN_KEY);
-  }
-  return null;
+export const getLocalFCMToken = async (): Promise<string | null> => {
+  return await secureStorage.get(FCM_TOKEN_KEY);
 };
