@@ -1,10 +1,11 @@
-import { Capacitor } from '@capacitor/core';
+
 import { PushNotifications } from '@capacitor/push-notifications';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import { toast } from 'react-hot-toast';
 
 import { getRccRefresh, STORAGE_KEYS } from '@/shared/configs';
 
-import { isDesktop, getClientFCMToken, requestNotificationPermission } from '@/shared';
+import { isDesktop, isNativeApp, getClientFCMToken, requestNotificationPermission } from '@/shared';
 
 import { getFCMToken } from '../api';
 import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
@@ -21,7 +22,7 @@ export const usePushNotification = () => {
       }
 
       // --- Capacitor 앱(iOS, Android) 로직 ---
-      if (Capacitor.isNativePlatform()) {
+      if (isNativeApp()) {
         const permStatus = await PushNotifications.checkPermissions();
         if (permStatus.receive === 'prompt') {
           await PushNotifications.requestPermissions();
@@ -84,9 +85,14 @@ export const usePushNotification = () => {
 };
 
 export const resetFCMToken = (): void => {
-  localStorage.removeItem(FCM_TOKEN_KEY);
+  if (isNativeApp()) {
+    localStorage.removeItem(FCM_TOKEN_KEY);
+  }
 };
 
 export const getLocalFCMToken = (): string | null => {
-  return localStorage.getItem(FCM_TOKEN_KEY);
+  if (isNativeApp()) {
+    return localStorage.getItem(FCM_TOKEN_KEY);
+  }
+  return null;
 };

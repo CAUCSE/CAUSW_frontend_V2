@@ -1,22 +1,13 @@
-type DeviceType = 'android' | 'ios' | 'ipad' | 'desktop';
-
-const detectDeviceType = (): DeviceType => {
-  const ua = navigator.userAgent.toLowerCase();
-
-  if (/android/.test(ua)) return 'android';
-  if (/iphone|ipod/.test(ua)) return 'ios';
-
-  const isIpad = /ipad/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if (isIpad) return 'ipad';
-
-  return 'desktop';
-};
+import { Capacitor } from "@capacitor/core";
 
 export const isNativeApp = (): boolean => {
-  const deviceType = detectDeviceType();
-  return deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android';
+  return Capacitor.isNativePlatform();
 };
 
 export const isDesktop = (): boolean => {
-  return detectDeviceType() === 'desktop';
+  return Capacitor.getPlatform() === 'desktop';
+};
+
+export const isIOS = (): boolean => {
+  return Capacitor.getPlatform() === 'ios';
 };

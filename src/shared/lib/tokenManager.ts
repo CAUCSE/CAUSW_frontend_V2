@@ -30,13 +30,14 @@ export const tokenManager = () => {
   const removeAllTokens = async () => {
     const accessToken = getRccAccess();
     const refreshToken = await getRccRefresh();
-    const fcmToken = getLocalFCMToken();
+    const fcmToken = await getLocalFCMToken();
     Promise.all([
       signout({ accessToken: accessToken || '', refreshToken: refreshToken || '', fcmToken: fcmToken || '' }),
       removeRccRefresh(),
       removeRccAccess(),
       removeRscRefresh(),
       removeRscAccess(),
+      resetFCMToken(),
     ]);
   };
 
