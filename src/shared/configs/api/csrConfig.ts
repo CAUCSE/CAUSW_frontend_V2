@@ -5,7 +5,7 @@ import qs from 'qs';
 import { isNativeApp, noAccessTokenCode, noPermissionCode, noRefreshTokenCode, tokenManager } from '@/shared';
 
 import { BASEURL } from './url';
-
+import Cookies from 'js-cookie';
 export const API = axios.create({
   baseURL: BASEURL,
   headers: {
@@ -37,19 +37,21 @@ const refreshAndRetryQueue: RetryQueueItem[] = [];
 let isRefreshing = false;
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
+const storageAccessKey = 'CAUCSE_JWT_ACCESS';
 
 export const setRccToken = async (access: string, refresh: string | false) => {
   API.defaults.headers['Authorization'] = `Bearer ${access}`;
   FORMAPI.defaults.headers['Authorization'] = `Bearer ${access}`;
+  
   if (refresh) {
+    Cookies.set(storageAccessKey, access);
+    Cookies.set(storageRefreshKey, refresh);
     if (isNativeApp()) {
       await SecureStoragePlugin.set({
         key: storageRefreshKey,
         value: refresh,
       });
-    } else {
-      localStorage.setItem(storageRefreshKey, refresh);
-    }
+    } 
   }
 };
 
@@ -64,7 +66,7 @@ export const removeRccRefresh = async (): Promise<void> => {
   if (isNativeApp()) {
     await SecureStoragePlugin.remove({ key: storageRefreshKey });
   } else {
-    localStorage.removeItem(storageRefreshKey);
+    Cookies.remove(storageRefreshKey);
   }
 };
 
@@ -77,7 +79,7 @@ export const getRccRefresh = async (): Promise<string | null> => {
       return null;
     }
   } else {
-    return localStorage.getItem(storageRefreshKey);
+    return Cookies.get(storageRefreshKey) || null;
   }
 };
 

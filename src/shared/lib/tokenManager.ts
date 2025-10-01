@@ -53,8 +53,6 @@ export const tokenManager = () => {
 
       if (response.errorCode) signoutAndRedirect();
 
-      Cookies.set("CAUCSE_JWT_ACCESS", response.accessToken);
-      Cookies.set("CAUCSE_JWT_REFRESH", refresh);
       setRccToken(response.accessToken, refresh);
 
       return response.accessToken;

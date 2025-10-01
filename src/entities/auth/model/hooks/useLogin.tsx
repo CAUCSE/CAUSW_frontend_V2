@@ -10,7 +10,6 @@ import { signin } from '@/entities/auth/api/post';
 import { getMyInfo } from '@/entities/user/api/get';
 
 import { parseErrorMessage, setRccToken } from '@/shared';
-import Cookies from 'js-cookie';
 
 export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }) => {
   const router = useRouter();
@@ -18,10 +17,6 @@ export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }
     mutationFn: signin,
     onSuccess: async (data: { accessToken: string; refreshToken: string }, body: User.SignInRequestDto) => {
       const { accessToken, refreshToken } = data;
-
-      Cookies.set("CAUCSE_JWT_ACCESS", accessToken);
-      Cookies.set("CAUCSE_JWT_REFRESH", refreshToken);
-
 
       await setRccToken(accessToken, refreshToken);
 

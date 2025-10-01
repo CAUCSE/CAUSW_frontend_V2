@@ -17,12 +17,13 @@ export const usePushNotification = () => {
 
   const compareFCMToken = async (): Promise<void> => {
     try {
-      if (isDesktop()) {
+      toast.error("isDesktop+ " + isDesktop());
+      if (await isDesktop()) {
         return;
       }
 
       // --- Capacitor 앱(iOS, Android) 로직 ---
-      if (isNativeApp()) {
+      if (await isNativeApp()) {
         const permStatus = await PushNotifications.checkPermissions();
         if (permStatus.receive === 'prompt') {
           await PushNotifications.requestPermissions();
