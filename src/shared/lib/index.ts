@@ -9,3 +9,4 @@ export * from './date';
 export { sanitizeHtml } from './sanitizeHtml';
 export { isNativeApp, isDesktop, isIOS } from './device';
 export { getClientFCMToken } from './fcmToken';
+export { secureStorage } from './capacitor';
