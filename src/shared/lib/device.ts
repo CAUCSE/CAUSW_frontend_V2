@@ -1,6 +1,6 @@
-export type DeviceType = 'android' | 'ios' | 'ipad' | 'desktop';
+type DeviceType = 'android' | 'ios' | 'ipad' | 'desktop';
 
-export const detectDeviceType = (): DeviceType => {
+const detectDeviceType = (): DeviceType => {
   const ua = navigator.userAgent.toLowerCase();
 
   if (/android/.test(ua)) return 'android';
@@ -10,4 +10,13 @@ export const detectDeviceType = (): DeviceType => {
   if (isIpad) return 'ipad';
 
   return 'desktop';
+};
+
+export const isNativeApp = (): boolean => {
+  const deviceType = detectDeviceType();
+  return deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android';
+};
+
+export const isDesktop = (): boolean => {
+  return detectDeviceType() === 'desktop';
 };

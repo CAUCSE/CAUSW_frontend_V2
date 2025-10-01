@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { detectDeviceType, LoadingComponent } from '@/shared';
+import { isNativeApp, LoadingComponent } from '@/shared';
 
 import { checkAppAuthStatus } from './model/checkAuth';
 
@@ -13,9 +13,7 @@ export const AuthAppInitializer = ({ children }: { children: React.ReactNode }) 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const deviceType = detectDeviceType();
-
-    if (deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android') {
+    if (isNativeApp()) {
       const checkStatus = async () => {
         const isLoggedIn = await checkAppAuthStatus();
         if (isLoggedIn) {

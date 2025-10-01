@@ -2,9 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import qs from 'qs';
 
-import { detectDeviceType } from '@/shared';
-import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/shared';
-import { tokenManager } from '@/shared';
+import { isNativeApp, noAccessTokenCode, noPermissionCode, noRefreshTokenCode, tokenManager } from '@/shared';
 
 import { BASEURL } from './url';
 
@@ -39,16 +37,12 @@ const refreshAndRetryQueue: RetryQueueItem[] = [];
 let isRefreshing = false;
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
-const getIsNativeApp = () => {
-  const deviceType = detectDeviceType();
-  return deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android';
-};
 
 export const setRccToken = async (access: string, refresh: string | false) => {
   API.defaults.headers['Authorization'] = `Bearer ${access}`;
   FORMAPI.defaults.headers['Authorization'] = `Bearer ${access}`;
   if (refresh) {
-    if (getIsNativeApp()) {
+    if (isNativeApp()) {
       await SecureStoragePlugin.set({
         key: storageRefreshKey,
         value: refresh,
@@ -67,7 +61,7 @@ export const removeRccAccess = () => {
 export const getRccAccess = (): string => (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
 
 export const removeRccRefresh = async (): Promise<void> => {
-  if (getIsNativeApp()) {
+  if (isNativeApp()) {
     await SecureStoragePlugin.remove({ key: storageRefreshKey });
   } else {
     localStorage.removeItem(storageRefreshKey);
@@ -75,7 +69,7 @@ export const removeRccRefresh = async (): Promise<void> => {
 };
 
 export const getRccRefresh = async (): Promise<string | null> => {
-  if (getIsNativeApp()) {
+  if (isNativeApp()) {
     try {
       const { value } = await SecureStoragePlugin.get({ key: storageRefreshKey });
       return value;

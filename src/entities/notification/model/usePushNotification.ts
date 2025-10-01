@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 
 import { getRccRefresh, STORAGE_KEYS } from '@/shared/configs';
 
-import { detectDeviceType, getClientFCMToken, requestNotificationPermission } from '@/shared';
+import { isDesktop, getClientFCMToken, requestNotificationPermission } from '@/shared';
 
 import { getFCMToken } from '../api';
 import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
@@ -16,8 +16,7 @@ export const usePushNotification = () => {
 
   const compareFCMToken = async (): Promise<void> => {
     try {
-      const deviceType = detectDeviceType();
-      if (deviceType === 'desktop') {
+      if (isDesktop()) {
         return;
       }
 
