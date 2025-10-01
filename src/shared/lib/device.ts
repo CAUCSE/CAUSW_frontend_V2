@@ -5,7 +5,7 @@ export const isNativeApp = (): boolean => {
 };
 
 export const isDesktop = (): boolean => {
-  return Capacitor.getPlatform() === 'desktop';
+  return Capacitor.getPlatform() === 'web';
 };
 
 export const isIOS = (): boolean => {
