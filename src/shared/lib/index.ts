@@ -7,7 +7,7 @@ export * from './notificationPermission';
 export * from './axiosErrorParser';
 export * from './date';
 export { sanitizeHtml } from './sanitizer/sanitizeHtml';
-export { isNativeApp, isDesktop, isIOS } from './device';
+export { isNativeApp, isDesktop, isIOS } from './capacitor/device';
 export { getClientFCMToken } from './fcmToken';
 export * from './capacitor';
 export * from './analytics';
