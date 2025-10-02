@@ -28,7 +28,10 @@ const font = localFont({
   variable: '--font-pretendard',
 });
 const DynamicAuthAppInitializer = dynamic(
-  () => import('@/widgets/auth/AuthAppInitializer').then((mod) => mod.AuthAppInitializer),
+  () =>
+    import('@/widgets/auth/AuthAppInitializer').then(
+      (mod) => mod.AuthAppInitializer,
+    ),
   {
     ssr: false,
     loading: () => <LoadingComponent />,
@@ -44,8 +47,14 @@ export default function RootLayout({
       <html lang="ko">
         <head>
           <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+          />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          />
           <meta name="mobile-web-app-capable" content="yes" />
           <script
             type="application/ld+json"
@@ -72,7 +81,10 @@ export default function RootLayout({
         </head>
         <body className={`${font.variable} font-sans`}>
           {/* 초기 페이지 진입 시 GA에 페이지 정보를 전송 */}
-          <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`} />
+          <Script
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=G-0MFP0WN799`}
+          />
           <Script
             id="gtag-init"
             strategy="afterInteractive"
@@ -93,9 +105,7 @@ export default function RootLayout({
             </Suspense>
             <WindowSizeListener />
             <DynamicAuthAppInitializer>
-              <PageWrapper>
-                {children}
-              </PageWrapper>
+              <PageWrapper>{children}</PageWrapper>
             </DynamicAuthAppInitializer>
             <ToastWithMax />
           </Providers>

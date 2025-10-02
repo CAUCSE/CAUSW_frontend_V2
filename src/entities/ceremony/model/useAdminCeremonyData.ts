@@ -6,12 +6,14 @@ import toast from 'react-hot-toast';
 
 import { ERROR_MESSAGES, MESSAGES } from '@/shared';
 
-import { getAdminCeremonyAwaitList, getAdminCeremonyDetail } from '../api';
+import { getAdminCeremonyAwaitList } from '../api';
 
 interface useAdminCeremonyDataProps {
   pageNum: number;
 }
-export const useAdminCeremonyData = ({ pageNum = 0 }: useAdminCeremonyDataProps) => {
+export const useAdminCeremonyData = ({
+  pageNum = 0,
+}: useAdminCeremonyDataProps) => {
   const [ceremonyList, setCeremonyList] = useState<Ceremony.CeremonyItem[]>([]);
 
   const fetchCeremonyList = async () => {
@@ -19,7 +21,9 @@ export const useAdminCeremonyData = ({ pageNum = 0 }: useAdminCeremonyDataProps)
       const data = await getAdminCeremonyAwaitList(pageNum);
       setCeremonyList(data);
     } catch (error) {
-      toast.error(`${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`);
+      toast.error(
+        `${MESSAGES.CEREMONY.REGISTRATION_LIST} - ${ERROR_MESSAGES.LIST_FETCH_FAIL}`,
+      );
     }
   };
 

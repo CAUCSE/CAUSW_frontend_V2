@@ -24,7 +24,10 @@ export const FormDetailResult = () => {
     return <LoadingComponent />;
   }
 
-  if (totalFormResult && totalFormResult[0].replyResponseDtoPage.content.length === 0) {
+  if (
+    totalFormResult &&
+    totalFormResult[0].replyResponseDtoPage.content.length === 0
+  ) {
     return <EmptyResponseResult />;
   }
 

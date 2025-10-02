@@ -12,7 +12,11 @@ interface AdmissionYearInputProps {
   isSettingPage?: boolean;
 }
 
-export const AdmissionYearInput = ({ onAdd, disabled = false, isSettingPage = false }: AdmissionYearInputProps) => {
+export const AdmissionYearInput = ({
+  onAdd,
+  disabled = false,
+  isSettingPage = false,
+}: AdmissionYearInputProps) => {
   const [year, setYear] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,10 +42,15 @@ export const AdmissionYearInput = ({ onAdd, disabled = false, isSettingPage = fa
         type="text"
         value={year}
         onChange={handleChange}
-        className={clsx('border-b border-b-black bg-transparent px-1', isSettingPage ? 'w-10' : 'w-13 text-2xl')}
+        className={clsx(
+          'border-b border-b-black bg-transparent px-1',
+          isSettingPage ? 'w-10' : 'w-13 text-2xl',
+        )}
         disabled={disabled}
       />
-      <span className={clsx(isSettingPage ? 'mr-14 text-2xl' : 'mr-9 text-xl')}>학번</span>
+      <span className={clsx(isSettingPage ? 'mr-14 text-2xl' : 'mr-9 text-xl')}>
+        학번
+      </span>
       <Button
         variant="BLUE"
         action={handleAdd}

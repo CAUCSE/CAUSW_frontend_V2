@@ -32,7 +32,10 @@ export const AdminCeremonyList = ({
         <>
           {list.map((element: Ceremony.CeremonyItem) => {
             const basePath =
-              (firstNavigation ? firstNavigation.router : navigation?.find((el: any) => el.state === state)?.router) ??
+              (firstNavigation
+                ? firstNavigation.router
+                : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  navigation?.find((el: any) => el.state === state)?.router) ??
               '';
             const href = `${basePath}/${element.id}${context ? `?context=${context}` : ''}`;
             return (
@@ -44,7 +47,9 @@ export const AdminCeremonyList = ({
           <div ref={targetRef} className="h-[1px]" />
         </>
       ) : (
-        <div className="mt-10 text-center text-gray-500">신청된 경조사가 없습니다.</div>
+        <div className="mt-10 text-center text-gray-500">
+          신청된 경조사가 없습니다.
+        </div>
       )}
     </div>
   );

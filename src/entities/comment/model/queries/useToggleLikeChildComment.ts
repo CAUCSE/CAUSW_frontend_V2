@@ -29,11 +29,15 @@ export const useToggleLikeChildComment = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
+      queryClient.invalidateQueries({
+        queryKey: commentQueryKey.list({ postId }),
+      });
     },
     onError: (error: Error) => {
       if (isAxiosError(error)) {
-        toast.error(error.response?.data.message ?? '댓글 좋아요에 실패했습니다.');
+        toast.error(
+          error.response?.data.message ?? '댓글 좋아요에 실패했습니다.',
+        );
         return;
       }
       toast.error('댓글 좋아요 실패');

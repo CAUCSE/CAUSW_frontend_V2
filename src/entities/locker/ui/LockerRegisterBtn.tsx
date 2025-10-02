@@ -8,7 +8,11 @@ interface LockerRegisterBtnProps {
   onSuccess?: () => void;
 }
 
-export const LockerRegisterBtn = ({ isMobile, disable, onSuccess }: LockerRegisterBtnProps) => {
+export const LockerRegisterBtn = ({
+  isMobile,
+  disable,
+  onSuccess,
+}: LockerRegisterBtnProps) => {
   const { handleRegisterLocker } = useRegisterLocker({ onSuccess });
   return (
     <button

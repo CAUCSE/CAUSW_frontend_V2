@@ -20,8 +20,10 @@ export const LockerSelectionDesktopManual = ({
   ];
 
   let lockerPeriodMessage = '사물함 신청 기간이 아닙니다.';
-  if (lockerPeriod === 'LOCKER_ACCESS') lockerPeriodMessage = '사물함 신청 기간입니다.';
-  else if (lockerPeriod === 'LOCKER_EXTEND') lockerPeriodMessage = '사물함 연장 기간입니다.';
+  if (lockerPeriod === 'LOCKER_ACCESS')
+    lockerPeriodMessage = '사물함 신청 기간입니다.';
+  else if (lockerPeriod === 'LOCKER_EXTEND')
+    lockerPeriodMessage = '사물함 연장 기간입니다.';
 
   const formatExpireAt = (iso?: string | null) => {
     if (!iso) return '';
@@ -32,17 +34,21 @@ export const LockerSelectionDesktopManual = ({
     )}`;
   };
 
-  const expireText = hasMyLocker && myLockerExpireAt ? formatExpireAt(myLockerExpireAt) : '';
+  const expireText =
+    hasMyLocker && myLockerExpireAt ? formatExpireAt(myLockerExpireAt) : '';
 
   return (
     <div className="hidden h-[600px] flex-col items-center justify-between rounded-2xl border border-[#BABABA] bg-white px-4 py-6 md:flex xl:h-[780px]">
       <div className="flex w-full flex-col items-center gap-4">
         <div className="flex flex-col items-center gap-4 text-center">
           <h1 className="text-2xl font-bold">사물함을 선택해주세요!</h1>
-          <p className={`text-xl ${lockerPeriod === 'NULL' && 'text-red-500'}`}>{lockerPeriodMessage}</p>
+          <p className={`text-xl ${lockerPeriod === 'NULL' && 'text-red-500'}`}>
+            {lockerPeriodMessage}
+          </p>
 
           <p className="text-base">
-            <span className="font-medium">만료일시 :</span> {expireText || '\u00A0'}
+            <span className="font-medium">만료일시 :</span>{' '}
+            {expireText || '\u00A0'}
           </p>
         </div>
         <div className="ml-6 flex w-full flex-col items-start gap-3">

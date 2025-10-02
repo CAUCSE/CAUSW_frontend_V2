@@ -18,7 +18,13 @@ const variantClass: Record<Variant, string> = {
   GRAY: 'bg-[rgba(186,186,186,1)]',
 };
 
-export function Button({ variant, action, className, goBack, children, ...props }: ButtonProp) {
+export function Button({
+  variant,
+  action,
+  className,
+  children,
+  ...props
+}: ButtonProp) {
   return (
     <button
       className={clsx(className, variantClass[variant], 'rounded-[10px]')}

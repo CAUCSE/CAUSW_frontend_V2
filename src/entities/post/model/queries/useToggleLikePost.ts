@@ -14,7 +14,13 @@ export const useToggleLikePost = () => {
   const { boardId } = useParams() as { boardId: string };
 
   return useMutation({
-    mutationFn: async ({ postId, isPostLiked }: { postId: Post.PostDto['id']; isPostLiked: boolean }) => {
+    mutationFn: async ({
+      postId,
+      isPostLiked,
+    }: {
+      postId: Post.PostDto['id'];
+      isPostLiked: boolean;
+    }) => {
       if (isPostLiked) {
         await unLikePost({ postId });
       } else {
@@ -23,12 +29,17 @@ export const useToggleLikePost = () => {
       return { postId };
     },
     onSuccess: ({ postId }) => {
-      queryClient.invalidateQueries({ queryKey: postQueryKey.detail({ postId }) });
+      queryClient.invalidateQueries({
+        queryKey: postQueryKey.detail({ postId }),
+      });
       queryClient.invalidateQueries({ queryKey: postQueryKey.list(boardId) });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
-        toast.error(error.response?.data.message ?? `게시글 좋아요 관련 에러가 발생했습니다.`);
+        toast.error(
+          error.response?.data.message ??
+            `게시글 좋아요 관련 에러가 발생했습니다.`,
+        );
         return;
       }
       toast.error('게시글 좋아요 관련 발생했습니다.');

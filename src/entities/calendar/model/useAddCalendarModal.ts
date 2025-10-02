@@ -10,7 +10,9 @@ import { generateYearList } from '@/shared';
 
 export const useAddCalendarModal = () => {
   const { mutate: createCalendar } = useCreateCalendar();
-  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = useState<number>(
+    new Date().getFullYear(),
+  );
   const [selectedMonth, setSelectedMonth] = useState<number>(1);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

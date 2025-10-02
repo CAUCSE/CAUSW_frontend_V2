@@ -27,10 +27,16 @@ const ImageSelection = ({
     <>
       {(imageUrl || selectedImage) && (
         <div className="flex justify-end gap-2">
-          <button className="text-gray-400 underline hover:text-gray-500" onClick={handleClickUploadImage}>
+          <button
+            className="text-gray-400 underline hover:text-gray-500"
+            onClick={handleClickUploadImage}
+          >
             재업로드
           </button>
-          <button className="text-gray-400 underline hover:text-gray-500" onClick={clearSelectedImage}>
+          <button
+            className="text-gray-400 underline hover:text-gray-500"
+            onClick={clearSelectedImage}
+          >
             제거
           </button>
         </div>
@@ -89,7 +95,9 @@ export const BannerEditModal = () => {
       className="mx-4 flex w-full max-w-[1300px] flex-col rounded-lg bg-white px-8 py-6 shadow-lg md:w-[800px]"
     >
       <PortalModal.Header className="mb-5 flex items-center justify-center md:mb-12">
-        <h1 className="text-lg md:text-2xl">이벤트 배너 {selectedBannerId ? '수정' : '추가'}</h1>
+        <h1 className="text-lg md:text-2xl">
+          이벤트 배너 {selectedBannerId ? '수정' : '추가'}
+        </h1>
       </PortalModal.Header>
       <PortalModal.Body className="flex flex-col">
         <ImageSelection

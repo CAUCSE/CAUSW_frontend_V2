@@ -6,21 +6,30 @@ import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
-import { useBannerStore, useCreateBanner, useUpdateBanner } from '@/entities/banner';
+import {
+  useBannerStore,
+  useCreateBanner,
+  useUpdateBanner,
+} from '@/entities/banner';
 
 import { bannerQueryKey } from '../config';
 
 export const useEditBanner = () => {
-  const { selectedBannerId, selectedBannerImage, selectedBannerUrl, closeEditBannerModal, resetSelectedBanner } =
-    useBannerStore(
-      useShallow((state) => ({
-        selectedBannerId: state.selectedBannerId,
-        selectedBannerImage: state.selectedBannerImage,
-        selectedBannerUrl: state.selectedBannerUrl,
-        closeEditBannerModal: state.closeEditBannerModal,
-        resetSelectedBanner: state.resetSelectedBanner,
-      })),
-    );
+  const {
+    selectedBannerId,
+    selectedBannerImage,
+    selectedBannerUrl,
+    closeEditBannerModal,
+    resetSelectedBanner,
+  } = useBannerStore(
+    useShallow((state) => ({
+      selectedBannerId: state.selectedBannerId,
+      selectedBannerImage: state.selectedBannerImage,
+      selectedBannerUrl: state.selectedBannerUrl,
+      closeEditBannerModal: state.closeEditBannerModal,
+      resetSelectedBanner: state.resetSelectedBanner,
+    })),
+  );
 
   const queryClient = useQueryClient();
   const { mutate: createBanner } = useCreateBanner();
@@ -82,7 +91,9 @@ export const useEditBanner = () => {
       toast.error('URL을 입력해주세요.');
       return;
     }
-    const bannerList = queryClient.getQueryData<Banner.BannerListResponseDto>(bannerQueryKey.list());
+    const bannerList = queryClient.getQueryData<Banner.BannerListResponseDto>(
+      bannerQueryKey.list(),
+    );
     if (bannerList && bannerList.count >= 10) {
       toast.error('이벤트 배너는 최대 10개까지 등록 가능합니다.');
       return;

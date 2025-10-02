@@ -15,25 +15,37 @@ import {
 } from '../../config/AdmissionManagementDetailEntities';
 import { ManagementState } from '../../model/types';
 
-const ManagementDetailButtons = dynamic(() => import('./buttons').then((mod) => mod.ManagementDetailButtons), {
-  ssr: false,
-});
-
-const ManagementDetailInfoTable = dynamic(
-  () => import('./ManagementDetailInfoTable').then((mod) => mod.ManagementDetailInfoTable),
+const ManagementDetailButtons = dynamic(
+  () => import('./buttons').then((mod) => mod.ManagementDetailButtons),
   {
     ssr: false,
   },
 );
-const PreviousButton = dynamic(() => import('@/shared').then((mod) => mod.PreviousButton), {
-  ssr: false,
-});
+
+const ManagementDetailInfoTable = dynamic(
+  () =>
+    import('./ManagementDetailInfoTable').then(
+      (mod) => mod.ManagementDetailInfoTable,
+    ),
+  {
+    ssr: false,
+  },
+);
+const PreviousButton = dynamic(
+  () => import('@/shared').then((mod) => mod.PreviousButton),
+  {
+    ssr: false,
+  },
+);
 interface ManagementDetailProp {
   state: ManagementState;
   admissionId: string;
 }
 
-export async function AdmissionManagementDetail({ state, admissionId }: ManagementDetailProp) {
+export async function AdmissionManagementDetail({
+  state,
+  admissionId,
+}: ManagementDetailProp) {
   const entities = managementDetailEntities[state];
 
   const { titleSuffix } = entities;
@@ -55,7 +67,8 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
   }
   try {
     const response = await getUserAcademicRecord(admissionId);
-    userInfo.profileImageUrl = response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0];
+    userInfo.profileImageUrl =
+      response.userAcademicRecordApplicationResponseDtoList[0].attachedImageUrlList[0];
   } catch (error) {
     console.error(error);
   }
@@ -79,7 +92,10 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
       <p className="text-[18px] font-semibold lg:text-[25px]">{`${name}${studentId ? `(${studentId})` : ''}의 ${titleSuffix} `}</p>
       {admission && (
         <>
-          <ManagementDetailInfoTable data={convertAdmissionDataToTableEntity(admission)} titleMapping={titleMapping} />
+          <ManagementDetailInfoTable
+            data={convertAdmissionDataToTableEntity(admission)}
+            titleMapping={titleMapping}
+          />
           <ManagementDetailButtons state={state} admission={admission} />
         </>
       )}
@@ -94,7 +110,10 @@ export async function AdmissionManagementDetail({ state, admissionId }: Manageme
       )}
       {userInfo && (state === 'active' || state === 'reject') && (
         <div>
-          <ManagementDetailInfoTable data={convertUserDataToTableEntity(userInfo)} titleMapping={titleMappingForUser} />
+          <ManagementDetailInfoTable
+            data={convertUserDataToTableEntity(userInfo)}
+            titleMapping={titleMappingForUser}
+          />
           <ManagementDetailButtons state={state} admission={userInfo} />
         </div>
       )}

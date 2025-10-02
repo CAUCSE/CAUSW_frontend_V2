@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { useReportedUsers } from '@/entities/report/model/queries/useReportedUsers';
 
-import { writerStateColor, writerStateLabel } from '@/shared/@types/report-ui';
+import { writerStateColor } from '@/shared/@types/report-ui';
 
 import { PreviousButton } from '@/shared';
 
@@ -24,7 +24,9 @@ export default function ReportedUserListPage() {
         <h1 className="my-4 text-xl font-bold md:text-3xl">신고 유저 관리</h1>
 
         {isLoading && <div className="py-6 text-gray-500">불러오는 중…</div>}
-        {isError && <div className="py-6 text-red-500">목록을 불러오지 못했어요.</div>}
+        {isError && (
+          <div className="py-6 text-red-500">목록을 불러오지 못했어요.</div>
+        )}
 
         {users?.map((user) => (
           <div
@@ -53,10 +55,14 @@ export default function ReportedUserListPage() {
               <div
                 className={`rounded-lg border px-3 py-1 text-sm font-semibold text-white ${writerStateColor[user.userState]}`}
               >
-                {user.userState === 'INACTIVE' ? '탈퇴한 사용자' : '추방된 사용자'}
+                {user.userState === 'INACTIVE'
+                  ? '탈퇴한 사용자'
+                  : '추방된 사용자'}
               </div>
             ) : (
-              <div className="rounded-lg border px-3 py-1 text-sm text-gray-600">신고 누적 {user.totalCount}회</div>
+              <div className="rounded-lg border px-3 py-1 text-sm text-gray-600">
+                신고 누적 {user.totalCount}회
+              </div>
             )}
           </div>
         ))}

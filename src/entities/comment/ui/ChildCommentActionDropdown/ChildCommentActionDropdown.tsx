@@ -14,7 +14,12 @@ import { ReportReasonDialog } from '@/widgets/report';
 
 import { isAdmin, useMyInfo } from '@/entities/user';
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
 
 import { commentQueryKey } from '../../config';
@@ -25,7 +30,10 @@ interface ChildCommentActionDropdownProps {
   isOwner: ChildComment.ChildCommentDto['isOwner'];
 }
 
-export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentActionDropdownProps) => {
+export const ChildCommentActionDropdown = ({
+  commentId,
+  isOwner,
+}: ChildCommentActionDropdownProps) => {
   const queryClient = useQueryClient();
   const { data: userInfo } = useMyInfo();
   const roles = userInfo?.roles || [];
@@ -53,11 +61,15 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       { param: { childCommentId: commentId } },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: commentQueryKey.list({ postId }) });
+          queryClient.invalidateQueries({
+            queryKey: commentQueryKey.list({ postId }),
+          });
         },
         onError: (error: Error) => {
           if (isAxiosError(error)) {
-            toast.error(error.response?.data.message ?? '댓글 삭제에 실패했습니다.');
+            toast.error(
+              error.response?.data.message ?? '댓글 삭제에 실패했습니다.',
+            );
             return;
           }
           toast.error('댓글 삭제에 실패했습니다.');
@@ -82,7 +94,11 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        {canDeleteChildComment && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
+        {canDeleteChildComment && (
+          <DropdownMenuItem onClick={handleDeleteChildComment}>
+            댓글 삭제
+          </DropdownMenuItem>
+        )}
         {canReportAndBlock && (
           <>
             <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
@@ -103,7 +119,12 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       />
 
       {/* 차단: 중앙 AlertDialog (anchorRect/width 제거) */}
-      <BlockUserDialog open={blockOpen} onOpenChange={setBlockOpen} targetId={commentId} targetKind="childComment" />
+      <BlockUserDialog
+        open={blockOpen}
+        onOpenChange={setBlockOpen}
+        targetId={commentId}
+        targetKind="childComment"
+      />
     </DropdownMenu>
   );
 };

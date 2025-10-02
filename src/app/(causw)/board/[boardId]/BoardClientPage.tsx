@@ -18,7 +18,15 @@ export const BoardClientPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  const { data, fetchNextPage, isFetchingNextPage, isLoading, hasNextPage, isError, error } = useGetPostList({
+  const {
+    data,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoading,
+    hasNextPage,
+    isError,
+    error,
+  } = useGetPostList({
     boardId: boardId as string,
     keyword: debouncedSearchTerm,
   });
@@ -42,7 +50,10 @@ export const BoardClientPage = () => {
   return (
     <>
       <div className="flex h-full w-full flex-col gap-4">
-        <BoardHeader boardName={data?.boardName!} isNotificationActive={data?.isBoardSubscribed!} />
+        <BoardHeader
+          boardName={data?.boardName ?? ''}
+          isNotificationActive={data?.isBoardSubscribed ?? false}
+        />
         <div className="px-5">
           <SearchBar
             value={searchTerm}
@@ -53,7 +64,7 @@ export const BoardClientPage = () => {
           />
         </div>
         <BoardPostList
-          postList={data?.postList!}
+          postList={data?.postList ?? []}
           isFetchingNextPage={isFetchingNextPage}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}

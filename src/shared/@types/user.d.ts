@@ -7,7 +7,13 @@ declare namespace User {
     admissionYear: number;
     roles: Role[];
     profileImageUrl: string | null;
-    state: 'ACTIVE' | 'INACTIVE' | 'DROP' | 'INACTIVE_N_DROP' | 'AWAIT' | 'REJECT';
+    state:
+      | 'ACTIVE'
+      | 'INACTIVE'
+      | 'DROP'
+      | 'INACTIVE_N_DROP'
+      | 'AWAIT'
+      | 'REJECT';
     circleIdIfLeader: string[] | null;
     circleNameIfLeader: string[] | null;
     nickname: string;
@@ -31,7 +37,12 @@ declare namespace User {
     images: FileList;
   }
 
-  export type AcademicStatus = 'ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED' | 'UNDETERMINED' | 'UNDEFINED'; // undefined는 신규 사용자자;
+  export type AcademicStatus =
+    | 'ENROLLED'
+    | 'LEAVE_OF_ABSENCE'
+    | 'GRADUATED'
+    | 'UNDETERMINED'
+    | 'UNDEFINED'; // undefined는 신규 사용자자;
 
   export type Role =
     | 'ADMIN'

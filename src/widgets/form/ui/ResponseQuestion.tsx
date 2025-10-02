@@ -14,7 +14,10 @@ interface ResponseQuestionProps {
   questionIdx: number;
 }
 
-export const ResponseQuestion = ({ question, questionIdx }: ResponseQuestionProps) => {
+export const ResponseQuestion = ({
+  question,
+  questionIdx,
+}: ResponseQuestionProps) => {
   const {
     register,
     formState: { errors },
@@ -22,7 +25,10 @@ export const ResponseQuestion = ({ question, questionIdx }: ResponseQuestionProp
 
   const form = useResponseFormStore((state) => state.form);
   form?.questionResponseDtoList;
-  const { textRefs, isTruncated } = useTruncateParagraph<Post.QuestionResponseDto>(form?.questionResponseDtoList);
+  const { textRefs, isTruncated } =
+    useTruncateParagraph<Post.QuestionResponseDto>(
+      form?.questionResponseDtoList,
+    );
 
   return (
     <div key={question.questionId} className="w-3/4">
@@ -44,25 +50,37 @@ export const ResponseQuestion = ({ question, questionIdx }: ResponseQuestionProp
             </span>
           )}
         </div>
-        {question.isMultiple && <p className="text-xs text-[#909090] sm:text-sm">복수 선택 가능</p>}
+        {question.isMultiple && (
+          <p className="text-xs text-[#909090] sm:text-sm">복수 선택 가능</p>
+        )}
       </div>
 
       <div
         className={`${question.questionType === 'SUBJECTIVE' ? 'justify-end' : ''} flex min-h-[50px] w-full flex-col gap-2 rounded-xs border border-black bg-white px-4 py-2 sm:min-w-[400px]`}
       >
         {question.questionType === 'OBJECTIVE' ? (
-          <ObjectiveOptionList question={question} questionIndex={questionIdx} />
+          <ObjectiveOptionList
+            question={question}
+            questionIndex={questionIdx}
+          />
         ) : (
           <SubjectiveOption questionIdx={questionIdx} />
         )}
         {errors?.questionReplyRequestDtoList?.[questionIdx]?.questionReply && (
           <p className="text-sm text-red-500">
-            {errors!.questionReplyRequestDtoList[questionIdx]!.questionReply!.message}
+            {
+              errors!.questionReplyRequestDtoList[questionIdx]!.questionReply!
+                .message
+            }
           </p>
         )}
-        {errors?.questionReplyRequestDtoList?.[questionIdx]?.selectedOptionList && (
+        {errors?.questionReplyRequestDtoList?.[questionIdx]
+          ?.selectedOptionList && (
           <p className="text-sm text-red-500">
-            {errors!.questionReplyRequestDtoList[questionIdx]!.selectedOptionList!.message}
+            {
+              errors!.questionReplyRequestDtoList[questionIdx]!
+                .selectedOptionList!.message
+            }
           </p>
         )}
       </div>

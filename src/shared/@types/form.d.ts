@@ -3,8 +3,10 @@ declare namespace Form {
     colSize: 1 | 2 | 3 | 4 | 5;
     // targetValue: any;
     // callback: ChangeEventHandler<HTMLInputElement>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     value?: any;
     name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: any;
   }
 

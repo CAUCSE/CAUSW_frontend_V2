@@ -21,7 +21,9 @@ export type InfoTableEntity = {
   isJoinedService: string;
 };
 
-export const convertDataToTableEntity = (data: Setting.UserCouncilFeeInfoDTO): InfoTableEntity => {
+export const convertDataToTableEntity = (
+  data: Setting.UserCouncilFeeInfoDTO,
+): InfoTableEntity => {
   const {
     email,
     major,
@@ -31,7 +33,6 @@ export const convertDataToTableEntity = (data: Setting.UserCouncilFeeInfoDTO): I
     admissionYear,
     nickname,
     graduationYear,
-    graduationType,
     academicStatus,
     phoneNumber,
     isAppliedThisSemester,
@@ -56,11 +57,17 @@ export const convertDataToTableEntity = (data: Setting.UserCouncilFeeInfoDTO): I
     academicStatus: academicStatus ?? '-',
     graduateYearMonth: graduationYear?.toString() ?? '-',
     phoneNumber: phoneNumber ?? '-',
-    currentCompletedSemester: currentCompletedSemester ? currentCompletedSemester?.toString() + '차 학기' : '-',
+    currentCompletedSemester: currentCompletedSemester
+      ? currentCompletedSemester?.toString() + '차 학기'
+      : '-',
     payedAt: paidAt ? paidAt.toString() + '차 학기' : '-',
     joinedAt: joinedAt ?? '-',
-    numOfPaidSemester: numOfPaidSemester ? numOfPaidSemester?.toString() + '차 학기 분' : '-',
-    restOfSemester: restOfSemester ? restOfSemester?.toString() + '차 학기' : '-',
+    numOfPaidSemester: numOfPaidSemester
+      ? numOfPaidSemester?.toString() + '차 학기 분'
+      : '-',
+    restOfSemester: restOfSemester
+      ? restOfSemester?.toString() + '차 학기'
+      : '-',
     isRefunded: isRefunded ? 'Yes' : 'No',
     refundedAt: isRefunded ? refundedAt?.toString() + '차 학기' : '-',
     isJoinedService: isJoinedService ? 'Yes' : 'No',

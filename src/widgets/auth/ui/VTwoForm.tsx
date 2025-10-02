@@ -5,7 +5,14 @@ import { AuthFormSubmitButton, AuthInput, useV2Form } from '@/entities/auth';
 import { Header, Line, SubHeader } from '@/shared';
 
 export const VTwoForm = () => {
-  const { register, handleSubmit, errors, onSubmit, checkVTwo, checkNicknameDuplicate } = useV2Form();
+  const {
+    register,
+    handleSubmit,
+    errors,
+    onSubmit,
+    checkVTwo,
+    checkNicknameDuplicate,
+  } = useV2Form();
 
   if (checkVTwo) return null;
 
@@ -50,7 +57,8 @@ export const VTwoForm = () => {
               rules={{
                 required: '닉네임을 입력해주세요',
                 validate: async (value) => {
-                  if (typeof value !== 'string') return '닉네임은 문자열이어야 합니다.';
+                  if (typeof value !== 'string')
+                    return '닉네임은 문자열이어야 합니다.';
                   const isAvailable = await checkNicknameDuplicate(value);
                   return isAvailable || '이미 사용 중인 닉네임입니다.';
                 },

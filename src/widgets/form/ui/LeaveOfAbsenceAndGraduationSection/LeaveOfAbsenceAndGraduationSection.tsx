@@ -12,7 +12,8 @@ import { PostSchema } from '@/entities/post';
 
 export const LeaveOfAbsenceAndGraduationSection = () => {
   const { formState } = useFormContext<PostSchema>();
-  const isLeaveOfAbsenceError = formState.errors.formCreateRequestDto?.leaveOfAbsenceRegisteredSemesterList;
+  const isLeaveOfAbsenceError =
+    formState.errors.formCreateRequestDto?.leaveOfAbsenceRegisteredSemesterList;
 
   return (
     <>
@@ -21,11 +22,17 @@ export const LeaveOfAbsenceAndGraduationSection = () => {
           <LeaveOfAbsenceToggle />
           <GraduationToggle />
           {Object.values(SemesterMetaData).map((semester) => (
-            <SemesterToggleForLeaveOfAbsence key={semester.value} {...semester} className="col-span-1" />
+            <SemesterToggleForLeaveOfAbsence
+              key={semester.value}
+              {...semester}
+              className="col-span-1"
+            />
           ))}
         </div>
       </section>
-      {isLeaveOfAbsenceError && <p className="text-sm text-red-500">{isLeaveOfAbsenceError.message}</p>}
+      {isLeaveOfAbsenceError && (
+        <p className="text-sm text-red-500">{isLeaveOfAbsenceError.message}</p>
+      )}
     </>
   );
 };

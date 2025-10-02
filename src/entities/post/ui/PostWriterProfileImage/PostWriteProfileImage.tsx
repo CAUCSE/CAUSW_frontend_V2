@@ -6,7 +6,11 @@ interface PostWriterProfileImageProps {
   size?: number;
 }
 
-export const PostWriterProfileImage = ({ profileImage, nickname, size = 70 }: PostWriterProfileImageProps) => {
+export const PostWriterProfileImage = ({
+  profileImage,
+  nickname,
+  size = 70,
+}: PostWriterProfileImageProps) => {
   return (
     <div
       style={{
@@ -15,7 +19,13 @@ export const PostWriterProfileImage = ({ profileImage, nickname, size = 70 }: Po
       }}
       className="overflow-hidden rounded-full"
     >
-      <Image src={profileImage} alt={nickname} width={size} height={size} className="object-cover" />
+      <Image
+        src={profileImage}
+        alt={nickname}
+        width={size}
+        height={size}
+        className="object-cover"
+      />
     </div>
   );
 };

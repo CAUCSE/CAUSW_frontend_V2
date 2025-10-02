@@ -23,10 +23,16 @@ const ImageSelectionModalBody = ({
       {selectedImage ? (
         <div>
           <div className="mb-2 flex w-full justify-end gap-4 text-sm">
-            <button className="text-gray-400 underline hover:text-gray-500" onClick={clickUploadBtn}>
+            <button
+              className="text-gray-400 underline hover:text-gray-500"
+              onClick={clickUploadBtn}
+            >
               재업로드
             </button>
-            <button className="text-gray-400 underline hover:text-gray-500" onClick={clearSelectedImage}>
+            <button
+              className="text-gray-400 underline hover:text-gray-500"
+              onClick={clearSelectedImage}
+            >
               제거
             </button>
           </div>
@@ -87,7 +93,9 @@ export const CalendarAddModal = () => {
           selectedImage={selectedImage}
         />
         <div className="text-center">
-          <p className="text-xs text-[#B4B1B1]">10MB 이하의 이미지만 업로드할 수 있습니다.</p>
+          <p className="text-xs text-[#B4B1B1]">
+            10MB 이하의 이미지만 업로드할 수 있습니다.
+          </p>
           <p className="text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
         </div>
 

@@ -12,7 +12,11 @@ interface PortalModalProps {
 }
 
 // TODO: focus 스트랩 적용
-export const PortalModal = ({ children, className, closeModal }: PortalModalProps) => {
+export const PortalModal = ({
+  children,
+  className,
+  closeModal,
+}: PortalModalProps) => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {

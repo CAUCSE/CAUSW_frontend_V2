@@ -34,7 +34,11 @@ export const FormCreationForm = () => {
       <EnrollmentConditionSection />
       <LeaveOfAbsenceAndGraduationSection />
       {fields.map((field, idx) => (
-        <Question key={field.id} index={idx} removeQuestion={() => remove(idx)} />
+        <Question
+          key={field.id}
+          index={idx}
+          removeQuestion={() => remove(idx)}
+        />
       ))}
       <button
         type="button"

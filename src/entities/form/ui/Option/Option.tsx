@@ -6,12 +6,19 @@ import { PostSchema } from '@/entities/post';
 
 import TrashcanIcon from '../../../../../public/icons/delete_icon.svg';
 
-export const Option = ({ questionIndex, optionIndex, removeOption }: Form.OptionProps) => {
+export const Option = ({
+  questionIndex,
+  optionIndex,
+  removeOption,
+}: Form.OptionProps) => {
   const { control, getValues } = useFormContext<PostSchema>();
 
   const handleRemoveOption = () => {
-    const questionList = getValues('formCreateRequestDto.questionCreateRequestDtoList');
-    if (questionList[questionIndex].optionCreateRequestDtoList.length === 1) return;
+    const questionList = getValues(
+      'formCreateRequestDto.questionCreateRequestDtoList',
+    );
+    if (questionList[questionIndex].optionCreateRequestDtoList.length === 1)
+      return;
     removeOption();
   };
 
@@ -35,7 +42,9 @@ export const Option = ({ questionIndex, optionIndex, removeOption }: Form.Option
                 <TrashcanIcon width={16} height={16} />
               </button>
             </div>
-            {fieldState.error && <p className="text-red-500">{fieldState.error.message}</p>}
+            {fieldState.error && (
+              <p className="text-red-500">{fieldState.error.message}</p>
+            )}
           </div>
         </div>
       )}

@@ -6,7 +6,9 @@ interface LockerListHeaderProps {
   lockerLocations: Locker.LockerLocationsResponseDto;
 }
 
-export const LockerListHeader = ({ lockerLocations }: LockerListHeaderProps) => {
+export const LockerListHeader = ({
+  lockerLocations,
+}: LockerListHeaderProps) => {
   let availableLockerCount = 0,
     totalLockerCount = 0;
   lockerLocations.lockerLocations.forEach((lockerLocation) => {

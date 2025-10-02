@@ -11,7 +11,13 @@ export const useSubmitFormReply = () => {
   const [modalMessage, setModalMessage] = useState<string>('');
 
   const { mutate } = useMutation({
-    mutationFn: async ({ formId, formData }: { formId: string; formData: Form.QuestionReplyRequestDtoList }) => {
+    mutationFn: async ({
+      formId,
+      formData,
+    }: {
+      formId: string;
+      formData: Form.QuestionReplyRequestDtoList;
+    }) => {
       return submitFormReply(formId, formData);
     },
     onSuccess: () => {

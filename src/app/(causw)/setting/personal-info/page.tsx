@@ -34,11 +34,13 @@ const PersonalInfoPage = () => {
         const userCouncilFeeData = responseUserCouncilFeeData.data;
 
         setFeeInfo({
-          studentCouncilFeeStatus: userCouncilFeeData.isAppliedThisSemester ? 'O' : 'X',
+          studentCouncilFeeStatus: userCouncilFeeData.isAppliedThisSemester
+            ? 'O'
+            : 'X',
           paidFeeSemesters: `${userCouncilFeeData.numOfPaidSemester}학기`,
           remainingFeeSemesters: `${userCouncilFeeData.restOfSemester}학기`,
         });
-      } catch (error: any) {
+      } catch {
         setFeeInfo({
           studentCouncilFeeStatus: 'X',
           paidFeeSemesters: '0학기',

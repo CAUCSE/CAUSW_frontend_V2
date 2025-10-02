@@ -12,7 +12,6 @@ interface CommentInfoSectionProps {
 export const CommentInfoSection = ({
   writerProfileImage,
   writerNickname,
-  isAnonymous,
   createdAt,
 }: CommentInfoSectionProps) => {
   return (
@@ -27,8 +26,12 @@ export const CommentInfoSection = ({
         />
       </div>
       <div className="flex flex-col items-start">
-        <div className="flex items-center text-base font-bold">{writerNickname}</div>
-        <div className="text-sm text-gray-500">{getTimeDifference(createdAt)}</div>
+        <div className="flex items-center text-base font-bold">
+          {writerNickname}
+        </div>
+        <div className="text-sm text-gray-500">
+          {getTimeDifference(createdAt)}
+        </div>
       </div>
     </section>
   );

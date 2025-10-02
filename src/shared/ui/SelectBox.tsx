@@ -39,7 +39,13 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
       </select>
 
       <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 transform">
-        <svg className="h-4 w-4 text-gray-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+        <svg
+          className="h-4 w-4 text-gray-500"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+        >
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </div>

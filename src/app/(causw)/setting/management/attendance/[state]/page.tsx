@@ -3,7 +3,11 @@ import { ManagementPanel } from '@/entities/user/ui';
 
 import { MESSAGES } from '@/shared';
 
-const AttendanceManagement = async ({ params: { state } }: { params: { state: string } }) => {
+const AttendanceManagement = async ({
+  params: { state },
+}: {
+  params: { state: string };
+}) => {
   const data =
     state === 'waiting'
       ? await getWaitingUsers().then((data) =>

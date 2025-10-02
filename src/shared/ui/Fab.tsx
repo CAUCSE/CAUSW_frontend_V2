@@ -20,7 +20,10 @@ export const Fab = ({ href, icon = <Plus />, label }: FabProps) => {
   return (
     <Link href={href} aria-label={label}>
       <button type="button" title={label} className={fabStyles}>
-        <span aria-hidden className="flex items-center justify-center duration-200 group-hover:scale-110">
+        <span
+          aria-hidden
+          className="flex items-center justify-center duration-200 group-hover:scale-110"
+        >
           {icon}
         </span>
       </button>

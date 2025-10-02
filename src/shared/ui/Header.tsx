@@ -17,7 +17,9 @@ export const Header = ({
   const wideClass = wide ? 'tracking-widest' : '';
 
   return (
-    <span className={`flex flex-row items-end ${textSize} ${underlineClass} ${boldClass} ${wideClass}`}>
+    <span
+      className={`flex flex-row items-end ${textSize} ${underlineClass} ${boldClass} ${wideClass}`}
+    >
       {children}
     </span>
   );

@@ -9,10 +9,19 @@ import { EllipsisVertical } from 'lucide-react';
 import { BlockUserDialog } from '@/widgets/block';
 import { ReportReasonDialog } from '@/widgets/report';
 
-import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/entities/post';
+import {
+  useDeletePost,
+  useSubscribePost,
+  useUnsubscribePost,
+} from '@/entities/post';
 import { isAdmin, useMyInfo } from '@/entities/user';
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
 
 interface PostActionDropdownProps {
@@ -74,18 +83,28 @@ export const PostActionDropdown = ({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          {canDeletePost && <DropdownMenuItem onClick={() => deletePost({ postId })}>삭제하기</DropdownMenuItem>}
+          {canDeletePost && (
+            <DropdownMenuItem onClick={() => deletePost({ postId })}>
+              삭제하기
+            </DropdownMenuItem>
+          )}
 
           <DropdownMenuItem
             onClick={() => {
-              isPostSubscribed ? unsubscribePost({ postId }) : subscribePost({ postId });
+              isPostSubscribed
+                ? unsubscribePost({ postId })
+                : subscribePost({ postId });
             }}
           >
             {isPostSubscribed ? '알람 끄기' : '알람 켜기'}
           </DropdownMenuItem>
 
           {canViewForm && (
-            <DropdownMenuItem onClick={() => router.push(`${pathname}/formInfo/${formData?.formId}`)}>
+            <DropdownMenuItem
+              onClick={() =>
+                router.push(`${pathname}/formInfo/${formData?.formId}`)
+              }
+            >
               신청 현황 보기
             </DropdownMenuItem>
           )}
@@ -93,7 +112,9 @@ export const PostActionDropdown = ({
           {canReportAndBlock && (
             <>
               <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
-              <DropdownMenuItem onClick={openBlockUser}>차단하기</DropdownMenuItem>
+              <DropdownMenuItem onClick={openBlockUser}>
+                차단하기
+              </DropdownMenuItem>
             </>
           )}
         </DropdownMenuContent>
@@ -109,7 +130,12 @@ export const PostActionDropdown = ({
         offset={8}
       />
 
-      <BlockUserDialog open={blockOpen} onOpenChange={setBlockOpen} targetId={postId} targetKind="post" />
+      <BlockUserDialog
+        open={blockOpen}
+        onOpenChange={setBlockOpen}
+        targetId={postId}
+        targetKind="post"
+      />
     </>
   );
 };

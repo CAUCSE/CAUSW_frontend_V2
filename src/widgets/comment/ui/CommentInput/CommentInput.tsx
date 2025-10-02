@@ -2,15 +2,13 @@
 
 import { useState } from 'react';
 
-import Image from 'next/image';
+import { SendHorizontal } from 'lucide-react';
 
-import { useQueryClient } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
-import { SendHorizonal, SendHorizontal } from 'lucide-react';
-import toast from 'react-hot-toast';
-
-import { useCommentStore, usePostChildComment, usePostComment } from '@/entities/comment';
-import { commentQueryKey } from '@/entities/comment/config';
+import {
+  useCommentStore,
+  usePostChildComment,
+  usePostComment,
+} from '@/entities/comment';
 
 import { Button } from '@/shadcn/components/ui';
 
@@ -19,8 +17,6 @@ interface CommentInputProps {
 }
 
 export const CommentInput = ({ postId }: CommentInputProps) => {
-  const queryClient = useQueryClient();
-
   const { childCommentActiveId, setChildCommentActiveId } = useCommentStore();
 
   const [commentContent, setCommentContent] = useState('');
@@ -31,11 +27,12 @@ export const CommentInput = ({ postId }: CommentInputProps) => {
     setCommentContent,
     postId,
   });
-  const { mutate: postChildComment, isPending: isPostingChildComment } = usePostChildComment({
-    setChildCommentActiveId,
-    setCommentContent,
-    postId,
-  });
+  const { mutate: postChildComment, isPending: isPostingChildComment } =
+    usePostChildComment({
+      setChildCommentActiveId,
+      setCommentContent,
+      postId,
+    });
 
   const handleSubmit = () => {
     if (commentContent.trim() === '') return;

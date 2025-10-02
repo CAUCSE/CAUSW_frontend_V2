@@ -18,7 +18,9 @@ export const VoteOptionList = () => {
   };
   return (
     <div className="mb-4 grid max-h-80 grid-cols-2 gap-4 overflow-x-hidden overflow-y-scroll pt-2 pr-2">
-      {optionList?.map((option, index) => <VoteOptionInput key={index} index={index} option={option} />)}
+      {optionList?.map((option, index) => (
+        <VoteOptionInput key={index} index={index} option={option} />
+      ))}
       <button
         className="flex h-14 items-center justify-center rounded-sm border-2 border-gray-300 text-center text-black"
         onClick={addVoteOption}

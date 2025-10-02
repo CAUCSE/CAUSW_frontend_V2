@@ -6,7 +6,9 @@ import { useExtendLockerMutation } from '../mutations';
 import { useLockerSelectionStore } from '../stores/useLockerSelectionStore';
 
 export const useExtendLocker = () => {
-  const clickedLockerId = useLockerSelectionStore((state) => state.clickedLockerId);
+  const clickedLockerId = useLockerSelectionStore(
+    (state) => state.clickedLockerId,
+  );
 
   const { mutate: extendLocker } = useExtendLockerMutation();
 

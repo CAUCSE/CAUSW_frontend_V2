@@ -15,15 +15,21 @@ interface CalendarCardProps {
   month: number;
 }
 
-export const CalendarCard = ({ id, imgSrc, year, month }: CalendarCardProps) => {
-  const { openDeleteModal, setCalendarId, setCalendarYear, setCalendarMonth } = useCalendarStore(
-    useShallow((state) => ({
-      openDeleteModal: state.openDeleteModal,
-      setCalendarId: state.setCalendarId,
-      setCalendarYear: state.setCalendarYear,
-      setCalendarMonth: state.setCalendarMonth,
-    })),
-  );
+export const CalendarCard = ({
+  id,
+  imgSrc,
+  year,
+  month,
+}: CalendarCardProps) => {
+  const { openDeleteModal, setCalendarId, setCalendarYear, setCalendarMonth } =
+    useCalendarStore(
+      useShallow((state) => ({
+        openDeleteModal: state.openDeleteModal,
+        setCalendarId: state.setCalendarId,
+        setCalendarYear: state.setCalendarYear,
+        setCalendarMonth: state.setCalendarMonth,
+      })),
+    );
 
   const handleDeleteCalendar = (id: string, year: number, month: number) => {
     setCalendarId(id);

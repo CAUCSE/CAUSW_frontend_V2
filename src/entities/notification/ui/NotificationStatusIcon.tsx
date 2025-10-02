@@ -5,6 +5,8 @@ interface NotificationStatusIconProps {
   read: boolean;
 }
 
-export const NotificationStatusIcon = ({ read }: NotificationStatusIconProps) => {
+export const NotificationStatusIcon = ({
+  read,
+}: NotificationStatusIconProps) => {
   return read ? <NotificationReadIcon /> : <NotificationUnreadIcon />;
 };

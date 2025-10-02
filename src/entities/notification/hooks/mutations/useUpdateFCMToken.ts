@@ -7,7 +7,8 @@ import { updateFCMToken } from '@/entities/notification/api';
 
 export const useUpdateFCMToken = (withToast: boolean = true) => {
   return useMutation({
-    mutationFn: (payload: Notification.UpdateFCMTokenRequestDto) => updateFCMToken(payload),
+    mutationFn: (payload: Notification.UpdateFCMTokenRequestDto) =>
+      updateFCMToken(payload),
     onSuccess: () => {
       if (withToast) {
         toast.success('알림 설정을 허용하였습니다.');

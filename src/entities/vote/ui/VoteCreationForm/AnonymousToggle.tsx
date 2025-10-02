@@ -1,6 +1,10 @@
 'use client';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -11,7 +15,10 @@ export const AnonymousToggle = () => {
 
   const toggleAllowAnonymous = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: ControllerRenderProps<PostSchema, 'voteCreateRequestDto.allowAnonymous'>,
+    field: ControllerRenderProps<
+      PostSchema,
+      'voteCreateRequestDto.allowAnonymous'
+    >,
   ) => {
     field.onChange(e.target.checked);
   };
@@ -21,7 +28,11 @@ export const AnonymousToggle = () => {
       control={control}
       name="voteCreateRequestDto.allowAnonymous"
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckChanged={(e) => toggleAllowAnonymous(e, field)} text="익명 투표" />
+        <CustomToggle
+          isChecked={field.value}
+          onCheckChanged={(e) => toggleAllowAnonymous(e, field)}
+          text="익명 투표"
+        />
       )}
     />
   );

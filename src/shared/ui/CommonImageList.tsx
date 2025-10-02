@@ -29,7 +29,11 @@ export const CommonImageList = ({ images }: CommonImageListProps) => {
       <h1 className="text-lg font-bold md:text-2xl">사진</h1>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-8 lg:grid-cols-4 lg:gap-8">
         {images.map((image, idx) => (
-          <div key={idx} className="flex cursor-pointer justify-center" onClick={() => openViewer(idx)}>
+          <div
+            key={idx}
+            className="flex cursor-pointer justify-center"
+            onClick={() => openViewer(idx)}
+          >
             <Image
               src={image}
               alt={`첨부사진${idx}`}
@@ -44,7 +48,11 @@ export const CommonImageList = ({ images }: CommonImageListProps) => {
       </div>
 
       {isViewerOpen && selectedIndex !== null && (
-        <ImageViewer images={images} initialIndex={selectedIndex} onClose={closeViewer} />
+        <ImageViewer
+          images={images}
+          initialIndex={selectedIndex}
+          onClose={closeViewer}
+        />
       )}
     </div>
   );

@@ -18,7 +18,10 @@ export const useV2Form = () => {
   }>({ mode: 'onBlur' });
 
   // 닉네임 중복 검사
-  const onSubmit = async (data: { nickname: string; phoneNumberHyphen: string }) => {
+  const onSubmit = async (data: {
+    nickname: string;
+    phoneNumberHyphen: string;
+  }) => {
     await updateInfo({
       nickname: data.nickname,
       phoneNumber: data.phoneNumberHyphen,
@@ -28,5 +31,12 @@ export const useV2Form = () => {
     window.location.href = '/home';
   };
 
-  return { register, handleSubmit, errors, onSubmit, checkVTwo, checkNicknameDuplicate };
+  return {
+    register,
+    handleSubmit,
+    errors,
+    onSubmit,
+    checkVTwo,
+    checkNicknameDuplicate,
+  };
 };

@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios';
-
 import { createFormData } from '@/shared/lib';
 
 import { API, BASEURL, FORMAPI, setRscHeader } from '@/shared';
@@ -11,7 +9,7 @@ import { USERS_ENDPOINT } from '../config';
 
 export const updateInfo = async (
   data: User.userUpdateDto, // FileList 타입 사용
-): Promise<any> => {
+): Promise<unknown> => {
   try {
     const payload = {
       ...data,
@@ -59,7 +57,11 @@ export const updateAttendanceUserNote = async (id: string, note: string) => {
   await API.put(`/api/v1/users/academic-record/record/${id}`, { note: note });
 };
 
-export const updateRole = async (id: string, role: User.Role, circleId: string | null) => {
+export const updateRole = async (
+  id: string,
+  role: User.Role,
+  circleId: string | null,
+) => {
   await API.put(`${USERS_ENDPOINT}/${id}/role`, {
     role: role,
     circleId: circleId,
@@ -89,10 +91,13 @@ export const expelUser = async (userId: string, expelReason: string) => {
 // 사용자 복구
 export const restoreUser = async (userId: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}/restore/${userId}`, {
-    method: 'PUT',
-    headers: headers,
-  });
+  const response = await fetch(
+    `${BASEURL}${USERS_ENDPOINT}/restore/${userId}`,
+    {
+      method: 'PUT',
+      headers: headers,
+    },
+  );
 
   if (!response.ok) throw new Error(response.statusText);
   return true;
@@ -101,10 +106,13 @@ export const restoreUser = async (userId: string) => {
 //가입 승인
 export const acceptAdmission = async (admissionId: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions/${admissionId}/accept`, {
-    method: 'PUT',
-    headers: headers,
-  });
+  const response = await fetch(
+    `${BASEURL}${USERS_ENDPOINT}/admissions/${admissionId}/accept`,
+    {
+      method: 'PUT',
+      headers: headers,
+    },
+  );
 
   if (!response.ok) throw new Error(response.statusText);
   return true;
@@ -113,11 +121,14 @@ export const acceptAdmission = async (admissionId: string) => {
 //가입 거부
 export const rejectAdmission = async (userId: string, rejectReason: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions/${userId}/reject`, {
-    method: 'PUT',
-    headers: headers,
-    body: rejectReason,
-  });
+  const response = await fetch(
+    `${BASEURL}${USERS_ENDPOINT}/admissions/${userId}/reject`,
+    {
+      method: 'PUT',
+      headers: headers,
+      body: rejectReason,
+    },
+  );
 
   if (!response.ok) throw new Error(response.statusText);
   return true;

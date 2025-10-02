@@ -14,9 +14,7 @@ import {
   setRccToken,
 } from '@/shared/configs';
 
-
 export const tokenManager = () => {
-
   const URI = BASEURL + '/api/v1/users';
 
   const signoutAndRedirect = async () => {
@@ -29,7 +27,11 @@ export const tokenManager = () => {
     const refreshToken = await getRccRefresh();
     const fcmToken = await getLocalFCMToken();
     Promise.all([
-      signout({ accessToken: accessToken || '', refreshToken: refreshToken || '', fcmToken: fcmToken || '' }),
+      signout({
+        accessToken: accessToken || '',
+        refreshToken: refreshToken || '',
+        fcmToken: fcmToken || '',
+      }),
       removeRccRefresh(),
       removeRccAccess(),
       removeRscRefresh(),

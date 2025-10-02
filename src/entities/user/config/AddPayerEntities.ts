@@ -27,7 +27,9 @@ export const titleMapping: Record<keyof InfoTableEntity, string> = {
   createdAt: '가입 요청',
 };
 
-export const convertDataToTableEntity = (data: User.UserDto): InfoTableEntity => {
+export const convertDataToTableEntity = (
+  data: User.UserDto,
+): InfoTableEntity => {
   const {
     email,
     major,
@@ -58,9 +60,13 @@ export const convertDataToTableEntity = (data: User.UserDto): InfoTableEntity =>
     nickname: nickname ?? '-',
     admissionYear: admissionYear?.toString() ?? '-',
     academicStatus: academicStatusMap[academicStatus] ?? '-',
-    graduateYearMonth: graduationYear ? graduationYear.toString() + '/' + graduationType?.toString() : '-',
+    graduateYearMonth: graduationYear
+      ? graduationYear.toString() + '/' + graduationType?.toString()
+      : '-',
     phoneNumber: phoneNumber ?? '-',
-    currentCompletedSemester: currentCompletedSemester ? currentCompletedSemester.toString() + '차 학기' : '-',
+    currentCompletedSemester: currentCompletedSemester
+      ? currentCompletedSemester.toString() + '차 학기'
+      : '-',
     createdAt: createdAt?.split('T')[0].replaceAll('-', '.') ?? '-',
   };
 };

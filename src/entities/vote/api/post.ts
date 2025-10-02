@@ -1,6 +1,10 @@
 import { API } from '@/shared';
 
-import type { EndVoteParam, RestartVoteParam, SubmitVoteRequestDto } from '../type';
+import type {
+  EndVoteParam,
+  RestartVoteParam,
+  SubmitVoteRequestDto,
+} from '../type';
 
 export const createVote = async (voteData: Post.CreateVoteDto) => {
   const response = await API.post(`/api/v1/votes/create`, voteData);

@@ -2,7 +2,11 @@
 
 import { useCallback, useState } from 'react';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -39,7 +43,9 @@ export const PostTitleInput = () => {
             className="mb-2 w-full grow border-b border-black border-b-black bg-transparent pb-2 text-2xl placeholder:text-[#b7b7b7] focus:outline-hidden lg:p-2"
             ref={autoFocusOnInput}
           />
-          {fieldState.error && <p className="text-red-500">{fieldState.error.message}</p>}
+          {fieldState.error && (
+            <p className="text-red-500">{fieldState.error.message}</p>
+          )}
         </div>
       )}
     />

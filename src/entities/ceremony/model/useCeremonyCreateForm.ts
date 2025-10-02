@@ -4,6 +4,8 @@ import { toast } from 'react-hot-toast';
 
 import { useAddCeremonyMutation } from '@/entities/notification';
 
+import { parseErrorMessage } from '@/shared';
+
 export const useCeremonyCreateForm = () => {
   const { mutate: addCeremony, isPending } = useAddCeremonyMutation({
     onSuccess: () => {
@@ -12,8 +14,8 @@ export const useCeremonyCreateForm = () => {
     onMutate: () => {
       return toast.loading('로딩 중...');
     },
-    onError: (error: any) => {
-      toast.error(error?.message || '등록에 실패했습니다.');
+    onError: (error: unknown) => {
+      toast.error(parseErrorMessage(error, '등록에 실패했습니다.'));
     },
   });
 

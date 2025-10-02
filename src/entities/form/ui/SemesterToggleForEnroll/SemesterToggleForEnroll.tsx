@@ -2,7 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -14,7 +18,11 @@ interface SemesterToggleProps {
   className?: string;
 }
 
-export const SemesterToggle = ({ label, value, className }: SemesterToggleProps) => {
+export const SemesterToggle = ({
+  label,
+  value,
+  className,
+}: SemesterToggleProps) => {
   const { control, setValue, watch } = useFormContext<PostSchema>();
 
   const isEnrolledChecked = watch('formCreateRequestDto.isAllowedEnrolled');
@@ -27,7 +35,10 @@ export const SemesterToggle = ({ label, value, className }: SemesterToggleProps)
 
   const handleCheckedChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: ControllerRenderProps<PostSchema, 'formCreateRequestDto.enrolledRegisteredSemesterList'>,
+    field: ControllerRenderProps<
+      PostSchema,
+      'formCreateRequestDto.enrolledRegisteredSemesterList'
+    >,
   ) => {
     const { value } = e.target;
     const fieldValueSet = new Set(field.value);
@@ -37,7 +48,9 @@ export const SemesterToggle = ({ label, value, className }: SemesterToggleProps)
         setValue('formCreateRequestDto.enrolledRegisteredSemesterList', []);
         return;
       }
-      setValue('formCreateRequestDto.enrolledRegisteredSemesterList', ['ALL_SEMESTER']);
+      setValue('formCreateRequestDto.enrolledRegisteredSemesterList', [
+        'ALL_SEMESTER',
+      ]);
       return;
     }
 
@@ -53,7 +66,10 @@ export const SemesterToggle = ({ label, value, className }: SemesterToggleProps)
       fieldValueSet.add('ALL_SEMESTER');
     }
 
-    setValue('formCreateRequestDto.enrolledRegisteredSemesterList', Array.from(fieldValueSet));
+    setValue(
+      'formCreateRequestDto.enrolledRegisteredSemesterList',
+      Array.from(fieldValueSet),
+    );
   };
 
   return (

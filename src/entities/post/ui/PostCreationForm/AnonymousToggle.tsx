@@ -1,6 +1,10 @@
 'use client';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -21,7 +25,11 @@ export const AnonymousToggle = () => {
       name="isAnonymous"
       control={control}
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckedChange={(e) => toggleAnonymous(e, field)} text="익명" />
+        <CustomToggle
+          isChecked={field.value}
+          onCheckedChange={(e) => toggleAnonymous(e, field)}
+          text="익명"
+        />
       )}
     />
   );

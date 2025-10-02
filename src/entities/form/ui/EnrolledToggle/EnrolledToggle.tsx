@@ -11,8 +11,11 @@ import { CustomCheckBox } from '../CustomCheckbox';
 export const EnrolledToggle = () => {
   const { control, watch, setValue } = useFormContext<PostSchema>();
 
-  const isSemesterChecked = watch('formCreateRequestDto.enrolledRegisteredSemesterList')?.length > 0;
-  const isCouncilFeeChecked = watch('formCreateRequestDto.isNeedCouncilFeePaid');
+  const isSemesterChecked =
+    watch('formCreateRequestDto.enrolledRegisteredSemesterList')?.length > 0;
+  const isCouncilFeeChecked = watch(
+    'formCreateRequestDto.isNeedCouncilFeePaid',
+  );
 
   useEffect(() => {
     if (isSemesterChecked || isCouncilFeeChecked) {

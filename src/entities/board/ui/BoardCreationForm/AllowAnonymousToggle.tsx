@@ -22,7 +22,11 @@ export const AllowAnonymousToggle = () => {
     <div className="ml-2 flex items-center space-x-4 pt-4">
       <p className="text-base md:text-lg">익명 허용 여부</p>
       <span onClick={toggleAllowAnonymous} className="cursor-pointer">
-        {allowAnonymous ? <CheckedIcon width={18} height={18} /> : <NotCheckedIcon width={18} height={18} />}
+        {allowAnonymous ? (
+          <CheckedIcon width={18} height={18} />
+        ) : (
+          <NotCheckedIcon width={18} height={18} />
+        )}
       </span>
     </div>
   );

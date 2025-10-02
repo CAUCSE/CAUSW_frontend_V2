@@ -14,7 +14,8 @@ export const useDeletePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ postId }: { postId: Post.PostDto['id'] }) => deletePost({ postId }),
+    mutationFn: ({ postId }: { postId: Post.PostDto['id'] }) =>
+      deletePost({ postId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: postQueryKey.all });
       router.replace(`/board/${boardId}`);

@@ -13,7 +13,10 @@ interface PostScrapButtonProps {
   isPostFavorite: boolean;
 }
 
-export const PostScrapButton = ({ numFavorite, isPostFavorite }: PostScrapButtonProps) => {
+export const PostScrapButton = ({
+  numFavorite,
+  isPostFavorite,
+}: PostScrapButtonProps) => {
   const { postId } = useParams() as { postId: string };
   const { mutate: toggleScrapPost, isPending } = useToggleScrapPost();
 

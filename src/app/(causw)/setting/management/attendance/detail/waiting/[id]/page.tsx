@@ -8,7 +8,13 @@ import Link from 'next/link';
 import { useGetWaitingUser } from '@/entities/user/api';
 import { changeAttendanceUserState } from '@/entities/user/api';
 
-import { Header, ImageList, ImageModal, LoadingComponent, SubHeader } from '@/shared';
+import {
+  Header,
+  ImageList,
+  ImageModal,
+  LoadingComponent,
+  SubHeader,
+} from '@/shared';
 
 const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
   const idArray = id.split('%26%26%26');
@@ -37,7 +43,12 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         <div className="bg-opacity-50 fixed top-0 left-0 z-10 flex h-full w-full items-center justify-center bg-black p-4">
           <div className="relative flex flex-col items-center rounded-lg bg-white p-8 md:w-1/2">
             <button className="absolute top-0 left-0 p-2" onClick={closeModal}>
-              <Image src="/images/modal_close_icon.png" alt="modal-close-btn" width={15} height={15} />
+              <Image
+                src="/images/modal_close_icon.png"
+                alt="modal-close-btn"
+                width={15}
+                height={15}
+              />
             </button>
             <SubHeader bold big>
               거부 사유
@@ -52,8 +63,14 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             <button
               className="mt-5 h-10 w-full rounded-sm bg-red-500 text-white"
               onClick={() => {
-                changeAttendanceUserState(userId, applicationId, 'REJECT', rejectMessage.current).then(() => {
-                  window.location.href = '/setting/management/attendance/waiting';
+                changeAttendanceUserState(
+                  userId,
+                  applicationId,
+                  'REJECT',
+                  rejectMessage.current,
+                ).then(() => {
+                  window.location.href =
+                    '/setting/management/attendance/waiting';
                 });
               }}
             >
@@ -81,19 +98,28 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
         <SubHeader bold big>
           유저 작성 특이사항
         </SubHeader>
-        <div className="h-24 min-h-24 w-full rounded-md border-2 p-3">{data?.note}</div>
+        <div className="h-24 min-h-24 w-full rounded-md border-2 p-3">
+          {data?.note}
+        </div>
 
         <SubHeader bold big>
           증빙 서류
         </SubHeader>
         <div className="flex h-1/2 gap-1 lg:h-2/3">
-          {data?.attachedImageUrlList && <ImageList images={data.attachedImageUrlList} imageSize={125} />}
+          {data?.attachedImageUrlList && (
+            <ImageList images={data.attachedImageUrlList} imageSize={125} />
+          )}
         </div>
 
         <div className="flex w-full justify-between">
           <div
             onClick={() => {
-              changeAttendanceUserState(userId, applicationId, 'ACCEPT', rejectMessage.current).then(() => {
+              changeAttendanceUserState(
+                userId,
+                applicationId,
+                'ACCEPT',
+                rejectMessage.current,
+              ).then(() => {
                 window.location.href = '/setting/management/attendance/waiting';
               });
             }}
@@ -110,7 +136,12 @@ const WaitingDetail = ({ params: { id } }: { params: { id: string } }) => {
             거부하기
           </div>
         </div>
-        {selectedImage && <ImageModal imageUrl={selectedImage} onClose={() => setSelectedImage(null)} />}
+        {selectedImage && (
+          <ImageModal
+            imageUrl={selectedImage}
+            onClose={() => setSelectedImage(null)}
+          />
+        )}
       </main>
     </>
   );

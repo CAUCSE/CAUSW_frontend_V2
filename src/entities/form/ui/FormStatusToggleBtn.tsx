@@ -19,7 +19,9 @@ export const FormStatusToggleBtn = () => {
       className={`flex h-7 w-12 items-center justify-center rounded-3xl border border-black bg-[##76C6D1] sm:h-10 sm:w-16`}
       onClick={setFormState}
     >
-      <p className="text-xs font-bold sm:text-base">{formData?.isClosed ? '재시작' : '마감'}</p>
+      <p className="text-xs font-bold sm:text-base">
+        {formData?.isClosed ? '재시작' : '마감'}
+      </p>
     </button>
   );
 };

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, isAxiosError } from 'axios';
+import { AxiosResponse, isAxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 
 import { CeremonyState } from '@/widgets/ceremony';
@@ -7,11 +7,14 @@ import { API } from '@/shared';
 
 const CEREMONY_URI = '/api/v1/ceremony';
 
-export const getNotifications = async (): Promise<Notification.Notification[]> => {
+export const getNotifications = async (): Promise<
+  Notification.Notification[]
+> => {
   const URI = `/api/v1/notifications/log/general/top4`;
 
   try {
-    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI);
+    const response: AxiosResponse<Notification.Notification[]> =
+      await API.get(URI);
 
     return response.data;
   } catch (error) {
@@ -20,11 +23,14 @@ export const getNotifications = async (): Promise<Notification.Notification[]> =
   }
 };
 
-export const getCeremonyNotifications = async (): Promise<Notification.Notification[]> => {
+export const getCeremonyNotifications = async (): Promise<
+  Notification.Notification[]
+> => {
   const URI = `/api/v1/notifications/log/ceremony/top4`;
 
   try {
-    const response: AxiosResponse<Notification.Notification[]> = await API.get(URI);
+    const response: AxiosResponse<Notification.Notification[]> =
+      await API.get(URI);
 
     return response.data;
   } catch (error) {
@@ -48,7 +54,10 @@ export const getCeremonyData = async (
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error('경조사 데이터를 불러오는데 실패했습니다.', error.response?.data);
+      toast.error(
+        '경조사 데이터를 불러오는데 실패했습니다.',
+        error.response?.data,
+      );
     } else {
       toast.error('알 수 없는 오류가 발생했습니다.');
     }
@@ -62,7 +71,9 @@ export const getFCMToken = async (): Promise<User.FCMTokenResponseDto> => {
   return response.data;
 };
 
-export const getNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
+export const getNotificationData = async (
+  pageNum: number = 0,
+): Promise<Notification.NotificationResponse> => {
   const URI = `/api/v1/notifications/log/general`;
 
   try {
@@ -82,7 +93,9 @@ export const getNotificationData = async (pageNum: number = 0): Promise<Notifica
     throw error;
   }
 };
-export const getCeremonyNotificationData = async (pageNum: number = 0): Promise<Notification.NotificationResponse> => {
+export const getCeremonyNotificationData = async (
+  pageNum: number = 0,
+): Promise<Notification.NotificationResponse> => {
   const URI = `/api/v1/notifications/log/ceremony`;
 
   try {
@@ -107,7 +120,8 @@ export const getNotificationCount = async (): Promise<number> => {
   const URI = `/api/v1/notifications/log/count`;
 
   try {
-    const response: AxiosResponse<{ notificationLogCount: number }> = await API.get(URI);
+    const response: AxiosResponse<{ notificationLogCount: number }> =
+      await API.get(URI);
 
     return response.data.notificationLogCount;
   } catch (error) {

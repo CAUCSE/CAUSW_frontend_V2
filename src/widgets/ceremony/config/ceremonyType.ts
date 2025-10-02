@@ -4,7 +4,10 @@ export const ceremonyTypeMap: Record<string, string> = {
   GRADUATION: '졸업',
   ETC: '기타',
 };
-export const categoryOptions: { label: string; value: Ceremony.CeremonyCategory }[] = [
+export const categoryOptions: {
+  label: string;
+  value: Ceremony.CeremonyCategory;
+}[] = [
   { label: '결혼', value: 'MARRIAGE' },
   { label: '장례식', value: 'FUNERAL' },
   { label: '졸업', value: 'GRADUATION' },

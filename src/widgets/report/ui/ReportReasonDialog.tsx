@@ -2,7 +2,11 @@
 
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { ReportReason, ReportReasonMeta, useReportMutation } from '@/entities/report';
+import {
+  ReportReason,
+  ReportReasonMeta,
+  useReportMutation,
+} from '@/entities/report';
 
 import { ReportTypeBE } from '@/shared/@types/report-ui';
 
@@ -16,7 +20,12 @@ import {
   AlertDialogTitle,
 } from '@/shadcn/components/ui/alert-dialog';
 import { buttonVariants } from '@/shadcn/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shadcn/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/shadcn/components/ui/dialog';
 import { cn } from '@/shadcn/lib/utils';
 
 type Props = {
@@ -109,9 +118,15 @@ export function ReportReasonDialog({
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         {/* ✅ positionStyle + ref로 실제 높이 측정 */}
-        <DialogContent ref={contentRef} positionStyle={style} className="w-fit rounded-xl p-0">
+        <DialogContent
+          ref={contentRef}
+          positionStyle={style}
+          className="w-fit rounded-xl p-0"
+        >
           <DialogHeader className="px-3 pt-4">
-            <DialogTitle className="text-base font-semibold">신고 사유 선택</DialogTitle>
+            <DialogTitle className="text-base font-semibold">
+              신고 사유 선택
+            </DialogTitle>
           </DialogHeader>
 
           {/* 리스트 자체도 모바일에서 안전하게 */}
@@ -121,7 +136,9 @@ export function ReportReasonDialog({
               return (
                 <li key={reason}>
                   <button
-                    className={cn('hover:bg-muted w-full px-3 pb-2 text-left text-sm transition')}
+                    className={cn(
+                      'hover:bg-muted w-full px-3 pb-2 text-left text-sm transition',
+                    )}
                     onClick={() => pick(reason)}
                   >
                     {meta.label}
@@ -137,14 +154,19 @@ export function ReportReasonDialog({
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{selected ? ReportReasonMeta[selected].confirmTitle : '신고'}</AlertDialogTitle>
+            <AlertDialogTitle>
+              {selected ? ReportReasonMeta[selected].confirmTitle : '신고'}
+            </AlertDialogTitle>
           </AlertDialogHeader>
           <p className="text-muted-foreground text-sm whitespace-pre-line">
             {selected ? ReportReasonMeta[selected].confirmBody : ''}
           </p>
           <AlertDialogFooter>
             <AlertDialogCancel>취소</AlertDialogCancel>
-            <AlertDialogAction className={buttonVariants({ variant: 'destructive' })} onClick={onConfirm}>
+            <AlertDialogAction
+              className={buttonVariants({ variant: 'destructive' })}
+              onClick={onConfirm}
+            >
               신고하기
             </AlertDialogAction>
           </AlertDialogFooter>

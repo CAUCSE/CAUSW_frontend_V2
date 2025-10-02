@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { getCalendars } from '@/entities/home';
-  
+
 import { CardBox } from '@/shared/ui/CardBox';
 
 import { MONTHS } from '../config';
@@ -24,7 +24,7 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
       try {
         const response = (await getCalendars(selectedYear)).calendars;
         setCalendars(response);
-      } catch (e: any) {}
+      } catch {}
     };
 
     loadCalendars();
@@ -83,8 +83,14 @@ export const Calendar = ({ deliveredId }: CalendarProps) => {
         style={{
           backgroundImage: `url(${
             calendars
-              ? (calendars.find((c) => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
-                ? (calendars.find((c) => c.year === selectedYear && c.month === selectedMonth + 1)?.image as string)
+              ? (calendars.find(
+                  (c) =>
+                    c.year === selectedYear && c.month === selectedMonth + 1,
+                )?.image as string)
+                ? (calendars.find(
+                    (c) =>
+                      c.year === selectedYear && c.month === selectedMonth + 1,
+                  )?.image as string)
                 : '/images/puang-proud.png'
               : '/images/puang-proud.png'
           })`,

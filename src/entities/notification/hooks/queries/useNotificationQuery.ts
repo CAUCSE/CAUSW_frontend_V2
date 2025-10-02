@@ -2,7 +2,10 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getCeremonyNotificationData, getNotificationData } from '@/entities/notification';
+import {
+  getCeremonyNotificationData,
+  getNotificationData,
+} from '@/entities/notification';
 
 import { notificationQueryKey } from './notificationQueryKey';
 

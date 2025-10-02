@@ -58,7 +58,8 @@ export const ReportReasonMeta: Record<
   [ReportReason.SPAM_AD]: {
     label: '낚시/놀람/도배',
     confirmTitle: '낚시/놀람/도배',
-    confirmBody: '중복글, 도배글, 낚시글, 내용없는 게시물인가요? \n\n허위 신고 시 제재될 수 있습니다.',
+    confirmBody:
+      '중복글, 도배글, 낚시글, 내용없는 게시물인가요? \n\n허위 신고 시 제재될 수 있습니다.',
   },
   [ReportReason.FRAUD_IMPERSONATION]: {
     label: '유출/사칭/사기',

@@ -1,6 +1,9 @@
 import { dateFormat } from '@/shared';
 
-export const CeremonyDateTile = ({ title, date }: Ceremony.CeremonyDateTileProps) => {
+export const CeremonyDateTile = ({
+  title,
+  date,
+}: Ceremony.CeremonyDateTileProps) => {
   const formattedDate = date.split('-');
 
   return (
@@ -10,7 +13,9 @@ export const CeremonyDateTile = ({ title, date }: Ceremony.CeremonyDateTileProps
         {formattedDate.map((number, idx) => {
           return (
             <p key={dateFormat[idx]}>
-              <span className="border-b border-[#000000] pr-2 md:border-none md:pr-0">{number}</span>
+              <span className="border-b border-[#000000] pr-2 md:border-none md:pr-0">
+                {number}
+              </span>
               <span>{dateFormat[idx]}</span>
             </p>
           );

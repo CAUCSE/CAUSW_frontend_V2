@@ -9,7 +9,7 @@ interface CardProps {
   icon: string;
 }
 
-export const LinkCard = ({ title, sub, href, icon }: CardProps) => {
+export const LinkCard = ({ href }: CardProps) => {
   return (
     <CardBox className="flex h-[86px] w-[213px] flex-col items-center justify-center overflow-hidden">
       <Link href={href} className="h-full w-full">

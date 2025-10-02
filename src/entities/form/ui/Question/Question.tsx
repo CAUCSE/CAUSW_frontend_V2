@@ -14,7 +14,11 @@ interface QuestionTypeToggleProps {
   questionTypeLabel: string;
 }
 
-const QuestionTypeToggle = ({ questionIndex, questionType, questionTypeLabel }: QuestionTypeToggleProps) => {
+const QuestionTypeToggle = ({
+  questionIndex,
+  questionType,
+  questionTypeLabel,
+}: QuestionTypeToggleProps) => {
   const { control } = useFormContext<PostSchema>();
   return (
     <Controller
@@ -56,7 +60,9 @@ const QuestionContentInput = ({ questionIndex }: QuestionContentInputProps) => {
             onChange={field.onChange}
             className="w-3/4 border-b border-[#363434] bg-[#FCFCFC] placeholder:text-[#B4B1B1]"
           />
-          {fieldState.error && <p className="text-red-500">{fieldState.error.message}</p>}
+          {fieldState.error && (
+            <p className="text-red-500">{fieldState.error.message}</p>
+          )}
         </div>
       )}
     />
@@ -91,7 +97,9 @@ const MultipleChoiceOption = ({ questionIndex }: MultipleChoiceOptionProps) => {
 export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
   const { control, watch, getValues } = useFormContext<PostSchema>();
 
-  const questionType = watch(`formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`);
+  const questionType = watch(
+    `formCreateRequestDto.questionCreateRequestDtoList.${index}.questionType`,
+  );
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -103,7 +111,9 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
   };
 
   const handleRemoveQuestion = () => {
-    const questionList = getValues('formCreateRequestDto.questionCreateRequestDtoList');
+    const questionList = getValues(
+      'formCreateRequestDto.questionCreateRequestDtoList',
+    );
     if (questionList.length === 1) return;
     removeQuestion();
   };
@@ -113,8 +123,16 @@ export const Question = ({ index, removeQuestion }: Form.QuestionProps) => {
       <div className="flex w-full justify-between">
         <div className="flex flex-col">
           <div className="flex sm:gap-4">
-            <QuestionTypeToggle questionIndex={index} questionType="OBJECTIVE" questionTypeLabel="객관식" />
-            <QuestionTypeToggle questionIndex={index} questionType="SUBJECTIVE" questionTypeLabel="주관식" />
+            <QuestionTypeToggle
+              questionIndex={index}
+              questionType="OBJECTIVE"
+              questionTypeLabel="객관식"
+            />
+            <QuestionTypeToggle
+              questionIndex={index}
+              questionType="SUBJECTIVE"
+              questionTypeLabel="주관식"
+            />
           </div>
         </div>
         <button

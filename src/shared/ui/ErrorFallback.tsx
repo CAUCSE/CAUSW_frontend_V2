@@ -1,5 +1,7 @@
-import { Button } from './Button';
 import { AlertTriangle } from 'lucide-react';
+
+import { Button } from './Button';
+
 interface ErrorFallbackProps {
   message?: string;
   onRetry?: () => void;
@@ -7,7 +9,7 @@ interface ErrorFallbackProps {
 
 export const ErrorFallback = ({
   message = '데이터를 불러오는 중 문제가 발생했습니다.',
-  onRetry = () => window.location.reload()
+  onRetry = () => window.location.reload(),
 }: ErrorFallbackProps) => {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-6 px-4">

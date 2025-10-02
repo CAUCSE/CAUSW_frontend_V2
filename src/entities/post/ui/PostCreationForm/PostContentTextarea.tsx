@@ -1,7 +1,11 @@
 'use client';
 
 import clsx from 'clsx';
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -24,7 +28,12 @@ export const PostContentTextarea = () => {
       name="content"
       control={control}
       render={({ field, fieldState }) => (
-        <div className={clsx('relative', isVote || isApply ? 'h-60 shrink-0' : 'grow')}>
+        <div
+          className={clsx(
+            'relative',
+            isVote || isApply ? 'h-60 shrink-0' : 'grow',
+          )}
+        >
           <textarea
             value={field.value}
             onChange={(e) => handleContentChange(e, field)}
@@ -34,7 +43,11 @@ export const PostContentTextarea = () => {
               'placeholder:text-create-post-text h-full w-full resize-none bg-transparent p-2 text-2xl placeholder:text-2xl focus:outline-hidden',
             )}
           />
-          {fieldState.error && <p className="absolute top-0 right-0 text-red-500">{fieldState.error.message}</p>}
+          {fieldState.error && (
+            <p className="absolute top-0 right-0 text-red-500">
+              {fieldState.error.message}
+            </p>
+          )}
         </div>
       )}
     />

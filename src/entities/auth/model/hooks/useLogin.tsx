@@ -6,16 +6,23 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-import { signin } from '@/entities/auth/api/post';
-import { getMyInfo } from '@/entities/user/api/get';
+import { signin } from '@/entities/auth';
+import { getMyInfo } from '@/entities/user';
 
 import { parseErrorMessage, setRccToken } from '@/shared';
 
-export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }) => {
+export const useLogin = ({
+  onDeletedAccount,
+}: {
+  onDeletedAccount?: () => void;
+}) => {
   const router = useRouter();
   return useMutation({
     mutationFn: signin,
-    onSuccess: async (data: { accessToken: string; refreshToken: string }, body: User.SignInRequestDto) => {
+    onSuccess: async (
+      data: { accessToken: string; refreshToken: string },
+      _body: User.SignInRequestDto,
+    ) => {
       const { accessToken, refreshToken } = data;
 
       await setRccToken(accessToken, refreshToken);
@@ -35,7 +42,10 @@ export const useLogin = ({ onDeletedAccount }: { onDeletedAccount?: () => void }
       toast.success('로그인 성공!');
     },
     onError: (error: Error.ApiErrorResponse) => {
-      if (axios.isAxiosError(error) && error.response?.data?.errorCode === 4103) {
+      if (
+        axios.isAxiosError(error) &&
+        error.response?.data?.errorCode === 4103
+      ) {
         onDeletedAccount?.();
         return;
       }

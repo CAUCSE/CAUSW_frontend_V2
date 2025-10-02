@@ -6,7 +6,11 @@ import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 
 import { Button } from '@/shadcn/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shadcn/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from '@/shadcn/components/ui/dialog';
 import { cn } from '@/shadcn/lib/utils';
 
 import { MonthGridView } from './MonthGridView';
@@ -30,10 +34,16 @@ const dateToString = (date: Date): string => {
   return `${year}${month}`;
 };
 
-export function MonthPicker({ value, onChange, placeholder }: MonthPickerProps) {
+export function MonthPicker({
+  value,
+  onChange,
+  placeholder,
+}: MonthPickerProps) {
   const [open, setOpen] = React.useState(false);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const [positionStyle, setPositionStyle] = React.useState<React.CSSProperties>({});
+  const [positionStyle, setPositionStyle] = React.useState<React.CSSProperties>(
+    {},
+  );
 
   React.useEffect(() => {
     if (open && triggerRef.current) {
@@ -41,7 +51,10 @@ export function MonthPicker({ value, onChange, placeholder }: MonthPickerProps) 
       const spaceBelow = window.innerHeight - rect.bottom;
       const popoverHeight = 220;
 
-      const topPosition = spaceBelow < popoverHeight + 8 ? rect.top - popoverHeight - 8 : rect.bottom + 8;
+      const topPosition =
+        spaceBelow < popoverHeight + 8
+          ? rect.top - popoverHeight - 8
+          : rect.bottom + 8;
 
       setPositionStyle({
         top: `${topPosition}px`,
@@ -78,8 +91,14 @@ export function MonthPicker({ value, onChange, placeholder }: MonthPickerProps) 
           </Button>
         </DialogTrigger>
         {open && (
-          <DialogContent positionStyle={positionStyle} className="w-[140px] p-0 sm:w-[250px]">
-            <MonthGridView selectedDate={stringToDate(value)} onSelectMonth={handleMonthSelect} />
+          <DialogContent
+            positionStyle={positionStyle}
+            className="w-[140px] p-0 sm:w-[250px]"
+          >
+            <MonthGridView
+              selectedDate={stringToDate(value)}
+              onSelectMonth={handleMonthSelect}
+            />
           </DialogContent>
         )}
       </div>

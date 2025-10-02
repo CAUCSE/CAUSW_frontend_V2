@@ -4,7 +4,8 @@ import { AuthFormSubmitButton, AuthInput } from '@/entities/auth';
 import { useResetPasswordForm } from '@/entities/auth/model/hooks';
 
 export const ResetPasswordForm = () => {
-  const { register, handleSubmit, errors, onSubmit, onInvalid, watch } = useResetPasswordForm();
+  const { register, handleSubmit, errors, onSubmit, onInvalid, watch } =
+    useResetPasswordForm();
   const validatePasswordMatch = (value: string) => {
     const password = watch('updatedPassword');
     return value === password || '새로운 비밀번호가 일치하지 않습니다.';
@@ -12,7 +13,10 @@ export const ResetPasswordForm = () => {
 
   const validateNewPasswordIsNotOld = (value: string) => {
     const oldPassword = watch('originPassword');
-    return value !== oldPassword || '기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.';
+    return (
+      value !== oldPassword ||
+      '기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.'
+    );
   };
 
   return (

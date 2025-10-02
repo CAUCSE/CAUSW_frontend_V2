@@ -12,8 +12,12 @@ export const useReportedList = (type: ReportType, pageNum: number) =>
     queryFn: async ({ signal }) => {
       const data =
         type === 'post'
-          ? await getReportedPosts({ pageNum, signal }).then((res) => res.content.map(adaptPost))
-          : await getReportedComments({ pageNum, signal }).then((res) => res.content.map(adaptComment));
+          ? await getReportedPosts({ pageNum, signal }).then((res) =>
+              res.content.map(adaptPost),
+            )
+          : await getReportedComments({ pageNum, signal }).then((res) =>
+              res.content.map(adaptComment),
+            );
 
       return data; // ReportedItem[] 반환
     },

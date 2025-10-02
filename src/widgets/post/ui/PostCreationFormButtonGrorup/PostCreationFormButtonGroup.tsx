@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 
-import { ApplicationFormToggle, useUploadFile, VoteToggle } from '@/entities/post';
+import { useUploadFile, VoteToggle } from '@/entities/post';
 import { ACCEPTED_IMAGE_TYPES } from '@/entities/post/config/fileUploadRule';
 
 import ImageIcon from '../../../../../public/images/post/camera.svg';
@@ -10,7 +10,9 @@ import ImageIcon from '../../../../../public/images/post/camera.svg';
 interface PostCreationFormButtonGroupProps {
   disabled?: boolean;
 }
-export const PostCreationFormButtonGroup = ({ disabled }: PostCreationFormButtonGroupProps) => {
+export const PostCreationFormButtonGroup = ({
+  disabled,
+}: PostCreationFormButtonGroupProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { handleUploadMultipleFiles } = useUploadFile();
 

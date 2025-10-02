@@ -1,10 +1,23 @@
 'use client';
 
-import { NotificationActionButtons, NotificationTabs } from '@/widgets/notification';
+import {
+  NotificationActionButtons,
+  NotificationTabs,
+} from '@/widgets/notification';
 
-import { useCeremonyNotificationQuery, useNotificationQuery, useNotificationTabParam } from '@/entities/notification';
+import {
+  useCeremonyNotificationQuery,
+  useNotificationQuery,
+  useNotificationTabParam,
+} from '@/entities/notification';
 
-import { ERROR_MESSAGES, ListBox, MESSAGES, NOTIFICATION_TAB, PreviousButton } from '@/shared';
+import {
+  ERROR_MESSAGES,
+  ListBox,
+  MESSAGES,
+  NOTIFICATION_TAB,
+  PreviousButton,
+} from '@/shared';
 
 import BellIcon from '../../../../../public/icons/bell_icon.svg';
 
@@ -24,8 +37,18 @@ const Notification = () => {
     isFetchingNextPage: loadingCeremony,
   } = useCeremonyNotificationQuery();
 
-  const alarmData: Notification.GeneralAlarmItem[] = (notificationData ?? []).map(
-    ({ notificationLogId, title, body, isRead, targetId, noticeType, targetParentId }) => ({
+  const alarmData: Notification.GeneralAlarmItem[] = (
+    notificationData ?? []
+  ).map(
+    ({
+      notificationLogId,
+      title,
+      body,
+      isRead,
+      targetId,
+      noticeType,
+      targetParentId,
+    }) => ({
       id: notificationLogId,
       title,
       body,
@@ -36,15 +59,15 @@ const Notification = () => {
     }),
   );
 
-  const ceremonyData: Ceremony.ListBoxItem[] = (ceremonyNotificationData ?? []).map(
-    ({ notificationLogId, title, body, isRead, targetId }) => ({
-      id: notificationLogId,
-      title,
-      body,
-      isRead,
-      targetId,
-    }),
-  );
+  const ceremonyData: Ceremony.ListBoxItem[] = (
+    ceremonyNotificationData ?? []
+  ).map(({ notificationLogId, title, body, isRead, targetId }) => ({
+    id: notificationLogId,
+    title,
+    body,
+    isRead,
+    targetId,
+  }));
 
   const hasUnread = {
     alarm: alarmData.some((item) => !item.isRead),
@@ -84,7 +107,8 @@ const Notification = () => {
 
       <div className="flex flex-row items-center justify-between">
         <div className="px-4 text-xl font-bold md:text-3xl">
-          {MESSAGES.NOTIFICATION.ALL} <BellIcon className="inline-block md:hidden" />
+          {MESSAGES.NOTIFICATION.ALL}{' '}
+          <BellIcon className="inline-block md:hidden" />
         </div>
         {activeTab === NOTIFICATION_TAB.CEREMONY && (
           <div className="md:hidden">
@@ -93,7 +117,11 @@ const Notification = () => {
         )}
       </div>
 
-      <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} hasUnread={hasUnread} />
+      <NotificationTabs
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        hasUnread={hasUnread}
+      />
       {NotificationTab[activeTab]()}
     </div>
   );

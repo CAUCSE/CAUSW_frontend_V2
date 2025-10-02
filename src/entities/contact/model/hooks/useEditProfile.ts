@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { FieldErrors, useFieldArray } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -11,13 +13,22 @@ import {
   useProfileForm,
   useUpdateMyProfileMutation,
 } from '@/entities/contact';
-import { useRouter } from 'next/navigation';
 
-const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
+const defaultCareerItem = {
+  id: null,
+  description: '',
+  periodStart: '',
+  periodEnd: '',
+};
 const defaultSocialLinkItem = { value: '' };
 
 export const useEditProfile = (contact: Contact.Contact | undefined) => {
-  const { methods, fields: careerFields, append: appendCareer, remove: removeCareer } = useProfileForm();
+  const {
+    methods,
+    fields: careerFields,
+    append: appendCareer,
+    remove: removeCareer,
+  } = useProfileForm();
   const { control, setError, clearErrors } = methods;
   const { mutate: updateProfile, isPending } = useUpdateMyProfileMutation();
   const router = useRouter();
@@ -57,7 +68,9 @@ export const useEditProfile = (contact: Contact.Contact | undefined) => {
 
   const onFormError = (errors: FieldErrors<ProfileFormData>) => {
     if (errors.phoneNumber) {
-      toast.error(errors.phoneNumber.message || '올바른 전화번호를 입력해주세요.');
+      toast.error(
+        errors.phoneNumber.message || '올바른 전화번호를 입력해주세요.',
+      );
     } else {
       toast.error('입력되지 않거나 잘못된 형식의 값이 있습니다. 확인해주세요.');
     }

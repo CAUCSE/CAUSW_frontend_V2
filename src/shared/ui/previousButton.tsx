@@ -12,13 +12,19 @@ interface PreviousButtonProps {
   className?: string;
 }
 
-export const PreviousButton = ({ routeCallback, className }: PreviousButtonProps) => {
+export const PreviousButton = ({
+  routeCallback,
+  className,
+}: PreviousButtonProps) => {
   const router = useRouter();
   return (
     <Button
       variant="ghost"
       onClick={() => (routeCallback ? routeCallback() : router.back())}
-      className={cn('flex w-fit cursor-pointer items-center gap-2 p-0 hover:bg-transparent', className)}
+      className={cn(
+        'flex w-fit cursor-pointer items-center gap-2 p-0 hover:bg-transparent',
+        className,
+      )}
     >
       <ChevronLeft className="size-8" />
       <p className="text-base md:text-lg">이전</p>

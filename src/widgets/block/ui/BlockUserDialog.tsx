@@ -1,6 +1,10 @@
 'use client';
 
-import { useBlockByChildComment, useBlockByComment, useBlockByPost } from '@/entities/block/model';
+import {
+  useBlockByChildComment,
+  useBlockByComment,
+  useBlockByPost,
+} from '@/entities/block/model';
 
 import {
   AlertDialog,
@@ -35,7 +39,8 @@ export function BlockUserDialog({
   const commentBlock = useBlockByComment();
   const childBlock = useBlockByChildComment();
 
-  const currentPending = postBlock.isPending || commentBlock.isPending || childBlock.isPending;
+  const currentPending =
+    postBlock.isPending || commentBlock.isPending || childBlock.isPending;
 
   const onConfirm = () => {
     const onSuccess = () => onOpenChange(false);
@@ -53,11 +58,16 @@ export function BlockUserDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>이 작성자의 게시물이 목록에 노출되지 않으며, 다시 해제하실 수 없습니다.</AlertDialogTitle>
+          <AlertDialogTitle>
+            이 작성자의 게시물이 목록에 노출되지 않으며, 다시 해제하실 수
+            없습니다.
+          </AlertDialogTitle>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={currentPending}>{cancelButtonText}</AlertDialogCancel>
+          <AlertDialogCancel disabled={currentPending}>
+            {cancelButtonText}
+          </AlertDialogCancel>
           <AlertDialogAction
             className={buttonVariants({ variant: 'destructive' })}
             onClick={onConfirm}

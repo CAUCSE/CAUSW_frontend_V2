@@ -6,6 +6,7 @@ import { activeBoardNotification } from '../../api';
 
 export const useActiveBoardNotification = () => {
   return useMutation({
-    mutationFn: ({ boardId }: { boardId: string }) => activeBoardNotification({ boardId }),
+    mutationFn: ({ boardId }: { boardId: string }) =>
+      activeBoardNotification({ boardId }),
   });
 };

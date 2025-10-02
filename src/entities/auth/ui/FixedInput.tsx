@@ -7,7 +7,12 @@ interface InputProps<T extends FieldValues> {
   value?: string;
 }
 
-export const FixedInput = <T extends FieldValues>({ register, name, label, value }: InputProps<T>) => {
+export const FixedInput = <T extends FieldValues>({
+  register,
+  name,
+  label,
+  value,
+}: InputProps<T>) => {
   return (
     <>
       <label className="text-lg font-semibold">{label}</label>

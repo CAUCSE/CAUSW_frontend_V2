@@ -24,7 +24,12 @@ import VelogIcon from '@icons/velog-icon.svg';
 import YoutubeIcon from '@icons/youtube-icon.svg';
 import { Link as LinkIcon } from 'lucide-react';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shadcn/components/ui';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/shadcn/components/ui';
 import { CustomAlertDialog, SOCIAL_LINKS_CONFIG } from '@/shared';
 
 interface ContactInfoTabsProps {
@@ -64,7 +69,9 @@ const OTHER_LINK_CONFIG = {
 
 const getSocialLinkInfo = (url: string) => {
   if (!url) return OTHER_LINK_CONFIG;
-  const foundConfig = SOCIAL_LINKS_CONFIG.find((config) => url.toLowerCase().includes(config.iconKey.toLowerCase()));
+  const foundConfig = SOCIAL_LINKS_CONFIG.find((config) =>
+    url.toLowerCase().includes(config.iconKey.toLowerCase()),
+  );
 
   return foundConfig || OTHER_LINK_CONFIG;
 };
@@ -73,14 +80,19 @@ const formatPeriod = (career: Contact.UserCareer) => {
   const { startYear, startMonth, endYear, endMonth } = career;
   const formattedStart = `${startYear}.${startMonth}`;
   const formattedEnd = endYear && endMonth ? `${endYear}.${endMonth}` : '';
-  return formattedEnd ? `${formattedStart} ~ ${formattedEnd}` : `${formattedStart} ~`;
+  return formattedEnd
+    ? `${formattedStart} ~ ${formattedEnd}`
+    : `${formattedStart} ~`;
 };
 
 export const ContactInfoTabs = ({ contact }: ContactInfoTabsProps) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState('');
 
-  const handleOtherLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, url: string) => {
+  const handleOtherLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    url: string,
+  ) => {
     e.preventDefault();
     setSelectedUrl(url);
     setIsAlertOpen(true);
@@ -112,7 +124,9 @@ export const ContactInfoTabs = ({ contact }: ContactInfoTabsProps) => {
                   {contact.userCareer?.map((career, index) => (
                     <li key={index}>
                       <p className="text-gray-800">{career.description}</p>
-                      <p className="text-sm text-gray-500">{formatPeriod(career)}</p>
+                      <p className="text-sm text-gray-500">
+                        {formatPeriod(career)}
+                      </p>
                     </li>
                   ))}
                 </ul>

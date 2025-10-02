@@ -13,10 +13,19 @@ interface SearchBarProps {
   textSize?: string;
 }
 
-export const SearchBar = ({ value, onChange, placeholder, bgColor, textSize }: SearchBarProps) => {
+export const SearchBar = ({
+  value,
+  onChange,
+  placeholder,
+  bgColor,
+  textSize,
+}: SearchBarProps) => {
   return (
     <div className="relative w-full">
-      <Search className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400" size={20} />
+      <Search
+        className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400"
+        size={20}
+      />
       <Input
         type="search"
         placeholder={placeholder || '검색하고 싶은 내용을 입력해 주세요.'}

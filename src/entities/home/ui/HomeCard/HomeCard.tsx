@@ -11,7 +11,13 @@ export interface HomeCardProps {
   href: string;
 }
 
-export const HomeCard = ({ title, subtitle, bgColor, icon, href }: HomeCardProps) => {
+export const HomeCard = ({
+  title,
+  subtitle,
+  bgColor,
+  icon,
+  href,
+}: HomeCardProps) => {
   return (
     <CardBox
       className={`group relative overflow-hidden rounded-2xl transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]`}
@@ -25,7 +31,9 @@ export const HomeCard = ({ title, subtitle, bgColor, icon, href }: HomeCardProps
           </div>
 
           <div className="flex h-full flex-col items-center justify-center gap-[5px] text-center">
-            <p className="text-[17px] transition-colors duration-200 group-hover:text-blue-600">{title}</p>
+            <p className="text-[17px] transition-colors duration-200 group-hover:text-blue-600">
+              {title}
+            </p>
             <p className="text-[12px] text-[rgba(186,186,186,1)] transition-colors duration-200 group-hover:text-gray-500">
               {subtitle}
             </p>

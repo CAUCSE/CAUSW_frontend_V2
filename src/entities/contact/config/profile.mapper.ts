@@ -5,22 +5,31 @@ import { ProfileFormData } from './profile.schema';
  * @param contact API에서 받은 원본 contact 데이터
  * @returns react-hook-form의 reset() 함수에 사용될 폼 데이터
  */
-export const contactToFormData = (contact: Contact.Contact): Partial<ProfileFormData> => {
-  const initialSocialLinks = contact.socialLinks?.map((link) => ({ value: link })) || [];
+export const contactToFormData = (
+  contact: Contact.Contact,
+): Partial<ProfileFormData> => {
+  const initialSocialLinks =
+    contact.socialLinks?.map((link) => ({ value: link })) || [];
   return {
     ...contact,
     profileImage: null,
     description: contact.description ?? '',
     job: contact.job ?? '',
     phoneNumber: contact.phoneNumber ?? '',
-    socialLinks: initialSocialLinks.length > 0 ? initialSocialLinks : [{ value: '' }],
+    socialLinks:
+      initialSocialLinks.length > 0 ? initialSocialLinks : [{ value: '' }],
     isPhoneNumberVisible: contact.isPhoneNumberVisible ?? false,
     userCareer: contact.userCareer.map((c) => ({
       id: c.id,
       description: c.description ?? '',
       // ex: 2023, 8 -> '202308'
-      periodStart: c.startYear ? `${c.startYear}${String(c.startMonth).padStart(2, '0')}` : '',
-      periodEnd: c.endYear && c.endMonth ? `${c.endYear}${String(c.endMonth).padStart(2, '0')}` : '',
+      periodStart: c.startYear
+        ? `${c.startYear}${String(c.startMonth).padStart(2, '0')}`
+        : '',
+      periodEnd:
+        c.endYear && c.endMonth
+          ? `${c.endYear}${String(c.endMonth).padStart(2, '0')}`
+          : '',
     })),
   };
 };
@@ -31,13 +40,20 @@ export const contactToFormData = (contact: Contact.Contact): Partial<ProfileForm
  * @returns API의 update 함수에 전달될 payload 객체
  */
 export const formDataToPayload = (formData: ProfileFormData) => {
-  const { userCareer, profileImage, email, socialLinks, ...userInfoUpdateDto } = formData;
+  const { userCareer, profileImage, socialLinks, ...userInfoUpdateDto } =
+    formData;
 
   const filteredUserCareer =
     userCareer?.filter(
-      (c) => c.description?.trim() !== '' || c.periodStart?.trim() !== '' || c.periodEnd?.trim() !== '',
+      (c) =>
+        c.description?.trim() !== '' ||
+        c.periodStart?.trim() !== '' ||
+        c.periodEnd?.trim() !== '',
     ) || [];
-  const filteredSocialLinks = socialLinks?.map((link) => link.value).filter((value) => value.trim() !== '') || [];
+  const filteredSocialLinks =
+    socialLinks
+      ?.map((link) => link.value)
+      .filter((value) => value.trim() !== '') || [];
 
   const payload: Omit<Contact.ContactUpdatePayload, 'profileImage'> = {
     ...userInfoUpdateDto,
