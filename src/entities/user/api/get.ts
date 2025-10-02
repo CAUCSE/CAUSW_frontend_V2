@@ -213,8 +213,8 @@ export const getUserAcademicRecord = async (id: string) => {
       `${BASEURL}${USERS_ENDPOINT}/academic-record/record/${id}`,
       {
         headers: headers,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ).then((res) => res.json())) as any;
 
     if (response.errorCode) throw new Error(response.errorCode);

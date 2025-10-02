@@ -10,9 +10,9 @@ export const checkEmailDuplicate = async (
   email: string,
 ): Promise<string | boolean> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = (await API.get(
       `${URI}/${email}/is-duplicated`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     )) as AxiosResponse<any>; // 타입 변경
     return response.data.result;
   } catch (error) {
@@ -28,9 +28,9 @@ export const checkNicknameDuplicate = async (
   nickname: string,
 ): Promise<string | boolean> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = (await API.get(
       `${URI}/${nickname}/is-duplicated-nickname`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     )) as AxiosResponse<any>; // 타입 변경
     return response.data.result;
   } catch (error) {
@@ -46,9 +46,9 @@ export const checkStudentIdDuplicate = async (
   studentId: string,
 ): Promise<boolean | string> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = (await API.get(
       `${URI}/${studentId}/is-duplicated-student-id`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     )) as AxiosResponse<any>; // 타입 변경
     return response.data.result;
   } catch (error) {
@@ -64,9 +64,9 @@ export const checkPhoneNumberDuplicate = async (
   phoneNumber: string,
 ): Promise<boolean | string> => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = (await API.get(
       `${URI}/${phoneNumber}/is-duplicated-phone-number`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     )) as AxiosResponse<any>; // 타입 변경
     return response.data.result;
   } catch (error) {

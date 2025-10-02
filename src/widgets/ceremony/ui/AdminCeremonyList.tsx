@@ -32,10 +32,10 @@ export const AdminCeremonyList = ({
         <>
           {list.map((element: Ceremony.CeremonyItem) => {
             const basePath =
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               (firstNavigation
                 ? firstNavigation.router
-                : navigation?.find((el: any) => el.state === state)?.router) ??
+                : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  navigation?.find((el: any) => el.state === state)?.router) ??
               '';
             const href = `${basePath}/${element.id}${context ? `?context=${context}` : ''}`;
             return (

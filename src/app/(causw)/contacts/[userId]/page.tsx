@@ -19,7 +19,7 @@ export default function ContactDetailPage() {
   const params = useParams();
   const userId = params.userId as string;
   const [isMobile, setIsMobile] = useState(false);
-  const { data: contact, isLoading, isError } = useGetContactByIdQuery(userId);
+  const { data: contact } = useGetContactByIdQuery(userId);
 
   useEffect(() => {
     setIsMobile(/Mobi|Android/i.test(navigator.userAgent));

@@ -53,9 +53,9 @@ export const signout = async (
   await API.post(`${URI}/sign-out`, payload);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const postAcademicRecord = async (
   data: User.CreateUserAcademicRecordApplicationRequestDto,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   const payload = {
     ...data, // 기존 데이터 복사
