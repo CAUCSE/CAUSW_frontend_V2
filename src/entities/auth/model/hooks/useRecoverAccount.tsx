@@ -21,8 +21,6 @@ export const useRecoverAccount = () => {
     onSuccess: async (data: { accessToken: string; refreshToken: string }) => {
       toast.dismiss();
       const { accessToken, refreshToken } = data;
-      Cookies.set("CAUCSE_JWT_ACCESS", accessToken);
-      Cookies.set("CAUCSE_JWT_REFRESH", refreshToken);
       await setRccToken(accessToken, refreshToken);
       const response = await getMyInfo();
 

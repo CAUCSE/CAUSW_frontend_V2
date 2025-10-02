@@ -38,3 +38,27 @@ export const formatDateToYyyyMmDd = (dateString: string) => {
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}.${month}.${day}`;
 };
+
+/**
+ * 입력된 문자열을 010-xxxx-xxxx 반환
+ */
+export const formatPhoneNumber = (value: string) => {
+  const cleaned = value.replace(/\D/g, '');
+  if (cleaned.startsWith('010')) {
+    const formatted = cleaned.substring(0, 11);
+    const match = formatted.match(/^(\d{3})(\d{0,4})(\d{0,4})$/);
+    if (match) {
+      return !match[2] ? match[1] : `${match[1]}-${match[2]}${match[3] ? `-${match[3]}` : ''}`;
+    }
+  }
+  return cleaned.substring(0, 11);
+};
+
+
+// yyyy-mm-dd 형식
+export const formatDateInput = (value: string): string => {
+  const digits = value.replace(/\D/g, '').slice(0, 8);
+  const match = digits.match(/^(\d{0,4})(\d{0,2})(\d{0,2})$/);
+  if (!match) return '';
+  return [match[1], match[2], match[3]].filter(Boolean).join('-');
+};

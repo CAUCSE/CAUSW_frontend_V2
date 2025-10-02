@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import { BlockUserDialog } from '@/widgets/block';
 import { ReportReasonDialog } from '@/widgets/report';
 
-import { getUserRole } from '@/entities/user';
+import { isAdmin, useMyInfo } from '@/entities/user';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
@@ -27,7 +27,8 @@ interface ChildCommentActionDropdownProps {
 
 export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentActionDropdownProps) => {
   const queryClient = useQueryClient();
-  const isAdmin = getUserRole(['ADMIN']);
+  const { data: userInfo } = useMyInfo();
+  const roles = userInfo?.roles || [];
   const { postId } = useParams() as { postId: string };
 
   const { mutate: deleteChildComment } = useDeleteChildComment();
@@ -36,7 +37,8 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
   const [blockOpen, setBlockOpen] = useState(false);
   const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
-
+  const canDeleteChildComment = isOwner || isAdmin(roles);
+  const canReportAndBlock = !isOwner;
   const openReport = () => {
     setAnchorRect(triggerRef.current?.getBoundingClientRect() ?? null);
     setReportOpen(true);
@@ -80,8 +82,8 @@ export const ChildCommentActionDropdown = ({ commentId, isOwner }: ChildCommentA
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        {(isOwner || isAdmin) && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
-        {!isOwner && (
+        {canDeleteChildComment && <DropdownMenuItem onClick={handleDeleteChildComment}>댓글 삭제</DropdownMenuItem>}
+        {canReportAndBlock && (
           <>
             <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
             <DropdownMenuItem onClick={openBlock}>차단하기</DropdownMenuItem>

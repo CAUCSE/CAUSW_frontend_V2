@@ -14,7 +14,7 @@ import { ReportReasonDialog } from '@/widgets/report';
 
 import { commentQueryKey } from '@/entities/comment/config';
 import { useDeleteComment, useSubscribeComment, useUnsubscribeComment } from '@/entities/comment/model';
-import { getUserRole } from '@/entities/user';
+import { isAdmin, useMyInfo } from '@/entities/user';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
@@ -27,7 +27,8 @@ interface CommentActionDropdownProps {
 
 export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed }: CommentActionDropdownProps) => {
   const queryClient = useQueryClient();
-  const isAdmin = getUserRole(['ADMIN']);
+  const { data: userInfo } = useMyInfo();
+  const roles = userInfo?.roles || [];
   const { postId } = useParams() as { postId: string };
 
   const { mutate: deleteComment } = useDeleteComment();
@@ -100,6 +101,9 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
     );
   };
 
+  const canDeleteComment = isOwner || isAdmin(roles);
+  const canReportAndBlock = !isOwner;
+
   return (
     <>
       <DropdownMenu>
@@ -116,7 +120,7 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {(isOwner || isAdmin) && <DropdownMenuItem onClick={handleDeleteComment}>댓글 삭제</DropdownMenuItem>}
+          {canDeleteComment && <DropdownMenuItem onClick={handleDeleteComment}>댓글 삭제</DropdownMenuItem>}
 
           {isCommentSubscribed ? (
             <DropdownMenuItem onClick={handleUnsubscribeComment}>댓글 알림 해제</DropdownMenuItem>
@@ -124,7 +128,7 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
             <DropdownMenuItem onClick={handleSubscribeComment}>댓글 알림 설정</DropdownMenuItem>
           )}
 
-          {!isOwner && (
+          {canReportAndBlock && (
             <>
               <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
               <DropdownMenuItem onClick={openBlock}>차단하기</DropdownMenuItem>
