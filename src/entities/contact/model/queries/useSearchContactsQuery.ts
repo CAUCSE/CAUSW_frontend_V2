@@ -1,5 +1,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { contactQueryKey, getContacts } from '@/entities/contact'; // 타입 import
+
+import { contactQueryKey, getContacts } from '@/entities/contact';
+
+// 타입 import
 
 /**
  * 동문수첩 목록을 무한 스크롤로 조회하는 훅

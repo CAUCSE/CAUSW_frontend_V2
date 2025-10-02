@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import { ReactNode } from 'react';
 
 import Image from 'next/image';
@@ -8,6 +9,7 @@ import { MdEmail, MdPermIdentity, MdTagFaces, MdVolumeUp } from 'react-icons/md'
 
 import { Banner, getGraduateHomePosts } from '@/entities/home';
 import { useGraduateHomePostsQuery } from '@/entities/home/model';
+
 import { ErrorFallback, LoadingComponent } from '@/shared';
 
 export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto }) => {
@@ -116,7 +118,7 @@ export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto
       </div>
     </div>
   );
-}
+};
 
 function NoticeSection({
   boardId,

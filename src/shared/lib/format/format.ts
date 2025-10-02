@@ -54,7 +54,6 @@ export const formatPhoneNumber = (value: string) => {
   return cleaned.substring(0, 11);
 };
 
-
 // yyyy-mm-dd 형식
 export const formatDateInput = (value: string): string => {
   const digits = value.replace(/\D/g, '').slice(0, 8);

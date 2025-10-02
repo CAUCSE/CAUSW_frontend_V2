@@ -14,9 +14,7 @@ import {
   setRccToken,
 } from '@/shared/configs';
 
-
 export const tokenManager = () => {
-
   const URI = BASEURL + '/api/v1/users';
 
   const signoutAndRedirect = async () => {

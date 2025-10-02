@@ -1,4 +1,4 @@
-import { useFormResultStore, FORM_CONSTANT } from '@/entities/form';
+import { FORM_CONSTANT, useFormResultStore } from '@/entities/form';
 
 interface FormRespondentInfoProps {
   responseUserInfos: Form.ReplyResponseDto[];

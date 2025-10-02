@@ -1,4 +1,5 @@
 'use client';
+
 import { X } from 'lucide-react';
 
 interface FilterPillsProps {
@@ -33,16 +34,18 @@ export const FilterPills = ({ filters, onFilterChange }: FilterPillsProps) => {
       {(admissionYearStart || admissionYearEnd) && (
         <button
           onClick={removeYearFilter}
-          className="flex flex-shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md bg-slate-100 px-3 py-1 text-sm text-slate-800 transition-opacity hover:opacity-80"
+          className="flex flex-shrink-0 items-center gap-1.5 rounded-md bg-slate-100 px-3 py-1 text-sm whitespace-nowrap text-slate-800 transition-opacity hover:opacity-80"
         >
-          <span>학번: {admissionYearStart ?? ''} ~ {admissionYearEnd ?? ''}</span>
+          <span>
+            학번: {admissionYearStart ?? ''} ~ {admissionYearEnd ?? ''}
+          </span>
           <X size={16} />
         </button>
       )}
       {academicStatus && academicStatus.length > 0 && (
         <button
           onClick={removeStatusFilter}
-          className="flex flex-shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-800 transition-opacity hover:opacity-80"
+          className="flex flex-shrink-0 items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-sm whitespace-nowrap text-slate-800 transition-opacity hover:opacity-80"
         >
           <span>
             학적상태:

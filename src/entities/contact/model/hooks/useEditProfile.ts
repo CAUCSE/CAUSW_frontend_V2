@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { FieldErrors, useFieldArray } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -11,7 +13,6 @@ import {
   useProfileForm,
   useUpdateMyProfileMutation,
 } from '@/entities/contact';
-import { useRouter } from 'next/navigation';
 
 const defaultCareerItem = { id: null, description: '', periodStart: '', periodEnd: '' };
 const defaultSocialLinkItem = { value: '' };

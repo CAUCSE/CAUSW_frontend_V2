@@ -1,10 +1,12 @@
-"use client";
+'use client';
+
 import Link from 'next/link';
 
 import { Calendar } from '@/widgets/calendar';
 
 import { Banner, CardBox, HomeCard } from '@/entities/home';
 import { useHomePostsQuery } from '@/entities/home/model';
+
 import { LoadingComponent } from '@/shared';
 
 const cardsEntities = [
@@ -146,4 +148,4 @@ export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }
       </div>
     </>
   );
-}
+};

@@ -44,13 +44,7 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
           onClick={() => contact.profileImageUrl && setIsViewerOpen(true)}
         >
           {contact.profileImageUrl ? (
-            <Image
-              src={contact.profileImageUrl}
-              alt={contact.name}
-              fill
-              sizes="80px"
-              className="object-cover"
-            />
+            <Image src={contact.profileImageUrl} alt={contact.name} fill sizes="80px" className="object-cover" />
           ) : (
             <UserCircle className="h-full w-full text-gray-300" />
           )}

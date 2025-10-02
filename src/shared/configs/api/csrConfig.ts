@@ -2,9 +2,17 @@ import axios, { AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import qs from 'qs';
 
-import { isNativeApp, noAccessTokenCode, noPermissionCode, noRefreshTokenCode, secureStorage, tokenManager } from '@/shared';
+import {
+  isNativeApp,
+  noAccessTokenCode,
+  noPermissionCode,
+  noRefreshTokenCode,
+  secureStorage,
+  tokenManager,
+} from '@/shared';
 
 import { BASEURL } from './url';
+
 export const API = axios.create({
   baseURL: BASEURL,
   headers: {

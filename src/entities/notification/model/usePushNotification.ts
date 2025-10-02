@@ -21,29 +21,29 @@ export const usePushNotification = () => {
 
       // --- Capacitor 앱(iOS, Android) 로직 ---\
       if (isNativeApp()) {
-      const permStatus = await PushNotifications.checkPermissions();
-      if (permStatus.receive === 'prompt') {
-        await PushNotifications.requestPermissions();
-      }
-
-      PushNotifications.addListener('registration', async ({ value }) => {
-        const clientFCMToken = value;
-        const refreshToken = await getRccRefresh();
-        const localFCMToken = await secureStorage.get(FCM_TOKEN_KEY);
-
-        if (localFCMToken !== clientFCMToken) {
-          updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
-          await secureStorage.set(FCM_TOKEN_KEY, clientFCMToken);
-        } else {
-          extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+        const permStatus = await PushNotifications.checkPermissions();
+        if (permStatus.receive === 'prompt') {
+          await PushNotifications.requestPermissions();
         }
-      });
 
-      PushNotifications.addListener('registrationError', (error) => {
-        toast.error('알림 설정에 실패했습니다.');
-      });
+        PushNotifications.addListener('registration', async ({ value }) => {
+          const clientFCMToken = value;
+          const refreshToken = await getRccRefresh();
+          const localFCMToken = await secureStorage.get(FCM_TOKEN_KEY);
 
-      await PushNotifications.register();
+          if (localFCMToken !== clientFCMToken) {
+            updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            await secureStorage.set(FCM_TOKEN_KEY, clientFCMToken);
+          } else {
+            extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+          }
+        });
+
+        PushNotifications.addListener('registrationError', (error) => {
+          toast.error('알림 설정에 실패했습니다.');
+        });
+
+        await PushNotifications.register();
       } else {
         // --- 웹/웹앱 로직 (Notification.permission 사용) ---
         if (Notification.permission === 'default') {

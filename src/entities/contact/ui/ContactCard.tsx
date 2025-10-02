@@ -46,10 +46,7 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
         className="flex w-full cursor-pointer items-center gap-4 p-4 transition-colors hover:bg-gray-100 md:py-5" // `items-start` -> `items-center`로 변경
         onClick={handleNavigate}
       >
-        <div
-          className="relative h-13 w-13 shrink-0 overflow-hidden rounded-full"
-          onClick={handleImageClick}
-        >
+        <div className="relative h-13 w-13 shrink-0 overflow-hidden rounded-full" onClick={handleImageClick}>
           {contact.profileImageUrl ? (
             <Image
               src={contact.profileImageUrl}
@@ -74,11 +71,11 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
           <div className="mt-1 flex flex-col gap-0.5 text-sm text-gray-700">
             <div className="flex items-baseline">
               <span className="mr-1.5 shrink-0 text-base font-normal text-gray-500">직업</span>
-              <span className="text-gray-900 font-normal text-base">{contact.job}</span>
+              <span className="text-base font-normal text-gray-900">{contact.job}</span>
             </div>
             <div className="flex items-baseline">
               <span className="mr-1.5 shrink-0 text-base font-normal text-gray-500">소개</span>
-              <span className="line-clamp-1 font-normal text-base text-gray-900">{contact.description}</span>
+              <span className="line-clamp-1 text-base font-normal text-gray-900">{contact.description}</span>
             </div>
           </div>
         </div>

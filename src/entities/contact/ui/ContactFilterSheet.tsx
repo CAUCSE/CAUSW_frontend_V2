@@ -1,13 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-} from '@/shadcn/components/ui/sheet';
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/shadcn/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select';
+import { Sheet, SheetContent, SheetFooter } from '@/shadcn/components/ui/sheet';
 import { ToggleGroup, ToggleGroupItem } from '@/shadcn/components/ui/toggle-group';
 
 interface ContactFilterSheetProps {
@@ -43,11 +40,7 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent
-        side="bottom"
-        className="mx-auto w-full max-w-5xl rounded-t-2xl p-6"
-        showCloseButton={false}
-      >
+      <SheetContent side="bottom" className="mx-auto w-full max-w-5xl rounded-t-2xl p-6" showCloseButton={false}>
         <div className="mx-auto mb-4 h-1.5 w-12 shrink-0 rounded-full bg-gray-300 sm:h-[5px] sm:w-[60px]" />
 
         <div className="flex flex-col gap-6 py-6">
@@ -60,8 +53,16 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
                 value={tempFilters.admissionYearStart?.toString()}
                 onValueChange={(v) => setTempFilters((p) => ({ ...p, admissionYearStart: Number(v) }))}
               >
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="h-60">{yearOptions.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}</SelectContent>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="h-60">
+                  {yearOptions.map((y) => (
+                    <SelectItem key={y} value={y.toString()}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
               <span>~</span>
               <Select
@@ -70,8 +71,16 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
                 value={tempFilters.admissionYearEnd?.toString()}
                 onValueChange={(v) => setTempFilters((p) => ({ ...p, admissionYearEnd: Number(v) }))}
               >
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="h-60">{yearOptions.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}</SelectContent>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="h-60">
+                  {yearOptions.map((y) => (
+                    <SelectItem key={y} value={y.toString()}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
             </div>
           </div>
@@ -86,9 +95,15 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
                 setTempFilters((p) => ({ ...p, academicStatus: values }));
               }}
             >
-              <ToggleGroupItem value="ENROLLED" className="font-normal">재학생</ToggleGroupItem>
-              <ToggleGroupItem value="LEAVE_OF_ABSENCE" className="font-normal">휴학생</ToggleGroupItem>
-              <ToggleGroupItem value="GRADUATED" className="font-normal">졸업생</ToggleGroupItem>
+              <ToggleGroupItem value="ENROLLED" className="font-normal">
+                재학생
+              </ToggleGroupItem>
+              <ToggleGroupItem value="LEAVE_OF_ABSENCE" className="font-normal">
+                휴학생
+              </ToggleGroupItem>
+              <ToggleGroupItem value="GRADUATED" className="font-normal">
+                졸업생
+              </ToggleGroupItem>
             </ToggleGroup>
           </div>
         </div>

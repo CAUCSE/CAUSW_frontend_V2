@@ -2,9 +2,10 @@
 
 import { useParams } from 'next/navigation';
 
-import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities/form/ui';
-import { LoadingComponent } from '@/shared';
 import { useFormResultStore, useGetFormInfo } from '@/entities/form';
+import { DetailToggleBtn, ExcelDownloadBtn, FormStatusToggleBtn, SummaryToggleBtn } from '@/entities/form/ui';
+
+import { LoadingComponent } from '@/shared';
 
 export const FormResultHeader = () => {
   const params = useParams();

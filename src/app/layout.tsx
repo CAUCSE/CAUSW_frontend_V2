@@ -93,9 +93,7 @@ export default function RootLayout({
             </Suspense>
             <WindowSizeListener />
             <DynamicAuthAppInitializer>
-              <PageWrapper>
-                {children}
-              </PageWrapper>
+              <PageWrapper>{children}</PageWrapper>
             </DynamicAuthAppInitializer>
             <ToastWithMax />
           </Providers>

@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { Plus, Trash2 } from 'lucide-react';
 import { Controller, FormProvider } from 'react-hook-form';
 
@@ -10,7 +12,6 @@ import { ProfileImageUploader } from '@/shared/ui';
 
 import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
 import { formatPhoneNumber } from '@/shared';
-import { useEffect, useState } from "react";
 
 interface ProfileEditProps {
   contact: Contact.Contact | undefined;

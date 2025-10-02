@@ -16,5 +16,5 @@ export const secureStorage = {
 
   async remove(key: string): Promise<void> {
     await SecureStoragePlugin.remove({ key });
-  }
+  },
 };

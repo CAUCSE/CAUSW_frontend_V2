@@ -1,7 +1,10 @@
-"use client";
+'use client';
+
 import { useHomeEventQuery } from '@/entities/home/model';
-import { ClientGate } from './ClientGate';
+
 import { ErrorFallback, LoadingComponent } from '@/shared';
+
+import { ClientGate } from './ClientGate';
 
 export default function HomePage() {
   const { data: events, isLoading, isError } = useHomeEventQuery();

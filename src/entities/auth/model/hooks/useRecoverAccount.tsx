@@ -1,12 +1,12 @@
 import { useRouter } from 'next/navigation';
 
 import { useMutation } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 import { getMyInfo } from '@/entities/user/api/get';
 
 import { parseErrorMessage, setRccToken } from '@/shared';
-import Cookies from 'js-cookie';
 
 import { recoverAccount } from '../../api/put';
 

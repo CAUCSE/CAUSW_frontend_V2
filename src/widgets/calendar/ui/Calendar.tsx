@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { getCalendars } from '@/entities/home';
-  
+
 import { CardBox } from '@/shared/ui/CardBox';
 
 import { MONTHS } from '../config';
