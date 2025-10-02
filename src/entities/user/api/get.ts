@@ -4,7 +4,11 @@ import { AxiosResponse } from 'axios';
 import { API, setRscHeader } from '@/shared';
 import { BASEURL } from '@/shared';
 
-import { PAGE_SIZE, USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
+import {
+  PAGE_SIZE,
+  USER_COUNCIL_FEE_ENDPOINT,
+  USERS_ENDPOINT,
+} from '../config';
 import { settingQueryKey } from '../config';
 
 // factory function.
@@ -15,9 +19,12 @@ const setGetMethod = (endpoint: string) => {
     try {
       const headers = await setRscHeader();
 
-      const response = await fetch(`${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`, {
-        headers: headers,
-      }).then((res) => res.json());
+      const response = await fetch(
+        `${BASEURL}/api/v1/${endpoint}?page=${page}&size=${size}`,
+        {
+          headers: headers,
+        },
+      ).then((res) => res.json());
 
       if (response.errorCode) throw new Error(response.errorCode);
 
@@ -33,7 +40,9 @@ const setGetMethod = (endpoint: string) => {
 
 export const getMyInfo = async (): Promise<User.User> => {
   try {
-    const response = (await API.get(`${USERS_ENDPOINT}/me`)) as AxiosResponse<User.User>; // 서버로부터 유저 정보를 가져옴
+    const response = (await API.get(
+      `${USERS_ENDPOINT}/me`,
+    )) as AxiosResponse<User.User>; // 서버로부터 유저 정보를 가져옴
     return response.data;
   } catch (error) {
     throw error;
@@ -41,7 +50,9 @@ export const getMyInfo = async (): Promise<User.User> => {
 };
 
 export const getUserByName = async (name: string) => {
-  const { data } = (await API.get(`${USERS_ENDPOINT}/name/${name}`)) as AxiosResponse<User.User[]>;
+  const { data } = (await API.get(
+    `${USERS_ENDPOINT}/name/${name}`,
+  )) as AxiosResponse<User.User[]>;
 
   return data;
 };
@@ -132,7 +143,9 @@ export const useGetMyFavoritePosts = () => {
 };
 
 export const getApplyBoardById = async (id: string) => {
-  const { data } = (await API.get(`/api/v1/boards/apply/${id}`)) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
+  const { data } = (await API.get(
+    `/api/v1/boards/apply/${id}`,
+  )) as AxiosResponse<Setting.GetApplyBoardResponseDto>;
 
   return data;
 };
@@ -154,9 +167,9 @@ export const getMyCouncilFeeInfo = async () => {
 export const fetchMyInfo = async (): Promise<User.User> => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, { headers: headers }).then((res) =>
-      res.json(),
-    )) as User.User;
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, {
+      headers: headers,
+    }).then((res) => res.json())) as User.User;
     return response;
   } catch (error) {
     throw error;
@@ -166,9 +179,9 @@ export const fetchMyInfo = async (): Promise<User.User> => {
 export const getMyRoles = async () => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, { headers: headers }).then((res) =>
-      res.json(),
-    )) as User.UserDto;
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/me`, {
+      headers: headers,
+    }).then((res) => res.json())) as User.UserDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -181,9 +194,9 @@ export const getMyRoles = async () => {
 export const getUser = async (id: string) => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/${id}`, { headers: headers }).then((res) =>
-      res.json(),
-    )) as User.UserDto;
+    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/${id}`, {
+      headers: headers,
+    }).then((res) => res.json())) as User.UserDto;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -196,9 +209,13 @@ export const getUser = async (id: string) => {
 export const getUserAcademicRecord = async (id: string) => {
   try {
     const headers = await setRscHeader();
-    const response = (await fetch(`${BASEURL}${USERS_ENDPOINT}/academic-record/record/${id}`, {
-      headers: headers,
-    }).then((res) => res.json())) as any;
+    const response = (await fetch(
+      `${BASEURL}${USERS_ENDPOINT}/academic-record/record/${id}`,
+      {
+        headers: headers,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      },
+    ).then((res) => res.json())) as any;
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -209,17 +226,27 @@ export const getUserAcademicRecord = async (id: string) => {
 };
 
 // 유저 상태 조회.
-export const getByState = async (state: User.UserDto['state'], name: string | null, page: number) => {
+export const getByState = async (
+  state: User.UserDto['state'],
+  name: string | null,
+  page: number,
+) => {
   try {
     const headers = await setRscHeader();
 
     const response = name
-      ? ((await fetch(`${BASEURL}${USERS_ENDPOINT}/state/${state}?name=${name}&pageNum=${page}`, {
-          headers: headers,
-        }).then((res) => res.json())) as Setting.GetByStateResponseDto)
-      : ((await fetch(`${BASEURL}${USERS_ENDPOINT}/state/${state}?pageNum=${page}`, {
-          headers: headers,
-        }).then((res) => res.json())) as Setting.GetByStateResponseDto);
+      ? ((await fetch(
+          `${BASEURL}${USERS_ENDPOINT}/state/${state}?name=${name}&pageNum=${page}`,
+          {
+            headers: headers,
+          },
+        ).then((res) => res.json())) as Setting.GetByStateResponseDto)
+      : ((await fetch(
+          `${BASEURL}${USERS_ENDPOINT}/state/${state}?pageNum=${page}`,
+          {
+            headers: headers,
+          },
+        ).then((res) => res.json())) as Setting.GetByStateResponseDto);
 
     if (response.errorCode) throw new Error(response.errorCode);
 
@@ -252,12 +279,18 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
     const headers = await setRscHeader();
 
     const response = name
-      ? ((await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions?name=${name}&pageNum=${page}`, {
-          headers: headers,
-        }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto)
-      : ((await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions?pageNum=${page}`, {
-          headers: headers,
-        }).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
+      ? ((await fetch(
+          `${BASEURL}${USERS_ENDPOINT}/admissions?name=${name}&pageNum=${page}`,
+          {
+            headers: headers,
+          },
+        ).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto)
+      : ((await fetch(
+          `${BASEURL}${USERS_ENDPOINT}/admissions?pageNum=${page}`,
+          {
+            headers: headers,
+          },
+        ).then((res) => res.json())) as Setting.GetAllAdmissionsResponseDto);
 
     if (response.errorCode) throw new Error(response.message);
 
@@ -269,10 +302,13 @@ export const getAllAdmissions = async (name: string | null, page: number) => {
 
 export const getAdmission = async (userId: string) => {
   const header = await setRscHeader();
-  const response = await fetch(`${BASEURL}${USERS_ENDPOINT}/admissions/${userId}`, {
-    method: 'GET',
-    headers: header,
-  });
+  const response = await fetch(
+    `${BASEURL}${USERS_ENDPOINT}/admissions/${userId}`,
+    {
+      method: 'GET',
+      headers: header,
+    },
+  );
 
   const data = (await response.json()) as Setting.GetAdmissionResponseDto;
   if (!response.ok) throw new Error(response.statusText);
@@ -286,24 +322,25 @@ export const getPayers = setGetMethod('user-council-fee/list') as (
 ) => Promise<Setting.Payer[]>;
 
 // 학적 인증 전체 조회.
-export const getAllAttendanceUsers = setGetMethod('users/academic-record/list/active-users') as (
-  page?: number,
-  size?: number,
-) => Promise<Setting.UserElement[]>;
+export const getAllAttendanceUsers = setGetMethod(
+  'users/academic-record/list/active-users',
+) as (page?: number, size?: number) => Promise<Setting.UserElement[]>;
 
 // 학적 인증 요청 사용자 조회.
-export const getWaitingUsers = setGetMethod('users/academic-record/list/await') as (
-  page?: number,
-  size?: number,
-) => Promise<Setting.WaitingUsers[]>;
+export const getWaitingUsers = setGetMethod(
+  'users/academic-record/list/await',
+) as (page?: number, size?: number) => Promise<Setting.WaitingUsers[]>;
 
 // 납부자 상세 조회.
 export const getUserCouncilFeeInfo = async (userCouncilFeeId: string) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`, {
-    method: 'GET',
-    headers: headers,
-  });
+  const response = await fetch(
+    `${BASEURL}/api/v1/user-council-fee/info/${userCouncilFeeId}`,
+    {
+      method: 'GET',
+      headers: headers,
+    },
+  );
 
   if (!response.ok) throw new Error(response.statusText);
 

@@ -10,7 +10,16 @@ import { FormField, MonthPicker, ProfileHeader } from '@/entities/contact';
 
 import { ProfileImageUploader } from '@/shared/ui';
 
-import { Button, Input, Switch, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '@/shadcn/components/ui';
+import {
+  Button,
+  Input,
+  Switch,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+} from '@/shadcn/components/ui';
 import { formatPhoneNumber } from '@/shared';
 
 interface ProfileEditProps {
@@ -78,18 +87,27 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                       <Input
                         id="연락처"
                         placeholder="010-1234-5678"
-                        onChange={(e) => field.onChange(formatPhoneNumber(e.target.value))}
+                        onChange={(e) =>
+                          field.onChange(formatPhoneNumber(e.target.value))
+                        }
                         value={field.value ?? ''}
                       />
                     )}
                   />
-                  <p className="mt-2 text-xs text-gray-500">연락처 정보는 공개범위 내 사용자만 볼 수 있습니다.</p>
+                  <p className="mt-2 text-xs text-gray-500">
+                    연락처 정보는 공개범위 내 사용자만 볼 수 있습니다.
+                  </p>
                   {phoneNumberValue === '전화번호 없음' && (
                     <p className="mt-1 text-xs text-red-500">
-                      올바른 전화번호를 입력하지 않을 시 동문수첩 정보 수정이 불가합니다.
+                      올바른 전화번호를 입력하지 않을 시 동문수첩 정보 수정이
+                      불가합니다.
                     </p>
                   )}
-                  {errors.phoneNumber && <p className="mt-1 text-xs text-red-500">{errors.phoneNumber.message}</p>}
+                  {errors.phoneNumber && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.phoneNumber.message}
+                    </p>
+                  )}
                 </div>
               </FormField>
             </div>
@@ -97,7 +115,10 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
           <TabsContent value="intro">
             <div className="flex h-[30rem] flex-col gap-6 overflow-y-auto rounded-md border bg-white p-6">
               <FormField label="한줄 소개">
-                <Textarea placeholder="한줄 소개를 입력해주세요" {...register('description')} />
+                <Textarea
+                  placeholder="한줄 소개를 입력해주세요"
+                  {...register('description')}
+                />
               </FormField>
               <FormField label="직업/직군">
                 <Input placeholder="직업/직군" {...register('job')} />
@@ -105,10 +126,18 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
               <div className="flex flex-col gap-4">
                 <label className="text-sm font-medium">이력</label>
                 {careerFields.map((field, index) => (
-                  <div key={field.id} className="flex flex-col gap-2 rounded-md border p-4">
+                  <div
+                    key={field.id}
+                    className="flex flex-col gap-2 rounded-md border p-4"
+                  >
                     <div className="flex items-center justify-between">
                       <p className="font-semibold">이력 {index + 1}</p>
-                      <Button type="button" variant="ghost" size="icon" onClick={() => removeCareer(index)}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeCareer(index)}
+                      >
                         <Trash2 className="h-4 w-4 text-red-500" />
                       </Button>
                     </div>
@@ -117,7 +146,11 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                         control={control}
                         name={`userCareer.${index}.periodStart`}
                         render={({ field }) => (
-                          <MonthPicker value={field.value ?? ''} onChange={field.onChange} placeholder="시작일" />
+                          <MonthPicker
+                            value={field.value ?? ''}
+                            onChange={field.onChange}
+                            placeholder="시작일"
+                          />
                         )}
                       />
                       <span>~</span>
@@ -125,7 +158,11 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                         control={control}
                         name={`userCareer.${index}.periodEnd`}
                         render={({ field }) => (
-                          <MonthPicker value={field.value ?? ''} onChange={field.onChange} placeholder="종료일" />
+                          <MonthPicker
+                            value={field.value ?? ''}
+                            onChange={field.onChange}
+                            placeholder="종료일"
+                          />
                         )}
                       />
                     </div>
@@ -140,7 +177,12 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                     )}
                   </div>
                 ))}
-                <Button type="button" variant="outline" className="w-full" onClick={addCareer}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={addCareer}
+                >
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
@@ -176,23 +218,38 @@ export const ProfileEdit = ({ contact }: ProfileEditProps) => {
                 </div>
               ))}
               {socialLinkFields.length < 10 ? (
-                <Button type="button" variant="outline" className="w-full" onClick={() => addSocialLink()}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => addSocialLink()}
+                >
                   <Plus className="mr-2 h-4 w-4" />
                   링크 추가하기
                 </Button>
               ) : (
-                <p className="pt-2 text-center text-sm text-gray-500">소셜 링크는 최대 10개까지 추가할 수 있습니다.</p>
+                <p className="pt-2 text-center text-sm text-gray-500">
+                  소셜 링크는 최대 10개까지 추가할 수 있습니다.
+                </p>
               )}
             </div>
           </TabsContent>
 
           <TabsContent value="privacy">
             <div className="flex h-[30rem] flex-col gap-6 rounded-md border bg-white p-6">
-              <FormField label="연락처 비공개" hint="비공개 시 다른 사용자에게 연락처가 보이지 않습니다.">
+              <FormField
+                label="연락처 비공개"
+                hint="비공개 시 다른 사용자에게 연락처가 보이지 않습니다."
+              >
                 <Controller
                   control={control}
                   name="isPhoneNumberVisible"
-                  render={({ field }) => <Switch checked={field.value ?? false} onCheckedChange={field.onChange} />}
+                  render={({ field }) => (
+                    <Switch
+                      checked={field.value ?? false}
+                      onCheckedChange={field.onChange}
+                    />
+                  )}
                 />
               </FormField>
             </div>

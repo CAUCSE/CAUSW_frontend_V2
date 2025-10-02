@@ -1,4 +1,8 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 
 import { getPostListServer, postQueryKey } from '@/entities/post';
 
@@ -9,7 +13,8 @@ const BoardPageServer = async ({ params }: { params: { boardId: string } }) => {
   const { boardId } = params;
   await queryClient.prefetchInfiniteQuery({
     queryKey: postQueryKey.list(boardId),
-    queryFn: async ({ pageParam = 0 }) => await getPostListServer(boardId, pageParam),
+    queryFn: async ({ pageParam = 0 }) =>
+      await getPostListServer(boardId, pageParam),
     initialPageParam: 0,
   });
   return (

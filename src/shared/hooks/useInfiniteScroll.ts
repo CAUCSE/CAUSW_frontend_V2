@@ -7,7 +7,10 @@ interface useInfiniteScrollProps {
   option?: IntersectionObserverInit;
 }
 
-export const useInfiniteScroll = ({ intersectionCallback, option }: useInfiniteScrollProps) => {
+export const useInfiniteScroll = ({
+  intersectionCallback,
+  option,
+}: useInfiniteScrollProps) => {
   const targetRef = useRef<HTMLDivElement | null>(null);
 
   const observerOption = option || {
@@ -21,7 +24,10 @@ export const useInfiniteScroll = ({ intersectionCallback, option }: useInfiniteS
       return;
     }
 
-    const observer = new IntersectionObserver(intersectionCallback, observerOption);
+    const observer = new IntersectionObserver(
+      intersectionCallback,
+      observerOption,
+    );
 
     observer.observe(targetRef.current);
 

@@ -45,7 +45,9 @@ export const VoteForm = ({ voteData }: VoteFormProps) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: postQueryKey.detail({ postId: postId as string }) });
+          queryClient.invalidateQueries({
+            queryKey: postQueryKey.detail({ postId: postId as string }),
+          });
         },
         onError: () => {
           toast.error('투표 제출에 실패했습니다.');

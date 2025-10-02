@@ -4,7 +4,8 @@ import { useGetMyFavoritePosts } from '@/entities/user/api';
 import { MyRecordHeader, MyRecordList } from '@/entities/user/ui';
 
 const MyFavoritePostsPage = () => {
-  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } = useGetMyFavoritePosts();
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useGetMyFavoritePosts();
 
   return (
     <div className="flex h-full w-full flex-col">

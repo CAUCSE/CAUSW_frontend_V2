@@ -12,8 +12,14 @@ import { LoadingComponent } from '@/shared';
 import CheckedIcon from '../../../../../../../public/icons/checked_icon.svg';
 import NonCheckedIcon from '../../../../../../../public/icons/not_checked_icon.svg';
 
-const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) => {
-  const [data, setData] = useState<undefined | Setting.GetApplyBoardResponseDto>();
+const BoardDetailManagement = ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const [data, setData] = useState<
+    undefined | Setting.GetApplyBoardResponseDto
+  >();
 
   useEffect(() => {
     getApplyBoardById(id).then((res) => setData(res));
@@ -23,12 +29,17 @@ const BoardDetailManagement = ({ params: { id } }: { params: { id: string } }) =
 
   return (
     <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
-      <Link href="/setting/management/board" className="mb-7 flex items-center text-lg">
+      <Link
+        href="/setting/management/board"
+        className="mb-7 flex items-center text-lg"
+      >
         <span className="icon-[weui--back-filled] mr-6 text-3xl font-bold"></span>
         이전
       </Link>
       <div className="flex h-full flex-col gap-3 p-2 pt-10 lg:p-10">
-        <div className="mb-2 text-[35px] lg:mt-2 lg:mb-6">게시판 생성 신청 정보</div>
+        <div className="mb-2 text-[35px] lg:mt-2 lg:mb-6">
+          게시판 생성 신청 정보
+        </div>
 
         <div className="text-[28px]">게시판 이름</div>
         <div className="border-b-post-title-input mb-5 w-full border-black bg-transparent text-[20px] text-black focus:outline-hidden">

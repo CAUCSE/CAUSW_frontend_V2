@@ -1,4 +1,9 @@
-import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from 'react-hook-form';
 
 interface InputProps<T extends FieldValues> {
   register: UseFormRegister<T>;
@@ -9,7 +14,12 @@ interface InputProps<T extends FieldValues> {
   placeholder?: string;
 }
 
-export const SignInInput = <T extends FieldValues>({ register, name, rules, ...rest }: InputProps<T>) => (
+export const SignInInput = <T extends FieldValues>({
+  register,
+  name,
+  rules,
+  ...rest
+}: InputProps<T>) => (
   <input
     {...register(name, rules)}
     {...rest}

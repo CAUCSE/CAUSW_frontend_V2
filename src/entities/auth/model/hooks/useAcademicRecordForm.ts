@@ -14,11 +14,15 @@ export const useAcademicRecordForm = ({ curAcademicStatus }: userInfoProps) => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>({ mode: 'onBlur' });
+  } = useForm<User.CreateUserAcademicRecordApplicationRequestDto>({
+    mode: 'onBlur',
+  });
 
   const submitAcademicRecord = useSubmitAcademicRecord({ curAcademicStatus });
 
-  const onSubmit = (data: User.CreateUserAcademicRecordApplicationRequestDto) => {
+  const onSubmit = (
+    data: User.CreateUserAcademicRecordApplicationRequestDto,
+  ) => {
     if (data.targetAcademicStatus === 'ENROLLED' && !data.images) {
       toast.error('이미지를 첨부해주세요.');
       return;

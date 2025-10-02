@@ -10,12 +10,18 @@ import Link from 'next/link';
 
 import { MESSAGES } from '@/shared';
 
-const ExcelExportButton = dynamic(() => import('./buttons').then((mod) => mod.ExcelExportButton), {
-  ssr: false,
-});
-const PaginationButtons = dynamic(() => import('@/shared').then((mod) => mod.PaginationButtons), {
-  ssr: false,
-});
+const ExcelExportButton = dynamic(
+  () => import('./buttons').then((mod) => mod.ExcelExportButton),
+  {
+    ssr: false,
+  },
+);
+const PaginationButtons = dynamic(
+  () => import('@/shared').then((mod) => mod.PaginationButtons),
+  {
+    ssr: false,
+  },
+);
 const Line = dynamic(() => import('@/shared').then((mod) => mod.Line), {
   ssr: false,
 });
@@ -88,7 +94,9 @@ export const ManagementPanel = ({
               재학 인증 일괄 요청
             </div>
           )}
-          {exportType ? <ExcelExportButton exportType={exportType} id={circleId} /> : null}
+          {exportType ? (
+            <ExcelExportButton exportType={exportType} id={circleId} />
+          ) : null}
         </div>
       </div>
 
@@ -122,14 +130,19 @@ export const ManagementPanel = ({
             href={
               (isFirstNavigation
                 ? firstNavigation.router
-                : navigation!.find((element) => element.state === state)?.router) +
+                : navigation!.find((element) => element.state === state)
+                    ?.router) +
               '/' +
               element.id
             }
             className="mb-3 text-lg"
             key={element.userName}
           >
-            {state === 'admission' || state === 'reject' ? <>{element.userName}</> : <>{element.userName}</>}
+            {state === 'admission' || state === 'reject' ? (
+              <>{element.userName}</>
+            ) : (
+              <>{element.userName}</>
+            )}
           </Link>
         ))}
       </div>

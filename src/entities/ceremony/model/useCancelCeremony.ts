@@ -30,7 +30,9 @@ export const useCancelCeremony = () => {
     },
     onError: (error) => {
       if (isAxiosError(error)) {
-        toast.error(error.response?.data.message ?? `경조사 신청 취소를 실패했습니다.`);
+        toast.error(
+          error.response?.data.message ?? `경조사 신청 취소를 실패했습니다.`,
+        );
         return;
       }
       toast.error('경조사 신청 취소 처리 중 에러가 발생했습니다.');

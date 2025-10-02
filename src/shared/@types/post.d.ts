@@ -20,7 +20,7 @@ declare namespace Post {
     isPostFavorite: boolean;
     isPostVote: boolean;
     isPostForm: boolean;
-    isPostSubscribed:boolean;
+    isPostSubscribed: boolean;
     isOwner: boolean;
     updatable: boolean;
     deletable: boolean;
@@ -113,8 +113,6 @@ declare namespace Post {
     optionNumber: number;
     optionText: string;
   }
-
-  type QuestionType = "SUBJECTIVE" | "OBJECTIVE";
 
   export interface VoteResponseDto {
     voteId: string;
@@ -231,18 +229,18 @@ declare namespace Post {
     optionText: string;
   }
 
-  type QuestionType = "SUBJECTIVE" | "OBJECTIVE";
+  type QuestionType = 'SUBJECTIVE' | 'OBJECTIVE';
 
   type SemesterType =
-    | "FIRST_SEMESTER"
-    | "SECOND_SEMESTER"
-    | "THIRD_SEMESTER"
-    | "FOURTH_SEMESTER"
-    | "FIFTH_SEMESTER"
-    | "SIXTH_SEMESTER"
-    | "SEVENTH_SEMESTER"
-    | "EIGHTH_SEMESTER"
-    | "ABOVE_NINTH_SEMESTER";
+    | 'FIRST_SEMESTER'
+    | 'SECOND_SEMESTER'
+    | 'THIRD_SEMESTER'
+    | 'FOURTH_SEMESTER'
+    | 'FIFTH_SEMESTER'
+    | 'SIXTH_SEMESTER'
+    | 'SEVENTH_SEMESTER'
+    | 'EIGHTH_SEMESTER'
+    | 'ABOVE_NINTH_SEMESTER';
 
   export interface PostSubscribeResponseDto {
     postId: string;

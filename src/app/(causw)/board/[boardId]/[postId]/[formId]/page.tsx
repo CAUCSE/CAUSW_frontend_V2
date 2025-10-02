@@ -6,7 +6,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { ExpiredForm, NoPermissionForm, ResponseForm } from '@/widgets/form/ui';
 
-import { useGetFormResponseInfo, useHandleApplySubmit, useResponseFormStore } from '@/entities/form';
+import {
+  useGetFormResponseInfo,
+  useHandleApplySubmit,
+  useResponseFormStore,
+} from '@/entities/form';
 
 import { LoadingComponent, Modal } from '@/shared';
 import { PreviousButton } from '@/shared';
@@ -24,7 +28,8 @@ const ApplyPage = () => {
 
   const { setError } = methods;
   const { data, isPending, isError } = useGetFormResponseInfo(formId as string);
-  const { onSubmit, closeModal, modalMessage, modalOpen } = useHandleApplySubmit({ setError });
+  const { onSubmit, closeModal, modalMessage, modalOpen } =
+    useHandleApplySubmit({ setError });
 
   if (isPending) {
     return <LoadingComponent />;
@@ -45,7 +50,9 @@ const ApplyPage = () => {
         <NoPermissionForm />
       ) : (
         <>
-          <div className="flex h-20 w-full items-end pl-4 text-xl">{form?.title}</div>
+          <div className="flex h-20 w-full items-end pl-4 text-xl">
+            {form?.title}
+          </div>
           <FormProvider {...methods}>
             <ResponseForm onSubmit={onSubmit} />
           </FormProvider>

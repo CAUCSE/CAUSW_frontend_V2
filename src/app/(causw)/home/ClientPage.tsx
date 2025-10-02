@@ -33,7 +33,11 @@ const cardsEntities = [
   },
 ];
 
-export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }) => {
+export const ClientHomePage = ({
+  events,
+}: {
+  events: Home.GetEventsResponseDto;
+}) => {
   const { data: homePosts, isLoading, isError } = useHomePostsQuery();
 
   if (isLoading) return <LoadingComponent />;
@@ -49,7 +53,9 @@ export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }
     homePosts.find((board) => board.board.name.includes('학생회 공지')),
   ];
 
-  const deliveredId = homePosts.find((board) => board.board.name.includes('딜리버드'))?.board.id;
+  const deliveredId = homePosts.find((board) =>
+    board.board.name.includes('딜리버드'),
+  )?.board.id;
 
   return (
     <>
@@ -57,8 +63,14 @@ export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }
         {events && (
           <div className="rounded-2xl shadow-sm transition-shadow duration-150 hover:shadow-sm">
             <Banner
-              images={events.count > 0 ? events.events.map((e) => e.image) : ['/images/puang-proud.png']}
-              urls={events.count > 0 ? events.events.map((e) => e.url) : ['/home']}
+              images={
+                events.count > 0
+                  ? events.events.map((e) => e.image)
+                  : ['/images/puang-proud.png']
+              }
+              urls={
+                events.count > 0 ? events.events.map((e) => e.url) : ['/home']
+              }
               loop={events.count > 0}
             />
           </div>
@@ -79,7 +91,11 @@ export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }
                   <HomeCard key={idx} {...card} />
                 ))}
                 <div className={`flex h-80 w-full items-center justify-center`}>
-                  <img className="h-64 w-72" alt="logo" src="./images/signin-logo.png" />
+                  <img
+                    className="h-64 w-72"
+                    alt="logo"
+                    src="./images/signin-logo.png"
+                  />
                 </div>
               </div>
             </div>
@@ -97,7 +113,9 @@ export const ClientHomePage = ({ events }: { events: Home.GetEventsResponseDto }
             </div>
 
             <CardBox className="flex w-full flex-col items-center gap-[24px] p-[18px] 2xl:h-4/5">
-              <p className="h-6 text-[24px] font-bold">🌟 빠른 공지 모아모아 🌟</p>
+              <p className="h-6 text-[24px] font-bold">
+                🌟 빠른 공지 모아모아 🌟
+              </p>
               <div className="flex h-[calc(100%-24px)] w-full justify-center">
                 <div className="hidden w-2/5 flex-col items-center justify-around border-r border-[rgba(209,209,209,1)] text-xl font-bold md:flex">
                   {mainBoards.map((board, idx) => (

@@ -12,8 +12,13 @@ interface MonthGridViewProps {
   onSelectMonth: (date: Date) => void;
 }
 
-export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProps) {
-  const [displayYear, setDisplayYear] = React.useState(selectedDate?.getFullYear() || new Date().getFullYear());
+export function MonthGridView({
+  selectedDate,
+  onSelectMonth,
+}: MonthGridViewProps) {
+  const [displayYear, setDisplayYear] = React.useState(
+    selectedDate?.getFullYear() || new Date().getFullYear(),
+  );
   const currentYear = new Date().getFullYear();
 
   const months = Array.from({ length: 12 }, (_, i) => i); // 0 to 11
@@ -23,7 +28,12 @@ export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProp
       <div className="relative flex items-center justify-center pt-1">
         <h2 className="text-sm font-semibold">{displayYear}</h2>
         <div className="absolute flex w-full justify-between px-2">
-          <Button type="button" variant="ghost" size="icon" onClick={() => setDisplayYear(displayYear - 1)}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={() => setDisplayYear(displayYear - 1)}
+          >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
@@ -40,7 +50,9 @@ export function MonthGridView({ selectedDate, onSelectMonth }: MonthGridViewProp
       <div className="mt-4 grid grid-cols-4 gap-2">
         {months.map((month) => {
           const isSelected =
-            selectedDate && selectedDate.getFullYear() === displayYear && selectedDate.getMonth() === month;
+            selectedDate &&
+            selectedDate.getFullYear() === displayYear &&
+            selectedDate.getMonth() === month;
 
           return (
             <Button

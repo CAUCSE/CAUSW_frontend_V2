@@ -1,4 +1,9 @@
-import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from 'react-hook-form';
 
 interface Props<T extends FieldValues> {
   register: UseFormRegister<T>;
@@ -21,7 +26,10 @@ export const SignUpSelect = <T extends FieldValues>({
   return (
     <div className="mx-auto mb-6 flex w-full max-w-md flex-col">
       {label && (
-        <label htmlFor={name} className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+        <label
+          htmlFor={name}
+          className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl"
+        >
           {label}
         </label>
       )}

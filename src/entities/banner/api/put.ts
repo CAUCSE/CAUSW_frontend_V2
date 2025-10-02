@@ -20,11 +20,26 @@ export const useUpdateBanner = () => {
   );
 
   return useMutation({
-    mutationFn: async ({ id, bannerImg, url }: { id: string; bannerImg?: File | null; url: string }) => {
+    mutationFn: async ({
+      id,
+      bannerImg,
+      url,
+    }: {
+      id: string;
+      bannerImg?: File | null;
+      url: string;
+    }) => {
       const formData = new FormData();
-      formData.append('eventUpdateRequestDto', new Blob([JSON.stringify({ url })], { type: 'application/json' }));
+      formData.append(
+        'eventUpdateRequestDto',
+        new Blob([JSON.stringify({ url })], { type: 'application/json' }),
+      );
       if (bannerImg) {
-        formData.append('eventImage', new Blob([bannerImg], { type: bannerImg.type }), bannerImg.name);
+        formData.append(
+          'eventImage',
+          new Blob([bannerImg], { type: bannerImg.type }),
+          bannerImg.name,
+        );
       }
       await FORMAPI.put(`/api/v1/events/${id}`, formData);
     },

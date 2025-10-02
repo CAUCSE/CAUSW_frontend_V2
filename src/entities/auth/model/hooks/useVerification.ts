@@ -4,14 +4,20 @@ import { useEffect, useState } from 'react';
 
 import { getMyInfo } from '@/entities/user/api/get';
 
-import { checkIsAcademicRecordSubmitted, getUserAdmissionInfo } from '../../api/get';
+import {
+  checkIsAcademicRecordSubmitted,
+  getUserAdmissionInfo,
+} from '../../api/get';
 
 export const useVerification = () => {
   const [emailValue, setEmailValue] = useState('');
-  const [admissionApplicationStatus, setAdmissionApplicationStatus] = useState<User.StatusType>('BANNED');
-  const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] = useState<User.StatusType>('BANNED');
+  const [admissionApplicationStatus, setAdmissionApplicationStatus] =
+    useState<User.StatusType>('BANNED');
+  const [academicRecordApplicationStatus, setAcademicRecordApplicationStatus] =
+    useState<User.StatusType>('BANNED');
   const [admissionRejectMessage, setAdmissionRejectMessage] = useState('');
-  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] = useState('');
+  const [academicRecordRejectMessage, setAcademicRecordRejectMessage] =
+    useState('');
   const getInfo = async () => {
     try {
       const response = await getMyInfo();
@@ -48,7 +54,9 @@ export const useVerification = () => {
 
   const checkAcademicRecordApplication = async () => {
     try {
-      const { isRejected, rejectMessage } = (await checkIsAcademicRecordSubmitted()).data;
+      const { isRejected, rejectMessage } = (
+        await checkIsAcademicRecordSubmitted()
+      ).data;
       if (isRejected) {
         setAcademicRecordApplicationStatus('REJECTED');
         setAcademicRecordRejectMessage(rejectMessage);

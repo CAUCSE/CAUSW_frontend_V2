@@ -13,7 +13,9 @@ interface CommentCardProps {
 }
 
 export const CommentCard = ({ comment }: CommentCardProps) => {
-  const childCommentActiveId = useCommentStore((state) => state.childCommentActiveId);
+  const childCommentActiveId = useCommentStore(
+    (state) => state.childCommentActiveId,
+  );
 
   return (
     <div
@@ -23,7 +25,10 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
       )}
     >
       <CommentCardHeader comment={comment} />
-      <CommentCardMain content={comment.content} isDeleted={comment.isDeleted} />
+      <CommentCardMain
+        content={comment.content}
+        isDeleted={comment.isDeleted}
+      />
 
       {/* ✅ isBlocked가 true면 Footer 숨김 */}
       {!comment.isBlocked && (

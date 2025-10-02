@@ -7,7 +7,8 @@ export const fetchHomePosts = async () => {
   const response = (await fetch(URI, {
     method: 'GET',
     headers: headers,
-  }).then((res) => res.json())) as Home.GetHomePostsResponseDto & Error.ApiErrorResponse;
+  }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
+    Error.ApiErrorResponse;
 
   if (response.errorCode) throw new Error(response.errorCode);
 
@@ -21,7 +22,8 @@ export const fetchGraduateHomePosts = async () => {
   const response = (await fetch(GURI, {
     method: 'GET',
     headers: headers,
-  }).then((res) => res.json())) as Home.GetHomePostsResponseDto & Error.ApiErrorResponse;
+  }).then((res) => res.json())) as Home.GetHomePostsResponseDto &
+    Error.ApiErrorResponse;
 
   if (response.errorCode) throw new Error(response.errorCode);
 
@@ -52,21 +54,25 @@ export const fetchCalendars = async (year: number) => {
 };
 
 export const getEvents = async () => {
-  const response = (await API.get('/api/v1/events')).data as Home.GetEventsResponseDto;
+  const response = (await API.get('/api/v1/events'))
+    .data as Home.GetEventsResponseDto;
   return response as Home.GetEventsResponseDto;
 };
 
 export const getCalendars = async (year: number) => {
-  const response = (await API.get(`/api/v1/calendars?year=${year}`)).data as Home.GetCalendarsResponseDto;
+  const response = (await API.get(`/api/v1/calendars?year=${year}`))
+    .data as Home.GetCalendarsResponseDto;
   return response as Home.GetCalendarsResponseDto;
 };
 
 export const getHomePosts = async () => {
-  const response = (await API.get('/api/v1/home')).data as Home.GetHomePostsResponseDto;
+  const response = (await API.get('/api/v1/home'))
+    .data as Home.GetHomePostsResponseDto;
   return response as Home.GetHomePostsResponseDto;
 };
 
 export const getGraduateHomePosts = async () => {
-  const response = (await API.get('/api/v1/home/alumni')).data as Home.GetHomePostsResponseDto;
+  const response = (await API.get('/api/v1/home/alumni'))
+    .data as Home.GetHomePostsResponseDto;
   return response as Home.GetHomePostsResponseDto;
 };

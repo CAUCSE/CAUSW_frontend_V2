@@ -5,7 +5,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getCommentList } from '../../api';
 import { commentQueryKey } from '../../config';
 
-export const useGetCommentList = ({ postId }: { postId: Post.PostDto['id'] }) => {
+export const useGetCommentList = ({
+  postId,
+}: {
+  postId: Post.PostDto['id'];
+}) => {
   return useInfiniteQuery({
     queryKey: commentQueryKey.list({ postId }),
     queryFn: ({ pageParam = 0 }) => {

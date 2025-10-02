@@ -18,6 +18,7 @@ export const useMarkAsRead = () => {
         queryKey: notificationQueryKey.count(),
       });
     },
-    onError: (error: any) => {},
+    // TODO: 에러 처리하기
+    onError: () => {},
   });
 };

@@ -1,13 +1,22 @@
 'use client';
 
-import { LockerExtendBtn, LockerRegisterBtn, LockerReturnBtn, useLockerSelectionStore } from '@/entities/locker';
+import {
+  LockerExtendBtn,
+  LockerRegisterBtn,
+  LockerReturnBtn,
+  useLockerSelectionStore,
+} from '@/entities/locker';
 
 interface LockerDesktopActionBtnProps {
   lockerPeriod: Locker.TLockerPeriod;
 }
 
-export const LockerDesktopActionBtn = ({ lockerPeriod }: LockerDesktopActionBtnProps) => {
-  const clickedLockerStatus = useLockerSelectionStore((state) => state.clickedLockerStatus);
+export const LockerDesktopActionBtn = ({
+  lockerPeriod,
+}: LockerDesktopActionBtnProps) => {
+  const clickedLockerStatus = useLockerSelectionStore(
+    (state) => state.clickedLockerStatus,
+  );
 
   return (
     <div className="flex w-full flex-col items-center gap-8">
@@ -16,15 +25,23 @@ export const LockerDesktopActionBtn = ({ lockerPeriod }: LockerDesktopActionBtnP
       </div>
 
       {(!clickedLockerStatus || clickedLockerStatus === 'isActive') && (
-        <LockerRegisterBtn isMobile={false} disable={!(lockerPeriod === 'LOCKER_ACCESS')} />
+        <LockerRegisterBtn
+          isMobile={false}
+          disable={!(lockerPeriod === 'LOCKER_ACCESS')}
+        />
       )}
 
-      {clickedLockerStatus === 'isNotActive' && <LockerRegisterBtn isMobile={false} disable />}
+      {clickedLockerStatus === 'isNotActive' && (
+        <LockerRegisterBtn isMobile={false} disable />
+      )}
 
       {clickedLockerStatus === 'isMine' && (
         <div className="flex w-full justify-around gap-4">
           <LockerReturnBtn isMobile={false} />
-          <LockerExtendBtn isMobile={false} disable={!(lockerPeriod === 'LOCKER_EXTEND')} />
+          <LockerExtendBtn
+            isMobile={false}
+            disable={!(lockerPeriod === 'LOCKER_EXTEND')}
+          />
         </div>
       )}
     </div>

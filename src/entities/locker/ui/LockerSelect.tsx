@@ -8,7 +8,9 @@ interface LockerSelectProps {
 
 export const LockerSelect = ({ locker }: LockerSelectProps) => {
   const { handleLockerClick } = useSelectLocker();
-  const clickedLockerId = useLockerSelectionStore((state) => state.clickedLockerId);
+  const clickedLockerId = useLockerSelectionStore(
+    (state) => state.clickedLockerId,
+  );
 
   return (
     <button

@@ -9,11 +9,20 @@ interface CommentCardFooterProps {
   isCommentLike: Comment.CommentDto['isCommentLike'];
 }
 
-export const CommentCardFooter = ({ numLike, commentId, isDeleted, isCommentLike }: CommentCardFooterProps) => {
+export const CommentCardFooter = ({
+  numLike,
+  commentId,
+  isDeleted,
+  isCommentLike,
+}: CommentCardFooterProps) => {
   return (
     <footer className="flex items-center justify-between">
       <CommentLikeBadge numLike={numLike} />
-      <CommentCardButtonGroup commentId={commentId} isDeleted={isDeleted} isCommentLike={isCommentLike} />
+      <CommentCardButtonGroup
+        commentId={commentId}
+        isDeleted={isDeleted}
+        isCommentLike={isCommentLike}
+      />
     </footer>
   );
 };

@@ -5,7 +5,11 @@ import { findPassword } from '../../api/post';
 
 export const useFindPassword = () => {
   return useMutation({
-    mutationFn: async ({ name, phoneNumber, email }: User.FindPasswordRequest) => {
+    mutationFn: async ({
+      name,
+      phoneNumber,
+      email,
+    }: User.FindPasswordRequest) => {
       await findPassword({ name, phoneNumber, email });
     },
     onMutate: () => {

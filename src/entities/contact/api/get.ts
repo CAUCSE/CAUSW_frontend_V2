@@ -3,7 +3,9 @@ import { API } from '@/shared';
 const USER_INFO_URI = '/api/v1/users-info';
 
 // 일반 전체 조회
-export const getAllContacts = async (pageNum: number): Promise<Contact.PaginatedContactsResponse> => {
+export const getAllContacts = async (
+  pageNum: number,
+): Promise<Contact.PaginatedContactsResponse> => {
   const response = await API.get(USER_INFO_URI, { params: { pageNum } });
   return response.data;
 };
@@ -47,7 +49,9 @@ export const getMyProfile = async (): Promise<Contact.Contact> => {
  * 다른 사용자 프로필 상세 정보 조회
  * @param userId - 조회할 사용자의 ID
  */
-export const getContactById = async (userId: string): Promise<Contact.Contact> => {
+export const getContactById = async (
+  userId: string,
+): Promise<Contact.Contact> => {
   try {
     const response = await API.get(`${USER_INFO_URI}/${userId}`);
     return response.data;

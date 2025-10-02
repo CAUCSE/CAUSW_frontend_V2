@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 import { parseErrorMessage } from '@/shared';
 
-import { submitAdmissionsApplication } from '../../api/post';
+import { submitAdmissionsApplication } from '../../api';
 
 export const usePostAdmission = () => {
   const router = useRouter();
@@ -20,8 +20,8 @@ export const usePostAdmission = () => {
         router.push('/auth/authorization');
       }, 500);
     },
-    onError: (error: any) => {
-      toast.error(parseErrorMessage(error, '가입 신청서 제출 실패: '));
+    onError: (error: unknown) => {
+      toast.error(parseErrorMessage(error, '가입 신청서 제출 실패'));
     },
   });
 };

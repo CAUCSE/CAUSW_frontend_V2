@@ -2,7 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -14,10 +18,16 @@ interface SemesterToggleForLeaveOfAbsenceProps {
   className?: string;
 }
 
-export const SemesterToggleForLeaveOfAbsence = ({ label, value, className }: SemesterToggleForLeaveOfAbsenceProps) => {
+export const SemesterToggleForLeaveOfAbsence = ({
+  label,
+  value,
+  className,
+}: SemesterToggleForLeaveOfAbsenceProps) => {
   const { control, watch, setValue } = useFormContext<PostSchema>();
 
-  const isLeaveOfAbsenceChecked = watch('formCreateRequestDto.isAllowedLeaveOfAbsence');
+  const isLeaveOfAbsenceChecked = watch(
+    'formCreateRequestDto.isAllowedLeaveOfAbsence',
+  );
 
   useEffect(() => {
     if (!isLeaveOfAbsenceChecked) {
@@ -27,17 +37,25 @@ export const SemesterToggleForLeaveOfAbsence = ({ label, value, className }: Sem
 
   const handleCheckedChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: ControllerRenderProps<PostSchema, 'formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList'>,
+    field: ControllerRenderProps<
+      PostSchema,
+      'formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList'
+    >,
   ) => {
     const { value } = e.target;
     const fieldValueSet = new Set(field.value);
 
     if (value === 'ALL_SEMESTER') {
       if (fieldValueSet.has(value)) {
-        setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', []);
+        setValue(
+          'formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList',
+          [],
+        );
         return;
       }
-      setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', ['ALL_SEMESTER']);
+      setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', [
+        'ALL_SEMESTER',
+      ]);
       return;
     }
 
@@ -53,7 +71,10 @@ export const SemesterToggleForLeaveOfAbsence = ({ label, value, className }: Sem
       fieldValueSet.add('ALL_SEMESTER');
     }
 
-    setValue('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList', Array.from(fieldValueSet));
+    setValue(
+      'formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList',
+      Array.from(fieldValueSet),
+    );
   };
 
   return (

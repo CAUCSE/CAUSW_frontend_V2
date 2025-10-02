@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import qs from 'qs';
@@ -62,7 +63,8 @@ export const removeRccAccess = () => {
   delete FORMAPI.defaults.headers['Authorization'];
 };
 
-export const getRccAccess = (): string => (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
+export const getRccAccess = (): string =>
+  (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
 
 export const removeRccRefresh = async (): Promise<void> => {
   if (isNativeApp()) {
@@ -79,7 +81,10 @@ export const getRccRefresh = async (): Promise<string | null> => {
   return Cookies.get(storageRefreshKey) || null;
 };
 
-const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
+const handleError = async (
+  error: any,
+  axiosInstance: typeof API | typeof FORMAPI,
+) => {
   const { signoutAndRedirect } = tokenManager();
 
   if (error.response) {
@@ -104,7 +109,11 @@ const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAP
   throw error;
 };
 
-const refreshTokenWithQueue = async (config: any, axiosInstance: typeof API | typeof FORMAPI, refreshToken: string) => {
+const refreshTokenWithQueue = async (
+  config: any,
+  axiosInstance: typeof API | typeof FORMAPI,
+  refreshToken: string,
+) => {
   const { updateAccess, signoutAndRedirect } = tokenManager();
 
   if (!isRefreshing) {

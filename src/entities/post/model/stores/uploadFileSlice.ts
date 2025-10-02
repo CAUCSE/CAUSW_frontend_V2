@@ -12,7 +12,12 @@ interface UploadFileAction {
 
 export type UploadFileSlice = UploadFileState & UploadFileAction;
 
-export const createUploadFileStore: StateCreator<UploadFileSlice, [], [], UploadFileSlice> = (set) => ({
+export const createUploadFileStore: StateCreator<
+  UploadFileSlice,
+  [],
+  [],
+  UploadFileSlice
+> = (set) => ({
   selectedFileList: [],
   addFile: (file: File) =>
     set((state) => ({

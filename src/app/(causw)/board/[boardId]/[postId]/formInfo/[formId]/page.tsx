@@ -1,6 +1,10 @@
 'use client';
 
-import { FormDetailResult, FormResultHeader, FormSummaryResult } from '@/widgets/form/ui';
+import {
+  FormDetailResult,
+  FormResultHeader,
+  FormSummaryResult,
+} from '@/widgets/form/ui';
 
 import { useFormResultStore } from '@/entities/form';
 

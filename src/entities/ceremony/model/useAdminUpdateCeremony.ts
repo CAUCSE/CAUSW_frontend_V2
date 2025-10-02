@@ -12,7 +12,9 @@ import { generalCeremonyQueryKey } from '../config';
 interface useAdminUpdateCeremonyProps {
   setIsModalOpen?: (isOpen: boolean) => void;
 }
-export const useAdminUpdateCeremony = ({ setIsModalOpen }: useAdminUpdateCeremonyProps) => {
+export const useAdminUpdateCeremony = ({
+  setIsModalOpen,
+}: useAdminUpdateCeremonyProps) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation({
@@ -34,7 +36,9 @@ export const useAdminUpdateCeremony = ({ setIsModalOpen }: useAdminUpdateCeremon
     onSuccess: (data, variables, context) => {
       toast.dismiss(context);
       const { ceremonyId, targetCeremonyState } = variables;
-      queryClient.invalidateQueries({ queryKey: generalCeremonyQueryKey.update(ceremonyId) });
+      queryClient.invalidateQueries({
+        queryKey: generalCeremonyQueryKey.update(ceremonyId),
+      });
       if (targetCeremonyState === 'ACCEPT') {
         setIsModalOpen?.(true);
       }

@@ -15,17 +15,24 @@ const ACADEMIC_STATUS_MAP = {
 
 export const FilterPills = ({ filters, onFilterChange }: FilterPillsProps) => {
   const { admissionYearStart, admissionYearEnd, academicStatus } = filters;
-  const hasFilters = admissionYearStart || admissionYearEnd || (academicStatus && academicStatus.length > 0);
+  const hasFilters =
+    admissionYearStart ||
+    admissionYearEnd ||
+    (academicStatus && academicStatus.length > 0);
 
   if (!hasFilters) return null;
 
   const removeYearFilter = () => {
-    const { admissionYearStart, admissionYearEnd, ...rest } = filters;
+    const {
+      admissionYearStart: _admissionYearStart,
+      admissionYearEnd: _admissionYearEnd,
+      ...rest
+    } = filters;
     onFilterChange(rest);
   };
 
   const removeStatusFilter = () => {
-    const { academicStatus, ...rest } = filters;
+    const { academicStatus: _academicStatus, ...rest } = filters;
     onFilterChange(rest);
   };
 
@@ -50,7 +57,9 @@ export const FilterPills = ({ filters, onFilterChange }: FilterPillsProps) => {
           <span>
             학적상태:
             <span className="ml-1 font-medium">
-              {academicStatus.map((status) => ACADEMIC_STATUS_MAP[status]).join(', ')}
+              {academicStatus
+                .map((status) => ACADEMIC_STATUS_MAP[status])
+                .join(', ')}
             </span>
           </span>
           <X size={16} />

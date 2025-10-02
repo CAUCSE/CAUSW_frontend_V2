@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -13,7 +17,10 @@ export const MultipleSelectionToggle = () => {
 
   const toggleMultipleChoice = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: ControllerRenderProps<PostSchema, 'voteCreateRequestDto.allowMultiple'>,
+    field: ControllerRenderProps<
+      PostSchema,
+      'voteCreateRequestDto.allowMultiple'
+    >,
   ) => {
     field.onChange(e.target.checked);
   };
@@ -23,7 +30,11 @@ export const MultipleSelectionToggle = () => {
       control={control}
       name="voteCreateRequestDto.allowMultiple"
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckChanged={(e) => toggleMultipleChoice(e, field)} text="복수 선택" />
+        <CustomToggle
+          isChecked={field.value}
+          onCheckChanged={(e) => toggleMultipleChoice(e, field)}
+          text="복수 선택"
+        />
       )}
     />
   );

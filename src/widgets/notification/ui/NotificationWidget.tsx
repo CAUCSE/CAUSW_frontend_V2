@@ -3,14 +3,21 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { NotificationType, useCeremonyNotifications, useMarkAsRead, useNotifications } from '@/entities/notification';
+import {
+  NotificationType,
+  useCeremonyNotifications,
+  useMarkAsRead,
+  useNotifications,
+} from '@/entities/notification';
 import { NotificationList } from '@/entities/notification';
 
 import alarmIcon from '../../../../public/icons/ringing_bell.png';
 
 export const NotificationWidget = () => {
-  const { data: notifications = [], isLoading: isGeneralLoading } = useNotifications();
-  const { data: ceremonyNotifications = [], isLoading: isCeremonyLoading } = useCeremonyNotifications();
+  const { data: notifications = [], isLoading: isGeneralLoading } =
+    useNotifications();
+  const { data: ceremonyNotifications = [], isLoading: isCeremonyLoading } =
+    useCeremonyNotifications();
   const markAsRead = useMarkAsRead();
 
   return (

@@ -20,10 +20,23 @@ export const useCreateBanner = () => {
   );
 
   return useMutation({
-    mutationFn: async ({ bannerImg, url }: { bannerImg: File; url: string }) => {
+    mutationFn: async ({
+      bannerImg,
+      url,
+    }: {
+      bannerImg: File;
+      url: string;
+    }) => {
       const formData = new FormData();
-      formData.append('eventCreateRequestDto', new Blob([JSON.stringify({ url })], { type: 'application/json' }));
-      formData.append('eventImage', new Blob([bannerImg], { type: bannerImg.type }), bannerImg.name);
+      formData.append(
+        'eventCreateRequestDto',
+        new Blob([JSON.stringify({ url })], { type: 'application/json' }),
+      );
+      formData.append(
+        'eventImage',
+        new Blob([bannerImg], { type: bannerImg.type }),
+        bannerImg.name,
+      );
 
       await FORMAPI.post('/api/v1/events', formData);
     },

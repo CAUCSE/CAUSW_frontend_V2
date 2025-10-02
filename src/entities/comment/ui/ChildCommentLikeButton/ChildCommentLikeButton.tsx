@@ -17,7 +17,8 @@ export const ChildCommentLikeButton = ({
   isDeleted,
   isChildCommentLike,
 }: ChildCommentLikeButtonProps) => {
-  const { mutate: toggleLikeChildComment, isPending } = useToggleLikeChildComment();
+  const { mutate: toggleLikeChildComment, isPending } =
+    useToggleLikeChildComment();
 
   const handleLikeChildComment = () => {
     toggleLikeChildComment({ childCommentId, isChildCommentLike });

@@ -16,7 +16,12 @@ export const AdminCeremonyManagement = ({
   firstNavigation,
   navigation,
 }: Ceremony.CeremonyRequestManagementProps) => {
-  const { data: ceremonyList = [], fetchNextPage, hasNextPage, isFetchingNextPage } = useAdminCeremonyAwaitListQuery();
+  const {
+    data: ceremonyList = [],
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useAdminCeremonyAwaitListQuery();
   const isFirstNavigation = (() => {
     if (!state) return true;
     if (!navigation) return false;
@@ -34,14 +39,20 @@ export const AdminCeremonyManagement = ({
           <div
             className={clsx(
               'mt-8 flex flex-row px-4 md:mb-1 md:justify-start lg:w-full',
-              (navigation?.length ?? 0) > 5 && 'mb-1 w-[1000px] justify-between',
-              (navigation?.length ?? 0) > 2 && (navigation?.length ?? 0) <= 5 && 'mb-1 w-[600px] justify-between',
+              (navigation?.length ?? 0) > 5 &&
+                'mb-1 w-[1000px] justify-between',
+              (navigation?.length ?? 0) > 2 &&
+                (navigation?.length ?? 0) <= 5 &&
+                'mb-1 w-[600px] justify-between',
               (navigation?.length ?? 0) <= 2 && 'mb-5 w-full justify-start',
             )}
           >
             <Link
               href={firstNavigation.router}
-              className={clsx('text-xl', isFirstNavigation && 'border-b-focus border-b-4')}
+              className={clsx(
+                'text-xl',
+                isFirstNavigation && 'border-b-focus border-b-4',
+              )}
             >
               {firstNavigation.name}
             </Link>

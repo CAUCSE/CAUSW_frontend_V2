@@ -6,7 +6,11 @@ interface PaginationButtonProps {
   baseUrl: string; // ✅ 페이지네이션이 적용될 기본 URL
 }
 
-export const PaginationButtons = ({ totalPages, currentPage, baseUrl }: PaginationButtonProps) => {
+export const PaginationButtons = ({
+  totalPages,
+  currentPage,
+  baseUrl,
+}: PaginationButtonProps) => {
   const currentGroup = Math.floor((currentPage - 1) / 10);
   const startPage = currentGroup * 10 + 1;
   const endPage = Math.min(startPage + 9, totalPages);
@@ -15,7 +19,10 @@ export const PaginationButtons = ({ totalPages, currentPage, baseUrl }: Paginati
     <div key={currentPage} className="mt-6 flex justify-center space-x-2 pb-6">
       {/*이전 그룹 (`<`) */}
       {currentPage > 10 && (
-        <Link href={`${baseUrl}?page=${startPage - 1}`} className="rounded border bg-gray-200 px-3 py-2 text-black">
+        <Link
+          href={`${baseUrl}?page=${startPage - 1}`}
+          className="rounded border bg-gray-200 px-3 py-2 text-black"
+        >
           {'<'}
         </Link>
       )}
@@ -28,7 +35,9 @@ export const PaginationButtons = ({ totalPages, currentPage, baseUrl }: Paginati
             key={pageNumber}
             href={`${baseUrl}?page=${pageNumber}`}
             className={`rounded border px-4 py-2 ${
-              currentPage === pageNumber ? 'bg-focus text-white' : 'bg-gray-200 text-black'
+              currentPage === pageNumber
+                ? 'bg-focus text-white'
+                : 'bg-gray-200 text-black'
             }`}
           >
             {pageNumber}
@@ -38,7 +47,10 @@ export const PaginationButtons = ({ totalPages, currentPage, baseUrl }: Paginati
 
       {/*다음 그룹 (`>` 버튼) */}
       {endPage < totalPages && (
-        <Link href={`${baseUrl}?page=${endPage + 1}`} className="rounded border bg-gray-200 px-3 py-2 text-black">
+        <Link
+          href={`${baseUrl}?page=${endPage + 1}`}
+          className="rounded border bg-gray-200 px-3 py-2 text-black"
+        >
           {'>'}
         </Link>
       )}

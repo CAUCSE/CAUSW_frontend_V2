@@ -1,6 +1,9 @@
 'use client';
 
-export const NotificationYearListBox = ({ years, isSetAll }: Ceremony.NotificationYearListBoxProps) => {
+export const NotificationYearListBox = ({
+  years,
+  isSetAll,
+}: Ceremony.NotificationYearListBoxProps) => {
   return (
     <div className="h-40 w-full overflow-y-auto rounded-xl border border-black bg-white p-5 sm:max-w-85">
       {isSetAll ? (

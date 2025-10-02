@@ -3,7 +3,13 @@ import { toast } from 'react-hot-toast';
 
 import { getRccRefresh, STORAGE_KEYS } from '@/shared/configs';
 
-import { getClientFCMToken, isDesktop, isNativeApp, requestNotificationPermission, secureStorage } from '@/shared';
+import {
+  getClientFCMToken,
+  isDesktop,
+  isNativeApp,
+  requestNotificationPermission,
+  secureStorage,
+} from '@/shared';
 
 import { getFCMToken } from '../api';
 import { useUpdateFCMToken } from '../hooks/mutations/useUpdateFCMToken';
@@ -32,14 +38,20 @@ export const usePushNotification = () => {
           const localFCMToken = await secureStorage.get(FCM_TOKEN_KEY);
 
           if (localFCMToken !== clientFCMToken) {
-            updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            updateFCMTokenMutation.mutate({
+              fcmToken: clientFCMToken,
+              refreshToken: refreshToken || '',
+            });
             await secureStorage.set(FCM_TOKEN_KEY, clientFCMToken);
           } else {
-            extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            extendFCMTokenMutation.mutate({
+              fcmToken: clientFCMToken,
+              refreshToken: refreshToken || '',
+            });
           }
         });
 
-        PushNotifications.addListener('registrationError', (error) => {
+        PushNotifications.addListener('registrationError', () => {
           toast.error('알림 설정에 실패했습니다.');
         });
 
@@ -66,10 +78,16 @@ export const usePushNotification = () => {
 
         if (!fcmToken.includes(clientFCMToken)) {
           if (localStorage.getItem(FCM_TOKEN_KEY) !== clientFCMToken) {
-            updateFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            updateFCMTokenMutation.mutate({
+              fcmToken: clientFCMToken,
+              refreshToken: refreshToken || '',
+            });
             localStorage.setItem(FCM_TOKEN_KEY, clientFCMToken);
           } else if (localStorage.getItem(FCM_TOKEN_KEY) === clientFCMToken) {
-            extendFCMTokenMutation.mutate({ fcmToken: clientFCMToken, refreshToken: refreshToken || '' });
+            extendFCMTokenMutation.mutate({
+              fcmToken: clientFCMToken,
+              refreshToken: refreshToken || '',
+            });
           }
         }
       }

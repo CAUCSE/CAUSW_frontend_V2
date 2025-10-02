@@ -13,7 +13,8 @@ export const FormSummaryResultQuestionHeader = ({
   question,
   questionIndex,
 }: FormSummaryResultQuestionHeaderProps) => {
-  const { textRefs, isTruncated } = useTruncateParagraph<Form.QuestionSummaryResponseDto>(summaryFormResult);
+  const { textRefs, isTruncated } =
+    useTruncateParagraph<Form.QuestionSummaryResponseDto>(summaryFormResult);
 
   return (
     <div className={`group relative flex w-full items-center justify-start`}>

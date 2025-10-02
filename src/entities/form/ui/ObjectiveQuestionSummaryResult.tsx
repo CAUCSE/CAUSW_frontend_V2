@@ -1,6 +1,14 @@
 'use client';
 
-import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 interface ObjectiveQuestionSummaryResultProps {
   objectiveQuestion: {
@@ -12,7 +20,9 @@ interface ObjectiveQuestionSummaryResultProps {
   };
 }
 
-export const ObjectiveQuestionSummaryResult = ({ objectiveQuestion }: ObjectiveQuestionSummaryResultProps) => {
+export const ObjectiveQuestionSummaryResult = ({
+  objectiveQuestion,
+}: ObjectiveQuestionSummaryResultProps) => {
   return (
     <ResponsiveContainer width="100%" height={300} key={objectiveQuestion.id}>
       <BarChart
@@ -26,7 +36,12 @@ export const ObjectiveQuestionSummaryResult = ({ objectiveQuestion }: ObjectiveQ
         }}
         barSize={15}
       >
-        <XAxis type="number" domain={[0, 'dataMax']} tickLine={false} allowDecimals={false} />
+        <XAxis
+          type="number"
+          domain={[0, 'dataMax']}
+          tickLine={false}
+          allowDecimals={false}
+        />
         {/* X축: 값의 축 */}
         <YAxis dataKey="optionText" type="category" />
         {/* Y축: 카테고리 */}

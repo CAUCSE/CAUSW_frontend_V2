@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { ChevronLeft } from 'lucide-react';
 
@@ -24,12 +23,9 @@ interface ChatMessage {
 }
 
 export const ChatRoom = () => {
-  const searchParams = useSearchParams();
-  const chatId = searchParams.get('chatId');
   const router = useRouter();
   const [chatData, setChatData] = useState<ChatMessage[]>([]);
   const [comment, setComment] = useState('');
-  const [currentUserIdx, setCurrentUserIdx] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -115,7 +111,8 @@ export const ChatRoom = () => {
   };
   // 더미용이라 api연동 후 삭제 예정
   const getDateLabel = (index: number): string | null => {
-    const today = index === 0 ? '2024.03.07' : index < 6 ? '2024.03.07' : '2024.03.08';
+    const today =
+      index === 0 ? '2024.03.07' : index < 6 ? '2024.03.07' : '2024.03.08';
     const prev = index > 0 ? (index <= 6 ? '2024.03.07' : '2024.03.08') : null;
 
     return today !== prev ? today : null;
@@ -158,11 +155,15 @@ export const ChatRoom = () => {
             className="fixed top-20 z-20 mr-8 flex items-center gap-x-2 md:top-16 md:left-12 xl:top-3 xl:left-50"
           >
             <ChevronLeft className="absolute size-7 text-gray-700 md:relative md:z-20 md:block md:size-12" />
-            <div className="z-20 hidden md:flex md:text-xl md:whitespace-nowrap">이전</div>
+            <div className="z-20 hidden md:flex md:text-xl md:whitespace-nowrap">
+              이전
+            </div>
           </button>
           <div className="mt-18 flex w-full max-w-[800px] flex-col gap-4 px-4 pb-24 md:mx-auto md:mt-24">
             {chatData.map((msg, index) => {
-              const showAvatar = !msg.isMine && (index === 0 || chatData[index - 1].sender !== msg.sender);
+              const showAvatar =
+                !msg.isMine &&
+                (index === 0 || chatData[index - 1].sender !== msg.sender);
               const dateLabel = getDateLabel(index);
 
               return (
@@ -196,7 +197,11 @@ export const ChatRoom = () => {
               onKeyDown={handleKeyPress}
             />
 
-            <button className="ml-2" disabled={!comment.trim()} onClick={handleSend}>
+            <button
+              className="ml-2"
+              disabled={!comment.trim()}
+              onClick={handleSend}
+            >
               {comment.trim() ? <ActiveSendIcon /> : <SendIcon />}
             </button>
           </div>

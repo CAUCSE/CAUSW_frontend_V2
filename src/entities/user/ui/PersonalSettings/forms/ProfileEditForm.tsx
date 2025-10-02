@@ -14,9 +14,11 @@ import { MESSAGES } from '@/shared';
 
 interface ProfileEditFormProps {
   profileImagePreview: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register: UseFormRegister<any>;
   handleProfileImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNicknameBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors: any;
   userData: {
     profileImage: string;
@@ -62,7 +64,9 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
       {/* 닉네임 입력 */}
       <div className="mt-4 flex w-full flex-row lg:flex-col">
         <div className="mb-4 ml-4 w-1/2 lg:w-full">
-          <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">닉네임</label>
+          <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
+            닉네임
+          </label>
           <input
             type="text"
             {...register('nickname', {
@@ -79,13 +83,17 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
             onBlur={handleNicknameBlur}
             className="w-full rounded-md border border-gray-300 p-2 lg:w-5/6"
           />
-          {errors.nickname && <p className="text-red-500">{errors.nickname.message}</p>}
+          {errors.nickname && (
+            <p className="text-red-500">{errors.nickname.message}</p>
+          )}
         </div>
 
         {/* 학적 상태 */}
         <div className="mb-4 ml-4 w-1/2 lg:w-full">
           <div className="w-full lg:w-full">
-            <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">학적 상태</label>
+            <label className="mb-1 block text-sm font-semibold sm:text-2xl lg:text-lg">
+              학적 상태
+            </label>
             <div className="flex w-full flex-row flex-wrap rounded-md sm:flex-nowrap lg:w-5/6">
               <div className="mr-2 mb-2 w-full rounded-md border border-gray-300 p-2 text-center lg:w-3/6">
                 {userData.academicStatus === 'ENROLLED' && <>재학</>}
@@ -93,7 +101,9 @@ export const ProfileEditForm: React.FC<ProfileEditFormProps> = ({
                 {userData.academicStatus === 'GRADUATED' && <>졸업</>}
               </div>
               <div
-                onClick={() => router.push('/setting/personal-info/update-academic-record')}
+                onClick={() =>
+                  router.push('/setting/personal-info/update-academic-record')
+                }
                 className="bg-focus mr-2 mb-2 w-full rounded-md border border-gray-300 p-2 text-center text-white hover:bg-blue-400 lg:w-5/6"
               >
                 학적 상태 수정

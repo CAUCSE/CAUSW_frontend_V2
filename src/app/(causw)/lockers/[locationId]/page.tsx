@@ -22,7 +22,10 @@ const LockerSelectionPage = () => {
 
   const { data: lockerList, isLoading } = useLockerListQuery(locationId);
 
-  const myLocker = useMemo(() => lockerList?.lockerList.find((l) => l.isMine) ?? null, [lockerList]);
+  const myLocker = useMemo(
+    () => lockerList?.lockerList.find((l) => l.isMine) ?? null,
+    [lockerList],
+  );
 
   if (isLoading) return <LoadingScreen />;
 

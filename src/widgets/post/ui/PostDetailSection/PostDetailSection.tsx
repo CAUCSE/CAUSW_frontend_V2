@@ -19,7 +19,9 @@ export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
         formData={postData.formResponseDto}
       />
       <PostInfoSection
-        writerProfileImage={postData.writerProfileImage ?? '/images/default_profile.png'}
+        writerProfileImage={
+          postData.writerProfileImage ?? '/images/default_profile.png'
+        }
         writerNickname={
           postData.displayWriterNickname
             ? postData.displayWriterNickname
@@ -38,9 +40,15 @@ export const PostDetailSection = ({ postData }: PostDetailSectionProps) => {
       />
       <PostActionBar
         like={{ numLike: postData.numLike, isPostLiked: postData.isPostLike }}
-        favorite={{ numFavorite: postData.numFavorite, isPostFavorite: postData.isPostFavorite }}
+        favorite={{
+          numFavorite: postData.numFavorite,
+          isPostFavorite: postData.isPostFavorite,
+        }}
         comment={{ numComment: postData.numComment }}
-        form={{ isPostForm: postData.isPostForm, formResponseDto: postData.formResponseDto }}
+        form={{
+          isPostForm: postData.isPostForm,
+          formResponseDto: postData.formResponseDto,
+        }}
       />
     </section>
   );

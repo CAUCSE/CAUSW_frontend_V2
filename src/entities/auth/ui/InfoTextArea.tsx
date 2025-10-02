@@ -1,4 +1,9 @@
-import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from 'react-hook-form';
 
 interface Props<T extends FieldValues> {
   register: UseFormRegister<T>;

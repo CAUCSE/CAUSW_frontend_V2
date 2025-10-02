@@ -14,6 +14,7 @@ export function WarningModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   admission: any;
   type: string;
 }) {
@@ -21,10 +22,18 @@ export function WarningModal({
 
   if (!isOpen) return null;
 
-  const rejectOrExpelTarget = async (userId: string, type: string, reason: string) => {
+  const rejectOrExpelTarget = async (
+    userId: string,
+    type: string,
+    reason: string,
+  ) => {
     try {
-      await (type === 'REJECT' ? rejectAdmission(userId, reason) : expelUser(userId, reason));
-      toast.success(`${type === 'REJECT' ? '가입 신청서가 거부되었습니다' : '사용자가 추방되었습니다.'}`);
+      await (type === 'REJECT'
+        ? rejectAdmission(userId, reason)
+        : expelUser(userId, reason));
+      toast.success(
+        `${type === 'REJECT' ? '가입 신청서가 거부되었습니다' : '사용자가 추방되었습니다.'}`,
+      );
 
       let path;
       type === 'REJECT' ? (path = 'reject') : (path = 'active');
@@ -57,7 +66,8 @@ export function WarningModal({
           </button>
           <>
             <h2 className="mb-2 text-center text-lg font-semibold">
-              {admission.name ?? admission.user.name}({admission.studentId ?? admission.user.studentId}){' '}
+              {admission.name ?? admission.user.name}(
+              {admission.studentId ?? admission.user.studentId}){' '}
               {type === 'REJECT' ? '가입 거부' : '추방'} 하기
             </h2>
             <label className="mb-6 block text-center font-semibold text-red-500">
@@ -67,12 +77,18 @@ export function WarningModal({
               className="mb-24 h-3/6 w-full rounded-lg border border-gray-300 p-2"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder={type === 'REJECT' ? '가입 거부 사유 작성' : '추방 사유 작성'}
+              placeholder={
+                type === 'REJECT' ? '가입 거부 사유 작성' : '추방 사유 작성'
+              }
             />
             <button
               className={`${type === 'REJECT' ? 'bg-focus hover:bg-blue-500' : 'bg-red-500 hover:bg-red-600'} w-4/6 rounded-lg py-2 text-white`}
               onClick={() => {
-                rejectOrExpelTarget(admission.id ?? admission.user.id, type, reason);
+                rejectOrExpelTarget(
+                  admission.id ?? admission.user.id,
+                  type,
+                  reason,
+                );
               }}
             >
               {type === 'REJECT' ? '가입 거부하기' : '추방하기'}
@@ -87,10 +103,12 @@ export function WarningModal({
           </button>
           <>
             <h2 className="mt-4 mb-4 text-center text-lg font-semibold lg:text-2xl">
-              {admission.name ?? admission.user.name}({admission.studentId ?? admission.user.studentId})을 목록에서 삭제
+              {admission.name ?? admission.user.name}(
+              {admission.studentId ?? admission.user.studentId})을 목록에서 삭제
             </h2>
             <label className="text-ml mb-2 block text-center font-semibold text-red-500 lg:text-lg">
-              {admission.name ?? admission.user.name}({admission.studentId ?? admission.user.studentId})을 정말로
+              {admission.name ?? admission.user.name}(
+              {admission.studentId ?? admission.user.studentId})을 정말로
               목록에서 삭제하시겠습니까?
             </label>
             <label className="text-ml mb-6 block text-center font-semibold text-red-500 lg:text-lg">

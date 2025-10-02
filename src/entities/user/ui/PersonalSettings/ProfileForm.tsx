@@ -22,24 +22,37 @@ interface FeeInfoProps {
 }
 
 interface ProfileFormProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   userData: any;
   feeInfo: FeeInfoProps;
 }
 
-const PreviousButton = dynamic(() => import('@/shared').then((mod) => mod.PreviousButton), {
-  ssr: false,
-});
+const PreviousButton = dynamic(
+  () => import('@/shared').then((mod) => mod.PreviousButton),
+  {
+    ssr: false,
+  },
+);
 const Header = dynamic(() => import('@/shared').then((mod) => mod.Header), {
   ssr: false,
 });
-const UserInfoContainer = dynamic(() => import('./UserInfoContainer').then((mod) => mod.UserInfoContainer), {
-  ssr: false,
-});
-const ProfileEditForm = dynamic(() => import('./forms/ProfileEditForm').then((mod) => mod.ProfileEditForm), {
-  ssr: false,
-});
+const UserInfoContainer = dynamic(
+  () => import('./UserInfoContainer').then((mod) => mod.UserInfoContainer),
+  {
+    ssr: false,
+  },
+);
+const ProfileEditForm = dynamic(
+  () => import('./forms/ProfileEditForm').then((mod) => mod.ProfileEditForm),
+  {
+    ssr: false,
+  },
+);
 
-export const ProfileForm: React.FC<ProfileFormProps> = ({ userData, feeInfo }) => {
+export const ProfileForm: React.FC<ProfileFormProps> = ({
+  userData,
+  feeInfo,
+}) => {
   const {
     register,
     handleSubmit,

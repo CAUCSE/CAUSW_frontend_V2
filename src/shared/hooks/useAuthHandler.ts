@@ -7,7 +7,10 @@ export const useAuthHandler = () => {
 
   const userRole = userInfo?.roles || [];
 
-  const hasAuth = userRole.includes('ADMIN') || userRole.includes('PRESIDENT') || userRole.includes('VICE_PRESIDENT');
+  const hasAuth =
+    userRole.includes('ADMIN') ||
+    userRole.includes('PRESIDENT') ||
+    userRole.includes('VICE_PRESIDENT');
 
   return { hasAuth };
 };

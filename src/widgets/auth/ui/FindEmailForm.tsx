@@ -5,7 +5,9 @@ import { useFindEmailForm } from '@/entities/auth';
 
 const formatPhoneNumber = (value: string) => {
   if (!value) return '';
-  return value.replace(/[^0-9]/g, '').replace(/(^\d{3})(\d{3,4})(\d{4}$)/, '$1-$2-$3');
+  return value
+    .replace(/[^0-9]/g, '')
+    .replace(/(^\d{3})(\d{3,4})(\d{4}$)/, '$1-$2-$3');
 };
 
 export const FindEmailForm = () => {
@@ -18,8 +20,13 @@ export const FindEmailForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
-        <h2 className="mb-6 block text-lg font-bold text-gray-700 sm:text-xl">아이디(이메일)를 찾고 싶으신가요?</h2>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-md rounded-lg bg-white p-8 shadow-md"
+      >
+        <h2 className="mb-6 block text-lg font-bold text-gray-700 sm:text-xl">
+          아이디(이메일)를 찾고 싶으신가요?
+        </h2>
         <AuthInput
           register={register}
           name="phoneNumber"
@@ -49,7 +56,10 @@ export const FindEmailForm = () => {
       </form>
       <p className="mt-4 text-center text-sm text-gray-400">
         아이디 찾기가 정상적으로 진행되지 않을 경우 관리자(
-        <a href="mailto:caucsedongne@gmail.com" className="text-gray-500 underline">
+        <a
+          href="mailto:caucsedongne@gmail.com"
+          className="text-gray-500 underline"
+        >
           caucsedongne@gmail.com
         </a>
         )에게 문의해 주시기 바랍니다.

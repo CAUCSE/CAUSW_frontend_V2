@@ -100,7 +100,9 @@ export const ChatList = () => {
         <button onClick={() => router.back()}>
           <ChevronLeft className="size-10 text-gray-700" />
         </button>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold">쪽지함</div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-semibold">
+          쪽지함
+        </div>
         <div className="w-6" />
       </div>
 

@@ -52,7 +52,11 @@ export const ImageList = ({ images, imageSize = 80 }: ImageListProps) => {
 
       {/* 이미지 뷰어 오픈 */}
       {isViewerOpen && selectedIndex !== null && (
-        <ImageViewer images={images} initialIndex={selectedIndex} onClose={closeViewer} />
+        <ImageViewer
+          images={images}
+          initialIndex={selectedIndex}
+          onClose={closeViewer}
+        />
       )}
     </div>
   );

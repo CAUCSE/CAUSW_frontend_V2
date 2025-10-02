@@ -8,7 +8,11 @@ interface ContactDetailProps {
   infoSection?: React.ReactNode;
 }
 
-export const ContactDetail = ({ contact, actionButtons, infoSection }: ContactDetailProps) => {
+export const ContactDetail = ({
+  contact,
+  actionButtons,
+  infoSection,
+}: ContactDetailProps) => {
   return (
     <div className="flex w-full flex-col gap-8">
       <ProfileHeader contact={contact} />

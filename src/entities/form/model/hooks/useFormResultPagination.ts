@@ -1,6 +1,9 @@
 'use client';
 
-import { FetchNextPageOptions, InfiniteQueryObserverResult } from '@tanstack/react-query';
+import {
+  FetchNextPageOptions,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
 import { useShallow } from 'zustand/react/shallow';
 
 import { useFormResultStore } from '@/entities/form';
@@ -19,7 +22,9 @@ export const useFormResultPagination = () => {
     isFetchingNextPage: boolean,
     fetchNextPage: (
       options?: FetchNextPageOptions,
-    ) => Promise<InfiniteQueryObserverResult<Form.ReplyPageResponseDto[], Error>>,
+    ) => Promise<
+      InfiniteQueryObserverResult<Form.ReplyPageResponseDto[], Error>
+    >,
   ) => {
     if (currentPage + 1 <= totalDetailPage) {
       setCurrentPage(currentPage + 1);

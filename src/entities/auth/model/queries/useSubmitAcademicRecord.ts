@@ -15,7 +15,9 @@ interface UseSubmitAcademicRecordProps {
   curAcademicStatus: string;
 }
 
-export const useSubmitAcademicRecord = ({ curAcademicStatus }: UseSubmitAcademicRecordProps) => {
+export const useSubmitAcademicRecord = ({
+  curAcademicStatus,
+}: UseSubmitAcademicRecordProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -27,13 +29,18 @@ export const useSubmitAcademicRecord = ({ curAcademicStatus }: UseSubmitAcademic
 
       setTimeout(() => {
         router.push(
-          curAcademicStatus === 'UNDEFINED' && variables.targetAcademicStatus !== 'ENROLLED' ? '/auth/signin' : './',
+          curAcademicStatus === 'UNDEFINED' &&
+            variables.targetAcademicStatus !== 'ENROLLED'
+            ? '/auth/signin'
+            : './',
         );
         // UNDEFINED -> 휴학, 졸업일 경우 바로 로그인 가능하므로 로그인 페이지로 보냄
       }, 500);
     },
     onError: (error: Error.ApiErrorResponse) => {
-      toast.error(parseErrorMessage(error, '증빙 서류 제출 도중 오류가 발생했습니다.'));
+      toast.error(
+        parseErrorMessage(error, '증빙 서류 제출 도중 오류가 발생했습니다.'),
+      );
     },
   });
 };

@@ -10,8 +10,10 @@ import { useBoardCreationStore } from '../stores';
 export const useCreateBoard = () => {
   const boardName = useBoardCreationStore((state) => state.boardName);
   const { hasAuth } = useAuthHandler();
-  const { mutate: createNoticeBoard, isPending: isCreatingNoticeBoard } = useCreateNoticeBoard();
-  const { mutate: createCommonBoard, isPending: isCreatingCommonBoard } = useCreateCommonBoard();
+  const { mutate: createNoticeBoard, isPending: isCreatingNoticeBoard } =
+    useCreateNoticeBoard();
+  const { mutate: createCommonBoard, isPending: isCreatingCommonBoard } =
+    useCreateCommonBoard();
 
   const handleSubmit = async () => {
     if (boardName.trim() === '') {

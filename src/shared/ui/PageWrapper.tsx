@@ -21,5 +21,7 @@ export const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     return 'bg-slate-100';
   }, [pathname]);
 
-  return <div className={cn('min-h-screen w-full', backgroundClass)}>{children}</div>;
+  return (
+    <div className={cn('min-h-screen w-full', backgroundClass)}>{children}</div>
+  );
 };

@@ -8,7 +8,7 @@ const getFirebaseApp = () => {
   const apps = getApps();
   if (apps.length === 0) {
     // vapidKey를 제외한 설정으로 Firebase 초기화
-    const { vapidKey, ...firebaseConfig } = FIREBASE_CONFIG;
+    const { vapidKey: _vapidKey, ...firebaseConfig } = FIREBASE_CONFIG;
     return initializeApp(firebaseConfig);
   }
   return getApp();

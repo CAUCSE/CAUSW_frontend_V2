@@ -15,11 +15,20 @@ export const FormSummaryResult = () => {
   const params = useParams();
   const { formId } = params;
 
-  const { data: summaryFormResult, isPending, isSuccess } = useGetFormSummaryResult(formId as string);
+  const {
+    data: summaryFormResult,
+    isPending,
+    isSuccess,
+  } = useGetFormSummaryResult(formId as string);
 
-  const sortedQuestionIdList = useFormResultStore((state) => state.sortedQuestionIdList);
+  const sortedQuestionIdList = useFormResultStore(
+    (state) => state.sortedQuestionIdList,
+  );
 
-  const summaryFormResultMap = new Map<string, Form.QuestionSummaryResponseDto>();
+  const summaryFormResultMap = new Map<
+    string,
+    Form.QuestionSummaryResponseDto
+  >();
 
   if (isSuccess && summaryFormResult) {
     summaryFormResult.forEach((result) => {
@@ -57,7 +66,9 @@ export const FormSummaryResult = () => {
           className={`flex min-h-[50px] w-full flex-col gap-2 rounded-xs border border-black bg-white px-3 py-2 sm:min-w-[400px]`}
         >
           {result.questionType === 'OBJECTIVE' ? (
-            <ObjectiveQuestionSummaryResult objectiveQuestion={objectiveQuestion} />
+            <ObjectiveQuestionSummaryResult
+              objectiveQuestion={objectiveQuestion}
+            />
           ) : (
             <SubjectiveQuestionSummaryResult question={result} />
           )}

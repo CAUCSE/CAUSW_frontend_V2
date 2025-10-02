@@ -1,6 +1,10 @@
 'use client';
 
-import { Controller, ControllerProps, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -11,12 +15,15 @@ interface VoteOptionInputProps {
   option: string;
 }
 
-export const VoteOptionInput = ({ index, option }: VoteOptionInputProps) => {
+export const VoteOptionInput = ({ index }: VoteOptionInputProps) => {
   const { setValue, control, getValues } = useFormContext<PostSchema>();
 
   const handleOptionChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: ControllerRenderProps<PostSchema, `voteCreateRequestDto.options.${number}`>,
+    field: ControllerRenderProps<
+      PostSchema,
+      `voteCreateRequestDto.options.${number}`
+    >,
   ) => {
     field.onChange(e);
   };
@@ -49,7 +56,9 @@ export const VoteOptionInput = ({ index, option }: VoteOptionInputProps) => {
           >
             <MinusIcon width={16} height={16} />
           </button>
-          {fieldState.error && <p className="text-red-500">{fieldState.error.message}</p>}
+          {fieldState.error && (
+            <p className="text-red-500">{fieldState.error.message}</p>
+          )}
         </div>
       )}
     />

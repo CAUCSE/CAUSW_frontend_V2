@@ -5,7 +5,13 @@ import { useDeleteCalendarModal } from '@/entities/calendar';
 import { PortalModal } from '@/shared';
 
 export const CalendarDeleteModal = () => {
-  const { calendarYear, calendarMonth, cancelDelete, deleteCalendar, closeDeleteModal } = useDeleteCalendarModal();
+  const {
+    calendarYear,
+    calendarMonth,
+    cancelDelete,
+    deleteCalendar,
+    closeDeleteModal,
+  } = useDeleteCalendarModal();
 
   return (
     <PortalModal
@@ -23,10 +29,16 @@ export const CalendarDeleteModal = () => {
         </p>
       </PortalModal.Body>
       <PortalModal.Footer className="flex gap-4">
-        <button className="rounded-lg bg-gray-300 px-8 py-2 hover:bg-gray-400" onClick={cancelDelete}>
+        <button
+          className="rounded-lg bg-gray-300 px-8 py-2 hover:bg-gray-400"
+          onClick={cancelDelete}
+        >
           취소
         </button>
-        <button className="rounded-lg bg-red-500 px-8 py-2 text-white hover:bg-red-700" onClick={deleteCalendar}>
+        <button
+          className="rounded-lg bg-red-500 px-8 py-2 text-white hover:bg-red-700"
+          onClick={deleteCalendar}
+        >
           삭제
         </button>
       </PortalModal.Footer>

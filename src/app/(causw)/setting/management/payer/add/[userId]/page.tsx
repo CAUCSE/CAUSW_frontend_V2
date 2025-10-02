@@ -8,12 +8,19 @@ import toast from 'react-hot-toast';
 
 import { getUser } from '@/entities/user/api';
 import { addPayer } from '@/entities/user/api';
-import { convertDataToTableEntity, titleMapping } from '@/entities/user/config/AddPayerEntities';
+import {
+  convertDataToTableEntity,
+  titleMapping,
+} from '@/entities/user/config/AddPayerEntities';
 import { ManagementDetailInfoTable } from '@/entities/user/ui';
 
 import { Button } from '@/shared';
 
-export default function AddPayerPage({ params: { userId } }: { params: { userId: string } }) {
+export default function AddPayerPage({
+  params: { userId },
+}: {
+  params: { userId: string };
+}) {
   const [user, setUser] = useState<User.UserDto | null>(null);
   const [payNum, setPayNum] = useState<number | undefined>(8);
   const router = useRouter();
@@ -58,12 +65,23 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
         variant={payNum ? 'BLUE' : 'GRAY'}
         action={async () => {
           if (!payNum) return;
-          if (user.currentCompletedSemester === null || user.currentCompletedSemester === undefined) {
-            toast.error('등록 완료 학기 정보가 없어 학생회비 납부자 등록이 불가합니다.');
+          if (
+            user.currentCompletedSemester === null ||
+            user.currentCompletedSemester === undefined
+          ) {
+            toast.error(
+              '등록 완료 학기 정보가 없어 학생회비 납부자 등록이 불가합니다.',
+            );
             return;
           }
           try {
-            const res = await addPayer(userId, 8 - user.currentCompletedSemester, payNum, false, 0);
+            const res = await addPayer(
+              userId,
+              8 - user.currentCompletedSemester,
+              payNum,
+              false,
+              0,
+            );
             if (!res) {
               toast.error('납부자 추가 중 오류가 발생했습니다.');
               // throw new Error("납부자 추가 중 오류가 발생했습니다.");
@@ -72,7 +90,10 @@ export default function AddPayerPage({ params: { userId } }: { params: { userId:
               router.back();
             }
           } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.';
+            const errorMessage =
+              error instanceof Error
+                ? error.message
+                : '알 수 없는 오류가 발생했습니다.';
             toast.error(errorMessage);
           }
         }}

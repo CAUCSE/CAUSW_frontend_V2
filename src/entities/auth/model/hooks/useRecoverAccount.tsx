@@ -1,10 +1,9 @@
 import { useRouter } from 'next/navigation';
 
 import { useMutation } from '@tanstack/react-query';
-import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
-import { getMyInfo } from '@/entities/user/api/get';
+import { getMyInfo } from '@/entities/user';
 
 import { parseErrorMessage, setRccToken } from '@/shared';
 
@@ -14,7 +13,8 @@ export const useRecoverAccount = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: async ({ email }: User.RecoverAccountRequestDto) => await recoverAccount({ email }),
+    mutationFn: async ({ email }: User.RecoverAccountRequestDto) =>
+      await recoverAccount({ email }),
     onMutate: () => {
       return toast.loading('로딩 중...');
     },

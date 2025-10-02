@@ -11,7 +11,8 @@ import { contactQueryKey, getContacts } from '@/entities/contact';
 export const useSearchContactsQuery = (filters: Contact.ContactFilters) => {
   return useInfiniteQuery({
     queryKey: contactQueryKey.list(filters),
-    queryFn: ({ pageParam = 0 }) => getContacts({ pageNum: pageParam, filters }),
+    queryFn: ({ pageParam = 0 }) =>
+      getContacts({ pageNum: pageParam, filters }),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       return lastPage.last ? undefined : lastPage.number + 1;

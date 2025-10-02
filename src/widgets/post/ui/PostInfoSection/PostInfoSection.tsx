@@ -8,7 +8,11 @@ interface PostInfoSectionProps {
   updatedAt: Post.PostDto['updatedAt'];
 }
 
-export const PostInfoSection = ({ writerProfileImage, writerNickname, updatedAt }: PostInfoSectionProps) => {
+export const PostInfoSection = ({
+  writerProfileImage,
+  writerNickname,
+  updatedAt,
+}: PostInfoSectionProps) => {
   return (
     <section className="flex items-center gap-2 p-2">
       <PostWriterProfileImage

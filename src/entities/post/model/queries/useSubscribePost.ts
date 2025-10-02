@@ -10,9 +10,12 @@ export const useSubscribePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ postId }: { postId: Post.PostDto['id'] }) => subscribePost({ postId }),
+    mutationFn: ({ postId }: { postId: Post.PostDto['id'] }) =>
+      subscribePost({ postId }),
     onSuccess: ({ postId }) => {
-      queryClient.invalidateQueries({ queryKey: postQueryKey.detail({ postId }) });
+      queryClient.invalidateQueries({
+        queryKey: postQueryKey.detail({ postId }),
+      });
     },
     onError: () => {
       toast.error('게시글 알림 켜기에 실패했습니다.');

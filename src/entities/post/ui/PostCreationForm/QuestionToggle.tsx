@@ -1,6 +1,10 @@
 'use client';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -20,7 +24,11 @@ export const QuestionToggle = () => {
       name="isQuestion"
       control={control}
       render={({ field }) => (
-        <CustomToggle isChecked={field.value} onCheckedChange={(e) => toggleQuestion(e, field)} text="질문" />
+        <CustomToggle
+          isChecked={field.value}
+          onCheckedChange={(e) => toggleQuestion(e, field)}
+          text="질문"
+        />
       )}
     />
   );

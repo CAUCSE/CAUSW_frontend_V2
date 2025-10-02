@@ -8,7 +8,10 @@ import { ERROR_MESSAGES, MESSAGES } from '@/shared';
 
 import { getAdminCeremonyDetail } from '../api';
 
-export const useCeremonyData = ({ context, ceremonyId }: Ceremony.CeremonyDetailDataPros) => {
+export const useCeremonyData = ({
+  context,
+  ceremonyId,
+}: Ceremony.CeremonyDetailDataPros) => {
   const [ceremonyDetails, setCeremonyDetails] = useState({
     title: '',
     type: '',
@@ -27,7 +30,10 @@ export const useCeremonyData = ({ context, ceremonyId }: Ceremony.CeremonyDetail
     if (ceremonyId) {
       const fetchCeremonyDetail = async () => {
         try {
-          const cermonyContent = await getAdminCeremonyDetail({ ceremonyId, context });
+          const cermonyContent = await getAdminCeremonyDetail({
+            ceremonyId,
+            context,
+          });
 
           setCeremonyDetails({
             title: cermonyContent.title,
@@ -43,7 +49,9 @@ export const useCeremonyData = ({ context, ceremonyId }: Ceremony.CeremonyDetail
             targetAdmissionYears: cermonyContent.targetAdmissionYears,
           });
         } catch (error) {
-          toast.error(`${MESSAGES.CEREMONY.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`);
+          toast.error(
+            `${MESSAGES.CEREMONY.DETAIL_CONTENT_TITLE} - ${ERROR_MESSAGES.DETAIL_CONTENT_FETCH_FAIL}`,
+          );
         }
       };
 

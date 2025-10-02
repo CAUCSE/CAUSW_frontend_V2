@@ -17,14 +17,14 @@ interface IFormInput {
   searchContent: string;
 }
 
-const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: string } }) => {
+const RoleMandate = ({
+  params: { state, id },
+}: {
+  params: { state: string; id: string };
+}) => {
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>();
+  const { register, handleSubmit } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     getUserByName(data.searchContent).then((res) => setDate(res));
@@ -51,7 +51,9 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
         <div className="mt-7 flex w-full flex-col items-center">
           <Header bold big>
             변경할 권한:
-            <span className="ml-2 text-red-500">{userRoleCodes[state.toUpperCase() as User.Role]}</span>
+            <span className="ml-2 text-red-500">
+              {userRoleCodes[state.toUpperCase() as User.Role]}
+            </span>
           </Header>
           <div className="mb-6 flex h-14 w-full items-center justify-center">
             <form
@@ -69,7 +71,10 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
                 id="searchContent"
                 placeholder="30자 이내로 입력해주세요."
               />
-              <button className="w-36 rounded-3xl bg-red-500 text-white" type="submit">
+              <button
+                className="w-36 rounded-3xl bg-red-500 text-white"
+                type="submit"
+              >
                 검색
               </button>
             </form>
@@ -82,7 +87,9 @@ const RoleMandate = ({ params: { state, id } }: { params: { state: string; id: s
               {data.map((element) => (
                 <div
                   className={`pt-1 pb-1 pl-2 text-lg ${
-                    selectId === element.id ? 'bg-focus rounded-lg text-white' : ''
+                    selectId === element.id
+                      ? 'bg-focus rounded-lg text-white'
+                      : ''
                   }`}
                   key={element.name}
                   onClick={() => {

@@ -3,7 +3,10 @@ import { Check } from 'lucide-react';
 const VoteOptionPercentageBar = ({ percentage }: { percentage: number }) => {
   return (
     <div className="relative h-2 w-full rounded-sm bg-gray-300">
-      <div className="bg-vote-theme absolute top-0 left-0 h-full rounded-sm" style={{ width: `${percentage}%` }}></div>
+      <div
+        className="bg-vote-theme absolute top-0 left-0 h-full rounded-sm"
+        style={{ width: `${percentage}%` }}
+      ></div>
     </div>
   );
 };
@@ -14,7 +17,11 @@ interface VoteOptionResultProps {
   option: Vote.VoteOption;
 }
 
-export const VoteOptionResult = ({ votedMostOptions, option, totalVoteCount }: VoteOptionResultProps) => {
+export const VoteOptionResult = ({
+  votedMostOptions,
+  option,
+  totalVoteCount,
+}: VoteOptionResultProps) => {
   const percentage = (option.voteCount / totalVoteCount) * 100;
 
   return (

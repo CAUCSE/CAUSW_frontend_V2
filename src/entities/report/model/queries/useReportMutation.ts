@@ -3,7 +3,9 @@ import { toast } from 'react-hot-toast';
 
 import { CreateReportReq } from '@/shared/@types/report-ui';
 
-import { createReport } from '../../api/post';
+import { parseErrorMessage } from '@/shared';
+
+import { createReport } from '../../api';
 
 export const useReportMutation = () => {
   const qc = useQueryClient();
@@ -15,8 +17,8 @@ export const useReportMutation = () => {
       // 필요 시 무효화(관리자 신고목록 등)
       qc.invalidateQueries({ queryKey: ['report'] });
     },
-    onError: (err: any) => {
-      const msg = err?.response?.data?.message || err?.response?.data?.error || '신고 처리 중 오류가 발생했습니다.';
+    onError: (err: unknown) => {
+      const msg = parseErrorMessage(err, '신고 처리 중 오류가 발생했습니다.');
       toast.error(msg);
     },
   });

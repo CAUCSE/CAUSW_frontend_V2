@@ -13,7 +13,10 @@ interface PostLikeButtonProps {
   isPostLiked: boolean;
 }
 
-export const PostLikeButton = ({ numLike, isPostLiked }: PostLikeButtonProps) => {
+export const PostLikeButton = ({
+  numLike,
+  isPostLiked,
+}: PostLikeButtonProps) => {
   const { postId } = useParams() as { postId: string };
   const { mutate: toggleLikePost, isPending } = useToggleLikePost();
 

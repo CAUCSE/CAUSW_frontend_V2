@@ -7,7 +7,10 @@ interface LockerExtendBtnProps {
   disable: boolean;
 }
 
-export const LockerExtendBtn = ({ isMobile, disable }: LockerExtendBtnProps) => {
+export const LockerExtendBtn = ({
+  isMobile,
+  disable,
+}: LockerExtendBtnProps) => {
   const { handleExtendLocker } = useExtendLocker();
   return (
     <button

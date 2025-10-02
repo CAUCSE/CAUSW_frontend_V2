@@ -45,7 +45,11 @@ const navigation = [
   },
 ];
 
-const RoleManagement = async ({ params: { state } }: { params: { state: string } }) => {
+const RoleManagement = async ({
+  params: { state },
+}: {
+  params: { state: string };
+}) => {
   const allRoles = await getPrivilegedUsers();
 
   //TODO: 가독성 수정 필요
@@ -54,8 +58,13 @@ const RoleManagement = async ({ params: { state } }: { params: { state: string }
       ? allRoles.vicePresidentUser
       : state === 'council'
         ? allRoles.councilUsers
-        : state === 'leader_1' || state === 'leader_2' || state === 'leader_3' || state === 'leader_4'
-          ? allRoles.leaderGradeUsers.filter((element) => element.roles.includes(state.toUpperCase() as User.Role))
+        : state === 'leader_1' ||
+            state === 'leader_2' ||
+            state === 'leader_3' ||
+            state === 'leader_4'
+          ? allRoles.leaderGradeUsers.filter((element) =>
+              element.roles.includes(state.toUpperCase() as User.Role),
+            )
           : state === 'circleleader'
             ? allRoles.leaderCircleUsers
             : state === 'alumunileader'

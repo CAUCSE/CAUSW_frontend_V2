@@ -3,7 +3,9 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { resetPassword } from '../../api/post';
+import { parseErrorMessage } from '@/shared';
+
+import { resetPassword } from '../../api';
 
 export const useResetPasswordForm = () => {
   const router = useRouter();
@@ -12,18 +14,17 @@ export const useResetPasswordForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
   } = useForm<User.ResetPasswordFormData>();
 
   const onSubmit = async (data: User.ResetPasswordFormData) => {
     try {
-      const { confirmPassword, ...submitData } = data;
+      const { confirmPassword: _confirmPassword, ...submitData } = data;
       await resetPassword(submitData);
       toast.success('비밀번호가 성공적으로 변경되었습니다.');
 
       router.push('/setting');
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || '알 수 없는 오류가 발생했습니다.');
+    } catch (error: unknown) {
+      toast.error(parseErrorMessage(error, '알 수 없는 오류가 발생했습니다.'));
     }
   };
 

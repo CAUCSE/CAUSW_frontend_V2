@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 
-import { FieldValues, Path, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import {
+  FieldValues,
+  Path,
+  RegisterOptions,
+  UseFormRegister,
+} from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 interface InputProps<T extends FieldValues> {
@@ -43,7 +48,10 @@ export const AuthInput = <T extends FieldValues>({
   return (
     <div className="mx-auto mb-6 flex w-full max-w-md flex-col">
       {label && (
-        <label htmlFor={rest.id || name} className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl">
+        <label
+          htmlFor={rest.id || name}
+          className="mb-2 block text-lg font-bold text-gray-700 sm:text-xl"
+        >
           {label}
         </label>
       )}

@@ -1,17 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
-
-import { LOCKER_CONSTANT } from '@/shared';
 
 import { putLockerRegister } from '../../api';
 import { lockerQueryKey } from '../../config';
 
-export const useRegisterLockerMutation = (opts?: { onSuccess?: () => void }) => {
+export const useRegisterLockerMutation = (opts?: {
+  onSuccess?: () => void;
+}) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (lockerId: string) => putLockerRegister(lockerId),
-    onSuccess: (res: AxiosResponse<{ myLocker?: { lockerNumber: string } }>) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: lockerQueryKey.all });
 
       // 사물함 위치 정보 추후 추가 예정

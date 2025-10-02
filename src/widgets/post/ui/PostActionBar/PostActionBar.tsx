@@ -1,4 +1,9 @@
-import { PostCommentCountBadge, PostFormWriteButton, PostLikeButton, PostScrapButton } from '@/entities/post';
+import {
+  PostCommentCountBadge,
+  PostFormWriteButton,
+  PostLikeButton,
+  PostScrapButton,
+} from '@/entities/post';
 
 interface PostActionButtonGroupProps {
   like: {
@@ -17,13 +22,23 @@ interface PostActionButtonGroupProps {
     formResponseDto: Post.PostDto['formResponseDto'];
   };
 }
-export const PostActionBar = ({ like, favorite, comment, form }: PostActionButtonGroupProps) => {
+export const PostActionBar = ({
+  like,
+  favorite,
+  comment,
+  form,
+}: PostActionButtonGroupProps) => {
   return (
     <div className="flex gap-3 p-2">
       <PostLikeButton numLike={like.numLike} isPostLiked={like.isPostLiked} />
-      <PostScrapButton numFavorite={favorite.numFavorite} isPostFavorite={favorite.isPostFavorite} />
+      <PostScrapButton
+        numFavorite={favorite.numFavorite}
+        isPostFavorite={favorite.isPostFavorite}
+      />
       <PostCommentCountBadge numComment={comment.numComment} />
-      {form.isPostForm && form.formResponseDto?.formId && <PostFormWriteButton formId={form.formResponseDto.formId} />}
+      {form.isPostForm && form.formResponseDto?.formId && (
+        <PostFormWriteButton formId={form.formResponseDto.formId} />
+      )}
     </div>
   );
 };

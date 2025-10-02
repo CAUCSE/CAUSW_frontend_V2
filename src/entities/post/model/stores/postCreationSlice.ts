@@ -13,12 +13,18 @@ interface PostCreationAction {
 
 export type PostCreationSlice = PostCreationState & PostCreationAction;
 
-export const createPostCreationSlice: StateCreator<PostCreationSlice, [], [], PostCreationSlice> = (set) => ({
+export const createPostCreationSlice: StateCreator<
+  PostCreationSlice,
+  [],
+  [],
+  PostCreationSlice
+> = (set) => ({
   isVote: false,
   isApply: false,
 
   toggleVote: () => set((state) => ({ isVote: !state.isVote, isApply: false })),
-  toggleApply: () => set((state) => ({ isVote: false, isApply: !state.isApply })),
+  toggleApply: () =>
+    set((state) => ({ isVote: false, isApply: !state.isApply })),
   clearPost: () => {
     set({
       isApply: false,

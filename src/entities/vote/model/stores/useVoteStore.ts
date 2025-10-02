@@ -35,8 +35,13 @@ export const useVoteStore = create<VoteState>((set) => ({
   votedMostOptions: [],
 
   setVote: (voteData: Post.VoteResponseDto) => {
-    const totalVotes = voteData.options.reduce((total, option) => total + option.voteCount, 0);
-    const maxVoteCount = Math.max(...voteData.options.map((option) => option.voteCount));
+    const totalVotes = voteData.options.reduce(
+      (total, option) => total + option.voteCount,
+      0,
+    );
+    const maxVoteCount = Math.max(
+      ...voteData.options.map((option) => option.voteCount),
+    );
     const mostVotedOptions = voteData.options
       .filter((option) => option.voteCount === maxVoteCount)
       .map((option) => option.id);
@@ -51,13 +56,22 @@ export const useVoteStore = create<VoteState>((set) => ({
   incrementVoteCount: (optionId: string) =>
     set((state) => {
       const newOptions = state.voteOptions.map((option) =>
-        option.id === optionId ? { ...option, voteCount: option.voteCount + 1 } : option,
+        option.id === optionId
+          ? { ...option, voteCount: option.voteCount + 1 }
+          : option,
       );
-      const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
+      const newTotalVote = newOptions.reduce(
+        (total, option) => total + option.voteCount,
+        0,
+      );
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
-        vote: { ...state.vote, options: newOptions, totalUserCount: state.vote.totalUserCount + 1 },
+        vote: {
+          ...state.vote,
+          options: newOptions,
+          totalUserCount: state.vote.totalUserCount + 1,
+        },
       };
     }),
 
@@ -65,14 +79,23 @@ export const useVoteStore = create<VoteState>((set) => ({
   decrementVoteCount: (optionId: string) =>
     set((state) => {
       const newOptions = state.voteOptions.map((option) =>
-        option.id === optionId && option.voteCount > 0 ? { ...option, voteCount: option.voteCount - 1 } : option,
+        option.id === optionId && option.voteCount > 0
+          ? { ...option, voteCount: option.voteCount - 1 }
+          : option,
       );
-      const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
+      const newTotalVote = newOptions.reduce(
+        (total, option) => total + option.voteCount,
+        0,
+      );
 
       return {
         voteOptions: newOptions,
         totalVote: newTotalVote,
-        vote: { ...state.vote, options: newOptions, totalUserCount: state.vote.totalUserCount - 1 },
+        vote: {
+          ...state.vote,
+          options: newOptions,
+          totalUserCount: state.vote.totalUserCount - 1,
+        },
       };
     }),
 
@@ -89,10 +112,17 @@ export const useVoteStore = create<VoteState>((set) => ({
   castVote: (optionIds: string[]) =>
     set((state) => {
       const newOptions = state.voteOptions.map((option) =>
-        optionIds.includes(option.id) ? { ...option, voteCount: option.voteCount + 1 } : option,
+        optionIds.includes(option.id)
+          ? { ...option, voteCount: option.voteCount + 1 }
+          : option,
       );
-      const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
-      const maxVoteCount = Math.max(...newOptions.map((option) => option.voteCount));
+      const newTotalVote = newOptions.reduce(
+        (total, option) => total + option.voteCount,
+        0,
+      );
+      const maxVoteCount = Math.max(
+        ...newOptions.map((option) => option.voteCount),
+      );
       const mostVotedOptions = newOptions
         .filter((option) => option.voteCount === maxVoteCount)
         .map((option) => option.id);
@@ -101,17 +131,29 @@ export const useVoteStore = create<VoteState>((set) => ({
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: true, options: newOptions, totalUserCount: state.vote.totalUserCount + 1 }, // hasVoted를 true로 설정
+        vote: {
+          ...state.vote,
+          hasVoted: true,
+          options: newOptions,
+          totalUserCount: state.vote.totalUserCount + 1,
+        }, // hasVoted를 true로 설정
       };
     }),
 
   cancelVote: (optionIds: string[]) =>
     set((state) => {
       const newOptions = state.voteOptions.map((option) =>
-        optionIds.includes(option.id) ? { ...option, voteCount: option.voteCount - 1 } : option,
+        optionIds.includes(option.id)
+          ? { ...option, voteCount: option.voteCount - 1 }
+          : option,
       );
-      const newTotalVote = newOptions.reduce((total, option) => total + option.voteCount, 0);
-      const maxVoteCount = Math.max(...newOptions.map((option) => option.voteCount));
+      const newTotalVote = newOptions.reduce(
+        (total, option) => total + option.voteCount,
+        0,
+      );
+      const maxVoteCount = Math.max(
+        ...newOptions.map((option) => option.voteCount),
+      );
       const mostVotedOptions = newOptions
         .filter((option) => option.voteCount === maxVoteCount)
         .map((option) => option.id);
@@ -120,7 +162,12 @@ export const useVoteStore = create<VoteState>((set) => ({
         voteOptions: newOptions,
         totalVote: newTotalVote,
         votedMostOptions: mostVotedOptions,
-        vote: { ...state.vote, hasVoted: false, options: newOptions, totalUserCount: state.vote.totalUserCount - 1 }, // hasVoted를 true로 설정
+        vote: {
+          ...state.vote,
+          hasVoted: false,
+          options: newOptions,
+          totalUserCount: state.vote.totalUserCount - 1,
+        }, // hasVoted를 true로 설정
       };
     }),
 
