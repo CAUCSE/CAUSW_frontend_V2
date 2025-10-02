@@ -10,7 +10,7 @@ import { BlockUserDialog } from '@/widgets/block';
 import { ReportReasonDialog } from '@/widgets/report';
 
 import { useDeletePost, useSubscribePost, useUnsubscribePost } from '@/entities/post';
-import { getUserRole } from '@/entities/user';
+import { isAdmin, useMyInfo } from '@/entities/user';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
@@ -32,7 +32,8 @@ export const PostActionDropdown = ({
 }: PostActionDropdownProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const isAdmin = getUserRole(['ADMIN']);
+  const { data: userInfo } = useMyInfo();
+  const roles = userInfo?.roles || [];
 
   const { mutate: deletePost } = useDeletePost();
   const { mutate: unsubscribePost } = useUnsubscribePost();
@@ -52,6 +53,9 @@ export const PostActionDropdown = ({
     setDropdownOpen(false);
     setBlockOpen(true);
   };
+  const canDeletePost = isOwner || isAdmin(roles);
+  const canReportAndBlock = !isOwner;
+  const canViewForm = isOwner && isPostForm;
 
   return (
     <>
@@ -70,7 +74,7 @@ export const PostActionDropdown = ({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end">
-          {(isOwner || isAdmin) && <DropdownMenuItem onClick={() => deletePost({ postId })}>삭제하기</DropdownMenuItem>}
+          {canDeletePost && <DropdownMenuItem onClick={() => deletePost({ postId })}>삭제하기</DropdownMenuItem>}
 
           <DropdownMenuItem
             onClick={() => {
@@ -80,13 +84,13 @@ export const PostActionDropdown = ({
             {isPostSubscribed ? '알람 끄기' : '알람 켜기'}
           </DropdownMenuItem>
 
-          {isOwner && isPostForm && (
+          {canViewForm && (
             <DropdownMenuItem onClick={() => router.push(`${pathname}/formInfo/${formData?.formId}`)}>
               신청 현황 보기
             </DropdownMenuItem>
           )}
 
-          {!isOwner && (
+          {canReportAndBlock && (
             <>
               <DropdownMenuItem onClick={openReport}>신고하기</DropdownMenuItem>
               <DropdownMenuItem onClick={openBlockUser}>차단하기</DropdownMenuItem>

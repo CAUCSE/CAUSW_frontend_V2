@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { usePathname, useSearchParams } from 'next/navigation';
 
-import * as gtag from '@/shared/lib/gtag';
+import * as gtag from '@/shared';
 
 export const GA = () => {
   const pathname = usePathname();

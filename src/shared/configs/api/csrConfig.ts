@@ -1,13 +1,10 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
+import Cookies from 'js-cookie';
 import qs from 'qs';
 
-import { detectDeviceType } from '@/shared';
-import { noAccessTokenCode, noPermissionCode, noRefreshTokenCode } from '@/shared';
-import { tokenManager } from '@/shared';
+import { isNativeApp, noAccessTokenCode, noPermissionCode, noRefreshTokenCode, secureStorage, tokenManager } from '@/shared';
 
 import { BASEURL } from './url';
-
 export const API = axios.create({
   baseURL: BASEURL,
   headers: {
@@ -39,23 +36,16 @@ const refreshAndRetryQueue: RetryQueueItem[] = [];
 let isRefreshing = false;
 
 const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
-const getIsNativeApp = () => {
-  const deviceType = detectDeviceType();
-  return deviceType === 'ios' || deviceType === 'ipad' || deviceType === 'android';
-};
+const storageAccessKey = 'CAUCSE_JWT_ACCESS';
 
 export const setRccToken = async (access: string, refresh: string | false) => {
   API.defaults.headers['Authorization'] = `Bearer ${access}`;
   FORMAPI.defaults.headers['Authorization'] = `Bearer ${access}`;
+
   if (refresh) {
-    if (getIsNativeApp()) {
-      await SecureStoragePlugin.set({
-        key: storageRefreshKey,
-        value: refresh,
-      });
-    } else {
-      localStorage.setItem(storageRefreshKey, refresh);
-    }
+    Cookies.set(storageAccessKey, access);
+    Cookies.set(storageRefreshKey, refresh);
+    await secureStorage.set(storageRefreshKey, refresh);
   }
 };
 
@@ -67,28 +57,22 @@ export const removeRccAccess = () => {
 export const getRccAccess = (): string => (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
 
 export const removeRccRefresh = async (): Promise<void> => {
-  if (getIsNativeApp()) {
-    await SecureStoragePlugin.remove({ key: storageRefreshKey });
+  if (isNativeApp()) {
+    await secureStorage.remove(storageRefreshKey);
   } else {
-    localStorage.removeItem(storageRefreshKey);
+    Cookies.remove(storageRefreshKey);
   }
 };
 
 export const getRccRefresh = async (): Promise<string | null> => {
-  if (getIsNativeApp()) {
-    try {
-      const { value } = await SecureStoragePlugin.get({ key: storageRefreshKey });
-      return value;
-    } catch (error) {
-      return null;
-    }
-  } else {
-    return localStorage.getItem(storageRefreshKey);
+  if (isNativeApp()) {
+    return await secureStorage.get(storageRefreshKey);
   }
+  return Cookies.get(storageRefreshKey) || null;
 };
 
 const handleError = async (error: any, axiosInstance: typeof API | typeof FORMAPI) => {
-  const { updateAccess, signoutAndRedirect } = tokenManager();
+  const { signoutAndRedirect } = tokenManager();
 
   if (error.response) {
     const {
