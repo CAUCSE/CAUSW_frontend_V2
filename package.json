@@ -29,6 +29,8 @@
     "@capacitor/ios": "^7.4.2",
     "@capacitor/push-notifications": "^7.0.2",
     "@capacitor/status-bar": "^7.0.1",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^5.0.1",
