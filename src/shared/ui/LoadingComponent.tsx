@@ -9,7 +9,7 @@ export const LoadingComponent = ({
 }) => {
   const baseClass =
     'fixed top-0 left-0 z-50 flex h-full w-full flex-col items-center justify-center text-2xl font-bold text-white';
-
+  
   const opacityClass =
     variant === 'full-opacity' ? 'opacity-60 bg-black' : 'bg-black opacity-60';
 
