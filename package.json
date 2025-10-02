@@ -11,7 +11,15 @@
     "format": "prettier --write \"**/*.{js,ts,jsx,tsx,json,css,html}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "generate:sitemap": "next-sitemap",
-    "ts:check": "tsc --noEmit"
+    "ts:check": "tsc --noEmit",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --cache --write"
+    ]
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
@@ -84,6 +92,8 @@
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
     "postcss": "^8.4.39",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
