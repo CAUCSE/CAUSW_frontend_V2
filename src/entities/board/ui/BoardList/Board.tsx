@@ -119,6 +119,7 @@ export const Board = ({
                 title={content.title}
               >
                 <span className="block w-full truncate text-xl font-medium">
+                  {content.isQuestion ? '[질문] ' : ''}
                   {content.title}
                 </span>
                 <div className="text-base text-gray-400">
