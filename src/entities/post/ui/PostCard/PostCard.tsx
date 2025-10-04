@@ -26,6 +26,7 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
       <div className="grid h-full w-full grid-rows-[1fr_1.5rem]">
         <div className="flex h-15 w-full justify-between gap-[22px] md:h-[85px] md:gap-[30px]">
           <p className="line-clamp-2 h-14 text-xl font-bold md:h-20 md:text-[32px]">
+            {post.isQuestion ? '[질문] ' : ''}
             {post.title}
           </p>
           <div className="h-15 w-15 shrink-0 overflow-hidden rounded-lg sm:h-30 sm:w-30">
