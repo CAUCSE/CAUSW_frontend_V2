@@ -56,6 +56,19 @@ export default function RootLayout({
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
           />
           <meta name="mobile-web-app-capable" content="yes" />
+          {/* Clarity Script */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "tyc5wk0ji5");
+          `,
+            }}
+          />
+
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
