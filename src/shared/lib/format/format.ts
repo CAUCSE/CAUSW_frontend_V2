@@ -48,12 +48,13 @@ export const formatPhoneNumber = (value: string) => {
     const formatted = cleaned.substring(0, 11);
     const match = formatted.match(/^(\d{3})(\d{0,4})(\d{0,4})$/);
     if (match) {
-      return !match[2] ? match[1] : `${match[1]}-${match[2]}${match[3] ? `-${match[3]}` : ''}`;
+      return !match[2]
+        ? match[1]
+        : `${match[1]}-${match[2]}${match[3] ? `-${match[3]}` : ''}`;
     }
   }
   return cleaned.substring(0, 11);
 };
-
 
 // yyyy-mm-dd 형식
 export const formatDateInput = (value: string): string => {

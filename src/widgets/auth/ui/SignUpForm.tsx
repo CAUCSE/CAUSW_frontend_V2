@@ -11,7 +11,8 @@ import { SignUpFormFields } from './SignUpFormFields';
 
 export const SignUpForm = () => {
   const router = useRouter();
-  const { register, handleSubmit, watch, errors, onSubmit, onInvalid } = useSignUpForm();
+  const { register, handleSubmit, watch, errors, onSubmit, onInvalid } =
+    useSignUpForm();
 
   return (
     <div className="flex h-screen w-full min-w-80 flex-col rounded-md p-2">

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export const useLayoutStore = create<Layout.UseLayoutStore>((set, get) => ({
+export const useLayoutStore = create<Layout.UseLayoutStore>((set) => ({
   sm: false,
   md: false,
   lg: false,

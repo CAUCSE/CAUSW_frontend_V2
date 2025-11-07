@@ -1,6 +1,10 @@
 'use client';
 
-import { Controller, ControllerRenderProps, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  ControllerRenderProps,
+  useFormContext,
+} from 'react-hook-form';
 
 import { PostSchema } from '@/entities/post';
 
@@ -27,7 +31,9 @@ export const VoteTitleInput = () => {
             onChange={(e) => handleVoteTitleChange(e, field)}
             className="border-b-post-title-input placeholder:text-create-post-text w-full border-black bg-transparent p-1 text-lg focus:outline-hidden md:text-2xl lg:p-2"
           />
-          {fieldState.error && <p className="text-red-500">{fieldState.error.message}</p>}
+          {fieldState.error && (
+            <p className="text-red-500">{fieldState.error.message}</p>
+          )}
         </div>
       )}
     />

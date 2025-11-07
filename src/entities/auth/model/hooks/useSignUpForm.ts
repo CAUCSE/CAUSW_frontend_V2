@@ -38,6 +38,7 @@ export const useSignUpForm = () => {
         acc[key] = postData[key];
         return acc;
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {} as Record<string, any>,
     );
     submitSignUp.mutate(newPostData as User.SignUpFormPost);

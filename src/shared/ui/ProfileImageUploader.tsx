@@ -15,7 +15,11 @@ interface Props<T extends FieldValues> {
   defaultValue?: string;
 }
 
-export const ProfileImageUploader = <T extends FieldValues>({ name, setValue, defaultValue = '' }: Props<T>) => {
+export const ProfileImageUploader = <T extends FieldValues>({
+  name,
+  setValue,
+  defaultValue = '',
+}: Props<T>) => {
   const [preview, setPreview] = useState<string>(defaultValue);
   useEffect(() => {
     setPreview(defaultValue);
@@ -24,6 +28,7 @@ export const ProfileImageUploader = <T extends FieldValues>({ name, setValue, de
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setValue(name, file as any, { shouldValidate: true });
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -36,7 +41,12 @@ export const ProfileImageUploader = <T extends FieldValues>({ name, setValue, de
     <div className="group relative h-24 w-24">
       <div className="relative h-full w-full overflow-hidden rounded-full">
         {preview ? (
-          <Image src={preview} alt="프로필 미리보기" fill className="object-cover" />
+          <Image
+            src={preview}
+            alt="프로필 미리보기"
+            fill
+            className="object-cover"
+          />
         ) : (
           <UserCircle className="h-full w-full text-gray-300" />
         )}
@@ -50,7 +60,13 @@ export const ProfileImageUploader = <T extends FieldValues>({ name, setValue, de
       >
         {preview ? <Pencil size={24} /> : <Plus size={32} />}
       </label>
-      <input id="profile-image-upload" type="file" accept="image/*" onChange={handleChange} className="hidden" />
+      <input
+        id="profile-image-upload"
+        type="file"
+        accept="image/*"
+        onChange={handleChange}
+        className="hidden"
+      />
     </div>
   );
 };

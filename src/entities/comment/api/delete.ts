@@ -1,6 +1,10 @@
 import { API } from '@/shared';
 
-import type { DeleteChildCommentParam, DeleteCommentParam, UnsubscribeCommentParam } from '../type';
+import type {
+  DeleteChildCommentParam,
+  DeleteCommentParam,
+  UnsubscribeCommentParam,
+} from '../type';
 
 export const deleteComment = async (param: DeleteCommentParam) => {
   return await API.delete(`/api/v1/comments/${param.commentId}`);

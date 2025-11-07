@@ -6,11 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --cache --cache-location ./node_modules/.cache/.eslintcache",
+    "lint": "next lint",
+    "lint--fix": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
     "format": "prettier --write \"**/*.{js,ts,jsx,tsx,json,css,html}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
     "generate:sitemap": "next-sitemap",
-    "ts:check": "tsc --noEmit"
+    "ts:check": "tsc --noEmit",
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --cache --write"
+    ]
   },
   "dependencies": {
     "@capacitor/android": "^7.4.3",
@@ -20,6 +29,8 @@
     "@capacitor/ios": "^7.4.2",
     "@capacitor/push-notifications": "^7.0.2",
     "@capacitor/status-bar": "^7.0.1",
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^5.0.1",
@@ -77,11 +88,14 @@
     "@types/react": "^18",
     "@types/react-csv": "^1.1.10",
     "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.3",
     "postcss": "^8.4.39",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.11",

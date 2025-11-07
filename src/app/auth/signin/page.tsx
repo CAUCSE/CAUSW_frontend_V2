@@ -10,7 +10,11 @@ import toast from 'react-hot-toast';
 
 import { SignInFooter } from '@/widgets/auth';
 
-import { SignInInput, SignInSubmitButton, useRecoverAccount } from '@/entities/auth';
+import {
+  SignInInput,
+  SignInSubmitButton,
+  useRecoverAccount,
+} from '@/entities/auth';
 import { useLogin } from '@/entities/auth/model/hooks/useLogin';
 import { usePushNotification } from '@/entities/notification/model/usePushNotification';
 
@@ -38,7 +42,7 @@ const SignInPage = () => {
 
   const { compareFCMToken } = usePushNotification();
 
-  const { register, handleSubmit, control, watch } = useForm<User.SignInRequestDto>({
+  const { register, handleSubmit, watch } = useForm<User.SignInRequestDto>({
     defaultValues: {
       email: '',
       password: '',
@@ -72,7 +76,7 @@ const SignInPage = () => {
 
     checkLogin();
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/firebase-messaging-sw.js').then((registration) => {});
+      navigator.serviceWorker.register('/firebase-messaging-sw.js');
     }
   }, []);
 
@@ -121,8 +125,17 @@ const SignInPage = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="mb-1 flex w-full flex-col items-center justify-center gap-1 sm:gap-3.5"
           >
-            <SignInInput register={register} name="email" placeholder="이메일을 입력해주세요" />
-            <SignInInput register={register} name="password" type="password" placeholder="비밀번호를 입력해주세요" />
+            <SignInInput
+              register={register}
+              name="email"
+              placeholder="이메일을 입력해주세요"
+            />
+            <SignInInput
+              register={register}
+              name="password"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+            />
 
             <div className="mt-1 flex w-full items-center gap-2"></div>
             <SignInSubmitButton />

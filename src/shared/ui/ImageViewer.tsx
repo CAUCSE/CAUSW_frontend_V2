@@ -12,7 +12,11 @@ interface ImageViewerProps {
   onClose: () => void;
 }
 
-export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerProps) => {
+export const ImageViewer = ({
+  images,
+  initialIndex = 0,
+  onClose,
+}: ImageViewerProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
   // 이전 이미지
@@ -66,7 +70,8 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
             className="absolute left-0 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
             onClick={prevImage}
           >
-            <ChevronLeft className="h-8 w-8 pr-0.5 lg:h-12 lg:w-12" /> {/* 아이콘으로 대체 */}
+            <ChevronLeft className="h-8 w-8 pr-0.5 lg:h-12 lg:w-12" />{' '}
+            {/* 아이콘으로 대체 */}
           </button>
         )}
 
@@ -88,7 +93,8 @@ export const ImageViewer = ({ images, initialIndex = 0, onClose }: ImageViewerPr
             className="absolute right-0 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-3xl font-bold text-gray-500 backdrop-blur-md transition duration-300 hover:bg-black/70 hover:text-white lg:h-14 lg:w-14"
             onClick={nextImage}
           >
-            <ChevronRight className="h-8 w-8 pl-0.5 lg:h-12 lg:w-12" /> {/* 아이콘으로 대체 */}
+            <ChevronRight className="h-8 w-8 pl-0.5 lg:h-12 lg:w-12" />{' '}
+            {/* 아이콘으로 대체 */}
           </button>
         )}
       </div>

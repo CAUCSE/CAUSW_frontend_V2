@@ -32,14 +32,18 @@ export const useUploadFile = () => {
     }
 
     if (selectedFileList.length >= FILE_UPLOAD_RULES.MAX_FILE_COUNT) {
-      toast.error(`파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`);
+      toast.error(
+        `파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`,
+      );
       return;
     }
 
     addFile(file);
   };
 
-  const handleUploadMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadMultipleFiles = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const files = e.target.files;
     if (!files || files.length === 0) {
       return;
@@ -47,8 +51,13 @@ export const useUploadFile = () => {
 
     const filesArray = Array.from(files);
 
-    if (selectedFileList.length + filesArray.length > FILE_UPLOAD_RULES.MAX_FILE_COUNT) {
-      toast.error(`파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`);
+    if (
+      selectedFileList.length + filesArray.length >
+      FILE_UPLOAD_RULES.MAX_FILE_COUNT
+    ) {
+      toast.error(
+        `파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`,
+      );
       return;
     }
 
@@ -65,7 +74,9 @@ export const useUploadFile = () => {
       }
 
       if (selectedFileList.length >= FILE_UPLOAD_RULES.MAX_FILE_COUNT) {
-        toast.error(`파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`);
+        toast.error(
+          `파일은 최대 ${FILE_UPLOAD_RULES.MAX_FILE_COUNT}개까지 업로드할 수 있습니다.`,
+        );
         break; // 더 이상 추가하지 않음
       }
 

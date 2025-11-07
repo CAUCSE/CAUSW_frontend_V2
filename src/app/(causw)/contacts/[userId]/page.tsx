@@ -19,7 +19,7 @@ export default function ContactDetailPage() {
   const params = useParams();
   const userId = params.userId as string;
   const [isMobile, setIsMobile] = useState(false);
-  const { data: contact, isLoading, isError } = useGetContactByIdQuery(userId);
+  const { data: contact } = useGetContactByIdQuery(userId);
 
   useEffect(() => {
     setIsMobile(/Mobi|Android/i.test(navigator.userAgent));
@@ -48,11 +48,19 @@ export default function ContactDetailPage() {
   const actionButtons =
     !contact.isPhoneNumberVisible && contact.phoneNumber !== '전화번호 없음' ? (
       <div className="flex w-full items-center justify-center gap-4 pt-4 md:pt-10">
-        <Button variant="neutral" className="flex-1 rounded-lg" onClick={handleCall}>
+        <Button
+          variant="neutral"
+          className="flex-1 rounded-lg"
+          onClick={handleCall}
+        >
           <Phone size={16} className="mr-2" />
           전화
         </Button>
-        <Button variant="neutral" className="flex-1 rounded-lg" onClick={handleMessage}>
+        <Button
+          variant="neutral"
+          className="flex-1 rounded-lg"
+          onClick={handleMessage}
+        >
           <MessageSquare size={16} className="mr-2" />
           메세지
         </Button>
@@ -69,7 +77,9 @@ export default function ContactDetailPage() {
   return (
     <div className="relative top-3 left-4 w-[calc(100%-2rem)] pb-12 md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
       <PreviousButton className="mb-8" />
-      <div className="mb-10 text-center text-2xl font-medium md:text-3xl">동문수첩</div>
+      <div className="mb-10 text-center text-2xl font-medium md:text-3xl">
+        동문수첩
+      </div>
       <ContactDetail
         contact={contact}
         actionButtons={actionButtons}

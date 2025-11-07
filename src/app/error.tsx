@@ -10,7 +10,13 @@ import { LoadingComponent } from '@/shared';
 import { getRscRefresh, noAccessTokenCode, noPermissionCode } from '@/shared';
 import { tokenManager } from '@/shared';
 
-const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) => {
+const Error = ({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) => {
   const router = useRouter();
   const { signoutAndRedirect, updateAccess } = tokenManager();
 
@@ -34,7 +40,8 @@ const Error = ({ error, reset }: { error: Error & { digest?: string }; reset: ()
   useEffect(() => {
     if (noAccessTokenCode.includes(error.message)) {
       handleNoAccesss();
-    } else if (noPermissionCode.includes(error.message)) router.push('/no-permission');
+    } else if (noPermissionCode.includes(error.message))
+      router.push('/no-permission');
     else {
       signoutAndRedirect();
     }

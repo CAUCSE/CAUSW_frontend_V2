@@ -9,4 +9,4 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FB_APPID,
 };
 
-const app = initializeApp(firebaseConfig);
+const _app = initializeApp(firebaseConfig);

@@ -2,7 +2,11 @@
 
 import { useShallow } from 'zustand/react/shallow';
 
-import { CalendarCard, useCalendarStore, useGetCalendarList } from '@/entities/calendar';
+import {
+  CalendarCard,
+  useCalendarStore,
+  useGetCalendarList,
+} from '@/entities/calendar';
 
 import { EmptyComponent, LoadingComponent } from '@/shared';
 

@@ -9,11 +9,17 @@ import { useGetPostDetail } from '@/entities/post';
 
 import { LoadingScreen, PreviousButton } from '@/shared';
 
-const PostDetailPage = ({ params }: { params: { boardId: string; postId: string } }) => {
+const PostDetailPage = ({
+  params,
+}: {
+  params: { boardId: string; postId: string };
+}) => {
   const { boardId, postId } = params;
 
   const router = useRouter();
-  const { data: postDetail, isLoading: isPostDetailLoading } = useGetPostDetail({ postId });
+  const { data: postDetail, isLoading: isPostDetailLoading } = useGetPostDetail(
+    { postId },
+  );
 
   const routerCallback = () => {
     if (boardId === 'my' || boardId === 'search') {

@@ -12,7 +12,7 @@ import { useUserProfile } from '@/entities/user';
 import { ProfileImage } from '@/shared/ui';
 
 import { Button } from '@/shadcn/components/ui';
-import { SubHeader, tokenManager } from '@/shared';
+import { SubHeader } from '@/shared';
 
 interface SideBarProps {
   className?: string;
@@ -61,7 +61,10 @@ export const SideBar = ({ className }: SideBarProps) => {
       <Link href="/contacts/profile" className="cursor-pointer max-xl:hidden">
         <ProfileImage src={profileImage} />
       </Link>
-      <Link href="/contacts/profile" className="mr-2 flex cursor-pointer flex-col items-center xl:mr-0 xl:items-center">
+      <Link
+        href="/contacts/profile"
+        className="mr-2 flex cursor-pointer flex-col items-center xl:mr-0 xl:items-center"
+      >
         <SubHeader big>{name}</SubHeader>
         <SubHeader gray>{email}</SubHeader>
       </Link>

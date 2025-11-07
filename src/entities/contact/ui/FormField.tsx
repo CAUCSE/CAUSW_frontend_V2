@@ -7,7 +7,12 @@ interface FormFieldProps {
   children: React.ReactNode;
 }
 
-export const FormField = ({ label, hint, errorMessage, children }: FormFieldProps) => {
+export const FormField = ({
+  label,
+  hint,
+  errorMessage,
+  children,
+}: FormFieldProps) => {
   return (
     <div className="grid w-full items-center gap-2">
       <Label htmlFor={label}>{label}</Label>

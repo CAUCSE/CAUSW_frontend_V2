@@ -6,7 +6,9 @@ interface LockerSelectionHeaderProps {
   lockerList: Locker.LockersResponseDto;
 }
 
-export const LockerSelectionHeader = ({ lockerList }: LockerSelectionHeaderProps) => {
+export const LockerSelectionHeader = ({
+  lockerList,
+}: LockerSelectionHeaderProps) => {
   const { floor } = LOCKER_CONSTANT();
 
   let availableLockerCount = 0;

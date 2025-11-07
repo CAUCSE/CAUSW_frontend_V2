@@ -1,14 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import {
-  Sheet,
-  SheetContent,
-  SheetFooter,
-} from '@/shadcn/components/ui/sheet';
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/shadcn/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shadcn/components/ui/select';
-import { ToggleGroup, ToggleGroupItem } from '@/shadcn/components/ui/toggle-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shadcn/components/ui/select';
+import { Sheet, SheetContent, SheetFooter } from '@/shadcn/components/ui/sheet';
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from '@/shadcn/components/ui/toggle-group';
 
 interface ContactFilterSheetProps {
   open: boolean;
@@ -17,7 +23,12 @@ interface ContactFilterSheetProps {
   onApply: (filters: Contact.ContactFilters) => void;
 }
 
-export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply }: ContactFilterSheetProps) => {
+export const ContactFilterSheet = ({
+  open,
+  onOpenChange,
+  initialFilters,
+  onApply,
+}: ContactFilterSheetProps) => {
   const currentYear = new Date().getFullYear();
   const defaultFilters = {
     admissionYearStart: 1972,
@@ -25,7 +36,10 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
     academicStatus: [],
   };
 
-  const [tempFilters, setTempFilters] = useState<Contact.ContactFilters>({ ...defaultFilters, ...initialFilters });
+  const [tempFilters, setTempFilters] = useState<Contact.ContactFilters>({
+    ...defaultFilters,
+    ...initialFilters,
+  });
   const [openSelect, setOpenSelect] = useState<'start' | 'end' | null>(null);
 
   useEffect(() => {
@@ -34,7 +48,10 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
     }
   }, [open, initialFilters, currentYear]);
 
-  const yearOptions = Array.from({ length: currentYear - 1972 + 1 }, (_, i) => currentYear - i);
+  const yearOptions = Array.from(
+    { length: currentYear - 1972 + 1 },
+    (_, i) => currentYear - i,
+  );
 
   const handleApply = () => {
     onApply(tempFilters);
@@ -56,22 +73,47 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
             <div className="mt-2 flex items-center gap-2">
               <Select
                 open={openSelect === 'start'}
-                onOpenChange={(isOpen) => setOpenSelect(isOpen ? 'start' : null)}
+                onOpenChange={(isOpen) =>
+                  setOpenSelect(isOpen ? 'start' : null)
+                }
                 value={tempFilters.admissionYearStart?.toString()}
-                onValueChange={(v) => setTempFilters((p) => ({ ...p, admissionYearStart: Number(v) }))}
+                onValueChange={(v) =>
+                  setTempFilters((p) => ({
+                    ...p,
+                    admissionYearStart: Number(v),
+                  }))
+                }
               >
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="h-60">{yearOptions.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}</SelectContent>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="h-60">
+                  {yearOptions.map((y) => (
+                    <SelectItem key={y} value={y.toString()}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
               <span>~</span>
               <Select
                 open={openSelect === 'end'}
                 onOpenChange={(isOpen) => setOpenSelect(isOpen ? 'end' : null)}
                 value={tempFilters.admissionYearEnd?.toString()}
-                onValueChange={(v) => setTempFilters((p) => ({ ...p, admissionYearEnd: Number(v) }))}
+                onValueChange={(v) =>
+                  setTempFilters((p) => ({ ...p, admissionYearEnd: Number(v) }))
+                }
               >
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent className="h-60">{yearOptions.map(y => <SelectItem key={y} value={y.toString()}>{y}</SelectItem>)}</SelectContent>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="h-60">
+                  {yearOptions.map((y) => (
+                    <SelectItem key={y} value={y.toString()}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
             </div>
           </div>
@@ -82,13 +124,21 @@ export const ContactFilterSheet = ({ open, onOpenChange, initialFilters, onApply
               type="multiple"
               className="mt-2 flex justify-start gap-2"
               value={tempFilters.academicStatus || []}
-              onValueChange={(values: ('ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED')[]) => {
+              onValueChange={(
+                values: ('ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED')[],
+              ) => {
                 setTempFilters((p) => ({ ...p, academicStatus: values }));
               }}
             >
-              <ToggleGroupItem value="ENROLLED" className="font-normal">재학생</ToggleGroupItem>
-              <ToggleGroupItem value="LEAVE_OF_ABSENCE" className="font-normal">휴학생</ToggleGroupItem>
-              <ToggleGroupItem value="GRADUATED" className="font-normal">졸업생</ToggleGroupItem>
+              <ToggleGroupItem value="ENROLLED" className="font-normal">
+                재학생
+              </ToggleGroupItem>
+              <ToggleGroupItem value="LEAVE_OF_ABSENCE" className="font-normal">
+                휴학생
+              </ToggleGroupItem>
+              <ToggleGroupItem value="GRADUATED" className="font-normal">
+                졸업생
+              </ToggleGroupItem>
             </ToggleGroup>
           </div>
         </div>

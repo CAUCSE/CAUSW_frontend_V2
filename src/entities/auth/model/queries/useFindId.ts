@@ -13,7 +13,13 @@ export const useFindId = () => {
     })),
   );
   return useMutation({
-    mutationFn: async ({ phoneNumber, name }: { phoneNumber: string; name: string }) => {
+    mutationFn: async ({
+      phoneNumber,
+      name,
+    }: {
+      phoneNumber: string;
+      name: string;
+    }) => {
       const { email } = await findId({ phoneNumber, name });
       return email;
     },

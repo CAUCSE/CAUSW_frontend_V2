@@ -1,6 +1,9 @@
 'use client';
 
-import { FetchNextPageOptions, InfiniteQueryObserverResult } from '@tanstack/react-query';
+import {
+  FetchNextPageOptions,
+  InfiniteQueryObserverResult,
+} from '@tanstack/react-query';
 
 import { PostCard } from '@/entities/post';
 
@@ -21,7 +24,12 @@ interface BoardPostListProps {
   >;
 }
 
-export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetchNextPage }: BoardPostListProps) => {
+export const BoardPostList = ({
+  postList,
+  isFetchingNextPage,
+  hasNextPage,
+  fetchNextPage,
+}: BoardPostListProps) => {
   const fetchCallback: IntersectionObserverCallback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting && hasNextPage) {
@@ -43,7 +51,9 @@ export const BoardPostList = ({ postList, isFetchingNextPage, hasNextPage, fetch
   return (
     <div className="flex w-full grow flex-col gap-4 overflow-y-auto px-4 pb-2">
       {postList!.length === 0 ? (
-        <div className="flex h-full w-full items-center justify-center text-2xl">게시글이 없습니다.</div>
+        <div className="flex h-full w-full items-center justify-center text-2xl">
+          게시글이 없습니다.
+        </div>
       ) : (
         <>
           {postList!

@@ -11,16 +11,29 @@ import {
 import { ImageUploadField, MESSAGES, PreviousButton } from '@/shared';
 import { Header } from '@/shared';
 
-import { getYearOptions, MONTH_OPTIONS, SEMESTER_OPTIONS, STATUS_OPTIONS } from '../config/academicRecord';
+import {
+  getYearOptions,
+  MONTH_OPTIONS,
+  SEMESTER_OPTIONS,
+  STATUS_OPTIONS,
+} from '../config/academicRecord';
 
 interface AcademicRecordFormProps {
   curAcademicStatus: User.AcademicStatus;
-  onClose?: () => void;
-  rejectionReason?: string;
 }
 
-export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason }: AcademicRecordFormProps) => {
-  const { register, handleSubmit, watch, errors, onSubmit, onInvalid, setValue } = useAcademicRecordForm({
+export const AcademicRecordForm = ({
+  curAcademicStatus,
+}: AcademicRecordFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    errors,
+    onSubmit,
+    onInvalid,
+    setValue,
+  } = useAcademicRecordForm({
     curAcademicStatus,
   });
 
@@ -37,14 +50,17 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
       >
         <Header bold>학부 재학 증빙 서류 제출</Header>
         <p className="hidden text-gray-600 lg:block">
-          재학 중일 시 학부 사무실, 동문회 등의 사업/행사 신청을 위한 증빙 절차입니다. 증빙이 되지 않으면 휴학/졸업이
-          아닌 재학 중인 회원은 서비스 이용이 어렵습니다.
+          재학 중일 시 학부 사무실, 동문회 등의 사업/행사 신청을 위한 증빙
+          절차입니다. 증빙이 되지 않으면 휴학/졸업이 아닌 재학 중인 회원은
+          서비스 이용이 어렵습니다.
         </p>
         <AcademicStatusSelect
           register={register}
           name="targetAcademicStatus"
           label="본 학기 학적 상태"
-          options={STATUS_OPTIONS.filter((opt) => opt.value !== curAcademicStatus)}
+          options={STATUS_OPTIONS.filter(
+            (opt) => opt.value !== curAcademicStatus,
+          )}
           rules={academicRecordValidationRules.targetAcademicStatus}
           errorMessage={errors.targetAcademicStatus?.message}
         />
@@ -96,9 +112,15 @@ export const AcademicRecordForm = ({ curAcademicStatus, onClose, rejectionReason
             errorMessage={errors.images?.message}
             maxFiles={1}
           >
-            <p className="text-md text-error mt-1">mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.</p>
-            <p className="text-md text-error">(이외의 파일로는 재학 증빙이 불가능합니다.)</p>
-            <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
+            <p className="text-md text-error mt-1">
+              mportal &gt; 내 정보수정 &gt; 등록현황 캡처본을 첨부해주세요.
+            </p>
+            <p className="text-md text-error">
+              (이외의 파일로는 재학 증빙이 불가능합니다.)
+            </p>
+            <p className="mb-2 text-sm text-gray-400">
+              {MESSAGES.FILE_TYPE_INFO}
+            </p>
           </ImageUploadField>
         )}
         <AuthFormSubmitButton content="제출" />

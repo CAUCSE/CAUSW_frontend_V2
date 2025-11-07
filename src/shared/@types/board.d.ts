@@ -34,6 +34,7 @@ declare namespace Board {
     displayWriterNickname: string;
     createdAt: string;
     isAnonymous: boolean;
+    isQuestion: boolean;
   }
   export interface CreateBoardDto {
     boardName: string;

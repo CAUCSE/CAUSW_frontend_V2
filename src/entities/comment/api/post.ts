@@ -1,7 +1,6 @@
 import { API } from '@/shared';
 
 import type {
-  LikeChildCommentParam,
   LikeCommentParam,
   PostChildCommentRequestDto,
   PostCommentRequestDto,

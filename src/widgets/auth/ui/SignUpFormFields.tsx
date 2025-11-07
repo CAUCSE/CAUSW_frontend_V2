@@ -1,6 +1,11 @@
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
 
-import { AuthInput, SignUpCheckbox, SignUpSelect, signUpValidationRules } from '@/entities/auth';
+import {
+  AuthInput,
+  SignUpCheckbox,
+  SignUpSelect,
+  signUpValidationRules,
+} from '@/entities/auth';
 
 import { formatPhoneNumber } from '@/shared';
 
@@ -49,7 +54,8 @@ export const SignUpFormFields = ({ register, errors, watch }: Props) => {
           type="password"
           rules={{
             ...signUpValidationRules.pwConfirm,
-            validate: (value) => value === password || '비밀번호가 일치하지 않습니다.',
+            validate: (value) =>
+              value === password || '비밀번호가 일치하지 않습니다.',
           }}
           label="비밀번호 확인"
           placeholder="8자리 이상, 영어/숫자/특수 문자"

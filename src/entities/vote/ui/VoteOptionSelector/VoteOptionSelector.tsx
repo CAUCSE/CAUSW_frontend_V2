@@ -9,8 +9,12 @@ interface VoteOptionSelectorProps {
   allOptionIds: string[];
 }
 
-export const VoteOptionSelector = ({ option, allowMultiple, allOptionIds }: VoteOptionSelectorProps) => {
-  const { control, setValue, getValues } = useFormContext();
+export const VoteOptionSelector = ({
+  option,
+  allowMultiple,
+  allOptionIds,
+}: VoteOptionSelectorProps) => {
+  const { control, setValue } = useFormContext();
   return (
     <Controller
       control={control}
@@ -22,11 +26,17 @@ export const VoteOptionSelector = ({ option, allowMultiple, allOptionIds }: Vote
           } else {
             if (e.target.checked) {
               allOptionIds.forEach((id) => {
-                setValue(id, id === option.id, { shouldValidate: true, shouldDirty: true });
+                setValue(id, id === option.id, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
               });
               field.onChange(true);
             } else {
-              setValue(option.id, false, { shouldValidate: true, shouldDirty: true });
+              setValue(option.id, false, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
               field.onChange(false);
             }
           }

@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -24,7 +22,10 @@ export function Banner({ images, urls, loop }: BannerProps) {
         className="h-[17vh] w-full"
       >
         {images.map((image, idx) => (
-          <SwiperSlide key={idx} className="flex items-center justify-center text-center">
+          <SwiperSlide
+            key={idx}
+            className="flex items-center justify-center text-center"
+          >
             {/* <Image
               src={image}
               alt={image}

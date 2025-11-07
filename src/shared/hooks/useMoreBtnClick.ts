@@ -2,7 +2,10 @@
 
 import { useEffect } from 'react';
 
-export const useMoreBtnClick = (ref: React.RefObject<HTMLElement>, callback: () => void) => {
+export const useMoreBtnClick = (
+  ref: React.RefObject<HTMLElement>,
+  callback: () => void,
+) => {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {

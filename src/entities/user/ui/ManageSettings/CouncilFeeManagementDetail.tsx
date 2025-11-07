@@ -5,19 +5,32 @@
 import dynamic from 'next/dynamic';
 
 import { getUserCouncilFeeInfo } from '../../api';
-import { convertDataToTableEntity, titleMapping } from '../../config/CouncilFeeManagementDetailEntities';
+import {
+  convertDataToTableEntity,
+  titleMapping,
+} from '../../config/CouncilFeeManagementDetailEntities';
 
-const CouncilFeeButtons = dynamic(() => import('./buttons').then((mod) => mod.CouncilFeeButtons), {
-  ssr: false,
-});
+const CouncilFeeButtons = dynamic(
+  () => import('./buttons').then((mod) => mod.CouncilFeeButtons),
+  {
+    ssr: false,
+  },
+);
 const ManagementDetailInfoTable = dynamic(
-  () => import('./ManagementDetailInfoTable').then((mod) => mod.ManagementDetailInfoTable),
+  () =>
+    import('./ManagementDetailInfoTable').then(
+      (mod) => mod.ManagementDetailInfoTable,
+    ),
   {
     ssr: false,
   },
 );
 
-export async function CouncilFeeManagementDetail({ councilFeeId }: { councilFeeId: string }) {
+export async function CouncilFeeManagementDetail({
+  councilFeeId,
+}: {
+  councilFeeId: string;
+}) {
   let userCouncilFeeInfo: Setting.UserCouncilFeeInfoDTO | undefined;
   try {
     userCouncilFeeInfo = await getUserCouncilFeeInfo(councilFeeId);
@@ -31,8 +44,13 @@ export async function CouncilFeeManagementDetail({ councilFeeId }: { councilFeeI
       <p className="text-[18px] font-semibold lg:text-[40px]">
         {`${userCouncilFeeInfo.userName}${userCouncilFeeInfo.studentId ? `(${userCouncilFeeInfo.studentId})` : ''}의 정보`}
       </p>
-      <ManagementDetailInfoTable data={convertDataToTableEntity(userCouncilFeeInfo)} titleMapping={titleMapping} />
-      <CouncilFeeButtons params={{ councilFeeId, isRefunded }}></CouncilFeeButtons>
+      <ManagementDetailInfoTable
+        data={convertDataToTableEntity(userCouncilFeeInfo)}
+        titleMapping={titleMapping}
+      />
+      <CouncilFeeButtons
+        params={{ councilFeeId, isRefunded }}
+      ></CouncilFeeButtons>
     </div>
   );
 }

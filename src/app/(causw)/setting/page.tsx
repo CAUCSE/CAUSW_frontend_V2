@@ -13,15 +13,11 @@ import {
   isAdmin,
   isAlumniLeader,
   isAlumniManager,
-  isCircleLeader,
-  isCouncil,
   isGraduate,
   isPresidents,
   isStudent,
-  isStudentLeader,
   isVicePresidents,
   useMyInfo,
-  userRoleCodes,
 } from '@/entities/user/model';
 
 import { LoadingComponent } from '@/shared/ui';
@@ -42,15 +38,12 @@ const SettingsPage = () => {
   if (!userInfo) return notFound();
 
   const roles = userInfo.roles;
-  const isPureGraduate = isGraduate(userInfo.academicStatus) && !isAlumniLeader(roles) && !isAlumniManager(roles);
-  const isAdminGroup = isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles);
-
-  const circleIdIfLeader = userInfo.circleIdIfLeader;
-  const circleNameIfLeader = userInfo.circleNameIfLeader;
-  const roleItems: {
-    name: string;
-    link: string;
-  }[] = [];
+  const isPureGraduate =
+    isGraduate(userInfo.academicStatus) &&
+    !isAlumniLeader(roles) &&
+    !isAlumniManager(roles);
+  const isAdminGroup =
+    isAdmin(roles) || isPresidents(roles) || isVicePresidents(roles);
 
   // roles.forEach((role) => {
   //   if (role !== 'LEADER_CIRCLE')
@@ -94,7 +87,10 @@ const SettingsPage = () => {
       { name: '내가 찜한 게시글', link: '/setting/my/favorite' },
       { name: '내 동문수첩', link: '/contacts/profile' },
     ],
-    contact: [{ name: '메일 : caucsedongne@gmail.com' }, { name: '인스타그램 : @causwcse_dongne' }],
+    contact: [
+      { name: '메일 : caucsedongne@gmail.com' },
+      { name: '인스타그램 : @causwcse_dongne' },
+    ],
     managementAlumniPresident: [{ name: '유저 관리', link: '/' }],
     managementAdmin: [
       // { name: '권한 관리', link: '/setting/management/role/president' },
@@ -107,7 +103,9 @@ const SettingsPage = () => {
       { name: '이벤트 배너 관리', link: '/setting/home/banner' },
       { name: '캘린더 관리', link: '/setting/home/calendar' },
     ],
-    homeManagementAlumniLeader: [{ name: '이벤트 배너 관리', link: '/setting/home/banner' }],
+    homeManagementAlumniLeader: [
+      { name: '이벤트 배너 관리', link: '/setting/home/banner' },
+    ],
 
     /* clubManagement: (circleId: string) => [
       {
@@ -120,7 +118,9 @@ const SettingsPage = () => {
       },
     ], */
 
-    boardManagement: [{ name: '게시판 생성 신청 관리', link: '/setting/management/board' }],
+    boardManagement: [
+      { name: '게시판 생성 신청 관리', link: '/setting/management/board' },
+    ],
 
     report: [
       { name: '신고 콘텐츠 목록', link: '/setting/management/report/content' },
@@ -151,11 +151,17 @@ const SettingsPage = () => {
         {items.map((item, index) => (
           <li key={index} className="mb-2">
             {item.link ? (
-              <Link href={item.link} className="text-black-500 hover:text-gray-500 hover:underline">
+              <Link
+                href={item.link}
+                className="text-black-500 hover:text-gray-500 hover:underline"
+              >
                 {item.name}
               </Link>
             ) : item.onClick ? (
-              <button onClick={item.onClick} className="text-black-500 text-left hover:text-gray-500 hover:underline">
+              <button
+                onClick={item.onClick}
+                className="text-black-500 text-left hover:text-gray-500 hover:underline"
+              >
                 {item.name}
               </button>
             ) : (
@@ -179,7 +185,10 @@ const SettingsPage = () => {
         {/* 학생 또는 졸업생인 경우 */}
         {(isStudent(roles) || isPureGraduate) && !isAdminGroup && (
           <>
-            <MenuItem title="경조사 관리" items={menuItems.occasionUserManagement} />
+            <MenuItem
+              title="경조사 관리"
+              items={menuItems.occasionUserManagement}
+            />
           </>
         )}
 
@@ -214,8 +223,14 @@ const SettingsPage = () => {
         {(isAlumniLeader(roles) || isAlumniManager(roles)) && (
           <>
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
-            <MenuItem title="홈 화면 관리" items={menuItems.homeManagementAlumniLeader} />
-            <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
+            <MenuItem
+              title="홈 화면 관리"
+              items={menuItems.homeManagementAlumniLeader}
+            />
+            <MenuItem
+              title="경조사 관리"
+              items={menuItems.occasionManagement}
+            />
           </>
         )}
 
@@ -226,7 +241,10 @@ const SettingsPage = () => {
             {/* <MenuItem title="권한 위임" items={menuItems.delegation} /> */}
             <MenuItem title="홈 화면 관리" items={menuItems.homeManagement} />
             <MenuItem title="게시판 관리" items={menuItems.boardManagement} />
-            <MenuItem title="경조사 관리" items={menuItems.occasionManagement} />
+            <MenuItem
+              title="경조사 관리"
+              items={menuItems.occasionManagement}
+            />
             <MenuItem title="신고" items={menuItems.report} />
           </>
         )}
@@ -240,8 +258,12 @@ const SettingsPage = () => {
     <div className="flex min-h-screen items-start justify-center">
       <div className="w-full max-w-6xl px-4 pb-6 sm:px-6 lg:px-8">
         <h1 className="mt-8 mb-8 text-3xl font-bold">환경설정</h1>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">{renderMenuItems()}</div>
-        {isUseTermsOpen && <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          {renderMenuItems()}
+        </div>
+        {isUseTermsOpen && (
+          <UseTerms closeModal={() => setIsUseTermsOpen(false)}></UseTerms>
+        )}
         {showDeleteConfirm && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
             <div className="w-96 rounded-lg bg-white p-6 shadow-lg">

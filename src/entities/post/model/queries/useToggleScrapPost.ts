@@ -14,7 +14,13 @@ export const useToggleScrapPost = () => {
   const { boardId } = useParams() as { boardId: string };
 
   return useMutation({
-    mutationFn: async ({ postId, isPostFavorite }: { postId: Post.PostDto['id']; isPostFavorite: boolean }) => {
+    mutationFn: async ({
+      postId,
+      isPostFavorite,
+    }: {
+      postId: Post.PostDto['id'];
+      isPostFavorite: boolean;
+    }) => {
       if (isPostFavorite) {
         await unSrapPost({ postId });
       } else {
@@ -23,12 +29,16 @@ export const useToggleScrapPost = () => {
       return { postId };
     },
     onSuccess: ({ postId }) => {
-      queryClient.invalidateQueries({ queryKey: postQueryKey.detail({ postId }) });
+      queryClient.invalidateQueries({
+        queryKey: postQueryKey.detail({ postId }),
+      });
       queryClient.invalidateQueries({ queryKey: postQueryKey.list(boardId) });
     },
     onError: (error) => {
       if (isAxiosError(error)) {
-        toast.error(error.response?.data.message ?? '즐겨찾기 관련 에러가 발생했습니다.');
+        toast.error(
+          error.response?.data.message ?? '즐겨찾기 관련 에러가 발생했습니다.',
+        );
         return;
       }
       toast.error('즐겨찾기 관련 에러가 발생했습니다.');

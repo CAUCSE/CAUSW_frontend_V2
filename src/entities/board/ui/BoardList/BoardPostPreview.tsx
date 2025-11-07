@@ -1,6 +1,9 @@
 import Link from 'next/link';
 
-export const BoardPostPreview = ({ contents, boardId }: Pick<Board.BoardResponseDto, 'contents' | 'boardId'>) => {
+export const BoardPostPreview = ({
+  contents,
+  boardId,
+}: Pick<Board.BoardResponseDto, 'contents' | 'boardId'>) => {
   return (
     <>
       {contents.map((content) => (

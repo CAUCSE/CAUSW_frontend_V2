@@ -143,7 +143,9 @@ export type InfoTableEntity = {
   evidentImg: string;
 };
 
-export const convertAdmissionDataToTableEntity = (data: Setting.GetAdmissionResponseDto): InfoTableEntity => {
+export const convertAdmissionDataToTableEntity = (
+  data: Setting.GetAdmissionResponseDto,
+): InfoTableEntity => {
   const {
     email,
     major,
@@ -171,18 +173,25 @@ export const convertAdmissionDataToTableEntity = (data: Setting.GetAdmissionResp
     major: major ?? '-',
     name: name ?? '-',
     studentId: studentId ?? '-',
-    leftPayedSemester: currentCompletedSemester ? `${8 - currentCompletedSemester}차 학기` : '-',
+    leftPayedSemester: currentCompletedSemester
+      ? `${8 - currentCompletedSemester}차 학기`
+      : '-',
     admissionYear: admissionYear ? admissionYear.toString() : '-',
     nickname: nickname ?? '-',
     graduateYearMonth: `${graduationYear ?? '-'}/${graduationType ? (+graduationType < 10 ? '0' + graduationType : graduationType) : '-'} `,
     academicStatus: academicStatus ? academicStatusMap[academicStatus] : '-',
-    enrolledSemester: currentCompletedSemester ? `${currentCompletedSemester}차 학기` : '-',
+    enrolledSemester: currentCompletedSemester
+      ? `${currentCompletedSemester}차 학기`
+      : '-',
     phoneNumber: phoneNumber ?? '-',
-    requestedAt: requestedAt ? requestedAt.split('T')[0].replaceAll('-', '.') : '-',
+    requestedAt: requestedAt
+      ? requestedAt.split('T')[0].replaceAll('-', '.')
+      : '-',
     evidentImg: evidentImg ?? '-',
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const convertUserDataToTableEntity = (data: any): any => {
   const {
     email,
@@ -211,16 +220,22 @@ export const convertUserDataToTableEntity = (data: any): any => {
     major: major ?? '-',
     name: name ?? '-',
     studentId: studentId ?? '-',
-    leftPayedSemester: currentCompletedSemester ? `${8 - currentCompletedSemester}차 학기` : '-',
+    leftPayedSemester: currentCompletedSemester
+      ? `${8 - currentCompletedSemester}차 학기`
+      : '-',
     admissionYear: admissionYear.toString() ?? '-',
     nickname: nickname ?? '-',
     graduateYearMonth: graduationYear
       ? `${graduationYear}/${+graduationType < 10 ? '0' + graduationType : graduationType}`
       : '-',
     academicStatus: academicStatusMap[academicStatus] || '-',
-    enrolledSemester: currentCompletedSemester ? `${currentCompletedSemester}차 학기` : '-',
+    enrolledSemester: currentCompletedSemester
+      ? `${currentCompletedSemester}차 학기`
+      : '-',
     phoneNumber: phoneNumber ?? '-',
-    requestedAt: requestedAt ? requestedAt.split('T')[0].replaceAll('-', '.') : '-',
+    requestedAt: requestedAt
+      ? requestedAt.split('T')[0].replaceAll('-', '.')
+      : '-',
     evidentImg: evidentImg ?? '-',
     rejectionOrDropReason: rejectionOrDropReason || '-',
   };
@@ -247,7 +262,8 @@ export const titleMappingForCircle = Object.keys(titleMapping)
   .filter((key) => !['requestedAt', 'leftPayedSemester'].includes(key))
   .reduce(
     (obj, key) => {
-      obj[key as keyof InfoTableEntity] = titleMapping[key as keyof InfoTableEntity];
+      obj[key as keyof InfoTableEntity] =
+        titleMapping[key as keyof InfoTableEntity];
       return obj;
     },
     {} as Record<keyof InfoTableEntity, string>,
@@ -255,13 +271,13 @@ export const titleMappingForCircle = Object.keys(titleMapping)
 
 // 거절, 추방 회원에 대한 titlemapping
 
-export const titleMappingForRejected: Record<keyof any, string> = {
+export const titleMappingForRejected: Record<keyof unknown, string> = {
   ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
   evidentImg: '학부 재적/졸업 증빙 자료',
   rejectionOrDropReason: '거부/ 추방 사유', // 추가된 항목
 };
 
-export const titleMappingForUser: Record<keyof any, string> = {
+export const titleMappingForUser: Record<keyof unknown, string> = {
   ...titleMapping, // 기존 타이틀 매핑을 그대로 가져옴
   evidentImg: '학부 재적/졸업 증빙 자료',
 };

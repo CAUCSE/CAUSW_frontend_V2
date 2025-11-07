@@ -1,5 +1,8 @@
-import { AnonymousToggle, MultipleSelectionToggle, VoteTitleInput } from '@/entities/vote';
-import { useVoteStore } from '@/entities/vote/model/stores';
+import {
+  AnonymousToggle,
+  MultipleSelectionToggle,
+  VoteTitleInput,
+} from '@/entities/vote';
 
 import { VoteOptionList } from './VoteOptionList';
 

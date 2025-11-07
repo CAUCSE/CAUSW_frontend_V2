@@ -9,9 +9,12 @@ import { postQueryKey } from '../../config';
 export const useUnsubscribePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ postId }: { postId: Post.PostDto['id'] }) => unsubscribePost({ postId }),
+    mutationFn: ({ postId }: { postId: Post.PostDto['id'] }) =>
+      unsubscribePost({ postId }),
     onSuccess: ({ postId }) => {
-      queryClient.invalidateQueries({ queryKey: postQueryKey.detail({ postId }) });
+      queryClient.invalidateQueries({
+        queryKey: postQueryKey.detail({ postId }),
+      });
     },
     onError: () => {
       toast.error('게시글 알림 끄기에 실패했습니다.');

@@ -21,7 +21,12 @@ interface BoardCreationAction {
 
 export type BoardCreationSlice = BoardCreationState & BoardCreationAction;
 
-export const createBoardCreationSlice: StateCreator<BoardCreationSlice, [], [], BoardCreationSlice> = (set) => ({
+export const createBoardCreationSlice: StateCreator<
+  BoardCreationSlice,
+  [],
+  [],
+  BoardCreationSlice
+> = (set) => ({
   boardName: '',
   boardDescription: '',
   allowAnonymous: false,

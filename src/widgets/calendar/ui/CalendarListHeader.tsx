@@ -14,14 +14,15 @@ import { CustomSelect, generateYearList } from '@/shared';
 import AddIcon from '../../../../public/icons/add_icon.svg';
 
 export const CalendarListHeader = () => {
-  const { calendarYear, setCalendarYear, isAddModalOpen, openAddModal } = useCalendarStore(
-    useShallow((state) => ({
-      calendarYear: state.calendarYear,
-      setCalendarYear: state.setCalendarYear,
-      isAddModalOpen: state.isAddModalOpen,
-      openAddModal: state.openAddModal,
-    })),
-  );
+  const { calendarYear, setCalendarYear, isAddModalOpen, openAddModal } =
+    useCalendarStore(
+      useShallow((state) => ({
+        calendarYear: state.calendarYear,
+        setCalendarYear: state.setCalendarYear,
+        isAddModalOpen: state.isAddModalOpen,
+        openAddModal: state.openAddModal,
+      })),
+    );
 
   const yearList = generateYearList();
 

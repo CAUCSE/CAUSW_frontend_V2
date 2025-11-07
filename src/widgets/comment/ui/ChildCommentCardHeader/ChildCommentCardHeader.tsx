@@ -1,4 +1,7 @@
-import { ChildCommentActionDropdown, CommentInfoSection } from '@/entities/comment';
+import {
+  ChildCommentActionDropdown,
+  CommentInfoSection,
+} from '@/entities/comment';
 
 interface ChildCommentCardHeaderProps {
   childComment: Pick<
@@ -15,7 +18,9 @@ interface ChildCommentCardHeaderProps {
   >;
 }
 
-export const ChildCommentCardHeader = ({ childComment }: ChildCommentCardHeaderProps) => {
+export const ChildCommentCardHeader = ({
+  childComment,
+}: ChildCommentCardHeaderProps) => {
   return (
     <header className="flex items-center justify-between">
       {/* ✅ 차단된 경우 프로필/닉네임 숨기고 안내 문구만 */}
@@ -38,7 +43,10 @@ export const ChildCommentCardHeader = ({ childComment }: ChildCommentCardHeaderP
 
       {/* ✅ 삭제되었거나 차단된 경우는 액션 버튼 숨김 */}
       {!childComment.isDeleted && !childComment.isBlocked && (
-        <ChildCommentActionDropdown commentId={childComment.id} isOwner={childComment.isOwner} />
+        <ChildCommentActionDropdown
+          commentId={childComment.id}
+          isOwner={childComment.isOwner}
+        />
       )}
     </header>
   );

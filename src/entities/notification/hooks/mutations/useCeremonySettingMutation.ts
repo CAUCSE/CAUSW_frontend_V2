@@ -3,7 +3,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { createCeremonyNotificationSetting, updateCeremonySetting } from '@/entities/ceremony';
+import {
+  createCeremonyNotificationSetting,
+  updateCeremonySetting,
+} from '@/entities/ceremony';
 
 import { ceremonyQueryKey } from '../queries/ceremonyQueryKey';
 
@@ -12,7 +15,9 @@ export const useCeremonySettingMutation = (isUpdate: boolean) => {
 
   return useMutation({
     mutationFn: (payload: Ceremony.NotificationSettingPayload) => {
-      return isUpdate ? updateCeremonySetting(payload) : createCeremonyNotificationSetting(payload);
+      return isUpdate
+        ? updateCeremonySetting(payload)
+        : createCeremonyNotificationSetting(payload);
     },
     onSuccess: () => {
       toast.success('설정이 저장되었습니다.');

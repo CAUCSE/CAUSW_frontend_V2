@@ -6,7 +6,11 @@ import { useShallow } from 'zustand/react/shallow';
 import { useLockerSelectionStore } from '../stores/useLockerSelectionStore';
 import { useRegisterLockerMutation } from './useRegisterLockerMutation';
 
-export const useRegisterLocker = ({ onSuccess }: { onSuccess?: () => void }) => {
+export const useRegisterLocker = ({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) => {
   const { clickedLockerId, clickedLockerStatus } = useLockerSelectionStore(
     useShallow((state) => ({
       clickedLockerId: state.clickedLockerId,

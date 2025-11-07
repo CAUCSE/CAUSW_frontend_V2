@@ -10,7 +10,13 @@ export const useDeleteCalendar = () => {
   const closeDeleteModal = useCalendarStore((state) => state.closeDeleteModal);
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ calendarId, calendarYear }: { calendarId: string; calendarYear: number }) => {
+    mutationFn: async ({
+      calendarId,
+      calendarYear,
+    }: {
+      calendarId: string;
+      calendarYear: number;
+    }) => {
       await API.delete(`/api/v1/calendars/${calendarId}`);
       return calendarYear;
     },

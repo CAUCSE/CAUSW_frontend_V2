@@ -8,7 +8,11 @@ import { isNativeApp, LoadingComponent } from '@/shared';
 
 import { checkAppAuthStatus } from './model/checkAuth';
 
-export const AuthAppInitializer = ({ children }: { children: React.ReactNode }) => {
+export const AuthAppInitializer = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 

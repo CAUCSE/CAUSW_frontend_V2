@@ -10,7 +10,15 @@ export const useCreateCalendar = () => {
   const closeAddModal = useCalendarStore((state) => state.closeAddModal);
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ calendarImg, year, month }: { calendarImg: File; year: number; month: number }) => {
+    mutationFn: async ({
+      calendarImg,
+      year,
+      month,
+    }: {
+      calendarImg: File;
+      year: number;
+      month: number;
+    }) => {
       const formData = new FormData();
       formData.append(
         'calendarCreateRequestDto',
@@ -18,7 +26,11 @@ export const useCreateCalendar = () => {
           type: 'application/json',
         }),
       );
-      formData.append('image', new Blob([calendarImg], { type: calendarImg.type }), calendarImg.name);
+      formData.append(
+        'image',
+        new Blob([calendarImg], { type: calendarImg.type }),
+        calendarImg.name,
+      );
 
       await FORMAPI.post('/api/v1/calendars', formData);
       return year;

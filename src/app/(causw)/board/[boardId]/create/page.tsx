@@ -35,7 +35,10 @@ const CreatePostPage = () => {
   );
 
   const { selectedFileList, clearFileList } = useUploadFileStore(
-    useShallow((state) => ({ selectedFileList: state.selectedFileList, clearFileList: state.clearFileList })),
+    useShallow((state) => ({
+      selectedFileList: state.selectedFileList,
+      clearFileList: state.clearFileList,
+    })),
   );
   const router = useRouter();
 
@@ -132,8 +135,12 @@ const CreatePostPage = () => {
       let postId: Post.PostDto['id'] | undefined;
       if (isApply) {
         const { title, content, isAnonymous, isQuestion } = data;
-        let { formCreateRequestDto } = data;
-        if (formCreateRequestDto?.enrolledRegisteredSemesterList.includes('ALL_SEMESTER')) {
+        const { formCreateRequestDto } = data;
+        if (
+          formCreateRequestDto?.enrolledRegisteredSemesterList.includes(
+            'ALL_SEMESTER',
+          )
+        ) {
           formCreateRequestDto.enrolledRegisteredSemesterList = [
             'FIRST_SEMESTER',
             'SECOND_SEMESTER',
@@ -147,7 +154,11 @@ const CreatePostPage = () => {
           ];
         }
 
-        if (formCreateRequestDto?.leaveOfAbsenceRegisteredSemesterList.includes('ALL_SEMESTER')) {
+        if (
+          formCreateRequestDto?.leaveOfAbsenceRegisteredSemesterList.includes(
+            'ALL_SEMESTER',
+          )
+        ) {
           formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList = [
             'FIRST_SEMESTER',
             'SECOND_SEMESTER',
@@ -166,7 +177,8 @@ const CreatePostPage = () => {
           content,
           isAnonymous,
           isQuestion,
-          formCreateRequestDto: formCreateRequestDto as Post.PostCreateWithFormRequestDto['formCreateRequestDto'],
+          formCreateRequestDto:
+            formCreateRequestDto as Post.PostCreateWithFormRequestDto['formCreateRequestDto'],
         });
       } else {
         const { title, content, isAnonymous, isQuestion } = data;
@@ -174,7 +186,8 @@ const CreatePostPage = () => {
         postId = await createPost({ title, content, isAnonymous, isQuestion });
 
         if (isVote) {
-          const { title, options, allowAnonymous, allowMultiple } = data.voteCreateRequestDto as Post.CreateVoteDto;
+          const { title, options, allowAnonymous, allowMultiple } =
+            data.voteCreateRequestDto as Post.CreateVoteDto;
 
           postId = await createVote({
             title,
@@ -202,7 +215,10 @@ const CreatePostPage = () => {
       <PreviousButton routeCallback={handleBack} className="pl-5" />
 
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit} className="flex h-full flex-col overflow-y-auto p-2 lg:px-5">
+        <form
+          onSubmit={handleSubmit}
+          className="flex h-full flex-col overflow-y-auto p-2 lg:px-5"
+        >
           <PostCreationForm />
           {isVote && <VoteCreationForm />}
           {isApply && <FormCreationForm />}

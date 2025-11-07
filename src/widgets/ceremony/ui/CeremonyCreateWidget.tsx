@@ -4,7 +4,10 @@ import { useState } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useCeremonyCreateForm, useCeremonySettingForm } from '@/entities/ceremony';
+import {
+  useCeremonyCreateForm,
+  useCeremonySettingForm,
+} from '@/entities/ceremony';
 
 import { formatDateInput } from '@/shared/lib';
 
@@ -49,7 +52,12 @@ export const CeremonyCreateWidget = () => {
           <SelectBox
             options={categoryOptions}
             value={methods.watch('category')}
-            onChange={(value) => methods.setValue('category', value as Ceremony.CreateCeremonyPayload['category'])}
+            onChange={(value) =>
+              methods.setValue(
+                'category',
+                value as Ceremony.CreateCeremonyPayload['category'],
+              )
+            }
             hint="-선택해주세요-"
             width="w-64"
             height="h-12"
@@ -106,7 +114,9 @@ export const CeremonyCreateWidget = () => {
 
         <div className="flex flex-col">
           <p className="text-xl font-medium">사진 등록</p>
-          <p className="mb-2 text-sm text-gray-400">{MESSAGES.FILE_TYPE_INFO}</p>
+          <p className="mb-2 text-sm text-gray-400">
+            {MESSAGES.FILE_TYPE_INFO}
+          </p>
           <ImageUploadField
             name="imageFileList"
             setValue={methods.setValue}

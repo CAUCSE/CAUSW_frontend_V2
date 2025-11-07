@@ -12,9 +12,14 @@ interface NotificationSettingPayload {
   notificationActive: boolean;
 }
 
-export const updateCeremonySetting = async (payload: NotificationSettingPayload) => {
+export const updateCeremonySetting = async (
+  payload: NotificationSettingPayload,
+) => {
   try {
-    const { data } = await API.put(`${CEREMONY_URI}/notification-setting`, payload);
+    const { data } = await API.put(
+      `${CEREMONY_URI}/notification-setting`,
+      payload,
+    );
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

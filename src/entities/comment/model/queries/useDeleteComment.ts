@@ -7,6 +7,7 @@ import type { DeleteCommentParam } from '../../type';
 
 export const useDeleteComment = () => {
   return useMutation({
-    mutationFn: ({ param }: { param: DeleteCommentParam }) => deleteComment(param),
+    mutationFn: ({ param }: { param: DeleteCommentParam }) =>
+      deleteComment(param),
   });
 };

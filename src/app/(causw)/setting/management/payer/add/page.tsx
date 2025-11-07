@@ -18,11 +18,7 @@ interface IFormInput {
 const AddPayer = () => {
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInput>();
+  const { register, handleSubmit } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     getUserByName(data.searchContent).then((res) => setDate(res));
@@ -60,7 +56,10 @@ const AddPayer = () => {
                 id="searchContent"
                 placeholder="30자 이내로 입력해주세요."
               />
-              <button className="w-36 rounded-3xl bg-red-500 text-white" type="submit">
+              <button
+                className="w-36 rounded-3xl bg-red-500 text-white"
+                type="submit"
+              >
                 검색
               </button>
             </form>
@@ -73,7 +72,9 @@ const AddPayer = () => {
               {data.map((element) => (
                 <div
                   className={`pt-1 pb-1 pl-2 text-lg ${
-                    selectId === element.id ? 'bg-focus rounded-lg text-white' : ''
+                    selectId === element.id
+                      ? 'bg-focus rounded-lg text-white'
+                      : ''
                   }`}
                   key={element.name}
                   onClick={() => {

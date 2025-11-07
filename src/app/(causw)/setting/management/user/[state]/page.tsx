@@ -49,7 +49,9 @@ const UserManagement = async ({
 
   nowNavigation
     ? await getByState(
-        nowNavigation.exportType!.replace('_USERS', '').trim() as User.UserDto['state'],
+        nowNavigation
+          .exportType!.replace('_USERS', '')
+          .trim() as User.UserDto['state'],
         null,
         currentPage - 1,
       ).then((res) => {

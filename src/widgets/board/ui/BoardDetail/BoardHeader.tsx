@@ -7,13 +7,20 @@ interface BoardHeaderProps {
   isNotificationActive: boolean;
 }
 
-export const BoardHeader = ({ boardName, isNotificationActive }: BoardHeaderProps) => {
+export const BoardHeader = ({
+  boardName,
+  isNotificationActive,
+}: BoardHeaderProps) => {
   return (
     <header className="flex w-full flex-col gap-4 pt-8">
       <div className="flex w-full items-center justify-between px-5">
-        <div className="truncate pr-4 text-2xl font-bold lg:text-[32px]">{boardName}</div>
+        <div className="truncate pr-4 text-2xl font-bold lg:text-[32px]">
+          {boardName}
+        </div>
         <div className="flex items-center gap-2 sm:gap-4">
-          <BoardNotificationToggle isNotificationActive={isNotificationActive} />
+          <BoardNotificationToggle
+            isNotificationActive={isNotificationActive}
+          />
         </div>
       </div>
     </header>

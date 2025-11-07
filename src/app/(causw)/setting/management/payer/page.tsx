@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { getPayers } from '@/entities/user/api';
 import { ManagementPanel } from '@/entities/user/ui';
 

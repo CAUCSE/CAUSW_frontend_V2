@@ -5,7 +5,13 @@ import { useEffect, useState } from 'react';
 import { useDropUser } from '@/entities/user';
 
 import { Button } from '@/shadcn/components/ui/button';
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle } from '@/shadcn/components/ui/dialog';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/shadcn/components/ui/dialog';
 import { Textarea } from '@/shadcn/components/ui/textarea';
 import { cn } from '@/shadcn/lib/utils';
 
@@ -52,11 +58,15 @@ export function RemoveMemberDialog({
         )}
       >
         <DialogHeader>
-          <DialogTitle className="text-2xl font-extrabold">추방하기</DialogTitle>
+          <DialogTitle className="text-2xl font-extrabold">
+            추방하기
+          </DialogTitle>
         </DialogHeader>
 
         <div className="mt-2">
-          <p className="mb-3 text-center text-xl font-bold text-red-500">추방 사유 작성</p>
+          <p className="mb-3 text-center text-xl font-bold text-red-500">
+            추방 사유 작성
+          </p>
           <Textarea
             value={reason}
             onChange={(e) => setReason(e.target.value)}

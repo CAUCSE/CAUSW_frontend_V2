@@ -1,3 +1,5 @@
+import { isAxiosError } from 'axios';
+
 import { BASEURL, setRscHeader } from '@/shared';
 import { API } from '@/shared';
 
@@ -33,19 +35,24 @@ export const getSearchPostList = async ({
 
 export const getPostListServer = async (boardId: string, page: number) => {
   const headers = await setRscHeader();
-  const response = await fetch(`${BASEURL}/api/v1/posts?boardId=${boardId}&pageNum=${page}`, {
-    headers,
-    cache: 'no-store',
-  }).then((res) => res.json());
+  const response = await fetch(
+    `${BASEURL}/api/v1/posts?boardId=${boardId}&pageNum=${page}`,
+    {
+      headers,
+      cache: 'no-store',
+    },
+  ).then((res) => res.json());
   return response;
 };
 
 export const getPostDetail = async ({ postId }: { postId: string }) => {
   try {
-    const { data }: { data: Post.PostDto } = await API.get(`/api/v1/posts/${postId}`);
+    const { data }: { data: Post.PostDto } = await API.get(
+      `/api/v1/posts/${postId}`,
+    );
     return { data, deleted: false };
-  } catch (err: any) {
-    if (err.response?.data?.errorCode === 4004) {
+  } catch (err: unknown) {
+    if (isAxiosError(err) && err.response?.data?.errorCode === 4004) {
       return { data: null, deleted: true };
     }
     throw err;

@@ -13,10 +13,19 @@ import { BlockUserDialog } from '@/widgets/block';
 import { ReportReasonDialog } from '@/widgets/report';
 
 import { commentQueryKey } from '@/entities/comment/config';
-import { useDeleteComment, useSubscribeComment, useUnsubscribeComment } from '@/entities/comment/model';
+import {
+  useDeleteComment,
+  useSubscribeComment,
+  useUnsubscribeComment,
+} from '@/entities/comment/model';
 import { isAdmin, useMyInfo } from '@/entities/user';
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shadcn/components/ui';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/shadcn/components/ui';
 import { buttonVariants } from '@/shadcn/components/ui/button';
 
 interface CommentActionDropdownProps {
@@ -25,7 +34,11 @@ interface CommentActionDropdownProps {
   isCommentSubscribed: Comment.CommentDto['isCommentSubscribed'];
 }
 
-export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed }: CommentActionDropdownProps) => {
+export const CommentActionDropdown = ({
+  commentId,
+  isOwner,
+  isCommentSubscribed,
+}: CommentActionDropdownProps) => {
   const queryClient = useQueryClient();
   const { data: userInfo } = useMyInfo();
   const roles = userInfo?.roles || [];
@@ -60,7 +73,9 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
         },
         onError: (error: Error) => {
           if (isAxiosError(error)) {
-            toast.error(error.response?.data.message ?? '댓글 삭제에 실패했습니다.');
+            toast.error(
+              error.response?.data.message ?? '댓글 삭제에 실패했습니다.',
+            );
             return;
           }
           toast.error('댓글 삭제에 실패했습니다.');
@@ -120,12 +135,20 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {canDeleteComment && <DropdownMenuItem onClick={handleDeleteComment}>댓글 삭제</DropdownMenuItem>}
+          {canDeleteComment && (
+            <DropdownMenuItem onClick={handleDeleteComment}>
+              댓글 삭제
+            </DropdownMenuItem>
+          )}
 
           {isCommentSubscribed ? (
-            <DropdownMenuItem onClick={handleUnsubscribeComment}>댓글 알림 해제</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleUnsubscribeComment}>
+              댓글 알림 해제
+            </DropdownMenuItem>
           ) : (
-            <DropdownMenuItem onClick={handleSubscribeComment}>댓글 알림 설정</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSubscribeComment}>
+              댓글 알림 설정
+            </DropdownMenuItem>
           )}
 
           {canReportAndBlock && (
@@ -147,7 +170,12 @@ export const CommentActionDropdown = ({ commentId, isOwner, isCommentSubscribed 
         offset={8}
       />
 
-      <BlockUserDialog open={blockOpen} onOpenChange={setBlockOpen} targetId={commentId} targetKind="comment" />
+      <BlockUserDialog
+        open={blockOpen}
+        onOpenChange={setBlockOpen}
+        targetId={commentId}
+        targetKind="comment"
+      />
     </>
   );
 };

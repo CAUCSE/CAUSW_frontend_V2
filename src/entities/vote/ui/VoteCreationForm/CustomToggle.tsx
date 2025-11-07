@@ -6,7 +6,11 @@ interface CustomToggleProps {
   text: string;
 }
 
-export const CustomToggle = ({ isChecked, onCheckChanged, text }: CustomToggleProps) => {
+export const CustomToggle = ({
+  isChecked,
+  onCheckChanged,
+  text,
+}: CustomToggleProps) => {
   return (
     <div className="flex w-[120px] items-center justify-center space-x-3">
       <input
@@ -18,7 +22,14 @@ export const CustomToggle = ({ isChecked, onCheckChanged, text }: CustomTogglePr
           isChecked ? 'border-red-500' : 'border-[#8C8C8C]',
         )}
       />
-      <p className={clsx('text-base', isChecked ? 'text-checked-text' : 'text-[#8C8C8C]')}>{text}</p>
+      <p
+        className={clsx(
+          'text-base',
+          isChecked ? 'text-checked-text' : 'text-[#8C8C8C]',
+        )}
+      >
+        {text}
+      </p>
     </div>
   );
 };

@@ -11,7 +11,10 @@ interface ChildCommentActiveButtonProps {
   isDeleted: Comment.CommentDto['isDeleted'];
 }
 
-export const ChildCommentActiveButton = ({ commentId, isDeleted }: ChildCommentActiveButtonProps) => {
+export const ChildCommentActiveButton = ({
+  commentId,
+  isDeleted,
+}: ChildCommentActiveButtonProps) => {
   const { childCommentActiveId, setChildCommentActiveId } = useCommentStore();
 
   const handleClickChildCommentActiveButton = () => {

@@ -7,7 +7,10 @@ interface ImageModalProps {
   onClose: () => void;
 }
 
-export const ImageModal: React.FC<ImageModalProps> = ({ imageUrl, onClose }) => {
+export const ImageModal: React.FC<ImageModalProps> = ({
+  imageUrl,
+  onClose,
+}) => {
   return (
     <div
       className="bg-opacity-80 fixed inset-0 z-50 flex items-center justify-center bg-black"

@@ -12,7 +12,9 @@ export const useGetFormTotalResult = (formId: string, size: number) => {
     },
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      return lastPage.replyResponseDtoPage.last ? null : lastPage.replyResponseDtoPage.pageable.pageNumber + 1;
+      return lastPage.replyResponseDtoPage.last
+        ? null
+        : lastPage.replyResponseDtoPage.pageable.pageNumber + 1;
     },
     select: (results) => {
       return results.pages.flatMap((result) => result);

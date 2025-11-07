@@ -8,9 +8,12 @@ interface MyRecordHeaderProps {
   pageName: string;
 }
 
-const PreviousButton = dynamic(() => import('@/shared').then((mod) => mod.PreviousButton), {
-  ssr: false,
-});
+const PreviousButton = dynamic(
+  () => import('@/shared').then((mod) => mod.PreviousButton),
+  {
+    ssr: false,
+  },
+);
 
 export const MyRecordHeader = ({ pageName }: MyRecordHeaderProps) => {
   return (
@@ -19,7 +22,9 @@ export const MyRecordHeader = ({ pageName }: MyRecordHeaderProps) => {
         <PreviousButton />
       </div>
       <div className="flex w-full items-center justify-between">
-        <div className="truncate pt-2 pr-4 pl-5 text-xl font-bold lg:text-3xl">{pageName}</div>
+        <div className="truncate pt-2 pr-4 pl-5 text-xl font-bold lg:text-3xl">
+          {pageName}
+        </div>
       </div>
     </div>
   );

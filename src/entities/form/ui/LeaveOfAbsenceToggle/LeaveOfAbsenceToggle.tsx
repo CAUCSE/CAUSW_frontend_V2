@@ -11,7 +11,9 @@ import { CustomCheckBox } from '../CustomCheckbox';
 export const LeaveOfAbsenceToggle = () => {
   const { control, watch, setValue } = useFormContext<PostSchema>();
 
-  const isSemesterChecked = watch('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList')?.length > 0;
+  const isSemesterChecked =
+    watch('formCreateRequestDto.leaveOfAbsenceRegisteredSemesterList')?.length >
+    0;
 
   useEffect(() => {
     if (isSemesterChecked) {

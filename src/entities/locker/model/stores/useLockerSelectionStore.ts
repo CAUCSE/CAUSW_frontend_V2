@@ -4,7 +4,9 @@ interface LockerSelectionStore {
   clickedLockerStatus: 'isMine' | 'isActive' | 'isNotActive' | null;
   clickedLockerId: string | null;
 
-  setClickedLockerStatus: (status: 'isMine' | 'isActive' | 'isNotActive' | null) => void;
+  setClickedLockerStatus: (
+    status: 'isMine' | 'isActive' | 'isNotActive' | null,
+  ) => void;
   setClickedLockerId: (id: string | null) => void;
 }
 

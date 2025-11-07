@@ -4,4 +4,7 @@ import { getLockerList } from '../../api';
 import { lockerQueryKey } from '../../config';
 
 export const useLockerListQuery = (locationId: string) =>
-  useQuery({ queryKey: lockerQueryKey.list(locationId), queryFn: () => getLockerList(locationId) });
+  useQuery({
+    queryKey: lockerQueryKey.list(locationId),
+    queryFn: () => getLockerList(locationId),
+  });

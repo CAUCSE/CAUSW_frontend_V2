@@ -7,29 +7,43 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Filter, Loader2 } from 'lucide-react';
 
-import { ContactCard, ContactFilterSheet, FilterPills, useSearchContactsQuery } from '@/entities/contact';
+import {
+  ContactCard,
+  ContactFilterSheet,
+  FilterPills,
+  useSearchContactsQuery,
+} from '@/entities/contact';
 
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 
 import { Button } from '@/shadcn/components/ui/button';
 import { SearchBar, useDebounce } from '@/shared';
 
-const parseSearchParamsToFilters = (searchParams: URLSearchParams): Contact.ContactFilters => {
+const parseSearchParamsToFilters = (
+  searchParams: URLSearchParams,
+): Contact.ContactFilters => {
   const filters: Contact.ContactFilters = {};
   const keyword = searchParams.get('keyword');
   if (keyword) filters.keyword = keyword;
 
   const admissionYearStart = searchParams.get('admissionYearStart');
-  if (admissionYearStart) filters.admissionYearStart = Number(admissionYearStart);
+  if (admissionYearStart)
+    filters.admissionYearStart = Number(admissionYearStart);
 
   const admissionYearEnd = searchParams.get('admissionYearEnd');
   if (admissionYearEnd) filters.admissionYearEnd = Number(admissionYearEnd);
 
   const validStatuses = ['ENROLLED', 'LEAVE_OF_ABSENCE', 'GRADUATED'];
-  const academicStatus = searchParams.getAll('academicStatus').filter((status) => validStatuses.includes(status));
+  const academicStatus = searchParams
+    .getAll('academicStatus')
+    .filter((status) => validStatuses.includes(status));
 
   if (academicStatus.length > 0) {
-    filters.academicStatus = academicStatus as ('ENROLLED' | 'LEAVE_OF_ABSENCE' | 'GRADUATED')[];
+    filters.academicStatus = academicStatus as (
+      | 'ENROLLED'
+      | 'LEAVE_OF_ABSENCE'
+      | 'GRADUATED'
+    )[];
   }
 
   return filters;
@@ -40,13 +54,18 @@ export const ContactList = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [filters, setFilters] = useState<Contact.ContactFilters>(() => parseSearchParamsToFilters(searchParams));
+  const [filters, setFilters] = useState<Contact.ContactFilters>(() =>
+    parseSearchParamsToFilters(searchParams),
+  );
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const updateFiltersAndUrl = useCallback(
     (newFiltersOrUpdater: React.SetStateAction<Contact.ContactFilters>) => {
-      const newFilters = typeof newFiltersOrUpdater === 'function' ? newFiltersOrUpdater(filters) : newFiltersOrUpdater;
+      const newFilters =
+        typeof newFiltersOrUpdater === 'function'
+          ? newFiltersOrUpdater(filters)
+          : newFiltersOrUpdater;
 
       setFilters(newFilters);
       const params = new URLSearchParams();
@@ -67,7 +86,8 @@ export const ContactList = () => {
   );
 
   const debouncedFilters = useDebounce(filters, 500);
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSearchContactsQuery(debouncedFilters);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useSearchContactsQuery(debouncedFilters);
 
   const { targetRef } = useInfiniteScroll({
     intersectionCallback: ([entry]) => {
@@ -105,13 +125,22 @@ export const ContactList = () => {
     <>
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={() => setIsFilterOpen(true)}>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setIsFilterOpen(true)}
+          >
             <Filter className="h-4 w-4" />
           </Button>
           <SearchBar
             placeholder="이름, 직업, 경력으로 검색"
             value={filters.keyword ?? ''}
-            onChange={(keyword: string) => updateFiltersAndUrl((prev) => ({ ...prev, keyword: keyword || undefined }))}
+            onChange={(keyword: string) =>
+              updateFiltersAndUrl((prev) => ({
+                ...prev,
+                keyword: keyword || undefined,
+              }))
+            }
             bgColor="bg-white"
           />
         </div>
@@ -119,13 +148,19 @@ export const ContactList = () => {
 
         <div className="flex flex-col divide-y divide-gray-200">
           {contacts.length > 0 ? (
-            contacts.map((contact) => <ContactCard key={contact.id} contact={contact} />)
+            contacts.map((contact) => (
+              <ContactCard key={contact.id} contact={contact} />
+            ))
           ) : (
-            <div className="flex h-40 items-center justify-center text-gray-500">검색 결과가 없습니다.</div>
+            <div className="flex h-40 items-center justify-center text-gray-500">
+              검색 결과가 없습니다.
+            </div>
           )}
         </div>
         <div ref={targetRef} className="flex h-10 items-center justify-center">
-          {isFetchingNextPage && <Loader2 className="h-6 w-6 animate-spin text-gray-400" />}
+          {isFetchingNextPage && (
+            <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+          )}
         </div>
       </div>
       <ContactFilterSheet
@@ -135,9 +170,16 @@ export const ContactList = () => {
         onApply={updateFiltersAndUrl}
       />
 
-      <Link href="/contacts/profile" className={`${myContactsFabStyles} bg-slate-600 text-white`}>
-        <span className="transition-transform duration-200 group-hover:scale-105">내 동문수첩</span>
-        <span className="ml-2 font-mono transition-transform duration-200 group-hover:translate-x-0.5">&gt;</span>
+      <Link
+        href="/contacts/profile"
+        className={`${myContactsFabStyles} bg-slate-600 text-white`}
+      >
+        <span className="transition-transform duration-200 group-hover:scale-105">
+          내 동문수첩
+        </span>
+        <span className="ml-2 font-mono transition-transform duration-200 group-hover:translate-x-0.5">
+          &gt;
+        </span>
       </Link>
     </>
   );

@@ -30,23 +30,32 @@ const formSchema = z
         isMultiple: z.boolean(),
         optionCreateRequestDtoList: z.array(
           z.object({
-            optionText: z.string().min(1, { message: '선택지를 입력해주세요.' }),
+            optionText: z
+              .string()
+              .min(1, { message: '선택지를 입력해주세요.' }),
           }),
         ),
       }),
     ),
     isAllowedEnrolled: z.boolean(),
     allowAllEnrolledRegisteredSemester: z.boolean(),
-    enrolledRegisteredSemesterList: z.array(z.enum(SEMESTER_LIST as [string, ...string[]])),
+    enrolledRegisteredSemesterList: z.array(
+      z.enum(SEMESTER_LIST as [string, ...string[]]),
+    ),
     isNeedCouncilFeePaid: z.boolean(),
     isAllowedLeaveOfAbsence: z.boolean(),
     allowAllLeaveOfAbsenceRegisteredSemester: z.boolean(),
-    leaveOfAbsenceRegisteredSemesterList: z.array(z.enum(SEMESTER_LIST as [string, ...string[]])),
+    leaveOfAbsenceRegisteredSemesterList: z.array(
+      z.enum(SEMESTER_LIST as [string, ...string[]]),
+    ),
     isAllowedGraduation: z.boolean(),
   })
   .refine(
     (data) => {
-      if (data.isAllowedEnrolled && data.enrolledRegisteredSemesterList.length === 0) {
+      if (
+        data.isAllowedEnrolled &&
+        data.enrolledRegisteredSemesterList.length === 0
+      ) {
         return false;
       }
       return true;
@@ -58,7 +67,10 @@ const formSchema = z
   )
   .refine(
     (data) => {
-      if (data.isAllowedLeaveOfAbsence && data.leaveOfAbsenceRegisteredSemesterList.length === 0) {
+      if (
+        data.isAllowedLeaveOfAbsence &&
+        data.leaveOfAbsenceRegisteredSemesterList.length === 0
+      ) {
         return false;
       }
       return true;

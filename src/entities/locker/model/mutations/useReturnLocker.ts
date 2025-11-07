@@ -6,7 +6,9 @@ import { useReturnLockerMutation } from '../mutations';
 import { useLockerSelectionStore } from '../stores/useLockerSelectionStore';
 
 export const useReturnLocker = () => {
-  const clickedLockerId = useLockerSelectionStore((state) => state.clickedLockerId);
+  const clickedLockerId = useLockerSelectionStore(
+    (state) => state.clickedLockerId,
+  );
 
   const { mutate: returnLocker } = useReturnLockerMutation();
   const handleReturnLocker = () => {

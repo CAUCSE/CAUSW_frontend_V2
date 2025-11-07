@@ -35,8 +35,18 @@ export const PostCardStatusBar = ({ post }: PostCardStatusBarProps) => {
       </div>
       <Divider vertical />
       <div className="flex items-center gap-1">
-        <VoteIcon className={clsx(post.isPostVote ? 'text-[#FFC71B]' : 'text-[#B4B1B1]', 'h-4 w-4 md:h-5 md:w-5')} />
-        <FormIcon className={clsx(post.isPostForm ? 'text-[#FFC71B]' : 'text-[#B4B1B1]', 'h-4 w-4 md:h-5 md:w-5')} />
+        <VoteIcon
+          className={clsx(
+            post.isPostVote ? 'text-[#FFC71B]' : 'text-[#B4B1B1]',
+            'h-4 w-4 md:h-5 md:w-5',
+          )}
+        />
+        <FormIcon
+          className={clsx(
+            post.isPostForm ? 'text-[#FFC71B]' : 'text-[#B4B1B1]',
+            'h-4 w-4 md:h-5 md:w-5',
+          )}
+        />
       </div>
       <Divider vertical />
       <div className="flex items-center text-center text-sm text-gray-300 md:text-xl">
@@ -44,7 +54,11 @@ export const PostCardStatusBar = ({ post }: PostCardStatusBarProps) => {
       </div>
       <Divider vertical />
       <div className="line-clamp-1 flex items-center text-center text-sm text-gray-300 md:text-xl">
-        {post.displayWriterNickname ? post.displayWriterNickname : post.isAnonymous ? '익명' : post.writerNickname}
+        {post.displayWriterNickname
+          ? post.displayWriterNickname
+          : post.isAnonymous
+            ? '익명'
+            : post.writerNickname}
       </div>
     </div>
   );

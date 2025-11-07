@@ -2,10 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { isGraduate, useUserAcademic } from '@/entities/user';
-
-import { Fab } from '@/shared';
-
 import { CustomBoard } from './CustomBoard';
 import { DefaultNoticeBoard } from './DefaultNoticeBoard';
 
@@ -16,8 +12,6 @@ export const BoardListClient = ({
   customBoardForAdmin,
   customBoardForCommon,
 }) => {
-  const { data: userInfo } = useUserAcademic();
-  const isGraduated = userInfo ? isGraduate(userInfo.academicStatus) : false;
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);

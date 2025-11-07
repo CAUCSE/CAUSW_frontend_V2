@@ -8,5 +8,10 @@ export {
   ChildCommentActionDropdown,
   ChildCommentLikeButton,
 } from './ui';
-export { useCommentStore, useGetCommentList, usePostComment, usePostChildComment } from './model';
+export {
+  useCommentStore,
+  useGetCommentList,
+  usePostComment,
+  usePostChildComment,
+} from './model';
 export * from './api';

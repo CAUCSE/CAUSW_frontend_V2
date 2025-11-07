@@ -2,7 +2,10 @@ import React from 'react';
 
 import { StatusButton } from '@/entities/auth';
 
-import { ACADEMIC_MESSAGES, ADMISSION_MESSAGES } from '../config/verificationStatus';
+import {
+  ACADEMIC_MESSAGES,
+  ADMISSION_MESSAGES,
+} from '../config/verificationStatus';
 
 interface VerificationStatusProps {
   admissionApplicationStatus: User.StatusType;
@@ -19,7 +22,11 @@ export const VerificationStatus: React.FC<VerificationStatusProps> = ({
 }) => {
   return (
     <div className="mt-2 space-y-4">
-      <StatusButton status={admissionApplicationStatus} messages={ADMISSION_MESSAGES} onClick={onAdmissionClick} />
+      <StatusButton
+        status={admissionApplicationStatus}
+        messages={ADMISSION_MESSAGES}
+        onClick={onAdmissionClick}
+      />
 
       <StatusButton
         status={academicRecordApplicationStatus}

@@ -13,6 +13,7 @@ export const getAdminCeremonyAwaitList = async (page: number) => {
   };
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const response = (await API.get(URI, { params })) as AxiosResponse<any>;
 
     if (response.status !== 200) {
@@ -29,7 +30,10 @@ export const getAdminCeremonyAwaitList = async (page: number) => {
   }
 };
 
-export const getAdminCeremonyDetail = async ({ ceremonyId, context }: Ceremony.CeremonyDetailDataPros) => {
+export const getAdminCeremonyDetail = async ({
+  ceremonyId,
+  context,
+}: Ceremony.CeremonyDetailDataPros) => {
   const URI = `/api/v1/ceremony/${ceremonyId}?context=${context}`;
 
   try {
@@ -49,7 +53,9 @@ export const getAdminCeremonyDetail = async ({ ceremonyId, context }: Ceremony.C
     throw error;
   }
 };
-export const getCeremonyNotificationSetting = async (): Promise<Ceremony.CeremonyNotificationSettingDto | string> => {
+export const getCeremonyNotificationSetting = async (): Promise<
+  Ceremony.CeremonyNotificationSettingDto | string
+> => {
   try {
     const { data } = await API.get(`${CEREMONY_URI}/notification-setting`);
     return data;

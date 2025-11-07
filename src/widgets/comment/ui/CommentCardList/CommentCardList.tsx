@@ -46,14 +46,21 @@ export const CommentCardList = ({ postId }: CommentCardListProps) => {
             <CommentCard comment={comment} />
             <div className="mb-4 flex flex-col gap-4">
               {comment.childCommentList.map((childComment) => (
-                <ChildCommentCard key={childComment.id} childComment={childComment} />
+                <ChildCommentCard
+                  key={childComment.id}
+                  childComment={childComment}
+                />
               ))}
             </div>
           </div>
         );
       })}
-      {!isFetchingNextPage && hasNextPage && <div ref={targetRef} className="h-[1px]" />}
-      {isFetchingNextPage && <LoadingSpinner loading={isFetchingNextPage} size={20} />}
+      {!isFetchingNextPage && hasNextPage && (
+        <div ref={targetRef} className="h-[1px]" />
+      )}
+      {isFetchingNextPage && (
+        <LoadingSpinner loading={isFetchingNextPage} size={20} />
+      )}
     </div>
   );
 };

@@ -28,7 +28,9 @@ export function useBlockByPost(opts?: Opts) {
     mutationFn: (postId: string) => blockByPost(postId),
     onSuccess: () => {
       toast.success('해당 사용자를 차단했어요.');
-      opts?.invalidate?.forEach(({ queryKey }) => qc.invalidateQueries({ queryKey }));
+      opts?.invalidate?.forEach(({ queryKey }) =>
+        qc.invalidateQueries({ queryKey }),
+      );
     },
     onError: (e) => toastError(e, '차단에 실패했습니다.'),
   });
@@ -40,7 +42,9 @@ export function useBlockByComment(opts?: Opts) {
     mutationFn: (commentId: string) => blockByComment(commentId),
     onSuccess: () => {
       toast.success('해당 사용자를 차단했어요.');
-      opts?.invalidate?.forEach(({ queryKey }) => qc.invalidateQueries({ queryKey }));
+      opts?.invalidate?.forEach(({ queryKey }) =>
+        qc.invalidateQueries({ queryKey }),
+      );
     },
     onError: (e) => toastError(e, '차단에 실패했습니다.'),
   });
@@ -52,7 +56,9 @@ export function useBlockByChildComment(opts?: Opts) {
     mutationFn: (childCommentId: string) => blockByChildComment(childCommentId),
     onSuccess: () => {
       toast.success('해당 사용자를 차단했어요.');
-      opts?.invalidate?.forEach(({ queryKey }) => qc.invalidateQueries({ queryKey }));
+      opts?.invalidate?.forEach(({ queryKey }) =>
+        qc.invalidateQueries({ queryKey }),
+      );
     },
     onError: (e) => toastError(e, '차단에 실패했습니다.'),
   });

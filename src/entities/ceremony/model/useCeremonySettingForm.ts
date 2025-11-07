@@ -2,18 +2,29 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { useCeremonySettingMutation, useCeremonySettingQuery } from '@/entities/notification';
+import {
+  useCeremonySettingMutation,
+  useCeremonySettingQuery,
+} from '@/entities/notification';
 
 export const useCeremonySettingForm = (useExistingSetting = true) => {
   const { data: existingSetting } = useCeremonySettingQuery();
-  const isUpdate = useExistingSetting && !!(existingSetting && typeof existingSetting !== 'string');
+  const isUpdate =
+    useExistingSetting &&
+    !!(existingSetting && typeof existingSetting !== 'string');
   const { mutate: submitSettings } = useCeremonySettingMutation(isUpdate);
   const [years, setYears] = useState<string[]>([]);
   const [setAll, setSetAllValue] = useState(false);
 
   useEffect(() => {
-    if (useExistingSetting && isUpdate && existingSetting?.subscribedAdmissionYears) {
-      const formattedYears = existingSetting.subscribedAdmissionYears.map((y) => String(y).padStart(2, '0'));
+    if (
+      useExistingSetting &&
+      isUpdate &&
+      existingSetting?.subscribedAdmissionYears
+    ) {
+      const formattedYears = existingSetting.subscribedAdmissionYears.map((y) =>
+        String(y).padStart(2, '0'),
+      );
       setYears(formattedYears);
       setSetAllValue(existingSetting.setAll);
     }

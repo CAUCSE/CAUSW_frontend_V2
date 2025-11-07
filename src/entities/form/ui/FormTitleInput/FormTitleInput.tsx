@@ -19,7 +19,9 @@ export const FormTitleInput = () => {
             onChange={field.onChange}
             className="h-10 bg-[#F8F8F8] text-xl placeholder:text-center"
           />
-          {fieldState.error && <p className="text-sm text-red-500">신청서 제목을 입력해주세요</p>}
+          {fieldState.error && (
+            <p className="text-sm text-red-500">신청서 제목을 입력해주세요</p>
+          )}
         </div>
       )}
     />

@@ -7,7 +7,9 @@ import { PreviousButton } from '@/shared';
 
 const formatPhoneNumber = (value: string) => {
   if (!value) return '';
-  return value.replace(/[^0-9]/g, '').replace(/(^\d{3})(\d{3,4})(\d{4}$)/, '$1-$2-$3');
+  return value
+    .replace(/[^0-9]/g, '')
+    .replace(/(^\d{3})(\d{3,4})(\d{4}$)/, '$1-$2-$3');
 };
 
 export const FindPasswordForm = () => {
@@ -22,7 +24,10 @@ export const FindPasswordForm = () => {
   return (
     <div className="bg-board-page-background flex min-h-screen flex-col items-center justify-center px-4 sm:px-0">
       <PreviousButton className="fixed top-0 left-0 mt-4" />
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-md rounded-lg bg-white p-8 shadow-md"
+      >
         <AuthInput
           name="name"
           type="text"
@@ -75,7 +80,10 @@ export const FindPasswordForm = () => {
       </form>
       <p className="mt-4 text-center text-sm text-gray-400">
         비밀번호 찾기가 정상적으로 진행되지 않을 경우 관리자(
-        <a href="mailto:caucsedongne@gmail.com" className="text-gray-500 underline">
+        <a
+          href="mailto:caucsedongne@gmail.com"
+          className="text-gray-500 underline"
+        >
           caucsedongne@gmail.com
         </a>
         )에게 문의해 주시기 바랍니다.

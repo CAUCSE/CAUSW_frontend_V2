@@ -1,16 +1,26 @@
-"use client";
+'use client';
+
 import { ReactNode } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { MdEmail, MdPermIdentity, MdTagFaces, MdVolumeUp } from 'react-icons/md';
+import {
+  MdEmail,
+  MdPermIdentity,
+  MdTagFaces,
+  MdVolumeUp,
+} from 'react-icons/md';
 
-import { Banner, getGraduateHomePosts } from '@/entities/home';
-import { useGraduateHomePostsQuery } from '@/entities/home/model';
-import { ErrorFallback, LoadingComponent } from '@/shared';
+import { Banner, useGraduateHomePostsQuery } from '@/entities/home';
 
-export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto }) => {
+import { LoadingComponent } from '@/shared';
+
+export const GraduateHomePage = ({
+  events,
+}: {
+  events: Home.GetEventsResponseDto;
+}) => {
   const { data: homePosts, isLoading, isError } = useGraduateHomePostsQuery();
 
   if (isLoading) return <LoadingComponent />;
@@ -20,9 +30,13 @@ export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto
   }
 
   // 크자회 공지 게시판
-  const noticeBoard = homePosts.find((b) => b.board.name.includes('크자회 공지 게시판'));
+  const noticeBoard = homePosts.find((b) =>
+    b.board.name.includes('크자회 공지 게시판'),
+  );
   // 크자회 소통 게시판
-  const talkBoard = homePosts.find((b) => b.board.name.includes('크자회 소통 게시판'));
+  const talkBoard = homePosts.find((b) =>
+    b.board.name.includes('크자회 소통 게시판'),
+  );
 
   const noticePosts = noticeBoard?.posts?.content?.slice(0, 4) ?? [];
   const talkPosts = talkBoard?.posts?.content?.slice(0, 4) ?? [];
@@ -34,22 +48,30 @@ export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto
   const boards = [
     {
       name: '공지 게시판',
-      icon: <MdVolumeUp className="h-16 w-16 object-contain text-[#E55992] lg:h-16 lg:w-16" />,
+      icon: (
+        <MdVolumeUp className="h-16 w-16 object-contain text-[#E55992] lg:h-16 lg:w-16" />
+      ),
       href: `/board/${noticeBoardId}`,
     },
     {
       name: '소통 게시판',
-      icon: <MdTagFaces className="h-16 w-16 object-contain text-[#5E9B4D] lg:h-16 lg:w-16" />,
+      icon: (
+        <MdTagFaces className="h-16 w-16 object-contain text-[#5E9B4D] lg:h-16 lg:w-16" />
+      ),
       href: `/board/${talkBoardId}`,
     },
     {
       name: '동문수첩',
-      icon: <MdPermIdentity className="h-16 w-16 object-contain text-[#568389] lg:h-16 lg:w-16" />,
+      icon: (
+        <MdPermIdentity className="h-16 w-16 object-contain text-[#568389] lg:h-16 lg:w-16" />
+      ),
       href: '/contacts',
     },
     {
       name: '경조사 신청',
-      icon: <MdEmail className="h-16 w-16 object-contain text-[#C1A979] lg:h-16 lg:w-16" />,
+      icon: (
+        <MdEmail className="h-16 w-16 object-contain text-[#C1A979] lg:h-16 lg:w-16" />
+      ),
       href: '/ceremony/create',
     },
   ];
@@ -60,8 +82,14 @@ export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto
       <div className="w-full bg-white">
         {events && (
           <Banner
-            images={events.count > 0 ? events.events.map((e) => e.image) : ['/images/puang-proud.png']}
-            urls={events.count > 0 ? events.events.map((e) => e.url) : ['/home']}
+            images={
+              events.count > 0
+                ? events.events.map((e) => e.image)
+                : ['/images/puang-proud.png']
+            }
+            urls={
+              events.count > 0 ? events.events.map((e) => e.url) : ['/home']
+            }
             loop={events.count > 0}
           />
         )}
@@ -91,7 +119,9 @@ export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto
                     className="absolute right-2 bottom-2 h-16 w-16 object-contain lg:right-6 lg:bottom-6 lg:h-16 lg:w-16"
                   />
                 ) : (
-                  <div className="absolute right-2 bottom-2 text-gray-600 lg:right-6 lg:bottom-6">{board.icon}</div>
+                  <div className="absolute right-2 bottom-2 text-gray-600 lg:right-6 lg:bottom-6">
+                    {board.icon}
+                  </div>
                 )}
               </Link>
             ))}
@@ -116,7 +146,7 @@ export const GraduateHomePage = ({ events }: { events: Home.GetEventsResponseDto
       </div>
     </div>
   );
-}
+};
 
 function NoticeSection({
   boardId,
@@ -153,7 +183,10 @@ function NoticeSection({
               <div className="truncate font-medium sm:w-4xl">{post.title}</div>
               <div className="flex shrink-0 items-center gap-2 text-base text-gray-500">
                 <span>
-                  {new Date(post.createdAt).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' })}
+                  {new Date(post.createdAt).toLocaleDateString('ko-KR', {
+                    month: '2-digit',
+                    day: '2-digit',
+                  })}
                 </span>
               </div>
             </Link>

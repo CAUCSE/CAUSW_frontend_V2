@@ -22,7 +22,9 @@ export const ObjectiveOption = ({
       <input
         type={canSelectMultiple ? 'checkbox' : 'radio'}
         value={optionValue}
-        {...register(`questionReplyRequestDtoList.${questionIndex}.selectedOptionList`)}
+        {...register(
+          `questionReplyRequestDtoList.${questionIndex}.selectedOptionList`,
+        )}
       />
       <p>{optionContent}</p>
     </div>

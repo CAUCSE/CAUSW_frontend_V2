@@ -12,7 +12,6 @@ import { PreviousButton } from '@/shared';
 
 const VerificationPage: React.FC = () => {
   const {
-    emailValue,
     admissionApplicationStatus,
     academicRecordApplicationStatus,
     admissionRejectMessage,
@@ -32,8 +31,10 @@ const VerificationPage: React.FC = () => {
         {(admissionRejectMessage || academicRecordRejectMessage) && (
           <p className="text-error font-bold break-words">
             {' '}
-            {academicRecordRejectMessage === '' ? '가입 신청서' : '재학 증빙 서류'} 거절 사유 :{' '}
-            {admissionRejectMessage || academicRecordRejectMessage}
+            {academicRecordRejectMessage === ''
+              ? '가입 신청서'
+              : '재학 증빙 서류'}{' '}
+            거절 사유 : {admissionRejectMessage || academicRecordRejectMessage}
           </p>
         )}
 
@@ -41,7 +42,9 @@ const VerificationPage: React.FC = () => {
           admissionApplicationStatus={admissionApplicationStatus}
           academicRecordApplicationStatus={academicRecordApplicationStatus}
           onAdmissionClick={() => router.push('/auth/authorization/admission')}
-          onAcademicRecordClick={() => router.push('/auth/authorization/academic-record')}
+          onAcademicRecordClick={() =>
+            router.push('/auth/authorization/academic-record')
+          }
         />
       </div>
     </div>

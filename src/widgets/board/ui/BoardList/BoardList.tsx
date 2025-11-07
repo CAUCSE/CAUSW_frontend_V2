@@ -5,8 +5,12 @@ import { BoardListClient } from './BoardListClient';
 
 export const BoardList = async () => {
   const roles = await getMyRoles();
-  const { defaultBoardForAdmin, defaultBoardForCommon, customBoardForAdmin, customBoardForCommon } =
-    await fetchBoardList();
+  const {
+    defaultBoardForAdmin,
+    defaultBoardForCommon,
+    customBoardForAdmin,
+    customBoardForCommon,
+  } = await fetchBoardList();
 
   return (
     <BoardListClient

@@ -36,12 +36,16 @@ export const NavigationBar = ({ className, isIOS }: NavigationBarProps) => {
           <Link
             key={iconClass.href}
             href={iconClass.href}
-            className={clsx('h-full w-full px-4 md:px-8 xl:h-24 xl:w-11/12 xl:px-0')}
+            className={clsx(
+              'h-full w-full px-4 md:px-8 xl:h-24 xl:w-11/12 xl:px-0',
+            )}
           >
             <span
               className={clsx(
                 'flex h-full w-full items-center justify-center rounded-xl xl:rounded-none xl:rounded-tl-2xl xl:rounded-bl-2xl',
-                firstRouter === iconClass.href ? 'text-default bg-[#F8F8F8]' : 'bg-default text-white',
+                firstRouter === iconClass.href
+                  ? 'text-default bg-[#F8F8F8]'
+                  : 'bg-default text-white',
                 isIOS && 'py-2',
               )}
             >
@@ -55,8 +59,28 @@ export const NavigationBar = ({ className, isIOS }: NavigationBarProps) => {
 };
 
 const icons = [
-  { href: '/home', icon: ({ className }: { className: string }) => <House className={className} /> },
-  { href: '/board', icon: ({ className }: { className: string }) => <BoardIcon className={className} /> },
-  { href: '/contacts', icon: ({ className }: { className: string }) => <Users className={className} /> },
-  { href: '/setting', icon: ({ className }: { className: string }) => <Settings className={className} /> },
+  {
+    href: '/home',
+    icon: ({ className }: { className: string }) => (
+      <House className={className} />
+    ),
+  },
+  {
+    href: '/board',
+    icon: ({ className }: { className: string }) => (
+      <BoardIcon className={className} />
+    ),
+  },
+  {
+    href: '/contacts',
+    icon: ({ className }: { className: string }) => (
+      <Users className={className} />
+    ),
+  },
+  {
+    href: '/setting',
+    icon: ({ className }: { className: string }) => (
+      <Settings className={className} />
+    ),
+  },
 ];

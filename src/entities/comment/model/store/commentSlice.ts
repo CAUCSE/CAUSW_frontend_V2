@@ -5,12 +5,20 @@ interface CommentState {
 }
 
 interface CommentAction {
-  setChildCommentActiveId: (childCommentActiveId?: Comment.CommentDto['id']) => void;
+  setChildCommentActiveId: (
+    childCommentActiveId?: Comment.CommentDto['id'],
+  ) => void;
 }
 
 export type CommentSlice = CommentState & CommentAction;
 
-export const createCommentSlice: StateCreator<CommentSlice, [], [], CommentSlice> = (set) => ({
+export const createCommentSlice: StateCreator<
+  CommentSlice,
+  [],
+  [],
+  CommentSlice
+> = (set) => ({
   childCommentActiveId: undefined,
-  setChildCommentActiveId: (childCommentActiveId) => set({ childCommentActiveId }),
+  setChildCommentActiveId: (childCommentActiveId) =>
+    set({ childCommentActiveId }),
 });

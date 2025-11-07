@@ -19,11 +19,17 @@ export const ChildCommentCard = ({ childComment }: ChildCommentCardProps) => {
       </div>
       <div className="rounded-post-br shadow-post-sh flex w-full max-w-sm flex-col gap-2 border bg-white p-3">
         <ChildCommentCardHeader childComment={childComment} />
-        <CommentCardMain content={childComment.content} isDeleted={childComment.isDeleted} />
+        <CommentCardMain
+          content={childComment.content}
+          isDeleted={childComment.isDeleted}
+        />
 
         {/* ✅ isBlocked일 때 Footer 숨김 */}
         {!childComment.isBlocked && (
-          <ChildCommentCardFooter childComment={childComment} isChildCommentLike={childComment.isChildCommentLike} />
+          <ChildCommentCardFooter
+            childComment={childComment}
+            isChildCommentLike={childComment.isChildCommentLike}
+          />
         )}
       </div>
     </div>

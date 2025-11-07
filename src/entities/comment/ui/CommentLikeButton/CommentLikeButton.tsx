@@ -12,7 +12,11 @@ interface CommentLikeButtonProps {
   isCommentLike: Comment.CommentDto['isCommentLike'];
 }
 
-export const CommentLikeButton = ({ commentId, isDeleted, isCommentLike }: CommentLikeButtonProps) => {
+export const CommentLikeButton = ({
+  commentId,
+  isDeleted,
+  isCommentLike,
+}: CommentLikeButtonProps) => {
   const { mutate: toggleLikeComment, isPending } = useToggleLikeComment();
 
   const handleClickLikeButton = () => {

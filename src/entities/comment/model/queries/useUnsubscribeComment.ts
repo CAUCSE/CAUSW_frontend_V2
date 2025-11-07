@@ -7,6 +7,7 @@ import type { UnsubscribeCommentParam } from '../../type';
 
 export const useUnsubscribeComment = () => {
   return useMutation({
-    mutationFn: ({ param }: { param: UnsubscribeCommentParam }) => unsubscribeComment(param),
+    mutationFn: ({ param }: { param: UnsubscribeCommentParam }) =>
+      unsubscribeComment(param),
   });
 };

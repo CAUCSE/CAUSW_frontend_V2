@@ -6,7 +6,10 @@ import axios from 'axios';
  * @param defaultMessage - 기본 에러 메시지
  * @returns 파싱된 에러 메시지
  */
-export const parseErrorMessage = (error: unknown, defaultMessage: string = '오류가 발생했습니다.'): string => {
+export const parseErrorMessage = (
+  error: unknown,
+  defaultMessage: string = '오류가 발생했습니다.',
+): string => {
   // Axios 에러인 경우
   if (axios.isAxiosError(error)) {
     const message = error.response?.data?.message;

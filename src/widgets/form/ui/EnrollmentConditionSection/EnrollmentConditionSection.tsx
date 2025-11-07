@@ -2,12 +2,18 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { CouncilFeeToggle, EnrolledToggle, SemesterMetaData, SemesterToggle } from '@/entities/form';
+import {
+  CouncilFeeToggle,
+  EnrolledToggle,
+  SemesterMetaData,
+  SemesterToggle,
+} from '@/entities/form';
 import { PostSchema } from '@/entities/post';
 
 export const EnrollmentConditionSection = () => {
   const { formState } = useFormContext<PostSchema>();
-  const isEnrolledError = formState.errors.formCreateRequestDto?.enrolledRegisteredSemesterList;
+  const isEnrolledError =
+    formState.errors.formCreateRequestDto?.enrolledRegisteredSemesterList;
 
   return (
     <>
@@ -16,11 +22,17 @@ export const EnrollmentConditionSection = () => {
           <EnrolledToggle />
           <CouncilFeeToggle />
           {Object.values(SemesterMetaData).map((semester) => (
-            <SemesterToggle key={semester.value} {...semester} className="col-span-1" />
+            <SemesterToggle
+              key={semester.value}
+              {...semester}
+              className="col-span-1"
+            />
           ))}
         </div>
       </section>
-      {isEnrolledError && <p className="text-sm text-red-500">{isEnrolledError.message}</p>}
+      {isEnrolledError && (
+        <p className="text-sm text-red-500">{isEnrolledError.message}</p>
+      )}
     </>
   );
 };

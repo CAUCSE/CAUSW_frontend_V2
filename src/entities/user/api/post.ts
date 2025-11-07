@@ -1,17 +1,15 @@
-import { AxiosResponse } from 'axios';
-
 import { createFormData } from '@/shared/lib';
 
-import { API, BASEURL, FORMAPI, setRscHeader } from '@/shared';
+import { BASEURL, FORMAPI, setRscHeader } from '@/shared';
 
-import { USER_COUNCIL_FEE_ENDPOINT, USERS_ENDPOINT } from '../config';
+import { USERS_ENDPOINT } from '../config';
 
 // csr api method.
 ////////////////////////////////////////////////////////////////
 
 export const submitAdmissionsApplication = async (
   data: User.AdmissionCreateRequestDto, // FileList 타입 사용
-): Promise<any> => {
+): Promise<unknown> => {
   try {
     const payload = {
       ...data,
@@ -25,9 +23,12 @@ export const submitAdmissionsApplication = async (
       'userAdmissionAttachImageList',
     );
 
-    const response = await FORMAPI.post(USERS_ENDPOINT + '/admissions/apply', formData);
+    const response = await FORMAPI.post(
+      USERS_ENDPOINT + '/admissions/apply',
+      formData,
+    );
 
-    return response.data; //
+    return response.data;
   } catch (error) {
     throw error;
   }

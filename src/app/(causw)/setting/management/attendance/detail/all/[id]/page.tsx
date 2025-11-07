@@ -42,7 +42,9 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
           className="ml-1 w-12 border-b-2 bg-board-page-background"
           placeholder={data?.currentCompleteSemester + ""}
         ></input> */}
-        <span>{data?.academicStatus && ACADEMIC_STATUS_LABELS[data.academicStatus]}</span>
+        <span>
+          {data?.academicStatus && ACADEMIC_STATUS_LABELS[data.academicStatus]}
+        </span>
       </div>
 
       <SubHeader bold big>
@@ -54,7 +56,9 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
           className="ml-1 w-12 border-b-2 bg-board-page-background"
           placeholder={data?.currentCompleteSemester + ""}
         ></input> */}
-        {data?.currentCompleteSemester ? data?.currentCompleteSemester + '차 학기' : '등록이 완료되지 않았습니다.'}
+        {data?.currentCompleteSemester
+          ? data?.currentCompleteSemester + '차 학기'
+          : '등록이 완료되지 않았습니다.'}
       </div>
 
       <SubHeader bold big>
@@ -70,17 +74,29 @@ const AttendanceDetail = ({ params: { id } }: { params: { id: string } }) => {
 
       <div className="mt-2 mb-2 h-1/3 w-full overflow-y-auto rounded-md border-2 bg-white lg:h-1/2">
         {data?.userAcademicRecordApplicationResponseDtoList.map((element) => (
-          <div key={element.changeDate} className="flex h-24 w-full items-center justify-evenly border-b-2 font-bold">
-            <span className="text-center">{element.changeDate.split('T')[0]}</span>
-            <span className="w-1/5 text-center">{ACADEMIC_STATUS_LABELS[element.targetAcademicStatus] ?? '-'}</span>
+          <div
+            key={element.changeDate}
+            className="flex h-24 w-full items-center justify-evenly border-b-2 font-bold"
+          >
+            <span className="text-center">
+              {element.changeDate.split('T')[0]}
+            </span>
+            <span className="w-1/5 text-center">
+              {ACADEMIC_STATUS_LABELS[element.targetAcademicStatus] ?? '-'}
+            </span>
             <div className="flex w-2/5 justify-center gap-2 overflow-x-auto">
               {element.attachedImageUrlList.map((element) => (
                 <div key={element} className="h-20 min-w-20 overflow-hidden">
-                  <div className="h-20 w-20 bg-contain bg-center" style={{ backgroundImage: `url(${element})` }} />
+                  <div
+                    className="h-20 w-20 bg-contain bg-center"
+                    style={{ backgroundImage: `url(${element})` }}
+                  />
                 </div>
               ))}
             </div>
-            <span className="h-20 w-1/4 overflow-y-auto text-center">{element.userNote}</span>
+            <span className="h-20 w-1/4 overflow-y-auto text-center">
+              {element.userNote}
+            </span>
           </div>
         ))}
       </div>

@@ -7,14 +7,15 @@ import { useShallow } from 'zustand/react/shallow';
 import { useBoardCreationStore } from '../../model';
 
 export const BoardDetailForm = () => {
-  const { boardName, boardDescription, setBoardName, setBoardDescription } = useBoardCreationStore(
-    useShallow((state) => ({
-      boardName: state.boardName,
-      boardDescription: state.boardDescription,
-      setBoardName: state.setBoardName,
-      setBoardDescription: state.setBoardDescription,
-    })),
-  );
+  const { boardName, boardDescription, setBoardName, setBoardDescription } =
+    useBoardCreationStore(
+      useShallow((state) => ({
+        boardName: state.boardName,
+        boardDescription: state.boardDescription,
+        setBoardName: state.setBoardName,
+        setBoardDescription: state.setBoardDescription,
+      })),
+    );
 
   const boardDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -22,11 +23,14 @@ export const BoardDetailForm = () => {
     setBoardName(e.target.value);
   };
 
-  const handleBoardDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleBoardDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     setBoardDescription(e.target.value);
     if (boardDescriptionRef.current) {
       boardDescriptionRef.current.style.height = 'auto';
-      boardDescriptionRef.current.style.height = boardDescriptionRef.current.scrollHeight + 'px';
+      boardDescriptionRef.current.style.height =
+        boardDescriptionRef.current.scrollHeight + 'px';
     }
   };
 

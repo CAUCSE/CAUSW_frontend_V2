@@ -16,14 +16,15 @@ interface FormData {
 
 export const useFindPasswordForm = () => {
   const router = useRouter();
-  const { phoneNumber, name, email, resetFindAccountStore } = useFindAccountStore(
-    useShallow((state) => ({
-      phoneNumber: state.phoneNumber,
-      name: state.name,
-      email: state.email,
-      resetFindAccountStore: state.resetFindAccountStore,
-    })),
-  );
+  const { phoneNumber, name, email, resetFindAccountStore } =
+    useFindAccountStore(
+      useShallow((state) => ({
+        phoneNumber: state.phoneNumber,
+        name: state.name,
+        email: state.email,
+        resetFindAccountStore: state.resetFindAccountStore,
+      })),
+    );
   const {
     register,
     handleSubmit,
@@ -50,5 +51,12 @@ export const useFindPasswordForm = () => {
     router.push('/auth/signin');
     resetFindAccountStore();
   };
-  return { register, handleSubmit, formState: { errors }, onSubmit, handleRouterToSignIn, isSuccess };
+  return {
+    register,
+    handleSubmit,
+    formState: { errors },
+    onSubmit,
+    handleRouterToSignIn,
+    isSuccess,
+  };
 };

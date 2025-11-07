@@ -2,7 +2,10 @@ import clsx from 'clsx';
 
 import { MESSAGES } from '@/shared';
 
-export const CeremonySectionTitle = ({ title, ceremonyContent }: Ceremony.CeremonySectionTitleProps) => {
+export const CeremonySectionTitle = ({
+  title,
+  ceremonyContent,
+}: Ceremony.CeremonySectionTitleProps) => {
   return (
     <div
       className={clsx(
@@ -11,7 +14,9 @@ export const CeremonySectionTitle = ({ title, ceremonyContent }: Ceremony.Ceremo
           : 'grid grid-cols-[auto_1fr] gap-x-2 md:block md:gap-y-2',
       )}
     >
-      <h1 className="min-w-[120px] text-lg font-semibold md:text-2xl">{title}</h1>
+      <h1 className="min-w-[120px] text-lg font-semibold md:text-2xl">
+        {title}
+      </h1>
 
       <p
         className={clsx(

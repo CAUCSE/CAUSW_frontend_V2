@@ -11,7 +11,10 @@ export const CommentLikeBadge = ({ numLike }: CommentLikeBadgeProps) => {
     return count > 999 ? '999+' : count;
   };
   return (
-    <Badge variant="outline" className="text-post-like flex items-center justify-start gap-2 border-none outline-none">
+    <Badge
+      variant="outline"
+      className="text-post-like flex items-center justify-start gap-2 border-none outline-none"
+    >
       <span>
         <ThumbsUp className="size-4" />
       </span>

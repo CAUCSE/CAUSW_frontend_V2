@@ -28,7 +28,10 @@ declare namespace Comment {
   }
 
   export interface ChildCommentDto
-    extends Omit<Comment.CommentDto, 'postId' | 'isCommentSubscribed' | 'childCommentList'> {}
+    extends Omit<
+      Comment.CommentDto,
+      'postId' | 'isCommentSubscribed' | 'childCommentList'
+    > {}
 
   export interface CreateCommentDto {
     content: string;

@@ -28,12 +28,19 @@ export const isCircleLeader = (roles: User.Role[]) => {
 };
 
 export const isCouncil = (roles: User.Role[]) => {
-  return roles.includes('COUNCIL') || roles.includes('VICE_PRESIDENT') || roles.includes('PRESIDENT');
+  return (
+    roles.includes('COUNCIL') ||
+    roles.includes('VICE_PRESIDENT') ||
+    roles.includes('PRESIDENT')
+  );
 };
 
 export const isStudentLeader = (roles: User.Role[]) => {
   return (
-    roles.includes('LEADER_1') || roles.includes('LEADER_2') || roles.includes('LEADER_3') || roles.includes('LEADER_4')
+    roles.includes('LEADER_1') ||
+    roles.includes('LEADER_2') ||
+    roles.includes('LEADER_3') ||
+    roles.includes('LEADER_4')
   );
 };
 

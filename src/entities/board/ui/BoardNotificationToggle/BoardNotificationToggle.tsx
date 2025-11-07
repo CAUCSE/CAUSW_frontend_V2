@@ -10,13 +10,18 @@ import toast from 'react-hot-toast';
 
 import { Button } from '@/shadcn/components/ui';
 
-import { useActiveBoardNotification, useInActiveBoardNotification } from '../../model';
+import {
+  useActiveBoardNotification,
+  useInActiveBoardNotification,
+} from '../../model';
 
 interface BoardNotificationToggleProps {
   isNotificationActive: boolean;
 }
 
-export const BoardNotificationToggle = ({ isNotificationActive }: BoardNotificationToggleProps) => {
+export const BoardNotificationToggle = ({
+  isNotificationActive,
+}: BoardNotificationToggleProps) => {
   const params = useParams();
   const { boardId } = params as { boardId: string };
 
@@ -54,9 +59,15 @@ export const BoardNotificationToggle = ({ isNotificationActive }: BoardNotificat
   };
 
   return (
-    <Button variant="neutral" className="h-7 rounded-md px-4 sm:h-10" onClick={handleClickNotificationToggle}>
+    <Button
+      variant="neutral"
+      className="h-7 rounded-md px-4 sm:h-10"
+      onClick={handleClickNotificationToggle}
+    >
       {isActive ? <CheckIcon /> : <BellRing />}
-      <div className="text-[10px] font-medium sm:text-sm">{isActive ? '알림 받는 중' : '알림 받기'}</div>
+      <div className="text-[10px] font-medium sm:text-sm">
+        {isActive ? '알림 받는 중' : '알림 받기'}
+      </div>
     </Button>
   );
 };

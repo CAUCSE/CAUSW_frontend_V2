@@ -1,6 +1,6 @@
 'use client';
 
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 import { createFormData } from '@/shared/lib';
 
@@ -9,18 +9,23 @@ import { API } from '@/shared';
 
 const URI = '/api/v1/users';
 
-export const signin = async (body: User.SignInRequestDto): Promise<{ accessToken: string; refreshToken: string }> => {
+export const signin = async (
+  body: User.SignInRequestDto,
+): Promise<{ accessToken: string; refreshToken: string }> => {
   const response = await API.post(`${URI}/sign-in`, body);
   return response.data;
 };
 
-export const signup = async (body: User.SignUpFormPost): Promise<{ accessToken: string; refreshToken: string }> => {
+export const signup = async (
+  body: User.SignUpFormPost,
+): Promise<{ accessToken: string; refreshToken: string }> => {
   const response = await API.post(`${URI}/sign-up`, body);
   return response.data;
 };
 
 export const submitAdmissionsApplication = async (
   data: User.AdmissionCreateRequestDto, // FileList 타입 사용
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> => {
   const payload = {
     ...data,
@@ -34,16 +39,24 @@ export const submitAdmissionsApplication = async (
     'userAdmissionAttachImageList',
   );
 
-  const response = await FORMAPI.post('/api/v1/users/admissions/apply', formData);
+  const response = await FORMAPI.post(
+    '/api/v1/users/admissions/apply',
+    formData,
+  );
 
   return response.data;
 };
 
-export const signout = async (payload: User.SignOutRequestDto): Promise<void> => {
+export const signout = async (
+  payload: User.SignOutRequestDto,
+): Promise<void> => {
   await API.post(`${URI}/sign-out`, payload);
 };
 
-export const postAcademicRecord = async (data: User.CreateUserAcademicRecordApplicationRequestDto): Promise<any> => {
+export const postAcademicRecord = async (
+  data: User.CreateUserAcademicRecordApplicationRequestDto,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> => {
   const payload = {
     ...data, // 기존 데이터 복사
     images: undefined, // images는 따로 처리하므로 제거
@@ -56,13 +69,21 @@ export const postAcademicRecord = async (data: User.CreateUserAcademicRecordAppl
     'imageFileList',
   );
 
-  const response = await FORMAPI.post('/api/v1/users/academic-record/application/create', formData);
+  const response = await FORMAPI.post(
+    '/api/v1/users/academic-record/application/create',
+    formData,
+  );
   return response.data; //
 };
 
-export const findId = async (data: User.FindIdRequest): Promise<User.FindIdResponse> => {
+export const findId = async (
+  data: User.FindIdRequest,
+): Promise<User.FindIdResponse> => {
   try {
-    const response = await API.post<User.FindIdResponse>(`/api/v1/users/user-id/find`, data);
+    const response = await API.post<User.FindIdResponse>(
+      `/api/v1/users/user-id/find`,
+      data,
+    );
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -74,7 +95,9 @@ export const findId = async (data: User.FindIdRequest): Promise<User.FindIdRespo
   }
 };
 
-export const findPassword = async (data: User.FindPasswordRequest): Promise<void> => {
+export const findPassword = async (
+  data: User.FindPasswordRequest,
+): Promise<void> => {
   try {
     await API.put('/api/v1/users/password/find', data);
   } catch (error) {
@@ -87,7 +110,9 @@ export const findPassword = async (data: User.FindPasswordRequest): Promise<void
   }
 };
 
-export const resetPassword = async (data: User.ResetPasswordRequest): Promise<void> => {
+export const resetPassword = async (
+  data: User.ResetPasswordRequest,
+): Promise<void> => {
   try {
     await API.put(`${BASEURL}/api/v1/users/password`, data);
   } catch (error) {

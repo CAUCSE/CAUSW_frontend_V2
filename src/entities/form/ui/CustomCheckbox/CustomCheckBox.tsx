@@ -8,7 +8,13 @@ interface CustomCheckBoxProps {
   className?: string;
 }
 
-export const CustomCheckBox = ({ value, label, isChecked, onCheckedChange, className }: CustomCheckBoxProps) => {
+export const CustomCheckBox = ({
+  value,
+  label,
+  isChecked,
+  onCheckedChange,
+  className,
+}: CustomCheckBoxProps) => {
   return (
     <div className={clsx('flex items-center gap-2', className)}>
       <input
