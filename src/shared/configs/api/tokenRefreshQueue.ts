@@ -9,7 +9,7 @@ interface RetryQueueItem {
 
 export interface TokenRefreshQueue {
   refresh: (
-    config: any,
+    config: AxiosRequestConfig,
     axiosInstance: AxiosInstance,
     refreshToken: string,
     updateAccess: (refreshToken: string) => Promise<string>,
@@ -22,7 +22,7 @@ export const createTokenRefreshQueue = (): TokenRefreshQueue => {
   let isRefreshing = false;
 
   const refresh = async (
-    config: any,
+    config: AxiosRequestConfig,
     axiosInstance: AxiosInstance,
     refreshToken: string,
     updateAccess: (refreshToken: string) => Promise<string>,
