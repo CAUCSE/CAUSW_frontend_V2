@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosRequestConfig } from 'axios';
-import Cookies from 'js-cookie';
+import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 
 import {
-  isNativeApp,
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
-  secureStorage,
   tokenManager,
 } from '@/shared';
 
+import { createTokenRefreshQueue } from './tokenRefreshQueue';
+import { createTokenStorage } from './tokenStorage';
 import { BASEURL } from './url';
 
+// Axios 인스턴스 생성
 export const API = axios.create({
   baseURL: BASEURL,
   headers: {
@@ -34,57 +34,19 @@ export const FORMAPI = axios.create({
   },
 });
 
-// 토큰 재발급 대기열
-interface RetryQueueItem {
-  resolve: (value?: any) => void;
-  reject: (error?: any) => void;
-  config: AxiosRequestConfig;
-}
+// 토큰 저장소 및 갱신 큐 초기화
+const tokenStorage = createTokenStorage([API, FORMAPI]);
+const refreshQueue = createTokenRefreshQueue();
 
-const refreshAndRetryQueue: RetryQueueItem[] = [];
-let isRefreshing = false;
+// 토큰 관련 함수 export
+export const setRccToken = tokenStorage.setTokens;
+export const removeRccAccess = tokenStorage.removeAccess;
+export const getRccAccess = tokenStorage.getAccess;
+export const removeRccRefresh = tokenStorage.removeRefresh;
+export const getRccRefresh = tokenStorage.getRefresh;
 
-const storageRefreshKey = 'CAUCSE_JWT_REFRESH';
-const storageAccessKey = 'CAUCSE_JWT_ACCESS';
-
-export const setRccToken = async (access: string, refresh: string | false) => {
-  API.defaults.headers['Authorization'] = `Bearer ${access}`;
-  FORMAPI.defaults.headers['Authorization'] = `Bearer ${access}`;
-
-  if (refresh) {
-    Cookies.set(storageAccessKey, access);
-    Cookies.set(storageRefreshKey, refresh);
-    await secureStorage.set(storageRefreshKey, refresh);
-  }
-};
-
-export const removeRccAccess = () => {
-  delete API.defaults.headers['Authorization'];
-  delete FORMAPI.defaults.headers['Authorization'];
-};
-
-export const getRccAccess = (): string =>
-  (API.defaults.headers['Authorization'] as string)?.split(' ')[1] || '';
-
-export const removeRccRefresh = async (): Promise<void> => {
-  if (isNativeApp()) {
-    await secureStorage.remove(storageRefreshKey);
-  } else {
-    Cookies.remove(storageRefreshKey);
-  }
-};
-
-export const getRccRefresh = async (): Promise<string | null> => {
-  if (isNativeApp()) {
-    return await secureStorage.get(storageRefreshKey);
-  }
-  return Cookies.get(storageRefreshKey) || null;
-};
-
-const handleError = async (
-  error: any,
-  axiosInstance: typeof API | typeof FORMAPI,
-) => {
+// 에러 핸들러
+const handleError = async (error: any, axiosInstance: AxiosInstance) => {
   const { signoutAndRedirect } = tokenManager();
 
   if (error.response) {
@@ -95,61 +57,31 @@ const handleError = async (
       config,
     } = error;
 
-    //Access token 재발급 과정
+    // Access token 재발급 과정
     if (noAccessTokenCode.includes(errorCode)) {
       const refresh = await getRccRefresh();
       if (!refresh) {
         location.href = '/auth/signin';
       } else {
-        return refreshTokenWithQueue(config, axiosInstance, refresh);
+        const { updateAccess } = tokenManager();
+        return refreshQueue.refresh(
+          config,
+          axiosInstance,
+          refresh,
+          updateAccess,
+          signoutAndRedirect,
+        );
       }
-    } else if (noPermissionCode.includes(errorCode)) signoutAndRedirect();
-    else if (noRefreshTokenCode.includes(errorCode)) signoutAndRedirect();
+    } else if (noPermissionCode.includes(errorCode)) {
+      signoutAndRedirect();
+    } else if (noRefreshTokenCode.includes(errorCode)) {
+      signoutAndRedirect();
+    }
   }
   throw error;
 };
 
-const refreshTokenWithQueue = async (
-  config: any,
-  axiosInstance: typeof API | typeof FORMAPI,
-  refreshToken: string,
-) => {
-  const { updateAccess, signoutAndRedirect } = tokenManager();
-
-  if (!isRefreshing) {
-    isRefreshing = true;
-    try {
-      const accessToken = await updateAccess(refreshToken);
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
-      refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
-        // 새로운 axios 인스턴스 생성 (interceptor가 없는 인스턴스)
-        const newAxiosInstance = axios.create({
-          baseURL: axiosInstance.defaults.baseURL,
-          headers: axiosInstance.defaults.headers,
-          paramsSerializer: axiosInstance.defaults.paramsSerializer,
-        });
-        newAxiosInstance
-          .request(config)
-          .then((response) => resolve(response))
-          .catch((err) => {
-            signoutAndRedirect();
-            reject(err);
-          });
-      });
-      refreshAndRetryQueue.length = 0;
-      return axiosInstance.request(config);
-    } catch (err) {
-      signoutAndRedirect();
-    } finally {
-      isRefreshing = false;
-    }
-  }
-  // 토큰 재발급 대기열에 추가
-  return new Promise((resolve, reject) => {
-    refreshAndRetryQueue.push({ config, resolve, reject });
-  });
-};
-
+// Interceptor 설정
 API.interceptors.response.use(
   (response) => response,
   (error) => handleError(error, API),
