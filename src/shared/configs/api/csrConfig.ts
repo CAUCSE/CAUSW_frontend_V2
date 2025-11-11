@@ -122,10 +122,19 @@ const refreshTokenWithQueue = async (
       const accessToken = await updateAccess(refreshToken);
       config.headers['Authorization'] = `Bearer ${accessToken}`;
       refreshAndRetryQueue.forEach(({ config, resolve, reject }) => {
-        axiosInstance
+        // 새로운 axios 인스턴스 생성 (interceptor가 없는 인스턴스)
+        const newAxiosInstance = axios.create({
+          baseURL: axiosInstance.defaults.baseURL,
+          headers: axiosInstance.defaults.headers,
+          paramsSerializer: axiosInstance.defaults.paramsSerializer,
+        });
+        newAxiosInstance
           .request(config)
           .then((response) => resolve(response))
-          .catch((err) => reject(err));
+          .catch((err) => {
+            signoutAndRedirect();
+            reject(err);
+          });
       });
       refreshAndRetryQueue.length = 0;
       return axiosInstance.request(config);
