@@ -20,7 +20,7 @@ export const CeremonySectionTitle = ({
 
       <p
         className={clsx(
-          'text-xl font-medium break-keep whitespace-pre-line text-[#888888] md:text-[#000000]',
+          'text-xl font-medium break-all whitespace-pre-line text-[#888888] md:text-[#000000]',
           title === MESSAGES.CEREMONY.DETAIL_CONTENTS
             ? 'rounded-2xl border border-[#000000] p-6 md:border-[#d9d9d9]'
             : 'border-b border-[#000000] md:border-none',
