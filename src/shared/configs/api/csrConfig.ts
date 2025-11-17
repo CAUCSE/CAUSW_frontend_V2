@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import qs from 'qs';
 
 import {
+  allErrorCode,
+  captureSentry,
   isNativeApp,
   noAccessTokenCode,
   noPermissionCode,
@@ -86,6 +88,38 @@ const handleError = async (
   axiosInstance: typeof API | typeof FORMAPI,
 ) => {
   const { signoutAndRedirect } = tokenManager();
+
+  const status = error?.response?.status;
+  const errorCode = error?.response?.data?.errorCode;
+  const url = error?.config?.url || 'unknown';
+  const method = error?.config?.method?.toUpperCase() || 'UNKNOWN';
+
+  // Sentry 전송 필터링
+  if (!error.response) {
+    captureSentry(
+      error,
+      'network_error',
+      { info: '서버 응답이 없습니다.', url, method },
+      'error',
+    );
+  } else if (status >= 500) {
+    captureSentry(
+      error,
+      'server_error',
+      { info: '서버 내부 오류 발생', status, url, method },
+      'fatal',
+    );
+  } else if (
+    !allErrorCode.includes(errorCode) &&
+    (status < 400 || status >= 500)
+  ) {
+    captureSentry(
+      error,
+      'unexpected_error',
+      { info: '예상치 못한 오류 발생', errorCode, url, method },
+      'warning',
+    );
+  }
 
   if (error.response) {
     const {
