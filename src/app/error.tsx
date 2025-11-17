@@ -6,8 +6,6 @@ import { useEffect } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import * as Sentry from '@sentry/nextjs';
-
 import { LoadingComponent } from '@/shared';
 import { getRscRefresh, noAccessTokenCode, noPermissionCode } from '@/shared';
 import { tokenManager } from '@/shared';
@@ -45,7 +43,6 @@ const Error = ({
     } else if (noPermissionCode.includes(error.message))
       router.push('/no-permission');
     else {
-      Sentry.captureException(error);
       signoutAndRedirect();
     }
   }, [error]);
