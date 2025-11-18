@@ -23,8 +23,8 @@ export const VTwoForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="fixed top-1/2 left-1/2 z-50 flex h-4/5 w-screen max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-lg bg-white"
       >
-        <Header bold>CAUSW 동문 네트워크 V2</Header>
-        <SubHeader big>두번째 이야기에 오신것을 환영합니다.</SubHeader>
+        <Header bold>크자회(CCSSAA)</Header>
+        <SubHeader big>크자회에 오신것을 환영합니다.</SubHeader>
         <div className="mt-3 mb-5 w-2/3">
           <Line />
         </div>
