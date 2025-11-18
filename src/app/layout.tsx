@@ -79,13 +79,13 @@ export default function RootLayout({
               __html: JSON.stringify({
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
-                name: 'CAUSW',
+                name: '크자회(CCSSAA)',
                 url: 'https://causw.co.kr',
                 description:
-                  '중앙대학교 소프트웨어학부 동문만 사용할 수 있는 커뮤니티 서비스로, 단순 소셜 네트워크 기능 뿐만 아니라 사물함 신청, 동아리 신청 및 학생회 사업/행사 신청 등 전반적으로 소프트웨어 학부 학생 사회를 하나로 묶어주며, 학생들의 편의를 증진 시켜주는 서비스, CAUSW',
+                  '크자회(CCSSAA), 중앙대학교 소프트웨어대학 동문만 사용할 수 있는 커뮤니티 서비스로, 단순 소셜 네트워크 기능 뿐만 아니라 사물함 신청, 동아리 신청 및 학생회 사업/행사 신청 등 전반적으로 소프트웨어대학 학생 사회를 하나로 묶어주며, 학생들의 편의를 증진 시켜주는 서비스',
                 publisher: {
                   '@type': 'Organization',
-                  name: '중앙대학교 소프트웨어학부',
+                  name: '중앙대학교 소프트웨어대학',
                   url: 'https://sw.cau.ac.kr',
                   logo: {
                     '@type': 'ImageObject',
@@ -133,8 +133,8 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: 'CAUSW V2',
-  description: '중앙대학교 소프트웨어학부 동문을 위한 서비스',
+  title: '크자회(CCSSAA)',
+  description: '크자회, 중앙대학교 소프트웨어대학 동문을 위한 서비스',
   alternates: {
     canonical: 'https://causw.co.kr/auth/signin',
   },
@@ -143,16 +143,16 @@ export const metadata: Metadata = {
     follow: false,
   },
   openGraph: {
-    title: 'CAUSW V2',
-    description: '중앙대학교 소프트웨어학부 동문을 위한 서비스',
+    title: '크자회(CCSSAA)',
+    description: '크자회, 중앙대학교 소프트웨어대학 동문을 위한 서비스',
     url: 'https://causw.co.kr/auth/signin',
-    siteName: 'CAUSW V2',
+    siteName: '크자회(CCSSAA)',
     images: [
       {
         url: 'https://causw.co.kr/images/ccssaa_logo.png',
         width: 1200,
         height: 630,
-        alt: 'CAUSW V2',
+        alt: '크자회(CCSSAA)',
       },
     ],
     locale: 'ko_KR',
@@ -160,6 +160,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    title: '크자회(CCSSAA)',
+    description: '크자회, 중앙대학교 소프트웨어대학 동문을 위한 서비스',
     images: ['https://causw.co.kr/images/ccssaa_logo.png'],
   },
   icons: {
