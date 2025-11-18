@@ -56,6 +56,10 @@ export default function RootLayout({
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
           />
           <meta name="mobile-web-app-capable" content="yes" />
+          <meta
+            name="naver-site-verification"
+            content="6fbf2c2cc89717abc91cf1711e813c371462c772"
+          />
           {/* Clarity Script */}
           <script
             dangerouslySetInnerHTML={{
