@@ -134,6 +134,36 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://causw.co.kr/auth/signin',
   },
+  robots: {
+    index: true,
+    follow: false,
+  },
+  openGraph: {
+    title: 'CAUSW V2',
+    description: '중앙대학교 소프트웨어학부 동문을 위한 서비스',
+    url: 'https://causw.co.kr/auth/signin',
+    siteName: 'CAUSW V2',
+    images: [
+      {
+        // 이미지 url 수정 여부 확인 필요
+        url: 'https://causw.co.kr/_next/image?url=%2Fimages%2Fsignin-logo.png&w=1920&q=75&dpl=dpl_6awPM6qeGtELn978Q8qm7sMEt2dX',
+        width: 1200,
+        height: 630,
+        alt: 'CAUSW V2',
+      },
+    ],
+    locale: 'ko_KR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CAUSW V2',
+    description: '중앙대학교 소프트웨어학부 동문을 위한 서비스',
+    images: [
+      // 이미지 url 수정 여부 확인 필요
+      'https://causw.co.kr/_next/image?url=%2Fimages%2Fsignin-logo.png&w=1920&q=75&dpl=dpl_6awPM6qeGtELn978Q8qm7sMEt2dX',
+    ],
+  },
   icons: {
     icon: [
       { url: '/favicons/icon-96.png', rel: 'icon' },
