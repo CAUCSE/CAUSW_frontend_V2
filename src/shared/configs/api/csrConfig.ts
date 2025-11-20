@@ -3,6 +3,8 @@ import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 
 import {
+  captureSentry,
+  extractRequestInfo,
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
@@ -49,9 +51,12 @@ export const getRccRefresh = tokenStorage.getRefresh;
 const handleError = async (error: any, axiosInstance: AxiosInstance) => {
   const { signoutAndRedirect } = tokenManager();
 
+  const { url, method } = extractRequestInfo(error);
+
   if (error.response) {
     const {
       response: {
+        status,
         data: { errorCode },
       },
       config,
@@ -76,7 +81,28 @@ const handleError = async (error: any, axiosInstance: AxiosInstance) => {
       signoutAndRedirect();
     } else if (noRefreshTokenCode.includes(errorCode)) {
       signoutAndRedirect();
+    } else if (status >= 500) {
+      captureSentry(
+        error,
+        'server_error',
+        { info: '서버 내부 오류 발생', status, url, method },
+        'fatal',
+      );
+    } else {
+      captureSentry(
+        error,
+        'unexpected_error',
+        { info: '예상치 못한 오류 발생', errorCode, url, method },
+        'warning',
+      );
     }
+  } else {
+    captureSentry(
+      error,
+      'network_error',
+      { info: '서버 응답이 없습니다.', url, method },
+      'error',
+    );
   }
   throw error;
 };

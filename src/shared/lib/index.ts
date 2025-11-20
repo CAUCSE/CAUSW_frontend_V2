@@ -8,3 +8,4 @@ export * from './analytics';
 export * from './sanitizer';
 export * from './format';
 export * from './firebase';
+export * from './sentry';
