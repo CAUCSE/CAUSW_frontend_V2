@@ -27,7 +27,8 @@ const nextConfig = {
     domains: [
       'caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com',
       'caucse-s3-bucket-prod.s3.ap-northeast-2.amazonaws.com',
-    ], // S3 버킷 도메인 허용
+      'd72wley2drory.cloudfront.net',
+    ], // S3 + CloudFront 버킷 도메인 허용
   },
   webpack: (config, { isServer }) => {
     config.module.rules.push({

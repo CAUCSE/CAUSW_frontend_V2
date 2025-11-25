@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Mail, UserCircle } from 'lucide-react';
 
 import { ImageViewer } from '@/shared/ui';
+import { getOptimizedImageUrl } from '@/shared/utils/image';
 
 import { Badge } from '@/shadcn/components/ui/badge';
 
@@ -46,11 +47,11 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
         >
           {contact.profileImageUrl ? (
             <Image
-              src={contact.profileImageUrl}
+              src={getOptimizedImageUrl(contact.profileImageUrl, { width: 80 })}
               alt={contact.name}
               fill
-              sizes="80px"
               className="object-cover"
+              unoptimized
             />
           ) : (
             <UserCircle className="h-full w-full text-gray-300" />

@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 interface PostWriterProfileImageProps {
   profileImage: string;
   nickname: string;
@@ -20,11 +22,12 @@ export const PostWriterProfileImage = ({
       className="overflow-hidden rounded-full"
     >
       <Image
-        src={profileImage}
+        src={getOptimizedImageUrl(profileImage, { width: size })}
         alt={nickname}
         width={size}
         height={size}
         className="object-cover"
+        unoptimized
       />
     </div>
   );
