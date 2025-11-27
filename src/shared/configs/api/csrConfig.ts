@@ -3,6 +3,9 @@ import axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
 
 import {
+  captureSentry,
+  createSentryFormat,
+  extractRequestInfo,
   noAccessTokenCode,
   noPermissionCode,
   noRefreshTokenCode,
@@ -49,6 +52,8 @@ export const getRccRefresh = tokenStorage.getRefresh;
 const handleError = async (error: any, axiosInstance: AxiosInstance) => {
   const { signoutAndRedirect } = tokenManager();
 
+  const { url, method } = extractRequestInfo(error);
+
   if (error.response) {
     const {
       response: {
@@ -72,13 +77,22 @@ const handleError = async (error: any, axiosInstance: AxiosInstance) => {
           signoutAndRedirect,
         );
       }
-    } else if (noPermissionCode.includes(errorCode)) {
-      signoutAndRedirect();
-    } else if (noRefreshTokenCode.includes(errorCode)) {
+    } else if (
+      noPermissionCode.includes(errorCode) ||
+      noRefreshTokenCode.includes(errorCode)
+    ) {
       signoutAndRedirect();
     }
+
+    const {
+      error: sentryError,
+      type,
+      level,
+      extra,
+    } = createSentryFormat({ error, url, method });
+    captureSentry(sentryError, type, extra, level);
+    throw error;
   }
-  throw error;
 };
 
 // Interceptor 설정

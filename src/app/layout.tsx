@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 
+import * as Sentry from '@sentry/nextjs';
+
 import { LoadingComponent, PageWrapper, Providers } from '@/shared/ui';
 
 import '@/firebase-messaging-sw';
@@ -237,6 +239,9 @@ export const metadata: Metadata = {
         rel: 'icon',
       },
     ],
+  },
+  other: {
+    ...Sentry.getTraceData(),
   },
 };
 
