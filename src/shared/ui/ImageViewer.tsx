@@ -6,6 +6,8 @@ import Image from 'next/image';
 
 import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react';
 
+import { getOriginalImageUrl } from '../utils/image';
+
 interface ImageViewerProps {
   images: string[];
   initialIndex?: number;
@@ -37,10 +39,11 @@ export const ImageViewer = ({
   const downloadImage = async () => {
     try {
       const src = images[currentIndex];
+      const originalUrl = getOriginalImageUrl(src);
       const ext = src.split('.').pop()?.split('?')[0] || 'jpg';
       const name = `image_${currentIndex + 1}.${ext}`;
 
-      const res = await fetch(src, { mode: 'cors' });
+      const res = await fetch(originalUrl, { mode: 'cors' });
       if (!res.ok) throw new Error('Network error');
 
       const blob = await res.blob();
@@ -78,12 +81,12 @@ export const ImageViewer = ({
         {/* 이미지 */}
         <div className="relative flex min-h-[70vw] min-w-[70vw] items-center justify-center lg:min-h-[45vw] lg:min-w-[45vw]">
           <Image
-            src={images[currentIndex]}
+            src={getOriginalImageUrl(images[currentIndex])}
             alt="확대된 이미지"
             fill={true}
             quality={100}
             unoptimized
-            objectFit="contain"
+            style={{ objectFit: 'contain' }}
           />
         </div>
 

@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 import { ImageViewer } from './ImageViewer';
 
 interface ImageListProps {
@@ -40,12 +42,11 @@ export const ImageList = ({ images, imageSize = 80 }: ImageListProps) => {
           }}
         >
           <Image
-            src={image}
+            src={getOptimizedImageUrl(image, { width: imageSize })}
             alt={`Uploaded Image ${index}`}
-            layout="fill" // 부모 div 크기에 맞게 자동 조정
-            objectFit="cover" // 이미지 비율 유지하면서 크기 맞추기
-            unoptimized // Next.js의 자동 최적화 비활성화 (화질 깨짐 방지)
-            className="rounded-md"
+            fill
+            className="rounded-md object-cover"
+            unoptimized
           />
         </div>
       ))}

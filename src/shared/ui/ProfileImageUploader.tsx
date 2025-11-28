@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { Pencil, Plus, UserCircle } from 'lucide-react';
 import { FieldValues, Path, UseFormSetValue } from 'react-hook-form';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 import { cn } from '@/shadcn/lib/utils';
 
 interface Props<T extends FieldValues> {
@@ -42,10 +44,11 @@ export const ProfileImageUploader = <T extends FieldValues>({
       <div className="relative h-full w-full overflow-hidden rounded-full">
         {preview ? (
           <Image
-            src={preview}
+            src={getOptimizedImageUrl(preview, { width: 96 })}
             alt="프로필 미리보기"
             fill
             className="object-cover"
+            unoptimized
           />
         ) : (
           <UserCircle className="h-full w-full text-gray-300" />

@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 import { LoadingComponent } from '@/shared';
 
 export const ImageBackground = ({
@@ -25,13 +27,14 @@ export const ImageBackground = ({
       ) : null}
       <div className="fixed top-1/2 left-1/2 z-[-1] ml-4 h-[100vw] w-full -translate-x-1/2 -translate-y-1/2 transform bg-center object-cover md:h-full md:w-[100vh]">
         <Image
-          src={src}
+          src={getOptimizedImageUrl(src, { width: 1920 })}
           alt={alt}
           fill={true}
           style={{ filter: 'brightness(0.5)' }}
           onLoadingComplete={() => {
             setIsImageLoaded(true);
           }}
+          unoptimized
         />
       </div>
     </>

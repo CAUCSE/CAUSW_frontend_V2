@@ -9,6 +9,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useBannerStore } from '@/entities/banner';
 
 import { CardBox } from '@/shared/ui';
+import { getOptimizedImageUrl } from '@/shared/utils/image';
 
 export const BannerCard = ({
   url,
@@ -53,11 +54,12 @@ export const BannerCard = ({
     <div onClick={handleClickBanner}>
       <CardBox className="relative flex w-full flex-col rounded-2xl">
         <Image
-          src={imgSrc}
+          src={getOptimizedImageUrl(imgSrc, { width: 1100 })}
           alt="banner"
           height={150}
           width={1100}
           className="h-[150px] w-full rounded-t-2xl object-cover"
+          unoptimized
         />
         <div className="flex min-w-0 items-center gap-2 py-3 pr-2 pl-4 text-sm text-gray-500 md:text-base">
           <LinkIcon className="flex-shrink-0" />

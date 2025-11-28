@@ -5,6 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useCalendarStore } from '@/entities/calendar/model';
 
 import { CardBox } from '@/shared/ui/CardBox';
+import { getOptimizedImageUrl } from '@/shared/utils/image';
 
 import DeleteIcon from '../../../../public/icons/delete_icon.svg';
 
@@ -40,11 +41,12 @@ export const CalendarCard = ({
   return (
     <CardBox className="relative flex h-full w-full flex-col justify-between rounded-2xl">
       <Image
-        src={imgSrc}
+        src={getOptimizedImageUrl(imgSrc, { width: 320 })}
         alt="banner"
         width={320}
         height={240}
         className="h-44 w-full rounded-t-2xl object-cover object-top"
+        unoptimized
       />
       <button
         className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full border border-[#A0A0A0] bg-white text-[#A0A0A0] hover:bg-red-500 hover:text-white"

@@ -9,6 +9,8 @@ import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 const ImageModal = dynamic(
   () => import('@/shared').then((mod) => mod.ImageModal),
   {
@@ -35,11 +37,12 @@ const TableUnit = ({
             className={
               data === '' ? 'invisible rounded-md' : 'mt-8 mb-8 rounded-md'
             }
-            src={data}
+            src={getOptimizedImageUrl(data, { width: 200 })}
             alt={title}
             width={200}
             height={200}
             onClick={() => setSelectedImage(data)}
+            unoptimized
           />
         ) : (
           <p className="h-[200px] text-[rgba(180,177,177,1)] max-lg:text-[14px]">

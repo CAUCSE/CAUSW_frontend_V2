@@ -10,6 +10,7 @@ import { UserCircle } from 'lucide-react';
 import { useGetMyProfileQuery } from '@/entities/contact';
 
 import { ImageViewer } from '@/shared/ui';
+import { getOptimizedImageUrl } from '@/shared/utils/image';
 
 interface ContactCardProps {
   contact: Contact.Contact;
@@ -52,12 +53,11 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
         >
           {contact.profileImageUrl ? (
             <Image
-              src={contact.profileImageUrl}
+              src={getOptimizedImageUrl(contact.profileImageUrl, { width: 52 })}
               alt={`${contact.name} 프로필 사진`}
               fill
-              sizes="40px"
               className="object-cover"
-              unoptimized //최적화 비활성화
+              unoptimized
             />
           ) : (
             <UserCircle className="h-full w-full text-gray-400" />

@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Image from 'next/image';
 
+import { getOptimizedImageUrl } from '../utils/image';
 import { ImageViewer } from './ImageViewer';
 
 interface CommonImageListProps {
@@ -35,11 +36,10 @@ export const CommonImageList = ({ images }: CommonImageListProps) => {
             onClick={() => openViewer(idx)}
           >
             <Image
-              src={image}
+              src={getOptimizedImageUrl(image, { width: 200 })}
               alt={`첨부사진${idx}`}
               width={200}
               height={200}
-              layout="fixed"
               className="h-36 w-36 rounded-2xl border border-black object-contain sm:h-48 sm:w-48"
               unoptimized
             />
