@@ -37,7 +37,7 @@ const TableUnit = ({
             className={
               data === '' ? 'invisible rounded-md' : 'mt-8 mb-8 rounded-md'
             }
-            src={getOptimizedImageUrl(data, { width: 200 })}
+            src={getOptimizedImageUrl(data, { width: 400 })}
             alt={title}
             width={200}
             height={200}

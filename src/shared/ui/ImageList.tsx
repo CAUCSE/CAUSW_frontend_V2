@@ -42,7 +42,7 @@ export const ImageList = ({ images, imageSize = 80 }: ImageListProps) => {
           }}
         >
           <Image
-            src={getOptimizedImageUrl(image, { width: imageSize })}
+            src={getOptimizedImageUrl(image, { width: imageSize * 2 })}
             alt={`Uploaded Image ${index}`}
             fill
             className="rounded-md object-cover"

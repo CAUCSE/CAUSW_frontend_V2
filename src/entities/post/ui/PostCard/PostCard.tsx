@@ -34,7 +34,7 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
           <div className="h-15 w-15 shrink-0 overflow-hidden rounded-lg sm:h-30 sm:w-30">
             {post.postAttachImage && (
               <Image
-                src={getOptimizedImageUrl(post.postAttachImage, { width: 120 })}
+                src={getOptimizedImageUrl(post.postAttachImage, { width: 240 })}
                 alt="post_thumbnail"
                 width={120}
                 height={120}
