@@ -25,3 +25,20 @@ export const parseErrorMessage = (
 
   return defaultMessage;
 };
+
+/**
+ * Axios 에러에서 요청 정보를 추출합니다.
+ * @param error - 에러 객체
+ * @returns { url: string, method: string }
+ */
+export const extractRequestInfo = (
+  error: unknown,
+): { url: string; method: string } => {
+  if (axios.isAxiosError(error)) {
+    const url = error.config?.url || 'unknown';
+    const method = error.config?.method?.toUpperCase() || 'UNKNOWN';
+    return { url, method };
+  }
+
+  return { url: 'unknown', method: 'UNKNOWN' };
+};

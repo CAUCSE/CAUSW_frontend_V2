@@ -1,3 +1,5 @@
+import { withSentryConfig } from '@sentry/nextjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
@@ -27,7 +29,8 @@ const nextConfig = {
     domains: [
       'caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com',
       'caucse-s3-bucket-prod.s3.ap-northeast-2.amazonaws.com',
-    ], // S3 버킷 도메인 허용
+      'd72wley2drory.cloudfront.net',
+    ], // S3 + CloudFront 버킷 도메인 허용
   },
   webpack: (config, { isServer }) => {
     config.module.rules.push({
@@ -50,4 +53,11 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: 'causw',
+  project: 'causw',
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  disableLogger: true,
+  automaticVercelMonitors: true,
+});

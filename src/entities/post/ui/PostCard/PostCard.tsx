@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 import { PostCardStatusBar } from './PostCardStatusBar';
 
 interface PostCardProps {
@@ -32,11 +34,12 @@ export const PostCard = ({ post, targetUrl }: PostCardProps) => {
           <div className="h-15 w-15 shrink-0 overflow-hidden rounded-lg sm:h-30 sm:w-30">
             {post.postAttachImage && (
               <Image
-                src={post.postAttachImage}
+                src={getOptimizedImageUrl(post.postAttachImage, { width: 120 })}
                 alt="post_thumbnail"
                 width={120}
                 height={120}
                 className="object-cover"
+                unoptimized
               />
             )}
           </div>

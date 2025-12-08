@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 import { CardBox } from '../CardBox';
 
 export interface HomeCardProps {
@@ -27,7 +29,13 @@ export const HomeCard = ({
           <div
             className={`h-[54px] min-w-[55.07px] ${bgColor} flex items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110 group-hover:rotate-3`}
           >
-            <Image src={icon} alt="icon" width={30} height={30} />
+            <Image
+              src={getOptimizedImageUrl(icon, { width: 30 })}
+              alt="icon"
+              width={30}
+              height={30}
+              unoptimized
+            />
           </div>
 
           <div className="flex h-full flex-col items-center justify-center gap-[5px] text-center">

@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 
+import { getOptimizedImageUrl } from '@/shared/utils/image';
+
 export const MessageItem = ({ msg, showAvatar }: Chat.MessageItemProps) => (
   <div
     className={`flex w-full flex-row gap-3 ${msg.isMine ? 'justify-end' : 'justify-start'}`}
@@ -11,11 +13,14 @@ export const MessageItem = ({ msg, showAvatar }: Chat.MessageItemProps) => (
         {showAvatar && (
           <div className="h-[30px] w-[30px] overflow-hidden rounded-full">
             <Image
-              src={msg.sender_profile ?? ''}
+              src={getOptimizedImageUrl(msg.sender_profile ?? '', {
+                width: 30,
+              })}
               alt="sender profile"
               width={30}
               height={30}
               className="object-cover"
+              unoptimized
             />
           </div>
         )}

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { getTimeDifference } from '@/shared/lib';
+import { getOptimizedImageUrl } from '@/shared/utils/image';
 
 interface CommentInfoSectionProps {
   writerProfileImage: Comment.CommentDto['writerProfileImage'];
@@ -18,11 +19,15 @@ export const CommentInfoSection = ({
     <section className="flex items-center gap-2">
       <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
         <Image
-          src={writerProfileImage ?? '/images/default_profile.png'}
+          src={getOptimizedImageUrl(
+            writerProfileImage ?? '/images/default_profile.png',
+            { width: 50 },
+          )}
           alt="Comment Profile"
           width={50}
           height={50}
           className="object-cover"
+          unoptimized
         />
       </div>
       <div className="flex flex-col items-start">
