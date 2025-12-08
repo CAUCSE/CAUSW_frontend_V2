@@ -67,12 +67,9 @@ export const getOptimizedImageUrl = (
   return url.toString();
 };
 
-/**
- * 다운로드용 최적화 우회 URL 생성.
- * 원본은 너무 커서 이미지 최적화 반환 문제가 있을 수 있음.
- */
-export const getOriginalImageUrl = (src: string) => {
-  if (!src) return src;
+// S3 URL을 CloudFront URL로 변환하는 함수
+const toCloudFrontPath = (src: string): { url: URL; matched: boolean } => {
+  if (!src) return { url: new URL(src || 'about:blank'), matched: false };
 
   let matchedBucket: string | null = null;
   let imagePath = src;
@@ -89,7 +86,7 @@ export const getOriginalImageUrl = (src: string) => {
   }
 
   if (!matchedBucket) {
-    return src;
+    return { url: new URL(src), matched: false };
   }
 
   if (!imagePath.startsWith('/')) {
@@ -101,10 +98,29 @@ export const getOriginalImageUrl = (src: string) => {
     imagePath = `/dev${imagePath}`;
   }
 
-  const url = new URL(`${CLOUDFRONT_DOMAIN}${imagePath}`);
-  url.searchParams.set('original', '');
+  return { url: new URL(`${CLOUDFRONT_DOMAIN}${imagePath}`), matched: true };
+};
 
+// 원본 이미지 URL 생성 (표시용)
+export const getOriginalImageUrl = (src: string) => {
+  if (!src) return src;
+
+  const { url, matched } = toCloudFrontPath(src);
+  if (!matched) return src;
+
+  url.searchParams.set('original', '');
   return url.toString().replace('original=', 'original');
+};
+
+// 다운로드용 URL 생성
+export const getDownloadImageUrl = (src: string) => {
+  if (!src) return src;
+
+  const { url, matched } = toCloudFrontPath(src);
+  if (!matched) return src;
+
+  url.searchParams.set('download', '');
+  return url.toString().replace('download=', 'download');
 };
 
 // Next.js Image Component용 Loader 함수
