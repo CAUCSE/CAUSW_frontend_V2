@@ -30,7 +30,7 @@ export const HomeCard = ({
             className={`h-[54px] min-w-[55.07px] ${bgColor} flex items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110 group-hover:rotate-3`}
           >
             <Image
-              src={getOptimizedImageUrl(icon, { width: 30 })}
+              src={getOptimizedImageUrl(icon, { width: 60 })}
               alt="icon"
               width={30}
               height={30}

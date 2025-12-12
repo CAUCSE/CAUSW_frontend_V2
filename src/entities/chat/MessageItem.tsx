@@ -14,7 +14,7 @@ export const MessageItem = ({ msg, showAvatar }: Chat.MessageItemProps) => (
           <div className="h-[30px] w-[30px] overflow-hidden rounded-full">
             <Image
               src={getOptimizedImageUrl(msg.sender_profile ?? '', {
-                width: 30,
+                width: 60,
               })}
               alt="sender profile"
               width={30}

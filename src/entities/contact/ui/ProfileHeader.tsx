@@ -47,7 +47,9 @@ export const ProfileHeader = ({ contact }: ProfileHeaderProps) => {
         >
           {contact.profileImageUrl ? (
             <Image
-              src={getOptimizedImageUrl(contact.profileImageUrl, { width: 80 })}
+              src={getOptimizedImageUrl(contact.profileImageUrl, {
+                width: 160,
+              })}
               alt={contact.name}
               fill
               className="object-cover"

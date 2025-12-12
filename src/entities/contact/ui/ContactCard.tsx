@@ -53,7 +53,9 @@ export const ContactCard = ({ contact }: ContactCardProps) => {
         >
           {contact.profileImageUrl ? (
             <Image
-              src={getOptimizedImageUrl(contact.profileImageUrl, { width: 52 })}
+              src={getOptimizedImageUrl(contact.profileImageUrl, {
+                width: 104,
+              })}
               alt={`${contact.name} 프로필 사진`}
               fill
               className="object-cover"
