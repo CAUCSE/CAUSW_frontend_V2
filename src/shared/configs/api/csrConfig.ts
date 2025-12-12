@@ -66,7 +66,7 @@ const handleError = async (error: any, axiosInstance: AxiosInstance) => {
     if (noAccessTokenCode.includes(errorCode)) {
       const refresh = await getRccRefresh();
       if (!refresh) {
-        location.href = '/auth/signin';
+        return await signoutAndRedirect();
       } else {
         const { updateAccess } = tokenManager();
         return refreshQueue.refresh(
@@ -81,7 +81,7 @@ const handleError = async (error: any, axiosInstance: AxiosInstance) => {
       noPermissionCode.includes(errorCode) ||
       noRefreshTokenCode.includes(errorCode)
     ) {
-      signoutAndRedirect();
+      return await signoutAndRedirect();
     }
 
     const {
