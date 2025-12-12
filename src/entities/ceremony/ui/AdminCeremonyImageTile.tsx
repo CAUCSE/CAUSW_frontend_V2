@@ -13,7 +13,7 @@ export const CeremonyImageTile = ({
           return (
             <div key={idx} className="flex justify-center">
               <Image
-                src={getOptimizedImageUrl(image, { width: 200 })}
+                src={getOptimizedImageUrl(image, { width: 400 })}
                 alt={`첨부사진${idx}`}
                 width={200}
                 height={200}

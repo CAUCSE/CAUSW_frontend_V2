@@ -21,7 +21,7 @@ export const CommentInfoSection = ({
         <Image
           src={getOptimizedImageUrl(
             writerProfileImage ?? '/images/default_profile.png',
-            { width: 50 },
+            { width: 100 },
           )}
           alt="Comment Profile"
           width={50}

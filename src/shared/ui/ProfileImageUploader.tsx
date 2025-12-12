@@ -44,7 +44,7 @@ export const ProfileImageUploader = <T extends FieldValues>({
       <div className="relative h-full w-full overflow-hidden rounded-full">
         {preview ? (
           <Image
-            src={getOptimizedImageUrl(preview, { width: 96 })}
+            src={getOptimizedImageUrl(preview, { width: 192 })}
             alt="프로필 미리보기"
             fill
             className="object-cover"

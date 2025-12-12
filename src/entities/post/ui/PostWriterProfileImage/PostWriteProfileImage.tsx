@@ -22,7 +22,7 @@ export const PostWriterProfileImage = ({
       className="overflow-hidden rounded-full"
     >
       <Image
-        src={getOptimizedImageUrl(profileImage, { width: size })}
+        src={getOptimizedImageUrl(profileImage, { width: size * 2 })}
         alt={nickname}
         width={size}
         height={size}

@@ -41,7 +41,7 @@ export const CalendarCard = ({
   return (
     <CardBox className="relative flex h-full w-full flex-col justify-between rounded-2xl">
       <Image
-        src={getOptimizedImageUrl(imgSrc, { width: 320 })}
+        src={getOptimizedImageUrl(imgSrc, { width: 640 })}
         alt="banner"
         width={320}
         height={240}

@@ -1,7 +1,11 @@
 export const CLOUDFRONT_DOMAIN = 'https://d72wley2drory.cloudfront.net';
 
-// PROD 배포 전에 확인 필요
-const S3_DOMAINS = ['caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com'];
+// 이미지에 맞는 S3 버킷 도메인
+const S3_BUCKET_DOMAINS: Record<string, string> = {
+  'caucse-s3-bucket': 'caucse-s3-bucket.s3.ap-northeast-2.amazonaws.com',
+  'caucse-s3-bucket-prod':
+    'caucse-s3-bucket-prod.s3.ap-northeast-2.amazonaws.com',
+};
 
 interface ImageOptions {
   width?: number;
@@ -16,12 +20,12 @@ export const getOptimizedImageUrl = (
 ) => {
   if (!src) return src;
 
-  let isS3Url = false;
+  let matchedBucket: string | null = null;
   let imagePath = src;
 
-  for (const domain of S3_DOMAINS) {
+  for (const [bucket, domain] of Object.entries(S3_BUCKET_DOMAINS)) {
     if (src.includes(domain)) {
-      isS3Url = true;
+      matchedBucket = bucket;
       // 도메인 이후의 경로 추출
       const parts = src.split(domain);
       if (parts.length > 1) {
@@ -31,7 +35,7 @@ export const getOptimizedImageUrl = (
     }
   }
 
-  if (!isS3Url) {
+  if (!matchedBucket) {
     return src;
   }
 
@@ -40,7 +44,15 @@ export const getOptimizedImageUrl = (
     imagePath = `/${imagePath}`;
   }
 
+  // dev 버킷이면 /dev/ prefix 추가
+  if (matchedBucket === 'caucse-s3-bucket') {
+    imagePath = `/dev${imagePath}`;
+  }
+
   const url = new URL(`${CLOUDFRONT_DOMAIN}${imagePath}`);
+
+  // Path Pattern 방식으로 변경 (bucket query string 제거)
+  // Lambda가 /dev/ 경로를 보고 자동으로 버킷 결정
 
   if (options.width) {
     url.searchParams.set('w', options.width.toString());
@@ -55,19 +67,16 @@ export const getOptimizedImageUrl = (
   return url.toString();
 };
 
-/**
- * 다운로드용 최적화 우회 URL 생성.
- * 원본은 너무 커서 이미지 최적화 반환 문제가 있을 수 있음.
- */
-export const getOriginalImageUrl = (src: string) => {
-  if (!src) return src;
+// S3 URL을 CloudFront URL로 변환하는 함수
+const toCloudFrontPath = (src: string): { url: URL; matched: boolean } => {
+  if (!src) return { url: new URL(src || 'about:blank'), matched: false };
 
-  let isS3Url = false;
+  let matchedBucket: string | null = null;
   let imagePath = src;
 
-  for (const domain of S3_DOMAINS) {
+  for (const [bucket, domain] of Object.entries(S3_BUCKET_DOMAINS)) {
     if (src.includes(domain)) {
-      isS3Url = true;
+      matchedBucket = bucket;
       const parts = src.split(domain);
       if (parts.length > 1) {
         imagePath = parts[1];
@@ -76,18 +85,42 @@ export const getOriginalImageUrl = (src: string) => {
     }
   }
 
-  if (!isS3Url) {
-    return src;
+  if (!matchedBucket) {
+    return { url: new URL(src), matched: false };
   }
 
   if (!imagePath.startsWith('/')) {
     imagePath = `/${imagePath}`;
   }
 
-  const url = new URL(`${CLOUDFRONT_DOMAIN}${imagePath}`);
-  url.searchParams.set('original', '');
+  // dev 버킷이면 /dev/ prefix 추가
+  if (matchedBucket === 'caucse-s3-bucket') {
+    imagePath = `/dev${imagePath}`;
+  }
 
+  return { url: new URL(`${CLOUDFRONT_DOMAIN}${imagePath}`), matched: true };
+};
+
+// 원본 이미지 URL 생성 (표시용)
+export const getOriginalImageUrl = (src: string) => {
+  if (!src) return src;
+
+  const { url, matched } = toCloudFrontPath(src);
+  if (!matched) return src;
+
+  url.searchParams.set('original', '');
   return url.toString().replace('original=', 'original');
+};
+
+// 다운로드용 URL 생성
+export const getDownloadImageUrl = (src: string) => {
+  if (!src) return src;
+
+  const { url, matched } = toCloudFrontPath(src);
+  if (!matched) return src;
+
+  url.searchParams.set('download', '');
+  return url.toString().replace('download=', 'download');
 };
 
 // Next.js Image Component용 Loader 함수

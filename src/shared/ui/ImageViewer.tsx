@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { ChevronLeft, ChevronRight, Download, X } from 'lucide-react';
 
-import { getOriginalImageUrl } from '../utils/image';
+import { getDownloadImageUrl, getOriginalImageUrl } from '../utils/image';
 
 interface ImageViewerProps {
   images: string[];
@@ -39,24 +39,25 @@ export const ImageViewer = ({
   const downloadImage = async () => {
     try {
       const src = images[currentIndex];
-      const originalUrl = getOriginalImageUrl(src);
-      const ext = src.split('.').pop()?.split('?')[0] || 'jpg';
-      const name = `image_${currentIndex + 1}.${ext}`;
+      const downloadUrl = getDownloadImageUrl(src);
 
-      const res = await fetch(originalUrl, { mode: 'cors' });
+      // Content-Disposition: attachment 헤더로 다운로드 시도
+      const res = await fetch(downloadUrl, { mode: 'cors' });
       if (!res.ok) throw new Error('Network error');
 
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
+      const blobUrl = URL.createObjectURL(blob);
+
+      const ext = src.split('.').pop()?.split('?')[0] || 'jpg';
+      const filename = `image_${currentIndex + 1}.${ext}`;
 
       const a = document.createElement('a');
-      a.href = url;
-      a.download = name;
-      document.body.appendChild(a);
+      a.href = blobUrl;
+      a.download = filename;
       a.click();
       a.remove();
 
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
     } catch (err) {
       console.error('Download failed:', err);
       alert('파일 다운로드에 실패했습니다.');
