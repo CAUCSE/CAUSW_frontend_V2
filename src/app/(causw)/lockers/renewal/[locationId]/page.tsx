@@ -297,9 +297,11 @@ const LockerSelectionPage = () => {
                 <button
                   type="button"
                   onClick={handleClickReturn}
-                  disabled={isReturning}
+                  disabled={isReturning || currentPolicy.canExtend}
                   className={`h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold ${
-                    !isReturning ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
+                    !isReturning && !currentPolicy.canExtend
+                      ? 'bg-[#6BBEEC]'
+                      : 'bg-[#BABABA]'
                   }`}
                 >
                   반납하기
