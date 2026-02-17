@@ -32,3 +32,17 @@ export const getLockerLocationV2 = async (locationId: string) => {
   );
   return data.data;
 };
+
+export const getLockerLocationsV2 = async () => {
+  const { data } = await API.get<ApiResponse<LockerV2.LocationsOverview>>(
+    '/api/v2/lockers/locations',
+  );
+  return data.data;
+};
+
+export const getLockerPeriodStatusV2 = async () => {
+  const { data } = await API.get<ApiResponse<LockerV2.PeriodStatus>>(
+    '/api/v2/lockers/period-status',
+  );
+  return data.data;
+};

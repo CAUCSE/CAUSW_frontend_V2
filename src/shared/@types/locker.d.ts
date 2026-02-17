@@ -54,10 +54,28 @@ declare namespace LockerV2 {
     availableCount: number;
   }
 
+  export interface FloorSummary {
+    locationId: string;
+    floorName: string;
+    totalCount: number;
+    availableCount: number;
+  }
+
   export interface Locker {
     lockerId: string;
     number: string;
     status: LockerStatus;
+  }
+
+  export interface LocationsOverview {
+    summary: Summary;
+    floors: FloorSummary[];
+  }
+
+  export interface PeriodStatus {
+    phase: string;
+    startAt: string;
+    endAt: string;
   }
   export interface LocationDetail {
     floor: FloorInfo;
