@@ -1,14 +1,20 @@
 'use client';
 
-import { LockerListHeader } from '@/widgets/locker';
-import { LockerInfoByFloorList } from '@/widgets/locker';
+import { useQuery } from '@tanstack/react-query';
 
-import { useLockerLocationsQuery } from '@/entities/locker';
+import { LockerInfoByFloorList, LockerListHeader } from '@/widgets/locker';
+
+import { getMyLockerV2, useLockerLocationsQuery } from '@/entities/locker';
 
 import { LoadingScreen } from '@/shared';
 
 const LockerList = () => {
   const { data: lockerLocations, isLoading } = useLockerLocationsQuery();
+
+  const { data: myLocker } = useQuery({
+    queryKey: ['lockerV2', 'me'],
+    queryFn: getMyLockerV2,
+  });
 
   if (isLoading || !lockerLocations) {
     return <LoadingScreen />;
@@ -16,7 +22,7 @@ const LockerList = () => {
 
   return (
     <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
-      <LockerListHeader lockerLocations={lockerLocations} />
+      <LockerListHeader lockerLocations={lockerLocations} myLocker={myLocker} />
       <LockerInfoByFloorList lockerLocations={lockerLocations} />
     </div>
   );

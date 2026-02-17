@@ -17,3 +17,12 @@ export const putLockerReturn = (lockerId: string) =>
     action: 'RETURN',
     message: '사물함 반납',
   });
+
+export const postLockerReturnV2 = (id: string) =>
+  API.post(`/api/v2/lockers/${id}/return`, {});
+
+export const postLockerRegisterV2 = (id: string) =>
+  API.post(`/api/v2/lockers/${id}/register`, {});
+
+export const postLockerExtendV2 = (id: string) =>
+  API.post(`/api/v2/lockers/${id}/extend`, {});
