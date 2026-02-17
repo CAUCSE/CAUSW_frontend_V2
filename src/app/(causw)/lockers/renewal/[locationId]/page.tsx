@@ -15,7 +15,7 @@ import {
   postLockerReturnV2,
 } from '@/entities/locker';
 
-import { LoadingScreen } from '@/shared';
+import { LoadingScreen, parseErrorMessage } from '@/shared';
 
 const LockerSelectionPage = () => {
   const params = useParams();
@@ -45,8 +45,8 @@ const LockerSelectionPage = () => {
       toast.success('사물함 등록이 완료되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['lockerV2'] });
     },
-    onError: () => {
-      toast.error('사물함 등록에 실패했습니다.');
+    onError: (error) => {
+      toast.error(parseErrorMessage(error, '사물함 등록에 실패했습니다.'));
     },
   });
 
@@ -56,8 +56,8 @@ const LockerSelectionPage = () => {
       toast.success('사물함 연장이 완료되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['lockerV2'] });
     },
-    onError: () => {
-      toast.error('사물함 연장에 실패했습니다.');
+    onError: (error) => {
+      toast.error(parseErrorMessage(error, '사물함 연장에 실패했습니다.'));
     },
   });
 
@@ -67,8 +67,8 @@ const LockerSelectionPage = () => {
       toast.success('사물함 반납이 완료되었습니다.');
       queryClient.invalidateQueries({ queryKey: ['lockerV2'] });
     },
-    onError: () => {
-      toast.error('사물함 반납에 실패했습니다.');
+    onError: (error) => {
+      toast.error(parseErrorMessage(error, '사물함 반납에 실패했습니다.'));
     },
   });
 
