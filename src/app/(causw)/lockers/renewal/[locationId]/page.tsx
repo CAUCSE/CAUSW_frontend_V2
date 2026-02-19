@@ -227,6 +227,68 @@ const LockerSelectionPage = () => {
           })}
         </div>
 
+        {/* 모바일 액션 버튼 */}
+        <div className="fixed bottom-24 left-1/2 z-10 flex w-[calc(100%-2rem)] -translate-x-1/2 flex-col items-center gap-3 md:hidden">
+          <button
+            type="button"
+            onClick={handleClickRegister}
+            disabled={
+              !currentPolicy.canApply ||
+              !selectedLockerId ||
+              isRegistering ||
+              !lockers.find(
+                (l) =>
+                  l.lockerId === selectedLockerId &&
+                  isAvailableLocker(l.status),
+              )
+            }
+            className={`h-12 w-full rounded-3xl text-base font-semibold ${
+              currentPolicy.canApply &&
+              selectedLockerId &&
+              lockers.find(
+                (l) =>
+                  l.lockerId === selectedLockerId &&
+                  isAvailableLocker(l.status),
+              ) &&
+              !isRegistering
+                ? 'bg-[#6BBEEC]'
+                : 'bg-[#BABABA]'
+            }`}
+          >
+            신청하기
+          </button>
+
+          {currentLockerId && (
+            <div className="flex w-full justify-around gap-4">
+              <button
+                type="button"
+                onClick={handleClickReturn}
+                disabled={isReturning || currentPolicy.canExtend}
+                className={`h-12 w-1/2 rounded-3xl text-base font-semibold ${
+                  !isReturning && !currentPolicy.canExtend
+                    ? 'bg-[#6BBEEC]'
+                    : 'bg-[#BABABA]'
+                }`}
+              >
+                반납하기
+              </button>
+
+              <button
+                type="button"
+                onClick={handleClickExtend}
+                disabled={!currentPolicy.canExtend || isExtending}
+                className={`h-12 w-1/2 rounded-3xl text-base font-semibold ${
+                  currentPolicy.canExtend && !isExtending
+                    ? 'bg-[#6BBEEC]'
+                    : 'bg-[#BABABA] text-[#888888]'
+                }`}
+              >
+                연장하기
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* 데스크톱 안내 + 버튼 */}
         <div className="hidden h-[600px] flex-col items-center justify-between rounded-2xl border border-[#BABABA] bg-white px-4 py-6 md:flex xl:h-[780px]">
           <div className="flex w-full flex-col items-center gap-4">
