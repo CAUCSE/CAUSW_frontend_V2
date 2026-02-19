@@ -28,3 +28,59 @@ declare namespace Locker {
 
   export type TLockerPeriod = 'LOCKER_ACCESS' | 'LOCKER_EXTEND' | 'NULL';
 }
+
+declare namespace LockerV2 {
+  export type LockerStatus = 'AVAILABLE' | 'MINE' | 'IN_USE' | 'DISABLED';
+
+  export interface MeResponse {
+    hasLocker: boolean;
+    lockerId: string | null;
+    displayName: string | null;
+    expiredAt: string | null;
+  }
+
+  export interface FloorInfo {
+    locationId: string;
+    locationName: string;
+  }
+
+  export interface Policy {
+    canApply: boolean;
+    canExtend: boolean;
+  }
+
+  export interface Summary {
+    totalCount: number;
+    availableCount: number;
+  }
+
+  export interface FloorSummary {
+    locationId: string;
+    floorName: string;
+    totalCount: number;
+    availableCount: number;
+  }
+
+  export interface Locker {
+    lockerId: string;
+    number: string;
+    status: LockerStatus;
+  }
+
+  export interface LocationsOverview {
+    summary: Summary;
+    floors: FloorSummary[];
+  }
+
+  export interface PeriodStatus {
+    phase: string;
+    startAt: string;
+    endAt: string;
+  }
+  export interface LocationDetail {
+    floor: FloorInfo;
+    currentPolicy: Policy;
+    summary: Summary;
+    lockers: Locker[];
+  }
+}
