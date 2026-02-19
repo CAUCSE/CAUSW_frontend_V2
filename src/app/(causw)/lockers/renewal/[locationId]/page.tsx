@@ -115,6 +115,18 @@ const LockerSelectionPage = () => {
 
   const { floor, summary, lockers, currentPolicy } = lockerLocation;
 
+  const canRegister =
+    currentPolicy.canApply &&
+    !!selectedLockerId &&
+    !isRegistering &&
+    !!lockers.find(
+      (l) => l.lockerId === selectedLockerId && isAvailableLocker(l.status),
+    );
+
+  const canReturn = !isReturning && !currentPolicy.canExtend;
+
+  const canExtendAction = currentPolicy.canExtend && !isExtending;
+
   const handleClickRegister = () => {
     if (!selectedLockerId) {
       toast.error('사물함을 선택해주세요.');
@@ -240,27 +252,9 @@ const LockerSelectionPage = () => {
           <button
             type="button"
             onClick={handleClickRegister}
-            disabled={
-              !currentPolicy.canApply ||
-              !selectedLockerId ||
-              isRegistering ||
-              !lockers.find(
-                (l) =>
-                  l.lockerId === selectedLockerId &&
-                  isAvailableLocker(l.status),
-              )
-            }
+            disabled={!canRegister}
             className={`h-12 w-full rounded-3xl text-base font-semibold ${
-              currentPolicy.canApply &&
-              selectedLockerId &&
-              lockers.find(
-                (l) =>
-                  l.lockerId === selectedLockerId &&
-                  isAvailableLocker(l.status),
-              ) &&
-              !isRegistering
-                ? 'bg-[#6BBEEC]'
-                : 'bg-[#BABABA]'
+              canRegister ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
             }`}
           >
             신청하기
@@ -271,11 +265,9 @@ const LockerSelectionPage = () => {
               <button
                 type="button"
                 onClick={handleClickReturn}
-                disabled={isReturning || currentPolicy.canExtend}
+                disabled={!canReturn}
                 className={`h-12 w-1/2 rounded-3xl text-base font-semibold ${
-                  !isReturning && !currentPolicy.canExtend
-                    ? 'bg-[#6BBEEC]'
-                    : 'bg-[#BABABA]'
+                  canReturn ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
                 }`}
               >
                 반납하기
@@ -284,9 +276,9 @@ const LockerSelectionPage = () => {
               <button
                 type="button"
                 onClick={handleClickExtend}
-                disabled={!currentPolicy.canExtend || isExtending}
+                disabled={!canExtendAction}
                 className={`h-12 w-1/2 rounded-3xl text-base font-semibold ${
-                  currentPolicy.canExtend && !isExtending
+                  canExtendAction
                     ? 'bg-[#6BBEEC]'
                     : 'bg-[#BABABA] text-[#888888]'
                 }`}
@@ -335,27 +327,9 @@ const LockerSelectionPage = () => {
             <button
               type="button"
               onClick={handleClickRegister}
-              disabled={
-                !currentPolicy.canApply ||
-                !selectedLockerId ||
-                isRegistering ||
-                !lockers.find(
-                  (l) =>
-                    l.lockerId === selectedLockerId &&
-                    isAvailableLocker(l.status),
-                )
-              }
+              disabled={!canRegister}
               className={`h-14 w-2/3 rounded-3xl text-lg font-semibold ${
-                currentPolicy.canApply &&
-                selectedLockerId &&
-                lockers.find(
-                  (l) =>
-                    l.lockerId === selectedLockerId &&
-                    isAvailableLocker(l.status),
-                ) &&
-                !isRegistering
-                  ? 'bg-[#6BBEEC]'
-                  : 'bg-[#BABABA]'
+                canRegister ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
               }`}
             >
               신청하기
@@ -367,11 +341,9 @@ const LockerSelectionPage = () => {
                 <button
                   type="button"
                   onClick={handleClickReturn}
-                  disabled={isReturning || currentPolicy.canExtend}
+                  disabled={!canReturn}
                   className={`h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold ${
-                    !isReturning && !currentPolicy.canExtend
-                      ? 'bg-[#6BBEEC]'
-                      : 'bg-[#BABABA]'
+                    canReturn ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
                   }`}
                 >
                   반납하기
@@ -380,9 +352,9 @@ const LockerSelectionPage = () => {
                 <button
                   type="button"
                   onClick={handleClickExtend}
-                  disabled={!currentPolicy.canExtend || isExtending}
+                  disabled={!canExtendAction}
                   className={`h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold ${
-                    currentPolicy.canExtend && !isExtending
+                    canExtendAction
                       ? 'bg-[#6BBEEC]'
                       : 'bg-[#BABABA] text-[#888888]'
                   }`}
