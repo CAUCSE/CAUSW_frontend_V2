@@ -17,6 +17,21 @@ import {
 
 import { LoadingScreen, parseErrorMessage } from '@/shared';
 
+const formatExpireAt = (iso?: string | null) => {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(
+    d.getDate(),
+  )} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
+
+const isAvailableLocker = (status: LockerV2.LockerStatus) =>
+  status === 'AVAILABLE';
+
+const isDisabledLocker = (status: LockerV2.LockerStatus) =>
+  status === 'DISABLED';
+
 const LockerSelectionPage = () => {
   const params = useParams();
   const locationId = params.locationId as string;
@@ -86,15 +101,6 @@ const LockerSelectionPage = () => {
       ) ?? null)
     : null;
 
-  const formatExpireAt = (iso?: string | null) => {
-    if (!iso) return '';
-    const d = new Date(iso);
-    const pad = (n: number) => String(n).padStart(2, '0');
-    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(
-      d.getMinutes(),
-    )}`;
-  };
-
   const periodMessage = useMemo(() => {
     if (!lockerLocation) return '';
     const { currentPolicy } = lockerLocation;
@@ -153,12 +159,6 @@ const LockerSelectionPage = () => {
 
   const isMineLocker = (locker: LockerV2.Locker) =>
     locker.status === 'MINE' || currentLockerId === locker.lockerId;
-
-  const isAvailableLocker = (status: LockerV2.LockerStatus) =>
-    status === 'AVAILABLE';
-
-  const isDisabledLocker = (status: LockerV2.LockerStatus) =>
-    status === 'DISABLED';
 
   return (
     <div className="relative top-3 left-4 w-[calc(100%-2rem)] md:top-14 md:left-14 md:w-[calc(100%-7rem)]">
