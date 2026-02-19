@@ -15,6 +15,7 @@ import {
   postLockerReturnV2,
 } from '@/entities/locker';
 
+import { cn } from '@/shadcn/lib/utils';
 import { LoadingScreen, parseErrorMessage } from '@/shared';
 
 const formatExpireAt = (iso?: string | null) => {
@@ -253,9 +254,10 @@ const LockerSelectionPage = () => {
             type="button"
             onClick={handleClickRegister}
             disabled={!canRegister}
-            className={`h-12 w-full rounded-3xl text-base font-semibold ${
-              canRegister ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
-            }`}
+            className={cn(
+              'h-12 w-full rounded-3xl text-base font-semibold',
+              canRegister ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]',
+            )}
           >
             신청하기
           </button>
@@ -266,9 +268,10 @@ const LockerSelectionPage = () => {
                 type="button"
                 onClick={handleClickReturn}
                 disabled={!canReturn}
-                className={`h-12 w-1/2 rounded-3xl text-base font-semibold ${
-                  canReturn ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
-                }`}
+                className={cn(
+                  'h-12 w-1/2 rounded-3xl text-base font-semibold',
+                  canReturn ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]',
+                )}
               >
                 반납하기
               </button>
@@ -277,11 +280,12 @@ const LockerSelectionPage = () => {
                 type="button"
                 onClick={handleClickExtend}
                 disabled={!canExtendAction}
-                className={`h-12 w-1/2 rounded-3xl text-base font-semibold ${
+                className={cn(
+                  'h-12 w-1/2 rounded-3xl text-base font-semibold',
                   canExtendAction
                     ? 'bg-[#6BBEEC]'
-                    : 'bg-[#BABABA] text-[#888888]'
-                }`}
+                    : 'bg-[#BABABA] text-[#888888]',
+                )}
               >
                 연장하기
               </button>
@@ -328,9 +332,10 @@ const LockerSelectionPage = () => {
               type="button"
               onClick={handleClickRegister}
               disabled={!canRegister}
-              className={`h-14 w-2/3 rounded-3xl text-lg font-semibold ${
-                canRegister ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
-              }`}
+              className={cn(
+                'h-14 w-2/3 rounded-3xl text-lg font-semibold',
+                canRegister ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]',
+              )}
             >
               신청하기
             </button>
@@ -342,9 +347,10 @@ const LockerSelectionPage = () => {
                   type="button"
                   onClick={handleClickReturn}
                   disabled={!canReturn}
-                  className={`h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold ${
-                    canReturn ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]'
-                  }`}
+                  className={cn(
+                    'h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold',
+                    canReturn ? 'bg-[#6BBEEC]' : 'bg-[#BABABA]',
+                  )}
                 >
                   반납하기
                 </button>
@@ -353,11 +359,12 @@ const LockerSelectionPage = () => {
                   type="button"
                   onClick={handleClickExtend}
                   disabled={!canExtendAction}
-                  className={`h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold ${
+                  className={cn(
+                    'h-14 w-1/3 min-w-[100px] rounded-3xl text-lg font-semibold',
                     canExtendAction
                       ? 'bg-[#6BBEEC]'
-                      : 'bg-[#BABABA] text-[#888888]'
-                  }`}
+                      : 'bg-[#BABABA] text-[#888888]',
+                  )}
                 >
                   연장하기
                 </button>
