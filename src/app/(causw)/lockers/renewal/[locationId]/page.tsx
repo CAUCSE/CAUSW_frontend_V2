@@ -72,7 +72,7 @@ const LockerSelectionPage = () => {
     },
   });
 
-  const isLoading = isLocationLoading || !lockerLocation;
+  const isLoading = isLocationLoading;
 
   const currentLockerId = myLocker?.hasLocker ? myLocker.lockerId : null;
   const currentExpiredAt = myLocker?.hasLocker ? myLocker.expiredAt : null;
@@ -104,6 +104,14 @@ const LockerSelectionPage = () => {
   }, [lockerLocation]);
 
   if (isLoading) return <LoadingScreen />;
+
+  if (!lockerLocation) {
+    return (
+      <div className="flex h-full w-full items-center justify-center text-sm text-[#555555]">
+        사물함 정보를 불러오지 못했습니다.
+      </div>
+    );
+  }
 
   const { floor, summary, lockers, currentPolicy } = lockerLocation;
 
