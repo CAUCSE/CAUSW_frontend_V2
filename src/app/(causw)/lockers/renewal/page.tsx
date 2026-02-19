@@ -30,7 +30,7 @@ const LockerListRenewal = () => {
     queryFn: getMyLockerV2,
   });
 
-  const isLoading = isLocationsLoading || !locations;
+  const isLoading = isLocationsLoading;
 
   const phaseMessage = useMemo(() => {
     if (!periodStatus || periodStatus.phase === 'CLOSED') return '';
@@ -60,6 +60,14 @@ const LockerListRenewal = () => {
 
   if (isLoading) {
     return <LoadingScreen />;
+  }
+
+  if (!locations) {
+    return (
+      <div className="flex h-full w-full items-center justify-center text-sm text-[#555555]">
+        사물함 위치 정보를 불러오지 못했습니다.
+      </div>
+    );
   }
 
   const { summary, floors } = locations;
