@@ -28,7 +28,7 @@ const cardsEntities = [
     title: 'Choosing a locker',
     subtitle: '사물함 예약하기',
     icon: '/homeIcons/locker.png',
-    href: '/lockers', // FIXME: Change to actual locker page
+    href: '/lockers/renewal',
     bgColor: 'bg-[rgba(118,198,209,1)]',
   },
 ];

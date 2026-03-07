@@ -12,7 +12,10 @@ export const LockerInfoByFloor = ({
   const { floor } = LOCKER_CONSTANT();
 
   return (
-    <Link href={`/lockers/${lockerLocation.id}`} key={lockerLocation.id}>
+    <Link
+      href={`/lockers/renewal/${lockerLocation.id}`}
+      key={lockerLocation.id}
+    >
       <section className="flex w-full flex-col gap-4 rounded-xl bg-white p-4 shadow-lg">
         <p className="text-lg md:text-2xl">{floor[lockerLocation.name]}</p>
         <div className="flex items-center">
